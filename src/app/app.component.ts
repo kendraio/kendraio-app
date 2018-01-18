@@ -8,6 +8,7 @@ import { AppState } from '@store/reducers';
 import { MenuSetLinksAction } from '@store/actions/menu';
 import { SettingsPage } from '@pages/settings.page';
 import { IdentityPage } from '@pages/identity.page';
+import { VisualisePage } from '@pages/visualise.page';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +28,7 @@ export class AppComponent {
     this.initializeApp();
     this.store.dispatch(new MenuSetLinksAction([
       { title: 'Dashboard', component: HomePage },
+      { title: 'Visualise', component: VisualisePage },
       { title: 'Identity', component: IdentityPage },
       { title: 'Settings', component: SettingsPage }
     ]))

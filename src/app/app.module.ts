@@ -22,6 +22,7 @@ import { KeysPipe } from '@app/shared/keys.pipe';
 import { ProjectHeaderComponent } from './component/project-header/project-header.component';
 import { ContributorListComponent } from './component/contributor-list/contributor-list.component';
 import { SessionComponent } from './component/session/session.component';
+import { VisualisePage } from '@pages/visualise.page';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { SessionComponent } from './component/session/session.component';
     HomePage,
     SettingsPage,
     IdentityPage,
+    VisualisePage,
     LayoutComponent,
     MenuListComponent,
     ProjectListComponent,
@@ -49,7 +51,8 @@ import { SessionComponent } from './component/session/session.component';
   entryComponents: [
     HomePage,
     SettingsPage,
-    IdentityPage
+    IdentityPage,
+    VisualisePage
   ],
   providers: [
     StatusBar,
