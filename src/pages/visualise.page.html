@@ -9,6 +9,16 @@
 
 <ion-content padding>
 
-  Graph output.
+  <svg viewBox="0 0 500 250" width="100%">
 
+    <g *ngFor="let node of nodes"
+       [attr.transform]="'translate(' + node.x + ',' + node.y + ')'">
+      <circle
+          cx="0"
+          cy="0"
+          r="5">
+      </circle>
+    </g>
+
+  </svg>
 </ion-content>
