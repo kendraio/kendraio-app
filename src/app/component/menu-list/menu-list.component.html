@@ -1,0 +1,5 @@
+<ion-list>
+  <button menuClose ion-item *ngFor="let link of links" (click)="onLinkClick(link)">
+    {{link.title}}
+  </button>
+</ion-list>
