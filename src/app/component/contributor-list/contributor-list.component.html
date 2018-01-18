@@ -1,0 +1,10 @@
+<div *ngFor="let c of contributors">
+  <span *ngIf="!!c.Role['_']; else role">
+    <b>{{ c.Role['$'].UserDefinedValue }}</b>
+  </span>
+  <ng-template #role>
+    <b>{{ c.Role }}</b>
+  </ng-template>
+
+  {{ c.ProjectContributorReference }}
+</div>

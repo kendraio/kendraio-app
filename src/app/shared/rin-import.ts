@@ -36,8 +36,8 @@ const seqToArray = tx => values => mapValues(
 function getContributors(item, refPath): Array<any> {
     const refs = get(item, 'ContributorReference', []);
 
-    return (has(refs as any, '0.$.SequenceNumber'))
-        ? seqToArray(flatArrayValues)(refs)
+    return (has(refs, '0.$.SequenceNumber'))
+        ? seqToArray(flatArrayValues)(refs) as any[]
         : map(refs, r => flatArrayValues(r));
 }
 

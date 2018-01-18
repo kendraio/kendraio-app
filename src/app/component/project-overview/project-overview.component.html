@@ -1,0 +1,8 @@
+<div *ngFor="let projectId of project.projects | keys">
+  <app-project-header [project]="project.projects[projectId]"
+                      [id]="projectId"></app-project-header>
+
+  <div *ngFor="let s of project.sessions | keys">
+    <app-session [session]="project.sessions[s]" [id]="s"></app-session>
+  </div>
+</div>

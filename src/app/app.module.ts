@@ -17,6 +17,11 @@ import { SettingsPage } from '@pages/settings.page';
 import { IdentityPage } from '@pages/identity.page';
 import { RinEffects } from '@store/effects/rin';
 import { ProjectListComponent } from './component/project-list/project-list.component';
+import { ProjectOverviewComponent } from './component/project-overview/project-overview.component';
+import { KeysPipe } from '@app/shared/keys.pipe';
+import { ProjectHeaderComponent } from './component/project-header/project-header.component';
+import { ContributorListComponent } from './component/contributor-list/contributor-list.component';
+import { SessionComponent } from './component/session/session.component';
 
 
 @NgModule({
@@ -27,7 +32,12 @@ import { ProjectListComponent } from './component/project-list/project-list.comp
     IdentityPage,
     LayoutComponent,
     MenuListComponent,
-    ProjectListComponent
+    ProjectListComponent,
+    ProjectOverviewComponent,
+    KeysPipe,
+    ProjectHeaderComponent,
+    ContributorListComponent,
+    SessionComponent
   ],
   imports: [
     BrowserModule,

@@ -23,6 +23,7 @@ export class RinEffects {
       map(action => action.payload),
       mergeMap(file => FileReaderObservable(file)),
       switchMap((xml: string) => Observable.fromPromise(rinXmlToJs(xml))),
+      tap(console.log),
       map(data => new RinImportDataAction(data))
     );
 
