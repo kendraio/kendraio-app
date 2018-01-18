@@ -9,6 +9,12 @@
 
 <ion-content padding>
 
-  <button ion-button>Import RIN</button>
+  <input #fileInput
+         type="file"
+         accept=".xml"
+         hidden="true"
+         (change)="fileChange($event.target.files)" />
+
+  <button ion-button (click)="pickFile()">Import RIN</button>
 
 </ion-content>

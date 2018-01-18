@@ -15,6 +15,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { SettingsPage } from '@pages/settings.page';
 import { IdentityPage } from '@pages/identity.page';
+import { RinEffects } from '@store/effects/rin';
 
 
 @NgModule({
@@ -31,7 +32,7 @@ import { IdentityPage } from '@pages/identity.page';
     IonicModule.forRoot(AppComponent),
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument(),
-    EffectsModule.forRoot([])
+    EffectsModule.forRoot([ RinEffects ])
   ],
   entryComponents: [
     HomePage,
@@ -41,6 +42,7 @@ import { IdentityPage } from '@pages/identity.page';
   providers: [
     StatusBar,
     SplashScreen,
+    RinEffects,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ],
   bootstrap: [IonicApp]
