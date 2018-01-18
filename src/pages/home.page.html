@@ -9,12 +9,17 @@
 
 <ion-content padding>
 
-  <input #fileInput
-         type="file"
-         accept=".xml"
-         hidden="true"
-         (change)="fileChange($event.target.files)" />
+  <div *ngIf="hasProjects$ | async; else importProject">
+    <app-project-list [projects]="projects$ | async"></app-project-list>
+  </div>
 
-  <button ion-button (click)="pickFile()">Import RIN</button>
+  <ng-template #importProject>
+    <input #fileInput
+           type="file"
+           accept=".xml"
+           hidden="true"
+           (change)="fileChange($event.target.files)" />
+    <button ion-button (click)="pickFile()">Import RIN</button>
+  </ng-template>
 
 </ion-content>

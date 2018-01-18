@@ -16,6 +16,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { SettingsPage } from '@pages/settings.page';
 import { IdentityPage } from '@pages/identity.page';
 import { RinEffects } from '@store/effects/rin';
+import { ProjectListComponent } from './component/project-list/project-list.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { RinEffects } from '@store/effects/rin';
     SettingsPage,
     IdentityPage,
     LayoutComponent,
-    MenuListComponent
+    MenuListComponent,
+    ProjectListComponent
   ],
   imports: [
     BrowserModule,
