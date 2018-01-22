@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
 import {
-  CLEAR_PROJECTS, ClearProjectsAction, RIN_LOAD_FILE, RinImportDataAction,
+  CLEAR_PROJECTS, ClearProjectsAction, ConvertToTriplesAction, RIN_IMPORT_RIN_DATA, RIN_LOAD_FILE, RinImportDataAction,
   RinLoadFileAction
 } from '@store/actions/rin';
 import { map, mergeMap, switchMap, tap } from 'rxjs/operators';
@@ -15,6 +15,7 @@ function FileReaderObservable(file) {
   return Observable.fromPromise(new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = e => resolve((e.target as FileReader).result);
+    reader.onerror = e => reject(e);
     reader.readAsText(file);
   }));
 }
@@ -30,6 +31,13 @@ export class RinEffects {
       switchMap((xml: string) => Observable.fromPromise(rinXmlToJs(xml))),
       tap(console.log),
       map(data => new RinImportDataAction(data))
+    );
+
+  @Effect()
+  convert$ = this.actions$.ofType<RinImportDataAction>(RIN_IMPORT_RIN_DATA)
+    .pipe(
+      map(action => action.payload),
+      map(data => new ConvertToTriplesAction(data))
     );
 
   @Effect({ dispatch: false })
