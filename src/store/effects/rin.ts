@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect } from '@ngrx/effects';
-import { RIN_LOAD_FILE, RinImportDataAction, RinLoadFileAction } from '@store/actions/rin';
+import { Actions, Effect, toPayload } from '@ngrx/effects';
+import {
+  CLEAR_PROJECTS, ClearProjectsAction, RIN_LOAD_FILE, RinImportDataAction,
+  RinLoadFileAction
+} from '@store/actions/rin';
 import { map, mergeMap, switchMap, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromPromise';
 import { rinXmlToJs } from '@app/shared/rin-import';
+import { App } from 'ionic-angular';
+import { HomePage } from '@pages/home.page';
 
 function FileReaderObservable(file) {
   return Observable.fromPromise(new Promise((resolve, reject) => {
@@ -27,5 +32,14 @@ export class RinEffects {
       map(data => new RinImportDataAction(data))
     );
 
-  constructor(private actions$: Actions) {}
+  @Effect({ dispatch: false })
+  reset$ = this.actions$.ofType<ClearProjectsAction>(CLEAR_PROJECTS)
+    .pipe(
+      tap(() => this.app.getActiveNav().setRoot(HomePage))
+    );
+
+  constructor(
+    private actions$: Actions,
+    private app: App
+  ) {}
 }

@@ -33,6 +33,7 @@
     "ionic-angular": "^3.9.2",
     "ionicons": "^3.0.0",
     "lodash": "^4.17.4",
+    "ngrx-store-localstorage": "^0.3.0",
     "rxjs": "^5.5.6",
     "xml2js": "^0.4.19",
     "zone.js": "^0.8.19"

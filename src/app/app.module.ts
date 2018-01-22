@@ -23,6 +23,7 @@ import { ProjectHeaderComponent } from './component/project-header/project-heade
 import { ContributorListComponent } from './component/contributor-list/contributor-list.component';
 import { SessionComponent } from './component/session/session.component';
 import { VisualisePage } from '@pages/visualise.page';
+import { metaReducers } from '@store/index';
 
 
 @NgModule({
@@ -44,7 +45,7 @@ import { VisualisePage } from '@pages/visualise.page';
   imports: [
     BrowserModule,
     IonicModule.forRoot(AppComponent),
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot(reducers, { metaReducers }),
     StoreDevtoolsModule.instrument(),
     EffectsModule.forRoot([ RinEffects ])
   ],
