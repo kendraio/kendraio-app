@@ -13,11 +13,15 @@ export class VisualisePage implements OnInit {
   force;
   nodes;
   links;
+  colours;
 
   constructor(private store: Store<AppState>) {
+    this.colours = d3.schemeCategory20;
     this.force = d3.forceSimulation()
-      .force('midpoint', d3.forceCenter(250, 125))
-      .force('linkForce', d3.forceLink());
+      .force('charge', d3.forceManyBody().strength(0))
+      // .force('linkForce', d3.forceLink())
+      .force('midpoint', d3.forceCenter(100, 50))
+    ;
   }
 
   ngOnInit() {
@@ -46,6 +50,12 @@ export class VisualisePage implements OnInit {
         }
         this.force.nodes(this.nodes);
       });
+    this.force.on('tick', console.log);
   }
 
+  getNodeColour(type) {
+    const keys = ['musicalWorks', 'parties', 'projects', 'sessions', 'soundRecordings'];
+    const c = _.indexOf(keys, type);
+    return this.colours[c];
+  }
 }

@@ -9,15 +9,17 @@
 
 <ion-content padding>
 
-  <svg viewBox="0 0 500 250" width="100%">
+  <svg viewBox="0 0 200 100" width="100%">
 
     <g *ngFor="let node of nodes"
-       [attr.transform]="'translate(' + node.x + ',' + node.y + ')'">
+        [attr.transform]="'translate(' + node.x + ',' + node.y + ')'"
+        [attr.fill]="getNodeColour(node.type)">
       <circle
           cx="0"
           cy="0"
-          r="5">
+          r="5" opacity="0.5">
       </circle>
+      <text font-size="3">{{ node.title }}</text>
     </g>
 
   </svg>
