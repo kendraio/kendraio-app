@@ -20,7 +20,7 @@ export class VisualisePage implements OnInit {
     this.force = d3.forceSimulation()
       .force('charge', d3.forceManyBody().strength(0))
       // .force('linkForce', d3.forceLink())
-      .force('midpoint', d3.forceCenter(100, 50))
+      .force('midpoint', d3.forceCenter(50, 100))
     ;
   }
 
