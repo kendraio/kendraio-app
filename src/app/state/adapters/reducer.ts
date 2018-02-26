@@ -12,7 +12,7 @@ const init: AdaptersState = {
   adapters: Map<string, AdapterConfig>(),
   enabled: Map<string, boolean>(),
   selectedAdapter: undefined
-};
+};mv
 
 export function adaptersReducer(state: AdaptersState = init, action: AdaptersActionsType): AdaptersState {
   return AdaptersActions.match({

@@ -1166,8 +1166,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var adapterList = '/assets/adapters/adapters.yml';
-var adapterBasePath = function (name) { return "/assets/adapters/" + name; };
+var adapterList = 'assets/adapters/adapters.yml';
+var adapterBasePath = function (name) { return "assets/adapters/" + name; };
 var AdaptersEffects = (function () {
     function AdaptersEffects(actions$) {
         this.actions$ = actions$;
@@ -1325,7 +1325,7 @@ var NodesEffects = (function () {
             var nodes = _a.nodes, links = _a.links;
             return __WEBPACK_IMPORTED_MODULE_5__actions__["a" /* NodesActions */].importNodes({ nodes: nodes, links: links });
         }));
-        this.demo$ = this.actions$.pipe(Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["filter"])(__WEBPACK_IMPORTED_MODULE_5__actions__["a" /* NodesActions */].is.demoData), Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["switchMap"])(function () { return Object(__WEBPACK_IMPORTED_MODULE_10__utils_fetch__["a" /* fetchText */])('/assets/data/rin-sample-01.xml'); }), Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["switchMap"])(function () { return _this.store.select(Object(__WEBPACK_IMPORTED_MODULE_8__adapters_selectors__["a" /* getAdapter */])('m-rin')); }, function (demoData, adapter) { return ({ demoData: demoData, adapter: adapter }); }), Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["tap"])(console.log), Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["map"])(function (_a) {
+        this.demo$ = this.actions$.pipe(Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["filter"])(__WEBPACK_IMPORTED_MODULE_5__actions__["a" /* NodesActions */].is.demoData), Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["switchMap"])(function () { return Object(__WEBPACK_IMPORTED_MODULE_10__utils_fetch__["a" /* fetchText */])('assets/data/rin-sample-01.xml'); }), Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["switchMap"])(function () { return _this.store.select(Object(__WEBPACK_IMPORTED_MODULE_8__adapters_selectors__["a" /* getAdapter */])('m-rin')); }, function (demoData, adapter) { return ({ demoData: demoData, adapter: adapter }); }), Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["tap"])(console.log), Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["map"])(function (_a) {
             var demoData = _a.demoData, adapter = _a.adapter;
             var defaultConfig = {
                 enableToStringFunc: false

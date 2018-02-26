@@ -8,8 +8,8 @@ import { keys } from 'lodash';
 import { processAdapterConfig$ } from '../../utils/process-adapter';
 import { AdapterConfig } from '../../model/adapter';
 
-const adapterList = '/assets/adapters/adapters.yml';
-const adapterBasePath = name => `/assets/adapters/${name}`;
+const adapterList = 'assets/adapters/adapters.yml';
+const adapterBasePath = name => `assets/adapters/${name}`;
 
 @Injectable()
 export class AdaptersEffects {

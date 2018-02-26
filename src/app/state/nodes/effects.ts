@@ -39,7 +39,7 @@ export class NodesEffects {
   @Effect()
   demo$ = this.actions$.pipe(
     filter(NodesActions.is.demoData),
-    switchMap(() => fetchText('/assets/data/rin-sample-01.xml')),
+    switchMap(() => fetchText('assets/data/rin-sample-01.xml')),
     switchMap(() => this.store.select(getAdapter('m-rin')), (demoData, adapter) => ({ demoData, adapter})),
     tap(console.log),
     map(({ demoData, adapter}) => {
