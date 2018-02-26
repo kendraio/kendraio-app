@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Import</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Adapter</ion-label>
+      <ion-select [(ngModel)]="adapter">
+        <ion-option value="m-rin">m-rin</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <div class="import">
+
+    <input #fileInput
+           type="file"
+           accept=".xml"
+           [hidden]="true"
+           (change)="fileChange($event.target.files)" />
+
+    <div class="import-file">
+      <button class="import-button" (click)="pickFile()">
+        <ion-icon name="cloud-upload"></ion-icon>
+      </button>
+      <button ion-button color="light" (click)="pickFile()">Import file</button>
+    </div>
+
+    <button ion-button color="light" (click)="demoData()">Load demo data</button>
+
+  </div>
+
+</ion-content>

@@ -1,0 +1,89 @@
+name: Party
+description: A Composite containing details of a Party.
+id: m-rin:Party
+type: object
+required:
+  - PartyId
+  - PartyReference
+  - IsOrganization
+properties:
+  PartyId:
+    description: >
+      A Composite containing details of the PartyId for the Party.
+      If no Namespace is given, the Identifier is a DdexPartyId (DPID).
+      Note that DPIDs are not normally used to identify Artists,
+      producers or other Creators.
+    type: array
+    minItems: 1
+    items:
+      $ref: m-rin:DetailedPartyId
+  PartyReference:
+    description: >
+      The Identifier (specific to the Message) of the Party.
+      This is a LocalPartyAnchor starting with the letter P.
+    type: string
+    pattern: "^P[\d\-_a-zA-Z]+$"
+  PartyName:
+    description: A Composite containing details of the PartyName(s).
+    type: array
+    items:
+      $ref: m-rin:PartyName
+  Publisher:
+    type: array
+    description: A Composite containing details of the MusicPublisher the Party is signed to.
+    items:
+      $ref: m-rin:Affiliation
+  AuthorsSociety:
+    type: array
+    description: A Composite containing details of the AuthorsSociety the Party is a member of.
+    items:
+      $ref: m-rin:Affiliation
+  Label:
+    description: A Composite containing details of the Label the Party is signed to.
+    type: array
+    items:
+      $ref: m-rin:Affiliation
+  MusicLicensingCompany:
+    description: A Composite containing details of the MusicLicensingCompany the Party is a member of.
+    type: array
+    items:
+      $ref: m-rin:Affiliation
+  Sex:
+    $ref: avs:Sex
+    description: The sex of the Party.
+  TerritoryOfResidency:
+    $ref: m-rin:AllTerritoryCode
+    description: The country of main residency of the Party.
+  GoverningAgreementType:
+    $ref: m-rin:GoverningAgreementType
+    description: A Composite containing details of a Type of an agreement that covers the Party's participation in making a SoundRecording.
+  ArtistDelegatedUsageRights:
+    $ref: m-rin:ArtistDelegatedUsageRights
+    description: A Composite containing details of the kinds of usage for which rights have been delegated by the Party.
+  IsOrganization:
+    description: A Flag indicating whether the Party is an Organization (=true) or a Person (=false).
+    type: boolean
+  PostalAddress:
+    description: A Composite containing details of a PostalAddress of the Party.
+    type: array
+    items:
+      $ref: m-rin:PostalAddress
+  PhoneNumber:
+    description: A Composite containing details of a PhoneNumber of the Party.
+    type: array
+    items:
+      $ref: m-rin:PhoneNumber
+  EmailAddress:
+    description: A Composite containing details of an EmailAddress of the Party.
+    type: array
+    items:
+      $ref: m-rin:EmailAddress
+  Nationality:
+    $ref: m-rin:CurrentTerritoryCode
+    description: The nationality of the Party.
+  DateAndPlaceOfBirth:
+    $ref: m-rin:EventDate
+    description: A Composite containing details of the Date and Place of birth. This is a string with the syntax YYYY[-MM[-DD]].
+  DateAndPlaceOfDeath:
+    $ref: m-rin:EventDate
+    description: A Composite containing details of the Date and Place of death. This is a string with the syntax YYYY[-MM[-DD]].

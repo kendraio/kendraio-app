@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Adapters</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <app-adapter-component *ngFor="let adapter of adapters$ | async"
+                         [id]="adapter[0]"
+                         [adapter]="adapter[1]"></app-adapter-component>
+
+</ion-content>
+

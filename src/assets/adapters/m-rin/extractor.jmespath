@@ -1,0 +1,122 @@
+{
+ links: [
+    RecordingInformationNotification.MusicalWorkList.MusicalWork[*].{
+      source: MusicalWorkReference,
+      target: ContributorReference[].{
+        type: 'ContributorReference',
+        target: MusicalWorkContributorReference,
+        role: Role
+      }
+    },
+    RecordingInformationNotification.ResourceList.SoundRecording[*].{
+      source: ResourceReference,
+      target: [{
+        target: MainArtist,
+        type: 'MainArtist'
+      }]
+    },
+    RecordingInformationNotification.ResourceList.SoundRecording[*].{
+      source: ResourceReference,
+      target: [{
+        target: SoundRecordingMusicalWorkReference,
+        type: 'SoundRecordingMusicalWorkReference'
+      }]
+    },
+    RecordingInformationNotification.ResourceList.SoundRecording[*].{
+      source: ResourceReference,
+      target: ContributorReference[].{
+        target: SoundRecordingContributorReference,
+        type: 'ContributorReference',
+        role: Role,
+        instrument: InstrumentType
+      }
+    },
+    RecordingInformationNotification.ResourceList.SoundRecording[*].{
+      source: ResourceReference,
+      target: SoundRecordingSessionReference[].{
+        target: @,
+        type: 'SoundRecordingSessionReference'
+      }
+    },
+    RecordingInformationNotification.ProjectList.Project[*].{
+      source: ProjectReference,
+      target: [{
+        target: MainArtist,
+        type: 'MainArtist'
+      }]
+    },
+    RecordingInformationNotification.ProjectList.Project[*].{
+      source: ProjectReference,
+      target: [{
+        target: Label,
+        type: 'Label'
+      }]
+    },
+    RecordingInformationNotification.ProjectList.Project[*].{
+      source: ProjectReference,
+      target: ContributorReference[].{
+        target: ProjectContributorReference,
+        type: 'ContributorReference',
+        role: Role
+      }
+    },
+    RecordingInformationNotification.SessionList.Session[*].{
+      source: SessionReference,
+      target: ContributorReference[].{
+        target: SessionContributorReference,
+        type: 'ContributorReference',
+        role: Role,
+        instrument: InstrumentType
+      }
+    },
+    RecordingInformationNotification.SessionList.Session[*].{
+      source: SessionReference,
+      target: SessionSoundRecordingReference[].{
+        target: @,
+        type: 'SessionSoundRecordingReference'
+      }
+    }
+ ][],
+nodes: [
+  RecordingInformationNotification.PartyList.Party[*].{
+    type: 'Party',
+    id: PartyReference,
+    ISNI: PartyId.ISNI,
+    FullName: PartyName.FullName,
+    FullNameIndexed: PartyName.FullNameIndexed,
+    IsOrganization: IsOrganization
+  },
+  RecordingInformationNotification.MusicalWorkList.MusicalWork[*].{
+    type: 'MusicalWork',
+    id: MusicalWorkReference,
+    Title: Title.TitleText,
+    Comment: Comment,
+    MusicalWorkType: MusicalWorkType
+  },
+  RecordingInformationNotification.ResourceList.SoundRecording[*].{
+    type: 'Resource',
+    id: ResourceReference,
+    Title: Title.TitleText,
+    SubTitle: Title.SubTitle,
+    Comment: Comment
+  },
+  RecordingInformationNotification.ProjectList.Project[*].{
+    type: 'Project',
+    id: ProjectReference,
+    artist: ProjectArtist,
+    name: ProjectName,
+    comment: Comment
+  },
+  RecordingInformationNotification.SessionList.Session[*].{
+    type: 'Session',
+    id: SessionReference,
+    SessionType: SessionType,
+    StartDateTime: StartDateTime,
+    EndDateTime: EndDateTime,
+    VenueName: VenueName,
+    VenueAddress: VenueAddress,
+    VenueRoom: VenueRoom,
+    Comment: Comment
+  }
+ ][]
+}

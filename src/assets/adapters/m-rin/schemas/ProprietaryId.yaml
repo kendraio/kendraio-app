@@ -1,0 +1,13 @@
+name: ProprietaryId
+description: A Composite containing details of a ProprietaryIdentifier.
+id: m-rin:ProprietaryId
+type: object
+required:
+  - ProprietaryId
+  - Namespace
+properties:
+  ProprietaryId:
+    type: string
+  Namespace:
+    description: The Namespace of the ProprietaryIdentifier. This is represented in an XML schema as an XML Attribute.
+    type: string

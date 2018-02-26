@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Dashboard</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <div *ngIf="hasNodes$ | async; else storageEmpty">
+
+    <ion-list>
+      <button ion-item *ngFor="let i of nodes$ | async" (click)="itemTapped($event, i)">
+        <ion-avatar item-start>
+          <div class="type-icon">
+            {{ i.type[0] }}
+          </div>
+        </ion-avatar>
+        <h3>{{ i?.FullName }}{{ i?.Title }}{{ i?.name }}{{ i?.SessionType }}</h3>
+        <p>{{ i.type }} {{ i.id }}</p>
+      </button>
+    </ion-list>
+
+    <!--{{ nodes$ | async | json }}-->
+
+  </div>
+
+  <ng-template #storageEmpty>
+    <ion-card>
+      <ion-card-header>Welcome to the Kendraio App</ion-card-header>
+      <ion-card-content>
+        <p>To get started import some data.</p>
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
+
+
+  <ion-card>
+    <ion-card-header>Add node</ion-card-header>
+    <ion-list>
+      <ion-item color="danger" *ngIf="message">{{ message }}</ion-item>
+      <ion-item>
+        <ion-label>Adapter</ion-label>
+        <ion-select (ionChange)="onAdapterChange($event)">
+          <ion-option value="m-rin">m-rin</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Node Type</ion-label>
+        <ion-select (ionChange)="onTypeChange($event)">
+          <ion-option *ngFor="let t of selectedAdapterNodeTypes$ | async" [value]="t">{{ t }}</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <div padding>
+      <button ion-button icon-left block (click)="addNode()">
+        <ion-icon name="add"></ion-icon> add new node
+      </button>
+    </div>
+
+  </ion-card>
+
+</ion-content>
