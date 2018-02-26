@@ -56,7 +56,9 @@
     "unionize": "^1.0.0",
     "uuid": "^3.2.1",
     "x2js": "^3.1.1",
-    "zone.js": "0.8.18"
+    "zone.js": "0.8.18",
+    "cordova-android": "~6.3.0",
+    "cordova-browser": "~5.0.3"
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.1.8",
@@ -73,7 +75,8 @@
     },
     "platforms": [
       "ios",
-      "android"
+      "android",
+      "browser"
     ]
   }
 }
