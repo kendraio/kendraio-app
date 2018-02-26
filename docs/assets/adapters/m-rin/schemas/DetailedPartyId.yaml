@@ -1,0 +1,31 @@
+name: DetailedPartyId
+description: A Composite containing details of a PartyId.
+id: m-rin:DetailedPartyId
+type: object
+properties:
+  ISNI:
+    description: >
+      An International Standard Name Identifier, the ISO 27729 Standard Identifier
+      for names. DDEX will enforce the syntax [0-9]{15}[X0-9] using XML Schema
+      in the future.
+    type: string
+  DPID:
+    description: An Identifier of a Party according to the DdexPartyId standard DDEX-DPID.
+    type: string
+    pattern: "PADPIDA[a-zA-Z0-9]+"
+  IpiNameNumber:
+    description: An Interested Party Identifier, a CISAC standard Identifier.
+    type: string
+  IPN:
+    description: >
+      An International Performer Number, an IPDA Identifier
+      (http://www2.ipddb.org/content/ipd-project).
+    type: string
+  CisacSocietyId:
+    description: A CISAC Society Identifier, a CISAC standard Identifier for music rights societies.
+    type: string
+  ProprietaryId:
+    description: A Composite containing details of a ProprietaryIdentifier of the Party.
+    type: array
+    items:
+      $ref: m-rin:ProprietaryId
