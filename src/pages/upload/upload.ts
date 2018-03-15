@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ToastController } from 'ionic-angular';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app/state';
 import { AppActions } from '../../app/state/app/actions';
@@ -29,7 +29,7 @@ export class UploadPage {
   uploading = false;
 
   constructor(public navCtrl: NavController,
-              private store: Store<AppState>) {
+              private store: Store<AppState>, private toastCtrl: ToastController) {
   }
 
   pickFile() {
@@ -44,13 +44,21 @@ export class UploadPage {
     }
   }
   doUpload() {
+    this.uploadServices.forEach((_, i) => this.uploadServices[i].progress = 0);
     this.uploading = true;
     forkJoin(this.uploadServices.map((service, i) => {
       return interval((Math.random() * 30)).pipe(
         tap(() => this.uploadServices[i].progress += 0.01),
         take(100),
       );
-    })).subscribe(console.log);
+    })).subscribe(() => {
+      let toast = this.toastCtrl.create({
+        message: 'Upload was completed successfully',
+        duration: 4000,
+        position: "middle"
+      });
+      toast.present();
+    });
   }
   toggleChange(i) {
     this.uploadServices[i].enabled = !this.uploadServices[i].enabled;
