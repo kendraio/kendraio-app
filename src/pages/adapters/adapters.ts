@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app/state';
 import { getAdapterEnabledList } from '../../app/state/adapters/selectors';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'page-adapters',
@@ -18,7 +19,9 @@ export class AdaptersPage implements OnInit {
   }
 
   ngOnInit() {
-    this.adapters$ = this.store.select(getAdapterEnabledList);
+    this.adapters$ = this.store.select(getAdapterEnabledList).pipe(
+      tap(console.log)
+    );
   }
 
 }

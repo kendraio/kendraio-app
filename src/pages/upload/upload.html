@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Upload</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="upload">
+
+    <input #fileInput
+           type="file"
+           [hidden]="true"
+           (change)="fileChange($event.target.files)" />
+
+    <div class="upload-file">
+      <button class="upload-button" (click)="pickFile()">
+        <ion-icon name="cloud-upload"></ion-icon>
+      </button>
+      <button ion-button color="light" (click)="pickFile()">Select track</button>
+    </div>
+
+  </div>
+  <ion-list>
+    <ion-item *ngFor="let service of uploadServices; let i = index">
+      <ion-label>{{ service.name }}</ion-label>
+      <ion-toggle *ngIf="(!uploading) || (!service.enabled); else progressDisplay" (ionChange)="toggleChange(i)" [checked]="uploadServices[i].enabled"></ion-toggle>
+      <ng-template #progressDisplay>
+        <progress [value]="service.progress"></progress>
+      </ng-template>
+    </ion-item>
+  </ion-list>
+
+  <div padding>
+    <button ion-button icon-left block (click)="doUpload()">
+      <ion-icon name="cloud-upload"></ion-icon> Upload
+    </button>
+  </div>
+
+</ion-content>

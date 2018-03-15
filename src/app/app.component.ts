@@ -7,6 +7,7 @@ import { ImportPage } from '../pages/import/import';
 import { VisualisePage } from '../pages/visualise/visualise';
 import { AdaptersPage } from '../pages/adapters/adapters';
 import { SettingsPage } from '../pages/settings/settings';
+import { UploadPage } from '../pages/upload/upload';
 
 @Component({
   templateUrl: 'app.html'
@@ -24,7 +25,8 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Dashboard', component: HomePage },
-      { title: 'Import', component: ImportPage },
+      { title: 'Import data', component: ImportPage },
+      { title: 'Upload', component: UploadPage },
       { title: 'Visualise', component: VisualisePage },
       { title: 'Adapters', component: AdaptersPage },
       { title: 'Settings', component: SettingsPage }

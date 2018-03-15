@@ -4,6 +4,7 @@ import { VisualisePage } from './visualise/visualise';
 import { AdaptersPage } from './adapters/adapters';
 import { SettingsPage } from './settings/settings';
 import { NodePage } from './node/node';
+import { UploadPage } from './upload/upload';
 
 export const ALL_PAGES = [
   HomePage,
@@ -11,5 +12,6 @@ export const ALL_PAGES = [
   VisualisePage,
   AdaptersPage,
   SettingsPage,
-  NodePage
+  NodePage,
+  UploadPage
 ];

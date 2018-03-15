@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { AdaptersActions } from './actions';
-import { filter, map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import { concatMap, filter, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 import { fetchText } from '../../utils/fetch';
 import { load as parseYaml } from 'js-yaml';
 import { keys } from 'lodash';
@@ -17,7 +17,7 @@ export class AdaptersEffects {
   @Effect()
   init$ = this.actions$.pipe(
     filter(AdaptersActions.is.initAdapters),
-    switchMap(() => fetchText(adapterList),
+    concatMap(() => fetchText(adapterList),
       (_, text: string) => keys(parseYaml(text))),
     mergeMap((keys: Array<string>) =>
       keys.map(id => AdaptersActions.loadAdapter({ id })))
@@ -28,8 +28,8 @@ export class AdaptersEffects {
     filter(AdaptersActions.is.loadAdapter),
     // tap(console.log),
     map(({ payload: { id }}) => ({ id, file: `${adapterBasePath(id)}/adapter.yaml` })),
-    switchMap(({ file }) => fetchText(file), ({ id }, data: string) => ({ id, config: parseYaml(data) })),
-    switchMap(({ id, config }) => processAdapterConfig$(adapterBasePath(id), config), ({ id }, config) => ({ id, config })),
+    concatMap(({ file }) => fetchText(file), ({ id }, data: string) => ({ id, config: parseYaml(data) })),
+    concatMap(({ id, config }) => processAdapterConfig$(adapterBasePath(id), config), ({ id }, config) => ({ id, config })),
     map((config) => AdaptersActions.setAdapterConfig(config as { id: string, config: AdapterConfig}))
   );
 
