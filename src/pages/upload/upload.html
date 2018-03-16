@@ -22,9 +22,12 @@
       </button>
       <button ion-button color="light" (click)="pickFile()">Select track</button>
     </div>
-
   </div>
   <ion-list>
+    <ion-item>
+      <ion-label>Add metadata...</ion-label>
+      <ion-checkbox color="dark" checked="true"></ion-checkbox>
+    </ion-item>
     <ion-item *ngFor="let service of uploadServices; let i = index">
       <ion-label>{{ service.name }}</ion-label>
       <ion-toggle *ngIf="(!uploading) || (!service.enabled); else progressDisplay" (ionChange)="toggleChange(i)" [checked]="uploadServices[i].enabled"></ion-toggle>
