@@ -12,9 +12,7 @@
   <form *ngIf="formGroup" [formGroup]="formGroup">
     <dynamic-ionic-form class="has-pivot-button" [group]="formGroup" [model]="formModel">
       <ng-template modelId="target" align="START" let-value="value">
-        <button class="pivot-button" ion-button item-start color="light" round>
-          <ion-icon name="link" (click)="gotoNode(value)"></ion-icon>
-        </button>
+        <ion-icon class="pivot-button" name="link" (click)="gotoNode(value)"></ion-icon>
       </ng-template>
     </dynamic-ionic-form>
   </form>
