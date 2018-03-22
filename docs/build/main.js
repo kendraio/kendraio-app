@@ -1092,9 +1092,7 @@ function adaptersReducer(state, action) {
     return __WEBPACK_IMPORTED_MODULE_0__actions__["a" /* AdaptersActions */].match({
         setAdapterConfig: function (_a) {
             var id = _a.id, config = _a.config;
-            return __assign({}, state, { 
-                // enabled: state.enabled.set(id, false),
-                adapters: state.adapters.set(id, config) });
+            return __assign({}, state, { enabled: state.enabled.has(id) ? state.enabled : state.enabled.set(id, false), adapters: state.adapters.set(id, config) });
         },
         enableAdapter: function (_a) {
             var id = _a.id;

@@ -20,7 +20,7 @@ export function adaptersReducer(state: AdaptersState = init, action: AdaptersAct
     setAdapterConfig({ id, config }) {
       return {
         ...state,
-        // enabled: state.enabled.set(id, false),
+        enabled: state.enabled.has(id) ? state.enabled : state.enabled.set(id, false),
         adapters: state.adapters.set(id, config)
       };
     },
