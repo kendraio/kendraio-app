@@ -1,0 +1,10 @@
+.has-pivot-button {
+  position: relative;
+  display: block;
+}
+
+.pivot-button {
+  position: absolute;
+  z-index: 9;
+  right: 1em;
+}
