@@ -1,0 +1,7 @@
+name: mixcloud
+title: MixCloud
+description: Upload your mix, radio show or Podcast to Mixcloud for free
+infoUrl: https://www.mixcloud.com/
+maintainer: Kendraio
+supportUrl: http://kendra.io
+uploads: true
