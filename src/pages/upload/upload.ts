@@ -34,9 +34,9 @@ export class UploadPage {
     this.store.select(getAdapterEnabledList)
       .pipe(
         concatAll(),
-        filter(([_, { enabled }])=> enabled),
-        filter(([_, { config: { uploads }}]) => uploads),
-        map(([_, { config: { title }}]) => title)
+        filter(x => x[1].enabled),
+        filter(x => x[1].config.uploads),
+        map(x => x[1].config.title)
       )
       .subscribe(name => {
         this.uploadServices.push({ name, enabled: true, progress: 0 });
