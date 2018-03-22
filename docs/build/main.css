@@ -25753,6 +25753,17 @@ ion-navbar.toolbar {
   color: white;
 }
 
+.has-pivot-button {
+  position: relative;
+  display: block;
+}
+
+.pivot-button {
+  position: absolute;
+  z-index: 9;
+  right: 1em;
+}
+
 .upload {
   display: -webkit-box;
   display: -webkit-flex;
