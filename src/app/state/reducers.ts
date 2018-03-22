@@ -2,6 +2,7 @@ import { ActionReducer, ActionReducerMap, createFeatureSelector, MetaReducer } f
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { adaptersReducer, AdaptersState } from './adapters/reducer';
 import { nodesReducer, NodesState } from './nodes/reducer';
+import { Map } from 'immutable';
 
 export interface AppState {
   adapters: AdaptersState,
@@ -18,7 +19,18 @@ export const getNodesState = createFeatureSelector('nodes');
 
 function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({
-    keys: ['nodes'],
+    keys: [
+      'nodes',
+      {
+        adapters: {
+          serialize: ({ enabled }) => enabled,
+          deserialize: (enabled) => {
+            // console.log(enabled);
+            return { enabled: Map(enabled), adapters: Map() };
+          }
+        }
+      }
+    ],
     rehydrate: true
   })(reducer);
 }

@@ -19,7 +19,7 @@ export class AdaptersEffects {
     filter(AdaptersActions.is.initAdapters),
     concatMap(() => fetchText(adapterList),
       (_, text: string) => keys(parseYaml(text))),
-    mergeMap((keys: Array<string>) =>
+    concatMap((keys: Array<string>) =>
       keys.map(id => AdaptersActions.loadAdapter({ id })))
   );
 

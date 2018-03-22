@@ -5,7 +5,8 @@ import { AppState } from '../../app/state';
 import { AppActions } from '../../app/state/app/actions';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { interval } from 'rxjs/observable/interval';
-import { take, takeUntil, tap } from 'rxjs/operators';
+import { combineAll, concatAll, filter, map, take, takeUntil, tap } from 'rxjs/operators';
+import { getAdapterEnabledList } from '../../app/state/adapters/selectors';
 
 @Component({
   selector: 'page-upload',
@@ -16,20 +17,30 @@ export class UploadPage {
   @ViewChild('fileInput') fileInput: ElementRef;
 
   uploadServices = [
-    { name: 'SoundCloud', enabled: true, progress: 0 },
-    { name: 'Apple Music', enabled: true, progress: 0 },
-    { name: 'YouTube', enabled: true, progress: 0 },
-    { name: 'Spotify', enabled: true, progress: 0 },
-    { name: 'Tidal', enabled: true, progress: 0 },
-    { name: 'Bandcamp', enabled: true, progress: 0 },
-    { name: 'MixCloud', enabled: true, progress: 0 },
-    { name: 'Musicoin', enabled: true, progress: 0 },
-    { name: 'Resonate', enabled: true, progress: 0 },
+    // { name: 'SoundCloud', enabled: true, progress: 0 },
+    // { name: 'Apple Music', enabled: true, progress: 0 },
+    // { name: 'YouTube', enabled: true, progress: 0 },
+    // { name: 'Spotify', enabled: true, progress: 0 },
+    // { name: 'Tidal', enabled: true, progress: 0 },
+    // { name: 'Bandcamp', enabled: true, progress: 0 },
+    // { name: 'MixCloud', enabled: true, progress: 0 },
+    // { name: 'Musicoin', enabled: true, progress: 0 },
+    // { name: 'Resonate', enabled: true, progress: 0 },
   ];
   uploading = false;
 
   constructor(public navCtrl: NavController,
               private store: Store<AppState>, private toastCtrl: ToastController) {
+    this.store.select(getAdapterEnabledList)
+      .pipe(
+        concatAll(),
+        filter(([_, { enabled }])=> enabled),
+        filter(([_, { config: { uploads }}]) => uploads),
+        map(([_, { config: { title }}]) => title)
+      )
+      .subscribe(name => {
+        this.uploadServices.push({ name, enabled: true, progress: 0 });
+      });
   }
 
   pickFile() {

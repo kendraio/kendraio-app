@@ -11,6 +11,8 @@
 
   <app-adapter-component *ngFor="let adapter of adapters$ | async"
                          [id]="adapter[0]"
+                         (enable)="onEnable($event)"
+                         (disable)="onDisable($event)"
                          [adapter]="adapter[1]"></app-adapter-component>
 
 </ion-content>

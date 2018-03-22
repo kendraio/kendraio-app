@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../app/state';
 import { getAdapterEnabledList } from '../../app/state/adapters/selectors';
 import { tap } from 'rxjs/operators';
+import { AdaptersActions } from '../../app/state/adapters/actions';
 
 @Component({
   selector: 'page-adapters',
@@ -20,8 +21,15 @@ export class AdaptersPage implements OnInit {
 
   ngOnInit() {
     this.adapters$ = this.store.select(getAdapterEnabledList).pipe(
-      tap(console.log)
+      // tap(console.log)
     );
   }
 
+  onEnable(id: string) {
+    this.store.dispatch(AdaptersActions.enableAdapter({ id }));
+  }
+
+  onDisable(id: string) {
+    this.store.dispatch(AdaptersActions.disableAdapter({ id }));
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-adapter-component',
@@ -26,7 +26,11 @@ import { Component, Input } from '@angular/core';
           <p>{{ adapter.config.supportUrl }}</p>
         </ion-item>
         <ion-item>
-          <ion-toggle [checked]="adapter.enabled"></ion-toggle>
+          <button ion-button (click)="onDisable()" color="danger" *ngIf="adapter.enabled">Disable</button>
+          <button ion-button (click)="onEnable()" *ngIf="!adapter.enabled">Enable</button>
+          <button ion-button outline *ngIf="adapter.enabled">Backup</button>
+          <button ion-button outline *ngIf="adapter.enabled">Restore</button>
+
         </ion-item>
       </ion-list>
     </ion-card>
@@ -35,8 +39,14 @@ import { Component, Input } from '@angular/core';
 export class AdapterOptionComponent {
   @Input() id: string;
   @Input() adapter;
+  @Output() enable: EventEmitter<string> = new EventEmitter<string>();
+  @Output() disable: EventEmitter<string> = new EventEmitter<string>();
 
-  onChange(e) {
-    console.log(e);
+  onEnable() {
+    this.enable.emit(this.id);
+  }
+
+  onDisable() {
+    this.disable.emit(this.id);
   }
 }
