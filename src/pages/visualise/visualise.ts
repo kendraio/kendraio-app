@@ -33,13 +33,14 @@ export class VisualisePage implements OnInit, AfterViewInit, OnDestroy {
   links;
   isLoaded = false;
 
+
   constructor(public navCtrl: NavController, private store: Store<AppState>, private zone: NgZone) {
 
   }
 
   ngOnInit() {
     this.sub = this.store.select(getNodesState).subscribe(({ nodes, links }) => {
-      this.nodes = nodes;
+      this.nodes = nodes.map(n => ({ ...n, x: 0, y: 0 }));
       this.links = links;
       console.log({ nodes, links });
     })
@@ -65,11 +66,12 @@ export class VisualisePage implements OnInit, AfterViewInit, OnDestroy {
     console.log({ n: this.nodes, l: this.links });
     this.simulation = forceSimulation<Node, Link>()
       .force('link', forceLink()
-        .id((n: Node) => n.id).strength(l => 0.01))
+        .id((n: Node) => n.id).strength(l => 0.05))
       .force('charge', forceManyBody())
-      .force('center', forceCenter(this.width / 2, this.height / 2));
+      .force('center', forceCenter(this.width / 2, this.height / 2))
+      .alphaDecay(0.15);
 
-    this.links = this.svg.append("g")
+    const link = this.svg.append("g")
       .attr("class", "links")
       .selectAll("line")
       .data(this.links)
@@ -77,7 +79,7 @@ export class VisualisePage implements OnInit, AfterViewInit, OnDestroy {
       .attr('stroke', '#999')
       .attr("stroke-width", 1);
 
-    this.nodes = this.svg.append("g")
+    const node = this.svg.append("g")
       .attr("class", "nodes")
       .selectAll("circle")
       .data(this.nodes)
@@ -100,19 +102,19 @@ export class VisualisePage implements OnInit, AfterViewInit, OnDestroy {
           d.fy = null;
         }));
 
-    this.nodes.append('title')
+    node.append('title')
       .text((d: Node) => d.id);
 
     this.simulation.nodes(this.nodes).on('tick', () => {
-      this.links
-        .attr("x1", (d) => d.source.x) // function(d) { return d.source.x; })
-        .attr("y1", (d) => d.source.y)
-        .attr("x2", (d) => d.target.x)
-        .attr("y2", (d) => d.target.y);
+        link
+          .attr("x1", (d) => d.source.x)
+          .attr("y1", (d) => d.source.y)
+          .attr("x2", (d) => d.target.x)
+          .attr("y2", (d) => d.target.y);
 
-      this.nodes
-        .attr("cx", d => d.x)
-        .attr("cy", d => d.y);
+        node
+          .attr("cx", d => d.x)
+          .attr("cy", d => d.y);
     });
 
     (this.simulation.force('link') as any).links(this.links);
