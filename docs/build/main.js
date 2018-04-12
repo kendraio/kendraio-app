@@ -558,6 +558,14 @@ var ImportPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_d3_scale_chromatic__ = __webpack_require__(791);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_d3_drag__ = __webpack_require__(125);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_d3__ = __webpack_require__(834);
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -591,7 +599,7 @@ var VisualisePage = (function () {
         var _this = this;
         this.sub = this.store.select(__WEBPACK_IMPORTED_MODULE_5__app_state__["c" /* getNodesState */]).subscribe(function (_a) {
             var nodes = _a.nodes, links = _a.links;
-            _this.nodes = nodes;
+            _this.nodes = nodes.map(function (n) { return (__assign({}, n, { x: 0, y: 0 })); });
             _this.links = links;
             console.log({ nodes: nodes, links: links });
         });
@@ -616,17 +624,18 @@ var VisualisePage = (function () {
         console.log({ n: this.nodes, l: this.links });
         this.simulation = Object(__WEBPACK_IMPORTED_MODULE_3_d3_force__["d" /* forceSimulation */])()
             .force('link', Object(__WEBPACK_IMPORTED_MODULE_3_d3_force__["b" /* forceLink */])()
-            .id(function (n) { return n.id; }).strength(function (l) { return 0.01; }))
+            .id(function (n) { return n.id; }).strength(function (l) { return 0.05; }))
             .force('charge', Object(__WEBPACK_IMPORTED_MODULE_3_d3_force__["c" /* forceManyBody */])())
-            .force('center', Object(__WEBPACK_IMPORTED_MODULE_3_d3_force__["a" /* forceCenter */])(this.width / 2, this.height / 2));
-        this.links = this.svg.append("g")
+            .force('center', Object(__WEBPACK_IMPORTED_MODULE_3_d3_force__["a" /* forceCenter */])(this.width / 2, this.height / 2))
+            .alphaDecay(0.15);
+        var link = this.svg.append("g")
             .attr("class", "links")
             .selectAll("line")
             .data(this.links)
             .enter().append("line")
             .attr('stroke', '#999')
             .attr("stroke-width", 1);
-        this.nodes = this.svg.append("g")
+        var node = this.svg.append("g")
             .attr("class", "nodes")
             .selectAll("circle")
             .data(this.nodes)
@@ -650,15 +659,15 @@ var VisualisePage = (function () {
             d.fx = null;
             d.fy = null;
         }));
-        this.nodes.append('title')
+        node.append('title')
             .text(function (d) { return d.id; });
         this.simulation.nodes(this.nodes).on('tick', function () {
-            _this.links
-                .attr("x1", function (d) { return d.source.x; }) // function(d) { return d.source.x; })
+            link
+                .attr("x1", function (d) { return d.source.x; })
                 .attr("y1", function (d) { return d.source.y; })
                 .attr("x2", function (d) { return d.target.x; })
                 .attr("y2", function (d) { return d.target.y; });
-            _this.nodes
+            node
                 .attr("cx", function (d) { return d.x; })
                 .attr("cy", function (d) { return d.y; });
         });
