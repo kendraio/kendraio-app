@@ -41,7 +41,7 @@ export class VisualisePage implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.sub = this.store.select(getNodesState).subscribe(({ nodes, links }) => {
-      this.nodes = nodes.map(n => ({ ...n, x: 0, y: 0 }));
+      this.nodes = nodes;
       this.links = links;
       // console.log({ nodes, links });
     })
