@@ -559,14 +559,6 @@ var ImportPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_d3_drag__ = __webpack_require__(125);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_d3__ = __webpack_require__(834);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__node_node__ = __webpack_require__(195);
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -601,7 +593,7 @@ var VisualisePage = (function () {
         var _this = this;
         this.sub = this.store.select(__WEBPACK_IMPORTED_MODULE_5__app_state__["c" /* getNodesState */]).subscribe(function (_a) {
             var nodes = _a.nodes, links = _a.links;
-            _this.nodes = nodes.map(function (n) { return (__assign({}, n, { x: 0, y: 0 })); });
+            _this.nodes = nodes;
             _this.links = links;
             // console.log({ nodes, links });
         });
