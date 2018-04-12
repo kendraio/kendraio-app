@@ -11,6 +11,7 @@ import { Node } from '../../app/model/node';
 import { Link } from '../../app/model/link';
 import { drag } from 'd3-drag';
 import { event as d3event } from 'd3';
+import { NodePage } from '../node/node';
 
 @Component({
   selector: 'page-visualise',
@@ -42,7 +43,7 @@ export class VisualisePage implements OnInit, AfterViewInit, OnDestroy {
     this.sub = this.store.select(getNodesState).subscribe(({ nodes, links }) => {
       this.nodes = nodes.map(n => ({ ...n, x: 0, y: 0 }));
       this.links = links;
-      console.log({ nodes, links });
+      // console.log({ nodes, links });
     })
   }
 
@@ -52,21 +53,29 @@ export class VisualisePage implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  itemTapped(item) {
+    // console.log(item);
+    this.navCtrl.push(NodePage, {
+      item: item,
+      adapterId: 'm-rin'
+    });
+  }
+
   ngAfterViewInit() {
     this.svg = select(this.svgEl.nativeElement);
     this.width = +this.svgEl.nativeElement.clientWidth;
     this.height = +this.svgEl.nativeElement.clientHeight;
-    console.log({ w: this.width, h: this.height });
+    // console.log({ w: this.width, h: this.height });
     this.zone.runOutsideAngular(() => {
       this.initSimulation();
     });
   }
 
   initSimulation() {
-    console.log({ n: this.nodes, l: this.links });
+    // console.log({ n: this.nodes, l: this.links });
     this.simulation = forceSimulation<Node, Link>()
       .force('link', forceLink()
-        .id((n: Node) => n.id).strength(l => 0.05))
+        .id((n: Node) => n.id).strength(l => 0.025))
       .force('charge', forceManyBody())
       .force('center', forceCenter(this.width / 2, this.height / 2))
       .alphaDecay(0.15);
@@ -83,9 +92,8 @@ export class VisualisePage implements OnInit, AfterViewInit, OnDestroy {
       .attr("class", "nodes")
       .selectAll("circle")
       .data(this.nodes)
-      .enter().append("circle")
-      .attr("r", 5)
-      .attr("fill", d => this.color(d.type))
+      .enter()
+      .append('g')
       .call(drag()
         .on("start", (d: any) => {
           if (!d3event.active) this.simulation.alphaTarget(0.3).restart();
@@ -102,6 +110,20 @@ export class VisualisePage implements OnInit, AfterViewInit, OnDestroy {
           d.fy = null;
         }));
 
+    node
+      .append("circle")
+      .attr("r", 10)
+      .attr("fill", d => this.color(d.type));
+
+    node
+      .append('text')
+      .attr('dx', 12)
+      .attr('dy', '0.35em')
+      .text(d => {
+        return d['FullName'] || d['Title'] || d['name'] || d['Comment'] || d.id
+      })
+      .on('click', (e) => this.itemTapped(e));
+
     node.append('title')
       .text((d: Node) => d.id);
 
@@ -113,8 +135,10 @@ export class VisualisePage implements OnInit, AfterViewInit, OnDestroy {
           .attr("y2", (d) => d.target.y);
 
         node
-          .attr("cx", d => d.x)
-          .attr("cy", d => d.y);
+          .attr('transform', d => `translate(${d.x},${d.y})`)
+          // .attr("x", d => d.x)
+          // .attr("y", d => d.y)
+        ;
     });
 
     (this.simulation.force('link') as any).links(this.links);
