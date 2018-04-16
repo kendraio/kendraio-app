@@ -27,7 +27,7 @@ export function nodesReducer(state: NodesState = init, action: NodesActionsType)
 
     importNodes(project: Project) {
       const { nodes, links } = uuidsForProject(project);
-      console.log({nodes, links});
+      // console.log({nodes, links});
       return ({ nodes: state.nodes.concat(nodes), links: state.links.concat(links) });
     },
 

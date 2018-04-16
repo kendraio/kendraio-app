@@ -29,7 +29,7 @@ export class NodesEffects {
     filter(NodesActions.is.loadFile),
     switchMap(({ payload: { adapterId }}) => this.store.select(getAdapter(adapterId)),
       ({ payload: { file }}, adapter) => ({ file, adapter })),
-    tap(console.log),
+    // tap(console.log),
     switchMap(readUsingConfig$, ({ adapter }, data) => ({ adapter, data })),
     map(({ adapter: { source: { extractor }}, data }) => search(data, extractor)),
     map(({ nodes, links }) => ({ nodes, links: [].concat(...links.filter(l => l.target).map(t => reduceTargets(t))) })),
@@ -41,7 +41,7 @@ export class NodesEffects {
     filter(NodesActions.is.demoData),
     switchMap(() => fetchText('assets/data/rin-sample-01.xml')),
     switchMap(() => this.store.select(getAdapter('m-rin')), (demoData, adapter) => ({ demoData, adapter})),
-    tap(console.log),
+    // tap(console.log),
     map(({ demoData, adapter}) => {
       const defaultConfig = {
         enableToStringFunc: false

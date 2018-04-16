@@ -36,10 +36,9 @@ export class KendraioFormsService {
 
   getNodeForm(node: Node, adapterId) {
     const adapter = this.adapters.get(adapterId);
-    console.log({ node, adapter });
     if (adapter && adapter.schemas && adapter.schemas[node.type]) {
       const schema = adapter.schemas[node.type];
-      console.log(schema);
+      // console.log(schema);
       return this.forms.fromJSON([
         ...this.baseNodeFields(node),
         ...this.propertyFields(node, schema.properties),
@@ -89,7 +88,6 @@ export class KendraioFormsService {
   }
 
   private propertyFields(entity: Node | Link, properties) {
-    console.log(Object.keys(properties));
     return Object.keys(properties).map(id => ({
       id,
       label: (properties[id].options && properties[id].options.label) ? properties[id].options.label : id,

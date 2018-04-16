@@ -30,7 +30,6 @@ export class NodePage implements OnInit {
   }
 
   ngOnInit() {
-    console.log('init node component');
     this.formModel = this.forms.getNodeForm(this.selectedItem, this.adapterId);
     this.formGroup = this.forms.createFormGroup(this.formModel);
 
@@ -38,7 +37,6 @@ export class NodePage implements OnInit {
   }
 
   gotoNode(id) {
-    console.log('goto', id);
     const item = this.forms.getNodeFromId(id);
     this.navCtrl.push(NodePage, {
       item,
