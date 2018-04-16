@@ -610,7 +610,6 @@ var VisualisePage = (function () {
         this.svg = Object(__WEBPACK_IMPORTED_MODULE_2_d3_selection__["f" /* select */])(this.svgEl.nativeElement);
         this.width = +this.svgEl.nativeElement.clientWidth;
         this.height = +this.svgEl.nativeElement.clientHeight;
-        // console.log({ w: this.width, h: this.height });
         this.zone.runOutsideAngular(function () {
             _this.initSimulation();
         });
@@ -619,17 +618,16 @@ var VisualisePage = (function () {
         var _this = this;
         // console.log({ n: this.nodes, l: this.links });
         this.simulation = Object(__WEBPACK_IMPORTED_MODULE_3_d3_force__["d" /* forceSimulation */])()
-            .force('link', Object(__WEBPACK_IMPORTED_MODULE_3_d3_force__["b" /* forceLink */])()
-            .id(function (n) { return n.id; }).strength(function (l) { return 0.025; }))
-            .force('charge', Object(__WEBPACK_IMPORTED_MODULE_3_d3_force__["c" /* forceManyBody */])())
+            .force('link', Object(__WEBPACK_IMPORTED_MODULE_3_d3_force__["c" /* forceLink */])().id(function (n) { return n.id; }).strength(function (l) { return 0.0025; }))
+            .force('collide', Object(__WEBPACK_IMPORTED_MODULE_3_d3_force__["b" /* forceCollide */])(60))
             .force('center', Object(__WEBPACK_IMPORTED_MODULE_3_d3_force__["a" /* forceCenter */])(this.width / 2, this.height / 2))
-            .alphaDecay(0.15);
+            .alphaDecay(0.05);
         var link = this.svg.append("g")
             .attr("class", "links")
             .selectAll("line")
             .data(this.links)
             .enter().append("line")
-            .attr('stroke', '#999')
+            .attr('stroke', '#ccc')
             .attr("stroke-width", 1);
         var node = this.svg.append("g")
             .attr("class", "nodes")
