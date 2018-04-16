@@ -1,7 +1,15 @@
 import { AfterViewInit, Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { select } from 'd3-selection';
-import { forceCenter, forceLink, forceManyBody, forceSimulation, Simulation } from 'd3-force';
+import {
+  forceCenter,
+  forceCollide,
+  forceLink,
+  forceManyBody,
+  forceRadial,
+  forceSimulation,
+  Simulation
+} from 'd3-force';
 import { Store } from '@ngrx/store';
 import { AppState, getNodesState } from '../../app/state';
 import { Subscription } from 'rxjs/Subscription';
@@ -65,7 +73,6 @@ export class VisualisePage implements OnInit, AfterViewInit, OnDestroy {
     this.svg = select(this.svgEl.nativeElement);
     this.width = +this.svgEl.nativeElement.clientWidth;
     this.height = +this.svgEl.nativeElement.clientHeight;
-    // console.log({ w: this.width, h: this.height });
     this.zone.runOutsideAngular(() => {
       this.initSimulation();
     });
@@ -74,18 +81,19 @@ export class VisualisePage implements OnInit, AfterViewInit, OnDestroy {
   initSimulation() {
     // console.log({ n: this.nodes, l: this.links });
     this.simulation = forceSimulation<Node, Link>()
-      .force('link', forceLink()
-        .id((n: Node) => n.id).strength(l => 0.025))
-      .force('charge', forceManyBody())
+      .force('link', forceLink().id((n: Node) => n.id).strength(l => 0.0025))
+      // .force('radial', forceRadial(this.width / 3, this.width / 2, this.height / 2).strength(1))
+      // .force('charge', forceManyBody().strength(0.5))
+      .force('collide', forceCollide(60))
       .force('center', forceCenter(this.width / 2, this.height / 2))
-      .alphaDecay(0.15);
+      .alphaDecay(0.05);
 
     const link = this.svg.append("g")
       .attr("class", "links")
       .selectAll("line")
       .data(this.links)
       .enter().append("line")
-      .attr('stroke', '#999')
+      .attr('stroke', '#ccc')
       .attr("stroke-width", 1);
 
     const node = this.svg.append("g")
@@ -137,8 +145,6 @@ export class VisualisePage implements OnInit, AfterViewInit, OnDestroy {
 
         node
           .attr('transform', d => `translate(${d.x},${d.y})`)
-          // .attr("x", d => d.x)
-          // .attr("y", d => d.y)
         ;
     });
 
