@@ -42,7 +42,7 @@ export class VisualisePage implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.sub = this.store.select(getNodesState).subscribe(({ nodes, links }) => {
       this.nodes = nodes;
-      this.links = links;
+      this.links = JSON.parse(JSON.stringify(links));
       // console.log({ nodes, links });
     })
   }
@@ -120,6 +120,7 @@ export class VisualisePage implements OnInit, AfterViewInit, OnDestroy {
       .attr('dx', 12)
       .attr('dy', '0.35em')
       .text(d => {
+        //
         return d['FullName'] || d['Title'] || d['name'] || d['Comment'] || d.id
       })
       .on('click', (e) => this.itemTapped(e));
