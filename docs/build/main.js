@@ -151,7 +151,6 @@ var HomePage = (function () {
         this.selectedAdapterNodeTypes$ = this.store.select(__WEBPACK_IMPORTED_MODULE_6__app_state_adapters_selectors__["d" /* getSelectedAdapterNodeTypes */]);
     };
     HomePage.prototype.itemTapped = function (event, item) {
-        // That's right, we're pushing to ourselves!
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__node_node__["a" /* NodePage */], {
             item: item,
             adapterId: 'm-rin'
@@ -219,13 +218,11 @@ var NodePage = (function () {
     }
     NodePage_1 = NodePage;
     NodePage.prototype.ngOnInit = function () {
-        console.log('init node component');
         this.formModel = this.forms.getNodeForm(this.selectedItem, this.adapterId);
         this.formGroup = this.forms.createFormGroup(this.formModel);
         this.validLinkTypes = this.forms.getValidLinksForNodeType(this.adapterId, this.selectedItem.type);
     };
     NodePage.prototype.gotoNode = function (id) {
-        console.log('goto', id);
         var item = this.forms.getNodeFromId(id);
         this.navCtrl.push(NodePage_1, {
             item: item,
@@ -244,7 +241,7 @@ var NodePage = (function () {
     };
     NodePage = NodePage_1 = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-node',template:/*ion-inline-start:"/home/darren/kendra/2018-02-26/kendraioApp/src/pages/node/node.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Settings</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n\n  <form *ngIf="formGroup" [formGroup]="formGroup">\n    <dynamic-ionic-form class="has-pivot-button" [group]="formGroup" [model]="formModel">\n      <ng-template modelId="target" align="START" let-value="value">\n        <ion-icon class="pivot-button" name="link" (click)="gotoNode(value)"></ion-icon>\n      </ng-template>\n    </dynamic-ionic-form>\n  </form>\n\n  <div padding>\n    <button ion-button color="primary" block>Save</button>\n  </div>\n\n  <ion-card *ngIf="validLinkTypes.length > 0">\n    <ion-card-header>Add link to this {{ selectedItem.type }}</ion-card-header>\n    <ion-list>\n      <ion-item color="danger" *ngIf="message">{{ message }}</ion-item>\n      <ion-item>\n        <ion-label>Link type</ion-label>\n        <ion-select (ionChange)="onSelectLinkType($event)">\n          <ion-option *ngFor="let l of validLinkTypes" [value]="l">{{ l }}</ion-option>\n        </ion-select>\n      </ion-item>\n    </ion-list>\n    <div padding>\n    <button ion-button block icon-left (click)="addLink()">\n      <ion-icon name="add"></ion-icon> add new link\n    </button>\n    </div>\n  </ion-card>\n\n\n\n  <!--{{ selectedItem | json }}-->\n\n</ion-content>\n'/*ion-inline-end:"/home/darren/kendra/2018-02-26/kendraioApp/src/pages/node/node.html"*/
+            selector: 'page-node',template:/*ion-inline-start:"/home/darren/kendra/2018-02-26/kendraioApp/src/pages/node/node.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Node</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n\n  <form *ngIf="formGroup" [formGroup]="formGroup">\n    <dynamic-ionic-form class="has-pivot-button" [group]="formGroup" [model]="formModel">\n      <ng-template modelId="target" align="START" let-value="value">\n        <ion-icon class="pivot-button" name="link" (click)="gotoNode(value)"></ion-icon>\n      </ng-template>\n    </dynamic-ionic-form>\n  </form>\n\n  <div padding>\n    <button ion-button color="primary" block>Save</button>\n  </div>\n\n  <ion-card *ngIf="validLinkTypes.length > 0">\n    <ion-card-header>Add link to this {{ selectedItem.type }}</ion-card-header>\n    <ion-list>\n      <ion-item color="danger" *ngIf="message">{{ message }}</ion-item>\n      <ion-item>\n        <ion-label>Link type</ion-label>\n        <ion-select (ionChange)="onSelectLinkType($event)">\n          <ion-option *ngFor="let l of validLinkTypes" [value]="l">{{ l }}</ion-option>\n        </ion-select>\n      </ion-item>\n    </ion-list>\n    <div padding>\n    <button ion-button block icon-left (click)="addLink()">\n      <ion-icon name="add"></ion-icon> add new link\n    </button>\n    </div>\n  </ion-card>\n\n\n\n  <!--{{ selectedItem | json }}-->\n\n</ion-content>\n'/*ion-inline-end:"/home/darren/kendra/2018-02-26/kendraioApp/src/pages/node/node.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__app_services_kendraio_forms_service__["a" /* KendraioFormsService */]])
     ], NodePage);
@@ -369,10 +366,9 @@ var KendraioFormsService = (function () {
     };
     KendraioFormsService.prototype.getNodeForm = function (node, adapterId) {
         var adapter = this.adapters.get(adapterId);
-        console.log({ node: node, adapter: adapter });
         if (adapter && adapter.schemas && adapter.schemas[node.type]) {
             var schema = adapter.schemas[node.type];
-            console.log(schema);
+            // console.log(schema);
             return this.forms.fromJSON(this.baseNodeFields(node).concat(this.propertyFields(node, schema.properties), this.linkFields(node, adapter)));
         }
         return this.forms.fromJSON([]);
@@ -414,7 +410,6 @@ var KendraioFormsService = (function () {
         ];
     };
     KendraioFormsService.prototype.propertyFields = function (entity, properties) {
-        console.log(Object.keys(properties));
         return Object.keys(properties).map(function (id) { return ({
             id: id,
             label: (properties[id].options && properties[id].options.label) ? properties[id].options.label : id,
@@ -594,7 +589,7 @@ var VisualisePage = (function () {
         this.sub = this.store.select(__WEBPACK_IMPORTED_MODULE_5__app_state__["c" /* getNodesState */]).subscribe(function (_a) {
             var nodes = _a.nodes, links = _a.links;
             _this.nodes = nodes;
-            _this.links = links;
+            _this.links = JSON.parse(JSON.stringify(links));
             // console.log({ nodes, links });
         });
     };
@@ -668,6 +663,7 @@ var VisualisePage = (function () {
             .attr('dx', 12)
             .attr('dy', '0.35em')
             .text(function (d) {
+            //
             return d['FullName'] || d['Title'] || d['name'] || d['Comment'] || d.id;
         })
             .on('click', function (e) { return _this.itemTapped(e); });
@@ -1170,7 +1166,7 @@ function nodesReducer(state, action) {
     return __WEBPACK_IMPORTED_MODULE_2__actions__["a" /* NodesActions */].match({
         importNodes: function (project) {
             var _a = uuidsForProject(project), nodes = _a.nodes, links = _a.links;
-            console.log({ nodes: nodes, links: links });
+            // console.log({nodes, links});
             return ({ nodes: state.nodes.concat(nodes), links: state.links.concat(links) });
         },
         addNode: function (_a) {
@@ -1434,7 +1430,9 @@ var NodesEffects = (function () {
         }, function (_a, adapter) {
             var file = _a.payload.file;
             return ({ file: file, adapter: adapter });
-        }), Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["tap"])(console.log), Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["switchMap"])(readUsingConfig$, function (_a, data) {
+        }), 
+        // tap(console.log),
+        Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["switchMap"])(readUsingConfig$, function (_a, data) {
             var adapter = _a.adapter;
             return ({ adapter: adapter, data: data });
         }), Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["map"])(function (_a) {
@@ -1447,7 +1445,9 @@ var NodesEffects = (function () {
             var nodes = _a.nodes, links = _a.links;
             return __WEBPACK_IMPORTED_MODULE_5__actions__["a" /* NodesActions */].importNodes({ nodes: nodes, links: links });
         }));
-        this.demo$ = this.actions$.pipe(Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["filter"])(__WEBPACK_IMPORTED_MODULE_5__actions__["a" /* NodesActions */].is.demoData), Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["switchMap"])(function () { return Object(__WEBPACK_IMPORTED_MODULE_10__utils_fetch__["a" /* fetchText */])('assets/data/rin-sample-01.xml'); }), Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["switchMap"])(function () { return _this.store.select(Object(__WEBPACK_IMPORTED_MODULE_8__adapters_selectors__["a" /* getAdapter */])('m-rin')); }, function (demoData, adapter) { return ({ demoData: demoData, adapter: adapter }); }), Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["tap"])(console.log), Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["map"])(function (_a) {
+        this.demo$ = this.actions$.pipe(Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["filter"])(__WEBPACK_IMPORTED_MODULE_5__actions__["a" /* NodesActions */].is.demoData), Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["switchMap"])(function () { return Object(__WEBPACK_IMPORTED_MODULE_10__utils_fetch__["a" /* fetchText */])('assets/data/rin-sample-01.xml'); }), Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["switchMap"])(function () { return _this.store.select(Object(__WEBPACK_IMPORTED_MODULE_8__adapters_selectors__["a" /* getAdapter */])('m-rin')); }, function (demoData, adapter) { return ({ demoData: demoData, adapter: adapter }); }), 
+        // tap(console.log),
+        Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["map"])(function (_a) {
             var demoData = _a.demoData, adapter = _a.adapter;
             var defaultConfig = {
                 enableToStringFunc: false
