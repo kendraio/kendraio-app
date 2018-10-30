@@ -1,0 +1,17 @@
+<div *ngIf="data.length > 0; else noContent">
+  <app-node-teaser (deleted)="onDeleted()" *ngFor="let id of data" [id]="id"></app-node-teaser>
+</div>
+
+<ng-template #noContent>
+  <div>
+    <h3>Welcome to the Kendraio App</h3>
+    <p>To get started import some data.</p>
+  </div>
+</ng-template>
+
+
+<div class="add-content-button">
+  <button mat-fab (click)="addContent()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

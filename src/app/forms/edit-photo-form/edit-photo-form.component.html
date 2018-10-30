@@ -1,0 +1,26 @@
+<div *ngIf="item">
+
+  <div *ngIf="item['image']; else noImage">
+    <img class="image-preview" [attr.src]="item['image'].src">
+
+    <button mat-stroked-button (click)="replaceImage()">
+      <mat-icon>cancel</mat-icon>
+      Replace image
+    </button>
+  </div>
+
+  <ng-template #noImage>
+    <button mat-stroked-button (click)="replaceImage()">
+      <mat-icon>add_photo_alternate</mat-icon>
+      Add image
+    </button>
+  </ng-template>
+
+  <br><br>
+
+  <mat-form-field>
+    <input matInput placeholder="Name" [(ngModel)]="item.name">
+  </mat-form-field>
+
+</div>
+

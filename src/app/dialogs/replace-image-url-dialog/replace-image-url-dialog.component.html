@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Enter image URL...</h1>
+
+<div mat-dialog-content>
+  <mat-form-field>
+    <input #itemName autocomplete="off" matInput required placeholder="URL" cdkFocusInitial>
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="false">Cancel</button>
+  <button mat-button [disabled]="itemName.value.length == 0"
+          [mat-dialog-close]="itemName.value">Add</button>
+</div>

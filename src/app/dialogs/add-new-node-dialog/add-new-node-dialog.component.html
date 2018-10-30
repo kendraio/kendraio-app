@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Add {{ data.type }}</h1>
+
+<div mat-dialog-content>
+  <mat-form-field>
+    <input #itemName autocomplete="off" matInput required placeholder="Name" cdkFocusInitial>
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="false">Cancel</button>
+  <button mat-button [disabled]="itemName.value.length == 0"
+          [mat-dialog-close]="{ name: itemName.value, type: data.type }">Add</button>
+</div>
