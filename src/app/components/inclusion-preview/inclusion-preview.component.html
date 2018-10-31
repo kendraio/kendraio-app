@@ -1,0 +1,11 @@
+<div *ngIf="item$ | async as item" class="inc-row">
+  <div *ngIf="image.src as src" class="tag-preview">
+    <img [src]="src">
+  </div>
+
+  <app-person-preview *ngIf="item?.target as target" [id]="target"></app-person-preview>
+
+  <button (click)="onCancel()" mat-icon-button class="cancel-button">
+    <mat-icon>cancel</mat-icon>
+  </button>
+</div>

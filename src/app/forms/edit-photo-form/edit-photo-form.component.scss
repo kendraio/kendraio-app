@@ -1,3 +1,14 @@
 .image-preview {
   max-width: 100%;
 }
+
+.tags {
+  position: relative;
+}
+
+.tag {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  border: 2px solid blue;
+}

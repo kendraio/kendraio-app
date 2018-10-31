@@ -55,7 +55,7 @@ export class ImportPageComponent implements OnInit {
   importFile() {
     const reader = new FileReader();
     reader.onload = e => {
-      const { result } = e.target;
+      const { result } = e.target as any;
       this.doImport(result);
     };
     reader.readAsText(this.file);

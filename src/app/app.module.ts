@@ -24,6 +24,9 @@ import { NodeTeaserComponent } from './components/node-teaser/node-teaser.compon
 import { ConfirmDeleteDialogComponent } from './dialogs/confirm-delete-dialog/confirm-delete-dialog.component';
 import { EditPhotoFormComponent } from './forms/edit-photo-form/edit-photo-form.component';
 import { ReplaceImageUrlDialogComponent } from './dialogs/replace-image-url-dialog/replace-image-url-dialog.component';
+import { EditRinProjectFormComponent } from './forms/edit-rin-project-form/edit-rin-project-form.component';
+import { InclusionPreviewComponent } from './components/inclusion-preview/inclusion-preview.component';
+import { PersonPreviewComponent } from './components/person-preview/person-preview.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,10 @@ import { ReplaceImageUrlDialogComponent } from './dialogs/replace-image-url-dial
     NodeTeaserComponent,
     ConfirmDeleteDialogComponent,
     EditPhotoFormComponent,
-    ReplaceImageUrlDialogComponent
+    ReplaceImageUrlDialogComponent,
+    EditRinProjectFormComponent,
+    InclusionPreviewComponent,
+    PersonPreviewComponent
   ],
   imports: [
     BrowserModule,

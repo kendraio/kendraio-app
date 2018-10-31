@@ -35,7 +35,8 @@ export class ImportProgressDialogComponent implements OnInit {
     if (_r['RecordingInformationNotification'].ProjectList.Project.ProjectName) {
       this.database.save({
         name: _r['RecordingInformationNotification'].ProjectList.Project.ProjectName,
-        type: 'Project'
+        type: 'Project',
+        source: _r
       }).subscribe(() => {
         interval(10).pipe(
           startWith(0),
