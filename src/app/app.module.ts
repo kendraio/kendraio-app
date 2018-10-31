@@ -27,6 +27,7 @@ import { ReplaceImageUrlDialogComponent } from './dialogs/replace-image-url-dial
 import { EditRinProjectFormComponent } from './forms/edit-rin-project-form/edit-rin-project-form.component';
 import { InclusionPreviewComponent } from './components/inclusion-preview/inclusion-preview.component';
 import { PersonPreviewComponent } from './components/person-preview/person-preview.component';
+import { EditPersonFormComponent } from './forms/edit-person-form/edit-person-form.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { PersonPreviewComponent } from './components/person-preview/person-previ
     ReplaceImageUrlDialogComponent,
     EditRinProjectFormComponent,
     InclusionPreviewComponent,
-    PersonPreviewComponent
+    PersonPreviewComponent,
+    EditPersonFormComponent
   ],
   imports: [
     BrowserModule,

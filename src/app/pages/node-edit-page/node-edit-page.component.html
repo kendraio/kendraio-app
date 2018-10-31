@@ -8,6 +8,7 @@
     <div [ngSwitch]="item.type">
 
       <app-edit-photo-form *ngSwitchCase="'Photo'" [item]="item"></app-edit-photo-form>
+      <app-edit-person-form *ngSwitchCase="'Person'" [item]="item"></app-edit-person-form>
       <app-edit-rin-project-form *ngSwitchCase="'Project'" [item]="item"></app-edit-rin-project-form>
 
       <div *ngSwitchDefault>
