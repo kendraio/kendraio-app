@@ -37,7 +37,7 @@ export class EditPhotoFormComponent implements OnInit {
   }
 
   addTag(event: MouseEvent) {
-    const { offsetX, offsetY, target: { clientWidth, clientHeight }} = event;
+    const { offsetX, offsetY, target: { clientWidth, clientHeight }} = event as any;
     if (clientWidth > 0 && clientHeight > 0) {
       const hitX = offsetX / clientWidth;
       const hitY = offsetY / clientHeight;
