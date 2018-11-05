@@ -7,12 +7,14 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
+  userProfile: any;
+
   auth0 = new auth0.WebAuth({
     clientID: 'BpSIsaDagBnDpAZyfJOVoAqG1r041Nj7',
     domain: 'kendraio.eu.auth0.com',
     responseType: 'token id_token',
     redirectUri: 'http://localhost:4200/callback',
-    scope: 'openid'
+    scope: 'openid profile'
   });
 
   constructor(
@@ -58,5 +60,20 @@ export class AuthService {
     // Access Token's expiry time
     const expiresAt = JSON.parse(localStorage.getItem('expires_at') || '{}');
     return new Date().getTime() < expiresAt;
+  }
+
+  public getProfile(cb): void {
+    const accessToken = localStorage.getItem('access_token');
+    if (!accessToken) {
+      throw new Error('Access Token must exist to fetch profile');
+    }
+
+    const self = this;
+    this.auth0.client.userInfo(accessToken, (err, profile) => {
+      if (profile) {
+        self.userProfile = profile;
+      }
+      cb(err, profile);
+    });
   }
 }

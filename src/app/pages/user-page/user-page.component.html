@@ -1,5 +1,7 @@
 <div *ngIf="isAuthenticated; else notLoggedIn">
   <button mat-raised-button (click)="onLogout()">Logout</button>
+
+  <pre>{{ profile | json }}</pre>
 </div>
 
 <ng-template #notLoggedIn>

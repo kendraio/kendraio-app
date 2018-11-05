@@ -9,6 +9,8 @@ import { AuthService } from '../../services/auth.service';
 })
 export class UserPageComponent implements OnInit {
 
+  profile: any;
+
   get isAuthenticated() {
     return this.auth.isAuthenticated();
   }
@@ -20,6 +22,13 @@ export class UserPageComponent implements OnInit {
 
   ngOnInit() {
     this.pageTitle.setTitle('User settings');
+    if (this.auth.userProfile) {
+      this.profile = this.auth.userProfile;
+    } else {
+      this.auth.getProfile((err, profile) => {
+        this.profile = profile;
+      });
+    }
   }
 
   onLogin() {
