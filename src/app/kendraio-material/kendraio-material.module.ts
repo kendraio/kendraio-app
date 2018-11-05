@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {
   MatButtonModule, MatCardModule,
   MatCheckboxModule, MatChipsModule, MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule,
-  MatListModule, MatProgressBarModule, MatSelectModule,
+  MatListModule, MatProgressBarModule, MatProgressSpinnerModule, MatSelectModule,
   MatSidenavModule, MatSlideToggleModule, MatSnackBarModule,
   MatToolbarModule
 } from '@angular/material';
@@ -24,7 +24,8 @@ const MATERIAL = [
   MatInputModule,
   MatSlideToggleModule,
   MatProgressBarModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatProgressSpinnerModule
 ];
 
 @NgModule({

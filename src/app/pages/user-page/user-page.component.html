@@ -1,5 +1,9 @@
+<div *ngIf="isAuthenticated; else notLoggedIn">
+  <button mat-raised-button (click)="onLogout()">Logout</button>
+</div>
 
-<p>No profiles are saved on this device
-</p>
-<button mat-raised-button [disabled]="true">Login</button>
-
+<ng-template #notLoggedIn>
+  <p>No profiles are saved on this device
+  </p>
+  <button mat-raised-button (click)="onLogin()">Login</button>
+</ng-template>

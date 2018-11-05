@@ -9,8 +9,13 @@ import { VisualisePageComponent } from './pages/visualise-page/visualise-page.co
 import { UploadPageComponent } from './pages/upload-page/upload-page.component';
 import { ImportPageComponent } from './pages/import-page/import-page.component';
 import { NodeEditPageComponent } from './pages/node-edit-page/node-edit-page.component';
+import { AuthCallbackComponent } from './pages/auth-callback/auth-callback.component';
 
 const routes: Routes = [
+  {
+    path: 'callback',
+    component: AuthCallbackComponent
+  },
   {
     path: '',
     component: LayoutComponent,
