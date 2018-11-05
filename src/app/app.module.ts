@@ -29,6 +29,7 @@ import { InclusionPreviewComponent } from './components/inclusion-preview/inclus
 import { PersonPreviewComponent } from './components/person-preview/person-preview.component';
 import { EditPersonFormComponent } from './forms/edit-person-form/edit-person-form.component';
 import { DraggableDirective } from './directives/draggable.directive';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { DraggableDirective } from './directives/draggable.directive';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    KendraioMaterialModule
+    KendraioMaterialModule,
+    DragDropModule
   ],
   entryComponents: [
     ConfirmAppResetDialogComponent,

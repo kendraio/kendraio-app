@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ReplaceImageUrlDialogComponent } from '../../dialogs/replace-image-url-dialog/replace-image-url-dialog.component';
 import { DatabaseService } from '../../services/database.service';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-edit-photo-form',
@@ -70,4 +71,5 @@ export class EditPhotoFormComponent implements OnInit {
       });
     }
   }
+
 }
