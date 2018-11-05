@@ -28,6 +28,7 @@ import { EditRinProjectFormComponent } from './forms/edit-rin-project-form/edit-
 import { InclusionPreviewComponent } from './components/inclusion-preview/inclusion-preview.component';
 import { PersonPreviewComponent } from './components/person-preview/person-preview.component';
 import { EditPersonFormComponent } from './forms/edit-person-form/edit-person-form.component';
+import { DraggableDirective } from './directives/draggable.directive';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { EditPersonFormComponent } from './forms/edit-person-form/edit-person-fo
     EditRinProjectFormComponent,
     InclusionPreviewComponent,
     PersonPreviewComponent,
-    EditPersonFormComponent
+    EditPersonFormComponent,
+    DraggableDirective
   ],
   imports: [
     BrowserModule,

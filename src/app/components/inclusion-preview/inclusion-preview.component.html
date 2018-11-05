@@ -1,6 +1,9 @@
 <div *ngIf="item$ | async as item" class="inc-row">
   <div *ngIf="image.src as src" class="tag-preview">
     <img [src]="src">
+    <div class="pos">
+      ({{ item.hitX | number:'1.2-2' }},{{ item.hitY | number:'1.2-2' }})
+    </div>
   </div>
 
   <app-person-preview *ngIf="item?.target as target" [id]="target"></app-person-preview>
