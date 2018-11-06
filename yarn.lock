@@ -267,6 +267,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/wavesurfer.js@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@types/wavesurfer.js/-/wavesurfer.js-2.0.1.tgz#32a86201f0530be3ac17dab80934d415308f74b4"
+  integrity sha512-8VJNTJoJO7GyKXfD8X7RjSEhr4qJndXMj2pwVC2okhv4Q1qclJBjZyf795Nt1rFIQMU+Vug6g+s+OTiIjNa4Rw==
+
 "@webassemblyjs/ast@1.7.6":
   version "1.7.6"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.7.6.tgz#3ef8c45b3e5e943a153a05281317474fef63e21e"
@@ -6104,6 +6109,11 @@ watchpack@^1.5.0:
     chokidar "^2.0.2"
     graceful-fs "^4.1.2"
     neo-async "^2.5.0"
+
+wavesurfer.js@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/wavesurfer.js/-/wavesurfer.js-2.1.0.tgz#2e833668374e92971893b37069ac7a3f140452f9"
+  integrity sha512-in5ISMhlwd2TEOuzy7atybmtM32ahTKbkI1i+h/QkDLx02F/TUdtnoVeedLWtUFIT75dGKfoSruBfwmWXl5b4Q==
 
 wbuf@^1.1.0, wbuf@^1.7.2:
   version "1.7.3"
