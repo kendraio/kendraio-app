@@ -6,8 +6,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ObjectKeysPipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
-    console.log(Object.keys(value));
-    return value ? Object.keys(value) : null;
+    // console.log(Object.keys(value));
+    return value ? Object.keys(value) : [];
   }
 
 }
