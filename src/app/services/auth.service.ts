@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as auth0 from 'auth0-js';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +10,7 @@ export class AuthService {
 
   userProfile: any;
 
-  auth0 = new auth0.WebAuth({
-    clientID: 'BpSIsaDagBnDpAZyfJOVoAqG1r041Nj7',
-    domain: 'kendraio.eu.auth0.com',
-    responseType: 'token id_token',
-    redirectUri: 'http://localhost:4200/callback',
-    scope: 'openid profile'
-  });
+  auth0 = new auth0.WebAuth(environment.auth0);
 
   constructor(
     private readonly router: Router
