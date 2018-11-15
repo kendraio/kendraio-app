@@ -1,4 +1,7 @@
 {
+  "static": {
+    "public": "docs"
+  },
   "github": {
     "enabled": true
   }
