@@ -1,6 +1,9 @@
 {
   "static": {
-    "public": "docs"
+    "public": "docs",
+    "rewrites": [
+      { "source": "**", "destination": "/index.html" }
+    ]
   },
   "github": {
     "enabled": true
