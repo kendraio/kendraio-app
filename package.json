@@ -9,7 +9,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "start": "serve dist/kendraio-app/ --single",
-    "build": "ng build --prod"
+    "build": "ng build --prod",
+    "now-build": "ng build --prod"
   },
   "private": true,
   "dependencies": {
