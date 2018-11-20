@@ -6,19 +6,22 @@
 
   <br>
 
-  <div *ngIf="item['image']; else noImage">
-    <div class="tags" *ngIf="item.tags">
-      <div class="tag" *ngFor="let tag of item.tags"></div>
+  <div class="image-wrapper" *ngIf="item['image']; else noImage">
+
+    <div class="image-tag-wrapper">
+      <div class="tags" *ngIf="item.tags">
+        <div class="tag" *ngFor="let tag of item.tags" cdkDrag>{{ tag }}</div>
+      </div>
+
+      <img class="image-preview" [attr.src]="item['image'].src" (tap)="onTap($event)" (click)="addTag($event)">
     </div>
-
-    <img class="image-preview" [attr.src]="item['image'].src" (tap)="onTap($event)" (click)="addTag($event)">
-
 
     <button mat-stroked-button (click)="replaceImage()">
       <mat-icon>cancel</mat-icon>
       Replace image
     </button>
   </div>
+
 
   <ng-template #noImage>
     <button mat-stroked-button (click)="replaceImage()">

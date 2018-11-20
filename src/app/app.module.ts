@@ -29,6 +29,11 @@ import { InclusionPreviewComponent } from './components/inclusion-preview/inclus
 import { PersonPreviewComponent } from './components/person-preview/person-preview.component';
 import { EditPersonFormComponent } from './forms/edit-person-form/edit-person-form.component';
 import { AuthCallbackComponent } from './pages/auth-callback/auth-callback.component';
+import { DraggableDirective } from './directives/draggable.directive';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { EditAudioFormComponent } from './forms/edit-audio-form/edit-audio-form.component';
+import { WaveformComponent } from './components/waveform/waveform.component';
+import { ClipListComponent } from './components/clip-list/clip-list.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +59,11 @@ import { AuthCallbackComponent } from './pages/auth-callback/auth-callback.compo
     InclusionPreviewComponent,
     PersonPreviewComponent,
     EditPersonFormComponent,
-    AuthCallbackComponent
+    AuthCallbackComponent,
+    DraggableDirective,
+    EditAudioFormComponent,
+    WaveformComponent,
+    ClipListComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +72,8 @@ import { AuthCallbackComponent } from './pages/auth-callback/auth-callback.compo
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    KendraioMaterialModule
+    KendraioMaterialModule,
+    DragDropModule
   ],
   entryComponents: [
     ConfirmAppResetDialogComponent,
