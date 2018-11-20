@@ -4,13 +4,9 @@
     "enabled": true
   },
   "builds": [
-    { "src": "docs/*.html", "use": "@now/static" },
-    { "src": "docs/assets/**", "use": "@now/static" },
-    { "src": "docs/*.js", "use": "@now/static" },
-    { "src": "docs/*.ico", "use": "@now/static" },
-    { "src": "docs/*.css", "use": "@now/static" }
+    { "src": "docs/**", "use": "@now/static" }
   ],
   "routes": [
-    { "src": "/(?<path>.*)", "dest": "/docs/$path"}
+    { "src": "/(.*)", "dest": "/docs/$1" }
   ]
 }
