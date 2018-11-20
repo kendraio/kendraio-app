@@ -10,11 +10,17 @@ export class AuthService {
 
   userProfile: any;
 
-  auth0 = new auth0.WebAuth(environment.auth0);
+  auth0;
 
   constructor(
     private readonly router: Router
-  ) { }
+  ) {
+    const authConfig = {
+      ...environment.auth0,
+      redirectUri: `${window.location.origin}/callback`
+    };
+    this.auth0 = new auth0.WebAuth(authConfig);
+  }
 
   public login(): void {
     this.auth0.authorize();
