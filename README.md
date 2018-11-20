@@ -1,5 +1,7 @@
 # Kendraio App
 
+**This is the legacy Ionic version**
+
 **NOTE: further work is being done on the `material-refactor` branch**
 
 To build PWA version for hosting on GitHub pages. The repo is set to host the 
