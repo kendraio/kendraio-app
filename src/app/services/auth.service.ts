@@ -17,7 +17,7 @@ export class AuthService {
   ) {
     const authConfig = {
       ...environment.auth0,
-      redirectUri: `${window.location.origin}/callback`
+      redirectUri: `${window.location.origin}/#/callback`
     };
     this.auth0 = new auth0.WebAuth(authConfig);
   }
