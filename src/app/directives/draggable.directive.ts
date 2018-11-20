@@ -1,6 +1,8 @@
 import { AfterViewInit, Directive, ElementRef, EventEmitter, Input, NgZone, OnDestroy, Output } from "@angular/core";
 import { Subject } from "rxjs";
 import * as interact from 'interactjs';
+import { DatabaseService } from '../services/database.service';
+import { filter } from 'rxjs/operators';
 
 @Directive({
   selector: '[draggable]'
@@ -9,20 +11,34 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
 
+  @Input() tag;
   @Output() updatePosition = new EventEmitter();
+  @Input() imageElement;
 
   constructor(
     private elementRef: ElementRef,
-    private zone: NgZone
+    private zone: NgZone,
+    private readonly database: DatabaseService
   ) {
   }
 
   public ngAfterViewInit(): void {
+    this.database.get(this.tag).pipe(filter(Boolean)).subscribe(({ hitX, hitY }) => {
+      const el = this.elementRef.nativeElement;
+      const x = hitX * this.imageElement.clientWidth;
+      const y = hitY * this.imageElement.clientHeight;
+      el.style.webkitTransform =
+        el.style.transform =
+          'translate(' + x + 'px, ' + y + 'px)';
+      el.setAttribute('data-x', x);
+      el.setAttribute('data-y', y);
+    });
     interact(this.elementRef.nativeElement)
       .draggable({
         restrict: {
-          restriction: "parent",
-          endOnly: true,
+          // restriction: "parent",
+          restriction: this.imageElement,
+          endOnly: false,
           elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
         },
         autoScroll: true,
@@ -42,7 +58,9 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
           target.setAttribute('data-x', x);
           target.setAttribute('data-y', y);
 
-          this.updatePosition.emit({ x, y });
+          this.zone.run(() => {
+            this.updatePosition.emit({ x, y });
+          });
         },
         onend: (event) => {
           // console.log(event);

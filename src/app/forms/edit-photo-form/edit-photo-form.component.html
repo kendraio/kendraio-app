@@ -9,19 +9,18 @@
   <div class="image-wrapper" *ngIf="item['image']; else noImage">
 
     <div class="image-tag-wrapper">
-      <div class="tags" *ngIf="item.tags && imageReady"
-           [style.width.px]="imageWidth"
-           [style.height.px]="imageHeight">
+      <div class="tags" *ngIf="item.tags && imageReady">
         <div class="tag"
              *ngFor="let tag of item.tags"
-             draggable
+             draggable [imageElement]="imageEl"
+             [tag]="tag"
              (updatePosition)="onUpdatePosition($event, tag)"></div>
       </div>
 
       <img class="image-preview" #imageEl
            [attr.src]="item['image'].src"
-           (load)="imageLoaded(imageEl)"
-           (tap)="onTap($event)" (click)="addTag($event)">
+           (tap)="onTap($event)" (click)="addTag($event)"
+           (load)="imageLoaded(imageEl)">
     </div>
 
     <button mat-stroked-button (click)="replaceImage()">

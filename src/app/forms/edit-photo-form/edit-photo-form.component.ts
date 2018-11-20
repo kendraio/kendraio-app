@@ -32,6 +32,7 @@ export class EditPhotoFormComponent implements OnInit {
     // console.log(this.item);
   }
 
+
   imageLoaded(image) {
     // console.log({ image });
     this.imageWidth = (image as any).clientWidth;
