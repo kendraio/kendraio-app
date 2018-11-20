@@ -1,6 +1,5 @@
 # Kendraio App
 
-
 ** This is the work-in-progress refactor to Material **
 
 To build PWA version for hosting on GitHub pages. The repo is set to host the 
