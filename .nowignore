@@ -1,0 +1,14 @@
+.idea
+dist
+e2e
+src
+.editorconfig
+README.md
+angular.json
+package.json
+tsconfig.json
+tslint.json
+yarn.lock
+config.xml
+resources
+.sourcemaps

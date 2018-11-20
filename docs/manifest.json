@@ -1,6 +1,6 @@
 {
-  "name": "Kendraio App",
-  "short_name": "Kendraio",
+  "name": "Ionic",
+  "short_name": "Ionic",
   "start_url": "index.html",
   "display": "standalone",
   "icons": [{
@@ -8,6 +8,6 @@
     "sizes": "512x512",
     "type": "image/png"
   }],
-  "background_color": "#fff",
-  "theme_color": "#166935"
+  "background_color": "#4e8ef7",
+  "theme_color": "#4e8ef7"
 }

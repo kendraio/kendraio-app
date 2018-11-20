@@ -1,5 +1,61 @@
 webpackJsonp([0],{
 
+/***/ 1000:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdapterOptionComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var AdapterOptionComponent = (function () {
+    function AdapterOptionComponent() {
+        this.enable = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+        this.disable = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+    }
+    AdapterOptionComponent.prototype.onEnable = function () {
+        this.enable.emit(this.id);
+    };
+    AdapterOptionComponent.prototype.onDisable = function () {
+        this.disable.emit(this.id);
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+        __metadata("design:type", String)
+    ], AdapterOptionComponent.prototype, "id", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+        __metadata("design:type", Object)
+    ], AdapterOptionComponent.prototype, "adapter", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"])
+    ], AdapterOptionComponent.prototype, "enable", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"])
+    ], AdapterOptionComponent.prototype, "disable", void 0);
+    AdapterOptionComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'app-adapter-component',
+            template: "\n    <!--{{ id | json }}-->\n    <!--{{ adapter | json }}-->\n    <ion-card>\n      <ion-card-header>\n        {{ adapter.config.title }} [{{ id }}]\n      </ion-card-header>\n      <ion-card-content>\n        <p>{{ adapter.config.description }}</p>\n      </ion-card-content>\n      <ion-list>\n        <ion-item>\n          <h3>More information</h3>\n          <p>{{ adapter.config.infoUrl }}</p>\n        </ion-item>\n        <ion-item>\n          <h3>Maintainer</h3>\n          <p>{{ adapter.config.maintainer }}</p>\n        </ion-item>\n        <ion-item>\n          <h3>Support</h3>\n          <p>{{ adapter.config.supportUrl }}</p>\n        </ion-item>\n        <ion-item>\n          <button ion-button (click)=\"onDisable()\" color=\"danger\" *ngIf=\"adapter.enabled\">Disable</button>\n          <button ion-button (click)=\"onEnable()\" *ngIf=\"!adapter.enabled\">Enable</button>\n          <button ion-button outline *ngIf=\"adapter.enabled\">Backup</button>\n          <button ion-button outline *ngIf=\"adapter.enabled\">Restore</button>\n\n        </ion-item>\n      </ion-list>\n    </ion-card>\n  "
+        })
+    ], AdapterOptionComponent);
+    return AdapterOptionComponent;
+}());
+
+//# sourceMappingURL=adapter-option.component.js.map
+
+/***/ }),
+
 /***/ 110:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -118,9 +174,9 @@ var AppActions = Object(__WEBPACK_IMPORTED_MODULE_0_unionize__["unionize"])({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngrx_store__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_state_nodes_selectors__ = __webpack_require__(528);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__node_node__ = __webpack_require__(195);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_state_nodes_actions__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_state_nodes_actions__ = __webpack_require__(84);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_state_adapters_selectors__ = __webpack_require__(116);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_state_adapters_actions__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_state_adapters_actions__ = __webpack_require__(83);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -174,7 +230,7 @@ var HomePage = (function () {
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-home',template:/*ion-inline-start:"/home/darren/kendra/2018-02-26/kendraioApp/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Dashboard</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n\n  <div *ngIf="hasNodes$ | async; else storageEmpty">\n\n    <ion-list>\n      <button ion-item *ngFor="let i of nodes$ | async" (click)="itemTapped($event, i)">\n        <ion-avatar item-start>\n          <div class="type-icon">\n            {{ i.type[0] }}\n          </div>\n        </ion-avatar>\n        <h3>{{ i?.FullName }}{{ i?.Title }}{{ i?.name }}{{ i?.SessionType }}</h3>\n        <p>{{ i.type }} {{ i.id }}</p>\n      </button>\n    </ion-list>\n\n    <!--{{ nodes$ | async | json }}-->\n\n  </div>\n\n  <ng-template #storageEmpty>\n    <ion-card>\n      <ion-card-header>Welcome to the Kendraio App</ion-card-header>\n      <ion-card-content>\n        <p>To get started import some data.</p>\n      </ion-card-content>\n    </ion-card>\n  </ng-template>\n\n\n  <ion-card>\n    <ion-card-header>Add node</ion-card-header>\n    <ion-list>\n      <ion-item color="danger" *ngIf="message">{{ message }}</ion-item>\n      <ion-item>\n        <ion-label>Adapter</ion-label>\n        <ion-select (ionChange)="onAdapterChange($event)">\n          <ion-option value="m-rin">m-rin</ion-option>\n        </ion-select>\n      </ion-item>\n      <ion-item>\n        <ion-label>Node Type</ion-label>\n        <ion-select (ionChange)="onTypeChange($event)">\n          <ion-option *ngFor="let t of selectedAdapterNodeTypes$ | async" [value]="t">{{ t }}</ion-option>\n        </ion-select>\n      </ion-item>\n    </ion-list>\n    <div padding>\n      <button ion-button icon-left block (click)="addNode()">\n        <ion-icon name="add"></ion-icon> add new node\n      </button>\n    </div>\n\n  </ion-card>\n\n</ion-content>\n'/*ion-inline-end:"/home/darren/kendra/2018-02-26/kendraioApp/src/pages/home/home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"/home/darren/kendraio/kendraio-app/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Dashboard</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n\n  <div *ngIf="hasNodes$ | async; else storageEmpty">\n\n    <ion-list>\n      <button ion-item *ngFor="let i of nodes$ | async" (click)="itemTapped($event, i)">\n        <ion-avatar item-start>\n          <div class="type-icon">\n            {{ i.type[0] }}\n          </div>\n        </ion-avatar>\n        <h3>{{ i?.FullName }}{{ i?.Title }}{{ i?.name }}{{ i?.SessionType }}</h3>\n        <p>{{ i.type }} {{ i.id }}</p>\n      </button>\n    </ion-list>\n\n    <!--{{ nodes$ | async | json }}-->\n\n  </div>\n\n  <ng-template #storageEmpty>\n    <ion-card>\n      <ion-card-header>Welcome to the Kendraio App</ion-card-header>\n      <ion-card-content>\n        <p>To get started import some data.</p>\n      </ion-card-content>\n    </ion-card>\n  </ng-template>\n\n\n  <ion-card>\n    <ion-card-header>Add node</ion-card-header>\n    <ion-list>\n      <ion-item color="danger" *ngIf="message">{{ message }}</ion-item>\n      <ion-item>\n        <ion-label>Adapter</ion-label>\n        <ion-select (ionChange)="onAdapterChange($event)">\n          <ion-option value="m-rin">m-rin</ion-option>\n        </ion-select>\n      </ion-item>\n      <ion-item>\n        <ion-label>Node Type</ion-label>\n        <ion-select (ionChange)="onTypeChange($event)">\n          <ion-option *ngFor="let t of selectedAdapterNodeTypes$ | async" [value]="t">{{ t }}</ion-option>\n        </ion-select>\n      </ion-item>\n    </ion-list>\n    <div padding>\n      <button ion-button icon-left block (click)="addNode()">\n        <ion-icon name="add"></ion-icon> add new node\n      </button>\n    </div>\n\n  </ion-card>\n\n</ion-content>\n'/*ion-inline-end:"/home/darren/kendraio/kendraio-app/src/pages/home/home.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["h" /* Store */]])
     ], HomePage);
@@ -241,7 +297,7 @@ var NodePage = (function () {
     };
     NodePage = NodePage_1 = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-node',template:/*ion-inline-start:"/home/darren/kendra/2018-02-26/kendraioApp/src/pages/node/node.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Node</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n\n  <form *ngIf="formGroup" [formGroup]="formGroup">\n    <dynamic-ionic-form class="has-pivot-button" [group]="formGroup" [model]="formModel">\n      <ng-template modelId="target" align="START" let-value="value">\n        <ion-icon class="pivot-button" name="link" (click)="gotoNode(value)"></ion-icon>\n      </ng-template>\n    </dynamic-ionic-form>\n  </form>\n\n  <div padding>\n    <button ion-button color="primary" block>Save</button>\n  </div>\n\n  <ion-card *ngIf="validLinkTypes.length > 0">\n    <ion-card-header>Add link to this {{ selectedItem.type }}</ion-card-header>\n    <ion-list>\n      <ion-item color="danger" *ngIf="message">{{ message }}</ion-item>\n      <ion-item>\n        <ion-label>Link type</ion-label>\n        <ion-select (ionChange)="onSelectLinkType($event)">\n          <ion-option *ngFor="let l of validLinkTypes" [value]="l">{{ l }}</ion-option>\n        </ion-select>\n      </ion-item>\n    </ion-list>\n    <div padding>\n    <button ion-button block icon-left (click)="addLink()">\n      <ion-icon name="add"></ion-icon> add new link\n    </button>\n    </div>\n  </ion-card>\n\n\n\n  <!--{{ selectedItem | json }}-->\n\n</ion-content>\n'/*ion-inline-end:"/home/darren/kendra/2018-02-26/kendraioApp/src/pages/node/node.html"*/
+            selector: 'page-node',template:/*ion-inline-start:"/home/darren/kendraio/kendraio-app/src/pages/node/node.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Node</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n\n  <form *ngIf="formGroup" [formGroup]="formGroup">\n    <dynamic-ionic-form class="has-pivot-button" [group]="formGroup" [model]="formModel">\n      <ng-template modelId="target" align="START" let-value="value">\n        <ion-icon class="pivot-button" name="link" (click)="gotoNode(value)"></ion-icon>\n      </ng-template>\n    </dynamic-ionic-form>\n  </form>\n\n  <div padding>\n    <button ion-button color="primary" block>Save</button>\n  </div>\n\n  <ion-card *ngIf="validLinkTypes.length > 0">\n    <ion-card-header>Add link to this {{ selectedItem.type }}</ion-card-header>\n    <ion-list>\n      <ion-item color="danger" *ngIf="message">{{ message }}</ion-item>\n      <ion-item>\n        <ion-label>Link type</ion-label>\n        <ion-select (ionChange)="onSelectLinkType($event)">\n          <ion-option *ngFor="let l of validLinkTypes" [value]="l">{{ l }}</ion-option>\n        </ion-select>\n      </ion-item>\n    </ion-list>\n    <div padding>\n    <button ion-button block icon-left (click)="addLink()">\n      <ion-icon name="add"></ion-icon> add new link\n    </button>\n    </div>\n  </ion-card>\n\n\n\n  <!--{{ selectedItem | json }}-->\n\n</ion-content>\n'/*ion-inline-end:"/home/darren/kendraio/kendraio-app/src/pages/node/node.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__app_services_kendraio_forms_service__["a" /* KendraioFormsService */]])
     ], NodePage);
@@ -483,7 +539,7 @@ var KendraioFormsService = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ImportPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_state_nodes_actions__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_state_nodes_actions__ = __webpack_require__(84);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngrx_store__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_state_app_actions__ = __webpack_require__(117);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -526,7 +582,7 @@ var ImportPage = (function () {
     ], ImportPage.prototype, "fileInput", void 0);
     ImportPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-import',template:/*ion-inline-start:"/home/darren/kendra/2018-02-26/kendraioApp/src/pages/import/import.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Import</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-list>\n    <ion-item>\n      <ion-label>Adapter</ion-label>\n      <ion-select [(ngModel)]="adapter">\n        <ion-option value="m-rin">m-rin</ion-option>\n      </ion-select>\n    </ion-item>\n  </ion-list>\n\n  <div class="import">\n\n    <input #fileInput\n           type="file"\n           accept=".xml"\n           [hidden]="true"\n           (change)="fileChange($event.target.files)" />\n\n    <div class="import-file">\n      <button class="import-button" (click)="pickFile()">\n        <ion-icon name="cloud-upload"></ion-icon>\n      </button>\n      <button ion-button color="light" (click)="pickFile()">Import file</button>\n    </div>\n\n    <button ion-button color="light" (click)="demoData()">Load demo data</button>\n\n  </div>\n\n</ion-content>\n'/*ion-inline-end:"/home/darren/kendra/2018-02-26/kendraioApp/src/pages/import/import.html"*/
+            selector: 'page-import',template:/*ion-inline-start:"/home/darren/kendraio/kendraio-app/src/pages/import/import.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Import</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-list>\n    <ion-item>\n      <ion-label>Adapter</ion-label>\n      <ion-select [(ngModel)]="adapter">\n        <ion-option value="m-rin">m-rin</ion-option>\n      </ion-select>\n    </ion-item>\n  </ion-list>\n\n  <div class="import">\n\n    <input #fileInput\n           type="file"\n           accept=".xml"\n           [hidden]="true"\n           (change)="fileChange($event.target.files)" />\n\n    <div class="import-file">\n      <button class="import-button" (click)="pickFile()">\n        <ion-icon name="cloud-upload"></ion-icon>\n      </button>\n      <button ion-button color="light" (click)="pickFile()">Import file</button>\n    </div>\n\n    <button ion-button color="light" (click)="demoData()">Load demo data</button>\n\n  </div>\n\n</ion-content>\n'/*ion-inline-end:"/home/darren/kendraio/kendraio-app/src/pages/import/import.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_3__ngrx_store__["h" /* Store */]])
@@ -550,9 +606,9 @@ var ImportPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngrx_store__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_state__ = __webpack_require__(196);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_d3_scale__ = __webpack_require__(390);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_d3_scale_chromatic__ = __webpack_require__(791);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_d3_scale_chromatic__ = __webpack_require__(795);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_d3_drag__ = __webpack_require__(125);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_d3__ = __webpack_require__(834);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_d3__ = __webpack_require__(839);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__node_node__ = __webpack_require__(195);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -684,7 +740,7 @@ var VisualisePage = (function () {
     ], VisualisePage.prototype, "svgEl", void 0);
     VisualisePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-visualise',template:/*ion-inline-start:"/home/darren/kendra/2018-02-26/kendraioApp/src/pages/visualise/visualise.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Visualise</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n\n  <svg #svg style="width: 100%; height: 100%"></svg>\n\n</ion-content>\n'/*ion-inline-end:"/home/darren/kendra/2018-02-26/kendraioApp/src/pages/visualise/visualise.html"*/
+            selector: 'page-visualise',template:/*ion-inline-start:"/home/darren/kendraio/kendraio-app/src/pages/visualise/visualise.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Visualise</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n\n  <svg #svg style="width: 100%; height: 100%"></svg>\n\n</ion-content>\n'/*ion-inline-end:"/home/darren/kendraio/kendraio-app/src/pages/visualise/visualise.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_4__ngrx_store__["h" /* Store */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"]])
     ], VisualisePage);
@@ -704,7 +760,7 @@ var VisualisePage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngrx_store__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_state_adapters_selectors__ = __webpack_require__(116);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_state_adapters_actions__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_state_adapters_actions__ = __webpack_require__(83);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -735,7 +791,7 @@ var AdaptersPage = (function () {
     };
     AdaptersPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-adapters',template:/*ion-inline-start:"/home/darren/kendra/2018-02-26/kendraioApp/src/pages/adapters/adapters.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Adapters</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <app-adapter-component *ngFor="let adapter of adapters$ | async"\n                         [id]="adapter[0]"\n                         (enable)="onEnable($event)"\n                         (disable)="onDisable($event)"\n                         [adapter]="adapter[1]"></app-adapter-component>\n\n</ion-content>\n\n'/*ion-inline-end:"/home/darren/kendra/2018-02-26/kendraioApp/src/pages/adapters/adapters.html"*/
+            selector: 'page-adapters',template:/*ion-inline-start:"/home/darren/kendraio/kendraio-app/src/pages/adapters/adapters.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Adapters</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <app-adapter-component *ngFor="let adapter of adapters$ | async"\n                         [id]="adapter[0]"\n                         (enable)="onEnable($event)"\n                         (disable)="onDisable($event)"\n                         [adapter]="adapter[1]"></app-adapter-component>\n\n</ion-content>\n\n'/*ion-inline-end:"/home/darren/kendraio/kendraio-app/src/pages/adapters/adapters.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["h" /* Store */]])
     ], AdaptersPage);
@@ -752,7 +808,7 @@ var AdaptersPage = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SettingsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_state_nodes_actions__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_state_nodes_actions__ = __webpack_require__(84);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngrx_store__ = __webpack_require__(20);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -775,7 +831,7 @@ var SettingsPage = (function () {
     };
     SettingsPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-settings',template:/*ion-inline-start:"/home/darren/kendra/2018-02-26/kendraioApp/src/pages/settings/settings.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Settings</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <p>Delete all data...</p>\n\n  <button ion-button (click)="resetApp()">Reset App</button>\n\n</ion-content>\n'/*ion-inline-end:"/home/darren/kendra/2018-02-26/kendraioApp/src/pages/settings/settings.html"*/
+            selector: 'page-settings',template:/*ion-inline-start:"/home/darren/kendraio/kendraio-app/src/pages/settings/settings.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Settings</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <p>Delete all data...</p>\n\n  <button ion-button (click)="resetApp()">Reset App</button>\n\n</ion-content>\n'/*ion-inline-end:"/home/darren/kendraio/kendraio-app/src/pages/settings/settings.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__ngrx_store__["h" /* Store */]])
     ], SettingsPage);
@@ -797,7 +853,7 @@ var SettingsPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_state_app_actions__ = __webpack_require__(117);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_observable_forkJoin__ = __webpack_require__(272);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_observable_forkJoin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_observable_forkJoin__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_observable_interval__ = __webpack_require__(990);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_observable_interval__ = __webpack_require__(995);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_observable_interval___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_observable_interval__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_operators__ = __webpack_require__(58);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_operators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_operators__);
@@ -867,7 +923,7 @@ var UploadPage = (function () {
     ], UploadPage.prototype, "fileInput", void 0);
     UploadPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-upload',template:/*ion-inline-start:"/home/darren/kendra/2018-02-26/kendraioApp/src/pages/upload/upload.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Upload</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n\n  <div class="upload">\n\n    <input #fileInput\n           type="file"\n           [hidden]="true"\n           (change)="fileChange($event.target.files)" />\n\n    <div class="upload-file">\n      <button class="upload-button" (click)="pickFile()">\n        <ion-icon name="cloud-upload"></ion-icon>\n      </button>\n      <button ion-button color="light" (click)="pickFile()">Select track</button>\n    </div>\n  </div>\n  <ion-list>\n    <ion-item>\n      <ion-label>Add metadata...</ion-label>\n      <ion-checkbox color="dark" checked="true"></ion-checkbox>\n    </ion-item>\n    <ion-item *ngFor="let service of uploadServices; let i = index">\n      <ion-label>{{ service.name }}</ion-label>\n      <ion-toggle *ngIf="(!uploading) || (!service.enabled); else progressDisplay" (ionChange)="toggleChange(i)" [checked]="uploadServices[i].enabled"></ion-toggle>\n      <ng-template #progressDisplay>\n        <progress [value]="service.progress"></progress>\n      </ng-template>\n    </ion-item>\n  </ion-list>\n\n  <div padding>\n    <button ion-button icon-left block (click)="doUpload()">\n      <ion-icon name="cloud-upload"></ion-icon> Upload\n    </button>\n  </div>\n\n</ion-content>\n'/*ion-inline-end:"/home/darren/kendra/2018-02-26/kendraioApp/src/pages/upload/upload.html"*/
+            selector: 'page-upload',template:/*ion-inline-start:"/home/darren/kendraio/kendraio-app/src/pages/upload/upload.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Upload</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n\n  <div class="upload">\n\n    <input #fileInput\n           type="file"\n           [hidden]="true"\n           (change)="fileChange($event.target.files)" />\n\n    <div class="upload-file">\n      <button class="upload-button" (click)="pickFile()">\n        <ion-icon name="cloud-upload"></ion-icon>\n      </button>\n      <button ion-button color="light" (click)="pickFile()">Select track</button>\n    </div>\n  </div>\n  <ion-list>\n    <ion-item>\n      <ion-label>Add metadata...</ion-label>\n      <ion-checkbox color="dark" checked="true"></ion-checkbox>\n    </ion-item>\n    <ion-item *ngFor="let service of uploadServices; let i = index">\n      <ion-label>{{ service.name }}</ion-label>\n      <ion-toggle *ngIf="(!uploading) || (!service.enabled); else progressDisplay" (ionChange)="toggleChange(i)" [checked]="uploadServices[i].enabled"></ion-toggle>\n      <ng-template #progressDisplay>\n        <progress [value]="service.progress"></progress>\n      </ng-template>\n    </ion-item>\n  </ion-list>\n\n  <div padding>\n    <button ion-button icon-left block (click)="doUpload()">\n      <ion-icon name="cloud-upload"></ion-icon> Upload\n    </button>\n  </div>\n\n</ion-content>\n'/*ion-inline-end:"/home/darren/kendraio/kendraio-app/src/pages/upload/upload.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_2__ngrx_store__["h" /* Store */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */]])
@@ -904,16 +960,16 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(513);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(345);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_splash_screen__ = __webpack_require__(348);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages__ = __webpack_require__(992);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils_app_init__ = __webpack_require__(993);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages__ = __webpack_require__(997);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils_app_init__ = __webpack_require__(998);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ngrx_store__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__state__ = __webpack_require__(196);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components__ = __webpack_require__(994);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components__ = __webpack_require__(999);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__services_kendraio_forms_service__ = __webpack_require__(359);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__angular_forms__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__angular_common_http__ = __webpack_require__(996);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__angular_common_http__ = __webpack_require__(1001);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ng_dynamic_forms_core__ = __webpack_require__(207);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__ng_dynamic_forms_ui_ionic__ = __webpack_require__(998);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__ng_dynamic_forms_ui_ionic__ = __webpack_require__(1003);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1045,7 +1101,7 @@ var MyApp = (function () {
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* Nav */])
     ], MyApp.prototype, "nav", void 0);
     MyApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/home/darren/kendra/2018-02-26/kendraioApp/src/app/app.html"*/'<ion-menu [content]="content">\n  <ion-header>\n    <ion-toolbar>\n      <ion-title>Menu</ion-title>\n    </ion-toolbar>\n  </ion-header>\n\n  <ion-content>\n    <ion-list>\n      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">\n        {{p.title}}\n      </button>\n    </ion-list>\n  </ion-content>\n\n</ion-menu>\n\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>'/*ion-inline-end:"/home/darren/kendra/2018-02-26/kendraioApp/src/app/app.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/home/darren/kendraio/kendraio-app/src/app/app.html"*/'<ion-menu [content]="content">\n  <ion-header>\n    <ion-toolbar>\n      <ion-title>Menu</ion-title>\n    </ion-toolbar>\n  </ion-header>\n\n  <ion-content>\n    <ion-list>\n      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">\n        {{p.title}}\n      </button>\n    </ion-list>\n  </ion-content>\n\n</ion-menu>\n\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>'/*ion-inline-end:"/home/darren/kendraio/kendraio-app/src/app/app.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
     ], MyApp);
@@ -1083,7 +1139,7 @@ var hasNodes = Object(__WEBPACK_IMPORTED_MODULE_0__ngrx_store__["o" /* createSel
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = adaptersReducer;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(83);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_immutable__ = __webpack_require__(194);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_immutable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_immutable__);
 var __assign = (this && this.__assign) || Object.assign || function(t) {
@@ -1135,7 +1191,7 @@ function adaptersReducer(state, action) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_immutable__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_uuid__ = __webpack_require__(532);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_uuid___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_uuid__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions__ = __webpack_require__(84);
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
@@ -1191,8 +1247,8 @@ function nodesReducer(state, action) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngrx_store_devtools__ = __webpack_require__(536);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngrx_effects__ = __webpack_require__(111);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__adapters_effects__ = __webpack_require__(628);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__nodes_effects__ = __webpack_require__(656);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_effects__ = __webpack_require__(659);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__nodes_effects__ = __webpack_require__(657);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_effects__ = __webpack_require__(660);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1254,7 +1310,7 @@ var AppStateModule = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdaptersEffects; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngrx_effects__ = __webpack_require__(111);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions__ = __webpack_require__(83);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_operators__ = __webpack_require__(58);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_operators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_fetch__ = __webpack_require__(205);
@@ -1262,7 +1318,7 @@ var AppStateModule = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_js_yaml___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_js_yaml__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lodash__ = __webpack_require__(378);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_lodash__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils_process_adapter__ = __webpack_require__(655);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils_process_adapter__ = __webpack_require__(656);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1326,7 +1382,7 @@ var AdaptersEffects = (function () {
 
 /***/ }),
 
-/***/ 655:
+/***/ 656:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1359,7 +1415,7 @@ var processAdapterConfig$ = function (basePath, adapter) {
 
 /***/ }),
 
-/***/ 656:
+/***/ 657:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1370,9 +1426,9 @@ var processAdapterConfig$ = function (basePath, adapter) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngrx_store__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions__ = __webpack_require__(83);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_file_reader__ = __webpack_require__(657);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_jmespath__ = __webpack_require__(658);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_file_reader__ = __webpack_require__(658);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_jmespath__ = __webpack_require__(659);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_jmespath___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_jmespath__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__adapters_selectors__ = __webpack_require__(116);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_actions__ = __webpack_require__(117);
@@ -1482,7 +1538,7 @@ var NodesEffects = (function () {
 
 /***/ }),
 
-/***/ 657:
+/***/ 658:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1525,7 +1581,7 @@ function readXml(config) {
 
 /***/ }),
 
-/***/ 659:
+/***/ 660:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1577,7 +1633,7 @@ var AppEffects = (function () {
 
 /***/ }),
 
-/***/ 82:
+/***/ 83:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1597,7 +1653,7 @@ var AdaptersActions = Object(__WEBPACK_IMPORTED_MODULE_0_unionize__["unionize"])
 
 /***/ }),
 
-/***/ 83:
+/***/ 84:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1617,7 +1673,7 @@ var NodesActions = Object(__WEBPACK_IMPORTED_MODULE_0_unionize__["unionize"])({
 
 /***/ }),
 
-/***/ 992:
+/***/ 997:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1649,12 +1705,12 @@ var ALL_PAGES = [
 
 /***/ }),
 
-/***/ 993:
+/***/ 998:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = initApp;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__state_adapters_actions__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__state_adapters_actions__ = __webpack_require__(83);
 
 function initApp(store) {
     return function () {
@@ -1667,73 +1723,17 @@ function initApp(store) {
 
 /***/ }),
 
-/***/ 994:
+/***/ 999:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ALL_COMPONENTS; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__adapter_option_component__ = __webpack_require__(995);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__adapter_option_component__ = __webpack_require__(1000);
 
 var ALL_COMPONENTS = [
     __WEBPACK_IMPORTED_MODULE_0__adapter_option_component__["a" /* AdapterOptionComponent */]
 ];
 //# sourceMappingURL=index.js.map
-
-/***/ }),
-
-/***/ 995:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdapterOptionComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var AdapterOptionComponent = (function () {
-    function AdapterOptionComponent() {
-        this.enable = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
-        this.disable = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
-    }
-    AdapterOptionComponent.prototype.onEnable = function () {
-        this.enable.emit(this.id);
-    };
-    AdapterOptionComponent.prototype.onDisable = function () {
-        this.disable.emit(this.id);
-    };
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
-        __metadata("design:type", String)
-    ], AdapterOptionComponent.prototype, "id", void 0);
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
-        __metadata("design:type", Object)
-    ], AdapterOptionComponent.prototype, "adapter", void 0);
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"])
-    ], AdapterOptionComponent.prototype, "enable", void 0);
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"])
-    ], AdapterOptionComponent.prototype, "disable", void 0);
-    AdapterOptionComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'app-adapter-component',
-            template: "\n    <!--{{ id | json }}-->\n    <!--{{ adapter | json }}-->\n    <ion-card>\n      <ion-card-header>\n        {{ adapter.config.title }} [{{ id }}]\n      </ion-card-header>\n      <ion-card-content>\n        <p>{{ adapter.config.description }}</p>\n      </ion-card-content>\n      <ion-list>\n        <ion-item>\n          <h3>More information</h3>\n          <p>{{ adapter.config.infoUrl }}</p>\n        </ion-item>\n        <ion-item>\n          <h3>Maintainer</h3>\n          <p>{{ adapter.config.maintainer }}</p>\n        </ion-item>\n        <ion-item>\n          <h3>Support</h3>\n          <p>{{ adapter.config.supportUrl }}</p>\n        </ion-item>\n        <ion-item>\n          <button ion-button (click)=\"onDisable()\" color=\"danger\" *ngIf=\"adapter.enabled\">Disable</button>\n          <button ion-button (click)=\"onEnable()\" *ngIf=\"!adapter.enabled\">Enable</button>\n          <button ion-button outline *ngIf=\"adapter.enabled\">Backup</button>\n          <button ion-button outline *ngIf=\"adapter.enabled\">Restore</button>\n\n        </ion-item>\n      </ion-list>\n    </ion-card>\n  "
-        })
-    ], AdapterOptionComponent);
-    return AdapterOptionComponent;
-}());
-
-//# sourceMappingURL=adapter-option.component.js.map
 
 /***/ })
 
