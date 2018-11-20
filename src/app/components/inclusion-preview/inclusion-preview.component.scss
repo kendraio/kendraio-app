@@ -1,0 +1,30 @@
+.inc-row {
+  display: flex;
+  margin-bottom: 1em;
+}
+app-person-preview {
+  flex: 1;
+  margin-left: 1em;
+
+}
+.cancel-button {
+
+}
+.tag-preview {
+  width: 90px;
+  height: 90px;
+  overflow: hidden;
+  position: relative;
+
+  img {
+    display: block;
+  }
+
+  .pos {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 0.7em;
+    font-family: monospace;
+  }
+}

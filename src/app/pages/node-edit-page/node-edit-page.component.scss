@@ -1,0 +1,17 @@
+.back-button {
+  margin-bottom: 1em;
+}
+
+mat-card {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.action-buttons > button {
+  margin-right: 0.5em;
+}
+
+:host {
+  min-height: 600px;
+  display: block;
+}

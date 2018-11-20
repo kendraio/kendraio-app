@@ -1,0 +1,45 @@
+<div *ngIf="item">
+
+  <mat-form-field>
+    <input matInput placeholder="Track title" [(ngModel)]="item.name">
+  </mat-form-field>
+
+  <br>
+
+  <div *ngIf="!isLoading; else fileIsLoading">
+
+    <div class="audio-wrapper" *ngIf="item['file']; else noAudio">
+
+      <app-waveform [item]="item" (clipUpdate)="onClipUpdate($event)"></app-waveform>
+
+      <button mat-stroked-button (click)="filePicker.click()">
+        <mat-icon>cancel</mat-icon>
+        Replace audio
+      </button>
+    </div>
+
+    <br><br>
+
+    <div *ngIf="item['regions']">
+      <app-clip-list [clips]="item['regions']"></app-clip-list>
+    </div>
+
+    <br><br>
+
+
+    <ng-template #noAudio>
+      <button mat-stroked-button (click)="filePicker.click()">
+        <mat-icon>audiotrack</mat-icon>
+        Add audio
+      </button>
+    </ng-template>
+
+  </div>
+  <ng-template #fileIsLoading>
+    <mat-spinner></mat-spinner>
+  </ng-template>
+
+
+  <input (change)="onFileChange($event)"
+         type="file" accept=".mp3,.wav,.aif,.aiff" style="display: none;" #filePicker>
+</div>

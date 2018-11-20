@@ -1,0 +1,43 @@
+<div *ngIf="item">
+
+  <mat-form-field>
+    <input matInput placeholder="Photo title" [(ngModel)]="item.name">
+  </mat-form-field>
+
+  <br>
+
+  <div class="image-wrapper" *ngIf="item['image']; else noImage">
+
+    <div class="image-tag-wrapper">
+      <div class="tags" *ngIf="item.tags">
+        <div class="tag" *ngFor="let tag of item.tags" cdkDrag>{{ tag }}</div>
+      </div>
+
+      <img class="image-preview" [attr.src]="item['image'].src" (tap)="onTap($event)" (click)="addTag($event)">
+    </div>
+
+    <button mat-stroked-button (click)="replaceImage()">
+      <mat-icon>cancel</mat-icon>
+      Replace image
+    </button>
+  </div>
+
+
+  <ng-template #noImage>
+    <button mat-stroked-button (click)="replaceImage()">
+      <mat-icon>add_photo_alternate</mat-icon>
+      Add image
+    </button>
+  </ng-template>
+
+  <br><br>
+
+  <div *ngIf="item['tags'] as tags">
+    <app-inclusion-preview *ngFor="let tagId of tags"
+                           [id]="tagId"
+                           [image]="item['image']"
+                           (deleteTag)="onDeleteTag(tagId)"></app-inclusion-preview>
+  </div>
+
+</div>
+

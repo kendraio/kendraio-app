@@ -1,8 +1,0 @@
-{
-  "name": "kendraioApp",
-  "app_id": "e509c3f9",
-  "type": "ionic-angular",
-  "integrations": {
-    "cordova": {}
-  }
-}

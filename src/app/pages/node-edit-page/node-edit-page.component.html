@@ -1,0 +1,27 @@
+<div class="back-button">
+  <button mat-flat-button routerLink="/">&laquo; Dashboard</button>
+</div>
+
+<div *ngIf="item$ | async  as item">
+
+  <div>
+    <div [ngSwitch]="item.type">
+
+      <app-edit-photo-form *ngSwitchCase="'Photo'" [item]="item"></app-edit-photo-form>
+      <app-edit-person-form *ngSwitchCase="'Person'" [item]="item"></app-edit-person-form>
+      <app-edit-audio-form *ngSwitchCase="'Audio'" [item]="item"></app-edit-audio-form>
+      <app-edit-rin-project-form *ngSwitchCase="'Project'" [item]="item"></app-edit-rin-project-form>
+
+      <div *ngSwitchDefault>
+        <pre>{{ item | json }}</pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="action-buttons">
+    <button mat-stroked-button color="warn" (click)="doDelete(item)">Delete</button>
+    <button mat-stroked-button color="accent" (click)="onCancel()">Cancel</button>
+    <button mat-stroked-button color="primary" (click)="onSave(item)">Save</button>
+  </div>
+</div>
+

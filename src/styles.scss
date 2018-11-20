@@ -1,0 +1,15 @@
+
+body {
+  margin: 0;
+}
+
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$kendraio-app-primary: mat-palette($mat-green);
+$kendraio-app-accent:  mat-palette($mat-orange, A200, A100, A400);
+$kendraio-app-warn:    mat-palette($mat-red);
+$kendraio-app-theme:   mat-light-theme($kendraio-app-primary, $kendraio-app-accent, $kendraio-app-warn);
+
+@include angular-material-theme($kendraio-app-theme);

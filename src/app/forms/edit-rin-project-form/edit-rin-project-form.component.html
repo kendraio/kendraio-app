@@ -1,0 +1,43 @@
+<div *ngIf="item['source'] as source">
+  <div *ngIf="source['RecordingInformationNotification'] as data">
+
+
+    <mat-card *ngIf="data['FileHeader'] as header">
+      <p>Imported from {{ header['FileName'] }}</p>
+      <p>{{ data?.ProjectList?.Project?.Comment }}</p>
+    </mat-card>
+
+    <mat-card *ngIf="data['PartyList'] as partyList">
+      <mat-card-title>PartyList</mat-card-title>
+      <div *ngIf="partyList['Party'] as parties">
+        <div *ngFor="let party of parties">
+          {{ party?.PartyName?.FullName }}
+          <span *ngIf="party?.PartyId?.ISNI as isni">(ISNI: {{ isni }})</span>
+        </div>
+      </div>
+    </mat-card>
+
+    <mat-card *ngIf="data['MusicalWorkList'] as _list">
+      <mat-card-title>MusicalWork</mat-card-title>
+      <div *ngIf="_list['MusicalWork'] as work">
+        {{ work?.Title?.TitleText }}
+        [{{ work?.MusicalWorkReference }}]<br>
+        {{ work?.Comment }}
+      </div>
+    </mat-card>
+
+    <mat-card *ngIf="data['ResourceList'] as _list">
+      <mat-card-title>ResourceList</mat-card-title>
+      <div *ngIf="_list['SoundRecording'] as recordings">
+        <div *ngFor="let item of recordings">
+          {{ item?.Title?.TitleText }}
+          [{{ item?.SoundRecordingMusicalWorkReference }}]<br>
+          {{ item?.Comment }}
+        </div>
+      </div>
+    </mat-card>
+
+  </div>
+</div>
+
+<!--<pre>{{ item | json }}</pre>-->

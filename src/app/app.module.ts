@@ -1,48 +1,86 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { NgModule } from '@angular/core';
 
-import { MyApp } from './app.component';
-
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { ALL_PAGES } from '../pages';
-import { initApp } from './utils/app-init';
-import { Store } from '@ngrx/store';
-import { AppStateModule } from './state';
-import { ALL_COMPONENTS } from './components';
-import { KendraioFormsService } from './services/kendraio-forms.service';
-import { ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LayoutComponent } from './components/layout/layout.component';
+import { KendraioMaterialModule } from './kendraio-material/kendraio-material.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
+import { ImportPageComponent } from './pages/import-page/import-page.component';
+import { UploadPageComponent } from './pages/upload-page/upload-page.component';
+import { VisualisePageComponent } from './pages/visualise-page/visualise-page.component';
+import { AdaptersPageComponent } from './pages/adapters-page/adapters-page.component';
+import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
+import { UserPageComponent } from './pages/user-page/user-page.component';
+import { ConfirmAppResetDialogComponent } from './dialogs/confirm-app-reset-dialog/confirm-app-reset-dialog.component';
 import { HttpClientModule } from '@angular/common/http';
-import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
-import { DynamicFormsIonicUIModule } from '@ng-dynamic-forms/ui-ionic';
+import { ObjectKeysPipe } from './pipes/object-keys.pipe';
+import { ImportProgressDialogComponent } from './dialogs/import-progress-dialog/import-progress-dialog.component';
+import { AddNewNodeDialogComponent } from './dialogs/add-new-node-dialog/add-new-node-dialog.component';
+import { NodeEditPageComponent } from './pages/node-edit-page/node-edit-page.component';
+import { NodeTeaserComponent } from './components/node-teaser/node-teaser.component';
+import { ConfirmDeleteDialogComponent } from './dialogs/confirm-delete-dialog/confirm-delete-dialog.component';
+import { EditPhotoFormComponent } from './forms/edit-photo-form/edit-photo-form.component';
+import { ReplaceImageUrlDialogComponent } from './dialogs/replace-image-url-dialog/replace-image-url-dialog.component';
+import { EditRinProjectFormComponent } from './forms/edit-rin-project-form/edit-rin-project-form.component';
+import { InclusionPreviewComponent } from './components/inclusion-preview/inclusion-preview.component';
+import { PersonPreviewComponent } from './components/person-preview/person-preview.component';
+import { EditPersonFormComponent } from './forms/edit-person-form/edit-person-form.component';
+import { DraggableDirective } from './directives/draggable.directive';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { EditAudioFormComponent } from './forms/edit-audio-form/edit-audio-form.component';
+import { WaveformComponent } from './components/waveform/waveform.component';
+import { ClipListComponent } from './components/clip-list/clip-list.component';
 
 @NgModule({
   declarations: [
-    MyApp,
-    ...ALL_PAGES,
-    ...ALL_COMPONENTS
+    AppComponent,
+    LayoutComponent,
+    DashboardPageComponent,
+    ImportPageComponent,
+    UploadPageComponent,
+    VisualisePageComponent,
+    AdaptersPageComponent,
+    SettingsPageComponent,
+    UserPageComponent,
+    ConfirmAppResetDialogComponent,
+    ObjectKeysPipe,
+    ImportProgressDialogComponent,
+    AddNewNodeDialogComponent,
+    NodeEditPageComponent,
+    NodeTeaserComponent,
+    ConfirmDeleteDialogComponent,
+    EditPhotoFormComponent,
+    ReplaceImageUrlDialogComponent,
+    EditRinProjectFormComponent,
+    InclusionPreviewComponent,
+    PersonPreviewComponent,
+    EditPersonFormComponent,
+    DraggableDirective,
+    EditAudioFormComponent,
+    WaveformComponent,
+    ClipListComponent
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
-    AppStateModule,
-    ReactiveFormsModule,
+    BrowserAnimationsModule,
     HttpClientModule,
-    DynamicFormsCoreModule.forRoot(),
-    DynamicFormsIonicUIModule
+    FormsModule,
+    ReactiveFormsModule,
+    AppRoutingModule,
+    KendraioMaterialModule,
+    DragDropModule
   ],
-  bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    ...ALL_PAGES
+    ConfirmAppResetDialogComponent,
+    ImportProgressDialogComponent,
+    AddNewNodeDialogComponent,
+    ConfirmDeleteDialogComponent,
+    ReplaceImageUrlDialogComponent
   ],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    {provide: APP_INITIALIZER, useFactory: initApp, deps: [Store], multi: true},
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    KendraioFormsService
-  ]
+  providers: [],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

@@ -1,0 +1,30 @@
+<mat-sidenav-container [hasBackdrop]="true" class="app-container" (backdropClick)="sidenav.close()">
+  <mat-sidenav #sidenav mode="over" (keydown.escape)="sidenav.close()">
+    <mat-nav-list>
+      <mat-list-item *ngFor="let link of links" (click)="gotoPage(link.href, sidenav)">
+        <mat-icon mat-list-icon>{{ link.icon }}</mat-icon>
+        <a matLine>{{ link.title }}</a>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+
+    <mat-toolbar>
+      <button mat-icon-button (click)="sidenav.open()">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <span>{{ pageTitle$ | async }}</span>
+      <span class="spacer"></span>
+
+      <button mat-icon-button (click)="gotoPage('/user', sidenav)">
+        <mat-icon>person</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <div class="page-content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
