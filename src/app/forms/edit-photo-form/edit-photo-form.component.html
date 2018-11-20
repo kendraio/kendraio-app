@@ -9,11 +9,19 @@
   <div class="image-wrapper" *ngIf="item['image']; else noImage">
 
     <div class="image-tag-wrapper">
-      <div class="tags" *ngIf="item.tags">
-        <div class="tag" *ngFor="let tag of item.tags" cdkDrag>{{ tag }}</div>
+      <div class="tags" *ngIf="item.tags && imageReady"
+           [style.width.px]="imageWidth"
+           [style.height.px]="imageHeight">
+        <div class="tag"
+             *ngFor="let tag of item.tags"
+             draggable
+             (updatePosition)="onUpdatePosition($event, tag)"></div>
       </div>
 
-      <img class="image-preview" [attr.src]="item['image'].src" (tap)="onTap($event)" (click)="addTag($event)">
+      <img class="image-preview" #imageEl
+           [attr.src]="item['image'].src"
+           (load)="imageLoaded(imageEl)"
+           (tap)="onTap($event)" (click)="addTag($event)">
     </div>
 
     <button mat-stroked-button (click)="replaceImage()">

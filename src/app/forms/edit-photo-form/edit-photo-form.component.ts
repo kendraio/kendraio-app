@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ReplaceImageUrlDialogComponent } from '../../dialogs/replace-image-url-dialog/replace-image-url-dialog.component';
 import { DatabaseService } from '../../services/database.service';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-edit-photo-form',
@@ -10,6 +10,10 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
   styleUrls: ['./edit-photo-form.component.scss']
 })
 export class EditPhotoFormComponent implements OnInit {
+
+  imageWidth = 1;
+  imageHeight = 1;
+  imageReady = false;
 
   @Input() item;
 
@@ -19,6 +23,21 @@ export class EditPhotoFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+  }
+
+  onUpdatePosition({ x, y }, tag) {
+    const posX = x / this.imageWidth;
+    const posY = y / this.imageHeight;
+    // console.log({ posX, posY, tag });
+    // console.log(this.item);
+  }
+
+  imageLoaded(image) {
+    // console.log({ image });
+    this.imageWidth = (image as any).clientWidth;
+    this.imageHeight = (image as any).clientHeight;
+    // console.log(this);
+    this.imageReady = true;
   }
 
   replaceImage() {
