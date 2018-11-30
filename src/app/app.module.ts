@@ -33,6 +33,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { EditAudioFormComponent } from './forms/edit-audio-form/edit-audio-form.component';
 import { WaveformComponent } from './components/waveform/waveform.component';
 import { ClipListComponent } from './components/clip-list/clip-list.component';
+import { NgxTaggerModule } from '../../projects/ngx-tagger/src/lib/ngx-tagger.module';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { ClipListComponent } from './components/clip-list/clip-list.component';
     ReactiveFormsModule,
     AppRoutingModule,
     KendraioMaterialModule,
-    DragDropModule
+    DragDropModule,
+    NgxTaggerModule
   ],
   entryComponents: [
     ConfirmAppResetDialogComponent,
