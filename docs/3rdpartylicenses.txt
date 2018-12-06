@@ -376,9 +376,6 @@ Apache-2.0
  
 
 
-@angular/compiler
-MIT
-
 @angular/core
 MIT
 
@@ -480,6 +477,9 @@ ngx-tagger
 @angular/material/dialog
 
 @angular/material/snack-bar
+
+@angular/service-worker
+MIT
 
 zone.js
 MIT
