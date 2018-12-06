@@ -34,6 +34,8 @@ import { EditAudioFormComponent } from './forms/edit-audio-form/edit-audio-form.
 import { WaveformComponent } from './components/waveform/waveform.component';
 import { ClipListComponent } from './components/clip-list/clip-list.component';
 import { NgxTaggerModule } from '../../projects/ngx-tagger/src/lib/ngx-tagger.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -73,7 +75,8 @@ import { NgxTaggerModule } from '../../projects/ngx-tagger/src/lib/ngx-tagger.mo
     AppRoutingModule,
     KendraioMaterialModule,
     DragDropModule,
-    NgxTaggerModule
+    NgxTaggerModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   entryComponents: [
     ConfirmAppResetDialogComponent,
