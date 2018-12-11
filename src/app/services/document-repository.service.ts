@@ -50,7 +50,9 @@ export class DocumentRepositoryService {
     return from(this.db.get(id, { attachments: true, binary: true }).then(doc => {
       const { attachments } = this.schemaRepo.getSchema(doc["@schema"]);
       return (attachments || []).reduce((a, v) => {
-        a[v] = doc['_attachments'][v]['data'];
+        if (doc['_attachments'] && doc['_attachments'][v]) {
+          a[v] = doc['_attachments'][v]['data'];
+        }
         return a;
       }, {
         ...omit(doc, ['_attachments'])
@@ -65,11 +67,13 @@ export class DocumentRepositoryService {
       "@label": doc[labelField]
     }).then((r) => {
       return Promise.all((attachments || []).map(key => {
-        const docId = doc._id;
-        const attachmentId = key;
-        const attachmentData = doc[key];
-        const type = (attachmentData as Blob).type;
-        return this.db.putAttachment(docId, attachmentId, r.rev, attachmentData, type);
+        if (doc && doc[key]) {
+          const docId = doc._id;
+          const attachmentId = key;
+          const attachmentData = doc[key];
+          const type = (attachmentData as Blob).type;
+          return this.db.putAttachment(docId, attachmentId, r.rev, attachmentData, type);
+        }
       })).then(() => r);
     }));
   }
