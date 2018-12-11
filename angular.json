@@ -9,6 +9,28 @@
       "projectType": "application",
       "prefix": "app",
       "schematics": {
+        "@ngrx/schematics:component": {
+          "styleext": "scss",
+          "spec": false
+        },
+        "@ngrx/schematics:class": {
+          "spec": false
+        },
+        "@ngrx/schematics:directive": {
+          "spec": false
+        },
+        "@ngrx/schematics:guard": {
+          "spec": false
+        },
+        "@ngrx/schematics:module": {
+          "spec": false
+        },
+        "@ngrx/schematics:pipe": {
+          "spec": false
+        },
+        "@ngrx/schematics:service": {
+          "spec": false
+        },
         "@schematics/angular:component": {
           "styleext": "scss",
           "spec": false
@@ -36,7 +58,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "docs",
+            "outputPath": "dist/kendraio-app",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -192,5 +214,8 @@
       }
     }
   },
-  "defaultProject": "kendraio-app"
+  "defaultProject": "kendraio-app",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

@@ -3,8 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  adapterConfig: 'https://kendraio.github.io/kendraio-adapter/config.json',
+  production: false
 };
 
 /*

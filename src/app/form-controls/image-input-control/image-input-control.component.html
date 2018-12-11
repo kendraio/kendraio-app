@@ -1,0 +1,24 @@
+<input type="file" #filePicker (change)="onFileChange($event)">
+<button type="button" mat-stroked-button (click)="filePicker.click()">Replace file</button>
+
+<ngx-tagger *ngIf="src" [formControl]="tagControl">
+  <img class="image-preview" ngxTagBase [src]="src" alt="tag image">
+</ngx-tagger>
+
+<div *ngIf="src">
+  <div *ngFor="let tag of tagControl.value; index as i" class="tag-editor-text">
+    <div class="tag-preview-wrapper">
+      <img class="tag-preview" [ngxTagPreview]="tag" [src]="src" alt="Tag preview">
+    </div>
+
+    <mat-form-field class="text-input">
+      <input matInput [placeholder]="'Name'" [(ngModel)]="tagControl.value[i].data">
+    </mat-form-field>
+
+    <div>
+      <a mat-icon-button (click)="deleteTag(i)">
+        <mat-icon>cancel</mat-icon>
+      </a>
+    </div>
+  </div>
+</div>
