@@ -29,3 +29,10 @@ $kendraio-app-theme: mat-light-theme($kendraio-app-primary, $kendraio-app-accent
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mb-1 {
+  margin-bottom: 1em;
+}
+.mt-1 {
+  margin-top: 1em;
+}

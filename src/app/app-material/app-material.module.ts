@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  MatButtonModule,
+  MatButtonModule, MatCardModule, MatCheckboxModule, MatChipsModule,
   MatDialogModule,
   MatFormFieldModule,
   MatIconModule,
-  MatInputModule, MatListModule,
-  MatSelectModule
+  MatInputModule, MatListModule, MatProgressBarModule, MatProgressSpinnerModule,
+  MatSelectModule, MatSidenavModule, MatSlideToggleModule, MatSnackBarModule, MatToolbarModule
 } from "@angular/material";
 import { ScrollingModule } from "@angular/cdk/scrolling";
 
@@ -18,7 +18,16 @@ const MATERIAL = [
   MatDialogModule,
   MatSelectModule,
   MatListModule,
-  ScrollingModule
+  ScrollingModule,
+  MatSidenavModule,
+  MatCheckboxModule,
+  MatToolbarModule,
+  MatCardModule,
+  MatChipsModule,
+  MatSlideToggleModule,
+  MatProgressBarModule,
+  MatSnackBarModule,
+  MatProgressSpinnerModule
 ];
 
 

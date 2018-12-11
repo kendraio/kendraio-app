@@ -1,6 +1,6 @@
 <form *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit()" autocomplete="off">
 
-  <div *ngFor="let field of _schema.fields" [ngSwitch]="field.type">
+  <div class="mb-1" *ngFor="let field of _schema.fields" [ngSwitch]="field.type">
     <app-text-input-form-control *ngSwitchCase="'TEXT'"
                                  [placeholder]="field.label"
                                  [formControlName]="field.id"></app-text-input-form-control>
@@ -14,7 +14,7 @@
   <button type="submit" [disabled]="formGroup.invalid" mat-stroked-button color="primary">Save</button>
   <button type="button" color="warn" mat-flat-button (click)="resetForm()">Reset</button>
   <button type="button" mat-flat-button (click)="cancelled.emit()">Cancel</button>
-  <pre>{{ formGroup.value | json }}</pre>
+  <!--<pre>{{ formGroup.value | json }}</pre>-->
 </form>
 <div *ngIf="errorMessage" class="message">{{ errorMessage }}</div>
 <!--<pre>{{ _doc | json }}</pre>-->
