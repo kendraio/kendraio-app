@@ -9,8 +9,8 @@
       "urls": [
         "/favicon.ico",
         "/index.html",
-        "/main.1f0955262e0b69db084f.js",
-        "/polyfills.a9e45108fb8ac4dcc00b.js",
+        "/main.59435e058c8fe6255240.js",
+        "/polyfills.e0741e12b34982d9f95c.js",
         "/runtime.ec2944dd8b20ec099bf3.js",
         "/styles.b36424fba29a1126d200.css"
       ],
@@ -52,9 +52,9 @@
     "/assets/schemas/Person.yaml": "7ea1751afe22e350242fbfc76c33a7c7e8661d4b",
     "/assets/schemas/Photo.yaml": "d19d16cd7a8e9cba168679bbe1bd2f54d501fdda",
     "/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "/index.html": "ce027c1bc0b1232ae53b712986edea5d31a40243",
-    "/main.1f0955262e0b69db084f.js": "4cff01866cac15fe54491d46e8bee37e69e3505a",
-    "/polyfills.a9e45108fb8ac4dcc00b.js": "53cf8fc7b612f1d6893f91d9eab185bb4604c001",
+    "/index.html": "e2aeecc03651046692166d12c60bef00e52c865c",
+    "/main.59435e058c8fe6255240.js": "cc6b6f632e2fc3ffdc883d4e783964165e5a0a1e",
+    "/polyfills.e0741e12b34982d9f95c.js": "3781b0b0d9159ff9331a3ebc14f6ba7d0aaa471a",
     "/runtime.ec2944dd8b20ec099bf3.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
     "/styles.b36424fba29a1126d200.css": "1426339d910785f41df91876a5a1244c382bfceb"
   },
