@@ -9,6 +9,28 @@
       "projectType": "application",
       "prefix": "app",
       "schematics": {
+        "@ngrx/schematics:component": {
+          "styleext": "scss",
+          "spec": false
+        },
+        "@ngrx/schematics:class": {
+          "spec": false
+        },
+        "@ngrx/schematics:directive": {
+          "spec": false
+        },
+        "@ngrx/schematics:guard": {
+          "spec": false
+        },
+        "@ngrx/schematics:module": {
+          "spec": false
+        },
+        "@ngrx/schematics:pipe": {
+          "spec": false
+        },
+        "@ngrx/schematics:service": {
+          "spec": false
+        },
         "@schematics/angular:component": {
           "styleext": "scss",
           "spec": false
@@ -43,7 +65,8 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.json"
             ],
             "styles": [
               "src/styles.scss"
@@ -73,7 +96,8 @@
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
                 }
-              ]
+              ],
+              "serviceWorker": true
             }
           }
         },
@@ -107,7 +131,8 @@
             "scripts": [],
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.json"
             ]
           }
         },
@@ -152,7 +177,45 @@
           }
         }
       }
+    },
+    "ngx-tagger": {
+      "root": "projects/ngx-tagger",
+      "sourceRoot": "projects/ngx-tagger/src",
+      "projectType": "library",
+      "prefix": "ngx",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-tagger/tsconfig.lib.json",
+            "project": "projects/ngx-tagger/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-tagger/src/test.ts",
+            "tsConfig": "projects/ngx-tagger/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-tagger/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-tagger/tsconfig.lib.json",
+              "projects/ngx-tagger/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
-  "defaultProject": "kendraio-app"
+  "defaultProject": "kendraio-app",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

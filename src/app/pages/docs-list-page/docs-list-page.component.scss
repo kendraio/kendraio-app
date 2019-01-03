@@ -1,0 +1,17 @@
+.docs-viewport {
+  width: 100%;
+  height: 50vh;
+}
+.doc-item {
+  height: 50px;
+  max-height: 50px;
+  display: flex;
+}
+.doc-label {
+  flex: 1;
+}
+.doc-schema {
+  margin-right: 1em;
+}
+
+
