@@ -9,9 +9,10 @@
       "urls": [
         "/favicon.ico",
         "/index.html",
-        "/main.c199889366d0d3ebd0d5.js",
+        "/main.9f4106c6d6e684a3a808.js",
         "/polyfills.e0741e12b34982d9f95c.js",
         "/runtime.ec2944dd8b20ec099bf3.js",
+        "/scripts.286ee48665d1076626b8.js",
         "/styles.b36424fba29a1126d200.css"
       ],
       "patterns": []
@@ -52,10 +53,11 @@
     "/assets/schemas/Person.yaml": "7ea1751afe22e350242fbfc76c33a7c7e8661d4b",
     "/assets/schemas/Photo.yaml": "d19d16cd7a8e9cba168679bbe1bd2f54d501fdda",
     "/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "/index.html": "f4f38351cd9fd8579792eff83949089e0816199a",
-    "/main.c199889366d0d3ebd0d5.js": "3c3fb0048a6ed74a061aa4ef90ab653129566070",
+    "/index.html": "dc40de2b60d6d3e493c15d0401c994b0711c3dea",
+    "/main.9f4106c6d6e684a3a808.js": "a8469cbc9344c3ec41068ca21c73c75f3c6cf996",
     "/polyfills.e0741e12b34982d9f95c.js": "3781b0b0d9159ff9331a3ebc14f6ba7d0aaa471a",
     "/runtime.ec2944dd8b20ec099bf3.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
+    "/scripts.286ee48665d1076626b8.js": "ba2eaf4085a2f102100e474bcd89861dbd5f40e5",
     "/styles.b36424fba29a1126d200.css": "1426339d910785f41df91876a5a1244c382bfceb"
   },
   "navigationUrls": [
