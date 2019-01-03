@@ -84,7 +84,7 @@ export class TagDirective implements OnChanges, AfterViewInit {
       this._w,
       this._h
     );
-    this.updateTag.emit(tag);
+    this.updateTag.emit({ ...tag, data: this.tag.data });
   }
 
   ngOnChanges(changes: SimpleChanges) {
