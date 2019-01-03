@@ -52,6 +52,11 @@ export class LayoutComponent implements OnInit {
       href: '/schemas',
       title: 'Schemas',
       icon: 'extension'
+    },
+    {
+      href: '/user',
+      title: 'Identities',
+      icon: 'person'
     }
   ];
 
