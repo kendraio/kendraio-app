@@ -1,0 +1,24 @@
+input[type='file'] {
+  display: none;
+}
+.image-preview {
+  max-width: 100%;
+}
+
+.tag-preview {
+  max-width: 200px;
+  background-color: #eeeeee;
+}
+
+.tag-editor-text {
+  display: flex;
+  align-items: center;
+}
+.text-input {
+  flex: 1;
+}
+.tag-preview-wrapper {
+  overflow: hidden;
+  background: #f5f5f5;
+  margin-right: 1em;
+}

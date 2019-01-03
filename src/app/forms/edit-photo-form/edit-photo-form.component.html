@@ -8,13 +8,19 @@
 
   <div class="image-wrapper" *ngIf="item['image']; else noImage">
 
-    <div class="image-tag-wrapper">
-      <div class="tags" *ngIf="item.tags">
-        <div class="tag" *ngFor="let tag of item.tags" cdkDrag>{{ tag }}</div>
-      </div>
+    <form [formGroup]="form">
+      <ngx-tagger formControlName="tags">
+        <img class="image-preview" ngxTagBase [src]="item['image'].src">
+      </ngx-tagger>
+    </form>
 
-      <img class="image-preview" [attr.src]="item['image'].src" (tap)="onTap($event)" (click)="addTag($event)">
-    </div>
+    <!--<div class="image-tag-wrapper">-->
+      <!--<div class="tags" *ngIf="item.tags">-->
+        <!--<div class="tag" *ngFor="let tag of item.tags" cdkDrag>{{ tag }}</div>-->
+      <!--</div>-->
+
+      <!--<img class="image-preview" [attr.src]="item['image'].src" (tap)="onTap($event)" (click)="addTag($event)">-->
+    <!--</div>-->
 
     <button mat-stroked-button (click)="replaceImage()">
       <mat-icon>cancel</mat-icon>
@@ -33,10 +39,14 @@
   <br><br>
 
   <div *ngIf="item['tags'] as tags">
-    <app-inclusion-preview *ngFor="let tagId of tags"
-                           [id]="tagId"
-                           [image]="item['image']"
-                           (deleteTag)="onDeleteTag(tagId)"></app-inclusion-preview>
+
+    <div *ngFor="let tag of form.get('tags').value">
+      <img class="tag-preview" [ngxTagPreview]="tag" [src]="item['image'].src" alt="Tag preview">
+    </div>
+    <!--<app-inclusion-preview *ngFor="let tagId of tags"-->
+                           <!--[id]="tagId"-->
+                           <!--[image]="item['image']"-->
+                           <!--(deleteTag)="onDeleteTag(tagId)"></app-inclusion-preview>-->
   </div>
 
 </div>

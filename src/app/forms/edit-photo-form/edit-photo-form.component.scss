@@ -2,14 +2,23 @@
   max-width: 100%;
 }
 
+.tag-preview {
+  max-width: 100px;
+  background-color: #eeeeee;
+}
+
 .tags {
   position: absolute;
 }
 
 .tag {
-  //position: absolute;
+  user-select: none;
   width: 90px;
   height: 90px;
   border: 3px solid blue;
   //background-color: rgba(0,0,1,0.4);
+}
+.image-wrapper {
+  max-width: 600px;
+  user-select: none;
 }

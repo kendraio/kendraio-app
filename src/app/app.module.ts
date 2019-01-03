@@ -1,11 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule, Type } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+import { AppEffects } from './app.effects';
 import { LayoutComponent } from './components/layout/layout.component';
-import { KendraioMaterialModule } from './kendraio-material/kendraio-material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { ImportPageComponent } from './pages/import-page/import-page.component';
@@ -34,11 +40,29 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { EditAudioFormComponent } from './forms/edit-audio-form/edit-audio-form.component';
 import { WaveformComponent } from './components/waveform/waveform.component';
 import { ClipListComponent } from './components/clip-list/clip-list.component';
+import { DocsListPageComponent } from './pages/docs-list-page/docs-list-page.component';
+import { SchemaListPageComponent } from './pages/schema-list-page/schema-list-page.component';
+import { AddDocDialogComponent } from './dialogs/add-doc-dialog/add-doc-dialog.component';
+import { DocEditPageComponent } from './pages/doc-edit-page/doc-edit-page.component';
+import { DocEditFormComponent } from './forms/doc-edit-form/doc-edit-form.component';
+import { ImageInputControlComponent } from './form-controls/image-input-control/image-input-control.component';
+import { TextInputFormControlComponent } from './form-controls/text-input-form-control/text-input-form-control.component';
+import { AppMaterialModule } from './app-material/app-material.module';
+import { NgxTaggerModule } from 'ngx-tagger';
+import { SchemaRepositoryService } from './services/schema-repository.service';
+import { DocumentRepositoryService } from './services/document-repository.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     LayoutComponent,
+    DocsListPageComponent,
+    SchemaListPageComponent,
+    AddDocDialogComponent,
+    DocEditPageComponent,
+    DocEditFormComponent,
+    ImageInputControlComponent,
+    TextInputFormControlComponent,
     DashboardPageComponent,
     ImportPageComponent,
     UploadPageComponent,
@@ -67,22 +91,40 @@ import { ClipListComponent } from './components/clip-list/clip-list.component';
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
     AppRoutingModule,
-    KendraioMaterialModule,
-    DragDropModule
+    BrowserAnimationsModule,
+    AppMaterialModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    StoreModule.forRoot(reducers, { metaReducers }),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forRoot([AppEffects]),
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgxTaggerModule
   ],
   entryComponents: [
+    AddDocDialogComponent,
     ConfirmAppResetDialogComponent,
     ImportProgressDialogComponent,
     AddNewNodeDialogComponent,
     ConfirmDeleteDialogComponent,
     ReplaceImageUrlDialogComponent
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      useFactory: (schemaRepo: SchemaRepositoryService) => () => schemaRepo.init(),
+      deps: [ SchemaRepositoryService ]
+    },
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      useFactory: (docsRepo: DocumentRepositoryService) => () => docsRepo.init(),
+      deps: [ DocumentRepositoryService ]
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -42,6 +42,16 @@ export class LayoutComponent implements OnInit {
       href: '/settings',
       title: 'Settings',
       icon: 'settings'
+    },
+    {
+      href: '/docs',
+      title: 'Database',
+      icon: 'storage'
+    },
+    {
+      href: '/schemas',
+      title: 'Schemas',
+      icon: 'extension'
     }
   ];
 
