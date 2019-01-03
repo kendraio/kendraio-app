@@ -1,5 +1,21 @@
+<div *ngIf="isAuthenticated; else notLoggedIn">
+  <p>You are logged in as <em>{{ profile?.nickname }}</em></p>
 
-<p>No profiles are saved on this device
-</p>
-<button mat-raised-button [disabled]="true">Login</button>
+  <br>
+  <img *ngIf="profile?.picture" alt="User profile pic" [src]="profile.picture">
 
+  <br><br>
+  <p>Last updated: <em>{{ profile?.updated_at }}</em></p>
+  <p>Name: <em>{{ profile?.name }}</em></p>
+  <p>Connected accounts:
+  {{ profile?.sub }}
+  </p>
+  <!--<pre>{{ profile | json }}</pre>-->
+  <button mat-raised-button (click)="onLogout()">Logout</button>
+</div>
+
+<ng-template #notLoggedIn>
+  <p>No profiles are saved on this device
+  </p>
+  <button mat-raised-button (click)="onLogin()">Login</button>
+</ng-template>
