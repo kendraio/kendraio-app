@@ -7,10 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
-import { AppEffects } from './app.effects';
 import { LayoutComponent } from './components/layout/layout.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
@@ -36,7 +34,6 @@ import { PersonPreviewComponent } from './components/person-preview/person-previ
 import { EditPersonFormComponent } from './forms/edit-person-form/edit-person-form.component';
 import { AuthCallbackComponent } from './pages/auth-callback/auth-callback.component';
 import { DraggableDirective } from './directives/draggable.directive';
-import { DragDropModule } from '@angular/cdk/drag-drop';
 import { EditAudioFormComponent } from './forms/edit-audio-form/edit-audio-form.component';
 import { WaveformComponent } from './components/waveform/waveform.component';
 import { ClipListComponent } from './components/clip-list/clip-list.component';
@@ -95,9 +92,9 @@ import { DocumentRepositoryService } from './services/document-repository.servic
     BrowserAnimationsModule,
     AppMaterialModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    StoreModule.forRoot(reducers, { metaReducers }),
+    StoreModule.forRoot({}),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([AppEffects]),
+    EffectsModule.forRoot([]),
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
