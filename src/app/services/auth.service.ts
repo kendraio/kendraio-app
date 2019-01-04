@@ -19,7 +19,7 @@ export class AuthService {
   ) {
     const authConfig = {
       ...environment.auth0,
-      redirectUri: `${window.location.origin}/#/callback`,
+      redirectUri: `${window.location.origin}/callback`,
       responseType: 'token id_token',
       scope: 'openid email profile read:current_user read:user_idp_tokens update:current_user_identities'
     };
