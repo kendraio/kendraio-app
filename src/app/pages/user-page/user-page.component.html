@@ -11,7 +11,11 @@
   </p>
   <ul *ngIf="!!profile?.identities">
     <li *ngFor="let a of profile.identities">
-      <b>{{ a.provider }}</b> ({{ a.user_id }})
+      <b>{{ a.provider }}</b>
+      <!--({{ a.user_id }})-->
+      <ng-container *ngIf="a.provider === 'dropbox'">
+        - <a routerLink="/dropbox">Files</a>
+      </ng-container>
     </li>
   </ul>
   <!--<pre>{{ profile | json }}</pre>-->

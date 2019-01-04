@@ -6,6 +6,7 @@ export const environment = {
     domain: 'kendraio.eu.auth0.com',
     responseType: 'token id_token',
     redirectUri: 'http://localhost:4200/callback',
+    audience: 'https://kendraio.eu.auth0.com/api/v2/',
     scope: 'openid profile'
   }
 };

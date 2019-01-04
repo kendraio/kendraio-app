@@ -48,6 +48,7 @@ import { AppMaterialModule } from './app-material/app-material.module';
 import { NgxTaggerModule } from 'ngx-tagger';
 import { SchemaRepositoryService } from './services/schema-repository.service';
 import { DocumentRepositoryService } from './services/document-repository.service';
+import { DropboxPageComponent } from './pages/dropbox-page/dropbox-page.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { DocumentRepositoryService } from './services/document-repository.servic
     DraggableDirective,
     EditAudioFormComponent,
     WaveformComponent,
-    ClipListComponent
+    ClipListComponent,
+    DropboxPageComponent
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as auth0 from 'auth0-js';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +14,14 @@ export class AuthService {
   auth0;
 
   constructor(
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly http: HttpClient
   ) {
     const authConfig = {
       ...environment.auth0,
       redirectUri: `${window.location.origin}/#/callback`,
       responseType: 'token id_token',
-      scope: 'openid email profile read:current_user update:current_user_identities'
+      scope: 'openid email profile read:current_user read:user_idp_tokens update:current_user_identities'
     };
     this.auth0 = new auth0.WebAuth(authConfig);
   }
@@ -32,6 +34,7 @@ export class AuthService {
     localStorage.setItem('auth-linking', 'linking');
     this.auth0.authorize();
   }
+
 
   public handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {
@@ -98,6 +101,11 @@ export class AuthService {
   }
 
   public getProfile(cb): void {
+    if (!!this.userProfile && this.userProfile.identities) {
+      cb(null, this.userProfile);
+      return;
+    }
+
     const accessToken = localStorage.getItem('access_token');
     if (!accessToken) {
       throw new Error('Access Token must exist to fetch profile');
@@ -106,19 +114,27 @@ export class AuthService {
 
     this.auth0.client.userInfo(accessToken, (err, profile) => {
       if (profile) {
-        // self.userProfile = profile;
         const { sub } = profile;
-
-        const idToken = localStorage.getItem('id_token');
-        const auth0Manage = new auth0.Management({
-          ...environment.auth0,
-          token: idToken
-        });
-        auth0Manage.getUser(sub, (err2, userProfile) => {
-          self.userProfile = userProfile;
-          cb(err2, userProfile);
+        // const idToken = localStorage.getItem('id_token');
+        const url = 'https://kendraio-auth0-proxy-qq0te0iza.now.sh/';
+        const body = {
+          userId: sub
+        };
+        const headers = {
+          'authorization': `Bearer ${accessToken}`
+        };
+        this.http.post(url, body, { headers }).subscribe(userProfile => {
+          this.userProfile = userProfile;
+          cb(null, userProfile);
         });
       }
     });
+  }
+
+  getIdentity(provider: string) {
+    if (!this.userProfile || !this.userProfile.identities) {
+      return null;
+    }
+    return this.userProfile.identities.find(idp => idp.provider === provider);
   }
 }

@@ -13,6 +13,7 @@ import { SettingsPageComponent } from './pages/settings-page/settings-page.compo
 import { UserPageComponent } from './pages/user-page/user-page.component';
 import { NodeEditPageComponent } from './pages/node-edit-page/node-edit-page.component';
 import { AuthCallbackComponent } from './pages/auth-callback/auth-callback.component';
+import { DropboxPageComponent } from './pages/dropbox-page/dropbox-page.component';
 
 const routes: Routes = [
   {
@@ -66,6 +67,10 @@ const routes: Routes = [
       {
         path: 'schemas',
         component: SchemaListPageComponent
+      },
+      {
+        path: 'dropbox',
+        component: DropboxPageComponent
       },
       { path: '',   redirectTo: '/dashboard', pathMatch: 'full' }
     ]
