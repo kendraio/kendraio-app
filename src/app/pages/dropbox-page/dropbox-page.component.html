@@ -12,11 +12,12 @@
   <!--<pre>{{ files | json }}</pre>-->
   <ul>
     <li *ngFor="let f of files.entries">
-      {{ f.name }}
+      {{ f.name }} <a mat-button (click)="onDownload(f)">Download</a> <a mat-button (click)="onDelete(f)" color="warn">Delete</a>
     </li>
   </ul>
 </div>
 
 <ng-template #noAuth>
-  <a mat-flat-button (click)="onSyncRequest()">Sync</a>
+  <a *ngIf="showSync" mat-flat-button (click)="onSyncRequest()">Sync</a>
+  <span *ngIf="!showSync">Loading...</span>
 </ng-template>
