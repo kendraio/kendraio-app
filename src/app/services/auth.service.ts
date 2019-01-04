@@ -17,7 +17,9 @@ export class AuthService {
   ) {
     const authConfig = {
       ...environment.auth0,
-      redirectUri: `${window.location.origin}/#/callback`
+      redirectUri: `${window.location.origin}/#/callback`,
+      responseType: 'token id_token',
+      scope: 'openid email profile read:current_user update:current_user_identities'
     };
     this.auth0 = new auth0.WebAuth(authConfig);
   }
@@ -26,15 +28,47 @@ export class AuthService {
     this.auth0.authorize();
   }
 
+  public linkAccount() {
+    localStorage.setItem('auth-linking', 'linking');
+    this.auth0.authorize();
+  }
+
   public handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {
+      console.log({ authResult });
       if (authResult && authResult.accessToken && authResult.idToken) {
         window.location.hash = '';
-        this.setSession(authResult);
+
+        const isLinking = localStorage.getItem('auth-linking');
+        if (isLinking) {
+          localStorage.removeItem('auth-linking');
+          this.linkAccountResult(authResult);
+        } else {
+          this.setSession(authResult);
+        }
+
         this.router.navigate(['/user']);
       } else if (err) {
         this.router.navigate(['/user']);
         console.log(err);
+      }
+    });
+  }
+
+  private linkAccountResult(authResult) {
+    const { idToken } = authResult;
+    const firstIdToken = localStorage.getItem('id_token');
+    const accessToken = localStorage.getItem('access_token');
+    const auth0Manage = new auth0.Management({
+      ...environment.auth0,
+      token: firstIdToken
+    });
+    this.auth0.client.userInfo(accessToken, (err, profile) => {
+      if (profile) {
+        const { sub } = profile;
+        // const userId = sub.split('|')[1];
+        // console.log({ profile });
+        auth0Manage.linkUser(sub, idToken, console.log);
       }
     });
   }
@@ -68,13 +102,23 @@ export class AuthService {
     if (!accessToken) {
       throw new Error('Access Token must exist to fetch profile');
     }
-
     const self = this;
+
     this.auth0.client.userInfo(accessToken, (err, profile) => {
       if (profile) {
-        self.userProfile = profile;
+        // self.userProfile = profile;
+        const { sub } = profile;
+
+        const idToken = localStorage.getItem('id_token');
+        const auth0Manage = new auth0.Management({
+          ...environment.auth0,
+          token: idToken
+        });
+        auth0Manage.getUser(sub, (err2, userProfile) => {
+          self.userProfile = userProfile;
+          cb(err2, userProfile);
+        });
       }
-      cb(err, profile);
     });
   }
 }

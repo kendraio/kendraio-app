@@ -8,10 +8,17 @@
   <p>Last updated: <em>{{ profile?.updated_at }}</em></p>
   <p>Name: <em>{{ profile?.name }}</em></p>
   <p>Connected accounts:
-  {{ profile?.sub }}
   </p>
+  <ul *ngIf="!!profile?.identities">
+    <li *ngFor="let a of profile.identities">
+      <b>{{ a.provider }}</b> ({{ a.user_id }})
+    </li>
+  </ul>
   <!--<pre>{{ profile | json }}</pre>-->
   <button mat-raised-button (click)="onLogout()">Logout</button>
+
+  <br><br>
+  <button mat-raised-button (click)="linkAccount()">Link Account</button>
 </div>
 
 <ng-template #notLoggedIn>
