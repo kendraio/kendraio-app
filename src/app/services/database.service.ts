@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { v4 } from 'uuid';
 import { from } from 'rxjs';
 
+// NB: This is the temporary in-memory db for dev/testing
+// TODO: Replace usage of this db service with the PouchDB-based document repo.
+
+
 @Injectable({
   providedIn: 'root'
 })
