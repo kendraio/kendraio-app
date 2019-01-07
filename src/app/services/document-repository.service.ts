@@ -21,6 +21,8 @@ export class DocumentRepositoryService {
   ) {
   }
 
+  // Initialise the database
+  // and create the `by_label` index if it doesn't exist
   init() {
     PouchDB.plugin(Find);
     this.db = new PouchDB('kendraio');
@@ -46,6 +48,7 @@ export class DocumentRepositoryService {
     return this.putDoc({ _id, '@schema': schemaName });
   }
 
+  // When fetching document, also fetch attachments and add to doc as per schema
   getDoc(id) {
     return from(this.db.get(id, { attachments: true, binary: true }).then(doc => {
       const { attachments } = this.schemaRepo.getSchema(doc['@schema']);
@@ -60,6 +63,7 @@ export class DocumentRepositoryService {
     }));
   }
 
+  // When saving a document, remove attachments (as per schema) and store separately
   putDoc(doc) {
     const { labelField, attachments } = this.schemaRepo.getSchema(doc['@schema']);
     return from(this.db.put({
