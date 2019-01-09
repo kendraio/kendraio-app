@@ -46,7 +46,7 @@ export class WaveformComponent implements OnInit, AfterViewInit {
               id: this.item['regions'][key].id,
               start: this.item['regions'][key].start,
               end: this.item['regions'][key].end,
-            }
+            };
           }),
           dragSelection: {
             slop: 5
