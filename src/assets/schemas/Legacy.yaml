@@ -1,0 +1,14 @@
+name: Legacy
+labelField: name
+hidden: true
+fields:
+  - type: TEXT
+    id: name
+    label: Name
+    autoComplete: off
+    defaultValue: ''
+  - type: JSON
+    id: legacy_data
+    label: Legacy Data
+    autoComplete: off
+    defaultValue: ''

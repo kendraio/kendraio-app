@@ -33,7 +33,6 @@ import { InclusionPreviewComponent } from './components/inclusion-preview/inclus
 import { PersonPreviewComponent } from './components/person-preview/person-preview.component';
 import { EditPersonFormComponent } from './forms/edit-person-form/edit-person-form.component';
 import { AuthCallbackComponent } from './pages/auth-callback/auth-callback.component';
-import { DraggableDirective } from './directives/draggable.directive';
 import { EditAudioFormComponent } from './forms/edit-audio-form/edit-audio-form.component';
 import { WaveformComponent } from './components/waveform/waveform.component';
 import { ClipListComponent } from './components/clip-list/clip-list.component';
@@ -49,6 +48,7 @@ import { NgxTaggerModule } from 'ngx-tagger';
 import { SchemaRepositoryService } from './services/schema-repository.service';
 import { DocumentRepositoryService } from './services/document-repository.service';
 import { DropboxPageComponent } from './pages/dropbox-page/dropbox-page.component';
+import { LegacyDataFormControlComponent } from './form-controls/legacy-data-form-control/legacy-data-form-control.component';
 
 @NgModule({
   declarations: [
@@ -82,11 +82,11 @@ import { DropboxPageComponent } from './pages/dropbox-page/dropbox-page.componen
     PersonPreviewComponent,
     EditPersonFormComponent,
     AuthCallbackComponent,
-    DraggableDirective,
     EditAudioFormComponent,
     WaveformComponent,
     ClipListComponent,
-    DropboxPageComponent
+    DropboxPageComponent,
+    LegacyDataFormControlComponent
   ],
   imports: [
     BrowserModule,

@@ -37,7 +37,7 @@ export class NodeEditPageComponent implements OnInit {
   }
 
   onSave(item) {
-    //console.log({ item });
+    // console.log({ item });
     this.database.save(item).subscribe(() => {
       this.router.navigate(['/']);
     });

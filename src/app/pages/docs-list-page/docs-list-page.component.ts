@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DocumentRepositoryService } from "../../services/document-repository.service";
+import { PageTitleService } from '../../services/page-title.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-docs-list-page',
@@ -11,10 +13,13 @@ export class DocsListPageComponent implements OnInit {
   docs$;
 
   constructor(
+    private readonly pageTitle: PageTitleService,
+    private readonly router: Router,
     private readonly docsRepo: DocumentRepositoryService
   ) { }
 
   ngOnInit() {
+    this.pageTitle.setTitle('Dashboard');
     this.docs$ = this.docsRepo.listAll();
   }
 
@@ -23,5 +28,9 @@ export class DocsListPageComponent implements OnInit {
       console.log(`Deleted: ${ok}`);
       this.docs$ = this.docsRepo.listAll();
     });
+  }
+
+  addContent() {
+    this.router.navigate(['/import']);
   }
 }

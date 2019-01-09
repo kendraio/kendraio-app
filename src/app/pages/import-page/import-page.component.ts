@@ -64,7 +64,7 @@ export class ImportPageComponent implements OnInit {
   importSampleData() {
     this.http.get('assets/data/rin-sample-01.xml', { responseType: 'text' }).subscribe(content => {
       this.doImport(content);
-    })
+    });
   }
 
   doImport(content) {
@@ -73,7 +73,7 @@ export class ImportPageComponent implements OnInit {
       data: { content }
     });
     dialogRef.afterClosed().subscribe(() => {
-      this.router.navigate(['/']);
+      this.router.navigate(['/docs']);
     });
   }
 }

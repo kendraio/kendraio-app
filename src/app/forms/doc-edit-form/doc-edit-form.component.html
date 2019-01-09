@@ -8,6 +8,11 @@
                              [placeholder]="field.label"
                              [tagControl]="formGroup.get('tags')"
                              [formControlName]="field.id"></app-image-input-control>
+
+    <app-legacy-data-form-control *ngSwitchCase="'JSON'"
+                                  [doc]="_doc"
+                                  [formControlName]="field.id"></app-legacy-data-form-control>
+
   </div>
 
 

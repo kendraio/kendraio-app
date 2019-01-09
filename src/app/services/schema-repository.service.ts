@@ -16,7 +16,7 @@ export class SchemaRepositoryService {
   ) {}
 
   init() {
-    const enabledSchemas = [ 'Person', 'Photo' ];
+    const enabledSchemas = [ 'Person', 'Photo', 'Legacy' ];
     return forkJoin(enabledSchemas.map(schemaName => this.http
       .get(`/assets/schemas/${schemaName}.yaml`, { responseType: 'text' })
       .pipe(
@@ -27,7 +27,7 @@ export class SchemaRepositoryService {
   }
 
   getSchemaList() {
-    return Object.keys(this.schemas);
+    return Object.keys(this.schemas).filter(key => !this.schemas[key].hidden);
   }
 
   getSchema(name: string) {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageTitleService } from '../../services/page-title.service';
 import { Router } from '@angular/router';
 import { DatabaseService } from '../../services/database.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -20,7 +21,7 @@ export class DashboardPageComponent implements OnInit {
 
   ngOnInit() {
     this.pageTitle.setTitle('Dashboard');
-    this.data = this.database.listKeys();
+    this.database.listKeys().pipe(take(1)).subscribe(keys => this.data = keys as any);
   }
 
   addContent() {
@@ -28,6 +29,7 @@ export class DashboardPageComponent implements OnInit {
   }
 
   onDeleted() {
-    this.data = this.database.listKeys();
+    // this.data = this.database.listKeys();
+    this.database.listKeys().pipe(take(1)).subscribe(keys => this.data = keys as any);
   }
 }

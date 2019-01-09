@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { v4 } from 'uuid';
 import { from } from 'rxjs';
+import { DocumentRepositoryService } from './document-repository.service';
+import { switchMap, tap } from 'rxjs/operators';
 
-// NB: This is the temporary in-memory db for dev/testing
-// TODO: Replace usage of this db service with the PouchDB-based document repo.
+// NB: This was the temporary in-memory db for dev/testing
+// TODO: Finish the in-progress refactoring.
+// Replace usage of this db service with the PouchDB-based document repo.
 
 
 @Injectable({
@@ -11,44 +14,32 @@ import { from } from 'rxjs';
 })
 export class DatabaseService {
 
-  db = {};
+  constructor(
+    private readonly docRepo: DocumentRepositoryService
+  ) {
 
-  constructor() {
-    const data = localStorage.getItem('kendraio-db-snapshot');
-    if (data) {
-      this.db = JSON.parse(data);
-    }
-  }
-
-  resetApp() {
-    this.db = {};
-    this.saveState();
   }
 
   listKeys() {
-    return Object.keys(this.db);
+    return this.docRepo.listAll();
   }
 
   save(item) {
-    if (!item['id']) {
-      item['id'] = v4();
+    if (!item['_id']) {
+      return this.docRepo.addNew('Legacy').pipe(
+        tap(console.log),
+        switchMap(({ id: _id, rev: _rev }: any) => this.docRepo.putDoc({ _id, _rev, '@schema': 'Legacy', ...item }))
+      );
     }
-    this.db[item['id']] = item;
-    this.saveState();
-    return from([item]);
+    return this.docRepo.putDoc(item);
   }
 
   get(id: string) {
-    return from([this.db[id]]);
+    return this.docRepo.getDoc(id);
   }
 
   delete(id: string) {
-    delete this.db[id];
-    this.saveState();
-    return from([true]);
+    return this.docRepo.deleteDoc(id);
   }
 
-  saveState() {
-    localStorage.setItem('kendraio-db-snapshot', JSON.stringify(this.db));
-  }
 }

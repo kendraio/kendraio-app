@@ -1,5 +1,5 @@
 <mat-list *ngIf="docs$ | async as docs">
-  <cdk-virtual-scroll-viewport itemSize="50" class="docs-viewport">
+  <cdk-virtual-scroll-viewport itemSize="50" class="docs-viewport" *ngIf="docs.rows.length > 0; else noContent">
     <div *cdkVirtualFor="let doc of docs.rows" class="doc-item">
       <span class="doc-schema">{{ doc.id.split(':')[0] }}</span>
       <span class="doc-label"><a [routerLink]="['/docs', doc.id]">{{ doc.key }}</a></span>
@@ -14,3 +14,16 @@
     </div>
   </cdk-virtual-scroll-viewport>
 </mat-list>
+
+<ng-template #noContent>
+  <div class="mat-typography">
+    <p>No documents found in database.</p>
+  </div>
+</ng-template>
+
+
+<div class="add-content-button">
+  <button mat-fab (click)="addContent()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
