@@ -29,6 +29,7 @@ export class UploadPageComponent implements OnInit {
   ngOnInit() {
     this.pageTitle.setTitle('Upload');
     this.adapters$ = this.adapters.adapters$;
+    this.uploadEnabled = { ...this.adapters.enabledAdapters };
   }
 
   doUpload() {
