@@ -1,6 +1,5 @@
-name: Legacy
+name: Project
 labelField: name
-hidden: true
 fields:
   - type: TEXT
     id: name
@@ -8,7 +7,7 @@ fields:
     autoComplete: off
     defaultValue: ''
   - type: JSON
-    id: legacy_data
+    id: json_data
     label: Legacy Data
     autoComplete: off
     defaultValue: ''

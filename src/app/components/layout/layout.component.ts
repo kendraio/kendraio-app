@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MatSidenav } from '@angular/material';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
 import { PageTitleService } from '../../services/page-title.service';
 
 @Component({

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { APP_INITIALIZER, NgModule, Type } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,14 +23,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { ObjectKeysPipe } from './pipes/object-keys.pipe';
 import { ImportProgressDialogComponent } from './dialogs/import-progress-dialog/import-progress-dialog.component';
 import { AddNewNodeDialogComponent } from './dialogs/add-new-node-dialog/add-new-node-dialog.component';
-import { NodeEditPageComponent } from './pages/node-edit-page/node-edit-page.component';
-import { NodeTeaserComponent } from './components/node-teaser/node-teaser.component';
 import { ConfirmDeleteDialogComponent } from './dialogs/confirm-delete-dialog/confirm-delete-dialog.component';
 import { EditPhotoFormComponent } from './forms/edit-photo-form/edit-photo-form.component';
 import { ReplaceImageUrlDialogComponent } from './dialogs/replace-image-url-dialog/replace-image-url-dialog.component';
 import { EditRinProjectFormComponent } from './forms/edit-rin-project-form/edit-rin-project-form.component';
-import { InclusionPreviewComponent } from './components/inclusion-preview/inclusion-preview.component';
-import { PersonPreviewComponent } from './components/person-preview/person-preview.component';
 import { EditPersonFormComponent } from './forms/edit-person-form/edit-person-form.component';
 import { AuthCallbackComponent } from './pages/auth-callback/auth-callback.component';
 import { EditAudioFormComponent } from './forms/edit-audio-form/edit-audio-form.component';
@@ -72,14 +68,10 @@ import { LegacyDataFormControlComponent } from './form-controls/legacy-data-form
     ObjectKeysPipe,
     ImportProgressDialogComponent,
     AddNewNodeDialogComponent,
-    NodeEditPageComponent,
-    NodeTeaserComponent,
     ConfirmDeleteDialogComponent,
     EditPhotoFormComponent,
     ReplaceImageUrlDialogComponent,
     EditRinProjectFormComponent,
-    InclusionPreviewComponent,
-    PersonPreviewComponent,
     EditPersonFormComponent,
     AuthCallbackComponent,
     EditAudioFormComponent,

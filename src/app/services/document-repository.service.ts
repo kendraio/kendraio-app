@@ -49,9 +49,9 @@ export class DocumentRepositoryService {
     return from(this.db.query('kendraio_docs/by_label'));
   }
 
-  addNew(schemaName: string): Observable<PouchDB.Core.Response> {
+  addNew(schemaName: string, initialValues = {}): Observable<PouchDB.Core.Response> {
     const _id = `${schemaName}:${UUIDv4()}`;
-    return this.putDoc({ _id, '@schema': schemaName });
+    return this.putDoc({ _id, '@schema': schemaName, ...initialValues });
   }
 
   // When fetching document, also fetch attachments and add to doc as per schema

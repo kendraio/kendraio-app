@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { SchemaRepositoryService } from '../../services/schema-repository.service';
 
 @Component({
   selector: 'app-add-new-node-dialog',
@@ -8,15 +9,21 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 })
 export class AddNewNodeDialogComponent implements OnInit {
 
+  labelField: string;
+
   constructor(
     public dialogRef: MatDialogRef<AddNewNodeDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data
+    @Inject(MAT_DIALOG_DATA) public data,
+    private readonly schemaService: SchemaRepositoryService
   ) {
 
   }
 
   ngOnInit() {
-
+    this.labelField = this.schemaService.getLabelFieldForSchema(this.data['type']);
   }
 
+  closeDialog(labelValue) {
+    this.dialogRef.close({ [this.labelField['id']]: labelValue });
+  }
 }

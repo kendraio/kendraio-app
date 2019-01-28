@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { map, tap } from "rxjs/operators";
-import { safeLoad as YamlLoad } from "js-yaml";
-import { forkJoin } from "rxjs";
+import { HttpClient } from '@angular/common/http';
+import { map, tap } from 'rxjs/operators';
+import { safeLoad as YamlLoad } from 'js-yaml';
+import { forkJoin } from 'rxjs';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class SchemaRepositoryService {
 
@@ -16,7 +16,7 @@ export class SchemaRepositoryService {
   ) {}
 
   init() {
-    const enabledSchemas = [ 'Person', 'Photo', 'Legacy' ];
+    const enabledSchemas = [ 'Person', 'Photo', 'Project', 'Audio' ];
     return forkJoin(enabledSchemas.map(schemaName => this.http
       .get(`/assets/schemas/${schemaName}.yaml`, { responseType: 'text' })
       .pipe(
@@ -32,5 +32,11 @@ export class SchemaRepositoryService {
 
   getSchema(name: string) {
     return this.schemas[name];
+  }
+
+  getLabelFieldForSchema(schemaName: string) {
+    const schema = this.getSchema(schemaName);
+    const { labelField } = this.getSchema(schemaName);
+    return schema.fields.find(({ id }) => id === labelField);
   }
 }
