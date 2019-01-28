@@ -36,7 +36,7 @@ export class TrackClipDirective implements AfterViewInit, OnChanges {
       .draggable({
         axis: 'x',
         restrict: {
-          restriction: "parent",
+          restriction: 'parent',
           elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
         },
         onmove: event => {
