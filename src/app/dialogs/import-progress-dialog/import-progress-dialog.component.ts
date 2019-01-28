@@ -3,7 +3,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { interval } from 'rxjs';
 import { startWith, take } from 'rxjs/operators';
 import * as X2JS from 'x2js';
-import { DatabaseService } from '../../services/database.service';
 import { DocumentRepositoryService } from '../../services/document-repository.service';
 
 @Component({
