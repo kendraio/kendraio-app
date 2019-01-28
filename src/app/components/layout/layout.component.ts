@@ -49,11 +49,6 @@ export class LayoutComponent implements OnInit {
       icon: 'storage'
     },
     {
-      href: '/schemas',
-      title: 'Schemas',
-      icon: 'extension'
-    },
-    {
       href: '/user',
       title: 'Identities',
       icon: 'person'
