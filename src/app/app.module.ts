@@ -27,7 +27,6 @@ import { ConfirmDeleteDialogComponent } from './dialogs/confirm-delete-dialog/co
 import { ReplaceImageUrlDialogComponent } from './dialogs/replace-image-url-dialog/replace-image-url-dialog.component';
 import { AuthCallbackComponent } from './pages/auth-callback/auth-callback.component';
 import { WaveformComponent } from './components/waveform/waveform.component';
-import { ClipListComponent } from './components/clip-list/clip-list.component';
 import { DocsListPageComponent } from './pages/docs-list-page/docs-list-page.component';
 import { AddDocDialogComponent } from './dialogs/add-doc-dialog/add-doc-dialog.component';
 import { DocEditPageComponent } from './pages/doc-edit-page/doc-edit-page.component';
@@ -68,7 +67,6 @@ import { TrackClipDirective } from './directives/track-clip.directive';
     ReplaceImageUrlDialogComponent,
     AuthCallbackComponent,
     WaveformComponent,
-    ClipListComponent,
     DropboxPageComponent,
     LegacyDataFormControlComponent,
     AudioInputControlComponent,
