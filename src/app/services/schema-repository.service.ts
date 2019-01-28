@@ -13,12 +13,13 @@ export class SchemaRepositoryService {
 
   constructor(
     private readonly http: HttpClient
-  ) {}
+  ) {
+  }
 
   init() {
-    const enabledSchemas = [ 'Person', 'Photo', 'Project', 'Audio' ];
+    const enabledSchemas = [ 'Person', 'Photo', 'Project', 'Audio', 'Clip' ];
     return forkJoin(enabledSchemas.map(schemaName => this.http
-      .get(`/assets/schemas/${schemaName}.yaml`, { responseType: 'text' })
+      .get(`/assets/schemas/${ schemaName }.yaml`, {responseType: 'text'})
       .pipe(
         map(text => YamlLoad(text)),
         tap(schema => this.schemas[schemaName] = schema)
@@ -36,7 +37,7 @@ export class SchemaRepositoryService {
 
   getLabelFieldForSchema(schemaName: string) {
     const schema = this.getSchema(schemaName);
-    const { labelField } = this.getSchema(schemaName);
-    return schema.fields.find(({ id }) => id === labelField);
+    const {labelField} = this.getSchema(schemaName);
+    return schema.fields.find(({id}) => id === labelField);
   }
 }

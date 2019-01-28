@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { ImportProgressDialogComponent } from '../../dialogs/import-progress-dialog/import-progress-dialog.component';
 import { AddNewNodeDialogComponent } from '../../dialogs/add-new-node-dialog/add-new-node-dialog.component';
-// import { DatabaseService } from '../../services/database.service';
 import { HttpClient } from '@angular/common/http';
 import { DocumentRepositoryService } from '../../services/document-repository.service';
 
@@ -24,7 +23,6 @@ export class ImportPageComponent implements OnInit {
     private readonly router: Router,
     private readonly pageTitle: PageTitleService,
     private readonly dialog: MatDialog,
-    // private readonly database: DatabaseService,
     private readonly http: HttpClient
   ) { }
 

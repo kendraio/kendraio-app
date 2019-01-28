@@ -24,16 +24,11 @@ import { ObjectKeysPipe } from './pipes/object-keys.pipe';
 import { ImportProgressDialogComponent } from './dialogs/import-progress-dialog/import-progress-dialog.component';
 import { AddNewNodeDialogComponent } from './dialogs/add-new-node-dialog/add-new-node-dialog.component';
 import { ConfirmDeleteDialogComponent } from './dialogs/confirm-delete-dialog/confirm-delete-dialog.component';
-import { EditPhotoFormComponent } from './forms/edit-photo-form/edit-photo-form.component';
 import { ReplaceImageUrlDialogComponent } from './dialogs/replace-image-url-dialog/replace-image-url-dialog.component';
-import { EditRinProjectFormComponent } from './forms/edit-rin-project-form/edit-rin-project-form.component';
-import { EditPersonFormComponent } from './forms/edit-person-form/edit-person-form.component';
 import { AuthCallbackComponent } from './pages/auth-callback/auth-callback.component';
-import { EditAudioFormComponent } from './forms/edit-audio-form/edit-audio-form.component';
 import { WaveformComponent } from './components/waveform/waveform.component';
 import { ClipListComponent } from './components/clip-list/clip-list.component';
 import { DocsListPageComponent } from './pages/docs-list-page/docs-list-page.component';
-import { SchemaListPageComponent } from './pages/schema-list-page/schema-list-page.component';
 import { AddDocDialogComponent } from './dialogs/add-doc-dialog/add-doc-dialog.component';
 import { DocEditPageComponent } from './pages/doc-edit-page/doc-edit-page.component';
 import { DocEditFormComponent } from './forms/doc-edit-form/doc-edit-form.component';
@@ -46,13 +41,13 @@ import { DocumentRepositoryService } from './services/document-repository.servic
 import { DropboxPageComponent } from './pages/dropbox-page/dropbox-page.component';
 import { LegacyDataFormControlComponent } from './form-controls/legacy-data-form-control/legacy-data-form-control.component';
 import { AudioInputControlComponent } from './form-controls/audio-input-control/audio-input-control.component';
+import { TrackClipDirective } from './directives/track-clip.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     LayoutComponent,
     DocsListPageComponent,
-    SchemaListPageComponent,
     AddDocDialogComponent,
     DocEditPageComponent,
     DocEditFormComponent,
@@ -70,17 +65,14 @@ import { AudioInputControlComponent } from './form-controls/audio-input-control/
     ImportProgressDialogComponent,
     AddNewNodeDialogComponent,
     ConfirmDeleteDialogComponent,
-    EditPhotoFormComponent,
     ReplaceImageUrlDialogComponent,
-    EditRinProjectFormComponent,
-    EditPersonFormComponent,
     AuthCallbackComponent,
-    EditAudioFormComponent,
     WaveformComponent,
     ClipListComponent,
     DropboxPageComponent,
     LegacyDataFormControlComponent,
-    AudioInputControlComponent
+    AudioInputControlComponent,
+    TrackClipDirective
   ],
   imports: [
     BrowserModule,

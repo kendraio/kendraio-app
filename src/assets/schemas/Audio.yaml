@@ -9,3 +9,9 @@ fields:
   - type: AUDIO
     id: audio
     label: File
+  - type: CLIPS
+    id: clips
+    label: Clips
+    multiple: true
+    dataType: Clip
+    defaultValue: []
