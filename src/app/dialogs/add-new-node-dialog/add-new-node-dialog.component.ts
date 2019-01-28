@@ -9,7 +9,7 @@ import { SchemaRepositoryService } from '../../services/schema-repository.servic
 })
 export class AddNewNodeDialogComponent implements OnInit {
 
-  labelField: string;
+  labelField;
 
   constructor(
     public dialogRef: MatDialogRef<AddNewNodeDialogComponent>,
