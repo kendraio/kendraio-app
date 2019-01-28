@@ -1,0 +1,8 @@
+<input type="file" #filePicker (change)="onFileChange($event)">
+<button class="mb-1" type="button" mat-stroked-button (click)="filePicker.click()">
+  {{ file ? 'Replace' : 'Add' }} file
+</button>
+
+<div class="audio-wrapper" *ngIf="!!file">
+  <app-waveform [file]="file"></app-waveform>
+</div>

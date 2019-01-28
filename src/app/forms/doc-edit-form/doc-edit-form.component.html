@@ -9,6 +9,12 @@
                              [tagControl]="formGroup.get('tags')"
                              [formControlName]="field.id"></app-image-input-control>
 
+    <app-audio-input-control *ngSwitchCase="'AUDIO'"
+                             [placeholder]="field.label"
+                             [formControlName]="field.id"></app-audio-input-control>
+
+    <!-- The Legacy Form Control is used as a temporary display of JSON data -->
+    <!-- TODO: Convert legacy data to use appropriate schemas -->
     <app-legacy-data-form-control *ngSwitchCase="'JSON'"
                                   [doc]="_doc"
                                   [formControlName]="field.id"></app-legacy-data-form-control>

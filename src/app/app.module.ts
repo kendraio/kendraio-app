@@ -45,6 +45,7 @@ import { SchemaRepositoryService } from './services/schema-repository.service';
 import { DocumentRepositoryService } from './services/document-repository.service';
 import { DropboxPageComponent } from './pages/dropbox-page/dropbox-page.component';
 import { LegacyDataFormControlComponent } from './form-controls/legacy-data-form-control/legacy-data-form-control.component';
+import { AudioInputControlComponent } from './form-controls/audio-input-control/audio-input-control.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { LegacyDataFormControlComponent } from './form-controls/legacy-data-form
     WaveformComponent,
     ClipListComponent,
     DropboxPageComponent,
-    LegacyDataFormControlComponent
+    LegacyDataFormControlComponent,
+    AudioInputControlComponent
   ],
   imports: [
     BrowserModule,

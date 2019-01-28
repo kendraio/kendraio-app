@@ -6,3 +6,6 @@ fields:
     label: Name
     autoComplete: off
     defaultValue: ''
+  - type: AUDIO
+    id: audio
+    label: File

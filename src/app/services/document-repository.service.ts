@@ -71,7 +71,6 @@ export class DocumentRepositoryService {
 
   // When saving a document, remove attachments (as per schema) and store separately
   putDoc(doc) {
-    console.log({ doc });
     const { labelField, attachments } = this.schemaRepo.getSchema(doc['@schema']);
     return from(this.db.put({
       ...omit(doc, attachments),
