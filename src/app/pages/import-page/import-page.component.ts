@@ -4,8 +4,9 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { ImportProgressDialogComponent } from '../../dialogs/import-progress-dialog/import-progress-dialog.component';
 import { AddNewNodeDialogComponent } from '../../dialogs/add-new-node-dialog/add-new-node-dialog.component';
-import { DatabaseService } from '../../services/database.service';
+// import { DatabaseService } from '../../services/database.service';
 import { HttpClient } from '@angular/common/http';
+import { DocumentRepositoryService } from '../../services/document-repository.service';
 
 @Component({
   selector: 'app-import-page',
@@ -19,10 +20,11 @@ export class ImportPageComponent implements OnInit {
   fileImportReady = false;
 
   constructor(
+    private readonly docsRepo: DocumentRepositoryService,
     private readonly router: Router,
     private readonly pageTitle: PageTitleService,
     private readonly dialog: MatDialog,
-    private readonly database: DatabaseService,
+    // private readonly database: DatabaseService,
     private readonly http: HttpClient
   ) { }
 
@@ -45,8 +47,8 @@ export class ImportPageComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((data) => {
       if (data) {
-        this.database.save(data).subscribe(({ id }) => {
-          this.router.navigate(['/node', id]);
+        this.docsRepo.addNew(this.addNodeType, data).subscribe(({ id }) => {
+          this.router.navigate(['/docs', id]);
         });
       }
     });
@@ -64,7 +66,7 @@ export class ImportPageComponent implements OnInit {
   importSampleData() {
     this.http.get('assets/data/rin-sample-01.xml', { responseType: 'text' }).subscribe(content => {
       this.doImport(content);
-    })
+    });
   }
 
   doImport(content) {
@@ -73,7 +75,7 @@ export class ImportPageComponent implements OnInit {
       data: { content }
     });
     dialogRef.afterClosed().subscribe(() => {
-      this.router.navigate(['/']);
+      this.router.navigate(['/docs']);
     });
   }
 }

@@ -2,12 +2,17 @@
 
 <div mat-dialog-content>
   <mat-form-field>
-    <input #itemName autocomplete="off" matInput required placeholder="Name" cdkFocusInitial>
+    <input #itemName
+           autocomplete="off"
+           matInput
+           required
+           [placeholder]="labelField.label"
+           cdkFocusInitial>
   </mat-form-field>
 </div>
 
 <div mat-dialog-actions>
   <button mat-button [mat-dialog-close]="false">Cancel</button>
   <button mat-button [disabled]="itemName.value.length == 0"
-          [mat-dialog-close]="{ name: itemName.value, type: data.type }">Add</button>
+          (click)="closeDialog(itemName.value)">Add</button>
 </div>

@@ -35,7 +35,7 @@ export class ImageInputControlComponent implements OnInit, OnDestroy, ControlVal
   valueChanged = file => {
     blobToDataURL(file).then(dataUrl => this.src = dataUrl);
     this._onValueChanged(file);
-  };
+  }
 
   constructor() {
     this.tags.valueChanges

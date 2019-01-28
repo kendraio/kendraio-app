@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as auth0 from 'auth0-js';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -52,8 +52,8 @@ export class AuthService {
 
         this.router.navigate(['/user']);
       } else if (err) {
-        this.router.navigate(['/user']);
         console.log(err);
+        this.router.navigate(['/user']);
       }
     });
   }
@@ -69,8 +69,6 @@ export class AuthService {
     this.auth0.client.userInfo(accessToken, (err, profile) => {
       if (profile) {
         const { sub } = profile;
-        // const userId = sub.split('|')[1];
-        // console.log({ profile });
         auth0Manage.linkUser(sub, idToken, console.log);
       }
     });

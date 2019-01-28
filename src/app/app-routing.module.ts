@@ -11,7 +11,7 @@ import { VisualisePageComponent } from './pages/visualise-page/visualise-page.co
 import { AdaptersPageComponent } from './pages/adapters-page/adapters-page.component';
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
 import { UserPageComponent } from './pages/user-page/user-page.component';
-import { NodeEditPageComponent } from './pages/node-edit-page/node-edit-page.component';
+// import { NodeEditPageComponent } from './pages/node-edit-page/node-edit-page.component';
 import { AuthCallbackComponent } from './pages/auth-callback/auth-callback.component';
 import { DropboxPageComponent } from './pages/dropbox-page/dropbox-page.component';
 
@@ -52,10 +52,10 @@ const routes: Routes = [
         path: 'user',
         component: UserPageComponent
       },
-      {
-        path: 'node/:id',
-        component: NodeEditPageComponent
-      },
+      // {
+      //   path: 'node/:id',
+      //   component: NodeEditPageComponent
+      // },
       {
         path: 'docs',
         component: DocsListPageComponent

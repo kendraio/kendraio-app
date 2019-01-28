@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { from, Observable } from 'rxjs';
 import PouchDB from 'pouchdb';
 import Find from 'pouchdb-find';
+PouchDB.plugin(Find);
 import { v4 as UUIDv4 } from 'uuid';
 import { SchemaRepositoryService } from './schema-repository.service';
 import { switchMap } from 'rxjs/operators';
@@ -21,10 +22,15 @@ export class DocumentRepositoryService {
   ) {
   }
 
+  resetApp() {
+    this.db.destroy();
+    // Defer execution of this to ensure database deleted before re-init
+    setTimeout(() => this.init(), 0);
+  }
+
   // Initialise the database
   // and create the `by_label` index if it doesn't exist
   init() {
-    PouchDB.plugin(Find);
     this.db = new PouchDB('kendraio');
     return this.db.createIndex({ index: { fields: [ '@label' ]}})
       .then(() => this.db.get('_design/kendraio_docs').catch(() => ({ _rev: null })))
@@ -43,9 +49,9 @@ export class DocumentRepositoryService {
     return from(this.db.query('kendraio_docs/by_label'));
   }
 
-  addNew(schemaName: string): Observable<PouchDB.Core.Response> {
+  addNew(schemaName: string, initialValues = {}): Observable<PouchDB.Core.Response> {
     const _id = `${schemaName}:${UUIDv4()}`;
-    return this.putDoc({ _id, '@schema': schemaName });
+    return this.putDoc({ _id, '@schema': schemaName, ...initialValues });
   }
 
   // When fetching document, also fetch attachments and add to doc as per schema

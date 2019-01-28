@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material';
 import { ConfirmAppResetDialogComponent } from '../../dialogs/confirm-app-reset-dialog/confirm-app-reset-dialog.component';
 import { PageTitleService } from '../../services/page-title.service';
 import { AdaptersService } from '../../services/adapters.service';
-import { DatabaseService } from '../../services/database.service';
+import { DocumentRepositoryService } from '../../services/document-repository.service';
 
 @Component({
   selector: 'app-settings-page',
@@ -18,7 +18,7 @@ export class SettingsPageComponent implements OnInit {
     private readonly dialog: MatDialog,
     private readonly pageTitle: PageTitleService,
     private readonly adapters: AdaptersService,
-    private readonly database: DatabaseService
+    private readonly database: DocumentRepositoryService
   ) { }
 
   ngOnInit() {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { tap } from 'rxjs/operators';
 
@@ -40,7 +40,7 @@ export class AdaptersService {
   enableAll() {
     this.adapterKeys.forEach(key => {
       this.enableAdapter(key);
-    })
+    });
   }
 
   saveState() {
