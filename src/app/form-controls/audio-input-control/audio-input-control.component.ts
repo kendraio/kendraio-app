@@ -51,7 +51,7 @@ export class AudioInputControlComponent implements OnInit, OnDestroy, ControlVal
 
   _onValueChanged = v => {};
 
-  valueChanged = file => {
+  valueChanged(file) {
     this.file = file;
     blobToDataURL(file).then(dataUrl => this.src = dataUrl);
     this._onValueChanged(file);
