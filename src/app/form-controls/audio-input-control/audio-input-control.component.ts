@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material';
 import { EditClipDialogComponent } from '../../dialogs/edit-clip-dialog/edit-clip-dialog.component';
 import { ConfirmDeleteDialogComponent } from '../../dialogs/confirm-delete-dialog/confirm-delete-dialog.component';
 import { WaveformComponent } from '../../components/waveform/waveform.component';
+import { startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-audio-input-control',
@@ -35,11 +36,16 @@ export class AudioInputControlComponent implements OnInit, OnDestroy, ControlVal
   @ViewChild('player') player: WaveformComponent;
   isPlaying = false;
 
+  clipValues;
+
   constructor(
     private readonly dialog: MatDialog
   ) { }
 
   ngOnInit() {
+    this.clipValues = this.clipControl.valueChanges.pipe(
+      startWith(this.clipControl.value)
+    );
   }
 
   playPause() {

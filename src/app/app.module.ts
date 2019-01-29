@@ -42,6 +42,7 @@ import { LegacyDataFormControlComponent } from './form-controls/legacy-data-form
 import { AudioInputControlComponent } from './form-controls/audio-input-control/audio-input-control.component';
 import { TrackClipDirective } from './directives/track-clip.directive';
 import { EditClipDialogComponent } from './dialogs/edit-clip-dialog/edit-clip-dialog.component';
+import { DoughnutChartDirective } from './directives/doughnut-chart.directive';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { EditClipDialogComponent } from './dialogs/edit-clip-dialog/edit-clip-di
     LegacyDataFormControlComponent,
     AudioInputControlComponent,
     TrackClipDirective,
-    EditClipDialogComponent
+    EditClipDialogComponent,
+    DoughnutChartDirective
   ],
   imports: [
     BrowserModule,
