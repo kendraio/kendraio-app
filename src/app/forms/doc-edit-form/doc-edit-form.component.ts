@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup } from "@angular/forms";
-import { SchemaRepositoryService } from "../../services/schema-repository.service";
-import { DocumentRepositoryService } from "../../services/document-repository.service";
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { SchemaRepositoryService } from '../../services/schema-repository.service';
+import { DocumentRepositoryService } from '../../services/document-repository.service';
 
 @Component({
   selector: 'app-doc-edit-form',
@@ -19,10 +19,10 @@ export class DocEditFormComponent {
   @Input() set doc(doc) {
     this._doc = doc;
     if (doc) {
-      this._schema = this.schemaRepo.getSchema(this._doc["@schema"]);
+      this._schema = this.schemaRepo.getSchema(this._doc['@schema']);
       this.initForm();
     }
-  };
+  }
   formGroup: FormGroup;
 
   errorMessage;
@@ -35,7 +35,7 @@ export class DocEditFormComponent {
 
   initForm() {
     const getDefaultValue = key => {
-      const field = this._schema.fields.find(field => field.id === key);
+      const field = this._schema.fields.find(f => f.id === key);
       return field.defaultValue || undefined;
     };
     this.formGroup = this.fb.group(this._schema.fields.reduce((fg, f) => {
@@ -56,7 +56,7 @@ export class DocEditFormComponent {
       .subscribe(({ ok, rev }) => {
         if (ok) {
           this.errorMessage = null;
-          this._doc["_rev"] = rev;
+          this._doc['_rev'] = rev;
         }
         this.formGroup.enable();
         this.docSaved.emit();
