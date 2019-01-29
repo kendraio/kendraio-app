@@ -7,18 +7,43 @@ ul {
    user-select: none;
    margin: 0;
    padding: 0;
- }
+}
+
+.audio-wrapper {
+  margin-bottom: 0.3rem;
+}
 
 li {
   background-color: #efefef;
-  margin-bottom: 0.1em;
+  margin-bottom: 0.3em;
 }
 
-li > span {
+.clip-buttons {
+  background-color: #ccf;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-right: 12px;
+}
+
+.dragging-container {
+  position: relative;
   display: block;
   background-color: #ccf;
+  padding-left: 12px;
   overflow: hidden;
-  height: 1.5em;
-  line-height: 1.5em;
-}
+  height: 2.5em;
+  line-height: 2.5em;
 
+  -ms-touch-action: none;
+  touch-action: none;
+
+  button {
+    width: 20px;
+    height: 20px;
+
+    mat-icon {
+      font-size: 20px;
+    }
+  }
+}

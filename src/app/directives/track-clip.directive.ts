@@ -75,7 +75,6 @@ export class TrackClipDirective implements AfterViewInit, OnChanges {
   }
 
   sendValue(event) {
-    // console.log(Math.max(this._start, 0), 100 - this._end);
     this.clipUpdate.emit({
       start: Math.max(this._start, 0),
       end: 100 - this._end

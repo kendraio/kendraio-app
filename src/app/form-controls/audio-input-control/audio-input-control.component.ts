@@ -2,6 +2,9 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { blobToDataURL } from 'blob-util';
+import { MatDialog } from '@angular/material';
+import { EditClipDialogComponent } from '../../dialogs/edit-clip-dialog/edit-clip-dialog.component';
+import { ConfirmDeleteDialogComponent } from '../../dialogs/confirm-delete-dialog/confirm-delete-dialog.component';
 
 @Component({
   selector: 'app-audio-input-control',
@@ -28,7 +31,9 @@ export class AudioInputControlComponent implements OnInit, OnDestroy, ControlVal
 
   @Input() clipControl: FormControl;
 
-  constructor() { }
+  constructor(
+    private readonly dialog: MatDialog
+  ) { }
 
   ngOnInit() {
   }
@@ -82,5 +87,40 @@ export class AudioInputControlComponent implements OnInit, OnDestroy, ControlVal
     const clips = this.clipControl.value as Array<any>;
     clips[i] = { ...clips[i], start, end };
     this.clipControl.setValue(clips);
+  }
+
+  removeClip(i) {
+    const dialogRef = this.dialog.open(ConfirmDeleteDialogComponent, {
+      data: {
+        item: {
+          type: 'Clip',
+          name: (this.clipControl.value as Array<any>)[i].name
+        }
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const clips = this.clipControl.value as Array<any>;
+        clips.splice(i, 1);
+        this.clipControl.setValue(clips);
+      }
+    });
+  }
+
+  editClip(i) {
+    const clip = (this.clipControl.value as Array<any>)[i];
+    const dialogRef = this.dialog.open(EditClipDialogComponent, {
+      data: {
+        clip
+      },
+      width: '50%'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const clips = this.clipControl.value as Array<any>;
+        clips[i] = result;
+        this.clipControl.setValue(clips);
+      }
+    });
   }
 }

@@ -41,6 +41,7 @@ import { DropboxPageComponent } from './pages/dropbox-page/dropbox-page.componen
 import { LegacyDataFormControlComponent } from './form-controls/legacy-data-form-control/legacy-data-form-control.component';
 import { AudioInputControlComponent } from './form-controls/audio-input-control/audio-input-control.component';
 import { TrackClipDirective } from './directives/track-clip.directive';
+import { EditClipDialogComponent } from './dialogs/edit-clip-dialog/edit-clip-dialog.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { TrackClipDirective } from './directives/track-clip.directive';
     DropboxPageComponent,
     LegacyDataFormControlComponent,
     AudioInputControlComponent,
-    TrackClipDirective
+    TrackClipDirective,
+    EditClipDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -92,7 +94,8 @@ import { TrackClipDirective } from './directives/track-clip.directive';
     ImportProgressDialogComponent,
     AddNewNodeDialogComponent,
     ConfirmDeleteDialogComponent,
-    ReplaceImageUrlDialogComponent
+    ReplaceImageUrlDialogComponent,
+    EditClipDialogComponent
   ],
   providers: [
     {
