@@ -35,6 +35,14 @@ export class WaveformComponent implements OnInit, AfterViewInit {
   ngOnInit() {
   }
 
+  playPause() {
+    this.wavesurfer.playPause();
+  }
+
+  isPlaying() {
+    return this.wavesurfer.isPlaying();
+  }
+
   ngAfterViewInit() {
     this.wavesurfer = WaveSurfer.create({
       container: this.waveform.nativeElement,

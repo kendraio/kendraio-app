@@ -3,8 +3,12 @@
   {{ file ? 'Replace' : 'Add' }} file
 </button>
 
+<button type="button" mat-icon-button (click)="playPause()">
+  <mat-icon>{{ isPlaying ? 'pause' : 'play_arrow' }}</mat-icon>
+</button>
+
 <div class="audio-wrapper" *ngIf="!!file">
-  <app-waveform [file]="file"></app-waveform>
+  <app-waveform #player [file]="file"></app-waveform>
 </div>
 
 <ul>
