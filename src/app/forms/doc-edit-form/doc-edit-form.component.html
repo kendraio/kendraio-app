@@ -1,4 +1,4 @@
-<form *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit()" autocomplete="off">
+<form #ngForm="ngForm" *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit()" autocomplete="off">
 
   <div class="mb-1" *ngFor="let field of _schema.fields" [ngSwitch]="field.type">
     <app-text-input-form-control *ngSwitchCase="'TEXT'"
@@ -11,6 +11,7 @@
 
     <app-audio-input-control *ngSwitchCase="'AUDIO'"
                              [placeholder]="field.label"
+                             [clipControl]="formGroup.get('clips')"
                              [formControlName]="field.id"></app-audio-input-control>
 
     <!-- The Legacy Form Control is used as a temporary display of JSON data -->
@@ -22,7 +23,7 @@
   </div>
 
 
-  <button type="submit" [disabled]="formGroup.invalid" mat-stroked-button color="primary">Save</button>
+  <button type="button" (click)="ngForm.onSubmit($event)" [disabled]="formGroup.invalid" mat-stroked-button color="primary">Save</button>
   <button type="button" color="warn" mat-flat-button (click)="resetForm()">Reset</button>
   <button type="button" mat-flat-button (click)="cancelled.emit()">Cancel</button>
   <!--<pre>{{ formGroup.value | json }}</pre>-->

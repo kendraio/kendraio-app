@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, ElementRef, HostBinding, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, EventEmitter, HostBinding, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import * as interact from 'interactjs';
 
 @Directive({
@@ -13,6 +13,8 @@ export class TrackClipDirective implements AfterViewInit, OnChanges {
 
   @HostBinding('style.margin-right.%')
   _end = 0;
+
+  @Output() clipUpdate = new EventEmitter<{ start: number, end: number }>();
 
   constructor(private el: ElementRef) { }
 
@@ -41,10 +43,13 @@ export class TrackClipDirective implements AfterViewInit, OnChanges {
         },
         onmove: event => {
           const { dx } = event;
-          const node = this.el.nativeElement as HTMLLIElement;
+          const node = this.el.nativeElement as HTMLSpanElement;
           const { clientWidth } = node.parentElement;
           this._start += (dx / clientWidth) * 100;
           this._end -= (dx / clientWidth) * 100;
+        },
+        onend: event => {
+          this.sendValue(event);
         }
       } as any)
       .resizable({
@@ -63,7 +68,17 @@ export class TrackClipDirective implements AfterViewInit, OnChanges {
           this._start += (dx / clientWidth) * 100;
           this.setEnd(this._start + (w / clientWidth) * 100);
         },
+        onend: event => {
+          this.sendValue(event);
+        }
       } as any);
   }
 
+  sendValue(event) {
+    // console.log(Math.max(this._start, 0), 100 - this._end);
+    this.clipUpdate.emit({
+      start: Math.max(this._start, 0),
+      end: 100 - this._end
+    });
+  }
 }

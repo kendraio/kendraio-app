@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { blobToDataURL } from 'blob-util';
 
@@ -20,8 +20,13 @@ export class AudioInputControlComponent implements OnInit, OnDestroy, ControlVal
   @Input() placeholder: string;
   destroy$ = new Subject();
 
+  data = [
+  ];
+
   src;
   file: Blob;
+
+  @Input() clipControl: FormControl;
 
   constructor() { }
 
@@ -64,4 +69,18 @@ export class AudioInputControlComponent implements OnInit, OnDestroy, ControlVal
     }
   }
 
+  add(name) {
+    if (name.trim() !== '') {
+      this.data.push({ name, start: 0, end: 100 });
+      const clips = this.clipControl.value as Array<any>;
+      clips.push({ name, start: 0, end: 100 });
+      this.clipControl.setValue(clips);
+    }
+  }
+
+  onClipUpdate(i, { start, end }) {
+    const clips = this.clipControl.value as Array<any>;
+    clips[i] = { ...clips[i], start, end };
+    this.clipControl.setValue(clips);
+  }
 }

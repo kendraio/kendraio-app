@@ -6,3 +6,14 @@
 <div class="audio-wrapper" *ngIf="!!file">
   <app-waveform [file]="file"></app-waveform>
 </div>
+
+<ul>
+  <li *ngFor="let d of clipControl.value; index as i">
+    <span [appTrackClip]="d" (clipUpdate)="onClipUpdate(i, $event)">{{ d.name }}</span>
+  </li>
+</ul>
+
+<br>
+<input type="text" (keydown.enter)="add(name.value); name.value = ''" #name placeholder="Add clip">
+<button type="button" (click)="add(name.value); name.value = ''">+</button>
+
