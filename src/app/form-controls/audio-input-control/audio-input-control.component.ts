@@ -112,8 +112,7 @@ export class AudioInputControlComponent implements OnInit, OnDestroy, ControlVal
     const dialogRef = this.dialog.open(EditClipDialogComponent, {
       data: {
         clip
-      },
-      width: '50%'
+      }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
