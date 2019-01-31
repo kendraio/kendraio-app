@@ -29,8 +29,8 @@
 
         <div *ngIf="enabled[adapter]; else notEnabled" class="adapter-buttons">
           <button mat-flat-button color="warn" (click)="disableAdapter(adapter)">Disable</button>
-          <button mat-stroked-button>Backup</button>
-          <button mat-stroked-button>Restore</button>
+          <button mat-stroked-button>Register</button>
+          <button mat-stroked-button>Login</button>
           <a mat-stroked-button *ngIf="config?.adapter.swagger" [routerLink]="['/api-client', adapter]">API Client</a>
         </div>
         <ng-template #notEnabled>
