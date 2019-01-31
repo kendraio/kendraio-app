@@ -9,11 +9,11 @@
       "urls": [
         "/favicon.ico",
         "/index.html",
-        "/main.5b163fc14d598a1c18cf.js",
-        "/polyfills.82d40991fdf71543dc2a.js",
+        "/main.d826719fdeb7fd20f20d.js",
+        "/polyfills.2488ca757854c3f3adab.js",
         "/runtime.b57bf819d5bdce77f1c7.js",
         "/scripts.286ee48665d1076626b8.js",
-        "/styles.b36424fba29a1126d200.css"
+        "/styles.df535753af43a3193288.css"
       ],
       "patterns": []
     },
@@ -36,7 +36,8 @@
         "/assets/schemas/Clip.yaml",
         "/assets/schemas/Person.yaml",
         "/assets/schemas/Photo.yaml",
-        "/assets/schemas/Project.yaml"
+        "/assets/schemas/Project.yaml",
+        "/assets/swagger/unsplash.json"
       ],
       "patterns": []
     }
@@ -58,13 +59,14 @@
     "/assets/schemas/Person.yaml": "7ea1751afe22e350242fbfc76c33a7c7e8661d4b",
     "/assets/schemas/Photo.yaml": "d19d16cd7a8e9cba168679bbe1bd2f54d501fdda",
     "/assets/schemas/Project.yaml": "d2df6e01ca8970a72bd819c7aba96383deb5c694",
+    "/assets/swagger/unsplash.json": "69eb1f6aea71b19b29578abc0956378c6efd0467",
     "/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "/index.html": "b2511e67390e40b80ef389f580cd1ceefc40bb94",
-    "/main.5b163fc14d598a1c18cf.js": "a1054c8f78dad676b4da4dd969a251e799393730",
-    "/polyfills.82d40991fdf71543dc2a.js": "3781b0b0d9159ff9331a3ebc14f6ba7d0aaa471a",
+    "/index.html": "b6b63f16107fa14eb2bc166163b65c334443e87c",
+    "/main.d826719fdeb7fd20f20d.js": "892cbbe546f54d2bd90d289aced1e5f3ec4f94e6",
+    "/polyfills.2488ca757854c3f3adab.js": "c6dde36f6353967a1a95e7babad5cadee6b109bd",
     "/runtime.b57bf819d5bdce77f1c7.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
     "/scripts.286ee48665d1076626b8.js": "ba2eaf4085a2f102100e474bcd89861dbd5f40e5",
-    "/styles.b36424fba29a1126d200.css": "1426339d910785f41df91876a5a1244c382bfceb"
+    "/styles.df535753af43a3193288.css": "6e07882337afee3f01da0fb789e501f0d3c1944b"
   },
   "navigationUrls": [
     {
