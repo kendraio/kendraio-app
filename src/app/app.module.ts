@@ -43,6 +43,8 @@ import { AudioInputControlComponent } from './form-controls/audio-input-control/
 import { TrackClipDirective } from './directives/track-clip.directive';
 import { EditClipDialogComponent } from './dialogs/edit-clip-dialog/edit-clip-dialog.component';
 import { DoughnutChartDirective } from './directives/doughnut-chart.directive';
+import { SwaggerPageComponent } from './pages/swagger-page/swagger-page.component';
+import { SwaggerUiDirective } from './directives/swagger-ui.directive';
 
 @NgModule({
   declarations: [
@@ -74,7 +76,9 @@ import { DoughnutChartDirective } from './directives/doughnut-chart.directive';
     AudioInputControlComponent,
     TrackClipDirective,
     EditClipDialogComponent,
-    DoughnutChartDirective
+    DoughnutChartDirective,
+    SwaggerPageComponent,
+    SwaggerUiDirective
   ],
   imports: [
     BrowserModule,

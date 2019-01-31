@@ -31,6 +31,7 @@
           <button mat-flat-button color="warn" (click)="disableAdapter(adapter)">Disable</button>
           <button mat-stroked-button>Backup</button>
           <button mat-stroked-button>Restore</button>
+          <a mat-stroked-button *ngIf="config?.adapter.swagger" [routerLink]="['/api-client', adapter]">API Client</a>
         </div>
         <ng-template #notEnabled>
           <button mat-flat-button color="primary" (click)="enableAdapter(adapter)">Enable</button>

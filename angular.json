@@ -69,6 +69,7 @@
               "src/manifest.json"
             ],
             "styles": [
+              "node_modules/swagger-ui/dist/swagger-ui.css",
               "src/styles.scss"
             ],
             "scripts": [
