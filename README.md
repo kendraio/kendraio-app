@@ -14,3 +14,6 @@ https://www.kendra.io/kendraio-app
 - run dev server: `npm run start:dev`
 
 
+# Notes
+
+- Python is required for PouchDB / level DB dependency
