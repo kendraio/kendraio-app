@@ -3,8 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './components/layout/layout.component';
 import { DocsListPageComponent } from './pages/docs-list-page/docs-list-page.component';
 import { DocEditPageComponent } from './pages/doc-edit-page/doc-edit-page.component';
-import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
-import { ImportPageComponent } from './pages/import-page/import-page.component';
+import { DashboardPageComponent, AssetsPageComponent, ImportPageComponent } from './pages';
 import { UploadPageComponent } from './pages/upload-page/upload-page.component';
 import { VisualisePageComponent } from './pages/visualise-page/visualise-page.component';
 import { AdaptersPageComponent } from './pages/adapters-page/adapters-page.component';
@@ -26,6 +25,10 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardPageComponent
+      },
+      {
+        path: 'assets',
+        component: AssetsPageComponent
       },
       {
         path: 'import',

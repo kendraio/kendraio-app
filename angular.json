@@ -70,7 +70,9 @@
             ],
             "styles": [
               "node_modules/swagger-ui/dist/swagger-ui.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/styles/vendor.scss",
+              "src/styles/main.scss"
             ],
             "scripts": [
               "node_modules/auth0-js/build/auth0.js"

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   MatButtonModule, MatCardModule, MatCheckboxModule, MatChipsModule,
+  MatGridListModule,
   MatDialogModule,
   MatFormFieldModule,
   MatIconModule,
@@ -14,6 +15,7 @@ const MATERIAL = [
   MatButtonModule,
   MatIconModule,
   MatInputModule,
+  MatGridListModule,
   MatFormFieldModule,
   MatDialogModule,
   MatSelectModule,
@@ -29,7 +31,6 @@ const MATERIAL = [
   MatSnackBarModule,
   MatProgressSpinnerModule
 ];
-
 
 @NgModule({
   declarations: [],

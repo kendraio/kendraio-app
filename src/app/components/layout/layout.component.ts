@@ -18,6 +18,11 @@ export class LayoutComponent implements OnInit {
       icon: 'dashboard'
     },
     {
+      href: '/assets',
+      title: 'Assets',
+      icon: 'favorite'
+    },
+    {
       href: '/import',
       title: 'Import',
       icon: 'import_export'
