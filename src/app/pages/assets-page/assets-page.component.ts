@@ -17,7 +17,7 @@ export class AssetsPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.pageTitle.setTitle('My Assets');
+    this.pageTitle.setTitle('Assets');
     this.dummyData = from([{
       datasets: [{
         data: [20, 40, 30, 10]
