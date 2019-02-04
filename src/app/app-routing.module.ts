@@ -28,7 +28,11 @@ const routes: Routes = [
       },
       {
         path: 'assets',
-        component: AssetsPageComponent
+        component: AssetsPageComponent,
+        data: {
+          pageTitle: 'My Assets',
+          subTitle: ''
+        }
       },
       {
         path: 'import',
