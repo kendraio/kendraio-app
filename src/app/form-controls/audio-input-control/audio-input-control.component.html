@@ -29,13 +29,6 @@
 
 <br>
 <mat-form-field>
-  <!-- TODO: this should be a select -->
-  <input matInput type="text" placeholder="Add rights group">
-  <mat-icon matSuffix>add_box</mat-icon>
-</mat-form-field>
-
-<br>
-<mat-form-field>
 <input matInput type="text" (keydown.enter)="add(name.value); name.value = ''" #name placeholder="Add clip">
 <mat-icon matSuffix (click)="add(name.value); name.value = ''">add_box</mat-icon>
 </mat-form-field>
