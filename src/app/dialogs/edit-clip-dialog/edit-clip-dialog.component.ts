@@ -27,6 +27,7 @@ export class EditClipDialogComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       name: [''],
+      right: [''],
       role: [''],
       contributor: [''],
       start: [0],

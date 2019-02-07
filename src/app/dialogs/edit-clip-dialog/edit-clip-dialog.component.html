@@ -8,7 +8,7 @@
 </mat-form-field>
 
   <mat-form-field>
-    <mat-select placeholder="Add rights group">
+    <mat-select placeholder="Add rights group" formControlName="right">
       <mat-option *ngFor="let group of rightsGroups" [value]="group">
         {{group}}
       </mat-option>
