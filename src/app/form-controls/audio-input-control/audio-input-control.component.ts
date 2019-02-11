@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material';
 import { EditClipDialogComponent } from '../../dialogs/edit-clip-dialog/edit-clip-dialog.component';
 import { ConfirmDeleteDialogComponent } from '../../dialogs/confirm-delete-dialog/confirm-delete-dialog.component';
 import { WaveformComponent } from '../../components/waveform/waveform.component';
-import { startWith } from 'rxjs/operators';
+import {map, startWith} from 'rxjs/operators';
 
 @Component({
   selector: 'app-audio-input-control',
@@ -44,8 +44,19 @@ export class AudioInputControlComponent implements OnInit, OnDestroy, ControlVal
 
   ngOnInit() {
     this.clipValues = this.clipControl.valueChanges.pipe(
-      startWith(this.clipControl.value)
+      startWith(this.clipControl.value),
+      map(this.chartData)
     );
+  }
+
+  chartData(clips) {
+    return {
+      datasets: [{
+        data: clips.map(({ start, end }) => end - start),
+        backgroundColor: ['red', 'yellow', 'pink', 'blue', 'green', 'purple']
+      }],
+      labels: clips.map(({ name }) => name)
+    };
   }
 
   playPause() {
