@@ -36,6 +36,7 @@
     "auth0-js": "^9.8.1",
     "blob-util": "^2.0.2",
     "bootstrap": "^4.2.1",
+    "bootstrap-scss": "^4.2.1",
     "buffer": "^5.2.1",
     "chart.js": "^2.7.3",
     "core-js": "^2.5.4",

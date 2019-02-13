@@ -47,6 +47,9 @@ import { SwaggerPageComponent } from './pages/swagger-page/swagger-page.componen
 import { SwaggerUiDirective } from './directives/swagger-ui.directive';
 import { AssetsPageComponent } from './pages/assets-page/assets-page.component';
 
+import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
+import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -94,7 +97,9 @@ import { AssetsPageComponent } from './pages/assets-page/assets-page.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    NgxTaggerModule
+    NgxTaggerModule,
+    DynamicFormsCoreModule,
+    DynamicFormsMaterialUIModule
   ],
   entryComponents: [
     AddDocDialogComponent,

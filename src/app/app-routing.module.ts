@@ -74,7 +74,33 @@ const routes: Routes = [
         path: 'api-client/:id',
         component: SwaggerPageComponent
       },
-      { path: '',   redirectTo: '/dashboard', pathMatch: 'full' }
+      {
+        path: 'files',
+        loadChildren: './files/files.module#FilesModule'
+      },
+      {
+        path: 'recordings',
+        loadChildren: './music-recordings/music-recordings.module#MusicRecordingsModule'
+      },
+      {
+        path: 'releases',
+        loadChildren: './music-releases/music-releases.module#MusicReleasesModule'
+      },
+      {
+        path: 'works',
+        loadChildren: './music-works/music-works.module#MusicWorksModule'
+      },
+      {
+        path: 'claims',
+        loadChildren: './claims/claims.module#ClaimsModule'
+      },
+      {
+        path: 'settings',
+        loadChildren: './settings/settings.module'
+      },
+
+      { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+
     ]
   }
 ];
