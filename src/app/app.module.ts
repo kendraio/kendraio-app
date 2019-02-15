@@ -47,6 +47,8 @@ import { SwaggerPageComponent } from './pages/swagger-page/swagger-page.componen
 import { SwaggerUiDirective } from './directives/swagger-ui.directive';
 import { AssetsPageComponent } from './pages/assets-page/assets-page.component';
 
+// import {MusicRecordingsEditComponent} from './music-recordings/index';
+
 import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
 
@@ -83,7 +85,9 @@ import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
     DoughnutChartDirective,
     SwaggerPageComponent,
     SwaggerUiDirective,
-    AssetsPageComponent
+    AssetsPageComponent,
+
+    // MusicRecordingsEditComponent
   ],
   imports: [
     BrowserModule,

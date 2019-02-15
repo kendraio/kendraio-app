@@ -1,3 +1,28 @@
 <p>
   music-releases-edit works!
 </p>
+
+
+<div class="content-margin" style="width: 50%;">
+
+  <mat-card>
+
+      <form [formGroup]="formGroup">
+
+          <dynamic-material-form [group]="formGroup"
+                                 [layout]="formLayout"
+                                 [model]="formModel"
+                                 (blur)="onBlur($event)"
+                                 (change)="onChange($event)"
+                                 (focus)="onFocus($event)"
+                                 (matEvent)="onMatEvent($event)"></dynamic-material-form>
+
+      </form>
+
+  </mat-card>
+
+  <!--button (click)="test()">Update List</button-->
+
+  <pre>{{formGroup.value | json}}</pre>
+
+</div>

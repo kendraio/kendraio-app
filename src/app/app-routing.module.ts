@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './components/layout/layout.component';
 import { DocsListPageComponent } from './pages/docs-list-page/docs-list-page.component';
 import { DocEditPageComponent } from './pages/doc-edit-page/doc-edit-page.component';
-import { DashboardPageComponent, AssetsPageComponent, ImportPageComponent } from './pages';
+import * as Pages from './pages';
 import { UploadPageComponent } from './pages/upload-page/upload-page.component';
 import { VisualisePageComponent } from './pages/visualise-page/visualise-page.component';
 import { AdaptersPageComponent } from './pages/adapters-page/adapters-page.component';
@@ -24,11 +24,11 @@ const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        component: DashboardPageComponent
+        component: Pages.DashboardPageComponent
       },
       {
         path: 'assets',
-        component: AssetsPageComponent,
+        component: Pages.AssetsPageComponent,
         data: {
           pageTitle: 'My Assets',
           subTitle: ''
@@ -36,7 +36,7 @@ const routes: Routes = [
       },
       {
         path: 'import',
-        component: ImportPageComponent
+        component: Pages.ImportPageComponent
       },
       {
         path: 'upload',

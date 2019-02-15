@@ -1,10 +1,27 @@
 <p>
   music-recordings-edit works!!!
 </p>
-<!-- {{formGroup | json}} -->
 
-<form [formGroup]="formGroup">
+<div class="content-margin" style="width: 50%;">
 
-    <dynamic-material-form [group]="formGroup" [model]="formModel"></dynamic-material-form>
-                            
-</form>
+  <mat-card>
+
+      <form [formGroup]="formGroup">
+
+          <dynamic-material-form [group]="formGroup"
+                                 [layout]="formLayout"
+                                 [model]="formModel"
+                                 (blur)="onBlur($event)"
+                                 (change)="onChange($event)"
+                                 (focus)="onFocus($event)"
+                                 (matEvent)="onMatEvent($event)"></dynamic-material-form>
+
+      </form>
+
+  </mat-card>
+
+  <!--button (click)="test()">Update List</button-->
+
+  <pre>{{formGroup.value | json}}</pre>
+
+</div>

@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { AppMaterialModule } from '../app-material/app-material.module';
 
+import { MatGridListModule, MatCardModule } from '@angular/material';
 
 import { MusicRecordingsRoutingModule } from './music-recordings-routing.module';
 import { IndexComponent } from './index/index.component';
@@ -18,7 +20,8 @@ import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
     MusicRecordingsRoutingModule,
     FormsModule,
         ReactiveFormsModule,
-        DynamicFormsMaterialUIModule
+        DynamicFormsMaterialUIModule,
+        AppMaterialModule
   ]
 })
 export class MusicRecordingsModule { }

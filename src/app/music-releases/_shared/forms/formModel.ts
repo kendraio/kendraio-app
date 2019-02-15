@@ -22,7 +22,7 @@ export const STATES_AUTOCOMPLETE_LIST = [
     'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
 ];
 
-export const MY_FORM_MODEL = [
+export const MUSIC_RELEASES_FORM_MODEL = [
 
     // new DynamicFormGroupModel({
 
