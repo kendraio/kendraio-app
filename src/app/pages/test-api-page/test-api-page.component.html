@@ -1,0 +1,31 @@
+<h4>Temporary page to test API</h4>
+
+<mat-card *ngIf="entityTypes$ | async as entityTypeList">
+  <mat-form-field>
+    <mat-select placeholder="Entity type" (valueChange)="changeEntityType($event)">
+      <mat-option *ngFor="let type of entityTypeList" [value]="type">
+        {{ type }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-card>
+
+<mat-card *ngIf="entityList$ | async as entityList">
+  <mat-form-field>
+    <mat-select placeholder="Entity type" (valueChange)="changeEntity($event)">
+      <mat-option *ngFor="let entity of entityList" [value]="entity.id">
+        {{ entity['id'] }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button type="button" mat-stroked-button (click)="listAll()">Fetch all</button>
+</mat-card>
+
+<mat-card *ngIf="selectedEntity$ | async as entity">
+  <pre>{{ entity | json }}</pre>
+</mat-card>
+
+<mat-card *ngIf="listAll$ | async as allItems">
+  <pre>{{ allItems | json }}</pre>
+</mat-card>

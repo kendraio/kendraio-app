@@ -45,6 +45,7 @@ import { EditClipDialogComponent } from './dialogs/edit-clip-dialog/edit-clip-di
 import { DoughnutChartDirective } from './directives/doughnut-chart.directive';
 import { SwaggerPageComponent } from './pages/swagger-page/swagger-page.component';
 import { SwaggerUiDirective } from './directives/swagger-ui.directive';
+import { TestApiPageComponent } from './pages/test-api-page/test-api-page.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { SwaggerUiDirective } from './directives/swagger-ui.directive';
     EditClipDialogComponent,
     DoughnutChartDirective,
     SwaggerPageComponent,
-    SwaggerUiDirective
+    SwaggerUiDirective,
+    TestApiPageComponent
   ],
   imports: [
     BrowserModule,
