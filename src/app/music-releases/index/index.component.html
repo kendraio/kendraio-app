@@ -1,69 +1,60 @@
-<p>
-  index works!
-</p>
+<mat-progress-bar *ngIf="showSpinner" mode="indeterminate"></mat-progress-bar>
 
+<mat-card *ngIf="allItems">
 
-<div class="table-responsive-lg">
+  <div class="table-responsive-lg">
 
     <table class="table table-striped table-hover table-sm small">
-  
+
       <thead class="thead-dark">
         <tr>
-          <th>Ref</th>
           <th>Title</th>
           <th>Artist</th>
-          <th>ISRC</th>       
-          <th >ISWC</th>
-          <th >Date</th>
-          <th >Country</th>
-          <th >Owner</th>
-          <th >Collective</th>
-
+          <th>Date</th>
+          <th>Owner</th>
+          <th>Territory</th>
+          <th>Type</th>
+          <th>Format</th>
+          <th>Catalogue Number</th>
+          <th>Barcode</th>
+          <th>Number of tracks</th>
+          <th>Distribution</th>
+          <th>Collective</th>
           <th>Submitted to</th>
-          <th >Status</th>
           <th>Actions</th>
         </tr>
       </thead>
-  
+
       <tbody>
-        <tr>
-          <td>ISDN-2345/4321</td>
-          <td>Name of the uploaded</td>
-          <td>uploaded file title</td>
-          <td>Audio - MP3</td>     
-          <td>Mrs Mills</td>
-          <td>24 Feb 1961</td>
-          <td>Stan</td>
-          <td>1967</td>
-          <td>Sony, Billy dont be one, Stan Getz, Mission to Mars...</td>
-          <td>Sony, Billy dont be one, Stan Getz, Mission to Mars...</td>
-          <td>Complete</td>
+
+        <tr *ngFor="let item of allItems">
+
+            <td>{{item.Title}}</td>
+            <td>{{item.Artist}}</td>
+            <td>{{item.Date}}</td>
+            <td>{{item.Owner}}</td>
+            <td>{{item.Territory}}</td>
+            <td>{{item.Type}}</td>
+            <td>{{item.Format}}</td>
+            <td>{{item['Catalogue Number']}}</td>
+            <td>{{item.Barcode}}</td>
+            <td>{{item['Number of tracks']}}</td>
+            <td>{{item.Distribution}}</td>
+            <td>{{item.Collective}}</td>
+            <td>{{item['Submitted to']}}</td>
+
+         
           <td>
-          <button  [routerLink]="['edit', 124]">Edit</button>   
-          <a mat-stroked-button  [routerLink]="['detail', 124]">view</a>
+            <button [routerLink]="['edit', 555]">Edit</button>
+            <a mat-stroked-button [routerLink]="['detail', 555]">view</a>
           </td>
         </tr>
-  
-        <tr>
-            <td>ISDN-2345/4321</td>
-            <td>Name of the uploaded</td>
-            <td>uploaded file title</td>
-            <td>Audio - MP3</td>     
-            <td>Mrs Mills</td>
-            <td>24 Feb 1961</td>
-            <td>Stan</td>
-            <td>1967</td>
-            <td>Sony, Billy dont be one, Stan Getz, Mission to Mars...</td>
-            <td>Sony, Billy dont be one, Stan Getz, Mission to Mars...</td>
-            <th>Complete</th>
-            <td>
-              <button  [routerLink]="['music-releases-edit', 124]">Edit</button>   
-              <a mat-stroked-button  [routerLink]="['music-releases-detail', 124]">view</a>
-            </td>
-          </tr>
-     
-  
-        </tbody>  
-        </table>  
-  
+
+
+      </tbody>
+    </table>
+
   </div>
+
+
+</mat-card>

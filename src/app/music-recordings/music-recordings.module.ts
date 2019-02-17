@@ -13,15 +13,23 @@ import { MusicRecordingsEditComponent } from './music-recordings-edit/music-reco
 import { MusicRecordingsDetailComponent } from './music-recordings-detail/music-recordings-detail.component';
 import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
 
+import {AgGridModule} from 'ag-grid-angular';
+
 @NgModule({
-  declarations: [IndexComponent, MusicRecordingsEditComponent, MusicRecordingsDetailComponent],
+  declarations: [
+    IndexComponent, 
+    MusicRecordingsEditComponent, 
+    MusicRecordingsDetailComponent],
   imports: [
     CommonModule,
     MusicRecordingsRoutingModule,
     FormsModule,
         ReactiveFormsModule,
         DynamicFormsMaterialUIModule,
-        AppMaterialModule
+        AppMaterialModule,
+        AgGridModule.withComponents(
+          []
+      )
   ]
 })
 export class MusicRecordingsModule { }

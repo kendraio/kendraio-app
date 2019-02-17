@@ -32,6 +32,8 @@
     "@ngrx/entity": "^6.1.2",
     "@ngrx/store": "^6.1.2",
     "@ngrx/store-devtools": "^6.1.2",
+    "ag-grid-angular": "^20.0.0",
+    "ag-grid-community": "^20.0.0",
     "angular2-text-mask": "^9.0.0",
     "auth0-js": "^9.8.1",
     "blob-util": "^2.0.2",

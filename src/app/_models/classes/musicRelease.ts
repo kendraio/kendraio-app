@@ -1,15 +1,16 @@
-import { IUser } from './user';
 
-export interface IFile {
-    ref: string;
-    fileName: string;
-    fileTitle: string;
-    createdBy:  IUser;
-    uploadedBy:  IUser;
-    createdDate: Date;
-    uploadedDate: Date;
-    type: string;
-    usedBy: string;
-    status: string;
-    statusId: number;
+export interface IMusicRelease {
+    Title: string;
+    Artist: string;
+    Date: string;
+    Owner: string;
+    Territory: string;
+    Type: string;
+    Format: string;
+    'Catalogue Number': string;
+    Barcode: string;
+    'Number of tracks': string;
+    Distribution: string;
+    Collective: string;
+    'Submitted to': string;
     }
