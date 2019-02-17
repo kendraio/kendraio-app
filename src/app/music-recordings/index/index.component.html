@@ -1,6 +1,6 @@
+<p>Music recordings
+This will allow the user to manage rights data and other related metadata about recordings. These recordings could be unreleased or released.</p>
 
-Music recordings
-This will allow the user to manage rights data and other related metadata about recordings. These recordings could be unreleased or released.
 
 
 <mat-progress-bar  *ngIf="showSpinner" mode="indeterminate"></mat-progress-bar>
@@ -15,7 +15,7 @@ This will allow the user to manage rights data and other related metadata about 
     <ag-grid-angular #agGrid style="width: 100%; height: 700px;" class="ag-theme-balham"
                  [gridOptions]="gridOptions">
 
-                 <ag-grid-column headerName="Track" >
+                 <ag-grid-column headerName="Recordings">
 
                  <ag-grid-column headerName="#" [width]="30" [checkboxSelection]="true"
                  [suppressMenu]="true" [pinned]="true" [resizable]="true" [filter]="true"></ag-grid-column>
@@ -36,7 +36,7 @@ This will allow the user to manage rights data and other related metadata about 
                           <ag-grid-column headerName="ISRC"  field="ISRC" [width]="100"    [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
                           <ag-grid-column headerName="ISWC"  field="ISWC" [width]="100"    [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
                           <ag-grid-column headerName="Date"  field="Date" [width]="100"    [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
-                          <ag-grid-column headerName="Country"  field="Country" [width]="100"    [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
+                          <ag-grid-column headerName="Country"  field="Country" [width]="100" [cellRenderer]="countryCellRenderer"    [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
                           <ag-grid-column headerName="Owner"  field="Owner" [width]="150"   [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
                           <ag-grid-column headerName="Collective"  field="Collective" [width]="150"    [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
                           <ag-grid-column headerName="Submitted to"  field="Submitted to" [width]="150"  [pinned]="false"  [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>

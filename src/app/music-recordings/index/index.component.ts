@@ -64,6 +64,11 @@ export class IndexComponent implements OnInit {
   //  this.listAll();
   }
 
+   countryCellRenderer(params) {
+    const flag = "<img border='0' width='15' height='10' style='margin-bottom: 2px' src='https://www.ag-grid.com/images/flags/gb.png'>";
+    return flag + " " + params.value;
+}
+
   changeEntityType(type) {
     this.selectedType = type;
     this.entityList$.next(type);
