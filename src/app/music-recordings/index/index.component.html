@@ -11,27 +11,37 @@ This will allow the user to manage rights data and other related metadata about 
 {{gridOptions.rowData}}
 </div>
 
-<div>
+<div  class="table-responsive-lg">
     <ag-grid-angular #agGrid style="width: 100%; height: 700px;" class="ag-theme-balham"
                  [gridOptions]="gridOptions">
+
+                 <ag-grid-column headerName="Track" >
+
                  <ag-grid-column headerName="#" [width]="30" [checkboxSelection]="true"
                  [suppressMenu]="true" [pinned]="true" [resizable]="true" [filter]="true"></ag-grid-column>
                  <ag-grid-column 
-                          headerName="Namexxx" 
-                          field="Name" [width]="150" 
+                          headerName="Name" 
+                          field="Name" [width]="125" 
                           [pinned]="true"  
                           [sortable]="true" 
                           [resizable]="true" 
                           [filter]="true"></ag-grid-column>
-                          <ag-grid-column headerName="Artist"  field="Artist" [width]="150"  [pinned]="true"  [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
-                          <ag-grid-column headerName="ISRC"  field="ISRC" [width]="150"  [pinned]="true"  [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
-                          <ag-grid-column headerName="ISWC"  field="ISWC" [width]="150"  [pinned]="true"  [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
-                          <ag-grid-column headerName="Date"  field="Date" [width]="150"  [pinned]="true"  [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
-                          <ag-grid-column headerName="Country"  field="Country" [width]="150"  [pinned]="true"  [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
-                          <ag-grid-column headerName="Owner"  field="Owner" [width]="150"  [pinned]="true"  [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
-                          <ag-grid-column headerName="Collective"  field="Collective" [width]="150"  [pinned]="true"  [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
-                          <ag-grid-column headerName="Submitted to"  field="Submitted to" [width]="150"  [pinned]="true"  [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
-                          <ag-grid-column headerName="Status"  field="Status" [width]="150"  [pinned]="true"  [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
+                          <ag-grid-column headerName="Artist"  field="Artist" [width]="120"  [pinned]="true"  [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
+                        </ag-grid-column>
+
+                          <ag-grid-column headerName="Details">
+                         
+                         
+
+                          <ag-grid-column headerName="ISRC"  field="ISRC" [width]="100"    [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
+                          <ag-grid-column headerName="ISWC"  field="ISWC" [width]="100"    [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
+                          <ag-grid-column headerName="Date"  field="Date" [width]="100"    [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
+                          <ag-grid-column headerName="Country"  field="Country" [width]="100"    [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
+                          <ag-grid-column headerName="Owner"  field="Owner" [width]="150"   [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
+                          <ag-grid-column headerName="Collective"  field="Collective" [width]="150"    [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
+                          <ag-grid-column headerName="Submitted to"  field="Submitted to" [width]="150"  [pinned]="false"  [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
+                          <ag-grid-column headerName="Status"  field="Status" [width]="150"  [pinned]="false"  [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column> 
+                        </ag-grid-column>
     </ag-grid-angular>
 </div>
 
