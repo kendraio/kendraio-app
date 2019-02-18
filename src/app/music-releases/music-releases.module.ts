@@ -11,16 +11,24 @@ import { IndexComponent } from './index/index.component';
 import { MusicReleasesEditComponent } from './music-releases-edit/music-releases-edit.component';
 import { MusicReleasesDetailComponent } from './music-releases-detail/music-releases-detail.component';
 
+import {AgGridModule} from 'ag-grid-angular';
+
 
 @NgModule({
-  declarations: [IndexComponent, MusicReleasesEditComponent, MusicReleasesDetailComponent],
+  declarations: [
+    IndexComponent, 
+    MusicReleasesEditComponent, 
+    MusicReleasesDetailComponent],
   imports: [
     CommonModule,
     MusicReleasesRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     DynamicFormsMaterialUIModule,
-    AppMaterialModule
+    AppMaterialModule,
+    AgGridModule.withComponents(
+      []
+  )
   ]
 })
 export class MusicReleasesModule { }
