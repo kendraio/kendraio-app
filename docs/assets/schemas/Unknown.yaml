@@ -1,9 +1,13 @@
 name: Person
-labelField: name
+labelField: Name
 fields:
+  - type: TEXT
+    id: Name
+    label: Name
+    autoComplete: off
+    defaultValue: ''
   - type: JSON
     id: json_data
     label: Legacy Data
     autoComplete: off
     defaultValue: ''
-
