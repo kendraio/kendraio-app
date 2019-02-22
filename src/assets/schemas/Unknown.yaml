@@ -1,3 +1,9 @@
 name: Person
 labelField: name
-fields: []
+fields:
+  - type: JSON
+    id: json_data
+    label: Legacy Data
+    autoComplete: off
+    defaultValue: ''
+
