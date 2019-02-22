@@ -17,7 +17,7 @@ export class SchemaRepositoryService {
   }
 
   init() {
-    const enabledSchemas = [ 'Person', 'Photo', 'Project', 'Audio', 'Clip' ];
+    const enabledSchemas = [ 'Person', 'Photo', 'Project', 'Audio', 'Clip', 'Unknown' ];
     return forkJoin(enabledSchemas.map(schemaName => this.http
       .get(`/assets/schemas/${ schemaName }.yaml`, {responseType: 'text'})
       .pipe(

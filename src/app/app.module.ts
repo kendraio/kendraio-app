@@ -46,6 +46,7 @@ import { DoughnutChartDirective } from './directives/doughnut-chart.directive';
 import { SwaggerPageComponent } from './pages/swagger-page/swagger-page.component';
 import { SwaggerUiDirective } from './directives/swagger-ui.directive';
 import { TestApiPageComponent } from './pages/test-api-page/test-api-page.component';
+import { TestImportDialogComponent } from './dialogs/test-import-dialog/test-import-dialog.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { TestApiPageComponent } from './pages/test-api-page/test-api-page.compon
     DoughnutChartDirective,
     SwaggerPageComponent,
     SwaggerUiDirective,
-    TestApiPageComponent
+    TestApiPageComponent,
+    TestImportDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -103,7 +105,8 @@ import { TestApiPageComponent } from './pages/test-api-page/test-api-page.compon
     AddNewNodeDialogComponent,
     ConfirmDeleteDialogComponent,
     ReplaceImageUrlDialogComponent,
-    EditClipDialogComponent
+    EditClipDialogComponent,
+    TestImportDialogComponent
   ],
   providers: [
     {
