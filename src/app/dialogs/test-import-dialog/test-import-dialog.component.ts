@@ -22,7 +22,7 @@ export class TestImportDialogComponent implements OnInit {
 
   ngOnInit() {
     const { content: { type, records } } = this.data;
-    forkJoin(records.map(item => this.docsRepo.addNew('Unknown', { type, ...item })))
+    forkJoin(records.map(item => this.docsRepo.addNew(type, { type, ...item })))
       .subscribe(() => {
         interval(10).pipe(
           startWith(0),

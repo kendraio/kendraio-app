@@ -1,9 +1,9 @@
-name: Person
-labelField: Name
+name: MusicRelease
+labelField: Title
 fields:
   - type: TEXT
-    id: Name
-    label: Name
+    id: Title
+    label: Title
     autoComplete: off
     defaultValue: ''
   - type: JSON
