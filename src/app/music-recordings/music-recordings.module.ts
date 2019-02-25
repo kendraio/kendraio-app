@@ -8,14 +8,12 @@ import { AppMaterialModule } from '../app-material/app-material.module';
 import { MatGridListModule, MatCardModule } from '@angular/material';
 
 import { MusicRecordingsRoutingModule } from './music-recordings-routing.module';
-import { IndexComponent } from './index/index.component';
-import { MusicRecordingsEditComponent } from './music-recordings-edit/music-recordings-edit.component';
-import { MusicRecordingsDetailComponent } from './music-recordings-detail/music-recordings-detail.component';
+import { IndexComponent, MusicRecordingsEditComponent, MusicRecordingsDetailComponent } from './';
 import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
 
 import {AgGridModule} from 'ag-grid-angular';
 
-import {DialogDataExampleDialog} from './index/index.component';
+// import {DialogDataExampleDialog} from './index/music-recordings-index.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 // import { ButtonRendererComponent } from './button-renderer.component';
 
@@ -24,7 +22,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     IndexComponent, 
     MusicRecordingsEditComponent, 
     MusicRecordingsDetailComponent,
-    DialogDataExampleDialog,
+    // DialogDataExampleDialog,
     // ButtonRendererComponent
   ],
   imports: [
@@ -39,6 +37,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
       ),
       FlexLayoutModule
   ],
-  entryComponents: [DialogDataExampleDialog]
+  entryComponents: [    
+  ]
 })
 export class MusicRecordingsModule { }

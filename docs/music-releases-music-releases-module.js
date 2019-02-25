@@ -11,9 +11,9 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FORM_LAYOUT", function() { return FORM_LAYOUT; });
 var FORM_LAYOUT = {
-    'addressStreet': {
+    'Ownerx': {
         element: {
-            host: 'material-form-group'
+            host: 'col-sm-4'
         }
     }
 };
@@ -25,25 +25,14 @@ var FORM_LAYOUT = {
 /*!***********************************************************!*\
   !*** ./src/app/music-releases/_shared/forms/formModel.ts ***!
   \***********************************************************/
-/*! exports provided: STATES_AUTOCOMPLETE_LIST, MUSIC_RELEASES_FORM_MODEL */
+/*! exports provided: MUSIC_RELEASES_FORM_MODEL */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "STATES_AUTOCOMPLETE_LIST", function() { return STATES_AUTOCOMPLETE_LIST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MUSIC_RELEASES_FORM_MODEL", function() { return MUSIC_RELEASES_FORM_MODEL; });
 /* harmony import */ var _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ng-dynamic-forms/core */ "./node_modules/@ng-dynamic-forms/core/fesm5/core.js");
 
-var STATES_AUTOCOMPLETE_LIST = [
-    'Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware',
-    'District of Columbia', 'Federated States of Micronesia', 'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho',
-    'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Marshall Islands', 'Maryland',
-    'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada',
-    'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
-    'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island',
-    'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia',
-    'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
-];
 var MUSIC_RELEASES_FORM_MODEL = [
     // new DynamicFormGroupModel({
     //     id: 'stay',
@@ -107,7 +96,7 @@ var MUSIC_RELEASES_FORM_MODEL = [
     //     ]
     // }),
     new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicInputModel"]({
-        id: 'title',
+        id: 'Title',
         maxLength: 25,
         placeholder: 'Title of Recording',
         validators: {
@@ -118,7 +107,7 @@ var MUSIC_RELEASES_FORM_MODEL = [
         }
     }),
     new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicInputModel"]({
-        id: 'artist',
+        id: 'Artist',
         maxLength: 50,
         placeholder: 'Name of Artist',
         validators: {
@@ -132,42 +121,43 @@ var MUSIC_RELEASES_FORM_MODEL = [
         }
     }),
     new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicInputModel"]({
-        id: 'isrc',
-        placeholder: 'ISRC',
-        validators: {
-            required: null
-        },
-        errorMessages: {
-            required: 'Field is Required'
-        }
+        id: 'Barcode',
+        maxLength: 150,
+        placeholder: 'Barcode'
     }),
     new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicInputModel"]({
-        id: 'ISWC',
-        placeholder: 'ISWC',
-        hint: 'Add your ISWC code',
-        prefix: '<span>X</span>',
-        validators: {
-            required: null
-        },
-        errorMessages: {
-            required: 'Field is required'
-        }
+        id: 'Catalogue Number',
+        maxLength: 50,
+        placeholder: 'Catalogue Number'
     }),
     new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicInputModel"]({
-        id: 'country',
-        placeholder: 'Country',
-        prefix: '<span>X</span>',
-        validators: {
-            required: null
-        },
-        errorMessages: {
-            required: 'Field is required'
-        }
+        id: 'Collective',
+        maxLength: 50,
+        placeholder: 'Collective'
     }),
     new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicInputModel"]({
-        id: 'owner',
+        id: 'Date',
+        placeholder: 'Date'
+    }),
+    new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicInputModel"]({
+        id: 'Distribution',
+        maxLength: 50,
+        placeholder: 'Distribution'
+    }),
+    new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicInputModel"]({
+        id: 'Format',
+        maxLength: 10,
+        placeholder: 'Format'
+    }),
+    new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicInputModel"]({
+        id: 'Number of tracks',
+        maxLength: 3,
+        placeholder: 'Number of tracks'
+    }),
+    new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicInputModel"]({
+        id: 'Owner',
+        maxLength: 50,
         placeholder: 'Owner',
-        prefix: '<span>X</span>',
         validators: {
             required: null
         },
@@ -176,48 +166,19 @@ var MUSIC_RELEASES_FORM_MODEL = [
         }
     }),
     new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicInputModel"]({
-        id: 'collective',
-        placeholder: 'Collective',
-        prefix: '<span>X</span>',
-        validators: {
-            required: null
-        },
-        errorMessages: {
-            required: 'Field is required'
-        }
+        id: 'Territory',
+        maxLength: 50,
+        placeholder: 'Territory'
     }),
     new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicInputModel"]({
-        id: 'submittedTo',
-        placeholder: 'Submitted to...',
-        validators: {
-            required: null
-        },
-        errorMessages: {
-            required: 'Field is required'
-        }
+        id: 'Type',
+        maxLength: 50,
+        placeholder: 'Type'
     }),
-    new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicSwitchModel"]({
-        id: 'reminder',
-        offLabel: 'Send me a reminder',
-        onLabel: 'Send me a reminder',
-        value: false
+    new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicInputModel"]({
+        id: 'Submitted to',
+        placeholder: 'Submitted to'
     }),
-    new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicSwitchModel"]({
-        id: 'updates',
-        offLabel: 'Subscribe to Updates',
-        onLabel: 'Subscribe to Updates',
-        value: false
-    }),
-    new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicCheckboxModel"]({
-        id: 'confirm',
-        label: 'I confirm the information given above',
-        validators: {
-            required: null
-        },
-        errorMessages: {
-            required: 'You must confirm....'
-        }
-    })
 ];
 
 
@@ -255,7 +216,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-progress-bar *ngIf=\"showSpinner\" mode=\"indeterminate\"></mat-progress-bar>\r\n\r\n\r\n<div style=\"display: none\">\r\n    {{gridOptions.rowData}}\r\n    </div>\r\n    \r\n    <div  class=\"table-responsive-lg\">\r\n        <ag-grid-angular #agGrid style=\"width: 100%; height: 700px;\" class=\"ag-theme-balham\"\r\n                     [gridOptions]=\"gridOptions\">\r\n    \r\n                     <ag-grid-column headerName=\"Recordings\">\r\n    \r\n                     <ag-grid-column headerName=\"#\" [width]=\"30\" [checkboxSelection]=\"true\"\r\n                     [suppressMenu]=\"true\" [pinned]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n                     <ag-grid-column \r\n                              headerName=\"Title\" \r\n                              field=\"Title\" [width]=\"125\" \r\n                              [pinned]=\"true\"  \r\n                              [sortable]=\"true\" \r\n                              [resizable]=\"true\" \r\n                              [filter]=\"true\"></ag-grid-column>\r\n                              <ag-grid-column headerName=\"Artist\"  field=\"Artist\" [width]=\"120\"  [pinned]=\"true\"  [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n                            </ag-grid-column>\r\n    \r\n                              <ag-grid-column headerName=\"Details\">\r\n                             \r\n                             \r\n    \r\n                              <ag-grid-column headerName=\"Date\"  field=\"Date\" [width]=\"100\"    [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n                              <ag-grid-column headerName=\"Owner\"  field=\"Owner\" [width]=\"100\"    [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n                              <ag-grid-column headerName=\"Date\"  field=\"Date\" [width]=\"100\"    [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n                              <ag-grid-column headerName=\"Territory\"  field=\"Territory\" [width]=\"100\" [cellRenderer]=\"countryCellRenderer\"    [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n                              <ag-grid-column headerName=\"Type\"  field=\"Type\" [width]=\"150\"   [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n                              <ag-grid-column headerName=\"Format\"  field=\"Format\" [width]=\"150\"    [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n                              <ag-grid-column headerName=\"Catalogue Number\"  field=\"Catalogue Number\" [width]=\"150\"  [pinned]=\"false\"  [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n                              <ag-grid-column headerName=\"Barcode\"  field=\"Barcode\" [width]=\"150\"  [pinned]=\"false\"  [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column> \r\n                              <ag-grid-column headerName=\"Number of tracks\"  field=\"Number of tracks\" [width]=\"50\"  [pinned]=\"false\"  [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n                              <ag-grid-column headerName=\"Distribution\"  field=\"Distribution\" [width]=\"150\"  [pinned]=\"false\"  [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n                              <ag-grid-column headerName=\"Collective\"  field=\"Collective\" [width]=\"150\"  [pinned]=\"false\"  [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n                              <ag-grid-column headerName=\"Submitted to\"  field=\"Submitted to\" [width]=\"150\"  [pinned]=\"false\"  [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n                              <ag-grid-column headerName=\"Actions\"   [width]=\"150\"  [pinned]=\"false\"  [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n                              \r\n                            </ag-grid-column>\r\n        </ag-grid-angular>\r\n    </div>\r\n\r\n\r\n\r\n\r\n\r\n<mat-card *ngIf=\"allItems\">\r\n\r\n  <div class=\"table-responsive-lg\">\r\n\r\n    <table class=\"table table-striped table-hover table-sm small\">\r\n\r\n      <thead class=\"thead-dark\">\r\n        <tr>\r\n          <th>Title</th>\r\n          <th>Artist</th>\r\n          <th>Date</th>\r\n          <th>Owner</th>\r\n          <th>Territory</th>\r\n          <th>Type</th>\r\n          <th>Format</th>\r\n          <th>Catalogue Number</th>\r\n          <th>Barcode</th>\r\n          <th>Number of tracks</th>\r\n          <th>Distribution</th>\r\n          <th>Collective</th>\r\n          <th>Submitted to</th>\r\n          <th>Actions</th>\r\n        </tr>\r\n      </thead>\r\n\r\n      <tbody>\r\n\r\n        <tr *ngFor=\"let item of allItems\">\r\n\r\n            <td>{{item.Title}}</td>\r\n            <td>{{item.Artist}}</td>\r\n            <td>{{item.Date}}</td>\r\n            <td>{{item.Owner}}</td>\r\n            <td>{{item.Territory}}</td>\r\n            <td>{{item.Type}}</td>\r\n            <td>{{item.Format}}</td>\r\n            <td>{{item['Catalogue Number']}}</td>\r\n            <td>{{item.Barcode}}</td>\r\n            <td>{{item['Number of tracks']}}</td>\r\n            <td>{{item.Distribution}}</td>\r\n            <td>{{item.Collective}}</td>\r\n            <td>{{item['Submitted to']}}</td>\r\n\r\n         \r\n          <td>\r\n            <button [routerLink]=\"['edit', 555]\">Edit</button>\r\n            <a mat-stroked-button [routerLink]=\"['detail', 555]\">view</a>\r\n          </td>\r\n        </tr>\r\n\r\n\r\n      </tbody>\r\n    </table>\r\n\r\n  </div>\r\n\r\n\r\n</mat-card>"
+module.exports = "<mat-progress-bar *ngIf=\"showSpinner\" mode=\"indeterminate\"></mat-progress-bar>\r\n\r\n\r\n<div style=\"display: none\">\r\n    {{gridOptions.rowData}}\r\n    </div>\r\n    \r\n    <div  class=\"table-responsive-lg\">\r\n        <ag-grid-angular #agGrid style=\"width: 100%; height: 700px;\" class=\"ag-theme-material\"\r\n                     [gridOptions]=\"gridOptions\"\r\n                     (cellClicked)=\"onCellClicked($event)\">\r\n    \r\n                     <ag-grid-column headerName=\"Releases\">\r\n    \r\n                        <ag-grid-column headerName=\"Actions\" [width]=\"100\" [pinned]=\"true\" \r\n                        [cellRenderer]=\"editBtnCellRenderer\"></ag-grid-column>\r\n\r\n                     <ag-grid-column \r\n                              headerName=\"Title\" \r\n                              field=\"Title\" [width]=\"125\" \r\n                              [pinned]=\"true\"  \r\n                              [sortable]=\"true\" \r\n                              [resizable]=\"true\" \r\n                              [filter]=\"true\"></ag-grid-column>\r\n                              <ag-grid-column headerName=\"Artist\"  field=\"Artist\" [width]=\"120\"  [pinned]=\"true\"  [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n                            </ag-grid-column>\r\n    \r\n                              <ag-grid-column headerName=\"Details\">\r\n                                                             \r\n                              <ag-grid-column headerName=\"Date\"  field=\"Date\" [width]=\"100\"    [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n                              <ag-grid-column headerName=\"Owner\"  field=\"Owner\" [width]=\"100\"    [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n                              <ag-grid-column headerName=\"Date\"  field=\"Date\" [width]=\"100\"    [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n                              <ag-grid-column headerName=\"Territory\"  field=\"Territory\" [width]=\"100\" [cellRenderer]=\"countryCellRenderer\"    [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n                              <ag-grid-column headerName=\"Type\"  field=\"Type\" [width]=\"150\"   [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n                              <ag-grid-column headerName=\"Format\"  field=\"Format\" [width]=\"150\"    [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n                              <ag-grid-column headerName=\"Catalogue Number\"  field=\"Catalogue Number\" [width]=\"150\"  [pinned]=\"false\"  [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n                              <ag-grid-column headerName=\"Barcode\"  field=\"Barcode\" [width]=\"150\"  [pinned]=\"false\"  [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column> \r\n                              <ag-grid-column headerName=\"#tracks\"  field=\"Number of tracks\" [width]=\"50\"  [pinned]=\"false\"  [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n                              <ag-grid-column headerName=\"Distribution\"  field=\"Distribution\" [width]=\"150\"  [pinned]=\"false\"  [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n                              <ag-grid-column headerName=\"Collective\"  field=\"Collective\" [width]=\"150\"  [pinned]=\"false\"  [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n                              <ag-grid-column headerName=\"Submitted to\"  field=\"Submitted to\" [width]=\"150\"  [pinned]=\"false\"  [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n                            \r\n                            </ag-grid-column>\r\n        </ag-grid-angular>\r\n    </div>\r\n\r\n\r\n\r\n\r\n\r\n<mat-card *ngIf=\"allItems\">\r\n\r\n  <div class=\"table-responsive-lg\">\r\n\r\n    <table class=\"table table-striped table-hover table-sm small\">\r\n\r\n      <thead class=\"thead-dark\">\r\n        <tr>\r\n          <th>Title</th>\r\n          <th>Artist</th>\r\n          <th>Date</th>\r\n          <th>Owner</th>\r\n          <th>Territory</th>\r\n          <th>Type</th>\r\n          <th>Format</th>\r\n          <th>Catalogue Number</th>\r\n          <th>Barcode</th>\r\n          <th>Number of tracks</th>\r\n          <th>Distribution</th>\r\n          <th>Collective</th>\r\n          <th>Submitted to</th>\r\n          <th>Actions</th>\r\n        </tr>\r\n      </thead>\r\n\r\n      <tbody>\r\n\r\n        <tr *ngFor=\"let item of allItems\">\r\n\r\n            <td>{{item.Title}}</td>\r\n            <td>{{item.Artist}}</td>\r\n            <td>{{item.Date}}</td>\r\n            <td>{{item.Owner}}</td>\r\n            <td>{{item.Territory}}</td>\r\n            <td>{{item.Type}}</td>\r\n            <td>{{item.Format}}</td>\r\n            <td>{{item['Catalogue Number']}}</td>\r\n            <td>{{item.Barcode}}</td>\r\n            <td>{{item['Number of tracks']}}</td>\r\n            <td>{{item.Distribution}}</td>\r\n            <td>{{item.Collective}}</td>\r\n            <td>{{item['Submitted to']}}</td>\r\n\r\n         \r\n          <td>\r\n            <button [routerLink]=\"['edit', 555]\">Edit</button>\r\n            <a mat-stroked-button [routerLink]=\"['detail', 555]\">view</a>\r\n          </td>\r\n        </tr>\r\n\r\n\r\n      </tbody>\r\n    </table>\r\n\r\n  </div>\r\n\r\n\r\n</mat-card>"
 
 /***/ }),
 
@@ -285,18 +246,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_shared_services_test_api_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/_shared/services/test-api.service */ "./src/app/_shared/services/test-api.service.ts");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var src_app_services_page_title_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/page-title.service */ "./src/app/services/page-title.service.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _music_releases_edit_music_releases_edit_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../music-releases-edit/music-releases-edit.component */ "./src/app/music-releases/music-releases-edit/music-releases-edit.component.ts");
+
+
+
 
 
 
 
 
 var IndexComponent = /** @class */ (function () {
-    function IndexComponent(testData) {
+    function IndexComponent(testData, pageTitle, dialog) {
         this.testData = testData;
+        this.pageTitle = pageTitle;
+        this.dialog = dialog;
         this.listAll();
     }
     IndexComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.pageTitle.setTitle('Releases');
         this.entityTypes$ = this.testData.listEntityTypes();
         this.entityList$ = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["switchMap"])(function (type) { return _this.testData.listEntities(type); }));
         this.selectedEntity$ = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["switchMap"])(function (id) { return _this.testData.getEntity(_this.selectedType, id); }));
@@ -307,12 +277,31 @@ var IndexComponent = /** @class */ (function () {
         var flag = "<img border='0' width='15' height='10' style='margin-bottom: 2px' src='https://www.ag-grid.com/images/flags/gb.png'>";
         return flag + " " + params.value;
     };
+    IndexComponent.prototype.editBtnCellRenderer = function (params) {
+        var btn = '<button type="button" class="btn btn-primary btn-sm">Edit</button>';
+        return btn;
+    };
     IndexComponent.prototype.changeEntityType = function (type) {
         this.selectedType = type;
         this.entityList$.next(type);
     };
     IndexComponent.prototype.changeEntity = function (id) {
         this.selectedEntity$.next(id);
+    };
+    IndexComponent.prototype.onCellClicked = function (ev) {
+        if (ev.colDef.headerName === 'Actions') {
+            this.openDialog(ev.data);
+        }
+    };
+    IndexComponent.prototype.openDialog = function (ev) {
+        var dialogRef = this.dialog.open(_music_releases_edit_music_releases_edit_component__WEBPACK_IMPORTED_MODULE_7__["MusicReleasesEditComponent"], {
+            data: ev,
+            width: '80%',
+            panelClass: 'formFieldWidth380'
+        });
+        dialogRef.afterClosed().subscribe(function (result) {
+            console.log('The dialog was closed');
+        });
     };
     IndexComponent.prototype.listAll = function () {
         var _this = this;
@@ -385,7 +374,9 @@ var IndexComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./index.component.html */ "./src/app/music-releases/index/index.component.html"),
             styles: [__webpack_require__(/*! ./index.component.scss */ "./src/app/music-releases/index/index.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_shared_services_test_api_service__WEBPACK_IMPORTED_MODULE_2__["TestDataService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_shared_services_test_api_service__WEBPACK_IMPORTED_MODULE_2__["TestDataService"],
+            src_app_services_page_title_service__WEBPACK_IMPORTED_MODULE_5__["PageTitleService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatDialog"]])
     ], IndexComponent);
     return IndexComponent;
 }());
@@ -457,18 +448,7 @@ var MusicReleasesDetailComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  music-releases-edit works!\r\n</p>\r\n\r\n\r\n<div class=\"content-margin\" style=\"width: 50%;\">\r\n\r\n  <mat-card>\r\n\r\n      <form [formGroup]=\"formGroup\">\r\n\r\n          <dynamic-material-form [group]=\"formGroup\"\r\n                                 [layout]=\"formLayout\"\r\n                                 [model]=\"formModel\"\r\n                                 (blur)=\"onBlur($event)\"\r\n                                 (change)=\"onChange($event)\"\r\n                                 (focus)=\"onFocus($event)\"\r\n                                 (matEvent)=\"onMatEvent($event)\"></dynamic-material-form>\r\n\r\n      </form>\r\n\r\n  </mat-card>\r\n\r\n  <!--button (click)=\"test()\">Update List</button-->\r\n\r\n  <pre>{{formGroup.value | json}}</pre>\r\n\r\n</div>"
-
-/***/ }),
-
-/***/ "./src/app/music-releases/music-releases-edit/music-releases-edit.component.scss":
-/*!***************************************************************************************!*\
-  !*** ./src/app/music-releases/music-releases-edit/music-releases-edit.component.scss ***!
-  \***************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL211c2ljLXJlbGVhc2VzL211c2ljLXJlbGVhc2VzLWVkaXQvbXVzaWMtcmVsZWFzZXMtZWRpdC5jb21wb25lbnQuc2NzcyJ9 */"
+module.exports = "\r\n\r\n <div>\r\n\r\n  <mat-card>\r\n\r\n      <form [formGroup]=\"formGroup\">\r\n    \r\n          <dynamic-material-form [group]=\"formGroup\"\r\n                                 [layout]=\"formLayout\"\r\n                                 [model]=\"formModel\"\r\n                                 (blur)=\"onBlur($event)\"\r\n                                 (change)=\"onChange($event)\"\r\n                                 (focus)=\"onFocus($event)\"\r\n                                 (matEvent)=\"onMatEvent($event)\" \r\n                                 fxLayout=\"row wrap\" fxLayoutAlign=\"start start\" fxLayoutGap=\"40px\"\r\n                                 ></dynamic-material-form>\r\n        \r\n\r\n      </form>\r\n\r\n  </mat-card>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n  <div mat-dialog-actions class=\"align-right\">\r\n      <button mat-button  mat-dialog-close=\"Edit Cancelled\">Cancel</button>\r\n      <button mat-button [mat-dialog-close]=\"data.Name\" cdkFocusInitial [disabled]=\"formGroup.invalid\">Save</button>\r\n    </div>\r\n\r\n\r\n  <pre>{{formGroup.value | json}}</pre>\r\n\r\n</div>"
 
 /***/ }),
 
@@ -487,19 +467,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ng-dynamic-forms/core */ "./node_modules/@ng-dynamic-forms/core/fesm5/core.js");
 /* harmony import */ var _shared_forms_formModel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../_shared/forms/formModel */ "./src/app/music-releases/_shared/forms/formModel.ts");
 /* harmony import */ var _shared_forms_form_layout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../_shared/forms/form.layout */ "./src/app/music-releases/_shared/forms/form.layout.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+
 
 
 
 
 
 var MusicReleasesEditComponent = /** @class */ (function () {
-    function MusicReleasesEditComponent(formService) {
+    function MusicReleasesEditComponent(data, formService) {
+        this.data = data;
         this.formService = formService;
         this.formModel = _shared_forms_formModel__WEBPACK_IMPORTED_MODULE_3__["MUSIC_RELEASES_FORM_MODEL"];
         this.formLayout = _shared_forms_form_layout__WEBPACK_IMPORTED_MODULE_4__["FORM_LAYOUT"];
     }
     MusicReleasesEditComponent.prototype.ngOnInit = function () {
         this.formGroup = this.formService.createFormGroup(this.formModel);
+        this.formGroup.patchValue(this.data);
     };
     MusicReleasesEditComponent.prototype.onBlur = function ($event) {
         console.log("Material blur event on: " + $event.model.id + ": ", $event);
@@ -517,9 +501,10 @@ var MusicReleasesEditComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-music-releases-edit',
             template: __webpack_require__(/*! ./music-releases-edit.component.html */ "./src/app/music-releases/music-releases-edit/music-releases-edit.component.html"),
-            styles: [__webpack_require__(/*! ./music-releases-edit.component.scss */ "./src/app/music-releases/music-releases-edit/music-releases-edit.component.scss")]
+            styles: [" \n  dynamic-material-form[fxLayoutAlign] { padding:10px; padding-left: 25px;}\n  "]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_2__["DynamicFormService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_5__["MAT_DIALOG_DATA"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object, _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_2__["DynamicFormService"]])
     ], MusicReleasesEditComponent);
     return MusicReleasesEditComponent;
 }());
@@ -589,6 +574,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _music_releases_detail_music_releases_detail_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./music-releases-detail/music-releases-detail.component */ "./src/app/music-releases/music-releases-detail/music-releases-detail.component.ts");
 /* harmony import */ var ag_grid_angular__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ag-grid-angular */ "./node_modules/ag-grid-angular/main.js");
 /* harmony import */ var ag_grid_angular__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(ag_grid_angular__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _angular_flex_layout__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/flex-layout */ "./node_modules/@angular/flex-layout/esm5/flex-layout.es5.js");
+
 
 
 
@@ -617,7 +604,12 @@ var MusicReleasesModule = /** @class */ (function () {
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
                 _ng_dynamic_forms_ui_material__WEBPACK_IMPORTED_MODULE_4__["DynamicFormsMaterialUIModule"],
                 _app_material_app_material_module__WEBPACK_IMPORTED_MODULE_5__["AppMaterialModule"],
-                ag_grid_angular__WEBPACK_IMPORTED_MODULE_10__["AgGridModule"].withComponents([])
+                ag_grid_angular__WEBPACK_IMPORTED_MODULE_10__["AgGridModule"].withComponents([]),
+                _angular_flex_layout__WEBPACK_IMPORTED_MODULE_11__["FlexLayoutModule"]
+                // .withConfig({
+                //   useColumnBasisZero: false,
+                //   printWithBreakpoints: ['md', 'lt-lg', 'lt-xl', 'gt-sm', 'gt-xs']
+                // }),
             ]
         })
     ], MusicReleasesModule);

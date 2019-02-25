@@ -7,14 +7,14 @@ import { IMusicRecording } from 'src/app/_models/classes/musicRecording';
 import { GridOptions } from 'ag-grid-community';
 import { MatDialog, MAT_DIALOG_DATA, MatButton } from '@angular/material';
 import { PageTitleService } from 'src/app/services/page-title.service';
-import { MusicRecordingsEditComponent } from '..';
+import { MusicRecordingsEditComponent } from '../music-recordings-edit/music-recordings-edit.component';
 // import { ButtonRendererComponent } from '../button-renderer.component';
 
 
 
 @Component({
   selector: 'app-index',
-  templateUrl: './index.component.html',
+  templateUrl: './music-recordings-index.component.html',
   styles : [` 
   dynamic-material-form[fxLayoutAlign] { padding:10px; padding-left: 25px;}
   `],

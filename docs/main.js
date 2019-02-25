@@ -3337,7 +3337,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-sidenav-container [hasBackdrop]=\"true\" class=\"app-container\" (backdropClick)=\"sidenav.close()\">\r\n  <mat-sidenav #sidenav mode=\"over\" (keydown.escape)=\"sidenav.close()\">\r\n    <mat-nav-list>\r\n      <mat-list-item *ngFor=\"let link of links\" (click)=\"gotoPage(link.href, sidenav)\">\r\n        <mat-icon mat-list-icon>{{ link.icon }}</mat-icon>\r\n        <a matLine>{{ link.title }}</a>\r\n      </mat-list-item>\r\n\r\n      <mat-list-item >\r\n       \r\n          <a matLine>Files</a>\r\n        </mat-list-item>\r\n\r\n\r\n\r\n\r\n    </mat-nav-list>\r\n  </mat-sidenav>\r\n\r\n  <mat-sidenav-content>\r\n\r\n    <mat-toolbar>\r\n      <button mat-icon-button (click)=\"sidenav.open()\">\r\n        <mat-icon>menu</mat-icon>\r\n      </button>\r\n\r\n      <span>{{ pageTitle$ | async }}</span>\r\n      <span class=\"spacer\"></span>\r\n\r\n\r\n      <button mat-icon-button (click)=\"gotoPage('/files', sidenav)\" >Files</button>    <span class=\"spacer\"></span>\r\n      <button mat-icon-button (click)=\"gotoPage('/recordings', sidenav)\" >Recordings</button>    <span class=\"spacer\"></span>\r\n      <button mat-icon-button (click)=\"gotoPage('/releases', sidenav)\" >Releases</button>    <span class=\"spacer\"></span>\r\n      <button mat-icon-button (click)=\"gotoPage('/works', sidenav)\" >Works</button>    <span class=\"spacer\"></span>\r\n      <button mat-icon-button (click)=\"gotoPage('/claims', sidenav)\" >Claims</button>    <span class=\"spacer\"></span>\r\n      <button mat-icon-button (click)=\"gotoPage('/settings', sidenav)\" >Settings</button>\r\n      <span class=\"spacer\"></span>\r\n\r\n\r\n\r\n\r\n\r\n      <button mat-icon-button (click)=\"gotoPage('/user', sidenav)\">\r\n        <mat-icon>person</mat-icon>\r\n      </button>\r\n    </mat-toolbar>\r\n\r\n  \r\n\r\n    <div class=\"page-content\">\r\n      <router-outlet></router-outlet>\r\n    </div>\r\n  </mat-sidenav-content>\r\n</mat-sidenav-container>\r\n"
+module.exports = "<mat-sidenav-container  class=\"app-container\">\r\n  <mat-sidenav #sidenav mode=\"side\" (keydown.escape)=\"sidenav.close()\">\r\n    <mat-nav-list>\r\n      <mat-list-item *ngFor=\"let link of links\" (click)=\"gotoPage(link.href, sidenav)\">\r\n        <mat-icon mat-list-icon>{{ link.icon }}</mat-icon>\r\n        <a matLine>{{ link.title }}</a>\r\n      </mat-list-item>\r\n\r\n      <mat-list-item >\r\n       \r\n          <a matLine>Files</a>\r\n        </mat-list-item>\r\n\r\n\r\n    </mat-nav-list>\r\n  </mat-sidenav>\r\n\r\n  <mat-sidenav-content>\r\n\r\n    <mat-toolbar>\r\n      <button mat-icon-button (click)=\"sidenav.open()\">\r\n        <mat-icon>menu</mat-icon>\r\n      </button>\r\n\r\n      <span>{{ pageTitle$ | async }}</span>\r\n      <span class=\"spacer\"></span>\r\n\r\n      <button mat-icon-button (click)=\"gotoPage('/files', sidenav)\" >Files</button>    <span class=\"spacer\"></span>\r\n      <button mat-icon-button (click)=\"gotoPage('/recordings', sidenav)\" >Recordings</button>    <span class=\"spacer\"></span>\r\n      <button mat-icon-button (click)=\"gotoPage('/releases', sidenav)\" >Releases</button>    <span class=\"spacer\"></span>\r\n      <button mat-icon-button (click)=\"gotoPage('/works', sidenav)\" >Works</button>    <span class=\"spacer\"></span>\r\n      <button mat-icon-button (click)=\"gotoPage('/claims', sidenav)\" >Claims</button>    <span class=\"spacer\"></span>\r\n      <button mat-icon-button (click)=\"gotoPage('/settings', sidenav)\" >Settings</button>\r\n      <span class=\"spacer\"></span>\r\n\r\n\r\n      <button mat-icon-button (click)=\"gotoPage('/user', sidenav)\">\r\n        <mat-icon>person</mat-icon>\r\n      </button>\r\n    </mat-toolbar>\r\n\r\n  \r\n\r\n    <div class=\"page-content\">\r\n      <router-outlet></router-outlet>\r\n    </div>\r\n  </mat-sidenav-content>\r\n</mat-sidenav-container>\r\n"
 
 /***/ }),
 
@@ -3371,6 +3371,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var LayoutComponent = /** @class */ (function () {
+    //   sidenav: MatSidenav;
     function LayoutComponent(router, title) {
         this.router = router;
         this.title = title;
@@ -3424,10 +3425,11 @@ var LayoutComponent = /** @class */ (function () {
     }
     LayoutComponent.prototype.ngOnInit = function () {
         this.pageTitle$ = this.title.pageTitle$;
+        // sidenav.open();
     };
     LayoutComponent.prototype.gotoPage = function (href, sidenav) {
         this.router.navigate([href]);
-        sidenav.close();
+        // sidenav.open();
     };
     LayoutComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
