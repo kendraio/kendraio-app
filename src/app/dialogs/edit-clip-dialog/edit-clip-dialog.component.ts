@@ -11,6 +11,13 @@ export class EditClipDialogComponent implements OnInit {
 
   form: FormGroup;
 
+  rightsGroups = [
+    'Composition',
+    'Recording',
+    'Performance',
+    'Design'
+  ];
+
   constructor(
     private readonly fb: FormBuilder,
     public dialogRef: MatDialogRef<EditClipDialogComponent>,
@@ -20,6 +27,7 @@ export class EditClipDialogComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       name: [''],
+      right: [''],
       role: [''],
       contributor: [''],
       start: [0],
