@@ -171,27 +171,33 @@ var MY_FORM_MODEL = [
             required: 'Field is required'
         }
     }),
-    new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicSwitchModel"]({
-        id: 'reminder',
-        offLabel: 'Send me a reminder',
-        onLabel: 'Send me a reminder',
-        value: false
-    }),
-    new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicSwitchModel"]({
-        id: 'updates',
-        offLabel: 'Subscribe to Updates',
-        onLabel: 'Subscribe to Updates',
-        value: false
-    }),
-    new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicCheckboxModel"]({
-        id: 'confirm',
-        label: 'I confirm the information given above',
-        validators: {
-            required: null
-        },
-        errorMessages: {
-            required: 'You must confirm....'
-        }
+    new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicFormGroupModel"]({
+        id: 'signoff',
+        group: [
+            new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicSwitchModel"]({
+                id: 'reminder',
+                offLabel: 'Send me a reminder',
+                onLabel: 'Send me a reminder',
+                value: false
+            }),
+            new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicSwitchModel"]({
+                id: 'updates',
+                offLabel: 'Subscribe to Updates',
+                onLabel: 'Subscribe to Updates',
+                value: false
+            }),
+            new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicCheckboxModel"]({
+                id: 'confirm',
+                label: 'I confirm the information given above',
+                value: false,
+                validators: {
+                    requiredTrue: null
+                },
+                errorMessages: {
+                    required: 'You must confirm your data is correct'
+                }
+            })
+        ]
     })
 ];
 
