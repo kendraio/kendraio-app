@@ -199,17 +199,10 @@ export const MY_FORM_MODEL = [
         }
     }),
 
+   new DynamicFormGroupModel({
 
-
-
-
-
-
-  
-
-  
-
-
+        id: 'signoff',
+        group: [
 
     new DynamicSwitchModel({
 
@@ -231,11 +224,14 @@ export const MY_FORM_MODEL = [
     new DynamicCheckboxModel({
         id: 'confirm',
         label: 'I confirm the information given above',
+        value: false,
         validators: {
-            required: null
+            requiredTrue: null
         },
         errorMessages: {
-            required: 'You must confirm....'
+            required: 'You must confirm your data is correct'
         }
     })
+]
+})
 ];
