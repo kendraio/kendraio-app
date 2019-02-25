@@ -13,6 +13,7 @@ import { UserPageComponent } from './pages/user-page/user-page.component';
 import { AuthCallbackComponent } from './pages/auth-callback/auth-callback.component';
 import { DropboxPageComponent } from './pages/dropbox-page/dropbox-page.component';
 import { SwaggerPageComponent } from './pages/swagger-page/swagger-page.component';
+import {TestApiPageComponent} from './pages/test-api-page/test-api-page.component';
 
 const routes: Routes = [
   {
@@ -66,6 +67,10 @@ const routes: Routes = [
       {
         path: 'api-client/:id',
         component: SwaggerPageComponent
+      },
+      {
+        path: 'test-api',
+        component: TestApiPageComponent
       },
       { path: '',   redirectTo: '/dashboard', pathMatch: 'full' }
     ]
