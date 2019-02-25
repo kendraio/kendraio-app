@@ -1,25 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { DynamicFormModel, DynamicFormService, DynamicFormLayout } from '@ng-dynamic-forms/core';
 
 import { FormsModule, FormGroup, FormArray, FormBuilder, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MUSIC_RELEASES_FORM_MODEL } from '../_shared/forms/formModel';
 import { LabelOptions, MAT_LABEL_GLOBAL_OPTIONS, MatDatepicker, MatInput } from '@angular/material';
 import { FORM_LAYOUT } from '../_shared/forms/form.layout';
+import { MatDialog, MAT_DIALOG_DATA, MatButton } from '@angular/material';
 
 @Component({
   selector: 'app-music-releases-edit',
   templateUrl: './music-releases-edit.component.html',
-  styleUrls: ['./music-releases-edit.component.scss']
+  styles : [` 
+  dynamic-material-form[fxLayoutAlign] { padding:10px; padding-left: 25px;}
+  `],
 })
 export class MusicReleasesEditComponent implements OnInit {
-  formModel: DynamicFormModel = MUSIC_RELEASES_FORM_MODEL;
+formModel: DynamicFormModel = MUSIC_RELEASES_FORM_MODEL;
 formGroup: FormGroup;
 formLayout: DynamicFormLayout = FORM_LAYOUT;
 
-  constructor(private formService: DynamicFormService) {}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private formService: DynamicFormService
+    ) {}
 
   ngOnInit() {
     this.formGroup = this.formService.createFormGroup(this.formModel);
+    this.formGroup.patchValue(this.data);  
   }
 
 onBlur($event) {

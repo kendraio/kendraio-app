@@ -21,8 +21,7 @@
 @import "~bootstrap/scss/_code";
 @import "~bootstrap/scss/_grid";
  @import "~bootstrap/scss/_tables";
-//  @import "~bootstrap/scss/forms";
-// @import "~bootstrap/scss/_buttons";
+ @import "~bootstrap/scss/forms"; @import "~bootstrap/scss/_buttons";
 // Components
 @import "~bootstrap/scss/transitions";
 @import "~bootstrap/scss/dropdown";
@@ -55,3 +54,5 @@
 
 // $fa-font-path: "~font-awesome/fonts";  /// maybe??
 // @import "~font-awesome/scss/font-awesome";
+
+//TODO:  move to main

@@ -1,27 +1,37 @@
-<p>
-  music-releases-edit works!
-</p>
 
 
-<div class="content-margin" style="width: 50%;">
+ <div>
 
   <mat-card>
 
       <form [formGroup]="formGroup">
-
+    
           <dynamic-material-form [group]="formGroup"
                                  [layout]="formLayout"
                                  [model]="formModel"
                                  (blur)="onBlur($event)"
                                  (change)="onChange($event)"
                                  (focus)="onFocus($event)"
-                                 (matEvent)="onMatEvent($event)"></dynamic-material-form>
+                                 (matEvent)="onMatEvent($event)" 
+                                 fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="40px"
+                                 ></dynamic-material-form>
+        
 
       </form>
 
   </mat-card>
 
-  <!--button (click)="test()">Update List</button-->
+
+
+
+
+
+
+  <div mat-dialog-actions class="align-right">
+      <button mat-button  mat-dialog-close="Edit Cancelled">Cancel</button>
+      <button mat-button [mat-dialog-close]="data.Name" cdkFocusInitial [disabled]="formGroup.invalid">Save</button>
+    </div>
+
 
   <pre>{{formGroup.value | json}}</pre>
 

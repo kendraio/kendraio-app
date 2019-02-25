@@ -1,8 +1,8 @@
 export const FORM_LAYOUT = {
 
-    'addressStreet': {
+    'Ownerx': {
         element: {
-            host: 'material-form-group'
+            host: 'col-sm-4'
         }
     }
 };

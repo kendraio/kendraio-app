@@ -60,18 +60,21 @@ export class LayoutComponent implements OnInit {
   ];
 
   pageTitle$: Observable<string>;
+//   sidenav: MatSidenav;
 
   constructor(
     private readonly router: Router,
-    private readonly title: PageTitleService
+    private readonly title: PageTitleService,
+   
   ) { }
 
   ngOnInit() {
     this.pageTitle$ = this.title.pageTitle$;
+  // sidenav.open();
   }
 
   gotoPage(href: string, sidenav: MatSidenav) {
     this.router.navigate([href]);
-    sidenav.close();
+  // sidenav.open();
   }
 }

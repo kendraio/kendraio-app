@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { TestDataService } from 'src/app/_shared/services/test-api.service';
 import { switchMap, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { IMusicRecording } from 'src/app/_models/classes/musicRecording';
 
 import { GridOptions } from 'ag-grid-community';
+import { MatDialog, MAT_DIALOG_DATA, MatButton } from '@angular/material';
+import { PageTitleService } from 'src/app/services/page-title.service';
+import { MusicRecordingsEditComponent } from '..';
+// import { ButtonRendererComponent } from '../button-renderer.component';
+
+
 
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss']
+  styles : [` 
+  dynamic-material-form[fxLayoutAlign] { padding:10px; padding-left: 25px;}
+  `],
 })
 export class IndexComponent implements OnInit {
   gridOptions: GridOptions;
@@ -24,31 +32,16 @@ export class IndexComponent implements OnInit {
 
   constructor(
     private readonly testData: TestDataService,
+    public dialog: MatDialog,
+    private readonly pageTitle: PageTitleService,
+    // buttonRenderer: ButtonRendererComponent,
 
   ) {
     this.listAll();
-
-  //   this.gridOptions = <GridOptions>{};
-  //   this.gridOptions.columnDefs = [
-  //     {
-  //         headerName: 'Name',
-  //         field: 'Name'
-      
-  //     },
-  //     {
-  //         headerName: 'Artist',
-  //         field: 'Artist'
-  //     },
-
-  // ];
-  // this.gridOptions.rowData = 
-  //  [
-  //   {Name: 'dfg sdfg', Artist: 'dfhg sdfgsdf' },
-  //   {Name: 'dfg sdfg', Artist: 'dfhg sdfgsdf' }
-  // ];
   }
 
   ngOnInit() {
+    this.pageTitle.setTitle('Recordings');
     this.entityTypes$ = this.testData.listEntityTypes();
 
     this.entityList$ = new Subject<string>().pipe(
@@ -69,6 +62,20 @@ export class IndexComponent implements OnInit {
     return flag + " " + params.value;
 }
 
+editBtnCellRenderer(params) {
+  const btn = '<button type="button" class="btn btn-primary btn-sm">Edit</button>';
+  return btn;
+}
+
+editBtnCellRendererParams() {
+  const clickMe = {
+    onClick: this.openDialog.bind(this),
+    label: 'Click 1'
+  };
+  return clickMe;
+}
+
+
   changeEntityType(type) {
     this.selectedType = type;
     this.entityList$.next(type);
@@ -77,6 +84,25 @@ export class IndexComponent implements OnInit {
   changeEntity(id) {
     this.selectedEntity$.next(id);
   }
+
+  onCellClicked(ev: any) {
+if (ev.colDef.headerName === 'Actions') {
+    this.openDialog(ev.data);
+  }
+
+}
+
+  openDialog(ev: any): void {
+    let dialogRef = this.dialog.open(MusicRecordingsEditComponent, {
+      data: ev,
+      width: '80%',
+      panelClass : 'formFieldWidth380'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
 
   listAll() {
 
@@ -137,4 +163,12 @@ export class IndexComponent implements OnInit {
     // this.listAll$.next('music-recording');
   }
 
+}
+
+@Component({
+  selector: 'dialog-data-example-dialog',
+  templateUrl: '../modal.html',
+})
+export class DialogDataExampleDialog {
+  constructor( @Inject(MAT_DIALOG_DATA) public data: any) { }
 }

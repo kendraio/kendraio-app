@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { DynamicFormModel, DynamicFormService, DynamicFormLayout } from '@ng-dynamic-forms/core';
 
 import { FormsModule, FormGroup, FormArray, FormBuilder, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MY_FORM_MODEL } from '../_shared/forms/formModel';
-import { LabelOptions, MAT_LABEL_GLOBAL_OPTIONS, MatDatepicker, MatInput } from '@angular/material';
+import { LabelOptions, MAT_LABEL_GLOBAL_OPTIONS, MatDatepicker, MatInput, MAT_DIALOG_DATA } from '@angular/material';
 import { FORM_LAYOUT } from './form.layout';
 
 @Component({
@@ -16,10 +16,14 @@ formModel: DynamicFormModel = MY_FORM_MODEL;
 formGroup: FormGroup;
 formLayout: DynamicFormLayout = FORM_LAYOUT;
 
-constructor(private formService: DynamicFormService) {}
+constructor(
+  @Inject(MAT_DIALOG_DATA) public data: any,
+  private formService: DynamicFormService
+  ) {}
 
   ngOnInit() {
     this.formGroup = this.formService.createFormGroup(this.formModel);
+    this.formGroup.patchValue(this.data); 
   }
 
 onBlur($event) {

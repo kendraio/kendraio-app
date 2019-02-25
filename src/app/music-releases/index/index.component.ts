@@ -4,6 +4,9 @@ import { switchMap, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { IMusicRelease } from 'src/app/_models/classes/musicRelease';
 import { GridOptions } from 'ag-grid-community';
+import { PageTitleService } from 'src/app/services/page-title.service';
+import { MatDialog } from '@angular/material';
+import { MusicReleasesEditComponent } from '../music-releases-edit/music-releases-edit.component';
 
 @Component({
   selector: 'app-index',
@@ -21,12 +24,15 @@ export class IndexComponent implements OnInit {
   allItems: IMusicRelease[];
 
   constructor(
-    private readonly testData: TestDataService
+    private readonly testData: TestDataService,
+    private readonly pageTitle: PageTitleService,
+    public dialog: MatDialog,
   ) { 
     this.listAll();
   }
 
   ngOnInit() {
+    this.pageTitle.setTitle('Releases');
     this.entityTypes$ = this.testData.listEntityTypes();
 
     this.entityList$ = new Subject<string>().pipe(
@@ -46,6 +52,10 @@ export class IndexComponent implements OnInit {
     const flag = "<img border='0' width='15' height='10' style='margin-bottom: 2px' src='https://www.ag-grid.com/images/flags/gb.png'>";
     return flag + " " + params.value;
 }
+editBtnCellRenderer(params) {
+  const btn = '<button type="button" class="btn btn-primary btn-sm">Edit</button>';
+  return btn;
+}
 
   changeEntityType(type) {
     this.selectedType = type;
@@ -55,6 +65,22 @@ export class IndexComponent implements OnInit {
   changeEntity(id) {
     this.selectedEntity$.next(id);
   }
+  onCellClicked(ev: any) {
+    if (ev.colDef.headerName === 'Actions') {
+        this.openDialog(ev.data);
+      }    
+    }
+    
+      openDialog(ev: any): void {
+        let dialogRef = this.dialog.open(MusicReleasesEditComponent, {
+          data: ev,
+          width: '80%',
+          panelClass : 'formFieldWidth380'
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+        });
+      }
 
   listAll() {
 

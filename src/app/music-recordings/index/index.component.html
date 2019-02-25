@@ -1,48 +1,60 @@
 <p>Music recordings
-This will allow the user to manage rights data and other related metadata about recordings. These recordings could be unreleased or released.</p>
+  This will allow the user to manage rights data and other related metadata about recordings. These recordings could be
+  unreleased or released.</p>
 
 
 
-<mat-progress-bar  *ngIf="showSpinner" mode="indeterminate"></mat-progress-bar>
+
+
+
+
+
+<mat-progress-bar *ngIf="showSpinner" mode="indeterminate"></mat-progress-bar>
 
 
 
 <div style="display: none">
-{{gridOptions.rowData}}
+  {{gridOptions.rowData}}
 </div>
 
-<div  class="table-responsive-lg">
-    <ag-grid-angular #agGrid style="width: 100%; height: 700px;" class="ag-theme-balham"
-                 [gridOptions]="gridOptions">
+<div class="table-responsive-lg">
+  <!-- (rowClicked)="openDialog($event)" -->
+  <ag-grid-angular #agGrid style="width: 100%; height: 700px;" class="ag-theme-material" [gridOptions]="gridOptions"
+    (cellClicked)="onCellClicked($event)">
 
-                 <ag-grid-column headerName="Recordings">
+    <ag-grid-column headerName="Recordings">
 
-                 <ag-grid-column headerName="#" [width]="30" [checkboxSelection]="true"
-                 [suppressMenu]="true" [pinned]="true" [resizable]="true" [filter]="true"></ag-grid-column>
-                 <ag-grid-column 
-                          headerName="Name" 
-                          field="Name" [width]="125" 
-                          [pinned]="true"  
-                          [sortable]="true" 
-                          [resizable]="true" 
-                          [filter]="true"></ag-grid-column>
-                          <ag-grid-column headerName="Artist"  field="Artist" [width]="120"  [pinned]="true"  [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
-                        </ag-grid-column>
+      <ag-grid-column headerName="Actions" [width]="100" [pinned]="true" 
+      [cellRenderer]="editBtnCellRenderer"></ag-grid-column>
 
-                          <ag-grid-column headerName="Details">
-                         
-                         
+      <!-- <ag-grid-column headerName="#" [width]="80" [checkboxSelection]="true" [suppressMenu]="false" [pinned]="true"
+        [resizable]="true" [filter]="true"></ag-grid-column> -->
 
-                          <ag-grid-column headerName="ISRC"  field="ISRC" [width]="100"    [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
-                          <ag-grid-column headerName="ISWC"  field="ISWC" [width]="100"    [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
-                          <ag-grid-column headerName="Date"  field="Date" [width]="100"    [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
-                          <ag-grid-column headerName="Country"  field="Country" [width]="100" [cellRenderer]="countryCellRenderer"    [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
-                          <ag-grid-column headerName="Owner"  field="Owner" [width]="150"   [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
-                          <ag-grid-column headerName="Collective"  field="Collective" [width]="150"    [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
-                          <ag-grid-column headerName="Submitted to"  field="Submitted to" [width]="150"  [pinned]="false"  [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
-                          <ag-grid-column headerName="Status"  field="Status" [width]="150"  [pinned]="false"  [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column> 
-                        </ag-grid-column>
-    </ag-grid-angular>
+      <ag-grid-column headerName="Name" field="Name" [width]="125" [pinned]="true" [sortable]="true" [resizable]="true"
+        [filter]="true"></ag-grid-column>
+      <ag-grid-column headerName="Artist" field="Artist" [width]="120" [pinned]="false" [sortable]="true"
+        [resizable]="true" [filter]="true"></ag-grid-column>
+    </ag-grid-column>
+    <ag-grid-column headerName="Details">
+      <ag-grid-column headerName="ISRC" field="ISRC" [width]="150" [sortable]="true" [resizable]="true" [filter]="true">
+      </ag-grid-column>
+      <ag-grid-column headerName="ISWC" field="ISWC" [width]="100" [sortable]="true" [resizable]="true" [filter]="true">
+      </ag-grid-column>
+      <ag-grid-column headerName="Date" field="Date" [width]="100" [sortable]="true" [resizable]="true" [filter]="true">
+      </ag-grid-column>
+      <ag-grid-column headerName="Country" field="Country" [width]="150" [cellRenderer]="countryCellRenderer"
+        [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
+      <ag-grid-column headerName="Owner" field="Owner" [width]="150" [sortable]="true" [resizable]="true"
+        [filter]="true"></ag-grid-column>
+      <ag-grid-column headerName="Collective" field="Collective" [width]="150" [sortable]="true" [resizable]="true"
+        [filter]="true"></ag-grid-column>
+      <ag-grid-column headerName="Submitted to" field="Submitted to" [width]="150" [pinned]="false" [sortable]="true"
+        [resizable]="true" [filter]="true"></ag-grid-column>
+      <ag-grid-column headerName="Status" field="Status" [width]="150" [pinned]="false" [sortable]="true"
+        [resizable]="true" [filter]="true"></ag-grid-column>
+
+    </ag-grid-column>
+  </ag-grid-angular>
 </div>
 
 
@@ -129,5 +141,3 @@ Common actions should be: Edit, View details, Submit, Edit submit list.
 Notes:
 This should be used as an overview as we will have data that can not be easily tabulated. This is especially true if the data is submitted using multiple adapters. 
 Editing and viewing the data is simple up to the point the user submits it. Once it is submitted to multiple services the data and state can diverge. If one of the services reports a title to be to long or containing unrecognised characters the data will need to be edited for that specific service and will diverge. I think we will need an expanded view for this.      -->
-
-

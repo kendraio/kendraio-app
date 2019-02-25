@@ -15,11 +15,18 @@ import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
 
 import {AgGridModule} from 'ag-grid-angular';
 
+import {DialogDataExampleDialog} from './index/index.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+// import { ButtonRendererComponent } from './button-renderer.component';
+
 @NgModule({
   declarations: [
     IndexComponent, 
     MusicRecordingsEditComponent, 
-    MusicRecordingsDetailComponent],
+    MusicRecordingsDetailComponent,
+    DialogDataExampleDialog,
+    // ButtonRendererComponent
+  ],
   imports: [
     CommonModule,
     MusicRecordingsRoutingModule,
@@ -29,7 +36,9 @@ import {AgGridModule} from 'ag-grid-angular';
         AppMaterialModule,
         AgGridModule.withComponents(
           []
-      )
-  ]
+      ),
+      FlexLayoutModule
+  ],
+  entryComponents: [DialogDataExampleDialog]
 })
 export class MusicRecordingsModule { }

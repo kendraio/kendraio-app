@@ -13,6 +13,8 @@ import { MusicReleasesDetailComponent } from './music-releases-detail/music-rele
 
 import {AgGridModule} from 'ag-grid-angular';
 
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 
 @NgModule({
   declarations: [
@@ -28,7 +30,12 @@ import {AgGridModule} from 'ag-grid-angular';
     AppMaterialModule,
     AgGridModule.withComponents(
       []
-  )
+  ),
+  FlexLayoutModule
+  // .withConfig({
+  //   useColumnBasisZero: false,
+  //   printWithBreakpoints: ['md', 'lt-lg', 'lt-xl', 'gt-sm', 'gt-xs']
+  // }),
   ]
 })
 export class MusicReleasesModule { }

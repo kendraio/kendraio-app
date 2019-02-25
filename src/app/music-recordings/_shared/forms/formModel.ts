@@ -96,7 +96,7 @@ export const MY_FORM_MODEL = [
 
     new DynamicInputModel({
 
-        id: 'title',
+        id: 'Name',
         maxLength: 25,
         placeholder: 'Title of Recording',
         validators: {
@@ -109,7 +109,7 @@ export const MY_FORM_MODEL = [
 
     new DynamicInputModel({
 
-        id: 'artist',
+        id: 'Artist',
         maxLength: 50,
         placeholder: 'Name of Artist',
         validators: {
@@ -125,7 +125,7 @@ export const MY_FORM_MODEL = [
 
     new DynamicInputModel({
 
-        id: 'isrc',
+        id: 'ISRC',
         placeholder: 'ISRC',
         validators: {
             required: null
@@ -140,7 +140,7 @@ export const MY_FORM_MODEL = [
         id: 'ISWC',
         placeholder: 'ISWC',
         hint: 'Add your ISWC code',
-        prefix: '<span>X</span>',
+     
         validators: {
             required: null
         },
@@ -151,9 +151,9 @@ export const MY_FORM_MODEL = [
 
     new DynamicInputModel({
 
-        id: 'country',
+        id: 'Country',
         placeholder: 'Country',
-        prefix: '<span>X</span>',
+    
         validators: {
             required: null
         },
@@ -164,9 +164,9 @@ export const MY_FORM_MODEL = [
 
     new DynamicInputModel({
 
-        id: 'owner',
+        id: 'Owner',
         placeholder: 'Owner',
-        prefix: '<span>X</span>',
+      
         validators: {
             required: null
         },
@@ -177,9 +177,9 @@ export const MY_FORM_MODEL = [
 
     new DynamicInputModel({
 
-        id: 'collective',
+        id: 'Collective',
         placeholder: 'Collective',
-        prefix: '<span>X</span>',
+      
         validators: {
             required: null
         },
@@ -189,7 +189,7 @@ export const MY_FORM_MODEL = [
     }),
     new DynamicInputModel({
 
-        id: 'submittedTo',
+        id: 'Submitted to',
         placeholder: 'Submitted to...',
         validators: {
             required: null
@@ -198,6 +198,8 @@ export const MY_FORM_MODEL = [
             required: 'Field is required'
         }
     }),
+
+
 
 
 
