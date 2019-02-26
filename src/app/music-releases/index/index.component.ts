@@ -14,7 +14,7 @@ import { TestDataService } from '../../services/test-data.service';
   styleUrls: ['./index.component.scss']
 })
 export class IndexComponent implements OnInit {
- public gridOptions: GridOptions;
+  public gridOptions: GridOptions;
   entityTypes$;
   selectedType;
   entityList$;
@@ -27,7 +27,7 @@ export class IndexComponent implements OnInit {
     private readonly testData: TestDataService,
     private readonly pageTitle: PageTitleService,
     public dialog: MatDialog,
-  ) { 
+  ) {
   }
 
   ngOnInit() {
@@ -45,17 +45,17 @@ export class IndexComponent implements OnInit {
       switchMap(type => this.testData.listAll(type))
     );
 
-   this.listAll();
+    this.listAll();
   }
 
   countryCellRenderer(params) {
     const flag = "<img border='0' width='15' height='10' style='margin-bottom: 2px' src='https://www.ag-grid.com/images/flags/gb.png'>";
     return flag + " " + params.value;
-}
-editBtnCellRenderer(params) {
-  const btn = '<button type="button" class="btn btn-primary btn-sm">Edit</button>';
-  return btn;
-}
+  }
+  editBtnCellRenderer(params) {
+    const btn = '<button type="button" class="btn btn-primary btn-sm">Edit</button>';
+    return btn;
+  }
 
   changeEntityType(type) {
     this.selectedType = type;
@@ -67,31 +67,31 @@ editBtnCellRenderer(params) {
   }
   onCellClicked(ev: any) {
     if (ev.colDef.headerName === 'Actions') {
-        this.openDialog(ev.data);
-      }    
+      this.openDialog(ev.data);
     }
-    
-      openDialog(ev: any): void {
-        let dialogRef = this.dialog.open(MusicReleasesEditComponent, {
-          data: ev,
-          width: '80%',
-          panelClass : 'formFieldWidth380'
-        });
-        dialogRef.afterClosed().subscribe(result => {
-          console.log('The dialog was closed');
-        });
-      }
+  }
+
+  openDialog(ev: any): void {
+    let dialogRef = this.dialog.open(MusicReleasesEditComponent, {
+      data: ev,
+      width: '80%',
+      panelClass: 'formFieldWidth380'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 
   listAll() {
 
- this.testData.listAll('music-release').pipe(
+    this.testData.listAll('music-release').pipe(
       tap(() => this.showSpinner = true),
       delay(500)
     )
       .subscribe(res => {
         this.allItems = res;
         this.showSpinner = false;
-      }) ;
+      });
 
   }
 

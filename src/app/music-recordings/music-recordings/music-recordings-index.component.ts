@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap, tap, delay } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { IMusicRecording } from 'src/app/_models/classes/musicRecording';
 
@@ -7,7 +7,7 @@ import { GridOptions } from 'ag-grid-community';
 import { MatDialog, MAT_DIALOG_DATA, MatButton } from '@angular/material';
 import { PageTitleService } from 'src/app/services/page-title.service';
 import { MusicRecordingsEditComponent } from '../music-recordings-edit/music-recordings-edit.component';
-import {TestDataService} from '../../services/test-data.service';
+import { TestDataService } from '../../services/test-data.service';
 // import { ButtonRendererComponent } from '../button-renderer.component';
 
 
@@ -105,62 +105,15 @@ export class IndexComponent implements OnInit {
 
 
   listAll() {
-
-    this.listAll$ = this.testData.listAll('music-recording').pipe(
+    this.testData.listAll('music-release').pipe(
       tap(() => this.showSpinner = true),
+      delay(500)
     )
       .subscribe(res => {
-        // this.allItems = res;
-        this.gridOptions = <GridOptions>{};
-        this.gridOptions.columnDefs = [
-          {
-            headerName: 'Name',
-            field: 'Name'
-          },
-          {
-            headerName: 'Artist',
-            field: 'Artist'
-          },
-          {
-            headerName: 'ISRC',
-            field: 'ISRC'
-          },
-          {
-            headerName: 'ISWC',
-            field: 'ISWC'
-          },
-          {
-            headerName: 'Date',
-            field: 'Date'
-          },
-          {
-            headerName: 'Country',
-            field: 'Country'
-          },
-          {
-            headerName: 'Owner',
-            field: 'Owner'
-          },
-          {
-            headerName: 'Collective',
-            field: 'Collective'
-          },
-          {
-            headerName: 'Submitted to',
-            field: 'Submitted to'
-          },
-          {
-            headerName: 'Status',
-            field: 'Status'
-          }
-
-        ];
-        this.gridOptions.rowData = res;
+        this.allItems = res;
         this.showSpinner = false;
-      })
-      ;
+      });
 
-    // this.listAll$.next('music-recording');
   }
 
 }
