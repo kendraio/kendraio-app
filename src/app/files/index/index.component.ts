@@ -88,7 +88,6 @@ export class IndexComponent implements OnInit {
     if (ev.colDef.headerName === 'Actions') {
       this.openDialog(ev.data);
     }
-
   }
 
   openDialog(ev: any): void {
@@ -105,7 +104,7 @@ export class IndexComponent implements OnInit {
 
   listAll() {
 
-    this.testData.listAll('music-release').pipe(
+    this.testData.listAll('file').pipe(
       tap(() => this.showSpinner = true),
       delay(500)
     )

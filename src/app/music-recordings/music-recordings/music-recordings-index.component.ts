@@ -105,7 +105,7 @@ export class IndexComponent implements OnInit {
 
 
   listAll() {
-    this.testData.listAll('music-release').pipe(
+    this.testData.listAll('music-recording').pipe(
       tap(() => this.showSpinner = true),
       delay(500)
     )
@@ -118,10 +118,4 @@ export class IndexComponent implements OnInit {
 
 }
 
-@Component({
-  selector: 'dialog-data-example-dialog',
-  templateUrl: '../modal.html',
-})
-export class DialogDataExampleDialog {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
-}
+

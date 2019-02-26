@@ -1,4 +1,4 @@
-
+<mat-progress-bar *ngIf="showSpinner" mode="indeterminate"></mat-progress-bar>
 
 <div class="table-responsive-lg">
   <!-- (rowClicked)="openDialog($event)" -->
@@ -36,8 +36,6 @@
         [filter]="true"></ag-grid-column>
         <ag-grid-column headerName="Created by" field="Created by" [width]="200" [sortable]="true" [resizable]="true"
         [filter]="true"></ag-grid-column>
-
-
 
     </ag-grid-column>
   </ag-grid-angular>

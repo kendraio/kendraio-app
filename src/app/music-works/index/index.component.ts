@@ -1,14 +1,14 @@
-import { Component, OnInit, Inject } from '@angular/core';
-// import { TestDataService } from 'src/app/_shared/services/test-api.service';
-import { switchMap, tap } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { switchMap, tap, delay } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-
+import { IMusicRelease } from 'src/app/_models/classes/musicRelease';
 import { GridOptions } from 'ag-grid-community';
-import { MatDialog, MAT_DIALOG_DATA, MatButton } from '@angular/material';
 import { PageTitleService } from 'src/app/services/page-title.service';
-import { EditComponent } from '../edit/edit.component';
-import { TestDataService } from 'src/app/services/test-data.service';
+import { MatDialog } from '@angular/material';
 
+import {EditComponent} from '../edit/edit.component';
+
+import { TestDataService } from '../../services/test-data.service';
 
 @Component({
   selector: 'app-index',
@@ -18,28 +18,25 @@ import { TestDataService } from 'src/app/services/test-data.service';
   `],
 })
 export class IndexComponent implements OnInit {
-  gridOptions: GridOptions;
+  public gridOptions: GridOptions;
   entityTypes$;
   selectedType;
   entityList$;
   selectedEntity$;
   listAll$;
   showSpinner: boolean;
-  // allItems: IMusicRecording[];
-
+  allItems: IMusicRelease[];
 
   constructor(
     private readonly testData: TestDataService,
-    public dialog: MatDialog,
     private readonly pageTitle: PageTitleService,
-    // buttonRenderer: ButtonRendererComponent,
-
+    public dialog: MatDialog,
   ) {
-    this.listAll();
   }
 
   ngOnInit() {
-    this.pageTitle.setTitle('Recordings');
+
+    this.pageTitle.setTitle('Works');
     this.entityTypes$ = this.testData.listEntityTypes();
 
     this.entityList$ = new Subject<string>().pipe(
@@ -52,27 +49,17 @@ export class IndexComponent implements OnInit {
       switchMap(type => this.testData.listAll(type))
     );
 
-    //  this.listAll();
+    this.listAll();
   }
 
   countryCellRenderer(params) {
     const flag = "<img border='0' width='15' height='10' style='margin-bottom: 2px' src='https://www.ag-grid.com/images/flags/gb.png'>";
     return flag + " " + params.value;
   }
-
   editBtnCellRenderer(params) {
     const btn = '<button type="button" class="btn btn-primary btn-sm">Edit</button>';
     return btn;
   }
-
-  editBtnCellRendererParams() {
-    const clickMe = {
-      onClick: this.openDialog.bind(this),
-      label: 'Click 1'
-    };
-    return clickMe;
-  }
-
 
   changeEntityType(type) {
     this.selectedType = type;
@@ -82,12 +69,10 @@ export class IndexComponent implements OnInit {
   changeEntity(id) {
     this.selectedEntity$.next(id);
   }
-
   onCellClicked(ev: any) {
     if (ev.colDef.headerName === 'Actions') {
       this.openDialog(ev.data);
     }
-
   }
 
   openDialog(ev: any): void {
@@ -101,56 +86,17 @@ export class IndexComponent implements OnInit {
     });
   }
 
-
   listAll() {
 
-    this.listAll$ = this.testData.listAll('music-work').pipe(
+    this.testData.listAll('music-work').pipe(
       tap(() => this.showSpinner = true),
+      delay(500)
     )
       .subscribe(res => {
-        // this.allItems = res;
-        this.gridOptions = <GridOptions>{};
-        this.gridOptions.columnDefs = [
-          {
-            headerName: 'Name',
-            field: 'Name'
-          },
-          {
-            headerName: 'Type',
-            field: 'Type'
-          },
-     
-          {
-            headerName: 'ISWC',
-            field: 'ISWC'
-          },
-          {
-            headerName: 'Composer',
-            field: 'Composer'
-          },
-          {
-            headerName: 'lyricist',
-            field: 'lyricist'
-          },
-          {
-            headerName: 'Arranger',
-            field: 'Arranger'
-          },
-    
-          {
-            headerName: 'Status',
-            field: 'Status'
-          }
-
-        ];
-        this.gridOptions.rowData = res;
+        this.allItems = res;
         this.showSpinner = false;
-      })
-      ;
+      });
 
-    // this.listAll$.next('music-recording');
   }
 
 }
-
-

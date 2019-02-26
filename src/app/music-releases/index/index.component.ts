@@ -11,7 +11,9 @@ import { TestDataService } from '../../services/test-data.service';
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss']
+  styles: [` 
+  dynamic-material-form[fxLayoutAlign] { padding:10px; padding-left: 25px;}
+  `],
 })
 export class IndexComponent implements OnInit {
   public gridOptions: GridOptions;
