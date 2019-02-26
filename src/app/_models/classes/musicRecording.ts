@@ -1,4 +1,4 @@
-import { IUser } from './user';
+import { IUser, ICountry } from '.';
 
 export interface IMusicRecording {
     Name: string;
@@ -6,9 +6,12 @@ export interface IMusicRecording {
     ISRC: string;
     ISWC: string;
     Date: string;
-    Country: string;
+    Country: ICountry;
     Owner: string;
     Collective: string;
     'Submitted to': string;
     Status: string;
 }
+
+
+

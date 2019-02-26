@@ -1,15 +1,155 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { TestDataService } from 'src/app/_shared/services/test-api.service';
+import { switchMap, tap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+
+import { GridOptions } from 'ag-grid-community';
+import { MatDialog, MAT_DIALOG_DATA, MatButton } from '@angular/material';
+import { PageTitleService } from 'src/app/services/page-title.service';
+import { EditComponent } from '../edit/edit.component';
+
 
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss']
+  styles: [` 
+  dynamic-material-form[fxLayoutAlign] { padding:10px; padding-left: 25px;}
+  `],
 })
 export class IndexComponent implements OnInit {
+  gridOptions: GridOptions;
+  entityTypes$;
+  selectedType;
+  entityList$;
+  selectedEntity$;
+  listAll$;
+  showSpinner: boolean;
+  // allItems: IMusicRecording[];
 
-  constructor() { }
+
+  constructor(
+    private readonly testData: TestDataService,
+    public dialog: MatDialog,
+    private readonly pageTitle: PageTitleService,
+    // buttonRenderer: ButtonRendererComponent,
+
+  ) {
+    this.listAll();
+  }
 
   ngOnInit() {
+    this.pageTitle.setTitle('Recordings');
+    this.entityTypes$ = this.testData.listEntityTypes();
+
+    this.entityList$ = new Subject<string>().pipe(
+      switchMap(type => this.testData.listEntities(type))
+    );
+    this.selectedEntity$ = new Subject<number>().pipe(
+      switchMap(id => this.testData.getEntity(this.selectedType, id))
+    );
+    this.listAll$ = new Subject<string>().pipe(
+      switchMap(type => this.testData.listAll(type))
+    );
+
+    //  this.listAll();
+  }
+
+  countryCellRenderer(params) {
+    const flag = "<img border='0' width='15' height='10' style='margin-bottom: 2px' src='https://www.ag-grid.com/images/flags/gb.png'>";
+    return flag + " " + params.value;
+  }
+
+  editBtnCellRenderer(params) {
+    const btn = '<button type="button" class="btn btn-primary btn-sm">Edit</button>';
+    return btn;
+  }
+
+  editBtnCellRendererParams() {
+    const clickMe = {
+      onClick: this.openDialog.bind(this),
+      label: 'Click 1'
+    };
+    return clickMe;
+  }
+
+
+  changeEntityType(type) {
+    this.selectedType = type;
+    this.entityList$.next(type);
+  }
+
+  changeEntity(id) {
+    this.selectedEntity$.next(id);
+  }
+
+  onCellClicked(ev: any) {
+    if (ev.colDef.headerName === 'Actions') {
+      this.openDialog(ev.data);
+    }
+
+  }
+
+  openDialog(ev: any): void {
+    let dialogRef = this.dialog.open(EditComponent, {
+      data: ev,
+      width: '80%',
+      panelClass: 'formFieldWidth380'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+
+  listAll() {
+
+    this.listAll$ = this.testData.listAll('music-work').pipe(
+      tap(() => this.showSpinner = true),
+    )
+      .subscribe(res => {
+        // this.allItems = res;
+        this.gridOptions = <GridOptions>{};
+        this.gridOptions.columnDefs = [
+          {
+            headerName: 'Name',
+            field: 'Name'
+          },
+          {
+            headerName: 'Type',
+            field: 'Type'
+          },
+     
+          {
+            headerName: 'ISWC',
+            field: 'ISWC'
+          },
+          {
+            headerName: 'Composer',
+            field: 'Composer'
+          },
+          {
+            headerName: 'lyricist',
+            field: 'lyricist'
+          },
+          {
+            headerName: 'Arranger',
+            field: 'Arranger'
+          },
+    
+          {
+            headerName: 'Status',
+            field: 'Status'
+          }
+
+        ];
+        this.gridOptions.rowData = res;
+        this.showSpinner = false;
+      })
+      ;
+
+    // this.listAll$.next('music-recording');
   }
 
 }
+
+
