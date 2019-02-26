@@ -47,6 +47,12 @@ import { SwaggerPageComponent } from './pages/swagger-page/swagger-page.componen
 import { SwaggerUiDirective } from './directives/swagger-ui.directive';
 import { TestApiPageComponent } from './pages/test-api-page/test-api-page.component';
 import { TestImportDialogComponent } from './dialogs/test-import-dialog/test-import-dialog.component';
+import { AssetsPageComponent } from './pages/assets-page/assets-page.component';
+
+// import {MusicRecordingsEditComponent} from './music-recordings/index';
+
+import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
+import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
 
 @NgModule({
   declarations: [
@@ -82,7 +88,10 @@ import { TestImportDialogComponent } from './dialogs/test-import-dialog/test-imp
     SwaggerPageComponent,
     SwaggerUiDirective,
     TestApiPageComponent,
-    TestImportDialogComponent
+    TestImportDialogComponent,
+    AssetsPageComponent,
+
+    // MusicRecordingsEditComponent
   ],
   imports: [
     BrowserModule,
@@ -96,7 +105,9 @@ import { TestImportDialogComponent } from './dialogs/test-import-dialog/test-imp
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    NgxTaggerModule
+    NgxTaggerModule,
+    DynamicFormsCoreModule,
+    DynamicFormsMaterialUIModule
   ],
   entryComponents: [
     AddDocDialogComponent,

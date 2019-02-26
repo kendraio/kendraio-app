@@ -25,7 +25,7 @@ export class DoughnutChartDirective implements AfterViewInit, OnChanges, OnDestr
       data: {
         datasets: [{
           data: [],
-          backgroundColor: ['red', 'yellow', 'pink', 'blue', 'green', 'purple']
+          backgroundColor: ['#a2708c', '#d5e26c', '#b95ea9', '#adcbe8', 'green', 'purple']
         }],
         labels: []
       },
@@ -37,8 +37,8 @@ export class DoughnutChartDirective implements AfterViewInit, OnChanges, OnDestr
     });
     this.data$.pipe(
       takeUntil(this.destroy$),
-      map(this.chartData),
-      tap(console.log)
+      // map(this.chartData), 
+      // tap(console.log)
     ).subscribe(d => {
       this.chart.data.datasets[0].data = d.datasets[0].data;
       this.chart.data.labels = d.labels;

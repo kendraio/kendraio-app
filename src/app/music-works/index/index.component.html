@@ -1,0 +1,67 @@
+<p>
+  index works!
+</p>
+
+<div class="table-responsive-lg">
+
+    <table class="table table-striped table-hover table-sm small">
+  
+      <thead class="thead-dark">
+        <tr>
+          <th>Ref</th>
+          <th>Title</th>
+          <th>Artist</th>
+          <th>ISRC</th>       
+          <th >ISWC</th>
+          <th >Date</th>
+          <th >Country</th>
+          <th >Owner</th>
+          <th >Collective</th>
+          <th>Submitted to</th>
+          <th >Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+  
+      <tbody>
+        <tr>
+          <td>ISDN-2345/4321</td>
+          <td>Name of the uploaded</td>
+          <td>uploaded file title</td>
+          <td>Audio - MP3</td>     
+          <td>Mrs Mills</td>
+          <td>24 Feb 1961</td>
+          <td>Stan</td>
+          <td>1967</td>
+          <td>Sony, Billy dont be one, Stan Getz, Mission to Mars...</td>
+          <td>Sony, Billy dont be one, Stan Getz, Mission to Mars...</td>
+          <td>Complete</td>
+          <td>
+          <button  [routerLink]="['edit', 124]">Edit</button>   
+          <a mat-stroked-button  [routerLink]="['detail', 124]">view</a>
+          </td>
+        </tr>
+  
+        <tr>
+            <td>ISDN-2345/4321</td>
+            <td>Name of the uploaded</td>
+            <td>uploaded file title</td>
+            <td>Audio - MP3</td>     
+            <td>Mrs Mills</td>
+            <td>24 Feb 1961</td>
+            <td>Stan</td>
+            <td>1967</td>
+            <td>Sony, Billy dont be one, Stan Getz, Mission to Mars...</td>
+            <td>Sony, Billy dont be one, Stan Getz, Mission to Mars...</td>
+            <th>Complete</th>
+            <td>
+              <button  [routerLink]="['edit', 124]">Edit</button>   
+              <a mat-stroked-button  [routerLink]="['detail', 124]">view</a>
+            </td>
+          </tr>
+     
+  
+        </tbody>  
+        </table>  
+  
+  </div>
