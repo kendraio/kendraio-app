@@ -111,43 +111,6 @@ export class IndexComponent implements OnInit {
       .subscribe(res => {
         // this.allItems = res;
         this.gridOptions = <GridOptions>{};
-        this.gridOptions.columnDefs = [
-          {
-            headerName: 'File',
-            field: 'File'
-          },
-          {
-            headerName: 'Title',
-            field: 'Title'
-          },
-     
-          {
-            headerName: 'Type',
-            field: 'Type'
-          },
-          {
-            headerName: 'Uploaded date',
-            field: 'Uploaded date'
-          },
-          {
-            headerName: 'Uploaded by',
-            field: 'Uploaded by'
-          },
-          {
-            headerName: 'Created date',
-            field: 'Created date'
-          },
-          {
-            headerName: 'Created by',
-            field: 'Created by'
-          },
-    
-          {
-            headerName: 'Status',
-            field: 'Status'
-          }
-
-        ];
         this.gridOptions.rowData = res;
         this.showSpinner = false;
       })

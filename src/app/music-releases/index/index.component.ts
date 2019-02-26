@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap, tap, delay } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { IMusicRelease } from 'src/app/_models/classes/musicRelease';
 import { GridOptions } from 'ag-grid-community';
@@ -14,7 +14,7 @@ import { TestDataService } from '../../services/test-data.service';
   styleUrls: ['./index.component.scss']
 })
 export class IndexComponent implements OnInit {
-  gridOptions: GridOptions;
+ public gridOptions: GridOptions;
   entityTypes$;
   selectedType;
   entityList$;
@@ -28,10 +28,10 @@ export class IndexComponent implements OnInit {
     private readonly pageTitle: PageTitleService,
     public dialog: MatDialog,
   ) { 
-    this.listAll();
   }
 
   ngOnInit() {
+
     this.pageTitle.setTitle('Releases');
     this.entityTypes$ = this.testData.listEntityTypes();
 
@@ -45,7 +45,7 @@ export class IndexComponent implements OnInit {
       switchMap(type => this.testData.listAll(type))
     );
 
-    this.listAll();
+   this.listAll();
   }
 
   countryCellRenderer(params) {
@@ -84,74 +84,16 @@ editBtnCellRenderer(params) {
 
   listAll() {
 
-    this.listAll$ = this.testData.listAll('music-release').pipe(
+ this.testData.listAll('music-release').pipe(
       tap(() => this.showSpinner = true),
+      delay(500)
     )
       .subscribe(res => {
-        // this.allItems = res;
-        this.gridOptions = <GridOptions>{};
-        this.gridOptions.columnDefs = [
-          {
-            headerName: 'Title',
-            field: 'Title'
-          },
-          {
-            headerName: 'Artist',
-            field: 'Artist'
-          },
-          {
-            headerName: 'Date',
-            field: 'Date'
-          },
-          {
-            headerName: 'Owner',
-            field: 'Owner'
-          },
-          {
-            headerName: 'Type',
-            field: 'Type'
-          },
-          {
-            headerName: 'Format',
-            field: 'Format'
-          },
-          {
-            headerName: 'Catalogue Number',
-            field: 'Catalogue Number'
-          },
-          {
-            headerName: 'Barcode',
-            field: 'Barcode'
-          },
-          {
-            headerName: 'Number of tracks',
-            field: 'Number of tracks'
-          },
-          {
-            headerName: 'Distribution',
-            field: 'Distribution'
-          },
-          {
-            headerName: 'Collective',
-            field: 'Collective'
-          },
-          {
-            headerName: 'Submitted to',
-            field: 'Submitted to'
-          },
+        this.allItems = res;
 
-          {
-            headerName: 'Actions',
-            field: 'Actions'
-          }
-
-        ];
-        this.gridOptions.rowData = res;
         this.showSpinner = false;
-      })
-      ;
+      }) ;
 
-    // this.listAll$.next('music-recording');
   }
 
 }
