@@ -1,67 +1,41 @@
-<p>
-  index works!
-</p>
+<div style="display: none">
+  {{gridOptions.rowData}}
+</div>
 
 <div class="table-responsive-lg">
+  <!-- (rowClicked)="openDialog($event)" -->
+  <ag-grid-angular #agGrid style="width: 100%; height: 700px;" class="ag-theme-material" [gridOptions]="gridOptions"
+    (cellClicked)="onCellClicked($event)">
 
-    <table class="table table-striped table-hover table-sm small">
-  
-      <thead class="thead-dark">
-        <tr>
-          <th>Ref</th>
-          <th>Title</th>
-          <th>Artist</th>
-          <th>ISRC</th>       
-          <th >ISWC</th>
-          <th >Date</th>
-          <th >Country</th>
-          <th >Owner</th>
-          <th >Collective</th>
-          <th>Submitted to</th>
-          <th >Status</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-  
-      <tbody>
-        <tr>
-          <td>ISDN-2345/4321</td>
-          <td>Name of the uploaded</td>
-          <td>uploaded file title</td>
-          <td>Audio - MP3</td>     
-          <td>Mrs Mills</td>
-          <td>24 Feb 1961</td>
-          <td>Stan</td>
-          <td>1967</td>
-          <td>Sony, Billy dont be one, Stan Getz, Mission to Mars...</td>
-          <td>Sony, Billy dont be one, Stan Getz, Mission to Mars...</td>
-          <td>Complete</td>
-          <td>
-          <button  [routerLink]="['edit', 124]">Edit</button>   
-          <a mat-stroked-button  [routerLink]="['detail', 124]">view</a>
-          </td>
-        </tr>
-  
-        <tr>
-            <td>ISDN-2345/4321</td>
-            <td>Name of the uploaded</td>
-            <td>uploaded file title</td>
-            <td>Audio - MP3</td>     
-            <td>Mrs Mills</td>
-            <td>24 Feb 1961</td>
-            <td>Stan</td>
-            <td>1967</td>
-            <td>Sony, Billy dont be one, Stan Getz, Mission to Mars...</td>
-            <td>Sony, Billy dont be one, Stan Getz, Mission to Mars...</td>
-            <th>Complete</th>
-            <td>
-              <button  [routerLink]="['edit', 124]">Edit</button>   
-              <a mat-stroked-button  [routerLink]="['detail', 124]">view</a>
-            </td>
-          </tr>
+    <ag-grid-column headerName="Work">
+
+      <ag-grid-column headerName="Actions" [width]="100" [pinned]="true" [cellRenderer]="editBtnCellRenderer">
+      </ag-grid-column>
+
+      <ag-grid-column headerName="Name" field="Name" [width]="165" [pinned]="true" [sortable]="true" [resizable]="true"
+        [filter]="true"></ag-grid-column>
+
      
-  
-        </tbody>  
-        </table>  
-  
-  </div>
+    </ag-grid-column>
+
+    <ag-grid-column headerName="Details">
+      <ag-grid-column headerName="Type" field="Type" [width]="150" [sortable]="true" [resizable]="true" [filter]="true">
+      </ag-grid-column>
+
+      <ag-grid-column headerName="ISWC" field="ISWC" [width]="100" [sortable]="true" [resizable]="true" [filter]="true">
+      </ag-grid-column>
+
+      <ag-grid-column headerName="Composer" field="Composer" [width]="100" [sortable]="true" [resizable]="true" [filter]="true">
+      </ag-grid-column>
+
+      <ag-grid-column headerName="Lyricist" field="lyricist" [width]="150"
+        [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
+
+      <ag-grid-column headerName="Arranger" field="Arranger" [width]="200" [sortable]="true" [resizable]="true"
+        [filter]="true"></ag-grid-column>
+
+
+
+    </ag-grid-column>
+  </ag-grid-angular>
+</div>

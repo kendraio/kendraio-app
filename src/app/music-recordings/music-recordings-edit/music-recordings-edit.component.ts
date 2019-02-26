@@ -12,35 +12,35 @@ import { FORM_LAYOUT } from './form.layout';
   styleUrls: ['./music-recordings-edit.component.scss']
 })
 export class MusicRecordingsEditComponent implements OnInit {
-formModel: DynamicFormModel = MY_FORM_MODEL;
-formGroup: FormGroup;
-formLayout: DynamicFormLayout = FORM_LAYOUT;
+  formModel: DynamicFormModel = MY_FORM_MODEL;
+  formGroup: FormGroup;
+  formLayout: DynamicFormLayout = FORM_LAYOUT;
 
-constructor(
-  @Inject(MAT_DIALOG_DATA) public data: any,
-  private formService: DynamicFormService
-  ) {}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private formService: DynamicFormService
+  ) { }
 
   ngOnInit() {
     this.formGroup = this.formService.createFormGroup(this.formModel);
-    this.formGroup.patchValue(this.data); 
+    this.formGroup.patchValue(this.data);
   }
 
-onBlur($event) {
+  onBlur($event) {
     console.log(`Material blur event on: ${$event.model.id}: `, $event);
-}
+  }
 
-onChange($event) {
+  onChange($event) {
     console.log(`Material change event on: ${$event.model.id}: `, $event);
-}
+  }
 
-onFocus($event) {
+  onFocus($event) {
     console.log(`Material focus event on: ${$event.model.id}: `, $event);
-}
+  }
 
-onMatEvent($event) {
+  onMatEvent($event) {
     console.log(`Material ${$event.type} event on: ${$event.model.id}: `, $event);
-}
+  }
 }
 
 

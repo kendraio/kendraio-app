@@ -15,7 +15,7 @@ import {TestDataService} from '../../services/test-data.service';
 @Component({
   selector: 'app-index',
   templateUrl: './music-recordings-index.component.html',
-  styles : [` 
+  styles: [` 
   dynamic-material-form[fxLayoutAlign] { padding:10px; padding-left: 25px;}
   `],
 })
@@ -54,26 +54,26 @@ export class IndexComponent implements OnInit {
       switchMap(type => this.testData.listAll(type))
     );
 
-  //  this.listAll();
+    //  this.listAll();
   }
 
-   countryCellRenderer(params) {
+  countryCellRenderer(params) {
     const flag = "<img border='0' width='15' height='10' style='margin-bottom: 2px' src='https://www.ag-grid.com/images/flags/gb.png'>";
     return flag + " " + params.value;
-}
+  }
 
-editBtnCellRenderer(params) {
-  const btn = '<button type="button" class="btn btn-primary btn-sm">Edit</button>';
-  return btn;
-}
+  editBtnCellRenderer(params) {
+    const btn = '<button type="button" class="btn btn-primary btn-sm">Edit</button>';
+    return btn;
+  }
 
-editBtnCellRendererParams() {
-  const clickMe = {
-    onClick: this.openDialog.bind(this),
-    label: 'Click 1'
-  };
-  return clickMe;
-}
+  editBtnCellRendererParams() {
+    const clickMe = {
+      onClick: this.openDialog.bind(this),
+      label: 'Click 1'
+    };
+    return clickMe;
+  }
 
 
   changeEntityType(type) {
@@ -86,17 +86,17 @@ editBtnCellRendererParams() {
   }
 
   onCellClicked(ev: any) {
-if (ev.colDef.headerName === 'Actions') {
-    this.openDialog(ev.data);
-  }
+    if (ev.colDef.headerName === 'Actions') {
+      this.openDialog(ev.data);
+    }
 
-}
+  }
 
   openDialog(ev: any): void {
     let dialogRef = this.dialog.open(MusicRecordingsEditComponent, {
       data: ev,
       width: '80%',
-      panelClass : 'formFieldWidth380'
+      panelClass: 'formFieldWidth380'
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
@@ -110,56 +110,56 @@ if (ev.colDef.headerName === 'Actions') {
       tap(() => this.showSpinner = true),
     )
       .subscribe(res => {
-       // this.allItems = res;
-       this.gridOptions = <GridOptions>{};
-       this.gridOptions.columnDefs = [
-         {
-             headerName: 'Name',
-             field: 'Name'        
-         },
-         {
-             headerName: 'Artist',
-             field: 'Artist'
-         },
-         {
-          headerName: 'ISRC',
-          field: 'ISRC'
-      },
-      {
-        headerName: 'ISWC',
-        field: 'ISWC'
-    },
-    {
-      headerName: 'Date',
-      field: 'Date'
-  },
-  {
-    headerName: 'Country',
-    field: 'Country'
-},
-{
-  headerName: 'Owner',
-  field: 'Owner'
-},
-{
-  headerName: 'Collective',
-  field: 'Collective'
-},
-{
-  headerName: 'Submitted to',
-  field: 'Submitted to'
-},
-{
-  headerName: 'Status',
-  field: 'Status'
-}
-   
-     ];
+        // this.allItems = res;
+        this.gridOptions = <GridOptions>{};
+        this.gridOptions.columnDefs = [
+          {
+            headerName: 'Name',
+            field: 'Name'
+          },
+          {
+            headerName: 'Artist',
+            field: 'Artist'
+          },
+          {
+            headerName: 'ISRC',
+            field: 'ISRC'
+          },
+          {
+            headerName: 'ISWC',
+            field: 'ISWC'
+          },
+          {
+            headerName: 'Date',
+            field: 'Date'
+          },
+          {
+            headerName: 'Country',
+            field: 'Country'
+          },
+          {
+            headerName: 'Owner',
+            field: 'Owner'
+          },
+          {
+            headerName: 'Collective',
+            field: 'Collective'
+          },
+          {
+            headerName: 'Submitted to',
+            field: 'Submitted to'
+          },
+          {
+            headerName: 'Status',
+            field: 'Status'
+          }
+
+        ];
         this.gridOptions.rowData = res;
         this.showSpinner = false;
       })
       ;
- 
+
     // this.listAll$.next('music-recording');
   }
 
@@ -170,5 +170,5 @@ if (ev.colDef.headerName === 'Actions') {
   templateUrl: '../modal.html',
 })
 export class DialogDataExampleDialog {
-  constructor( @Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
 }
