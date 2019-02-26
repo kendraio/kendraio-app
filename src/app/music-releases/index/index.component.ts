@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TestDataService } from 'src/app/_shared/services/test-api.service';
 import { switchMap, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { IMusicRelease } from 'src/app/_models/classes/musicRelease';
@@ -7,6 +6,7 @@ import { GridOptions } from 'ag-grid-community';
 import { PageTitleService } from 'src/app/services/page-title.service';
 import { MatDialog } from '@angular/material';
 import { MusicReleasesEditComponent } from '../music-releases-edit/music-releases-edit.component';
+import { TestDataService } from '../../services/test-data.service';
 
 @Component({
   selector: 'app-index',

@@ -1,5 +1,4 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { TestDataService } from 'src/app/_shared/services/test-api.service';
 import { switchMap, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { IMusicRecording } from 'src/app/_models/classes/musicRecording';
@@ -8,6 +7,7 @@ import { GridOptions } from 'ag-grid-community';
 import { MatDialog, MAT_DIALOG_DATA, MatButton } from '@angular/material';
 import { PageTitleService } from 'src/app/services/page-title.service';
 import { MusicRecordingsEditComponent } from '../music-recordings-edit/music-recordings-edit.component';
+import {TestDataService} from '../../services/test-data.service';
 // import { ButtonRendererComponent } from '../button-renderer.component';
 
 
