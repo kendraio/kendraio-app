@@ -1,11 +1,10 @@
-<div style="display: none">
-  naughty hack:-
-  {{gridOptions.rowData}}
-</div>
+
 
 <div class="table-responsive-lg">
   <!-- (rowClicked)="openDialog($event)" -->
-  <ag-grid-angular #agGrid style="width: 100%; height: 700px;" class="ag-theme-material" [gridOptions]="gridOptions"
+  <ag-grid-angular #agGrid style="width: 100%; height: 700px;" class="ag-theme-material" 
+  [gridOptions]="gridOptions"
+  [rowData]="allItems"
     (cellClicked)="onCellClicked($event)">
 
     <ag-grid-column headerName="File">
@@ -26,7 +25,7 @@
       <ag-grid-column headerName="Type" field="Type" [width]="100" [sortable]="true" [resizable]="true" [filter]="true">
       </ag-grid-column>
 
-      <ag-grid-column headerName="Uploaded date" field="Uploaded date" [width]="100" [sortable]="true" [resizable]="true"
+      <ag-grid-column headerName="Uploaded date" field="Uploaded date" [width]="150" [sortable]="true" [resizable]="true"
         [filter]="true">
       </ag-grid-column>
 

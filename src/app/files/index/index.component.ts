@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 // import { TestDataService } from 'src/app/_shared/services/test-api.service';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap, tap, delay } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 import { GridOptions } from 'ag-grid-community';
@@ -26,7 +26,7 @@ export class IndexComponent implements OnInit {
   selectedEntity$;
   listAll$;
   showSpinner: boolean;
-  // allItems: IMusicRecording[];
+  allItems: any[]; // TODO:  should be IFile[]
 
 
   constructor(
@@ -53,7 +53,7 @@ export class IndexComponent implements OnInit {
       switchMap(type => this.testData.listAll(type))
     );
 
-    //  this.listAll();
+     this.listAll();
   }
 
   countryCellRenderer(params) {
@@ -105,18 +105,14 @@ export class IndexComponent implements OnInit {
 
   listAll() {
 
-    this.listAll$ = this.testData.listAll('file').pipe(
+    this.testData.listAll('music-release').pipe(
       tap(() => this.showSpinner = true),
+      delay(500)
     )
       .subscribe(res => {
-        // this.allItems = res;
-        this.gridOptions = <GridOptions>{};
-        this.gridOptions.rowData = res;
+        this.allItems = res;
         this.showSpinner = false;
-      })
-      ;
-
-    // this.listAll$.next('music-recording');
+      }) ;
   }
 
 }

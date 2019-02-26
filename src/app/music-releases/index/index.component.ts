@@ -90,7 +90,6 @@ editBtnCellRenderer(params) {
     )
       .subscribe(res => {
         this.allItems = res;
-
         this.showSpinner = false;
       }) ;
 
