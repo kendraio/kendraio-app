@@ -53,6 +53,7 @@ import { AssetsPageComponent } from './pages/assets-page/assets-page.component';
 
 import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
+import {DialogDataExampleDialog} from './music-recordings';
 
 @NgModule({
   declarations: [
@@ -90,7 +91,7 @@ import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
     TestApiPageComponent,
     TestImportDialogComponent,
     AssetsPageComponent,
-
+    DialogDataExampleDialog
     // MusicRecordingsEditComponent
   ],
   imports: [
