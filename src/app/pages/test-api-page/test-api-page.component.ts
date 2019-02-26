@@ -33,15 +33,15 @@ export class TestApiPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.entityTypes$ = this.testData.listEntityTypes();
+    this.entityTypes$ = this.testData.listEntityTypes({ live: true });
     this.entityList$ = new Subject<string>().pipe(
-      switchMap(type => this.testData.listEntities(type))
+      switchMap(type => this.testData.listEntities(type, { live: true }))
     );
     this.selectedEntity$ = new Subject<number>().pipe(
-      switchMap(id => this.testData.getEntity(this.selectedType, id))
+      switchMap(id => this.testData.getEntity(this.selectedType, id, { live: true }))
     );
     this.listAll$ = new Subject<string>().pipe(
-      switchMap(type => this.testData.listAll(type))
+      switchMap(type => this.testData.listAll(type, { live: true }))
     );
   }
 
@@ -60,7 +60,7 @@ export class TestApiPageComponent implements OnInit {
 
   importAll() {
     const type = this.selectedType;
-    this.testData.listAll(type).pipe(take(1)).subscribe(records => {
+    this.testData.listAll(type, { live: true }).pipe(take(1)).subscribe(records => {
       this.doImport({ type, records });
     });
   }

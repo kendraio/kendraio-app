@@ -5,7 +5,7 @@ import Find from 'pouchdb-find';
 PouchDB.plugin(Find);
 import { v4 as UUIDv4 } from 'uuid';
 import { SchemaRepositoryService } from './schema-repository.service';
-import { switchMap } from 'rxjs/operators';
+import {map, switchMap} from 'rxjs/operators';
 import { at, omit } from 'lodash-es';
 
 declare const emit;
@@ -47,6 +47,17 @@ export class DocumentRepositoryService {
 
   listAll() {
     return from(this.db.query('kendraio_docs/by_label'));
+  }
+
+  listAllOfType(type) {
+    return from(this.db.allDocs({
+      include_docs: true,
+      attachments: true,
+      startkey: type,
+      endkey: `${type}\ufff0`
+    })).pipe(
+      map(({ rows }) => rows.map(({ doc }) => doc)),
+    );
   }
 
   addNew(schemaName: string, initialValues = {}): Observable<PouchDB.Core.Response> {
