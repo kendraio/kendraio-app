@@ -1,84 +1,45 @@
-<p>
-  index works!
-</p>
-
-
-
-
-Title
-
-
-
-Uploaded date
-
-
-
-Created date
-
-Created by
-
-EDIT 
-
-
-
-<div class="table-responsive-lg">
-
-  <table class="table table-striped table-hover table-sm small">
-
-    <thead class="thead-dark">
-      <tr>
-        <th>Ref</th>
-        <th>File</th>
-        <th>Title</th>
-        <th>Type</th>       
-        <th >Uploaded by</th>
-        <th >Uploaded date</th>
-        <th >Created by</th>
-        <th >Created date</th>
-        <th >Used by</th>
-        <th >Status</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr>
-        <td>ISDN-2345/4321</td>
-        <td>Name of the uploaded</td>
-        <td>uploaded file title</td>
-        <td>Audio - MP3</td>     
-        <td>Mrs Mills</td>
-        <td>24 Feb 1961</td>
-        <td>Stan</td>
-        <td>1967</td>
-        <td>Sony, Billy dont be one, Stan Getz, Mission to Mars...</td>
-        <th>Complete</th>
-        <td><button  [routerLink]="['file-edit', 123]">Edit</button>   
-          <a mat-stroked-button  [routerLink]="['file-detail', 123]">view</a>
-        </td>
-      </tr>
-
-      <tr>
-          <td>ISDN-2345/4321</td>
-          <td>Name of the uploaded</td>
-          <td>uploaded file title</td>
-          <td>Audio - MP3</td>     
-          <td>Mrs Mills</td>
-          <td>24 Feb 1961</td>
-          <td>Stan</td>
-          <td>1967</td>
-          <td>Sony, Billy dont be one, Stan Getz, Mission to Mars...</td>
-          <th>Complete</th>
-          <td><button  [routerLink]="['file-edit', 124]">Edit</button>   
-            <a mat-stroked-button  [routerLink]="['file-detail', 124]">view</a>
-          </td>
-        </tr>
-   
-
-      </tbody>  
-      </table>  
-
+<div style="display: none">
+  naughty hack:-
+  {{gridOptions.rowData}}
 </div>
 
+<div class="table-responsive-lg">
+  <!-- (rowClicked)="openDialog($event)" -->
+  <ag-grid-angular #agGrid style="width: 100%; height: 700px;" class="ag-theme-material" [gridOptions]="gridOptions"
+    (cellClicked)="onCellClicked($event)">
+
+    <ag-grid-column headerName="File">
+
+      <ag-grid-column headerName="Actions" [width]="100" [pinned]="true" [cellRenderer]="editBtnCellRenderer">
+      </ag-grid-column>
+
+      <ag-grid-column headerName="File" field="File" [width]="165" [pinned]="true" [sortable]="true" [resizable]="true"
+        [filter]="true"></ag-grid-column>
 
 
+    </ag-grid-column>
+
+    <ag-grid-column headerName="Details">
+      <ag-grid-column headerName="Title" field="Title" [width]="150" [sortable]="true" [resizable]="true" [filter]="true">
+      </ag-grid-column>
+
+      <ag-grid-column headerName="Type" field="Type" [width]="100" [sortable]="true" [resizable]="true" [filter]="true">
+      </ag-grid-column>
+
+      <ag-grid-column headerName="Uploaded date" field="Uploaded date" [width]="100" [sortable]="true" [resizable]="true"
+        [filter]="true">
+      </ag-grid-column>
+
+      <ag-grid-column headerName="Uploaded by" field="Uploaded by" [width]="150" [sortable]="true" [resizable]="true"
+        [filter]="true"></ag-grid-column>
+
+      <ag-grid-column headerName="Created date" field="Created date" [width]="200" [sortable]="true" [resizable]="true"
+        [filter]="true"></ag-grid-column>
+        <ag-grid-column headerName="Created by" field="Created by" [width]="200" [sortable]="true" [resizable]="true"
+        [filter]="true"></ag-grid-column>
+
+
+
+    </ag-grid-column>
+  </ag-grid-angular>
+</div>
