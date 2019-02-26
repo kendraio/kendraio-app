@@ -79,10 +79,10 @@ const routes: Routes = [
         path: 'test-api',
         component: TestApiPageComponent
       },
-      // { path: '',   redirectTo: '/dashboard', pathMatch: 'full' }
-      //   path: 'files',
-      //   loadChildren: './files/files.module#FilesModule'
-      // },
+      {
+        path: 'files',
+        loadChildren: './files/files.module#FilesModule'
+      },
       {
         path: 'recordings',
         loadChildren: './music-recordings/music-recordings.module#MusicRecordingsModule'
@@ -103,9 +103,7 @@ const routes: Routes = [
         path: 'settings',
         loadChildren: './settings/settings.module'
       },
-
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-
     ]
   }
 ];
