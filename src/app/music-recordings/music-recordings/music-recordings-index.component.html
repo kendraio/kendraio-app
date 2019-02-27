@@ -9,6 +9,7 @@
   <ag-grid-angular #agGrid style="width: 100%; height: 700px;" class="ag-theme-material" 
   [gridOptions]="gridOptions"
     [rowData]="allItems" 
+    rowSelection="multiple"
     (cellClicked)="onCellClicked($event)">
 
     <ag-grid-column headerName="Recordings">
@@ -16,8 +17,8 @@
       <ag-grid-column headerName="Actions" [width]="100" [pinned]="true" [cellRenderer]="editBtnCellRenderer">
       </ag-grid-column>
 
-      <!-- <ag-grid-column headerName="#" [width]="80" [checkboxSelection]="true" [suppressMenu]="false" [pinned]="true"
-        [resizable]="true" [filter]="true"></ag-grid-column> -->
+      <ag-grid-column headerName="#" [width]="80" [checkboxSelection]="true" [suppressMenu]="false" [pinned]="true"
+        [resizable]="true" [filter]="true"></ag-grid-column>
 
       <ag-grid-column headerName="Name" field="Name" [width]="125" [pinned]="true" [sortable]="true" [resizable]="true"
         [filter]="true"></ag-grid-column>
@@ -44,7 +45,11 @@
 
     </ag-grid-column>
   </ag-grid-angular>
+
+  <mat-action-list>  <button mat-raised-button mat-button>Claim Selected</button>
+  </mat-action-list>
 </div>
+
 
 
 

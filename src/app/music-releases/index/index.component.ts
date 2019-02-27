@@ -7,7 +7,7 @@ import { PageTitleService } from 'src/app/services/page-title.service';
 import { MatDialog } from '@angular/material';
 import { MusicReleasesEditComponent } from '../music-releases-edit/music-releases-edit.component';
 import { TestDataService } from '../../services/test-data.service';
-import { MatInputComponent } from 'src/app/_shared/components';
+import { MatInputComponent, MatButtonComponent } from 'src/app/_shared/components';
 
 @Component({
   selector: 'app-index',
@@ -25,6 +25,7 @@ export class IndexComponent implements OnInit {
   listAll$;
   showSpinner: boolean;
   allItems: IMusicRelease[];
+ 
 
 
   constructor(
@@ -38,7 +39,8 @@ export class IndexComponent implements OnInit {
       },
       rowHeight: 48,
       frameworkComponents: {
-          inputRenderer: MatInputComponent
+          inputRenderer: MatInputComponent,
+          thing: MatButtonComponent
       }
   };
 
@@ -65,11 +67,14 @@ export class IndexComponent implements OnInit {
   countryCellRenderer(params) {
     const flag = "<img border='0' width='15' height='10' style='margin-bottom: 2px' src='https://www.ag-grid.com/images/flags/gb.png'>";
     return flag + " " + params.value;
+    // return this.thing;
   }
+
   editBtnCellRenderer(params) {
-    const btn = '<button type="button" class="btn btn-primary btn-sm">Edit</button>';
+    const btn = '<button class="mat-button mat-raised-button"><span class="mat-button-wrapper">Edit</span><div class="mat-button-ripple mat-ripple"></div><div class="mat-button-focus-overlay"></div></button>';
     return btn;
   }
+  
 
   changeEntityType(type) {
     this.selectedType = type;

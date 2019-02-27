@@ -14,7 +14,8 @@ import {
   MatProgressSpinnerModule,
   MatRadioModule,
   MatSelectModule,
-  MatSliderModule
+  MatSliderModule,
+  MatButtonModule
 } from '@angular/material';
 
 import * as matComponents from '../_shared/components';
@@ -30,6 +31,7 @@ import { AgGridModule } from 'ag-grid-angular';
     RouterModule,
     MatCardModule,
     MatButtonToggleModule,
+    MatButtonModule,
     MatCheckboxModule,
     MatFormFieldModule,
     MatIconModule,
@@ -40,12 +42,14 @@ import { AgGridModule } from 'ag-grid-angular';
     MatSliderModule,
     AgGridModule.withComponents(
       [
-        matComponents.MatInputComponent
+        matComponents.MatInputComponent,
+        matComponents.MatButtonComponent
       ]
     )
   ],
   declarations: [
     matComponents.MatInputComponent,
+    matComponents.MatButtonComponent
   ],
   exports: [
   //  matComponents.MatInputComponent,
