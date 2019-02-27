@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SchemaRepositoryService } from '../../services/schema-repository.service';
 import { DocumentRepositoryService } from '../../services/document-repository.service';
+import {FormRepositoryService} from '../../services/form-repository.service';
 
 @Component({
   selector: 'app-doc-edit-form',
@@ -24,13 +25,17 @@ export class DocEditFormComponent {
     }
   }
   formGroup: FormGroup;
+  formModel;
+  formLayout = {};
 
   errorMessage;
+
 
   constructor(
     private readonly fb: FormBuilder,
     private readonly docsRepo: DocumentRepositoryService,
-    private readonly schemaRepo: SchemaRepositoryService
+    private readonly schemaRepo: SchemaRepositoryService,
+    private readonly formRepo: FormRepositoryService
   ) { }
 
   initForm() {
@@ -42,6 +47,9 @@ export class DocEditFormComponent {
       fg[f.id] = [this._doc[f.id] || getDefaultValue(f.id), []]; // todo: validators
       return fg;
     }, {}));
+    this.formRepo.getFormModel(this._doc['@schema'], 'edit').subscribe(model => {
+      this.formModel = model;
+    });
   }
 
   resetForm() {

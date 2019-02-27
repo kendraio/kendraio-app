@@ -1,5 +1,7 @@
 name: Person
 labelField: name
+forms:
+  edit: assets/forms/personEditForm.yaml
 fields:
   - type: TEXT
     id: name

@@ -1,5 +1,8 @@
-<form *ngIf="formGroup" [formGroup]="formGroup" autocomplete="off">
+<form *ngIf="!!formGroup" [formGroup]="formGroup" autocomplete="off">
 
+  <dynamic-material-form *ngIf="!!formModel" [group]="formGroup"
+                         [layout]="formLayout"
+                         [model]="formModel"></dynamic-material-form>
 
   <div class="form-buttons">
     <button type="button" (click)="onSubmit()" [disabled]="formGroup.invalid" mat-flat-button color="primary">Save</button>
@@ -7,7 +10,11 @@
     <button type="button" mat-stroked-button color="warn">Delete</button>
     <button type="button" mat-flat-button (click)="cancelled.emit()">Cancel</button>
   </div>
-  <!--<pre>{{ formGroup.value | json }}</pre>-->
 </form>
 <div *ngIf="errorMessage" class="message">{{ errorMessage }}</div>
+<!--formGroup:-->
+<!--<pre>{{ formGroup?.value | json }}</pre>-->
+<!--_doc:-->
 <!--<pre>{{ _doc | json }}</pre>-->
+<!--formModel:-->
+<!--<pre>{{ formModel }}</pre>-->
