@@ -107,7 +107,7 @@ export class IndexComponent implements OnInit {
   listAll() {
     this.testData.listAll('music-recording').pipe(
       tap(() => this.showSpinner = true),
-      delay(500)
+      delay(500) // fake loading
     )
       .subscribe(res => {
         this.allItems = res;

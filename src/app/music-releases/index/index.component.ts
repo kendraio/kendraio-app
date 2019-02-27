@@ -7,6 +7,7 @@ import { PageTitleService } from 'src/app/services/page-title.service';
 import { MatDialog } from '@angular/material';
 import { MusicReleasesEditComponent } from '../music-releases-edit/music-releases-edit.component';
 import { TestDataService } from '../../services/test-data.service';
+import { MatInputComponent } from 'src/app/_shared/components';
 
 @Component({
   selector: 'app-index',
@@ -25,11 +26,22 @@ export class IndexComponent implements OnInit {
   showSpinner: boolean;
   allItems: IMusicRelease[];
 
+
   constructor(
     private readonly testData: TestDataService,
     private readonly pageTitle: PageTitleService,
     public dialog: MatDialog,
   ) {
+    this.gridOptions = <GridOptions>{
+      onGridReady: () => {
+       //   this.gridOptions.api.sizeColumnsToFit();
+      },
+      rowHeight: 48,
+      frameworkComponents: {
+          inputRenderer: MatInputComponent
+      }
+  };
+
   }
 
   ngOnInit() {

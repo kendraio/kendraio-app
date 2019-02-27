@@ -14,28 +14,42 @@ import { MusicReleasesDetailComponent } from './music-releases-detail/music-rele
 import {AgGridModule} from 'ag-grid-angular';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { SharedModule } from '../_shared/shared.module';
+// import { MatInputComponent } from '../_shared/components';
+//  import { MatInputComponent } from "./mat-input.component";
+
+
 
 
 @NgModule({
   declarations: [
     IndexComponent, 
     MusicReleasesEditComponent, 
-    MusicReleasesDetailComponent],
+    MusicReleasesDetailComponent
+
+  ],
   imports: [
     CommonModule,
+    SharedModule,
     MusicReleasesRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     DynamicFormsMaterialUIModule,
     AppMaterialModule,
     AgGridModule.withComponents(
-      []
+      [
+        // MatInputComponent
+      ]
   ),
-  FlexLayoutModule
+  FlexLayoutModule,
+
   // .withConfig({
   //   useColumnBasisZero: false,
   //   printWithBreakpoints: ['md', 'lt-lg', 'lt-xl', 'gt-sm', 'gt-xs']
   // }),
+  ],
+  exports: [
+    SharedModule
   ]
 })
 export class MusicReleasesModule { }
