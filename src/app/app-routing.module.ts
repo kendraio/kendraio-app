@@ -3,8 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './components/layout/layout.component';
 import { DocsListPageComponent } from './pages/docs-list-page/docs-list-page.component';
 import { DocEditPageComponent } from './pages/doc-edit-page/doc-edit-page.component';
-import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
-import { ImportPageComponent } from './pages/import-page/import-page.component';
+import * as Pages from './pages';
 import { UploadPageComponent } from './pages/upload-page/upload-page.component';
 import { VisualisePageComponent } from './pages/visualise-page/visualise-page.component';
 import { AdaptersPageComponent } from './pages/adapters-page/adapters-page.component';
@@ -26,11 +25,19 @@ const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        component: DashboardPageComponent
+        component: Pages.DashboardPageComponent
+      },
+      {
+        path: 'assets',
+        component: Pages.AssetsPageComponent,
+        data: {
+          pageTitle: 'My Assets',
+          subTitle: ''
+        }
       },
       {
         path: 'import',
-        component: ImportPageComponent
+        component: Pages.ImportPageComponent
       },
       {
         path: 'upload',
@@ -72,7 +79,31 @@ const routes: Routes = [
         path: 'test-api',
         component: TestApiPageComponent
       },
-      { path: '',   redirectTo: '/dashboard', pathMatch: 'full' }
+      {
+        path: 'files',
+        loadChildren: './files/files.module#FilesModule'
+      },
+      {
+        path: 'recordings',
+        loadChildren: './music-recordings/music-recordings.module#MusicRecordingsModule'
+      },
+      {
+        path: 'releases',
+        loadChildren: './music-releases/music-releases.module#MusicReleasesModule'
+      },
+      {
+        path: 'works',
+        loadChildren: './music-works/music-works.module#MusicWorksModule'
+      },
+      {
+        path: 'claims',
+        loadChildren: './claims/claims.module#ClaimsModule'
+      },
+      {
+        path: 'settings',
+        loadChildren: './settings/settings.module'
+      },
+      { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     ]
   }
 ];

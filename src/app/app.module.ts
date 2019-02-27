@@ -49,6 +49,13 @@ import { TestApiPageComponent } from './pages/test-api-page/test-api-page.compon
 import { TestImportDialogComponent } from './dialogs/test-import-dialog/test-import-dialog.component';
 import {DynamicFormsCoreModule} from '@ng-dynamic-forms/core';
 import {DynamicFormsMaterialUIModule} from '@ng-dynamic-forms/ui-material';
+import { AssetsPageComponent } from './pages/assets-page/assets-page.component';
+
+// import {MusicRecordingsEditComponent} from './music-recordings/index';
+
+// import { AgGridModule } from 'ag-grid-angular';
+// import { MatInputComponent } from './_shared/components';
+// import {DialogDataExampleDialog} from './music-recordings';
 
 @NgModule({
   declarations: [
@@ -84,9 +91,16 @@ import {DynamicFormsMaterialUIModule} from '@ng-dynamic-forms/ui-material';
     SwaggerPageComponent,
     SwaggerUiDirective,
     TestApiPageComponent,
-    TestImportDialogComponent
+    TestImportDialogComponent,
+    AssetsPageComponent,
+    // MatInputComponent
+    // DialogDataExampleDialog
+    // MusicRecordingsEditComponent
   ],
   imports: [
+    // AgGridModule.withComponents([ 
+    //   // MatInputComponent
+    // ]),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -98,9 +112,9 @@ import {DynamicFormsMaterialUIModule} from '@ng-dynamic-forms/ui-material';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    NgxTaggerModule,
     DynamicFormsCoreModule,
-    DynamicFormsMaterialUIModule,
-    NgxTaggerModule
+    DynamicFormsMaterialUIModule
   ],
   entryComponents: [
     AddDocDialogComponent,

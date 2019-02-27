@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {map} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
+import {DocumentRepositoryService} from './document-repository.service';
+import {SchemaRepositoryService} from './schema-repository.service';
 
 // Service for communicating with the Kendraio Test API
 // The data is pulled from a Google Spreadsheet via an API proxy.
@@ -15,32 +17,48 @@ const KENDRAIO_API = 'https://google-sheets-api-proxy.now.sh/';
 export class TestDataService {
 
   constructor(
-    private readonly http: HttpClient
+    private readonly http: HttpClient,
+    private readonly docs: DocumentRepositoryService,
+    private readonly schemas: SchemaRepositoryService
   ) { }
 
   // Get the list of valid entity types
-  listEntityTypes() {
-    return this.http.get(KENDRAIO_API);
+  listEntityTypes($config = { live: false }) {
+    if ($config.live) {
+      return this.http.get(KENDRAIO_API);
+    }
+    return this.schemas.getSchemaList();
   }
 
-  listEntities(type: string) {
-    return this.http.get(`${KENDRAIO_API}${type}`);
-  }
-
-  listAll(type: string) {
-    return this.http.get<{ header: Array<any>, data: Array<any> }>(`${KENDRAIO_API}${type}/all`).pipe(
-      map(({ header, data }) => {
-        return data.map(row => {
-          return header.reduce((obj, key, i) => {
-            obj[key] = row[i];
-            return obj;
-          }, {});
-        });
-      })
+  listEntities(type: string, $config = { live: false }) {
+    if ($config.live) {
+      return this.http.get(`${KENDRAIO_API}${type}`);
+    }
+    return this.docs.listAll().pipe(
+      map(({ rows }) => rows.filter(({ id }) => id.startsWith(type)))
     );
   }
 
-  getEntity(type: string, id: number) {
-    return this.http.get(`${KENDRAIO_API}${type}/${id}`);
+  listAll(type: string, $config = { live: false }) {
+    if ($config.live) {
+      return this.http.get<{ header: Array<any>, data: Array<any> }>(`${KENDRAIO_API}${type}/all`).pipe(
+        map(({ header, data }) => {
+          return data.map(row => {
+            return header.reduce((obj, key, i) => {
+              obj[key] = row[i];
+              return obj;
+            }, {});
+          });
+        })
+      );
+    }
+    return this.docs.listAllOfType(type);
+  }
+
+  getEntity(type: string, id: number, $config = { live: false }) {
+    if ($config.live) {
+      return this.http.get(`${KENDRAIO_API}${type}/${id}`);
+    }
+    return this.docs.getDoc(id);
   }
 }

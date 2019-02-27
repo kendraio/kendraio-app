@@ -2,11 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   MatButtonModule, MatCardModule, MatCheckboxModule, MatChipsModule,
+  MatGridListModule,
   MatDialogModule,
   MatFormFieldModule,
   MatIconModule,
   MatInputModule, MatListModule, MatProgressBarModule, MatProgressSpinnerModule,
-  MatSelectModule, MatSidenavModule, MatSlideToggleModule, MatSnackBarModule, MatToolbarModule
+  MatSelectModule, MatSidenavModule, MatSlideToggleModule, MatSnackBarModule, MatToolbarModule, MatDatepickerModule,
 } from "@angular/material";
 import { ScrollingModule } from "@angular/cdk/scrolling";
 
@@ -14,6 +15,7 @@ const MATERIAL = [
   MatButtonModule,
   MatIconModule,
   MatInputModule,
+  MatGridListModule,
   MatFormFieldModule,
   MatDialogModule,
   MatSelectModule,
@@ -27,9 +29,9 @@ const MATERIAL = [
   MatSlideToggleModule,
   MatProgressBarModule,
   MatSnackBarModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatDatepickerModule,
 ];
-
 
 @NgModule({
   declarations: [],

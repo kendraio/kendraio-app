@@ -69,8 +69,12 @@
               "src/manifest.json"
             ],
             "styles": [
+              "node_modules/ag-grid-community/dist/styles/ag-grid.css",
+              "node_modules/ag-grid-community/dist/styles/ag-theme-material.css",
               "node_modules/swagger-ui/dist/swagger-ui.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/styles/vendor.scss",
+              "src/styles/main.scss"
             ],
             "scripts": [
               "node_modules/auth0-js/build/auth0.js"

@@ -1,58 +1,75 @@
-<mat-card>
-  <mat-card-title>Add new node</mat-card-title>
-  <mat-card-content>
-    <mat-form-field>
-      <mat-select [(ngModel)]="addNodeType" required placeholder="Node type">
-        <mat-option value="Project">Project (DDEX RIN)</mat-option>
-        <mat-option value="Audio">Audio (Kendraio)</mat-option>
-        <mat-option value="Photo">Photo (Kendraio)</mat-option>
-        <!--<mat-option value="ImageObject">ImageObject (Schema.org)</mat-option>-->
-        <mat-option value="Person">Person (Schema.org)</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <br>
-    <button (click)="doAddNode()" [disabled]="!addNodeType" mat-flat-button color="accent">
-      Add {{ addNodeType ? addNodeType : 'new' }}
-    </button>
-  </mat-card-content>
-</mat-card>
+<section class="row">
 
-<mat-card>
-  <mat-card-title>Import from file</mat-card-title>
-  <mat-card-content>
-    <mat-form-field>
-      <mat-select required placeholder="Adapter">
-        <mat-option value="rin">m-rin</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <br>
-    <p>
-      <button mat-fab color="primary" (click)="filePicker.click()">
-        <mat-icon>cloud_upload</mat-icon>
-      </button>
-      <input type="file" accept="text/xml" (change)="fileSelected($event)" style="display: none;" #filePicker>
-      <span>
-        {{ file ? file.name : 'Select file...' }}
-      </span>
-    </p>
-    <br>
-    <button (click)="importFile()" [disabled]="!fileImportReady" mat-flat-button color="accent">Import</button>
-  </mat-card-content>
-</mat-card>
+  <div class="col-sm-12 col-md-6 col-lg-4">
+    <mat-card>
+      <mat-card-title>Add new node</mat-card-title>
+      <mat-card-content>
+        <mat-form-field>
+          <mat-select [(ngModel)]="addNodeType" required placeholder="Node type">
+            <mat-option value="Project">Project (DDEX RIN)</mat-option>
+            <mat-option value="Audio">Audio (Kendraio)</mat-option>
+            <mat-option value="Photo">Photo (Kendraio)</mat-option>
+            <!--<mat-option value="ImageObject">ImageObject (Schema.org)</mat-option>-->
+            <mat-option value="Person">Person (Schema.org)</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+        <button (click)="doAddNode()" [disabled]="!addNodeType" mat-flat-button color="accent">
+          Add {{ addNodeType ? addNodeType : 'new' }}
+        </button>
+      </mat-card-content>
+    </mat-card>
 
-<mat-card>
-  <mat-card-title>Load demo data</mat-card-title>
-  <mat-card-content>
-    <p>Some example data is provided to demo App functionality...</p>
-    <button (click)="importSampleData()" mat-flat-button color="accent">Load demo data</button>
-  </mat-card-content>
-</mat-card>
+  </div>
 
-<mat-card>
-  <mat-card-content>
-    <p>
-      Import via browser extension:
-    </p>
-    <mat-chip-list><mat-chip>Disconnected</mat-chip></mat-chip-list>
-  </mat-card-content>
-</mat-card>
+  <div class="col-sm-12 col-md-6 col-lg-4">
+
+    <mat-card>
+      <mat-card-title>Import from file</mat-card-title>
+      <mat-card-content>
+        <mat-form-field>
+          <mat-select required placeholder="Adapter">
+            <mat-option value="rin">m-rin</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+        <p>
+          <button mat-fab color="primary" (click)="filePicker.click()">
+            <mat-icon>cloud_upload</mat-icon>
+          </button>
+          <input type="file" accept="text/xml" (change)="fileSelected($event)" style="display: none;" #filePicker>
+          <span>
+            {{ file ? file.name : 'Select file...' }}
+          </span>
+        </p>
+        <br>
+        <button (click)="importFile()" [disabled]="!fileImportReady" mat-flat-button color="accent">Import</button>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+  <div class="col-sm-12 col-md-6 col-lg-4">
+    <mat-card>
+      <mat-card-title>Load demo data</mat-card-title>
+      <mat-card-content>
+        <p>Some example data is provided to demo App functionality...</p>
+        <button (click)="importSampleData()" mat-flat-button color="accent">Load demo data</button>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+  <div class="col-sm-12 col-md-6 col-lg-4">
+    <mat-card>
+      <mat-card-content>
+        <p>
+          Import via browser extension:
+        </p>
+        <mat-chip-list>
+          <mat-chip>Disconnected</mat-chip>
+        </mat-chip-list>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+
+</section>
