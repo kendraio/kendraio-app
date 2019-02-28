@@ -13,6 +13,7 @@ import { AuthCallbackComponent } from './pages/auth-callback/auth-callback.compo
 import { DropboxPageComponent } from './pages/dropbox-page/dropbox-page.component';
 import { SwaggerPageComponent } from './pages/swagger-page/swagger-page.component';
 import {TestApiPageComponent} from './pages/test-api-page/test-api-page.component';
+import {DiagramPageComponent} from './pages/diagram-page/diagram-page.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,10 @@ const routes: Routes = [
       {
         path: 'visualise',
         component: VisualisePageComponent
+      },
+      {
+        path: 'diagram/:adapter/:id',
+        component: DiagramPageComponent
       },
       {
         path: 'adapters',

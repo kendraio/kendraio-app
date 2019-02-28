@@ -22,12 +22,29 @@
           <p mat-line><b>Support:</b> {{ config.adapter.supportUrl }}</p>
         </div>
 
-        <div *ngIf="config.schemas | objectKeys as schemas">
-          <p>
-            <b>Supported schemas:</b>
-            {{ schemas.join(', ') }}
-          </p>
-        </div>
+        <ng-container *ngIf="config.schemas | objectKeys as schemas">
+          <div *ngIf="schemas.length > 0">
+            <p>
+              <b>Supported schemas:</b>
+              {{ schemas.join(', ') }}
+            </p>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="config.adapter.actions | objectKeys as actions">
+          <div *ngIf="actions.length > 0">
+            <p>
+              <b>Actions:</b>
+            </p>
+            <ul>
+              <li *ngFor="let a of actions">
+                <a [routerLink]="['/diagram', config.adapter.name, a]">
+                  {{ config.adapter.actions[a].title }}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </ng-container>
 
         <div *ngIf="enabled[adapter]; else notEnabled" class="adapter-buttons">
           <button mat-flat-button color="warn" (click)="disableAdapter(adapter)">Disable</button>
