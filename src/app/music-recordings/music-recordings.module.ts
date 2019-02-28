@@ -8,7 +8,7 @@ import { AppMaterialModule } from '../app-material/app-material.module';
 import { MatGridListModule, MatCardModule } from '@angular/material';
 
 import { MusicRecordingsRoutingModule } from './music-recordings-routing.module';
-import { IndexComponent, MusicRecordingsEditComponent, MusicRecordingsDetailComponent } from './';
+import { IndexComponent, MusicRecordingsEditComponent, MusicRecordingsDetailComponent, TestSendClaimsComponent } from './';
 import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
 
 import {AgGridModule} from 'ag-grid-angular';
@@ -22,6 +22,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     IndexComponent, 
     MusicRecordingsEditComponent, 
     MusicRecordingsDetailComponent,
+    TestSendClaimsComponent
     // DialogDataExampleDialog,
     // ButtonRendererComponent
   ],
@@ -37,7 +38,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
       ),
       FlexLayoutModule
   ],
-  entryComponents: [    
+  entryComponents: [   
+    TestSendClaimsComponent 
   ]
 })
 export class MusicRecordingsModule { }

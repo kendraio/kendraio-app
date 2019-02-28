@@ -10,21 +10,25 @@
   [gridOptions]="gridOptions"
     [rowData]="allItems" 
     rowSelection="multiple"
-    (cellClicked)="onCellClicked($event)">
+    (cellClicked)="onCellClicked($event)"
+    (selectionChanged)="onSelectionChanged($event)"
+    >
 
     <ag-grid-column headerName="Recordings">
 
       <ag-grid-column headerName="Actions" [width]="100" [pinned]="true" [cellRenderer]="editBtnCellRenderer">
       </ag-grid-column>
 
-      <ag-grid-column headerName="#" [width]="80" [checkboxSelection]="true" [suppressMenu]="false" [pinned]="true"
+      <ag-grid-column headerName="#" [width]="80" [checkboxSelection]="true" field="isSelected" [suppressMenu]="false" [pinned]="true"
        ></ag-grid-column>
 
       <ag-grid-column headerName="Name" field="Name" [width]="125" [pinned]="true" [sortable]="true" [resizable]="true"
         [filter]="true"></ag-grid-column>
+
       <ag-grid-column headerName="Artist" field="Artist" [width]="120" [pinned]="false" [sortable]="true"
         [resizable]="true" [filter]="true"></ag-grid-column>
     </ag-grid-column>
+
     <ag-grid-column headerName="Details">
       <ag-grid-column headerName="ISRC" field="ISRC" [width]="150" [sortable]="true" [resizable]="true" [filter]="true">
       </ag-grid-column>
@@ -46,8 +50,13 @@
     </ag-grid-column>
   </ag-grid-angular>
 
-  <mat-action-list>  <button mat-raised-button mat-button>Claim Selected</button>
+  <mat-action-list>  <button mat-raised-button mat-button (click)="sendToClaim()">Claim Selected</button>
+    <div>Selection: <span id="selectedRows"></span></div>
   </mat-action-list>
+
+
+
+
 </div>
 
 

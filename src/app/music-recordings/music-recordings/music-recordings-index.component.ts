@@ -9,6 +9,7 @@ import { PageTitleService } from 'src/app/services/page-title.service';
 import { MusicRecordingsEditComponent } from '../music-recordings-edit/music-recordings-edit.component';
 import { TestDataService } from '../../services/test-data.service';
 // import { ButtonRendererComponent } from '../button-renderer.component';
+// import {TestSendClaimsComponent} from '..'
 
 
 
@@ -28,6 +29,9 @@ export class IndexComponent implements OnInit {
   listAll$;
   showSpinner: boolean;
   allItems: IMusicRecording[];
+  private gridApi;
+  private gridColumnApi;
+  claimsToSend: Array<any>;
 
 
   constructor(
@@ -41,6 +45,9 @@ export class IndexComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.claimsToSend = [];
+    this.claimsToSend.push({'eeeeeee':'wwwwwww'});
+    this.claimsToSend.push({'eeeeeee':'ffffffff'});
     this.pageTitle.setTitle('Recordings');
     this.entityTypes$ = this.testData.listEntityTypes();
 
@@ -58,8 +65,8 @@ export class IndexComponent implements OnInit {
   }
 
   countryCellRenderer(params) {
-    const flag = "<img border='0' width='15' height='10' style='margin-bottom: 2px' src='https://www.ag-grid.com/images/flags/gb.png'>";
-    return flag + " " + params.value;
+    const flag = '<img border=\'0\' width=\'15\' height=\'10\' style=\'margin-bottom: 2px\' src=\'https://www.ag-grid.com/images/flags/gb.png\'>';
+    return flag + ' ' + params.value;
   }
 
   editBtnCellRenderer(params) {
@@ -89,6 +96,9 @@ export class IndexComponent implements OnInit {
     if (ev.colDef.headerName === 'Actions') {
       this.openDialog(ev.data);
     }
+    if (ev.colDef.headerName === '#') {
+      this.openDialog(ev.data);
+    }
 
   }
 
@@ -102,6 +112,57 @@ export class IndexComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
+
+  onSelectionChanged(ev) {
+    this.gridApi = ev.api;
+  //  alert(ev);
+    const selectedRows = this.gridApi.getSelectedRows();
+    var selectedRowsString = '';
+    let theRow;
+    selectedRows.forEach(function(selectedRow, index) {
+      if (index > 5) {
+        return;
+      }
+      if (index !== 0) {
+        selectedRowsString += ', ';
+      
+      }
+      selectedRowsString += selectedRow.Name;
+      theRow = selectedRow;
+      // this.sendToClaim(theRow);
+    
+   //   
+    });
+    this.claimsToSend = [];
+    selectedRows.forEach(i=>{ 
+     
+      this.claimsToSend.push(
+      {
+       'name': i.Name,
+       'artist': i.Artist
+      });
+   });
+
+
+    if (selectedRows.length >= 6) {
+      selectedRowsString += ' - and ' + (selectedRows.length - 6) + ' others';
+    }
+    document.querySelector("#selectedRows").innerHTML = selectedRowsString;
+  
+  }
+
+sendToClaim(ev: any): void {
+// tslint:disable-next-line: no-use-before-declare
+  let dialogRef = this.dialog.open(TestSendClaimsComponent, {
+    data: this.claimsToSend,
+    width: '80%',
+    panelClass: 'formFieldWidth380'
+  });
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed');
+  });
+}
+
 
 
   listAll() {
@@ -119,3 +180,19 @@ export class IndexComponent implements OnInit {
 }
 
 
+
+@Component({
+  selector: 'app-test-import-dialog',
+  template: '   <pre> {{ data | json }}</pre>'
+})
+export class TestSendClaimsComponent implements OnInit {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+   // private formService: DynamicFormService
+  ) { }
+
+  ngOnInit() {
+
+  }
+
+}
