@@ -208,13 +208,15 @@ var MY_FORM_MODEL = [
 /*!*******************************************!*\
   !*** ./src/app/music-recordings/index.ts ***!
   \*******************************************/
-/*! exports provided: IndexComponent, MusicRecordingsDetailComponent, MusicRecordingsEditComponent */
+/*! exports provided: IndexComponent, TestSendClaimsComponent, MusicRecordingsDetailComponent, MusicRecordingsEditComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _music_recordings_music_recordings_index_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./music-recordings/music-recordings-index.component */ "./src/app/music-recordings/music-recordings/music-recordings-index.component.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IndexComponent", function() { return _music_recordings_music_recordings_index_component__WEBPACK_IMPORTED_MODULE_0__["IndexComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TestSendClaimsComponent", function() { return _music_recordings_music_recordings_index_component__WEBPACK_IMPORTED_MODULE_0__["TestSendClaimsComponent"]; });
 
 /* harmony import */ var _music_recordings_detail_music_recordings_detail_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./music-recordings-detail/music-recordings-detail.component */ "./src/app/music-recordings/music-recordings-detail/music-recordings-detail.component.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MusicRecordingsDetailComponent", function() { return _music_recordings_detail_music_recordings_detail_component__WEBPACK_IMPORTED_MODULE_1__["MusicRecordingsDetailComponent"]; });
@@ -470,6 +472,9 @@ var MusicRecordingsModule = /** @class */ (function () {
                 ___WEBPACK_IMPORTED_MODULE_6__["IndexComponent"],
                 ___WEBPACK_IMPORTED_MODULE_6__["MusicRecordingsEditComponent"],
                 ___WEBPACK_IMPORTED_MODULE_6__["MusicRecordingsDetailComponent"],
+                ___WEBPACK_IMPORTED_MODULE_6__["TestSendClaimsComponent"]
+                // DialogDataExampleDialog,
+                // ButtonRendererComponent
             ],
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
@@ -481,7 +486,9 @@ var MusicRecordingsModule = /** @class */ (function () {
                 ag_grid_angular__WEBPACK_IMPORTED_MODULE_8__["AgGridModule"].withComponents([]),
                 _angular_flex_layout__WEBPACK_IMPORTED_MODULE_9__["FlexLayoutModule"]
             ],
-            entryComponents: []
+            entryComponents: [
+                ___WEBPACK_IMPORTED_MODULE_6__["TestSendClaimsComponent"]
+            ]
         })
     ], MusicRecordingsModule);
     return MusicRecordingsModule;
@@ -498,7 +505,7 @@ var MusicRecordingsModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>Music recordings\r\n  This will allow the user to manage rights data and other related metadata about recordings. These recordings could be\r\n  unreleased or released.</p>\r\n\r\n<mat-progress-bar *ngIf=\"showSpinner\" mode=\"indeterminate\"></mat-progress-bar>\r\n\r\n<div class=\"table-responsive-lg\">\r\n  <!-- (rowClicked)=\"openDialog($event)\" -->\r\n  <ag-grid-angular #agGrid style=\"width: 100%; height: 700px;\" class=\"ag-theme-material\" \r\n  [gridOptions]=\"gridOptions\"\r\n    [rowData]=\"allItems\" \r\n    rowSelection=\"multiple\"\r\n    (cellClicked)=\"onCellClicked($event)\">\r\n\r\n    <ag-grid-column headerName=\"Recordings\">\r\n\r\n      <ag-grid-column headerName=\"Actions\" [width]=\"100\" [pinned]=\"true\" [cellRenderer]=\"editBtnCellRenderer\">\r\n      </ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"#\" [width]=\"80\" [checkboxSelection]=\"true\" [suppressMenu]=\"false\" [pinned]=\"true\"\r\n       ></ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Name\" field=\"Name\" [width]=\"125\" [pinned]=\"true\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Artist\" field=\"Artist\" [width]=\"120\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n    </ag-grid-column>\r\n    <ag-grid-column headerName=\"Details\">\r\n      <ag-grid-column headerName=\"ISRC\" field=\"ISRC\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n      <ag-grid-column headerName=\"ISWC\" field=\"ISWC\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n      <ag-grid-column headerName=\"Date\" field=\"Date\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n      <ag-grid-column headerName=\"Country\" field=\"Country\" [width]=\"150\" [cellRenderer]=\"countryCellRenderer\"\r\n        [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Owner\" field=\"Owner\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Collective\" field=\"Collective\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Submitted to\" field=\"Submitted to\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Status\" field=\"Status\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n\r\n    </ag-grid-column>\r\n  </ag-grid-angular>\r\n\r\n  <mat-action-list>  <button mat-raised-button mat-button>Claim Selected</button>\r\n  </mat-action-list>\r\n</div>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n<!-- <mat-card *ngIf=\"allItems\">\r\n\r\n0: \"Name\"\r\n1: \"Type\"\r\n2: \"ISWC\"\r\n3: \"Type\"\r\n4: \"Composer\"\r\n5: \"lyricist\"\r\n6: \"Arranger\"\r\n\r\n\r\n\r\n\r\n<div class=\"table-responsive-lg\">\r\n\r\n    <table class=\"table table-striped table-hover table-sm small\">\r\n  \r\n      <thead class=\"thead-dark\">\r\n        <tr>\r\n          <th>Ref</th>\r\n          <th>Title</th>\r\n          <th>Artist</th>\r\n          <th>ISRC</th>       \r\n          <th >ISWC</th>\r\n          <th >Date</th>\r\n          <th >Country</th>\r\n          <th >Owner</th>\r\n          <th >Collective</th>\r\n          <th>Submitted to</th>\r\n          <th >Status</th>\r\n          <th>Actions</th>\r\n        </tr>\r\n      </thead>\r\n  \r\n      <tbody>\r\n \r\n        <tr *ngFor=\"let item of allItems\">\r\n            <td>ISDN-2345/4321</td>\r\n            <td>{{item.Name}}</td>\r\n            <td>{{item.Artist}}</td>\r\n            <td>{{item.ISRC}}</td>     \r\n            <td>{{item.ISWC}}</td>\r\n            <td>{{item.Date}}</td>\r\n            <td>{{item.Country}}</td>\r\n            <td>{{item.Owner}}</td>\r\n            <td>{{item.Collective}}</td>\r\n            <td>{{item['Submitted to']}}</td>\r\n            <th>{{item.Status}}</th>\r\n            <td>\r\n              <button  [routerLink]=\"['edit', item.ISRC]\">Edit</button>   \r\n              <a mat-stroked-button  [routerLink]=\"['detail', item.ISRC]\">view</a>\r\n            </td>\r\n          </tr>\r\n     \r\n  \r\n        </tbody>  \r\n        </table>  \r\n  \r\n  </div>\r\n\r\n\r\n</mat-card> -->\r\n\r\n<!-- Music recordings\r\nTitle\r\nthe recording title/name.\r\nArtist\r\nThe name of the band or artist associated with the recording\r\nISRC\r\n12 alphanumeric characters, formed from the four code elements - see details. Example: UKNF91800001,  “UKNF9” - is the artist/band code, “18” two digit year, “00001” the first recording in that year.\r\nISWC\r\n\r\n\r\nDate\r\nThe recording date. We may only need the year (P date) or year/month. \r\nCountry\r\nthe country of recording, maybe this should be labeled location. \r\nOwner\r\nThe primary rights owner.\r\nCollective\r\nCollective Management Organisations. For a single right type this can be a single CMO that is that is tasked with collecting on your behalf or multiple CMOs. I think we should allow for a comma separated list with an expandable “...”\r\nSubmitted to\r\nOther services like musicbrainz the user has enabled adapters for and submitted the recordings to. Will need expandable “...”\r\nStatus\r\nAs the user can potentially submit a recording to multiple CMOs and possibly other services like musicbrainz we may have multiple statuses. This should act as a guide for identifying a combined state and actions needed. We may need to keep this simple and rely on a detail page to hold the details. So this may say “not submitted” “processing”, “need more input to complete” and “submitted”. \r\nAction\r\nCommon actions should be: Edit, View details, Submit, Edit submit list.\r\nNotes:\r\nThis should be used as an overview as we will have data that can not be easily tabulated. This is especially true if the data is submitted using multiple adapters. \r\nEditing and viewing the data is simple up to the point the user submits it. Once it is submitted to multiple services the data and state can diverge. If one of the services reports a title to be to long or containing unrecognised characters the data will need to be edited for that specific service and will diverge. I think we will need an expanded view for this.      -->"
+module.exports = "<p>Music recordings\r\n  This will allow the user to manage rights data and other related metadata about recordings. These recordings could be\r\n  unreleased or released.</p>\r\n\r\n<mat-progress-bar *ngIf=\"showSpinner\" mode=\"indeterminate\"></mat-progress-bar>\r\n\r\n<div class=\"table-responsive-lg\">\r\n  <!-- (rowClicked)=\"openDialog($event)\" -->\r\n  <ag-grid-angular #agGrid style=\"width: 100%; height: 700px;\" class=\"ag-theme-material\" \r\n  [gridOptions]=\"gridOptions\"\r\n    [rowData]=\"allItems\" \r\n    rowSelection=\"multiple\"\r\n    (cellClicked)=\"onCellClicked($event)\"\r\n    (selectionChanged)=\"onSelectionChanged($event)\"\r\n    >\r\n\r\n    <ag-grid-column headerName=\"Recordings\">\r\n\r\n      <ag-grid-column headerName=\"Actions\" [width]=\"100\" [pinned]=\"true\" [cellRenderer]=\"editBtnCellRenderer\">\r\n      </ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"#\" [width]=\"80\" [checkboxSelection]=\"true\"  [suppressMenu]=\"false\" [pinned]=\"true\"\r\n       ></ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Name\" field=\"Name\" [width]=\"125\" [pinned]=\"true\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Artist\" field=\"Artist\" [width]=\"120\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n    </ag-grid-column>\r\n\r\n    <ag-grid-column headerName=\"Details\">\r\n      <ag-grid-column headerName=\"ISRC\" field=\"ISRC\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n      <ag-grid-column headerName=\"ISWC\" field=\"ISWC\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n      <ag-grid-column headerName=\"Date\" field=\"Date\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n      <ag-grid-column headerName=\"Country\" field=\"Country\" [width]=\"150\" [cellRenderer]=\"countryCellRenderer\"\r\n        [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Owner\" field=\"Owner\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Collective\" field=\"Collective\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Submitted to\" field=\"Submitted to\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Status\" field=\"Status\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n\r\n    </ag-grid-column>\r\n  </ag-grid-angular>\r\n\r\n  <mat-action-list>  <button mat-raised-button mat-button (click)=\"sendToClaim()\">Claim Selected</button>\r\n    <div>Selection: <span id=\"selectedRows\"></span></div>\r\n  </mat-action-list>\r\n\r\n\r\n\r\n\r\n</div>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n<!-- <mat-card *ngIf=\"allItems\">\r\n\r\n0: \"Name\"\r\n1: \"Type\"\r\n2: \"ISWC\"\r\n3: \"Type\"\r\n4: \"Composer\"\r\n5: \"lyricist\"\r\n6: \"Arranger\"\r\n\r\n\r\n\r\n\r\n<div class=\"table-responsive-lg\">\r\n\r\n    <table class=\"table table-striped table-hover table-sm small\">\r\n  \r\n      <thead class=\"thead-dark\">\r\n        <tr>\r\n          <th>Ref</th>\r\n          <th>Title</th>\r\n          <th>Artist</th>\r\n          <th>ISRC</th>       \r\n          <th >ISWC</th>\r\n          <th >Date</th>\r\n          <th >Country</th>\r\n          <th >Owner</th>\r\n          <th >Collective</th>\r\n          <th>Submitted to</th>\r\n          <th >Status</th>\r\n          <th>Actions</th>\r\n        </tr>\r\n      </thead>\r\n  \r\n      <tbody>\r\n \r\n        <tr *ngFor=\"let item of allItems\">\r\n            <td>ISDN-2345/4321</td>\r\n            <td>{{item.Name}}</td>\r\n            <td>{{item.Artist}}</td>\r\n            <td>{{item.ISRC}}</td>     \r\n            <td>{{item.ISWC}}</td>\r\n            <td>{{item.Date}}</td>\r\n            <td>{{item.Country}}</td>\r\n            <td>{{item.Owner}}</td>\r\n            <td>{{item.Collective}}</td>\r\n            <td>{{item['Submitted to']}}</td>\r\n            <th>{{item.Status}}</th>\r\n            <td>\r\n              <button  [routerLink]=\"['edit', item.ISRC]\">Edit</button>   \r\n              <a mat-stroked-button  [routerLink]=\"['detail', item.ISRC]\">view</a>\r\n            </td>\r\n          </tr>\r\n     \r\n  \r\n        </tbody>  \r\n        </table>  \r\n  \r\n  </div>\r\n\r\n\r\n</mat-card> -->\r\n\r\n<!-- Music recordings\r\nTitle\r\nthe recording title/name.\r\nArtist\r\nThe name of the band or artist associated with the recording\r\nISRC\r\n12 alphanumeric characters, formed from the four code elements - see details. Example: UKNF91800001,  “UKNF9” - is the artist/band code, “18” two digit year, “00001” the first recording in that year.\r\nISWC\r\n\r\n\r\nDate\r\nThe recording date. We may only need the year (P date) or year/month. \r\nCountry\r\nthe country of recording, maybe this should be labeled location. \r\nOwner\r\nThe primary rights owner.\r\nCollective\r\nCollective Management Organisations. For a single right type this can be a single CMO that is that is tasked with collecting on your behalf or multiple CMOs. I think we should allow for a comma separated list with an expandable “...”\r\nSubmitted to\r\nOther services like musicbrainz the user has enabled adapters for and submitted the recordings to. Will need expandable “...”\r\nStatus\r\nAs the user can potentially submit a recording to multiple CMOs and possibly other services like musicbrainz we may have multiple statuses. This should act as a guide for identifying a combined state and actions needed. We may need to keep this simple and rely on a detail page to hold the details. So this may say “not submitted” “processing”, “need more input to complete” and “submitted”. \r\nAction\r\nCommon actions should be: Edit, View details, Submit, Edit submit list.\r\nNotes:\r\nThis should be used as an overview as we will have data that can not be easily tabulated. This is especially true if the data is submitted using multiple adapters. \r\nEditing and viewing the data is simple up to the point the user submits it. Once it is submitted to multiple services the data and state can diverge. If one of the services reports a title to be to long or containing unrecognised characters the data will need to be edited for that specific service and will diverge. I think we will need an expanded view for this.      -->"
 
 /***/ }),
 
@@ -506,12 +513,13 @@ module.exports = "<p>Music recordings\r\n  This will allow the user to manage ri
 /*!***************************************************************************************!*\
   !*** ./src/app/music-recordings/music-recordings/music-recordings-index.component.ts ***!
   \***************************************************************************************/
-/*! exports provided: IndexComponent */
+/*! exports provided: IndexComponent, TestSendClaimsComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IndexComponent", function() { return IndexComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TestSendClaimsComponent", function() { return TestSendClaimsComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
@@ -529,6 +537,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // import { ButtonRendererComponent } from '../button-renderer.component';
+// import {TestSendClaimsComponent} from '..'
 var IndexComponent = /** @class */ (function () {
     function IndexComponent(testData, dialog, pageTitle) {
         this.testData = testData;
@@ -538,6 +547,9 @@ var IndexComponent = /** @class */ (function () {
     }
     IndexComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.claimsToSend = [];
+        this.claimsToSend.push({ 'eeeeeee': 'wwwwwww' });
+        this.claimsToSend.push({ 'eeeeeee': 'ffffffff' });
         this.pageTitle.setTitle('Recordings');
         this.entityTypes$ = this.testData.listEntityTypes();
         this.entityList$ = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["switchMap"])(function (type) { return _this.testData.listEntities(type); }));
@@ -546,8 +558,8 @@ var IndexComponent = /** @class */ (function () {
         //  this.listAll();
     };
     IndexComponent.prototype.countryCellRenderer = function (params) {
-        var flag = "<img border='0' width='15' height='10' style='margin-bottom: 2px' src='https://www.ag-grid.com/images/flags/gb.png'>";
-        return flag + " " + params.value;
+        var flag = '<img border=\'0\' width=\'15\' height=\'10\' style=\'margin-bottom: 2px\' src=\'https://www.ag-grid.com/images/flags/gb.png\'>';
+        return flag + ' ' + params.value;
     };
     IndexComponent.prototype.editBtnCellRenderer = function (params) {
         var btn = '<button type="button" class="btn btn-primary btn-sm">Edit</button>';
@@ -582,6 +594,44 @@ var IndexComponent = /** @class */ (function () {
             console.log('The dialog was closed');
         });
     };
+    IndexComponent.prototype.onSelectionChanged = function (ev) {
+        var _this = this;
+        this.gridApi = ev.api;
+        var selectedRows = this.gridApi.getSelectedRows();
+        var selectedRowsString = '';
+        var theRow;
+        selectedRows.forEach(function (selectedRow, index) {
+            if (index > 5) {
+                return;
+            }
+            if (index !== 0) {
+                selectedRowsString += ', ';
+            }
+            selectedRowsString += selectedRow.Name;
+            theRow = selectedRow;
+        });
+        this.claimsToSend = [];
+        selectedRows.forEach(function (i) {
+            _this.claimsToSend.push({
+                'name': i.Name,
+                'artist': i.Artist
+            });
+        });
+        if (selectedRows.length >= 6) {
+            selectedRowsString += ' - and ' + (selectedRows.length - 6) + ' others';
+        }
+        document.querySelector("#selectedRows").innerHTML = selectedRowsString;
+    };
+    IndexComponent.prototype.sendToClaim = function (ev) {
+        var dialogRef = this.dialog.open(TestSendClaimsComponent, {
+            data: this.claimsToSend,
+            width: '80%',
+            panelClass: 'formFieldWidth380'
+        });
+        dialogRef.afterClosed().subscribe(function (result) {
+            console.log('The dialog was closed');
+        });
+    };
     IndexComponent.prototype.listAll = function () {
         var _this = this;
         this.testData.listAll('music-recording').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function () { return _this.showSpinner = true; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["delay"])(500) // fake loading
@@ -602,6 +652,23 @@ var IndexComponent = /** @class */ (function () {
             src_app_services_page_title_service__WEBPACK_IMPORTED_MODULE_5__["PageTitleService"]])
     ], IndexComponent);
     return IndexComponent;
+}());
+
+var TestSendClaimsComponent = /** @class */ (function () {
+    function TestSendClaimsComponent(data) {
+        this.data = data;
+    }
+    TestSendClaimsComponent.prototype.ngOnInit = function () {
+    };
+    TestSendClaimsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-test-import-dialog',
+            template: "\n  <pre> {{ data | json }}</pre> \n  <div mat-dialog-actions class=\"align-right\">\n    <button mat-button mat-dialog-close=\"Edit Cancelled\">Cancel</button>\n    <button mat-button [mat-dialog-close]=\"data.Name\">Send All</button>\n  </div>\n  "
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_4__["MAT_DIALOG_DATA"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
+    ], TestSendClaimsComponent);
+    return TestSendClaimsComponent;
 }());
 
 
