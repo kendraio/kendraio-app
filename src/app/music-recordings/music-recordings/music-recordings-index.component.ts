@@ -96,10 +96,6 @@ export class IndexComponent implements OnInit {
     if (ev.colDef.headerName === 'Actions') {
       this.openDialog(ev.data);
     }
-    if (ev.colDef.headerName === '#') {
-      this.openDialog(ev.data);
-    }
-
   }
 
   openDialog(ev: any): void {
@@ -115,9 +111,9 @@ export class IndexComponent implements OnInit {
 
   onSelectionChanged(ev) {
     this.gridApi = ev.api;
-  //  alert(ev);
+
     const selectedRows = this.gridApi.getSelectedRows();
-    var selectedRowsString = '';
+    let selectedRowsString = '';
     let theRow;
     selectedRows.forEach(function(selectedRow, index) {
       if (index > 5) {
@@ -128,10 +124,7 @@ export class IndexComponent implements OnInit {
       
       }
       selectedRowsString += selectedRow.Name;
-      theRow = selectedRow;
-      // this.sendToClaim(theRow);
-    
-   //   
+      theRow = selectedRow; 
     });
     this.claimsToSend = [];
     selectedRows.forEach(i=>{ 
@@ -152,7 +145,6 @@ export class IndexComponent implements OnInit {
   }
 
 sendToClaim(ev: any): void {
-// tslint:disable-next-line: no-use-before-declare
   let dialogRef = this.dialog.open(TestSendClaimsComponent, {
     data: this.claimsToSend,
     width: '80%',
@@ -183,7 +175,13 @@ sendToClaim(ev: any): void {
 
 @Component({
   selector: 'app-test-import-dialog',
-  template: '   <pre> {{ data | json }}</pre>'
+  template: `
+  <pre> {{ data | json }}</pre> 
+  <div mat-dialog-actions class="align-right">
+    <button mat-button mat-dialog-close="Edit Cancelled">Cancel</button>
+    <button mat-button [mat-dialog-close]="data.Name">Send All</button>
+  </div>
+  `
 })
 export class TestSendClaimsComponent implements OnInit {
   constructor(
