@@ -1,0 +1,12 @@
+- type: INPUT
+  id: name
+  label: Photo title
+  placeholder: Photo title
+- type: INPUT
+  id: location
+  label: Location
+  placeholder: Location
+- type: IMAGE
+  id: image
+  label: File
+  placeholder: File
