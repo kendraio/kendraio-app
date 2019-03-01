@@ -19,6 +19,8 @@ export class DiagramPageComponent implements OnInit, AfterViewInit {
 
   title = '';
   graph;
+  graphDef = '';
+  definitionPath = '';
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -39,13 +41,15 @@ export class DiagramPageComponent implements OnInit, AfterViewInit {
         map(allAdapters => get(allAdapters, `${adapter}.adapter.actions[${id}]`))
       )),
       filter(Boolean),
-      switchMap(({ title, path }) =>
-        this.http.get(`${BASE_PATH}${path}`, { responseType: 'text' }).pipe(
+      switchMap(({ title, path }) => {
+        this.definitionPath = path;
+        return this.http.get(`${BASE_PATH}${path}`, { responseType: 'text' }).pipe(
           map(text => ({ title, graphDef: text }))
-        )
-      )
+        );
+      })
     ).subscribe(({ title, graphDef }) => {
       this.title = title;
+      this.graphDef = graphDef;
       this.graph = mermaidAPI.render('graphDiv', graphDef, svgCode => {
         this.diagram.nativeElement.innerHTML = svgCode;
       });

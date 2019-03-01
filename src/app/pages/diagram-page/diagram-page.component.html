@@ -3,3 +3,22 @@
   <h2>{{ title }}</h2>
   <div #diagram></div>
 </div>
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Process Definition
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="mat-typography">
+      <p>
+        <a target="_blank"
+           href="https://github.com/kendraio/kendraio-adapter/tree/master/{{ definitionPath }}">
+          EDIT
+        </a>
+        the process definition on GitHub
+      </p>
+    </div>
+    <pre>{{ graphDef }}</pre>
+  </mat-expansion-panel>
+</mat-accordion>
