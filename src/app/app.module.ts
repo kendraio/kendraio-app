@@ -53,6 +53,7 @@ import { AssetsPageComponent } from './pages/assets-page/assets-page.component';
 
 import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
+import { DiagramPageComponent } from './pages/diagram-page/diagram-page.component';
 // import { AgGridModule } from 'ag-grid-angular';
 // import { MatInputComponent } from './_shared/components';
 // import {DialogDataExampleDialog} from './music-recordings';
@@ -93,6 +94,7 @@ import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
     TestApiPageComponent,
     TestImportDialogComponent,
     AssetsPageComponent,
+    DiagramPageComponent,
     // MatInputComponent
     // DialogDataExampleDialog
     // MusicRecordingsEditComponent

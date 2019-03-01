@@ -33,8 +33,8 @@ export class LayoutComponent implements OnInit {
       icon: 'cloud_upload'
     },
     {
-      href: '/visualise',
-      title: 'Visualise',
+      href: '/diagram',
+      title: 'Processes',
       icon: 'bubble_chart'
     },
     {
