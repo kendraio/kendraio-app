@@ -46,8 +46,6 @@ export class IndexComponent implements OnInit {
 
   ngOnInit() {
     this.claimsToSend = [];
-    this.claimsToSend.push({'eeeeeee':'wwwwwww'});
-    this.claimsToSend.push({'eeeeeee':'ffffffff'});
     this.pageTitle.setTitle('Recordings');
     this.entityTypes$ = this.testData.listEntityTypes();
 
