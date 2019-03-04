@@ -50,9 +50,10 @@
     </ag-grid-column>
   </ag-grid-angular>
 
-  <mat-action-list *ngIf="claimsToSend.length>0">  <button mat-raised-button mat-button (click)="sendToClaim($event)">Claim Selected</button>
-    <div>Selection: <span id="selectedRows"></span></div>
-  </mat-action-list>
+  <mat-action-list *ngIf="claimsToSend.length > 0">  <button mat-raised-button mat-button (click)="sendToClaim($event)">Claim Selected</button>
+     </mat-action-list> 
+     <div>Selection: <span id="selectedRows">...</span></div>
+
 
  
 

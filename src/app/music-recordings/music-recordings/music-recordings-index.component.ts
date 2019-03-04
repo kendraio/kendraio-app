@@ -8,6 +8,7 @@ import { MatDialog, MAT_DIALOG_DATA, MatButton } from '@angular/material';
 import { PageTitleService } from 'src/app/services/page-title.service';
 import { MusicRecordingsEditComponent } from '../music-recordings-edit/music-recordings-edit.component';
 import { TestDataService } from '../../services/test-data.service';
+import { SendClaimsComponent } from 'src/app/claims/send-claims/send-claims.component';
 // import { ButtonRendererComponent } from '../button-renderer.component';
 // import {TestSendClaimsComponent} from '..'
 
@@ -130,7 +131,9 @@ export class IndexComponent implements OnInit {
       this.claimsToSend.push(
       {
        'name': i.Name,
-       'artist': i.Artist
+       'artist': i.Artist,
+       'collective': i.Collective,
+       'owner': i.Owner
       });
    });
 
@@ -138,12 +141,12 @@ export class IndexComponent implements OnInit {
     if (selectedRows.length >= 6) {
       selectedRowsString += ' - and ' + (selectedRows.length - 6) + ' others';
     }
-    document.querySelector("#selectedRows").innerHTML = selectedRowsString;
+    document.querySelector('#selectedRows').innerHTML = selectedRowsString;
   
   }
 
 sendToClaim(ev: any): void {
-  let dialogRef = this.dialog.open(TestSendClaimsComponent, {
+  const dialogRef = this.dialog.open(SendClaimsComponent, {
     data: this.claimsToSend,
     width: '80%',
     panelClass: 'formFieldWidth380'
@@ -171,24 +174,24 @@ sendToClaim(ev: any): void {
 
 
 
-@Component({
-  selector: 'app-test-import-dialog',
-  template: `
-  <pre> {{ data | json }}</pre> 
-  <div mat-dialog-actions class="align-right">
-    <button mat-button mat-dialog-close="Edit Cancelled">Cancel</button>
-    <button mat-button [mat-dialog-close]="data.Name">Send All</button>
-  </div>
-  `
-})
-export class TestSendClaimsComponent implements OnInit {
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
-   // private formService: DynamicFormService
-  ) { }
+// @Component({
+//   selector: 'app-test-import-dialog',
+//   template: `
+//   <pre> {{ data | json }}</pre> 
+//   <div mat-dialog-actions class="align-right">
+//     <button mat-button mat-dialog-close="Edit Cancelled">Cancel</button>
+//     <button mat-button [mat-dialog-close]="data.Name">Send All</button>
+//   </div>
+//   `
+// })
+// export class TestSendClaimsComponent implements OnInit {
+//   constructor(
+//     @Inject(MAT_DIALOG_DATA) public data: any,
+//    // private formService: DynamicFormService
+//   ) { }
 
-  ngOnInit() {
+//   ngOnInit() {
 
-  }
+//   }
 
-}
+// }

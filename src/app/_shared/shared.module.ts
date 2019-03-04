@@ -15,7 +15,8 @@ import {
   MatRadioModule,
   MatSelectModule,
   MatSliderModule,
-  MatButtonModule
+  MatButtonModule,
+  MatMenuModule
 } from '@angular/material';
 
 import * as matComponents from '../_shared/components';
@@ -30,6 +31,7 @@ import { AgGridModule } from 'ag-grid-angular';
     FormsModule,
     RouterModule,
     MatCardModule,
+    MatMenuModule,
     MatButtonToggleModule,
     MatButtonModule,
     MatCheckboxModule,
@@ -53,6 +55,7 @@ import { AgGridModule } from 'ag-grid-angular';
   ],
   exports: [
   //  matComponents.MatInputComponent,
+  MatMenuModule,
 
   ],
   providers: [
