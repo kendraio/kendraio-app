@@ -5,7 +5,7 @@
 Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat consectetur incidunt facere esse vero minus, voluptates voluptatem autem at ratione non! Alias hic temporibus rerum nisi odit quisquam dolorum fugiat!
 
 
-<div class="mt-4" fxLayout="row wrap" fxLayoutGap="20px 20px"   fxLayoutAlign="space-around stretch">
+<div class="mt-4" fxLayout="row wrap" fxLayoutGap="20px"   fxLayoutAlign="start stretch">
 
 <mat-card *ngFor="let item of data; let i = index;"  >
     <mat-card-header>
@@ -28,15 +28,16 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat consectetur inc
 
 
     <mat-card-actions>
-        <button mat-mini-fab matTooltip="Remove from Claim" (click)="removeClaim(i)"><mat-icon>delete</mat-icon></button>
+        <button mat-mini-fab matTooltip="Remove from Claim" (click)="removeClaim(i)"><mat-icon>delete</mat-icon></button> 
+        <button mat-mini-fab matTooltip="Edit" (click)="removeClaim(i)"><mat-icon>edit</mat-icon></button>
       </mat-card-actions>
 
 </mat-card>
 
 </div>
 
-<div mat-dialog-actions class="align-right">
+<div mat-dialog-actions class="text-right">
   <button mat-button mat-dialog-close="Edit Cancelled">Cancel</button>
-  <button mat-button [mat-dialog-close]="data.Name">Send All</button>
+  <button mat-button mat-raised-button [mat-dialog-close]="data.Name">Send All</button>
 </div>
 
