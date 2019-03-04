@@ -69,7 +69,7 @@ export class IndexComponent implements OnInit {
   }
 
   editBtnCellRenderer(params) {
-    const btn = '<button type="button" class="btn btn-primary btn-sm">Edit</button>';
+    const btn = '<button class="mat-button mat-raised-button"><span class="mat-button-wrapper">Edit</span><div class="mat-button-ripple mat-ripple"></div><div class="mat-button-focus-overlay"></div></button>';
     return btn;
   }
 
