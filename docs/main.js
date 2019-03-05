@@ -2844,31 +2844,30 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
 var map = {
 	"./claims/claims.module": [
 		"./src/app/claims/claims.module.ts",
-		"common",
+		"default~claims-claims-module~files-files-module~music-recordings-music-recordings-module~music-relea~34836e16",
+		"default~claims-claims-module~music-recordings-music-recordings-module~music-releases-music-releases-~1b7a70b3",
 		"claims-claims-module"
 	],
 	"./files/files.module": [
 		"./src/app/files/files.module.ts",
-		"default~files-files-module~music-recordings-music-recordings-module~music-releases-music-releases-mo~2cac67fc",
-		"common",
+		"default~claims-claims-module~files-files-module~music-recordings-music-recordings-module~music-relea~34836e16",
 		"files-files-module"
 	],
 	"./music-recordings/music-recordings.module": [
 		"./src/app/music-recordings/music-recordings.module.ts",
-		"default~files-files-module~music-recordings-music-recordings-module~music-releases-music-releases-mo~2cac67fc",
-		"common",
+		"default~claims-claims-module~files-files-module~music-recordings-music-recordings-module~music-relea~34836e16",
+		"default~claims-claims-module~music-recordings-music-recordings-module~music-releases-music-releases-~1b7a70b3",
 		"music-recordings-music-recordings-module"
 	],
 	"./music-releases/music-releases.module": [
 		"./src/app/music-releases/music-releases.module.ts",
-		"default~files-files-module~music-recordings-music-recordings-module~music-releases-music-releases-mo~2cac67fc",
-		"common",
+		"default~claims-claims-module~files-files-module~music-recordings-music-recordings-module~music-relea~34836e16",
+		"default~claims-claims-module~music-recordings-music-recordings-module~music-releases-music-releases-~1b7a70b3",
 		"music-releases-music-releases-module"
 	],
 	"./music-works/music-works.module": [
 		"./src/app/music-works/music-works.module.ts",
-		"default~files-files-module~music-recordings-music-recordings-module~music-releases-music-releases-mo~2cac67fc",
-		"common",
+		"default~claims-claims-module~files-files-module~music-recordings-music-recordings-module~music-relea~34836e16",
 		"music-works-music-works-module"
 	],
 	"./settings/settings.module": [
@@ -3422,6 +3421,11 @@ var LayoutComponent = /** @class */ (function () {
                 href: '/assets',
                 title: 'Assets',
                 icon: 'favorite'
+            },
+            {
+                href: '/claims',
+                title: 'Claim Book',
+                icon: 'attach_money'
             },
             {
                 href: '/import',
@@ -4071,7 +4075,7 @@ var ReplaceImageUrlDialogComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1 mat-dialog-title>Importing...</h1>\r\n<mat-progress-bar mode=\"determinate\" [value]=\"progress\"></mat-progress-bar>\r\n"
+module.exports = "<h1 mat-dialog-title>Importing {{ importType }}...</h1>\r\n<mat-progress-bar mode=\"determinate\" [value]=\"progress\"></mat-progress-bar>\r\n"
 
 /***/ }),
 
@@ -4114,10 +4118,12 @@ var TestImportDialogComponent = /** @class */ (function () {
         this.data = data;
         this.docsRepo = docsRepo;
         this.progress = 0;
+        this.importType = '';
     }
     TestImportDialogComponent.prototype.ngOnInit = function () {
         var _this = this;
         var _a = this.data.content, type = _a.type, records = _a.records;
+        this.importType = type;
         Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["forkJoin"])(records.map(function (item) { return _this.docsRepo.addNew(type, tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({ type: type }, item)); }))
             .subscribe(function () {
             Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["interval"])(10).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["startWith"])(0), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(100)).subscribe(function () { return _this.progress += 1; }, function (err) { return console.log(err); }, function () { return _this.dialogRef.close(); });
@@ -5088,7 +5094,7 @@ var AdaptersPageComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n     \r\n\r\n\r\n<mat-grid-list cols=\"4\" rowHeight=\"2:1\">\r\n    <mat-grid-tile [routerLink]=\"['/files']\" ><h2>Files</h2></mat-grid-tile>\r\n    <mat-grid-tile [routerLink]=\"['/recordings']\"><h2>Recordings</h2></mat-grid-tile>\r\n    <mat-grid-tile [routerLink]=\"['/releases']\"><h2>Releases</h2></mat-grid-tile>\r\n    <mat-grid-tile [routerLink]=\"['/works']\" ><h2>Works</h2></mat-grid-tile>\r\n  </mat-grid-list>\r\n\r\n\r\n   "
+module.exports = "\r\n     \r\n\r\n\r\n<mat-grid-list cols=\"4\" rowHeight=\"1:1\">\r\n    <mat-grid-tile [routerLink]=\"['/files']\" ><h2>Files</h2>\r\n      <mat-grid-tile-footer>  We found 35 files\r\n          <button mat-icon-button>\r\n              <mat-icon>forward</mat-icon>\r\n            </button> \r\n      </mat-grid-tile-footer>\r\n    </mat-grid-tile>\r\n    <mat-grid-tile [routerLink]=\"['/recordings']\"><h2>Recordings</h2>\r\n      <mat-grid-tile-footer>  We found 27 Recordings\r\n          <button mat-icon-button>\r\n              <mat-icon>forward</mat-icon>\r\n            </button> \r\n      </mat-grid-tile-footer>\r\n    </mat-grid-tile>\r\n    <mat-grid-tile [routerLink]=\"['/releases']\"><h2>Releases</h2>\r\n      <mat-grid-tile-footer>  We found 32 Releases\r\n          <button mat-icon-button>\r\n              <mat-icon>forward</mat-icon>\r\n            </button> \r\n      </mat-grid-tile-footer>\r\n    </mat-grid-tile>\r\n    <mat-grid-tile [routerLink]=\"['/works']\" ><h2>Works</h2><br>\r\n<mat-grid-tile-footer>  <div>We found 32 Works</div>    \r\n  <button mat-icon-button>\r\n  <mat-icon>forward</mat-icon>\r\n</button> \r\n</mat-grid-tile-footer>\r\n\r\n   \r\n    </mat-grid-tile>\r\n  </mat-grid-list>\r\n\r\n\r\n   "
 
 /***/ }),
 
@@ -5099,7 +5105,7 @@ module.exports = "\r\n     \r\n\r\n\r\n<mat-grid-list cols=\"4\" rowHeight=\"2:1
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "mat-grid-tile {\n  background: lightblue;\n  cursor: pointer; }\n  mat-grid-tile:hover {\n    opacity: .8; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvYXNzZXRzLXBhZ2UvQzpcXFVzZXJzXFxUaW1cXGtlbmRyYWlvLWFwcC9zcmNcXGFwcFxccGFnZXNcXGFzc2V0cy1wYWdlXFxhc3NldHMtcGFnZS5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLHNCQUFxQjtFQUNyQixnQkFBZSxFQUloQjtFQU5IO0lBSUEsWUFBVSxFQUNMIiwiZmlsZSI6InNyYy9hcHAvcGFnZXMvYXNzZXRzLXBhZ2UvYXNzZXRzLXBhZ2UuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJtYXQtZ3JpZC10aWxlIHtcclxuICAgIGJhY2tncm91bmQ6IGxpZ2h0Ymx1ZTtcclxuICAgIGN1cnNvcjogcG9pbnRlcjtcclxuICAgICY6aG92ZXIge1xyXG5vcGFjaXR5Oi44O1xyXG4gICAgfVxyXG4gIH0iXX0= */"
+module.exports = "mat-grid-tile {\n  background: lightblue;\n  cursor: pointer; }\n  mat-grid-tile:hover {\n    opacity: .8; }\n  .mat-grid-tile .mat-grid-tile-footer {\n  place-content: space-between; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvYXNzZXRzLXBhZ2UvQzpcXFVzZXJzXFxUaW1cXGtlbmRyYWlvLWFwcC9zcmNcXGFwcFxccGFnZXNcXGFzc2V0cy1wYWdlXFxhc3NldHMtcGFnZS5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLHNCQUFxQjtFQUNyQixnQkFBZSxFQUloQjtFQU5IO0lBSUEsWUFBVSxFQUNMO0VBR0g7RUFDRSw2QkFBNEIsRUFDL0IiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9hc3NldHMtcGFnZS9hc3NldHMtcGFnZS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIm1hdC1ncmlkLXRpbGUge1xyXG4gICAgYmFja2dyb3VuZDogbGlnaHRibHVlO1xyXG4gICAgY3Vyc29yOiBwb2ludGVyO1xyXG4gICAgJjpob3ZlciB7XHJcbm9wYWNpdHk6Ljg7XHJcbiAgICB9XHJcbiAgfVxyXG5cclxuICAubWF0LWdyaWQtdGlsZSAubWF0LWdyaWQtdGlsZS1mb290ZXJ7XHJcbiAgICBwbGFjZS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xyXG59Il19 */"
 
 /***/ }),
 
@@ -6016,7 +6022,7 @@ var SwaggerPageComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"mat-typography\" style=\"margin-bottom: 1em;\">\r\n  <h2>Temporary page to test API</h2>\r\n</div>\r\n\r\n<mat-card *ngIf=\"entityTypes$ | async as entityTypeList\">\r\n  <mat-form-field>\r\n    <mat-select placeholder=\"Entity type\" (valueChange)=\"changeEntityType($event)\">\r\n      <mat-option *ngFor=\"let type of entityTypeList\" [value]=\"type\">\r\n        {{ type }}\r\n      </mat-option>\r\n    </mat-select>\r\n  </mat-form-field>\r\n</mat-card>\r\n\r\n<mat-card *ngIf=\"entityList$ | async as entityList\">\r\n  <mat-form-field style=\"margin-right: 0.5em;\">\r\n    <mat-select placeholder=\"Entity ID\" (valueChange)=\"changeEntity($event)\">\r\n      <mat-option *ngFor=\"let entity of entityList\" [value]=\"entity.id\">\r\n        {{ entity['id'] }}\r\n      </mat-option>\r\n    </mat-select>\r\n  </mat-form-field>\r\n\r\n  <button style=\"margin-right: 0.5em;\" type=\"button\" mat-stroked-button (click)=\"listAll()\">Fetch all</button>\r\n  <button mat-flat-button (click)=\"importAll()\" color=\"primary\" type=\"button\">Import all</button>\r\n</mat-card>\r\n\r\n<mat-card *ngIf=\"selectedEntity$ | async as entity\">\r\n  <pre>{{ entity | json }}</pre>\r\n</mat-card>\r\n\r\n<mat-card *ngIf=\"listAll$ | async as allItems\">\r\n  <pre>{{ allItems | json }}</pre>\r\n</mat-card>\r\n"
+module.exports = "<div class=\"mat-typography\" style=\"margin-bottom: 1em;\">\r\n  <h2>Temporary page to test API</h2>\r\n</div>\r\n\r\n<mat-card *ngIf=\"entityTypes$ | async as entityTypeList\">\r\n  <mat-form-field style=\"margin-right: 1em;\">\r\n    <mat-select placeholder=\"Entity type\" (valueChange)=\"changeEntityType($event)\">\r\n      <mat-option *ngFor=\"let type of entityTypeList\" [value]=\"type\">\r\n        {{ type }}\r\n      </mat-option>\r\n    </mat-select>\r\n  </mat-form-field>\r\n  <button mat-flat-button [disabled]=\"isLoadingAll\" (click)=\"importEverything()\" color=\"primary\" type=\"button\">Import all</button>\r\n</mat-card>\r\n\r\n<mat-card *ngIf=\"entityList$ | async as entityList\">\r\n  <mat-form-field style=\"margin-right: 0.5em;\">\r\n    <mat-select placeholder=\"Entity ID\" (valueChange)=\"changeEntity($event)\">\r\n      <mat-option *ngFor=\"let entity of entityList\" [value]=\"entity.id\">\r\n        {{ entity['id'] }}\r\n      </mat-option>\r\n    </mat-select>\r\n  </mat-form-field>\r\n\r\n  <button style=\"margin-right: 0.5em;\" type=\"button\" mat-stroked-button (click)=\"listAll()\">Fetch all</button>\r\n  <button mat-flat-button (click)=\"importAll()\" color=\"primary\" type=\"button\">Import all {{ selectedType }}</button>\r\n</mat-card>\r\n\r\n<mat-card *ngIf=\"selectedEntity$ | async as entity\">\r\n  <pre>{{ entity | json }}</pre>\r\n</mat-card>\r\n\r\n<mat-card *ngIf=\"listAll$ | async as allItems\">\r\n  <pre>{{ allItems | json }}</pre>\r\n</mat-card>\r\n"
 
 /***/ }),
 
@@ -6065,6 +6071,7 @@ var TestApiPageComponent = /** @class */ (function () {
         this.router = router;
         this.pageTitle = pageTitle;
         this.dialog = dialog;
+        this.isLoadingAll = false;
     }
     TestApiPageComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -6083,11 +6090,27 @@ var TestApiPageComponent = /** @class */ (function () {
     TestApiPageComponent.prototype.listAll = function () {
         this.listAll$.next(this.selectedType);
     };
+    TestApiPageComponent.prototype.importEverything = function () {
+        var _this = this;
+        this.isLoadingAll = true;
+        this.testData.listEntityTypes({ live: true })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (types) { return types.filter(function (type) { return type !== 'video' && type !== 'photo'; }); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (types) { return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["forkJoin"])(types.map(function (type) {
+            return _this.testData.listAll(type, { live: true }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(function (err) { return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])([]); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (records) { return ({ type: type, records: records }); }));
+        })); }))
+            .subscribe(function (allItems) {
+            _this.isLoadingAll = false;
+            allItems.map(function (content) {
+                _this.doImport(content);
+            });
+        });
+    };
     TestApiPageComponent.prototype.importAll = function () {
         var _this = this;
         var type = this.selectedType;
         this.testData.listAll(type, { live: true }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1)).subscribe(function (records) {
-            _this.doImport({ type: type, records: records });
+            if (records) {
+                _this.doImport({ type: type, records: records });
+            }
         });
     };
     TestApiPageComponent.prototype.doImport = function (content) {
@@ -6827,7 +6850,8 @@ var SchemaRepositoryService = /** @class */ (function () {
         var _this = this;
         var enabledSchemas = [
             'Person', 'Photo', 'Project', 'Audio', 'Clip',
-            'file', 'music-recording', 'music-release', 'music-work', 'payment'
+            'file', 'music-recording', 'music-release', 'music-work', 'payment',
+            'claim', 'video'
         ];
         return Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["forkJoin"])(enabledSchemas.map(function (schemaName) { return _this.http
             .get("/assets/schemas/" + schemaName + ".yaml", { responseType: 'text' })

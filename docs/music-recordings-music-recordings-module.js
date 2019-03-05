@@ -443,13 +443,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _app_material_app_material_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../app-material/app-material.module */ "./src/app/app-material/app-material.module.ts");
-/* harmony import */ var _music_recordings_routing_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./music-recordings-routing.module */ "./src/app/music-recordings/music-recordings-routing.module.ts");
-/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ */ "./src/app/music-recordings/index.ts");
-/* harmony import */ var _ng_dynamic_forms_ui_material__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ng-dynamic-forms/ui-material */ "./node_modules/@ng-dynamic-forms/ui-material/fesm5/ui-material.js");
-/* harmony import */ var ag_grid_angular__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ag-grid-angular */ "./node_modules/ag-grid-angular/main.js");
-/* harmony import */ var ag_grid_angular__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(ag_grid_angular__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _angular_flex_layout__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/flex-layout */ "./node_modules/@angular/flex-layout/esm5/flex-layout.es5.js");
-/* harmony import */ var _claims_send_claims_send_claims_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../claims/send-claims/send-claims.component */ "./src/app/claims/send-claims/send-claims.component.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _music_recordings_routing_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./music-recordings-routing.module */ "./src/app/music-recordings/music-recordings-routing.module.ts");
+/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./ */ "./src/app/music-recordings/index.ts");
+/* harmony import */ var _ng_dynamic_forms_ui_material__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ng-dynamic-forms/ui-material */ "./node_modules/@ng-dynamic-forms/ui-material/fesm5/ui-material.js");
+/* harmony import */ var ag_grid_angular__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ag-grid-angular */ "./node_modules/ag-grid-angular/main.js");
+/* harmony import */ var ag_grid_angular__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(ag_grid_angular__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _angular_flex_layout__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/flex-layout */ "./node_modules/@angular/flex-layout/esm5/flex-layout.es5.js");
+/* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../_shared/shared.module */ "./src/app/_shared/shared.module.ts");
+
 
 
 
@@ -461,6 +463,7 @@ __webpack_require__.r(__webpack_exports__);
 
 // import {DialogDataExampleDialog} from './index/music-recordings-index.component';
 
+// import { SendClaimsComponent } from '../claims/send-claims/send-claims.component';
 
 // import { ButtonRendererComponent } from './button-renderer.component';
 var MusicRecordingsModule = /** @class */ (function () {
@@ -469,26 +472,25 @@ var MusicRecordingsModule = /** @class */ (function () {
     MusicRecordingsModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             declarations: [
-                ___WEBPACK_IMPORTED_MODULE_6__["IndexComponent"],
-                ___WEBPACK_IMPORTED_MODULE_6__["MusicRecordingsEditComponent"],
-                ___WEBPACK_IMPORTED_MODULE_6__["MusicRecordingsDetailComponent"],
-                _claims_send_claims_send_claims_component__WEBPACK_IMPORTED_MODULE_10__["SendClaimsComponent"]
-                // DialogDataExampleDialog,
-                // ButtonRendererComponent
+                ___WEBPACK_IMPORTED_MODULE_7__["IndexComponent"],
+                ___WEBPACK_IMPORTED_MODULE_7__["MusicRecordingsEditComponent"],
+                ___WEBPACK_IMPORTED_MODULE_7__["MusicRecordingsDetailComponent"],
             ],
             imports: [
+                _shared_shared_module__WEBPACK_IMPORTED_MODULE_11__["SharedModule"],
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
-                _music_recordings_routing_module__WEBPACK_IMPORTED_MODULE_5__["MusicRecordingsRoutingModule"],
+                _music_recordings_routing_module__WEBPACK_IMPORTED_MODULE_6__["MusicRecordingsRoutingModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatButtonModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
-                _ng_dynamic_forms_ui_material__WEBPACK_IMPORTED_MODULE_7__["DynamicFormsMaterialUIModule"],
+                _ng_dynamic_forms_ui_material__WEBPACK_IMPORTED_MODULE_8__["DynamicFormsMaterialUIModule"],
                 _app_material_app_material_module__WEBPACK_IMPORTED_MODULE_4__["AppMaterialModule"],
-                ag_grid_angular__WEBPACK_IMPORTED_MODULE_8__["AgGridModule"].withComponents([]),
-                _angular_flex_layout__WEBPACK_IMPORTED_MODULE_9__["FlexLayoutModule"]
+                ag_grid_angular__WEBPACK_IMPORTED_MODULE_9__["AgGridModule"].withComponents([]),
+                _angular_flex_layout__WEBPACK_IMPORTED_MODULE_10__["FlexLayoutModule"]
             ],
             entryComponents: [
-                // TestSendClaimsComponent 
-                _claims_send_claims_send_claims_component__WEBPACK_IMPORTED_MODULE_10__["SendClaimsComponent"]
+            // TestSendClaimsComponent 
+            // SendClaimsComponent
             ]
         })
     ], MusicRecordingsModule);

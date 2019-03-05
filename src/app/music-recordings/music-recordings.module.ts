@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppMaterialModule } from '../app-material/app-material.module';
 
-import { MatGridListModule, MatCardModule } from '@angular/material';
+import { MatGridListModule, MatCardModule , MatButtonModule } from '@angular/material';
 
 import { MusicRecordingsRoutingModule } from './music-recordings-routing.module';
 import { IndexComponent, MusicRecordingsEditComponent, MusicRecordingsDetailComponent} from './';
@@ -15,7 +15,9 @@ import {AgGridModule} from 'ag-grid-angular';
 
 // import {DialogDataExampleDialog} from './index/music-recordings-index.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { SendClaimsComponent } from '../claims/send-claims/send-claims.component';
+// import { SendClaimsComponent } from '../claims/send-claims/send-claims.component';
+
+import {SharedModule} from '../_shared/shared.module';
 // import { ButtonRendererComponent } from './button-renderer.component';
 
 @NgModule({
@@ -23,13 +25,15 @@ import { SendClaimsComponent } from '../claims/send-claims/send-claims.component
     IndexComponent, 
     MusicRecordingsEditComponent, 
     MusicRecordingsDetailComponent,
-    SendClaimsComponent
+    // SendClaimsComponent
     // DialogDataExampleDialog,
     // ButtonRendererComponent
   ],
   imports: [
+    SharedModule,
     CommonModule,
     MusicRecordingsRoutingModule,
+    MatButtonModule,
     FormsModule,
         ReactiveFormsModule,
         DynamicFormsMaterialUIModule,
@@ -41,7 +45,7 @@ import { SendClaimsComponent } from '../claims/send-claims/send-claims.component
   ],
   entryComponents: [   
     // TestSendClaimsComponent 
-    SendClaimsComponent
+    // SendClaimsComponent
   ]
 })
 export class MusicRecordingsModule { }

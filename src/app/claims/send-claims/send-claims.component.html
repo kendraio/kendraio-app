@@ -4,7 +4,7 @@
 <h1>Claim Sheet</h1>
 Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat consectetur incidunt facere esse vero minus, voluptates voluptatem autem at ratione non! Alias hic temporibus rerum nisi odit quisquam dolorum fugiat!
 
-
+<section *ngIf="!nextStep">
 <div class="mt-4" fxLayout="row wrap" fxLayoutGap="20px"   fxLayoutAlign="start stretch">
 
 <mat-card *ngFor="let item of data; let i = index;"  >
@@ -21,13 +21,7 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat consectetur inc
  Owner: {{item.owner}}<br>
 </mat-card-content>
 
-  
-
-  
-
-
-
-    <mat-card-actions>
+      <mat-card-actions>
         <button mat-mini-fab matTooltip="Remove from Claim" (click)="removeClaim(i)"><mat-icon>delete</mat-icon></button> 
         <button mat-mini-fab matTooltip="Edit" (click)="removeClaim(i)"><mat-icon>edit</mat-icon></button>
       </mat-card-actions>
@@ -36,8 +30,22 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat consectetur inc
 
 </div>
 
-<div mat-dialog-actions class="text-right">
+<div mat-dialog-actions>
   <button mat-button mat-dialog-close="Edit Cancelled">Cancel</button>
-  <button mat-button mat-raised-button [mat-dialog-close]="data.Name">Send All</button>
+  <button mat-button mat-raised-button (click)="nextClaimStep()">Send to my Claims Organiser</button>
 </div>
 
+</section>
+
+<section *ngIf="nextStep" class="mt-4" fxLayout="row wrap" fxLayoutGap="20px"   fxLayoutAlign="start stretch">
+
+The folowing claims have been sent to your Claims Folder.
+
+{{data | json}}
+
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close="Edit Cancelled">Close</button>
+    <button mat-button mat-raised-button (click)="nextClaimStep3()">View my Claims Organiser</button>
+  </div>
+
+  </section>  

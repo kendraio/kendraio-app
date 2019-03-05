@@ -2,11 +2,37 @@
      
 
 
-<mat-grid-list cols="4" rowHeight="2:1">
-    <mat-grid-tile [routerLink]="['/files']" ><h2>Files</h2></mat-grid-tile>
-    <mat-grid-tile [routerLink]="['/recordings']"><h2>Recordings</h2></mat-grid-tile>
-    <mat-grid-tile [routerLink]="['/releases']"><h2>Releases</h2></mat-grid-tile>
-    <mat-grid-tile [routerLink]="['/works']" ><h2>Works</h2></mat-grid-tile>
+<mat-grid-list cols="4" rowHeight="1:1">
+    <mat-grid-tile [routerLink]="['/files']" ><h2>Files</h2>
+      <mat-grid-tile-footer>  We found 35 files
+          <button mat-icon-button>
+              <mat-icon>forward</mat-icon>
+            </button> 
+      </mat-grid-tile-footer>
+    </mat-grid-tile>
+    <mat-grid-tile [routerLink]="['/recordings']"><h2>Recordings</h2>
+      <mat-grid-tile-footer>  We found 27 Recordings
+          <button mat-icon-button>
+              <mat-icon>forward</mat-icon>
+            </button> 
+      </mat-grid-tile-footer>
+    </mat-grid-tile>
+    <mat-grid-tile [routerLink]="['/releases']"><h2>Releases</h2>
+      <mat-grid-tile-footer>  We found 32 Releases
+          <button mat-icon-button>
+              <mat-icon>forward</mat-icon>
+            </button> 
+      </mat-grid-tile-footer>
+    </mat-grid-tile>
+    <mat-grid-tile [routerLink]="['/works']" ><h2>Works</h2><br>
+<mat-grid-tile-footer>  <div>We found 32 Works</div>    
+  <button mat-icon-button>
+  <mat-icon>forward</mat-icon>
+</button> 
+</mat-grid-tile-footer>
+
+   
+    </mat-grid-tile>
   </mat-grid-list>
 
 

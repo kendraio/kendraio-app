@@ -52,22 +52,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _claims_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./claims-routing.module */ "./src/app/claims/claims-routing.module.ts");
 /* harmony import */ var _index_index_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./index/index.component */ "./src/app/claims/index/index.component.ts");
-/* harmony import */ var _send_claims_send_claims_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./send-claims/send-claims.component */ "./src/app/claims/send-claims/send-claims.component.ts");
+/* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../_shared/shared.module */ "./src/app/_shared/shared.module.ts");
 
 
 
+// import { AppMaterialModule } from '../app-material/app-material.module';
 
 
+// import { SendClaimsComponent } from './send-claims/send-claims.component';
+// import { MatButtonModule,  MatButton } from '@angular/material';
+// import {MatDialogModule} from '@angular/material';
 
+// import { FlexLayoutModule } from '@angular/flex-layout';
 var ClaimsModule = /** @class */ (function () {
     function ClaimsModule() {
     }
     ClaimsModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            declarations: [_index_index_component__WEBPACK_IMPORTED_MODULE_4__["IndexComponent"], _send_claims_send_claims_component__WEBPACK_IMPORTED_MODULE_5__["SendClaimsComponent"]],
+            declarations: [_index_index_component__WEBPACK_IMPORTED_MODULE_4__["IndexComponent"],
+            ],
             imports: [
+                _shared_shared_module__WEBPACK_IMPORTED_MODULE_5__["SharedModule"],
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
-                _claims_routing_module__WEBPACK_IMPORTED_MODULE_3__["ClaimsRoutingModule"]
+                _claims_routing_module__WEBPACK_IMPORTED_MODULE_3__["ClaimsRoutingModule"],
+            ],
+            entryComponents: [
+            //  SendClaimsComponent
             ]
         })
     ], ClaimsModule);

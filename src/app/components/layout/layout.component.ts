@@ -24,6 +24,11 @@ export class LayoutComponent implements OnInit {
       icon: 'favorite'
     },
     {
+      href: '/claims',
+      title: 'Claim Book',
+      icon: 'attach_money'
+    },
+    {
       href: '/import',
       title: 'Import',
       icon: 'import_export'

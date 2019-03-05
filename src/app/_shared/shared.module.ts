@@ -16,11 +16,13 @@ import {
   MatSelectModule,
   MatSliderModule,
   MatButtonModule,
-  MatMenuModule
+  MatMenuModule, MatDialogModule, MatTooltipModule
 } from '@angular/material';
 
 import * as matComponents from '../_shared/components';
 import { AgGridModule } from 'ag-grid-angular';
+import { SendClaimsComponent } from 'src/app/claims/send-claims/send-claims.component';
+import { FlexModule } from '@angular/flex-layout';
 
 
 @NgModule({
@@ -42,25 +44,33 @@ import { AgGridModule } from 'ag-grid-angular';
     MatRadioModule,
     MatSelectModule,
     MatSliderModule,
+    MatDialogModule,
+    MatTooltipModule,
     AgGridModule.withComponents(
       [
         matComponents.MatInputComponent,
         matComponents.MatButtonComponent
       ]
-    )
+    ),
+    FlexModule
   ],
   declarations: [
     matComponents.MatInputComponent,
-    matComponents.MatButtonComponent
+    matComponents.MatButtonComponent,
+    SendClaimsComponent
   ],
   exports: [
   //  matComponents.MatInputComponent,
   MatMenuModule,
+  SendClaimsComponent
 
   ],
   providers: [
     DatePipe,
     LowerCasePipe,
-  ]
+  ],
+  entryComponents: [   
+    SendClaimsComponent
+   ]
 })
 export class SharedModule {}
