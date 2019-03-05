@@ -618,7 +618,8 @@ var IndexComponent = /** @class */ (function () {
                 'name': i.Name,
                 'artist': i.Artist,
                 'collective': i.Collective,
-                'owner': i.Owner
+                'owner': i.Owner,
+                'status': 'Not Sent'
             });
         });
         if (selectedRows.length >= 6) {

@@ -135,7 +135,8 @@ export class IndexComponent implements OnInit {
        'name': i.Name,
        'artist': i.Artist,
        'collective': i.Collective,
-       'owner': i.Owner
+       'owner': i.Owner,
+       'status': 'Not Sent'
       });
    });
 

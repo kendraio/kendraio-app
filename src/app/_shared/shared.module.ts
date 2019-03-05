@@ -16,13 +16,15 @@ import {
   MatSelectModule,
   MatSliderModule,
   MatButtonModule,
-  MatMenuModule, MatDialogModule, MatTooltipModule
+  MatMenuModule, MatDialogModule, MatTooltipModule, MatListModule
 } from '@angular/material';
 
 import * as matComponents from '../_shared/components';
 import { AgGridModule } from 'ag-grid-angular';
 import { SendClaimsComponent } from 'src/app/claims/send-claims/send-claims.component';
-import { FlexModule } from '@angular/flex-layout';
+import { FlexModule, FlexLayoutModule } from '@angular/flex-layout';
+import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
+import { ClaimsEditComponent } from '../claims/claims-edit/claims-edit.component';
 
 
 @NgModule({
@@ -46,23 +48,35 @@ import { FlexModule } from '@angular/flex-layout';
     MatSliderModule,
     MatDialogModule,
     MatTooltipModule,
+    MatListModule,
     AgGridModule.withComponents(
       [
         matComponents.MatInputComponent,
         matComponents.MatButtonComponent
       ]
     ),
-    FlexModule
+    FlexModule, FlexLayoutModule,
+    DynamicFormsMaterialUIModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     matComponents.MatInputComponent,
     matComponents.MatButtonComponent,
-    SendClaimsComponent
+    SendClaimsComponent,
+    ClaimsEditComponent
   ],
   exports: [
   //  matComponents.MatInputComponent,
   MatMenuModule,
-  SendClaimsComponent
+  SendClaimsComponent,
+  DynamicFormsMaterialUIModule,
+  FormsModule,
+  ReactiveFormsModule,
+  FlexModule,
+  FlexLayoutModule,
+  ClaimsEditComponent,
+  MatListModule,
 
   ],
   providers: [
@@ -70,7 +84,8 @@ import { FlexModule } from '@angular/flex-layout';
     LowerCasePipe,
   ],
   entryComponents: [   
-    SendClaimsComponent
+    SendClaimsComponent,
+    ClaimsEditComponent //may move this to claims module
    ]
 })
 export class SharedModule {}
