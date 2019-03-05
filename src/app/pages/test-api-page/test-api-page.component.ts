@@ -65,6 +65,7 @@ export class TestApiPageComponent implements OnInit {
     (this.testData.listEntityTypes({ live: true }) as Observable<any>)
       .pipe(
         take(1),
+        map(types => types.filter(type => type !== 'video' && type !== 'photo')),
         mergeMap(types => forkJoin(types.map(type => {
           return this.testData.listAll(type, { live: true }).pipe(
             take(1),
