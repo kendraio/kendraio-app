@@ -313,7 +313,7 @@ var FORM_LAYOUT = {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n\r\n  <mat-card>\r\n\r\n    <form [formGroup]=\"formGroup\">\r\n\r\n      <dynamic-material-form [group]=\"formGroup\" [layout]=\"formLayout\" [model]=\"formModel\" (blur)=\"onBlur($event)\"\r\n        (change)=\"onChange($event)\" (focus)=\"onFocus($event)\" (matEvent)=\"onMatEvent($event)\" fxLayout=\"row wrap\"\r\n        fxLayoutAlign=\"start start\" fxLayoutGap=\"40px\"></dynamic-material-form>\r\n\r\n    </form>\r\n  </mat-card>\r\n\r\n  <div mat-dialog-actions class=\"align-right\">\r\n    <button mat-button mat-dialog-close=\"Edit Cancelled\">Cancel</button>\r\n    <button mat-button [mat-dialog-close]=\"data.Name\" cdkFocusInitial [disabled]=\"formGroup.invalid\">Save</button>\r\n  </div>\r\n\r\n\r\n  <pre>{{formGroup.value | json}}</pre>\r\n\r\n</div>"
+module.exports = "<div>\r\n\r\n  <mat-card>\r\n\r\n    <form [formGroup]=\"formGroup\">\r\n\r\n      <dynamic-material-form [group]=\"formGroup\" [layout]=\"formLayout\" [model]=\"formModel\" (blur)=\"onBlur($event)\"\r\n        (change)=\"onChange($event)\" (focus)=\"onFocus($event)\" (matEvent)=\"onMatEvent($event)\" fxLayout=\"row wrap\"\r\n        fxLayoutAlign=\"start start\" fxLayoutGap=\"40px\"></dynamic-material-form>\r\n\r\n    </form>\r\n  </mat-card>\r\n\r\n  <div mat-dialog-actions class=\"align-right\">\r\n    <button mat-button mat-dialog-close=\"Edit Cancelled\">Cancel</button>\r\n    <button mat-button [mat-dialog-close]=\"data.Name\" cdkFocusInitial [disabled]=\"formGroup.invalid\">Save</button>\r\n  </div>\r\n\r\n\r\n  <!-- <pre>{{formGroup.value | json}}</pre> -->\r\n\r\n</div>"
 
 /***/ }),
 
