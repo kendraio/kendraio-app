@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TestDataService} from '../../services/test-data.service';
-import {Subject} from 'rxjs';
-import {switchMap, take, tap, withLatestFrom} from 'rxjs/operators';
+import {forkJoin, Observable, of, Subject} from 'rxjs';
+import {catchError, map, mergeMap, switchMap, take, tap, withLatestFrom} from 'rxjs/operators';
 import {ImportProgressDialogComponent} from '../../dialogs/import-progress-dialog/import-progress-dialog.component';
 import {Router} from '@angular/router';
 import {PageTitleService} from '../../services/page-title.service';
@@ -23,6 +23,8 @@ export class TestApiPageComponent implements OnInit {
   selectedEntity$;
 
   listAll$;
+
+  isLoadingAll = false;
 
   constructor(
     private readonly testData: TestDataService,
@@ -58,10 +60,33 @@ export class TestApiPageComponent implements OnInit {
     this.listAll$.next(this.selectedType);
   }
 
+  importEverything() {
+    this.isLoadingAll = true;
+    (this.testData.listEntityTypes({ live: true }) as Observable<any>)
+      .pipe(
+        take(1),
+        mergeMap(types => forkJoin(types.map(type => {
+          return this.testData.listAll(type, { live: true }).pipe(
+            take(1),
+            catchError(err => of([])),
+            map(records => ({ type, records }))
+          );
+        })))
+      )
+      .subscribe(allItems => {
+        this.isLoadingAll = false;
+        allItems.map(content => {
+          this.doImport(content);
+        });
+      });
+  }
+
   importAll() {
     const type = this.selectedType;
     this.testData.listAll(type, { live: true }).pipe(take(1)).subscribe(records => {
-      this.doImport({ type, records });
+      if (records) {
+        this.doImport({ type, records });
+      }
     });
   }
 

@@ -3,13 +3,14 @@
 </div>
 
 <mat-card *ngIf="entityTypes$ | async as entityTypeList">
-  <mat-form-field>
+  <mat-form-field style="margin-right: 1em;">
     <mat-select placeholder="Entity type" (valueChange)="changeEntityType($event)">
       <mat-option *ngFor="let type of entityTypeList" [value]="type">
         {{ type }}
       </mat-option>
     </mat-select>
   </mat-form-field>
+  <button mat-flat-button [disabled]="isLoadingAll" (click)="importEverything()" color="primary" type="button">Import all</button>
 </mat-card>
 
 <mat-card *ngIf="entityList$ | async as entityList">
@@ -22,7 +23,7 @@
   </mat-form-field>
 
   <button style="margin-right: 0.5em;" type="button" mat-stroked-button (click)="listAll()">Fetch all</button>
-  <button mat-flat-button (click)="importAll()" color="primary" type="button">Import all</button>
+  <button mat-flat-button (click)="importAll()" color="primary" type="button">Import all {{ selectedType }}</button>
 </mat-card>
 
 <mat-card *ngIf="selectedEntity$ | async as entity">
