@@ -7,7 +7,9 @@ import {
     DynamicRadioGroupModel,
     DynamicSelectModel,
     DynamicSwitchModel,
-    DynamicTextAreaModel
+    DynamicTextAreaModel,
+    DynamicFormControlModel,
+    DynamicFormValueControlModel
 } from '@ng-dynamic-forms/core';
 import { BehaviorSubject } from 'rxjs';
 
@@ -15,6 +17,22 @@ import { BehaviorSubject } from 'rxjs';
 
 export const MY_CLAIMS_FORM_MODEL = [
 
+    // new DynamicFormGroupModel({
+    //     id: 'claim',
+    //     legend: 'Form Group Level 1',
+    //     group: [
+
+
+    //     new DynamicInputModel  ({
+    //         id: 'details', 
+    //         hidden: true
+           
+  
+    //     })
+
+    // ]
+      
+    // }),
 
     new DynamicTextAreaModel({
 

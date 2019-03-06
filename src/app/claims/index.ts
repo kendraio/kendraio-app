@@ -1,3 +1,3 @@
 
-export * from './index/index.component';
+export * from './index/claims.component';
 

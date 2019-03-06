@@ -1,5 +1,4 @@
 
-
 <section
 fxLayout="row wrap"
 fxLayoutAlign="start start" 
@@ -9,7 +8,7 @@ fxLayoutGap="20px"
 <mat-card>
 
   <mat-card-header>
-    <b>Claim Details</b>
+  <b>Claim Details</b>
   </mat-card-header>
   <mat-card-content>
 
@@ -35,6 +34,7 @@ fxLayoutGap="20px"
   
       <form [formGroup]="formGroup">
 
+
         <dynamic-material-form 
                       [group]="formGroup" [layout]="formLayout" [model]="formModel" (blur)="onBlur($event)"
                       (change)="onChange($event)" (focus)="onFocus($event)" (matEvent)="onMatEvent($event)" 
@@ -48,9 +48,12 @@ fxLayoutGap="20px"
       <button mat-button mat-dialog-close="Edit Cancelled">Cancel</button>
       <button mat-raised-button mat-button [mat-dialog-close]="data.Name" cdkFocusInitial [disabled]="formGroup.invalid">Send</button>
     </div>
+     <!-- formdata = {{ data | json }} -->
+     <!-- formGroup = {{formGroup.value | json}} -->
   
   </section>
 
 
   
+
 

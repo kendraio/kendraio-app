@@ -7,12 +7,13 @@ import { delay } from 'q';
 import { ClaimsEditComponent } from '../claims-edit/claims-edit.component';
 import { ClaimsService } from 'src/app/_shared/services/claims.service';
 import { Subject } from 'rxjs';
+import { ClaimsEditSendComponent } from '../claims-edit-send/claims-edit-send.component';
 
 
 @Component({
   selector: 'app-index',
-  templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss']
+  templateUrl: './claims.component.html',
+  styleUrls: ['./claims.component.scss']
 })
 export class IndexComponent implements OnInit {
   gridOptions: GridOptions;
@@ -85,6 +86,23 @@ export class IndexComponent implements OnInit {
     });
   }
 
+  openEditSend(ev: any): void {
+    let dialogRef = this.dialog.open(ClaimsEditSendComponent, {
+      data: ev,
+      width: '80%',
+      panelClass: 'formFieldWidth380'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+
+
+
+
+
+
   editBtnCellRenderer(params) {
     const btn = '<button class="mat-button mat-raised-button"><span class="mat-button-wrapper">Edit</span><div class="mat-button-ripple mat-ripple"></div><div class="mat-button-focus-overlay"></div></button>';
     return btn;
@@ -119,6 +137,12 @@ export class IndexComponent implements OnInit {
     if (ev.colDef.headerName === 'Actions') {
       this.openDialog(ev.data);
     }
+  }
+
+  editSendClaims(ev: any) {
+
+      this.openEditSend(ev);
+
   }
 
 

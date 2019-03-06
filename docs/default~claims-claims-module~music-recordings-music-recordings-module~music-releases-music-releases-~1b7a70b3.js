@@ -193,6 +193,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// import { ClaimsEditSendComponent } from '../claims/claims-edit-send/claims-edit-send.component';
 var SharedModule = /** @class */ (function () {
     function SharedModule() {
     }
@@ -232,7 +233,7 @@ var SharedModule = /** @class */ (function () {
                 _shared_components__WEBPACK_IMPORTED_MODULE_7__["MatInputComponent"],
                 _shared_components__WEBPACK_IMPORTED_MODULE_7__["MatButtonComponent"],
                 src_app_claims_send_claims_send_claims_component__WEBPACK_IMPORTED_MODULE_9__["SendClaimsComponent"],
-                _claims_claims_edit_claims_edit_component__WEBPACK_IMPORTED_MODULE_12__["ClaimsEditComponent"]
+                _claims_claims_edit_claims_edit_component__WEBPACK_IMPORTED_MODULE_12__["ClaimsEditComponent"],
             ],
             exports: [
                 //  matComponents.MatInputComponent,
@@ -244,6 +245,7 @@ var SharedModule = /** @class */ (function () {
                 _angular_flex_layout__WEBPACK_IMPORTED_MODULE_10__["FlexModule"],
                 _angular_flex_layout__WEBPACK_IMPORTED_MODULE_10__["FlexLayoutModule"],
                 _claims_claims_edit_claims_edit_component__WEBPACK_IMPORTED_MODULE_12__["ClaimsEditComponent"],
+                // ClaimsEditSendComponent,
                 _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatListModule"],
             ],
             providers: [
@@ -252,7 +254,7 @@ var SharedModule = /** @class */ (function () {
             ],
             entryComponents: [
                 src_app_claims_send_claims_send_claims_component__WEBPACK_IMPORTED_MODULE_9__["SendClaimsComponent"],
-                _claims_claims_edit_claims_edit_component__WEBPACK_IMPORTED_MODULE_12__["ClaimsEditComponent"] //may move this to claims module
+                _claims_claims_edit_claims_edit_component__WEBPACK_IMPORTED_MODULE_12__["ClaimsEditComponent"],
             ]
         })
     ], SharedModule);
@@ -276,6 +278,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ng-dynamic-forms/core */ "./node_modules/@ng-dynamic-forms/core/fesm5/core.js");
 
 var MY_CLAIMS_FORM_MODEL = [
+    // new DynamicFormGroupModel({
+    //     id: 'claim',
+    //     legend: 'Form Group Level 1',
+    //     group: [
+    //     new DynamicInputModel  ({
+    //         id: 'details', 
+    //         hidden: true
+    //     })
+    // ]
+    // }),
     new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicTextAreaModel"]({
         id: 'comments',
         placeholder: 'Notes and Comments',
@@ -324,7 +336,7 @@ var MY_CLAIMS_FORM_MODEL = [
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<section\nfxLayout=\"row wrap\"\nfxLayoutAlign=\"start start\" \nfxLayoutGap=\"20px\"\n>\n\n<mat-card>\n\n  <mat-card-header>\n    <b>Claim Details</b>\n  </mat-card-header>\n  <mat-card-content>\n\n\n    <mat-list>\n        <mat-list-item>   Name:   {{data.name}} </mat-list-item>\n        <mat-list-item> Artist:   {{data.artist}} </mat-list-item>\n        <mat-list-item>  Collective:  {{data.collective}} </mat-list-item>\n        <mat-list-item>  Collective:  {{data.owner}} </mat-list-item>\n       </mat-list>\n\n  </mat-card-content>\n\n\n</mat-card>\n\n\n\n\n    <mat-card>\n        <mat-card-header>\n            <b>Extra Information</b>\n            <button mat-button ><mat-icon>file_copy</mat-icon> copy from previous</button>\n          </mat-card-header>\n  \n      <form [formGroup]=\"formGroup\">\n\n        <dynamic-material-form \n                      [group]=\"formGroup\" [layout]=\"formLayout\" [model]=\"formModel\" (blur)=\"onBlur($event)\"\n                      (change)=\"onChange($event)\" (focus)=\"onFocus($event)\" (matEvent)=\"onMatEvent($event)\" \n                 \n                           ></dynamic-material-form>\n  \n      </form>\n    </mat-card>\n  \n    <div mat-dialog-actions class=\"align-right\">\n      <button mat-button mat-dialog-close=\"Edit Cancelled\">Cancel</button>\n      <button mat-raised-button mat-button [mat-dialog-close]=\"data.Name\" cdkFocusInitial [disabled]=\"formGroup.invalid\">Send</button>\n    </div>\n  \n  </section>\n\n\n  \n\n"
+module.exports = "\n\n<section\nfxLayout=\"row wrap\"\nfxLayoutAlign=\"start start\" \nfxLayoutGap=\"20px\"\n>\n\n<mat-card>\n\n  <mat-card-header>\n    <b>Claim Details</b>\n  </mat-card-header>\n  <mat-card-content>\n\n\n    <mat-list>\n        <mat-list-item>Name:   {{data.name}} </mat-list-item>\n        <mat-list-item>Artist:   {{data.artist}} </mat-list-item>\n        <mat-list-item>Collective:  {{data.collective}} </mat-list-item>\n        <mat-list-item>Collective:  {{data.owner}} </mat-list-item>\n       </mat-list>\n\n  </mat-card-content>\n\n\n</mat-card>\n\n\n    <mat-card>\n        <mat-card-header>\n            <b>Extra Information</b>\n            <button mat-button ><mat-icon>file_copy</mat-icon> copy from previous</button>\n          </mat-card-header>\n  \n      <form [formGroup]=\"formGroup\">\n\n        <dynamic-material-form \n                      [group]=\"formGroup\" [layout]=\"formLayout\" [model]=\"formModel\" (blur)=\"onBlur($event)\"\n                      (change)=\"onChange($event)\" (focus)=\"onFocus($event)\" (matEvent)=\"onMatEvent($event)\" \n                 \n                           ></dynamic-material-form>\n  \n      </form>\n    </mat-card>\n  \n    <div mat-dialog-actions class=\"align-right\">\n      <button mat-button mat-dialog-close=\"Edit Cancelled\">Cancel</button>\n      <button mat-raised-button mat-button [mat-dialog-close]=\"data.Name\" cdkFocusInitial [disabled]=\"formGroup.invalid\">Send</button>\n    </div>\n  \n  </section>\n\n\n  \n\n"
 
 /***/ }),
 
