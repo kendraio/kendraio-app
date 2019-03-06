@@ -1,0 +1,4 @@
+- type: INPUT
+  id: name
+  label: Name
+  placeholder: Name
