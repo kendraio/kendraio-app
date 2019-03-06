@@ -12,6 +12,7 @@ import {DocumentRepositoryService} from '../../services/document-repository.serv
 export class TestImportDialogComponent implements OnInit {
 
   progress = 0;
+  importType = '';
 
   constructor(
     public dialogRef: MatDialogRef<TestImportDialogComponent>,
@@ -22,6 +23,7 @@ export class TestImportDialogComponent implements OnInit {
 
   ngOnInit() {
     const { content: { type, records } } = this.data;
+    this.importType = type;
     forkJoin(records.map(item => this.docsRepo.addNew(type, { type, ...item })))
       .subscribe(() => {
         interval(10).pipe(

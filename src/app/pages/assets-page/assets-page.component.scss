@@ -1,0 +1,11 @@
+mat-grid-tile {
+    background: lightblue;
+    cursor: pointer;
+    &:hover {
+opacity:.8;
+    }
+  }
+
+  .mat-grid-tile .mat-grid-tile-footer{
+    place-content: space-between;
+}

@@ -1,15 +1,24 @@
 <mat-sidenav-container  class="app-container">
+
   <mat-sidenav #sidenav mode="side" (keydown.escape)="sidenav.close()">
     <mat-nav-list>
+
+        <mat-list-item (click)="gotoPage('/assets', sidenav)"  >
+            <mat-icon mat-list-icon [matMenuTriggerFor]="menu">favorite</mat-icon>
+            <a matLine [matMenuTriggerFor]="menu">Assets</a>
+            <mat-menu #menu="matMenu">
+              <button  (click)="gotoPage('/files', sidenav)"  mat-menu-item>Files</button>
+              <button mat-menu-item (click)="gotoPage('/recordings', sidenav)" >Recordings</button>
+              <button mat-menu-item (click)="gotoPage('/releases', sidenav)">Releases</button>
+              <button mat-menu-item (click)="gotoPage('/works', sidenav)" >Works</button>
+            </mat-menu>      
+          </mat-list-item>
+
+
       <mat-list-item *ngFor="let link of links" (click)="gotoPage(link.href, sidenav)">
         <mat-icon mat-list-icon>{{ link.icon }}</mat-icon>
         <a matLine>{{ link.title }}</a>
       </mat-list-item>
-
-      <mat-list-item >
-       
-          <a matLine>Files</a>
-        </mat-list-item>
 
 
     </mat-nav-list>
@@ -25,11 +34,6 @@
       <span>{{ pageTitle$ | async }}</span>
       <span class="spacer"></span>
 
-      <button mat-icon-button (click)="gotoPage('/files', sidenav)" >Files</button>    <span class="spacer"></span>
-      <button mat-icon-button (click)="gotoPage('/recordings', sidenav)" >Recordings</button>    <span class="spacer"></span>
-      <button mat-icon-button (click)="gotoPage('/releases', sidenav)" >Releases</button>    <span class="spacer"></span>
-      <button mat-icon-button (click)="gotoPage('/works', sidenav)" >Works</button>    <span class="spacer"></span>
-      <button mat-icon-button (click)="gotoPage('/claims', sidenav)" >Claims</button>    <span class="spacer"></span>
       <button mat-icon-button (click)="gotoPage('/settings', sidenav)" >Settings</button>
       <span class="spacer"></span>
 

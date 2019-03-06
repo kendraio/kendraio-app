@@ -14,11 +14,17 @@ import {
   MatProgressSpinnerModule,
   MatRadioModule,
   MatSelectModule,
-  MatSliderModule
+  MatSliderModule,
+  MatButtonModule,
+  MatMenuModule, MatDialogModule, MatTooltipModule, MatListModule
 } from '@angular/material';
 
 import * as matComponents from '../_shared/components';
 import { AgGridModule } from 'ag-grid-angular';
+import { SendClaimsComponent } from 'src/app/claims/send-claims/send-claims.component';
+import { FlexModule, FlexLayoutModule } from '@angular/flex-layout';
+import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
+import { ClaimsEditComponent } from '../claims/claims-edit/claims-edit.component';
 
 
 @NgModule({
@@ -29,7 +35,9 @@ import { AgGridModule } from 'ag-grid-angular';
     FormsModule,
     RouterModule,
     MatCardModule,
+    MatMenuModule,
     MatButtonToggleModule,
+    MatButtonModule,
     MatCheckboxModule,
     MatFormFieldModule,
     MatIconModule,
@@ -38,22 +46,46 @@ import { AgGridModule } from 'ag-grid-angular';
     MatRadioModule,
     MatSelectModule,
     MatSliderModule,
+    MatDialogModule,
+    MatTooltipModule,
+    MatListModule,
     AgGridModule.withComponents(
       [
-        matComponents.MatInputComponent
+        matComponents.MatInputComponent,
+        matComponents.MatButtonComponent
       ]
-    )
+    ),
+    FlexModule, FlexLayoutModule,
+    DynamicFormsMaterialUIModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     matComponents.MatInputComponent,
+    matComponents.MatButtonComponent,
+    SendClaimsComponent,
+    ClaimsEditComponent
   ],
   exports: [
   //  matComponents.MatInputComponent,
+  MatMenuModule,
+  SendClaimsComponent,
+  DynamicFormsMaterialUIModule,
+  FormsModule,
+  ReactiveFormsModule,
+  FlexModule,
+  FlexLayoutModule,
+  ClaimsEditComponent,
+  MatListModule,
 
   ],
   providers: [
     DatePipe,
     LowerCasePipe,
-  ]
+  ],
+  entryComponents: [   
+    SendClaimsComponent,
+    ClaimsEditComponent //may move this to claims module
+   ]
 })
 export class SharedModule {}

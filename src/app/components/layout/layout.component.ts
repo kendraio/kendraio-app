@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatSidenav } from '@angular/material';
+import { MatSidenav, MatMenu } from '@angular/material';
 import { Observable } from 'rxjs';
+import {SharedModule} from '../../_shared/shared.module';
 import { PageTitleService } from '../../services/page-title.service';
 
 @Component({
@@ -23,6 +24,11 @@ export class LayoutComponent implements OnInit {
       icon: 'favorite'
     },
     {
+      href: '/claims',
+      title: 'Claims Book',
+      icon: 'attach_money'
+    },
+    {
       href: '/import',
       title: 'Import',
       icon: 'import_export'
@@ -32,11 +38,11 @@ export class LayoutComponent implements OnInit {
       title: 'Upload',
       icon: 'cloud_upload'
     },
-    {
-      href: '/visualise',
-      title: 'Visualise',
-      icon: 'bubble_chart'
-    },
+    // {
+    //   href: '/diagram',
+    //   title: 'Processes',
+    //   icon: 'bubble_chart'
+    // },
     {
       href: '/adapters',
       title: 'Adapters',

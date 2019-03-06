@@ -5,16 +5,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppMaterialModule } from '../app-material/app-material.module';
 
-import { MatGridListModule, MatCardModule } from '@angular/material';
+import { MatGridListModule, MatCardModule , MatButtonModule } from '@angular/material';
 
 import { MusicRecordingsRoutingModule } from './music-recordings-routing.module';
-import { IndexComponent, MusicRecordingsEditComponent, MusicRecordingsDetailComponent } from './';
+import { IndexComponent, MusicRecordingsEditComponent, MusicRecordingsDetailComponent} from './';
 import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
 
 import {AgGridModule} from 'ag-grid-angular';
 
 // import {DialogDataExampleDialog} from './index/music-recordings-index.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+// import { SendClaimsComponent } from '../claims/send-claims/send-claims.component';
+
+import {SharedModule} from '../_shared/shared.module';
 // import { ButtonRendererComponent } from './button-renderer.component';
 
 @NgModule({
@@ -22,12 +25,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     IndexComponent, 
     MusicRecordingsEditComponent, 
     MusicRecordingsDetailComponent,
+    // SendClaimsComponent
     // DialogDataExampleDialog,
     // ButtonRendererComponent
   ],
   imports: [
+    SharedModule,
     CommonModule,
     MusicRecordingsRoutingModule,
+    MatButtonModule,
     FormsModule,
         ReactiveFormsModule,
         DynamicFormsMaterialUIModule,
@@ -37,7 +43,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
       ),
       FlexLayoutModule
   ],
-  entryComponents: [    
+  entryComponents: [   
+    // TestSendClaimsComponent 
+    // SendClaimsComponent
   ]
 })
 export class MusicRecordingsModule { }

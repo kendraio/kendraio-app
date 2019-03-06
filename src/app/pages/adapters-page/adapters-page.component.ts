@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PageTitleService } from '../../services/page-title.service';
 import { AdaptersService } from '../../services/adapters.service';
+import {tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-adapters-page',

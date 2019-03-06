@@ -27,14 +27,14 @@ export class AdaptersService {
         })
       )
       .subscribe(adapters => {
-        console.log(adapters);
+        // console.log(adapters);
         this.adapters$.next(adapters);
       });
   }
 
   getAdapter(id) {
     return this.adapters$.pipe(
-      tap(console.log)
+      // tap(console.log)
     );
   }
 

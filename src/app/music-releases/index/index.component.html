@@ -21,13 +21,15 @@
         [cellEditorFramework]="gridOptions.frameworkComponents.inputRenderer"
         [editable]="true"
         ></ag-grid-column>
+        
       <ag-grid-column headerName="Artist" field="Artist" [width]="120" [pinned]="true" [sortable]="true"
         [resizable]="true" [filter]="true"  [editable]="false"></ag-grid-column>
     </ag-grid-column>
 
     <ag-grid-column headerName="Details">
 
-      <ag-grid-column headerName="Date" field="Date" [width]="100" [sortable]="true" [resizable]="true" [filter]="true">
+      <ag-grid-column 
+      headerName="Date" field="Date" [width]="100" [sortable]="true" [resizable]="true" [filter]="true">
       </ag-grid-column>
       <ag-grid-column headerName="Owner" field="Owner" [width]="100" [sortable]="true" [resizable]="true"
         [filter]="true"></ag-grid-column>
@@ -54,5 +56,9 @@
 
     </ag-grid-column>
   </ag-grid-angular>
+
+<mat-action-list>  <button mat-raised-button mat-button>Claim Selected</button>
+</mat-action-list>
+
 </div>
 

@@ -5,10 +5,14 @@ import { IMusicRecording } from 'src/app/_models/classes/musicRecording';
 
 import { GridOptions } from 'ag-grid-community';
 import { MatDialog, MAT_DIALOG_DATA, MatButton } from '@angular/material';
+
 import { PageTitleService } from 'src/app/services/page-title.service';
 import { MusicRecordingsEditComponent } from '../music-recordings-edit/music-recordings-edit.component';
 import { TestDataService } from '../../services/test-data.service';
+import { SendClaimsComponent } from 'src/app/claims/send-claims/send-claims.component';
 // import { ButtonRendererComponent } from '../button-renderer.component';
+// import {TestSendClaimsComponent} from '..'
+
 
 
 
@@ -28,6 +32,9 @@ export class IndexComponent implements OnInit {
   listAll$;
   showSpinner: boolean;
   allItems: IMusicRecording[];
+  private gridApi;
+  private gridColumnApi;
+  claimsToSend: Array<any>;
 
 
   constructor(
@@ -41,6 +48,7 @@ export class IndexComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.claimsToSend = [];
     this.pageTitle.setTitle('Recordings');
     this.entityTypes$ = this.testData.listEntityTypes();
 
@@ -58,12 +66,12 @@ export class IndexComponent implements OnInit {
   }
 
   countryCellRenderer(params) {
-    const flag = "<img border='0' width='15' height='10' style='margin-bottom: 2px' src='https://www.ag-grid.com/images/flags/gb.png'>";
-    return flag + " " + params.value;
+    const flag = '<img border=\'0\' width=\'15\' height=\'10\' style=\'margin-bottom: 2px\' src=\'https://www.ag-grid.com/images/flags/gb.png\'>';
+    return flag + ' ' + params.value;
   }
 
   editBtnCellRenderer(params) {
-    const btn = '<button type="button" class="btn btn-primary btn-sm">Edit</button>';
+    const btn = '<button class="mat-button mat-raised-button"><span class="mat-button-wrapper">Edit</span><div class="mat-button-ripple mat-ripple"></div><div class="mat-button-focus-overlay"></div></button>';
     return btn;
   }
 
@@ -89,7 +97,6 @@ export class IndexComponent implements OnInit {
     if (ev.colDef.headerName === 'Actions') {
       this.openDialog(ev.data);
     }
-
   }
 
   openDialog(ev: any): void {
@@ -102,6 +109,56 @@ export class IndexComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
+
+  onSelectionChanged(ev) {
+    this.gridApi = ev.api;
+
+    const selectedRows = this.gridApi.getSelectedRows();
+    let selectedRowsString = '';
+    let theRow;
+    selectedRows.forEach(function(selectedRow, index) {
+      if (index > 5) {
+        return;
+      }
+      if (index !== 0) {
+        selectedRowsString += ', ';
+      
+      }
+      selectedRowsString += selectedRow.Name;
+      theRow = selectedRow; 
+    });
+    this.claimsToSend = [];
+    selectedRows.forEach(i=>{ 
+     
+      this.claimsToSend.push(
+      {
+       'name': i.Name,
+       'artist': i.Artist,
+       'collective': i.Collective,
+       'owner': i.Owner,
+       'status': 'Not Sent'
+      });
+   });
+
+
+    if (selectedRows.length >= 6) {
+      selectedRowsString += ' - and ' + (selectedRows.length - 6) + ' others';
+    }
+    document.querySelector('#selectedRows').innerHTML = selectedRowsString;
+  
+  }
+
+sendToClaim(ev: any): void {
+  const dialogRef = this.dialog.open(SendClaimsComponent, {
+    data: this.claimsToSend,
+    width: '80%',
+    panelClass: 'formFieldWidth380'
+  });
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed');
+  });
+}
+
 
 
   listAll() {
@@ -119,3 +176,25 @@ export class IndexComponent implements OnInit {
 }
 
 
+
+// @Component({
+//   selector: 'app-test-import-dialog',
+//   template: `
+//   <pre> {{ data | json }}</pre> 
+//   <div mat-dialog-actions class="align-right">
+//     <button mat-button mat-dialog-close="Edit Cancelled">Cancel</button>
+//     <button mat-button [mat-dialog-close]="data.Name">Send All</button>
+//   </div>
+//   `
+// })
+// export class TestSendClaimsComponent implements OnInit {
+//   constructor(
+//     @Inject(MAT_DIALOG_DATA) public data: any,
+//    // private formService: DynamicFormService
+//   ) { }
+
+//   ngOnInit() {
+
+//   }
+
+// }

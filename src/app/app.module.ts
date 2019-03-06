@@ -47,11 +47,13 @@ import { SwaggerPageComponent } from './pages/swagger-page/swagger-page.componen
 import { SwaggerUiDirective } from './directives/swagger-ui.directive';
 import { TestApiPageComponent } from './pages/test-api-page/test-api-page.component';
 import { TestImportDialogComponent } from './dialogs/test-import-dialog/test-import-dialog.component';
-import {DynamicFormsCoreModule} from '@ng-dynamic-forms/core';
-import {DynamicFormsMaterialUIModule} from '@ng-dynamic-forms/ui-material';
 import { AssetsPageComponent } from './pages/assets-page/assets-page.component';
 
 // import {MusicRecordingsEditComponent} from './music-recordings/index';
+
+import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
+import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
+import { DiagramPageComponent } from './pages/diagram-page/diagram-page.component';
 
 // import { AgGridModule } from 'ag-grid-angular';
 // import { MatInputComponent } from './_shared/components';
@@ -93,6 +95,7 @@ import { AssetsPageComponent } from './pages/assets-page/assets-page.component';
     TestApiPageComponent,
     TestImportDialogComponent,
     AssetsPageComponent,
+    DiagramPageComponent,
     // MatInputComponent
     // DialogDataExampleDialog
     // MusicRecordingsEditComponent
