@@ -3437,11 +3437,11 @@ var LayoutComponent = /** @class */ (function () {
                 title: 'Upload',
                 icon: 'cloud_upload'
             },
-            {
-                href: '/diagram',
-                title: 'Processes',
-                icon: 'bubble_chart'
-            },
+            // {
+            //   href: '/diagram',
+            //   title: 'Processes',
+            //   icon: 'bubble_chart'
+            // },
             {
                 href: '/adapters',
                 title: 'Adapters',
