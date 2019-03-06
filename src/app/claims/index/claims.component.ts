@@ -60,10 +60,10 @@ export class IndexComponent implements OnInit {
      
       this.claimsToSend.push(
       {
-       'name': i.Name,
-       'artist': i.Artist,
-       'collective': i.Collective,
-       'owner': i.Owner
+       'name': i.name,
+       'artist': i.artist,
+       'collective': i.collective,
+       'owner': i.owner
       });
    });
 
