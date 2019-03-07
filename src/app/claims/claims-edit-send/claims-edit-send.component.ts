@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, AfterContentInit } from '@angular/core';
 import { DynamicFormModel, DynamicFormService, DynamicFormLayout } from '@ng-dynamic-forms/core';
 
 import { FormsModule, FormGroup, FormArray, FormBuilder, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
@@ -11,7 +11,7 @@ import { CLAIMS_FORM_LAYOUT } from '../claims-edit/form.layout';
   templateUrl: './claims-edit-send.component.html',
   styleUrls: ['./claims-edit-send.component.scss']
 })
-export class ClaimsEditSendComponent implements OnInit {
+export class ClaimsEditSendComponent implements OnInit, AfterContentInit {
   formModel: DynamicFormModel = MY_CLAIMS_FORM_MODEL;
   formGroup: FormGroup;
   formLayout: DynamicFormLayout = CLAIMS_FORM_LAYOUT;
@@ -29,10 +29,13 @@ export class ClaimsEditSendComponent implements OnInit {
   ngOnInit() {
     //this.formGroup = this.formService.createFormGroup(this.formModel);
     this.rowCount = this.data.length;
-    this.claim = this.data[0];
+    this.claim = this.data;
    // this.formGroup.patchValue(this.data[0]);
 
   //  this.formGroup.get('comments').patchValue('boo');
+  }
+  ngAfterContentInit() {
+    this.claim = this.data[0];
   }
 
 

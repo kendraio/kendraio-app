@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { GridOptions } from 'ag-grid-community';
 import { MatDialog, MAT_DIALOG_DATA, MatButton } from '@angular/material';
@@ -8,6 +8,7 @@ import { ClaimsEditComponent } from '../claims-edit/claims-edit.component';
 import { ClaimsService } from 'src/app/_shared/services/claims.service';
 import { Subject } from 'rxjs';
 import { ClaimsEditSendComponent } from '../claims-edit-send/claims-edit-send.component';
+import { timingSafeEqual } from 'crypto';
 
 
 @Component({
@@ -19,11 +20,14 @@ export class IndexComponent implements OnInit {
   gridOptions: GridOptions;
   claimsToSend: Array<any>;
   listAll$;
+  listAllInBox: Array<any>;
   showSpinner: boolean;
   allItems: any[];
   private gridApi;
   private gridColumnApi;
 
+  @ViewChild('inBoxGrid') inBoxGrid;
+  showSpinner2: boolean;
   constructor(
     public dialog: MatDialog,
     private claimsService: ClaimsService,
@@ -99,13 +103,32 @@ export class IndexComponent implements OnInit {
     .subscribe(result => {
       this.showSpinner = false;
       console.log(result);
-     // this.animal = result;
+      this.listAllInBox = result;
       this.deleteSelectedRows();
+      this.showSpinner2 = true;
+      setTimeout(() => {
+        this.updateInBoxItems();
+      }, 2500);
+
+    
 
     });
   }
 
 
+  updateInBoxItems() {
+
+    const itemsToUpdate = [];
+    this.inBoxGrid.api.forEachNodeAfterFilterAndSort(function(rowNode, index) {
+      const data = rowNode.data;
+      data.status = 'Sent!...';
+      itemsToUpdate.push(data);
+    
+    });
+    this.showSpinner2 = false;
+    const res = this.inBoxGrid.api.updateRowData({ update: itemsToUpdate });
+   
+  }
 
 
 

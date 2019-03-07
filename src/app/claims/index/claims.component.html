@@ -67,4 +67,51 @@
 
     <mat-card>
      <h2>Claims In Box</h2>
-     your in box is empty please check back later</mat-card>
+ 
+    
+     <mat-progress-bar *ngIf="showSpinner2" mode="indeterminate"></mat-progress-bar>
+     <ag-grid-angular   #inBoxGrid style="width: 100%;" class="ag-theme-material" 
+     [gridOptions]="gridOptions"
+       [rowData]="listAllInBox" 
+       rowSelection="multiple"
+       (cellClicked)="onCellClicked($event)"
+       (selectionChanged)="onSelectionChanged($event)"
+       >
+   
+     
+       <ag-grid-column headerName="Recordings">
+   
+         <ag-grid-column headerName="Actions" [width]="100" [pinned]="true" [cellRenderer]="editBtnCellRenderer">
+         </ag-grid-column>
+   
+         <ag-grid-column headerName="#" [width]="80" [checkboxSelection]="true"  [suppressMenu]="false" [pinned]="true"
+         [headerCheckboxSelection]="true"   
+          ></ag-grid-column>
+   
+         <ag-grid-column headerName="Name" field="name" [width]="175" [pinned]="true" [sortable]="true" [resizable]="true"
+           [filter]="true"></ag-grid-column>
+           
+      </ag-grid-column>
+         <ag-grid-column headerName="Artist" field="artist" [width]="120" [pinned]="false" [sortable]="true"
+           [resizable]="true" [filter]="true"></ag-grid-column>
+
+       <ag-grid-column headerName="Details">
+         <ag-grid-column headerName="ISRC" field="ISRC" [width]="150" [sortable]="true" [resizable]="true" [filter]="true">
+         </ag-grid-column>
+         <ag-grid-column headerName="ISWC" field="ISWC" [width]="100" [sortable]="true" [resizable]="true" [filter]="true">
+         </ag-grid-column>
+   
+         <ag-grid-column headerName="Owner" field="owner" [width]="150" [sortable]="true" [resizable]="true"
+           [filter]="true"></ag-grid-column>
+         <ag-grid-column headerName="Collective" field="collective" [width]="150" [sortable]="true" [resizable]="true"
+           [filter]="true"></ag-grid-column>
+         <ag-grid-column headerName="Claim Status" field="status" [width]="150" [pinned]="false" [sortable]="false"
+           [resizable]="false" [filter]="false"></ag-grid-column>
+   
+       </ag-grid-column>
+     </ag-grid-angular>
+    
+    
+    
+    
+    </mat-card>

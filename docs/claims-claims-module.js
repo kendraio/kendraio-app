@@ -162,7 +162,7 @@ var CLAIMS_FORM_LAYOUT = {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n\n<h2>Edit and Send Form:</h2>\n<h5>You are about to send {{data.length}} claims</h5>\n\n<mat-card>\n  <mat-card-header>\n    <mat-card-title> Claim {{rowCurrent + 1}} of  {{rowCount}}</mat-card-title>\n    <mat-card-subtitle></mat-card-subtitle>\n  </mat-card-header>\n  <mat-card-content>\n  \n      <!-- {{claim | json}} -->\n\n<app-edit-send-form [data]=\"claim\">\n   \n\n</app-edit-send-form>\n\n  </mat-card-content>\n\n</mat-card>\n\n\n\n  <mat-card-actions>\n      <button mat-mini-fab (click)=\"goToPrevRow()\"><mat-icon>arrow_backward</mat-icon></button>\n      <button mat-mini-fab (click)=\"goToNextRow()\"><mat-icon>arrow_forward</mat-icon></button>\n      <button mat-button  [mat-dialog-close]=\"data\">Send All</button>\n  </mat-card-actions>"
+module.exports = "\n\n<h2>Edit and Send Form:</h2>\n<h5>You are about to send {{data.length}} claims</h5>\n\n<mat-card>\n  <mat-card-header>\n    <mat-card-title> Claim {{rowCurrent + 1}} of  {{rowCount}}</mat-card-title>\n    <mat-card-subtitle></mat-card-subtitle>\n  </mat-card-header>\n  <mat-card-content>\n  \n      <!-- {{claim | json}} -->\n\n<app-edit-send-form [data]=\"claim\"></app-edit-send-form>\n\n  </mat-card-content>\n\n</mat-card>\n\n\n\n  <mat-card-actions>\n      <button mat-mini-fab (click)=\"goToPrevRow()\"><mat-icon>arrow_backward</mat-icon></button>\n      <button mat-mini-fab (click)=\"goToNextRow()\"><mat-icon>arrow_forward</mat-icon></button>\n      <button mat-button  [mat-dialog-close]=\"data\">Send All</button>\n  </mat-card-actions>"
 
 /***/ }),
 
@@ -210,9 +210,12 @@ var ClaimsEditSendComponent = /** @class */ (function () {
     ClaimsEditSendComponent.prototype.ngOnInit = function () {
         //this.formGroup = this.formService.createFormGroup(this.formModel);
         this.rowCount = this.data.length;
-        this.claim = this.data[0];
+        this.claim = this.data;
         // this.formGroup.patchValue(this.data[0]);
         //  this.formGroup.get('comments').patchValue('boo');
+    };
+    ClaimsEditSendComponent.prototype.ngAfterContentInit = function () {
+        this.claim = this.data[0];
     };
     ClaimsEditSendComponent.prototype.goToNextRow = function () {
         if (this.rowCurrent < this.rowCount - 1) {
@@ -378,7 +381,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- xx{{listAll$ | json}}xx -->\r\n\r\n\r\n<div class=\"table-responsive-lg\">\r\n  <!-- (rowClicked)=\"openDialog($event)\" -->\r\n  <mat-card>\r\n<h2>Claims Out Box</h2>\r\n\r\n<mat-progress-bar *ngIf=\"showSpinner\" mode=\"indeterminate\"></mat-progress-bar>\r\n\r\n\r\n\r\n  <ag-grid-angular   #agGrid style=\"width: 100%;\" class=\"ag-theme-material\" \r\n  [gridOptions]=\"gridOptions\"\r\n    [rowData]=\"listAll$\" \r\n    rowSelection=\"multiple\"\r\n    (cellClicked)=\"onCellClicked($event)\"\r\n    (selectionChanged)=\"onSelectionChanged($event)\"\r\n    >\r\n\r\n\r\n\r\n    <ag-grid-column headerName=\"Recordings\">\r\n\r\n      <ag-grid-column headerName=\"Actions\" [width]=\"100\" [pinned]=\"true\" [cellRenderer]=\"editBtnCellRenderer\">\r\n      </ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"#\" [width]=\"80\" [checkboxSelection]=\"true\"  [suppressMenu]=\"false\" [pinned]=\"true\"\r\n      [headerCheckboxSelection]=\"true\"\r\n\r\n       ></ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Name\" field=\"name\" [width]=\"175\" [pinned]=\"true\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n        \r\n   </ag-grid-column>\r\n      <ag-grid-column headerName=\"Artist\" field=\"artist\" [width]=\"120\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n\r\n \r\n\r\n\r\n    <ag-grid-column headerName=\"Details\">\r\n      <ag-grid-column headerName=\"ISRC\" field=\"ISRC\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n      <ag-grid-column headerName=\"ISWC\" field=\"ISWC\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Owner\" field=\"owner\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Collective\" field=\"collective\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Claim Status\" field=\"status\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"false\"\r\n        [resizable]=\"false\" [filter]=\"false\"></ag-grid-column>\r\n\r\n    </ag-grid-column>\r\n  </ag-grid-angular>\r\n\r\n  <mat-action-list>  <button mat-raised-button mat-button (click)=\"deleteSelectedRows()\">Delete Selected</button>\r\n    <button mat-raised-button mat-button (click)=\"editSendClaims(claimsToSend)\">Edit/Send Selected</button>\r\n     </mat-action-list> \r\n     <div>Selection: <span id=\"selectedRows\">...</span></div>\r\n\r\n</mat-card>\r\n     <hr>\r\n\r\n\r\n    <mat-card>\r\n     <h2>Claims In Box</h2>\r\n     your in box is empty please check back later</mat-card>"
+module.exports = "<!-- xx{{listAll$ | json}}xx -->\r\n\r\n\r\n<div class=\"table-responsive-lg\">\r\n  <!-- (rowClicked)=\"openDialog($event)\" -->\r\n  <mat-card>\r\n<h2>Claims Out Box</h2>\r\n\r\n<mat-progress-bar *ngIf=\"showSpinner\" mode=\"indeterminate\"></mat-progress-bar>\r\n\r\n\r\n\r\n  <ag-grid-angular   #agGrid style=\"width: 100%;\" class=\"ag-theme-material\" \r\n  [gridOptions]=\"gridOptions\"\r\n    [rowData]=\"listAll$\" \r\n    rowSelection=\"multiple\"\r\n    (cellClicked)=\"onCellClicked($event)\"\r\n    (selectionChanged)=\"onSelectionChanged($event)\"\r\n    >\r\n\r\n\r\n\r\n    <ag-grid-column headerName=\"Recordings\">\r\n\r\n      <ag-grid-column headerName=\"Actions\" [width]=\"100\" [pinned]=\"true\" [cellRenderer]=\"editBtnCellRenderer\">\r\n      </ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"#\" [width]=\"80\" [checkboxSelection]=\"true\"  [suppressMenu]=\"false\" [pinned]=\"true\"\r\n      [headerCheckboxSelection]=\"true\"\r\n\r\n       ></ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Name\" field=\"name\" [width]=\"175\" [pinned]=\"true\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n        \r\n   </ag-grid-column>\r\n      <ag-grid-column headerName=\"Artist\" field=\"artist\" [width]=\"120\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n\r\n \r\n\r\n\r\n    <ag-grid-column headerName=\"Details\">\r\n      <ag-grid-column headerName=\"ISRC\" field=\"ISRC\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n      <ag-grid-column headerName=\"ISWC\" field=\"ISWC\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Owner\" field=\"owner\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Collective\" field=\"collective\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Claim Status\" field=\"status\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"false\"\r\n        [resizable]=\"false\" [filter]=\"false\"></ag-grid-column>\r\n\r\n    </ag-grid-column>\r\n  </ag-grid-angular>\r\n\r\n  <mat-action-list>  <button mat-raised-button mat-button (click)=\"deleteSelectedRows()\">Delete Selected</button>\r\n    <button mat-raised-button mat-button (click)=\"editSendClaims(claimsToSend)\">Edit/Send Selected</button>\r\n     </mat-action-list> \r\n     <div>Selection: <span id=\"selectedRows\">...</span></div>\r\n\r\n</mat-card>\r\n     <hr>\r\n\r\n\r\n    <mat-card>\r\n     <h2>Claims In Box</h2>\r\n \r\n    \r\n     <mat-progress-bar *ngIf=\"showSpinner2\" mode=\"indeterminate\"></mat-progress-bar>\r\n     <ag-grid-angular   #inBoxGrid style=\"width: 100%;\" class=\"ag-theme-material\" \r\n     [gridOptions]=\"gridOptions\"\r\n       [rowData]=\"listAllInBox\" \r\n       rowSelection=\"multiple\"\r\n       (cellClicked)=\"onCellClicked($event)\"\r\n       (selectionChanged)=\"onSelectionChanged($event)\"\r\n       >\r\n   \r\n   \r\n   \r\n       <ag-grid-column headerName=\"Recordings\">\r\n   \r\n         <ag-grid-column headerName=\"Actions\" [width]=\"100\" [pinned]=\"true\" [cellRenderer]=\"editBtnCellRenderer\">\r\n         </ag-grid-column>\r\n   \r\n         <ag-grid-column headerName=\"#\" [width]=\"80\" [checkboxSelection]=\"true\"  [suppressMenu]=\"false\" [pinned]=\"true\"\r\n         [headerCheckboxSelection]=\"true\"   \r\n          ></ag-grid-column>\r\n   \r\n         <ag-grid-column headerName=\"Name\" field=\"name\" [width]=\"175\" [pinned]=\"true\" [sortable]=\"true\" [resizable]=\"true\"\r\n           [filter]=\"true\"></ag-grid-column>\r\n           \r\n      </ag-grid-column>\r\n         <ag-grid-column headerName=\"Artist\" field=\"artist\" [width]=\"120\" [pinned]=\"false\" [sortable]=\"true\"\r\n           [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n\r\n       <ag-grid-column headerName=\"Details\">\r\n         <ag-grid-column headerName=\"ISRC\" field=\"ISRC\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n         </ag-grid-column>\r\n         <ag-grid-column headerName=\"ISWC\" field=\"ISWC\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n         </ag-grid-column>\r\n   \r\n         <ag-grid-column headerName=\"Owner\" field=\"owner\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n           [filter]=\"true\"></ag-grid-column>\r\n         <ag-grid-column headerName=\"Collective\" field=\"collective\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n           [filter]=\"true\"></ag-grid-column>\r\n         <ag-grid-column headerName=\"Claim Status\" field=\"status\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"false\"\r\n           [resizable]=\"false\" [filter]=\"false\"></ag-grid-column>\r\n   \r\n       </ag-grid-column>\r\n     </ag-grid-angular>\r\n    \r\n    \r\n    \r\n    \r\n    </mat-card>"
 
 /***/ }),
 
@@ -478,9 +481,23 @@ var IndexComponent = /** @class */ (function () {
             .subscribe(function (result) {
             _this.showSpinner = false;
             console.log(result);
-            // this.animal = result;
+            _this.listAllInBox = result;
             _this.deleteSelectedRows();
+            _this.showSpinner2 = true;
+            setTimeout(function () {
+                _this.updateInBoxItems();
+            }, 2500);
         });
+    };
+    IndexComponent.prototype.updateInBoxItems = function () {
+        var itemsToUpdate = [];
+        this.inBoxGrid.api.forEachNodeAfterFilterAndSort(function (rowNode, index) {
+            var data = rowNode.data;
+            data.status = 'Sent!...';
+            itemsToUpdate.push(data);
+        });
+        this.showSpinner2 = false;
+        var res = this.inBoxGrid.api.updateRowData({ update: itemsToUpdate });
     };
     IndexComponent.prototype.editBtnCellRenderer = function (params) {
         var btn = '<button class="mat-button mat-raised-button"><span class="mat-button-wrapper">Edit</span><div class="mat-button-ripple mat-ripple"></div><div class="mat-button-focus-overlay"></div></button>';
@@ -526,6 +543,10 @@ var IndexComponent = /** @class */ (function () {
         var res = this.gridApi.updateRowData({ update: itemsToUpdate });
         // this.openEditSend(res);
     };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('inBoxGrid'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], IndexComponent.prototype, "inBoxGrid", void 0);
     IndexComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-index',
