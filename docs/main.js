@@ -3417,11 +3417,6 @@ var LayoutComponent = /** @class */ (function () {
                 icon: 'dashboard'
             },
             {
-                href: '/assets',
-                title: 'Assets',
-                icon: 'favorite'
-            },
-            {
                 href: '/claims',
                 title: 'Claims',
                 icon: 'attach_money'

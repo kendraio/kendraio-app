@@ -19,11 +19,6 @@ export class LayoutComponent implements OnInit {
       icon: 'dashboard'
     },
     {
-      href: '/assets',
-      title: 'Assets',
-      icon: 'favorite'
-    },
-    {
       href: '/claims',
       title: 'Claims',
       icon: 'attach_money'
