@@ -25,7 +25,7 @@ export class DocumentRepositoryService {
   resetApp() {
     this.db.destroy();
     // Defer execution of this to ensure database deleted before re-init
-    setTimeout(() => this.init(), 0);
+    setTimeout(() => this.init(), 100);
   }
 
   // Initialise the database

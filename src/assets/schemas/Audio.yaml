@@ -1,5 +1,7 @@
 name: Audio
 labelField: name
+forms:
+  edit: assets/forms/audioEditForm.yaml
 fields:
   - type: TEXT
     id: name

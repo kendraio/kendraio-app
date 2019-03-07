@@ -1,0 +1,10 @@
+<ng-container [formGroup]="group">
+  <app-image-input-control [formControlName]="model.id"
+                           [tagControl]="tagControl"
+                           [placeholder]="model.placeholder"
+                           [ngClass]="[getClass('element', 'control'), getClass('grid', 'control')]"
+                           (blur)="onBlur($event)"
+                           (change)="onChange($event)"
+                           (focus)="onFocus($event)"></app-image-input-control>
+</ng-container>
+

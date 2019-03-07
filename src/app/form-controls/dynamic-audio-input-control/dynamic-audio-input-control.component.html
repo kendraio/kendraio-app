@@ -1,0 +1,11 @@
+<ng-container [formGroup]="group">
+
+  <app-audio-input-control [formControlName]="model.id"
+                          [placeholder]="model.placeholder"
+                           [clipControl]="clipControl"
+                          [ngClass]="[getClass('element', 'control'), getClass('grid', 'control')]"
+                          (blur)="onBlur($event)"
+                          (change)="onChange($event)"
+                          (focus)="onFocus($event)"></app-audio-input-control>
+
+</ng-container>

@@ -1,5 +1,7 @@
 name: Photo
 labelField: name
+forms:
+  edit: assets/forms/photoEditForm.yaml
 attachments: ['image']
 fields:
   - type: TEXT

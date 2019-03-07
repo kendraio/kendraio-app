@@ -6,7 +6,7 @@
   id: location
   label: Location
   placeholder: Location
-- type: IMAGE
+- type: IMAGE_FILE
   id: image
   label: File
   placeholder: File
