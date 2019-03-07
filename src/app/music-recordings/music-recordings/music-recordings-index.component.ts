@@ -10,6 +10,7 @@ import { PageTitleService } from 'src/app/services/page-title.service';
 import { MusicRecordingsEditComponent } from '../music-recordings-edit/music-recordings-edit.component';
 import { TestDataService } from '../../services/test-data.service';
 import { SendClaimsComponent } from 'src/app/claims/send-claims/send-claims.component';
+import { MatInputComponent, MatButtonComponent } from 'src/app/_shared/components';
 // import { ButtonRendererComponent } from '../button-renderer.component';
 // import {TestSendClaimsComponent} from '..'
 
@@ -44,6 +45,16 @@ export class IndexComponent implements OnInit {
     // buttonRenderer: ButtonRendererComponent,
 
   ) {
+    this.gridOptions = <GridOptions>{
+      onGridReady: () => {
+       //   this.gridOptions.api.sizeColumnsToFit();
+      },
+      rowHeight: 48,
+      frameworkComponents: {
+          inputRenderer: MatInputComponent,
+          thing: MatButtonComponent
+      }
+  };
     this.listAll();
   }
 
@@ -164,7 +175,7 @@ sendToClaim(ev: any): void {
   listAll() {
     this.testData.listAll('music-recording').pipe(
       tap(() => this.showSpinner = true),
-      delay(500) // fake loading
+      // delay(500) // fake loading
     )
       .subscribe(res => {
         this.allItems = res;

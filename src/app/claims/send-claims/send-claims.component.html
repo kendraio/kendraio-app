@@ -2,7 +2,7 @@
 
 
 <h1>Claim Sheet</h1>
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat consectetur incidunt facere esse vero minus, voluptates voluptatem autem at ratione non! Alias hic temporibus rerum nisi odit quisquam dolorum fugiat!
+Please be sure all info is correct before posting to your Claims Folder. Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat consectetur incidunt facere esse vero minus, voluptates voluptatem autem at ratione non! Alias hic temporibus rerum nisi odit quisquam dolorum fugiat!
 
 <section *ngIf="!nextStep">
 <div class="mt-4" fxLayout="row wrap" fxLayoutGap="20px"   fxLayoutAlign="start stretch">
@@ -41,7 +41,16 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat consectetur inc
 
 The folowing claims have been sent to your Claims Folder.
 
-{{data | json}}
+
+<mat-list>
+  <mat-list-item *ngFor="let item of data; let i = index;">
+      <mat-icon mat-list-icon>library_music</mat-icon>
+      <h4 mat-line>{{item.name}}</h4>
+      <p mat-line> {{item.artist}} </p>
+  </mat-list-item>
+</mat-list>
+
+
 
 <div mat-dialog-actions>
     <button mat-button mat-dialog-close="Edit Cancelled">Close</button>

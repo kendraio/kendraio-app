@@ -501,7 +501,7 @@ var IndexComponent = /** @class */ (function () {
     };
     IndexComponent.prototype.listAll = function () {
         var _this = this;
-        this.testData.listAll('file').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function () { return _this.showSpinner = true; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["delay"])(500))
+        this.testData.listAll('file').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function () { return _this.showSpinner = true; }))
             .subscribe(function (res) {
             _this.allItems = res;
             _this.showSpinner = false;

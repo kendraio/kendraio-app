@@ -22,6 +22,8 @@
       </ag-grid-column>
 
       <ag-grid-column headerName="#" [width]="80" [checkboxSelection]="true"  [suppressMenu]="false" [pinned]="true"
+      [headerCheckboxSelection]="true"
+
        ></ag-grid-column>
 
       <ag-grid-column headerName="Name" field="name" [width]="175" [pinned]="true" [sortable]="true" [resizable]="true"
@@ -51,7 +53,7 @@
   </ag-grid-angular>
 
   <mat-action-list>  <button mat-raised-button mat-button (click)="deleteSelectedRows()">Delete Selected</button>
-    <button mat-raised-button mat-button (click)="editSendClaims(claimsToSend)">Send Selected</button>
+    <button mat-raised-button mat-button (click)="editSendClaims(claimsToSend)">Edit/Send Selected</button>
      </mat-action-list> 
      <div>Selection: <span id="selectedRows">...</span></div>
 

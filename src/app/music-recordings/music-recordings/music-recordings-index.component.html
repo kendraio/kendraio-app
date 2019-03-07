@@ -12,6 +12,7 @@
     rowSelection="multiple"
     (cellClicked)="onCellClicked($event)"
     (selectionChanged)="onSelectionChanged($event)"
+    [frameworkComponents]="gridOptions.frameworkComponents"
     >
 
     <ag-grid-column headerName="Recordings">
@@ -23,7 +24,10 @@
        ></ag-grid-column>
 
       <ag-grid-column headerName="Name" field="Name" [width]="125" [pinned]="true" [sortable]="true" [resizable]="true"
-        [filter]="true"></ag-grid-column>
+        [filter]="true"
+        [editable]="true"
+        [cellEditorFramework]="gridOptions.frameworkComponents.inputRenderer"
+        ></ag-grid-column>
 
       <ag-grid-column headerName="Artist" field="Artist" [width]="120" [pinned]="false" [sortable]="true"
         [resizable]="true" [filter]="true"></ag-grid-column>

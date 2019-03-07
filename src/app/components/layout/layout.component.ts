@@ -25,7 +25,7 @@ export class LayoutComponent implements OnInit {
     },
     {
       href: '/claims',
-      title: 'Claims Book',
+      title: 'Claims',
       icon: 'attach_money'
     },
     {
@@ -66,7 +66,7 @@ export class LayoutComponent implements OnInit {
   ];
 
   pageTitle$: Observable<string>;
-//   sidenav: MatSidenav;
+  sidenav: MatSidenav;
 
   constructor(
     private readonly router: Router,
@@ -76,7 +76,7 @@ export class LayoutComponent implements OnInit {
 
   ngOnInit() {
     this.pageTitle$ = this.title.pageTitle$;
-  // sidenav.open();
+  //  this.sidenav.open();
   }
 
   gotoPage(href: string, sidenav: MatSidenav) {

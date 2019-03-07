@@ -52,7 +52,7 @@ export class IndexComponent implements OnInit {
         selectedRowsString += ', ';
       
       }
-      selectedRowsString += selectedRow.Name;
+      selectedRowsString += selectedRow.name;
       theRow = selectedRow; 
     });
     this.claimsToSend = [];
@@ -140,14 +140,32 @@ export class IndexComponent implements OnInit {
   }
 
   editSendClaims(ev: any) {
+    const selectedData = this.gridApi.getSelectedRows();
+    this.openEditSend(selectedData);
 
-      this.openEditSend(ev);
+
+      this.updateClaimsStatus(selectedData)
+
 
   }
 
   deleteSelectedRows() {
     const selectedData = this.gridApi.getSelectedRows();
     const res = this.gridApi.updateRowData({ remove: selectedData });
+  }
+
+
+  updateClaimsStatus(itemsToUpdate) {
+  //  const itemsToUpdate = [];
+  itemsToUpdate.forEach(function(rowNode, index) {
+    
+      const datax = rowNode;
+      datax.status = 'Sending...';
+   //  itemsToUpdate.push(datax);
+    });
+    const res = this.gridApi.updateRowData({ update: itemsToUpdate });
+   // this.openEditSend(res);
+
   }
 
 
