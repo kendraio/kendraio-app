@@ -301,8 +301,8 @@ var MY_CLAIMS_FORM_MODEL = [
         group: [
             new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicSwitchModel"]({
                 id: 'reminder',
-                offLabel: 'Send me a reminder',
-                onLabel: 'Send me a reminder',
+                offLabel: 'Send me a receipt',
+                onLabel: 'Send me a receipt',
                 value: false
             }),
             new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicSwitchModel"]({
