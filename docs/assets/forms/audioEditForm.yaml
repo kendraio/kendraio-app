@@ -2,3 +2,7 @@
   id: name
   label: Name
   placeholder: Name
+- type: AUDIO_FILE
+  id: audio
+  label: File
+  placeholder: File
