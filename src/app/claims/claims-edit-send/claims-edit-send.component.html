@@ -26,4 +26,5 @@
   <mat-card-actions>
       <button mat-mini-fab (click)="goToPrevRow()"><mat-icon>arrow_backward</mat-icon></button>
       <button mat-mini-fab (click)="goToNextRow()"><mat-icon>arrow_forward</mat-icon></button>
+      <button mat-button  [mat-dialog-close]="data">Send All</button>
   </mat-card-actions>

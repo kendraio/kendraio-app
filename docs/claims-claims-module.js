@@ -162,7 +162,7 @@ var CLAIMS_FORM_LAYOUT = {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n\n<h2>Edit and Send Form:</h2>\n<h5>You are about to send {{data.length}} claims</h5>\n\n<mat-card>\n  <mat-card-header>\n    <mat-card-title> Claim {{rowCurrent + 1}} of  {{rowCount}}</mat-card-title>\n    <mat-card-subtitle></mat-card-subtitle>\n  </mat-card-header>\n  <mat-card-content>\n  \n      <!-- {{claim | json}} -->\n\n<app-edit-send-form [data]=\"claim\">\n   \n\n</app-edit-send-form>\n\n  </mat-card-content>\n\n</mat-card>\n\n\n\n  <mat-card-actions>\n      <button mat-mini-fab (click)=\"goToPrevRow()\"><mat-icon>arrow_backward</mat-icon></button>\n      <button mat-mini-fab (click)=\"goToNextRow()\"><mat-icon>arrow_forward</mat-icon></button>\n  </mat-card-actions>"
+module.exports = "\n\n<h2>Edit and Send Form:</h2>\n<h5>You are about to send {{data.length}} claims</h5>\n\n<mat-card>\n  <mat-card-header>\n    <mat-card-title> Claim {{rowCurrent + 1}} of  {{rowCount}}</mat-card-title>\n    <mat-card-subtitle></mat-card-subtitle>\n  </mat-card-header>\n  <mat-card-content>\n  \n      <!-- {{claim | json}} -->\n\n<app-edit-send-form [data]=\"claim\">\n   \n\n</app-edit-send-form>\n\n  </mat-card-content>\n\n</mat-card>\n\n\n\n  <mat-card-actions>\n      <button mat-mini-fab (click)=\"goToPrevRow()\"><mat-icon>arrow_backward</mat-icon></button>\n      <button mat-mini-fab (click)=\"goToNextRow()\"><mat-icon>arrow_forward</mat-icon></button>\n      <button mat-button  [mat-dialog-close]=\"data\">Send All</button>\n  </mat-card-actions>"
 
 /***/ }),
 
@@ -378,7 +378,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- xx{{listAll$ | json}}xx -->\r\n\r\n\r\n<div class=\"table-responsive-lg\">\r\n  <!-- (rowClicked)=\"openDialog($event)\" -->\r\n  <mat-card>\r\n<h2>Claims Out Box</h2>\r\n\r\n  <ag-grid-angular   #agGrid style=\"width: 100%;\" class=\"ag-theme-material\" \r\n  [gridOptions]=\"gridOptions\"\r\n    [rowData]=\"listAll$\" \r\n    rowSelection=\"multiple\"\r\n    (cellClicked)=\"onCellClicked($event)\"\r\n    (selectionChanged)=\"onSelectionChanged($event)\"\r\n    >\r\n\r\n\r\n\r\n    <ag-grid-column headerName=\"Recordings\">\r\n\r\n      <ag-grid-column headerName=\"Actions\" [width]=\"100\" [pinned]=\"true\" [cellRenderer]=\"editBtnCellRenderer\">\r\n      </ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"#\" [width]=\"80\" [checkboxSelection]=\"true\"  [suppressMenu]=\"false\" [pinned]=\"true\"\r\n      [headerCheckboxSelection]=\"true\"\r\n\r\n       ></ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Name\" field=\"name\" [width]=\"175\" [pinned]=\"true\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n        \r\n   </ag-grid-column>\r\n      <ag-grid-column headerName=\"Artist\" field=\"artist\" [width]=\"120\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n\r\n \r\n\r\n\r\n    <ag-grid-column headerName=\"Details\">\r\n      <ag-grid-column headerName=\"ISRC\" field=\"ISRC\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n      <ag-grid-column headerName=\"ISWC\" field=\"ISWC\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Owner\" field=\"owner\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Collective\" field=\"collective\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Claim Status\" field=\"status\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"false\"\r\n        [resizable]=\"false\" [filter]=\"false\"></ag-grid-column>\r\n\r\n    </ag-grid-column>\r\n  </ag-grid-angular>\r\n\r\n  <mat-action-list>  <button mat-raised-button mat-button (click)=\"deleteSelectedRows()\">Delete Selected</button>\r\n    <button mat-raised-button mat-button (click)=\"editSendClaims(claimsToSend)\">Edit/Send Selected</button>\r\n     </mat-action-list> \r\n     <div>Selection: <span id=\"selectedRows\">...</span></div>\r\n\r\n</mat-card>\r\n     <hr>\r\n\r\n\r\n    <mat-card>\r\n     <h2>Claims In Box</h2>\r\n     your in box is empty please check back later</mat-card>"
+module.exports = "<!-- xx{{listAll$ | json}}xx -->\r\n\r\n\r\n<div class=\"table-responsive-lg\">\r\n  <!-- (rowClicked)=\"openDialog($event)\" -->\r\n  <mat-card>\r\n<h2>Claims Out Box</h2>\r\n\r\n<mat-progress-bar *ngIf=\"showSpinner\" mode=\"indeterminate\"></mat-progress-bar>\r\n\r\n\r\n\r\n  <ag-grid-angular   #agGrid style=\"width: 100%;\" class=\"ag-theme-material\" \r\n  [gridOptions]=\"gridOptions\"\r\n    [rowData]=\"listAll$\" \r\n    rowSelection=\"multiple\"\r\n    (cellClicked)=\"onCellClicked($event)\"\r\n    (selectionChanged)=\"onSelectionChanged($event)\"\r\n    >\r\n\r\n\r\n\r\n    <ag-grid-column headerName=\"Recordings\">\r\n\r\n      <ag-grid-column headerName=\"Actions\" [width]=\"100\" [pinned]=\"true\" [cellRenderer]=\"editBtnCellRenderer\">\r\n      </ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"#\" [width]=\"80\" [checkboxSelection]=\"true\"  [suppressMenu]=\"false\" [pinned]=\"true\"\r\n      [headerCheckboxSelection]=\"true\"\r\n\r\n       ></ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Name\" field=\"name\" [width]=\"175\" [pinned]=\"true\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n        \r\n   </ag-grid-column>\r\n      <ag-grid-column headerName=\"Artist\" field=\"artist\" [width]=\"120\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n\r\n \r\n\r\n\r\n    <ag-grid-column headerName=\"Details\">\r\n      <ag-grid-column headerName=\"ISRC\" field=\"ISRC\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n      <ag-grid-column headerName=\"ISWC\" field=\"ISWC\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Owner\" field=\"owner\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Collective\" field=\"collective\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Claim Status\" field=\"status\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"false\"\r\n        [resizable]=\"false\" [filter]=\"false\"></ag-grid-column>\r\n\r\n    </ag-grid-column>\r\n  </ag-grid-angular>\r\n\r\n  <mat-action-list>  <button mat-raised-button mat-button (click)=\"deleteSelectedRows()\">Delete Selected</button>\r\n    <button mat-raised-button mat-button (click)=\"editSendClaims(claimsToSend)\">Edit/Send Selected</button>\r\n     </mat-action-list> \r\n     <div>Selection: <span id=\"selectedRows\">...</span></div>\r\n\r\n</mat-card>\r\n     <hr>\r\n\r\n\r\n    <mat-card>\r\n     <h2>Claims In Box</h2>\r\n     your in box is empty please check back later</mat-card>"
 
 /***/ }),
 
@@ -406,12 +406,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var _claims_edit_claims_edit_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../claims-edit/claims-edit.component */ "./src/app/claims/claims-edit/claims-edit.component.ts");
-/* harmony import */ var src_app_shared_services_claims_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/_shared/services/claims.service */ "./src/app/_shared/services/claims.service.ts");
-/* harmony import */ var _claims_edit_send_claims_edit_send_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../claims-edit-send/claims-edit-send.component */ "./src/app/claims/claims-edit-send/claims-edit-send.component.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _claims_edit_claims_edit_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../claims-edit/claims-edit.component */ "./src/app/claims/claims-edit/claims-edit.component.ts");
+/* harmony import */ var src_app_shared_services_claims_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/_shared/services/claims.service */ "./src/app/_shared/services/claims.service.ts");
+/* harmony import */ var _claims_edit_send_claims_edit_send_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../claims-edit-send/claims-edit-send.component */ "./src/app/claims/claims-edit-send/claims-edit-send.component.ts");
 
 
 
+
+// import { delay } from 'q';
 
 
 
@@ -454,7 +457,7 @@ var IndexComponent = /** @class */ (function () {
         document.querySelector('#selectedRows').innerHTML = selectedRowsString;
     };
     IndexComponent.prototype.openDialog = function (ev) {
-        var dialogRef = this.dialog.open(_claims_edit_claims_edit_component__WEBPACK_IMPORTED_MODULE_3__["ClaimsEditComponent"], {
+        var dialogRef = this.dialog.open(_claims_edit_claims_edit_component__WEBPACK_IMPORTED_MODULE_4__["ClaimsEditComponent"], {
             data: ev,
             width: '80%',
             panelClass: 'formFieldWidth380'
@@ -464,13 +467,19 @@ var IndexComponent = /** @class */ (function () {
         });
     };
     IndexComponent.prototype.openEditSend = function (ev) {
-        var dialogRef = this.dialog.open(_claims_edit_send_claims_edit_send_component__WEBPACK_IMPORTED_MODULE_5__["ClaimsEditSendComponent"], {
+        var _this = this;
+        var dialogRef = this.dialog.open(_claims_edit_send_claims_edit_send_component__WEBPACK_IMPORTED_MODULE_6__["ClaimsEditSendComponent"], {
             data: ev,
             width: '80%',
             panelClass: 'formFieldWidth380'
         });
-        dialogRef.afterClosed().subscribe(function (result) {
-            console.log('The dialog was closed');
+        dialogRef.afterClosed().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function () { return _this.showSpinner = true; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["delay"])(1000) // fake loading
+        )
+            .subscribe(function (result) {
+            _this.showSpinner = false;
+            console.log(result);
+            // this.animal = result;
+            _this.deleteSelectedRows();
         });
     };
     IndexComponent.prototype.editBtnCellRenderer = function (params) {
@@ -524,7 +533,7 @@ var IndexComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./claims.component.scss */ "./src/app/claims/index/claims.component.scss")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"],
-            src_app_shared_services_claims_service__WEBPACK_IMPORTED_MODULE_4__["ClaimsService"]])
+            src_app_shared_services_claims_service__WEBPACK_IMPORTED_MODULE_5__["ClaimsService"]])
     ], IndexComponent);
     return IndexComponent;
 }());

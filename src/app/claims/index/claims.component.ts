@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { GridOptions } from 'ag-grid-community';
 import { MatDialog, MAT_DIALOG_DATA, MatButton } from '@angular/material';
-import { tap, switchMap } from 'rxjs/operators';
-import { delay } from 'q';
+import { tap, switchMap, delay } from 'rxjs/operators';
+// import { delay } from 'q';
 import { ClaimsEditComponent } from '../claims-edit/claims-edit.component';
 import { ClaimsService } from 'src/app/_shared/services/claims.service';
 import { Subject } from 'rxjs';
@@ -92,8 +92,16 @@ export class IndexComponent implements OnInit {
       width: '80%',
       panelClass: 'formFieldWidth380'
     });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+    dialogRef.afterClosed().pipe(
+        tap(() => this.showSpinner = true),
+        delay(1000) // fake loading
+      )
+    .subscribe(result => {
+      this.showSpinner = false;
+      console.log(result);
+     // this.animal = result;
+      this.deleteSelectedRows();
+
     });
   }
 

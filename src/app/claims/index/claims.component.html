@@ -6,6 +6,10 @@
   <mat-card>
 <h2>Claims Out Box</h2>
 
+<mat-progress-bar *ngIf="showSpinner" mode="indeterminate"></mat-progress-bar>
+
+
+
   <ag-grid-angular   #agGrid style="width: 100%;" class="ag-theme-material" 
   [gridOptions]="gridOptions"
     [rowData]="listAll$" 
