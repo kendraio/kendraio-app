@@ -62,8 +62,8 @@ export const MY_CLAIMS_FORM_MODEL = [
     new DynamicSwitchModel({
 
         id: 'reminder',
-        offLabel: 'Send me a reminder',
-        onLabel: 'Send me a reminder',
+        offLabel: 'Send me a receipt',
+        onLabel: 'Send me a receipt',
         value: false
 
     }),

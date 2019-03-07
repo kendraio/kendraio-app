@@ -145,6 +145,11 @@ export class IndexComponent implements OnInit {
 
   }
 
+  deleteSelectedRows() {
+    const selectedData = this.gridApi.getSelectedRows();
+    const res = this.gridApi.updateRowData({ remove: selectedData });
+  }
+
 
 
 }
