@@ -6,6 +6,11 @@ fields:
     label: Name
     autoComplete: off
     defaultValue: ''
+  - type: REFERENCE
+    id: owner
+    label: Owner
+    autoComplete: off
+    defaultValue: ''
   - type: JSON
     id: json_data
     label: Legacy Data

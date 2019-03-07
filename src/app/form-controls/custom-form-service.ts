@@ -37,6 +37,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import { AUDIO_FILE_DYNAMIC_FORM_CONTROL_TYPE, AudioFormModel } from './audio-form-model';
 import {IMAGE_FILE_DYNAMIC_FORM_CONTROL_TYPE, ImageFormModel} from './image-form-model';
+import {REFERENCE_DYNAMIC_FORM_CONTROL_TYPE, ReferenceFormModel} from './reference-form-model';
 
 export class CustomFormService extends DynamicFormService {
 
@@ -145,6 +146,10 @@ export class CustomFormService extends DynamicFormService {
 
         case IMAGE_FILE_DYNAMIC_FORM_CONTROL_TYPE:
           formModel.push(new ImageFormModel(model, layout));
+          break;
+
+        case REFERENCE_DYNAMIC_FORM_CONTROL_TYPE:
+          formModel.push(new ReferenceFormModel(model, layout));
           break;
 
         default:

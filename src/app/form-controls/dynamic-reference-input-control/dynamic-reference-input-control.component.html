@@ -1,0 +1,8 @@
+<ng-container [formGroup]="group">
+  <app-reference-input-control [formControlName]="model.id"
+                               [placeholder]="model.placeholder"
+                               [ngClass]="[getClass('element', 'control'), getClass('grid', 'control')]"
+                               (blur)="onBlur($event)"
+                               (change)="onChange($event)"
+                               (focus)="onFocus($event)"></app-reference-input-control>
+</ng-container>

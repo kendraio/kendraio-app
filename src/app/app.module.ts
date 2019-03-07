@@ -65,6 +65,9 @@ import {AUDIO_FILE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/audio-form-m
 import {CustomFormService} from './form-controls/custom-form-service';
 import { DynamicImageInputControlComponent } from './form-controls/dynamic-image-input-control/dynamic-image-input-control.component';
 import {IMAGE_FILE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/image-form-model';
+import { ReferenceInputControlComponent } from './form-controls/reference-input-control/reference-input-control.component';
+import { DynamicReferenceInputControlComponent } from './form-controls/dynamic-reference-input-control/dynamic-reference-input-control.component';
+import {REFERENCE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/reference-form-model';
 
 // import { AgGridModule } from 'ag-grid-angular';
 // import { MatInputComponent } from './_shared/components';
@@ -109,6 +112,8 @@ import {IMAGE_FILE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/image-form-m
     DiagramPageComponent,
     DynamicAudioInputControlComponent,
     DynamicImageInputControlComponent,
+    ReferenceInputControlComponent,
+    DynamicReferenceInputControlComponent,
     // MatInputComponent
     // DialogDataExampleDialog
     // MusicRecordingsEditComponent
@@ -142,7 +147,8 @@ import {IMAGE_FILE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/image-form-m
     EditClipDialogComponent,
     TestImportDialogComponent,
     DynamicAudioInputControlComponent,
-    DynamicImageInputControlComponent
+    DynamicImageInputControlComponent,
+    DynamicReferenceInputControlComponent
   ],
   providers: [
     {
@@ -165,6 +171,8 @@ import {IMAGE_FILE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/image-form-m
             return DynamicAudioInputControlComponent;
           case IMAGE_FILE_DYNAMIC_FORM_CONTROL_TYPE:
             return DynamicImageInputControlComponent;
+          case REFERENCE_DYNAMIC_FORM_CONTROL_TYPE:
+            return DynamicReferenceInputControlComponent;
         }
       }
     },
