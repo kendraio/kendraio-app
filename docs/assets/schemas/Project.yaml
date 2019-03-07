@@ -1,5 +1,7 @@
 name: Project
 labelField: name
+forms:
+  edit: assets/forms/projectEditForm.yaml
 fields:
   - type: TEXT
     id: name
