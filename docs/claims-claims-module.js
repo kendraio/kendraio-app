@@ -42,7 +42,7 @@ var ClaimsService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<section\r\nfxLayout=\"row wrap\"\r\nfxLayoutAlign=\"start start\" \r\nfxLayoutGap=\"20px\"\r\n>\r\n\r\n<mat-card>\r\n\r\n  <mat-card-header>\r\n  <b>Claim Details</b>\r\n  </mat-card-header>\r\n  <mat-card-content>\r\n\r\n\r\n    <mat-list>\r\n        <mat-list-item>Name:   {{data.name}} </mat-list-item>\r\n        <mat-list-item>Artist:   {{data.artist}} </mat-list-item>\r\n        <mat-list-item>Collective:  {{data.collective}} </mat-list-item>\r\n        <mat-list-item>Collective:  {{data.owner}} </mat-list-item>\r\n       </mat-list>\r\n\r\n  </mat-card-content>\r\n\r\n\r\n</mat-card>\r\n\r\n\r\n    <mat-card>\r\n        <mat-card-header>\r\n            <b>Extra Information</b>\r\n            <button mat-button ><mat-icon>file_copy</mat-icon> copy from previous</button>\r\n          </mat-card-header>\r\n  \r\n      <form [formGroup]=\"formGroup\">\r\n\r\n\r\n        <dynamic-material-form \r\n                      [group]=\"formGroup\" [layout]=\"formLayout\" [model]=\"formModel\" (blur)=\"onBlur($event)\"\r\n                      (change)=\"onChange($event)\" (focus)=\"onFocus($event)\" (matEvent)=\"onMatEvent($event)\"                  \r\n                           ></dynamic-material-form>\r\n  \r\n      </form>\r\n    </mat-card>\r\n  \r\n    <div mat-dialog-actions class=\"align-right\">\r\n      <button mat-button mat-dialog-close=\"Edit Cancelled\">Cancel</button>\r\n      <button mat-raised-button mat-button [mat-dialog-close]=\"true\" cdkFocusInitial [disabled]=\"formGroup.invalid\">Send</button>\r\n    </div>\r\n     <!-- formdata = <pre>{{ data | json }}</pre> -->\r\n     <!-- formGroup = {{formGroup.value | json}} -->\r\n  \r\n  </section>\r\n\r\n\r\n  \r\n\r\n\r\n"
+module.exports = "\r\n<section\r\nfxLayout=\"row wrap\"\r\nfxLayoutAlign=\"start start\" \r\nfxLayoutGap=\"20px\"\r\n>\r\n\r\n<mat-card>\r\n\r\n  <mat-card-header>\r\n  <b>Claim Details</b>\r\n  </mat-card-header>\r\n  <mat-card-content>\r\n\r\n\r\n    <mat-list>\r\n        <mat-list-item>Name:   {{data.name}} </mat-list-item>\r\n        <mat-list-item>Artist:   {{data.artist}} </mat-list-item>\r\n        <mat-list-item>Collective:  {{data.collective}} </mat-list-item>\r\n        <mat-list-item>Collective:  {{data.owner}} </mat-list-item>\r\n       </mat-list>\r\n\r\n  </mat-card-content>\r\n\r\n\r\n</mat-card>\r\n\r\n\r\n    <mat-card>\r\n        <mat-card-header>\r\n            <b>Extra Information</b>\r\n            <button mat-button ><mat-icon>file_copy</mat-icon> copy from previous</button>\r\n          </mat-card-header>\r\n  \r\n      <form [formGroup]=\"formGroup\">\r\n\r\n\r\n        <dynamic-material-form \r\n                      [group]=\"formGroup\" [layout]=\"formLayout\" [model]=\"formModel\" (blur)=\"onBlur($event)\"\r\n                      (change)=\"onChange($event)\" (focus)=\"onFocus($event)\" (matEvent)=\"onMatEvent($event)\"                  \r\n                           ></dynamic-material-form>\r\n  \r\n      </form>\r\n    </mat-card>\r\n  \r\n    <div mat-dialog-actions class=\"align-right\">\r\n      <button mat-button mat-dialog-close=\"Edit Cancelled\">Cancel</button>\r\n      <button mat-raised-button mat-button [mat-dialog-close]=\"true\"  [disabled]=\"formGroup.invalid\">Send</button>\r\n    </div>\r\n     <!-- formdata = <pre>{{ data | json }}</pre> -->\r\n     <!-- formGroup = {{formGroup.value | json}} -->\r\n  \r\n  </section>\r\n\r\n\r\n  \r\n\r\n\r\n"
 
 /***/ }),
 
@@ -381,7 +381,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- xx{{listAll$ | json}}xx -->\r\n\r\n\r\n<div class=\"table-responsive-lg\">\r\n  <!-- (rowClicked)=\"openDialog($event)\" -->\r\n  <mat-card >\r\n    <h2>Claims Not Sent</h2>\r\n\r\n    <mat-progress-bar *ngIf=\"showSpinner\" mode=\"indeterminate\"></mat-progress-bar>\r\n\r\n\r\n    <ag-grid-angular *ngIf=\"listAll$.length > 0\" @enterAnimateUpDwn  #agGrid style=\"width: 100%;\" class=\"ag-theme-material\" [gridOptions]=\"gridOptions\"\r\n      [rowData]=\"listAll$\" rowSelection=\"multiple\" (cellClicked)=\"onCellClicked($event)\"\r\n      (selectionChanged)=\"onSelectionChanged($event)\">\r\n\r\n\r\n\r\n      <ag-grid-column headerName=\"Recordings\">\r\n\r\n        <ag-grid-column headerName=\"Actions\" [width]=\"100\" [pinned]=\"true\" [cellRenderer]=\"editBtnCellRenderer\">\r\n        </ag-grid-column>\r\n\r\n        <ag-grid-column headerName=\"#\" [width]=\"80\" [checkboxSelection]=\"true\" [suppressMenu]=\"false\" [pinned]=\"true\"\r\n          [headerCheckboxSelection]=\"true\"></ag-grid-column>\r\n\r\n        <ag-grid-column headerName=\"Name\" field=\"name\" [width]=\"175\" [pinned]=\"true\" [sortable]=\"true\"\r\n          [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n\r\n      </ag-grid-column>\r\n      <ag-grid-column headerName=\"Artist\" field=\"artist\" [width]=\"120\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n\r\n\r\n      <ag-grid-column headerName=\"Details\">\r\n        <ag-grid-column headerName=\"ISRC\" field=\"ISRC\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n          [filter]=\"true\">\r\n        </ag-grid-column>\r\n        <ag-grid-column headerName=\"ISWC\" field=\"ISWC\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\"\r\n          [filter]=\"true\">\r\n        </ag-grid-column>\r\n\r\n        <ag-grid-column headerName=\"Owner\" field=\"owner\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n          [filter]=\"true\"></ag-grid-column>\r\n        <ag-grid-column headerName=\"Collective\" field=\"collective\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n          [filter]=\"true\"></ag-grid-column>\r\n        <ag-grid-column headerName=\"Claim Status\" field=\"status\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"false\"\r\n          [resizable]=\"false\" [filter]=\"false\"></ag-grid-column>\r\n\r\n      </ag-grid-column>\r\n    </ag-grid-angular>\r\n\r\n    <mat-action-list> <button mat-raised-button mat-button (click)=\"deleteSelectedRows()\">Delete Selected</button>\r\n      <button mat-raised-button mat-button (click)=\"editSendClaims(claimsToSend)\">Edit/Send Selected</button>\r\n    </mat-action-list>\r\n    <div>Selection: <span id=\"selectedRows\">...</span></div>\r\n\r\n  </mat-card>\r\n  <hr>\r\n\r\n\r\n  <mat-card *ngIf=\"listAllInBox\" @enterAnimateUpDwn >\r\n    <h2>Claims Sent</h2>\r\n\r\n\r\n    <mat-progress-bar *ngIf=\"showSpinner2\" mode=\"indeterminate\"></mat-progress-bar>\r\n    <ag-grid-angular #inBoxGrid style=\"width: 100%;\" class=\"ag-theme-material\" [gridOptions]=\"gridOptions\"\r\n      [rowData]=\"listAllInBox\" rowSelection=\"multiple\" (cellClicked)=\"onCellClicked($event)\"\r\n      (selectionChanged)=\"onSelectionChanged($event)\">\r\n\r\n\r\n      <ag-grid-column headerName=\"Recordings\">\r\n\r\n        <ag-grid-column headerName=\"Actions\" [width]=\"100\" [pinned]=\"true\" [cellRenderer]=\"editBtnCellRenderer\">\r\n        </ag-grid-column>\r\n  \r\n        <ag-grid-column headerName=\"Name\" field=\"name\" [width]=\"175\" [pinned]=\"true\" [sortable]=\"true\"\r\n          [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n\r\n      </ag-grid-column>\r\n      <ag-grid-column headerName=\"Artist\" field=\"artist\" [width]=\"120\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Details\">\r\n        <ag-grid-column headerName=\"ISRC\" field=\"ISRC\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n          [filter]=\"true\">\r\n        </ag-grid-column>\r\n        <ag-grid-column headerName=\"ISWC\" field=\"ISWC\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\"\r\n          [filter]=\"true\">\r\n        </ag-grid-column>\r\n\r\n        <ag-grid-column headerName=\"Owner\" field=\"owner\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n          [filter]=\"true\"></ag-grid-column>\r\n        <ag-grid-column headerName=\"Collective\" field=\"collective\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n          [filter]=\"true\"></ag-grid-column>\r\n        <ag-grid-column headerName=\"Claim Status\" field=\"status\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"false\"\r\n          [resizable]=\"false\" [filter]=\"false\"></ag-grid-column>\r\n\r\n      </ag-grid-column>\r\n    </ag-grid-angular>\r\n\r\n\r\n\r\n\r\n  </mat-card>"
+module.exports = "<!-- xx{{listAll$ | json}}xx -->\r\n\r\n\r\n<div class=\"table-responsive-lg\">\r\n  <!-- (rowClicked)=\"openDialog($event)\" -->\r\n<mat-expansion-panel>\r\n  <mat-expansion-panel-header>\r\n<h2> Claims for Recordings ({{listAllOutBox?.length || '0'}})</h2>\r\n  </mat-expansion-panel-header>\r\n\r\n\r\n\r\n\r\n\r\n  <mat-card>\r\n      <mat-card-header>\r\n          <mat-card-title> Claims not sent</mat-card-title>       \r\n      </mat-card-header>\r\n\r\n    <mat-progress-bar *ngIf=\"showSpinner\" mode=\"indeterminate\"></mat-progress-bar>\r\n\r\n  \r\n    <ag-grid-angular *ngIf=\"listAllOutBox?.length > 0\" @enterAnimateUpDwn  #agGrid style=\"width: 100%;\" class=\"ag-theme-material\" [gridOptions]=\"gridOptions\"\r\n      [rowData]=\"listAllOutBox\" rowSelection=\"multiple\" (cellClicked)=\"onCellClicked($event)\"\r\n      (selectionChanged)=\"onSelectionChanged($event)\">\r\n\r\n      <ag-grid-column headerName=\"Recordings\">\r\n\r\n        <ag-grid-column headerName=\"Actions\" [width]=\"100\" [pinned]=\"true\" [cellRenderer]=\"editBtnCellRenderer\">\r\n        </ag-grid-column>\r\n\r\n        <ag-grid-column headerName=\"#\" [width]=\"80\" [checkboxSelection]=\"true\" [suppressMenu]=\"false\" [pinned]=\"true\"\r\n          [headerCheckboxSelection]=\"true\"></ag-grid-column>\r\n\r\n        <ag-grid-column headerName=\"Name\" field=\"name\" [width]=\"175\" [pinned]=\"true\" [sortable]=\"true\"\r\n          [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n\r\n      </ag-grid-column>\r\n      <ag-grid-column headerName=\"Artist\" field=\"artist\" [width]=\"120\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n\r\n\r\n      <ag-grid-column headerName=\"Details\">\r\n        <ag-grid-column headerName=\"ISRC\" field=\"ISRC\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n          [filter]=\"true\">\r\n        </ag-grid-column>\r\n        <ag-grid-column headerName=\"ISWC\" field=\"ISWC\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\"\r\n          [filter]=\"true\">\r\n        </ag-grid-column>\r\n\r\n        <ag-grid-column headerName=\"Owner\" field=\"owner\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n          [filter]=\"true\"></ag-grid-column>\r\n        <ag-grid-column headerName=\"Collective\" field=\"collective\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n          [filter]=\"true\"></ag-grid-column>\r\n        <ag-grid-column headerName=\"Claim Status\" field=\"status\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"false\"\r\n          [resizable]=\"false\" [filter]=\"false\"></ag-grid-column>\r\n\r\n      </ag-grid-column>\r\n    </ag-grid-angular>\r\n\r\n    <mat-action-list> <button mat-raised-button mat-button (click)=\"deleteSelectedRows()\">Delete Selected</button>\r\n      <button mat-raised-button mat-button (click)=\"editSendClaims(claimsToSend)\">Edit/Send Selected</button>\r\n    </mat-action-list>\r\n    <div>Selection: <span id=\"selectedRows\">...</span></div> \r\n\r\n  </mat-card>\r\n\r\n \r\n\r\n\r\n\r\n\r\n\r\n  <mat-card *ngIf=\"listAllInBox\" @enterAnimateUpDwn class=\"mt-4\">\r\n    <mat-card-header> <mat-card-title> Claims sent</mat-card-title>    </mat-card-header>\r\n    <mat-progress-bar *ngIf=\"showSpinner2\" mode=\"indeterminate\"></mat-progress-bar>\r\n\r\n    <ag-grid-angular #inBoxGrid style=\"width: 100%;\" class=\"ag-theme-material\" [gridOptions]=\"gridOptions\"\r\n      [rowData]=\"listAllInBox\" rowSelection=\"multiple\" (cellClicked)=\"onCellClicked($event)\"\r\n      (selectionChanged)=\"onSelectionChanged($event)\">\r\n      <ag-grid-column headerName=\"Recordings\">\r\n        <ag-grid-column headerName=\"Actions\" [width]=\"100\" [pinned]=\"true\" [cellRenderer]=\"editBtnCellRenderer\">\r\n        </ag-grid-column>\r\n        <ag-grid-column headerName=\"Name\" field=\"name\" [width]=\"175\" [pinned]=\"true\" [sortable]=\"true\"\r\n          [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n\r\n      </ag-grid-column>\r\n      <ag-grid-column headerName=\"Artist\" field=\"artist\" [width]=\"120\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Details\">\r\n        <ag-grid-column headerName=\"ISRC\" field=\"ISRC\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n          [filter]=\"true\">\r\n        </ag-grid-column>\r\n        <ag-grid-column headerName=\"ISWC\" field=\"ISWC\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\"\r\n          [filter]=\"true\">\r\n        </ag-grid-column>\r\n\r\n        <ag-grid-column headerName=\"Owner\" field=\"owner\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n          [filter]=\"true\"></ag-grid-column>\r\n        <ag-grid-column headerName=\"Collective\" field=\"collective\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n          [filter]=\"true\"></ag-grid-column>\r\n        <ag-grid-column headerName=\"Claim Status\" field=\"status\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"false\"\r\n          [resizable]=\"false\" [filter]=\"false\"></ag-grid-column>\r\n\r\n      </ag-grid-column>\r\n    </ag-grid-angular>\r\n</mat-card> \r\n\r\n</mat-expansion-panel>\r\n\r\n    <mat-expansion-panel class=\"mt-4\">\r\n        <mat-expansion-panel-header>\r\n       <h2>Claims for Releases ({{releasesAllOutBox?.length || '0'}})</h2>\r\n        </mat-expansion-panel-header>\r\n\r\n        <mat-card>\r\n            <mat-card-header>\r\n                <mat-card-title> Claims not sent</mat-card-title>       \r\n            </mat-card-header>\r\n      \r\n          <mat-progress-bar *ngIf=\"showSpinner\" mode=\"indeterminate\"></mat-progress-bar>\r\n      \r\n        \r\n          <ag-grid-angular *ngIf=\"releasesAllOutBox?.length > 0\" @enterAnimateUpDwn  #releasesNotSentGrid style=\"width: 100%;\" class=\"ag-theme-material\" [gridOptions]=\"gridOptions\"\r\n            [rowData]=\"releasesAllOutBox\" rowSelection=\"multiple\" (cellClicked)=\"onCellClicked($event)\"\r\n            (selectionChanged)=\"onSelectionChanged($event)\">\r\n      \r\n            <ag-grid-column headerName=\"Releases\">\r\n      \r\n              <ag-grid-column headerName=\"Actions\" [width]=\"100\" [pinned]=\"true\" [cellRenderer]=\"editBtnCellRenderer\">\r\n              </ag-grid-column>\r\n      \r\n              <ag-grid-column headerName=\"#\" [width]=\"80\" [checkboxSelection]=\"true\" [suppressMenu]=\"false\" [pinned]=\"true\"\r\n                [headerCheckboxSelection]=\"true\"></ag-grid-column>\r\n      \r\n              <ag-grid-column headerName=\"Name\" field=\"name\" [width]=\"175\" [pinned]=\"true\" [sortable]=\"true\"\r\n                [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      \r\n            </ag-grid-column>\r\n            <ag-grid-column headerName=\"Artist\" field=\"artist\" [width]=\"120\" [pinned]=\"false\" [sortable]=\"true\"\r\n              [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      \r\n      \r\n            <ag-grid-column headerName=\"Details\">\r\n              \r\n      \r\n              <ag-grid-column headerName=\"Owner\" field=\"owner\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n                [filter]=\"true\"></ag-grid-column>\r\n                <ag-grid-column headerName=\"Date\" field=\"date\" [width]=\"150\" [sortable]=\"true\"\r\n                [filter]=\"true\"></ag-grid-column>\r\n\r\n              <ag-grid-column headerName=\"Collective\" field=\"collective\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n                [filter]=\"true\"></ag-grid-column>\r\n              <ag-grid-column headerName=\"Claim Status\" field=\"status\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"false\"\r\n                [resizable]=\"false\" [filter]=\"false\"></ag-grid-column>\r\n      \r\n            </ag-grid-column>\r\n          </ag-grid-angular>\r\n      \r\n\r\n          {{claimsToSend | json}}\r\n\r\n\r\n          <mat-action-list> <button mat-raised-button mat-button (click)=\"deleteSelectedRows('releases')\">Delete Selected</button>\r\n            <button mat-raised-button mat-button (click)=\"editSendReleasesClaims(claimsToSend)\">Edit/Send Selected</button>\r\n          </mat-action-list>\r\n          <div>Selection: <span id=\"selectedRows\">...</span></div> \r\n      \r\n        </mat-card>\r\n\r\n        <mat-card *ngIf=\"releasesInBox\" @enterAnimateUpDwn class=\"mt-4\">\r\n            <mat-card-header> <mat-card-title> Claims sent</mat-card-title>    </mat-card-header>\r\n            <mat-progress-bar *ngIf=\"showSpinner2\" mode=\"indeterminate\"></mat-progress-bar>\r\n        \r\n            <ag-grid-angular #releasesSentGrid style=\"width: 100%;\" class=\"ag-theme-material\" [gridOptions]=\"gridOptions\"\r\n              [rowData]=\"releasesInBox\" rowSelection=\"multiple\" (cellClicked)=\"onCellClicked($event)\"\r\n              (selectionChanged)=\"onSelectionChanged($event)\">\r\n              <ag-grid-column headerName=\"Recordings\">\r\n                <ag-grid-column headerName=\"Actions\" [width]=\"100\" [pinned]=\"true\" [cellRenderer]=\"editBtnCellRenderer\">\r\n                </ag-grid-column>\r\n                <ag-grid-column headerName=\"Name\" field=\"name\" [width]=\"175\" [pinned]=\"true\" [sortable]=\"true\"\r\n                  [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n        \r\n              </ag-grid-column>\r\n              <ag-grid-column headerName=\"Artist\" field=\"artist\" [width]=\"120\" [pinned]=\"false\" [sortable]=\"true\"\r\n                [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n        \r\n              <ag-grid-column headerName=\"Details\">\r\n                <ag-grid-column headerName=\"ISRC\" field=\"ISRC\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n                  [filter]=\"true\">\r\n                </ag-grid-column>\r\n                <ag-grid-column headerName=\"ISWC\" field=\"ISWC\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\"\r\n                  [filter]=\"true\">\r\n                </ag-grid-column>\r\n        \r\n                <ag-grid-column headerName=\"Owner\" field=\"owner\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n                  [filter]=\"true\"></ag-grid-column>\r\n                <ag-grid-column headerName=\"Collective\" field=\"collective\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n                  [filter]=\"true\"></ag-grid-column>\r\n                <ag-grid-column headerName=\"Claim Status\" field=\"status\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"false\"\r\n                  [resizable]=\"false\" [filter]=\"false\"></ag-grid-column>\r\n        \r\n              </ag-grid-column>\r\n            </ag-grid-angular>\r\n        </mat-card> \r\n\r\n\r\n\r\n\r\n      </mat-expansion-panel>\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -471,7 +471,7 @@ var IndexComponent = /** @class */ (function () {
             console.log('The dialog was closed');
         });
     };
-    IndexComponent.prototype.openEditSend = function (ev) {
+    IndexComponent.prototype.openEditSend = function (ev, section) {
         var _this = this;
         var dialogRef = this.dialog.open(_claims_edit_send_claims_edit_send_component__WEBPACK_IMPORTED_MODULE_6__["ClaimsEditSendComponent"], {
             data: ev,
@@ -482,42 +482,46 @@ var IndexComponent = /** @class */ (function () {
         )
             .subscribe(function (result) {
             _this.showSpinner = false;
-            console.log(result);
-            _this.listAllInBox = result;
+            if (section === 'releases') {
+                _this.releasesInBox = result;
+            }
+            else {
+                _this.listAllInBox = result;
+            }
             _this.deleteSelectedRows();
             _this.showSpinner2 = true;
             setTimeout(function () {
-                _this.updateInBoxItems();
+                _this.updateInBoxItems(section);
             }, 2500);
         });
     };
-    IndexComponent.prototype.updateInBoxItems = function () {
+    IndexComponent.prototype.updateInBoxItems = function (section) {
         var itemsToUpdate = [];
-        this.inBoxGrid.api.forEachNodeAfterFilterAndSort(function (rowNode, index) {
-            var data = rowNode.data;
-            data.status = 'Sent!...';
-            itemsToUpdate.push(data);
-        });
         this.showSpinner2 = false;
-        var res = this.inBoxGrid.api.updateRowData({ update: itemsToUpdate });
+        if (section === 'releases') {
+            this.releasesSentGrid.api.forEachNodeAfterFilterAndSort(function (rowNode, index) {
+                var data = rowNode.data;
+                data.status = 'Sent!...';
+                itemsToUpdate.push(data);
+            });
+            this.releasesSentGrid.api.updateRowData({ update: itemsToUpdate });
+        }
+        else {
+            this.inBoxGrid.api.forEachNodeAfterFilterAndSort(function (rowNode, index) {
+                var data = rowNode.data;
+                data.status = 'Sent!...';
+                itemsToUpdate.push(data);
+            });
+            this.inBoxGrid.api.updateRowData({ update: itemsToUpdate });
+        }
     };
     IndexComponent.prototype.editBtnCellRenderer = function (params) {
         var btn = '<button class="mat-button mat-raised-button"><span class="mat-button-wrapper">Edit</span><div class="mat-button-ripple mat-ripple"></div><div class="mat-button-focus-overlay"></div></button>';
         return btn;
     };
     IndexComponent.prototype.listAll = function () {
-        this.listAll$ = JSON.parse(localStorage.getItem('myClaims'));
-        // this.listAll$ = new Subject<string>().pipe(
-        //   switchMap(type => this.claimsService.getUnsentClaims())
-        // );
-        // this.claimsService.getUnsentClaims().pipe(
-        //   tap(() => this.showSpinner = true),
-        //   delay(500) // fake loading
-        // )
-        //   .subscribe(res => {
-        //     this.allItems = res;
-        //     this.showSpinner = false;
-        //   });
+        this.listAllOutBox = JSON.parse(localStorage.getItem('recordings'));
+        this.releasesAllOutBox = JSON.parse(localStorage.getItem('releases'));
     };
     IndexComponent.prototype.sendToClaim = function (ev) {
     };
@@ -531,24 +535,41 @@ var IndexComponent = /** @class */ (function () {
         this.openEditSend(selectedData);
         this.updateClaimsStatus(selectedData);
     };
+    IndexComponent.prototype.editSendReleasesClaims = function (ev) {
+        var selectedData = this.releasesNotSentGrid.api.getSelectedRows();
+        this.openEditSend(selectedData, 'releases');
+        this.updateReleasesClaimsStatus(selectedData);
+    };
     IndexComponent.prototype.deleteSelectedRows = function () {
         var selectedData = this.gridApi.getSelectedRows();
         var res = this.gridApi.updateRowData({ remove: selectedData });
     };
     IndexComponent.prototype.updateClaimsStatus = function (itemsToUpdate) {
-        //  const itemsToUpdate = [];
         itemsToUpdate.forEach(function (rowNode, index) {
             var datax = rowNode;
             datax.status = 'Sending...';
-            //  itemsToUpdate.push(datax);
         });
         var res = this.gridApi.updateRowData({ update: itemsToUpdate });
-        // this.openEditSend(res);
+    };
+    IndexComponent.prototype.updateReleasesClaimsStatus = function (itemsToUpdate) {
+        itemsToUpdate.forEach(function (rowNode, index) {
+            var datax = rowNode;
+            datax.status = 'Sending...';
+        });
+        var res = this.releasesNotSentGrid.api.updateRowData({ update: itemsToUpdate });
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('inBoxGrid'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], IndexComponent.prototype, "inBoxGrid", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('releasesNotSentGrid'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], IndexComponent.prototype, "releasesNotSentGrid", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('releasesSentGrid'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], IndexComponent.prototype, "releasesSentGrid", void 0);
     IndexComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-index',

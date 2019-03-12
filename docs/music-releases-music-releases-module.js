@@ -216,7 +216,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-progress-bar *ngIf=\"showSpinner\" mode=\"indeterminate\"></mat-progress-bar>\r\n\r\n\r\n\r\n<div class=\"table-responsive-lg\" @enterAnimateUpDwn>\r\n  <ag-grid-angular #agGrid style=\"width: 100%; height: 700px;\" class=\"ag-theme-material\" \r\n                  [gridOptions]=\"gridOptions\"\r\n                  [frameworkComponents]=\"gridOptions.frameworkComponents\"\r\n                  [rowData]=\"allItems\" \r\n                  animateRows=\"true\"  \r\n                  (cellClicked)=\"onCellClicked($event)\" rowSelection=\"multiple\">\r\n\r\n    <ag-grid-column headerName=\"Releases\">\r\n      <ag-grid-column headerName=\"#\" [width]=\"80\" [checkboxSelection]=\"true\" [suppressMenu]=\"false\" [pinned]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Actions\" [width]=\"100\" [pinned]=\"true\" [cellRenderer]=\"editBtnCellRenderer\">\r\n      </ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Title\" field=\"Title\" [width]=\"175\" [pinned]=\"true\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"\r\n        [cellEditorFramework]=\"gridOptions.frameworkComponents.inputRenderer\"\r\n        [editable]=\"true\"\r\n        ></ag-grid-column>\r\n        \r\n      <ag-grid-column headerName=\"Artist\" field=\"Artist\" [width]=\"120\" [pinned]=\"true\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"  [editable]=\"false\"></ag-grid-column>\r\n    </ag-grid-column>\r\n\r\n    <ag-grid-column headerName=\"Details\">\r\n\r\n      <ag-grid-column \r\n      headerName=\"Date\" field=\"Date\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n      <ag-grid-column headerName=\"Owner\" field=\"Owner\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Date\" field=\"Date\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n      <ag-grid-column headerName=\"Territory\" field=\"Territory\" [width]=\"100\" [cellRenderer]=\"countryCellRenderer\"\r\n        [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Type\" field=\"Type\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n      <ag-grid-column headerName=\"Format\" field=\"Format\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Catalogue Number\" field=\"Catalogue Number\" [width]=\"150\" [pinned]=\"false\"\r\n        [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Barcode\" field=\"Barcode\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"#tracks\" field=\"Number of tracks\" [width]=\"50\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Distribution\" field=\"Distribution\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Collective\" field=\"Collective\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Submitted to\" field=\"Submitted to\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n\r\n    </ag-grid-column>\r\n  </ag-grid-angular>\r\n\r\n<mat-action-list>  <button mat-raised-button mat-button>Claim Selected</button>\r\n</mat-action-list>\r\n\r\n</div>\r\n\r\n"
+module.exports = "<mat-progress-bar *ngIf=\"showSpinner\" mode=\"indeterminate\"></mat-progress-bar>\r\n\r\n\r\n\r\n<div class=\"table-responsive-lg\" @enterAnimateUpDwn>\r\n  <ag-grid-angular #agGrid style=\"width: 100%; height: 700px;\" class=\"ag-theme-material\" \r\n                  [gridOptions]=\"gridOptions\"\r\n                  [frameworkComponents]=\"gridOptions.frameworkComponents\"\r\n                  [rowData]=\"allItems\" \r\n                  animateRows=\"true\"  \r\n                  (cellClicked)=\"onCellClicked($event)\" \r\n                  rowSelection=\"multiple\" \r\n                  (selectionChanged)=\"onSelectionChanged($event)\"\r\n                  animateRows=\"true\"\r\n                  >\r\n\r\n    <ag-grid-column headerName=\"Releases\">\r\n      <ag-grid-column headerName=\"#\" [width]=\"80\" [checkboxSelection]=\"true\" [suppressMenu]=\"false\" [pinned]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Actions\" [width]=\"100\" [pinned]=\"true\" [cellRenderer]=\"editBtnCellRenderer\">\r\n      </ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Title\" field=\"Title\" [width]=\"175\" [pinned]=\"true\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"\r\n        [cellEditorFramework]=\"gridOptions.frameworkComponents.inputRenderer\"\r\n        [editable]=\"true\"\r\n        ></ag-grid-column>\r\n        \r\n      <ag-grid-column headerName=\"Artist\" field=\"Artist\" [width]=\"120\" [pinned]=\"true\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"  [editable]=\"false\"></ag-grid-column>\r\n    </ag-grid-column>\r\n\r\n    <ag-grid-column headerName=\"Details\">\r\n\r\n      <ag-grid-column \r\n      headerName=\"Date\" field=\"Date\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n      <ag-grid-column headerName=\"Owner\" field=\"Owner\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Date\" field=\"Date\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n      <ag-grid-column headerName=\"Territory\" field=\"Territory\" [width]=\"100\" [cellRenderer]=\"countryCellRenderer\"\r\n        [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Type\" field=\"Type\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n      <ag-grid-column headerName=\"Format\" field=\"Format\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Catalogue Number\" field=\"Catalogue Number\" [width]=\"150\" [pinned]=\"false\"\r\n        [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Barcode\" field=\"Barcode\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"#tracks\" field=\"Number of tracks\" [width]=\"50\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Distribution\" field=\"Distribution\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Collective\" field=\"Collective\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Submitted to\" field=\"Submitted to\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n\r\n    </ag-grid-column>\r\n  </ag-grid-angular>\r\n\r\n  <mat-action-list *ngIf=\"claimsToSend.length > 0\">  \r\n    <button mat-raised-button mat-button (click)=\"sendToClaim($event)\">Claim Selected</button>\r\n     </mat-action-list> \r\n     <div>Selection: <span id=\"selectedRows\">...</span></div>\r\n\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -239,7 +239,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _music_releases_edit_music_releases_edit_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../music-releases-edit/music-releases-edit.component */ "./src/app/music-releases/music-releases-edit/music-releases-edit.component.ts");
 /* harmony import */ var _services_test_data_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../services/test-data.service */ "./src/app/services/test-data.service.ts");
 /* harmony import */ var src_app_shared_components__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/_shared/components */ "./src/app/_shared/components/index.ts");
-/* harmony import */ var src_app_shared_animations__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/_shared/animations */ "./src/app/_shared/animations/index.ts");
+/* harmony import */ var _shared_animations__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../_shared/animations */ "./src/app/_shared/animations/index.ts");
+/* harmony import */ var src_app_claims_send_claims_send_claims_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/claims/send-claims/send-claims.component */ "./src/app/claims/send-claims/send-claims.component.ts");
+
 
 
 
@@ -268,6 +270,7 @@ var IndexComponent = /** @class */ (function () {
     }
     IndexComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.claimsToSend = [];
         this.pageTitle.setTitle('Releases');
         this.entityTypes$ = this.testData.listEntityTypes();
         this.entityList$ = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["switchMap"])(function (type) { return _this.testData.listEntities(type); }));
@@ -306,6 +309,49 @@ var IndexComponent = /** @class */ (function () {
             console.log('The dialog was closed');
         });
     };
+    IndexComponent.prototype.onSelectionChanged = function (ev) {
+        var _this = this;
+        this.gridApi = ev.api;
+        var selectedRows = this.gridApi.getSelectedRows();
+        var selectedRowsString = '';
+        var theRow;
+        selectedRows.forEach(function (selectedRow, index) {
+            if (index > 5) {
+                return;
+            }
+            if (index !== 0) {
+                selectedRowsString += ', ';
+            }
+            selectedRowsString += selectedRow.Title;
+            theRow = selectedRow;
+        });
+        this.claimsToSend = [];
+        selectedRows.forEach(function (i) {
+            _this.claimsToSend.push({
+                'name': i.Title,
+                'artist': i.Artist,
+                'collective': i.Collective,
+                'owner': i.Owner,
+                'date': i.Date,
+                'status': 'Not Sent'
+            });
+        });
+        if (selectedRows.length >= 6) {
+            selectedRowsString += ' - and ' + (selectedRows.length - 6) + ' others';
+        }
+        document.querySelector('#selectedRows').innerHTML = selectedRowsString;
+    };
+    IndexComponent.prototype.sendToClaim = function (ev) {
+        var data = { section: 'releases', data: this.claimsToSend };
+        var dialogRef = this.dialog.open(src_app_claims_send_claims_send_claims_component__WEBPACK_IMPORTED_MODULE_10__["SendClaimsComponent"], {
+            data: data,
+            width: '80%',
+            panelClass: 'formFieldWidth380',
+        });
+        dialogRef.afterClosed().subscribe(function (result) {
+            console.log('The dialog was closed');
+        });
+    };
     IndexComponent.prototype.listAll = function () {
         var _this = this;
         this.testData.listAll('music-release').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function () { return _this.showSpinner = true; }))
@@ -318,7 +364,7 @@ var IndexComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-index',
             template: __webpack_require__(/*! ./index.component.html */ "./src/app/music-releases/index/index.component.html"),
-            animations: [src_app_shared_animations__WEBPACK_IMPORTED_MODULE_9__["Animations"].pageAni],
+            animations: [_shared_animations__WEBPACK_IMPORTED_MODULE_9__["Animations"].pageAni],
             styles: [" \n  dynamic-material-form[fxLayoutAlign] { padding:10px; padding-left: 25px;}\n  "]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_test_data_service__WEBPACK_IMPORTED_MODULE_7__["TestDataService"],
