@@ -13,20 +13,6 @@ import { SendClaimsComponent } from 'src/app/claims/send-claims/send-claims.comp
 import { MatInputComponent, MatButtonComponent } from 'src/app/_shared/components';
 
 import { Animations } from '../../_shared/animations';
-import {  fadeAnimation } from '../../_shared/animations/routeAnimations';
-// import { ButtonRendererComponent } from '../button-renderer.component';
-// import {TestSendClaimsComponent} from '..'
-
-import {
-  transition,
-  trigger,
-  query,
-  style,
-  animate,
-  group,
-  animateChild
-} from '@angular/animations';
-import { AnimationService } from 'src/app/_shared/animations/animation.service';
 
 @Component({
   selector: 'app-index',
@@ -40,9 +26,6 @@ import { AnimationService } from 'src/app/_shared/animations/animation.service';
 export class IndexComponent implements OnInit {
   // @HostBinding('@fadeAnimation')
   // fadeAnimation;
-
-  animationServiceEventsSubscription: any;
-  
   gridOptions: GridOptions;
   entityTypes$;
   selectedType;
@@ -185,8 +168,9 @@ export class IndexComponent implements OnInit {
   }
 
 sendToClaim(ev: any): void {
+  const data = {section: 'recordings', data: this.claimsToSend };
   const dialogRef = this.dialog.open(SendClaimsComponent, {
-    data: this.claimsToSend,
+    data: data,
     width: '80%',
     panelClass: 'formFieldWidth380'
   });

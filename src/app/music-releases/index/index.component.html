@@ -8,11 +8,16 @@
                   [frameworkComponents]="gridOptions.frameworkComponents"
                   [rowData]="allItems" 
                   animateRows="true"  
-                  (cellClicked)="onCellClicked($event)" rowSelection="multiple">
+                  (cellClicked)="onCellClicked($event)" 
+                  rowSelection="multiple" 
+                  (selectionChanged)="onSelectionChanged($event)"
+                  animateRows="true"
+                  >
 
     <ag-grid-column headerName="Releases">
       <ag-grid-column headerName="#" [width]="80" [checkboxSelection]="true" [suppressMenu]="false" [pinned]="true"
         [resizable]="true" [filter]="true"></ag-grid-column>
+
       <ag-grid-column headerName="Actions" [width]="100" [pinned]="true" [cellRenderer]="editBtnCellRenderer">
       </ag-grid-column>
 
@@ -57,8 +62,10 @@
     </ag-grid-column>
   </ag-grid-angular>
 
-<mat-action-list>  <button mat-raised-button mat-button>Claim Selected</button>
-</mat-action-list>
+  <mat-action-list *ngIf="claimsToSend.length > 0">  
+    <button mat-raised-button mat-button (click)="sendToClaim($event)">Claim Selected</button>
+     </mat-action-list> 
+     <div>Selection: <span id="selectedRows">...</span></div>
 
 </div>
 

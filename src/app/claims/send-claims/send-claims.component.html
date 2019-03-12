@@ -7,7 +7,7 @@ Please be sure all info is correct before posting to your Claims Folder.
 <section *ngIf="!nextStep" mat-dialog-content >
   <div class="mt-4" fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="start stretch" mat-dialog-content >
 
-    <mat-card *ngFor="let item of data; let i = index;">
+    <mat-card *ngFor="let item of data.data; let i = index;">
       <mat-card-header>
 
         <mat-card-title>Claim {{i+1}} / {{data.length}}</mat-card-title>
@@ -42,7 +42,7 @@ Please be sure all info is correct before posting to your Claims Folder.
   The folowing claims have been sent to your Claims Folder.
 
   <div [@enterLeaveInOut-2]="data" fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="start stretch">
-    <mat-card *ngFor="let item of data; let i = index;">
+    <mat-card *ngFor="let item of data.data; let i = index;">
       <mat-icon mat-list-icon>library_music</mat-icon>
       <h6 mat-line>{{item.name}}</h6>
       <p mat-line> {{item.artist}} </p>
@@ -53,7 +53,7 @@ Please be sure all info is correct before posting to your Claims Folder.
 
   <div mat-dialog-actions>
     <button mat-button mat-dialog-close="Edit Cancelled">Close</button>
-    <button mat-button mat-raised-button mat-dialog-close="next" (click)="nextClaimStep3()">View my Claims
+    <button mat-button mat-raised-button mat-dialog-close="next" (click)="nextClaimStep3(data.section)">View my Claims
       Organiser</button>
   </div>
 

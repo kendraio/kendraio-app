@@ -8,7 +8,9 @@ import { MatDialog } from '@angular/material';
 import { MusicReleasesEditComponent } from '../music-releases-edit/music-releases-edit.component';
 import { TestDataService } from '../../services/test-data.service';
 import { MatInputComponent, MatButtonComponent } from 'src/app/_shared/components';
-import { Animations } from 'src/app/_shared/animations';
+import { Animations } from '../../_shared/animations';
+
+import { SendClaimsComponent } from 'src/app/claims/send-claims/send-claims.component';
 
 @Component({
   selector: 'app-index',
@@ -27,6 +29,9 @@ export class IndexComponent implements OnInit {
   listAll$;
   showSpinner: boolean;
   allItems: IMusicRelease[];
+  private gridApi;
+  private gridColumnApi;
+  claimsToSend: Array<any>;
  
 
 
@@ -49,7 +54,7 @@ export class IndexComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.claimsToSend = [];
     this.pageTitle.setTitle('Releases');
     this.entityTypes$ = this.testData.listEntityTypes();
 
@@ -102,6 +107,58 @@ export class IndexComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
+
+  onSelectionChanged(ev) {
+    this.gridApi = ev.api;
+
+    const selectedRows = this.gridApi.getSelectedRows();
+    let selectedRowsString = '';
+    let theRow;
+    selectedRows.forEach(function(selectedRow, index) {
+      if (index > 5) {
+        return;
+      }
+      if (index !== 0) {
+        selectedRowsString += ', ';
+      
+      }
+      selectedRowsString += selectedRow.Title;
+      theRow = selectedRow; 
+    });
+    this.claimsToSend = [];
+    selectedRows.forEach(i=>{ 
+     
+      this.claimsToSend.push(
+      {
+       'name': i.Title,
+       'artist': i.Artist,
+       'collective': i.Collective,
+       'owner': i.Owner,
+       'date': i.Date,
+       'status': 'Not Sent'
+      });
+   });
+
+
+    if (selectedRows.length >= 6) {
+      selectedRowsString += ' - and ' + (selectedRows.length - 6) + ' others';
+    }
+    document.querySelector('#selectedRows').innerHTML = selectedRowsString;
+  
+  }
+
+sendToClaim(ev: any): void {
+  const data = {section: 'releases', data: this.claimsToSend };
+  const dialogRef = this.dialog.open(SendClaimsComponent, {
+    data: data,
+    width: '80%',
+    panelClass: 'formFieldWidth380', 
+    
+  });
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed');
+  });
+}
 
   listAll() {
 

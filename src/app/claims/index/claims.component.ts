@@ -21,8 +21,10 @@ import { Animations } from '../../_shared/animations';
 export class IndexComponent implements OnInit {
   gridOptions: GridOptions;
   claimsToSend: Array<any>;
-  listAll$;
+  listAllOutBox: Array<any>;
   listAllInBox: Array<any>;
+  releasesAllOutBox: Array<any>;
+  releasesInBox: Array<any>;
   showSpinner: boolean;
   allItems: any[];
   private gridApi;
@@ -30,15 +32,17 @@ export class IndexComponent implements OnInit {
 
 
   @ViewChild('inBoxGrid') inBoxGrid;
+  @ViewChild('releasesNotSentGrid') releasesNotSentGrid;
+  @ViewChild('releasesSentGrid') releasesSentGrid;
   showSpinner2: boolean;
   constructor(
     public dialog: MatDialog,
     private claimsService: ClaimsService,
-  
+
 
   ) {
     this.listAll();
-   }
+  }
 
   ngOnInit() {
 
@@ -52,35 +56,35 @@ export class IndexComponent implements OnInit {
     const selectedRows = this.gridApi.getSelectedRows();
     let selectedRowsString = '';
     let theRow;
-    selectedRows.forEach(function(selectedRow, index) {
+    selectedRows.forEach(function (selectedRow, index) {
       if (index > 5) {
         return;
       }
       if (index !== 0) {
         selectedRowsString += ', ';
-      
+
       }
       selectedRowsString += selectedRow.name;
-      theRow = selectedRow; 
+      theRow = selectedRow;
     });
     this.claimsToSend = [];
-    selectedRows.forEach(i => { 
-     
+    selectedRows.forEach(i => {
+
       this.claimsToSend.push(
-      {
-       'name': i.name,
-       'artist': i.artist,
-       'collective': i.collective,
-       'owner': i.owner
-      });
-   });
+        {
+          'name': i.name,
+          'artist': i.artist,
+          'collective': i.collective,
+          'owner': i.owner
+        });
+    });
 
 
     if (selectedRows.length >= 6) {
       selectedRowsString += ' - and ' + (selectedRows.length - 6) + ' others';
     }
     document.querySelector('#selectedRows').innerHTML = selectedRowsString;
-  
+
   }
 
   openDialog(ev: any): void {
@@ -94,44 +98,59 @@ export class IndexComponent implements OnInit {
     });
   }
 
-  openEditSend(ev: any): void {
+  openEditSend(ev: any, section?: string): void {
     let dialogRef = this.dialog.open(ClaimsEditSendComponent, {
       data: ev,
       width: '80%',
       panelClass: 'formFieldWidth380'
     });
     dialogRef.afterClosed().pipe(
-        tap(() => this.showSpinner = true),
-        delay(1000) // fake loading
-      )
-    .subscribe(result => {
-      this.showSpinner = false;
-      console.log(result);
-      this.listAllInBox = result;
-      this.deleteSelectedRows();
-      this.showSpinner2 = true;
-      setTimeout(() => {
-        this.updateInBoxItems();
-      }, 2500);
-
-    
-
-    });
+      tap(() => this.showSpinner = true),
+      delay(1000) // fake loading
+    )
+      .subscribe(result => {
+        this.showSpinner = false;
+if (section === 'releases') {
+  this.releasesInBox = result;
+} else {
+  this.listAllInBox = result;
+}
+       
+        this.deleteSelectedRows();
+        this.showSpinner2 = true;
+        setTimeout(() => {
+          this.updateInBoxItems(section);
+        }, 2500);
+      });
   }
 
 
-  updateInBoxItems() {
+  updateInBoxItems(section?: string) {
 
     const itemsToUpdate = [];
-    this.inBoxGrid.api.forEachNodeAfterFilterAndSort(function(rowNode, index) {
-      const data = rowNode.data;
-      data.status = 'Sent!...';
-      itemsToUpdate.push(data);
-    
-    });
+ 
     this.showSpinner2 = false;
-    const res = this.inBoxGrid.api.updateRowData({ update: itemsToUpdate });
-   
+
+
+    if (section === 'releases') {
+      this.releasesSentGrid.api.forEachNodeAfterFilterAndSort(function (rowNode, index) {
+        const data = rowNode.data;
+        data.status = 'Sent!...';
+        itemsToUpdate.push(data);  
+      });
+      this.releasesSentGrid.api.updateRowData({ update: itemsToUpdate });
+    } else {
+      this.inBoxGrid.api.forEachNodeAfterFilterAndSort(function (rowNode, index) {
+        const data = rowNode.data;
+        data.status = 'Sent!...';
+        itemsToUpdate.push(data);  
+      });
+      this.inBoxGrid.api.updateRowData({ update: itemsToUpdate });
+    }
+
+
+
+
   }
 
 
@@ -144,25 +163,8 @@ export class IndexComponent implements OnInit {
   }
 
   listAll() {
-    this.listAll$ = JSON.parse(localStorage.getItem('myClaims'));
-
-
-
-    // this.listAll$ = new Subject<string>().pipe(
-    //   switchMap(type => this.claimsService.getUnsentClaims())
-    // );
-
-
-
-    // this.claimsService.getUnsentClaims().pipe(
-    //   tap(() => this.showSpinner = true),
-    //   delay(500) // fake loading
-    // )
-    //   .subscribe(res => {
-    //     this.allItems = res;
-    //     this.showSpinner = false;
-    //   });
-
+    this.listAllOutBox = JSON.parse(localStorage.getItem('recordings'));
+    this.releasesAllOutBox = JSON.parse(localStorage.getItem('releases'));
   }
   sendToClaim(ev: any) {
 
@@ -177,12 +179,18 @@ export class IndexComponent implements OnInit {
   editSendClaims(ev: any) {
     const selectedData = this.gridApi.getSelectedRows();
     this.openEditSend(selectedData);
-
-
-      this.updateClaimsStatus(selectedData)
-
-
+    this.updateClaimsStatus(selectedData)
   }
+
+  editSendReleasesClaims(ev: any) {
+    const selectedData = this.releasesNotSentGrid.api.getSelectedRows();
+  this.openEditSend(selectedData, 'releases');
+    this.updateReleasesClaimsStatus(selectedData)
+  }
+
+
+
+
 
   deleteSelectedRows() {
     const selectedData = this.gridApi.getSelectedRows();
@@ -191,16 +199,19 @@ export class IndexComponent implements OnInit {
 
 
   updateClaimsStatus(itemsToUpdate) {
-  //  const itemsToUpdate = [];
-  itemsToUpdate.forEach(function(rowNode, index) {
-    
+    itemsToUpdate.forEach(function (rowNode, index) {
       const datax = rowNode;
       datax.status = 'Sending...';
-   //  itemsToUpdate.push(datax);
     });
     const res = this.gridApi.updateRowData({ update: itemsToUpdate });
-   // this.openEditSend(res);
+  }
 
+  updateReleasesClaimsStatus(itemsToUpdate) {
+    itemsToUpdate.forEach(function (rowNode, index) {
+      const datax = rowNode;
+      datax.status = 'Sending...';
+    });
+    const res = this.releasesNotSentGrid.api.updateRowData({ update: itemsToUpdate });
   }
 
 

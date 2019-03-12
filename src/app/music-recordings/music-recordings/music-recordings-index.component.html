@@ -21,7 +21,11 @@
       <ag-grid-column headerName="Actions" [width]="100" [pinned]="true" [cellRenderer]="editBtnCellRenderer">
       </ag-grid-column>
 
-      <ag-grid-column headerName="#" [width]="80" [checkboxSelection]="true"  [suppressMenu]="false" [pinned]="true"
+      <ag-grid-column headerName="#" 
+                    [width]="80" 
+                    [checkboxSelection]="true"  
+                    [suppressMenu]="false" 
+                    [pinned]="true"
        ></ag-grid-column>
 
       <ag-grid-column headerName="Name" field="Name" [width]="125" [pinned]="true" [sortable]="true" [resizable]="true"
@@ -55,7 +59,8 @@
     </ag-grid-column>
   </ag-grid-angular>
 
-  <mat-action-list *ngIf="claimsToSend.length > 0">  <button mat-raised-button mat-button (click)="sendToClaim($event)">Claim Selected</button>
+  <mat-action-list *ngIf="claimsToSend.length > 0">  
+    <button mat-raised-button mat-button (click)="sendToClaim($event)">Claim Selected</button>
      </mat-action-list> 
      <div>Selection: <span id="selectedRows">...</span></div>
 

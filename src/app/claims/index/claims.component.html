@@ -3,17 +3,26 @@
 
 <div class="table-responsive-lg">
   <!-- (rowClicked)="openDialog($event)" -->
-  <mat-card >
-    <h2>Claims Not Sent</h2>
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+<h2> Claims for Recordings ({{listAllOutBox?.length || '0'}})</h2>
+  </mat-expansion-panel-header>
+
+
+
+
+
+  <mat-card>
+      <mat-card-header>
+          <mat-card-title> Claims not sent</mat-card-title>       
+      </mat-card-header>
 
     <mat-progress-bar *ngIf="showSpinner" mode="indeterminate"></mat-progress-bar>
 
-
-    <ag-grid-angular *ngIf="listAll$.length > 0" @enterAnimateUpDwn  #agGrid style="width: 100%;" class="ag-theme-material" [gridOptions]="gridOptions"
-      [rowData]="listAll$" rowSelection="multiple" (cellClicked)="onCellClicked($event)"
+  
+    <ag-grid-angular *ngIf="listAllOutBox?.length > 0" @enterAnimateUpDwn  #agGrid style="width: 100%;" class="ag-theme-material" [gridOptions]="gridOptions"
+      [rowData]="listAllOutBox" rowSelection="multiple" (cellClicked)="onCellClicked($event)"
       (selectionChanged)="onSelectionChanged($event)">
-
-
 
       <ag-grid-column headerName="Recordings">
 
@@ -52,27 +61,26 @@
     <mat-action-list> <button mat-raised-button mat-button (click)="deleteSelectedRows()">Delete Selected</button>
       <button mat-raised-button mat-button (click)="editSendClaims(claimsToSend)">Edit/Send Selected</button>
     </mat-action-list>
-    <div>Selection: <span id="selectedRows">...</span></div>
+    <div>Selection: <span id="selectedRows">...</span></div> 
 
   </mat-card>
-  <hr>
+
+ 
 
 
-  <mat-card *ngIf="listAllInBox" @enterAnimateUpDwn >
-    <h2>Claims Sent</h2>
 
 
+
+  <mat-card *ngIf="listAllInBox" @enterAnimateUpDwn class="mt-4">
+    <mat-card-header> <mat-card-title> Claims sent</mat-card-title>    </mat-card-header>
     <mat-progress-bar *ngIf="showSpinner2" mode="indeterminate"></mat-progress-bar>
+
     <ag-grid-angular #inBoxGrid style="width: 100%;" class="ag-theme-material" [gridOptions]="gridOptions"
       [rowData]="listAllInBox" rowSelection="multiple" (cellClicked)="onCellClicked($event)"
       (selectionChanged)="onSelectionChanged($event)">
-
-
       <ag-grid-column headerName="Recordings">
-
         <ag-grid-column headerName="Actions" [width]="100" [pinned]="true" [cellRenderer]="editBtnCellRenderer">
         </ag-grid-column>
-  
         <ag-grid-column headerName="Name" field="name" [width]="175" [pinned]="true" [sortable]="true"
           [resizable]="true" [filter]="true"></ag-grid-column>
 
@@ -97,8 +105,109 @@
 
       </ag-grid-column>
     </ag-grid-angular>
+</mat-card> 
+
+</mat-expansion-panel>
+
+    <mat-expansion-panel class="mt-4">
+        <mat-expansion-panel-header>
+       <h2>Claims for Releases ({{releasesAllOutBox?.length || '0'}})</h2>
+        </mat-expansion-panel-header>
+
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title> Claims not sent</mat-card-title>       
+            </mat-card-header>
+      
+          <mat-progress-bar *ngIf="showSpinner" mode="indeterminate"></mat-progress-bar>
+      
+        
+          <ag-grid-angular *ngIf="releasesAllOutBox?.length > 0" @enterAnimateUpDwn  #releasesNotSentGrid style="width: 100%;" class="ag-theme-material" [gridOptions]="gridOptions"
+            [rowData]="releasesAllOutBox" rowSelection="multiple" (cellClicked)="onCellClicked($event)"
+            (selectionChanged)="onSelectionChanged($event)">
+      
+            <ag-grid-column headerName="Releases">
+      
+              <ag-grid-column headerName="Actions" [width]="100" [pinned]="true" [cellRenderer]="editBtnCellRenderer">
+              </ag-grid-column>
+      
+              <ag-grid-column headerName="#" [width]="80" [checkboxSelection]="true" [suppressMenu]="false" [pinned]="true"
+                [headerCheckboxSelection]="true"></ag-grid-column>
+      
+              <ag-grid-column headerName="Name" field="name" [width]="175" [pinned]="true" [sortable]="true"
+                [resizable]="true" [filter]="true"></ag-grid-column>
+      
+            </ag-grid-column>
+            <ag-grid-column headerName="Artist" field="artist" [width]="120" [pinned]="false" [sortable]="true"
+              [resizable]="true" [filter]="true"></ag-grid-column>
+      
+      
+            <ag-grid-column headerName="Details">
+              
+      
+              <ag-grid-column headerName="Owner" field="owner" [width]="150" [sortable]="true" [resizable]="true"
+                [filter]="true"></ag-grid-column>
+                <ag-grid-column headerName="Date" field="date" [width]="150" [sortable]="true"
+                [filter]="true"></ag-grid-column>
+
+              <ag-grid-column headerName="Collective" field="collective" [width]="150" [sortable]="true" [resizable]="true"
+                [filter]="true"></ag-grid-column>
+              <ag-grid-column headerName="Claim Status" field="status" [width]="150" [pinned]="false" [sortable]="false"
+                [resizable]="false" [filter]="false"></ag-grid-column>
+      
+            </ag-grid-column>
+          </ag-grid-angular>
+      
+
+          {{claimsToSend | json}}
+
+
+          <mat-action-list> <button mat-raised-button mat-button (click)="deleteSelectedRows('releases')">Delete Selected</button>
+            <button mat-raised-button mat-button (click)="editSendReleasesClaims(claimsToSend)">Edit/Send Selected</button>
+          </mat-action-list>
+          <div>Selection: <span id="selectedRows">...</span></div> 
+      
+        </mat-card>
+
+        <mat-card *ngIf="releasesInBox" @enterAnimateUpDwn class="mt-4">
+            <mat-card-header> <mat-card-title> Claims sent</mat-card-title>    </mat-card-header>
+            <mat-progress-bar *ngIf="showSpinner2" mode="indeterminate"></mat-progress-bar>
+        
+            <ag-grid-angular #releasesSentGrid style="width: 100%;" class="ag-theme-material" [gridOptions]="gridOptions"
+              [rowData]="releasesInBox" rowSelection="multiple" (cellClicked)="onCellClicked($event)"
+              (selectionChanged)="onSelectionChanged($event)">
+              <ag-grid-column headerName="Recordings">
+                <ag-grid-column headerName="Actions" [width]="100" [pinned]="true" [cellRenderer]="editBtnCellRenderer">
+                </ag-grid-column>
+                <ag-grid-column headerName="Name" field="name" [width]="175" [pinned]="true" [sortable]="true"
+                  [resizable]="true" [filter]="true"></ag-grid-column>
+        
+              </ag-grid-column>
+              <ag-grid-column headerName="Artist" field="artist" [width]="120" [pinned]="false" [sortable]="true"
+                [resizable]="true" [filter]="true"></ag-grid-column>
+        
+              <ag-grid-column headerName="Details">
+                <ag-grid-column headerName="ISRC" field="ISRC" [width]="150" [sortable]="true" [resizable]="true"
+                  [filter]="true">
+                </ag-grid-column>
+                <ag-grid-column headerName="ISWC" field="ISWC" [width]="100" [sortable]="true" [resizable]="true"
+                  [filter]="true">
+                </ag-grid-column>
+        
+                <ag-grid-column headerName="Owner" field="owner" [width]="150" [sortable]="true" [resizable]="true"
+                  [filter]="true"></ag-grid-column>
+                <ag-grid-column headerName="Collective" field="collective" [width]="150" [sortable]="true" [resizable]="true"
+                  [filter]="true"></ag-grid-column>
+                <ag-grid-column headerName="Claim Status" field="status" [width]="150" [pinned]="false" [sortable]="false"
+                  [resizable]="false" [filter]="false"></ag-grid-column>
+        
+              </ag-grid-column>
+            </ag-grid-angular>
+        </mat-card> 
 
 
 
 
-  </mat-card>
+      </mat-expansion-panel>
+
+

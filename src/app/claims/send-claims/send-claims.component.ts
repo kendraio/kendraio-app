@@ -26,9 +26,9 @@ export class SendClaimsComponent implements OnInit {
     this.nextStep = true;
   }
 
-  nextClaimStep3() {
+  nextClaimStep3(section: string) {
 
-    localStorage.setItem('myClaims', JSON.stringify(this.data));
+    localStorage.setItem(section, JSON.stringify(this.data.data));
 
       this.router.navigate(['/claims']);
     // sidenav.open();
