@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, HostBinding } from '@angular/core';
 import { switchMap, tap, delay } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { IMusicRecording } from 'src/app/_models/classes/musicRecording';
@@ -11,11 +11,22 @@ import { MusicRecordingsEditComponent } from '../music-recordings-edit/music-rec
 import { TestDataService } from '../../services/test-data.service';
 import { SendClaimsComponent } from 'src/app/claims/send-claims/send-claims.component';
 import { MatInputComponent, MatButtonComponent } from 'src/app/_shared/components';
+
+import { Animations } from '../../_shared/animations';
+import {  fadeAnimation } from '../../_shared/animations/routeAnimations';
 // import { ButtonRendererComponent } from '../button-renderer.component';
 // import {TestSendClaimsComponent} from '..'
 
-
-
+import {
+  transition,
+  trigger,
+  query,
+  style,
+  animate,
+  group,
+  animateChild
+} from '@angular/animations';
+import { AnimationService } from 'src/app/_shared/animations/animation.service';
 
 @Component({
   selector: 'app-index',
@@ -23,8 +34,15 @@ import { MatInputComponent, MatButtonComponent } from 'src/app/_shared/component
   styles: [` 
   dynamic-material-form[fxLayoutAlign] { padding:10px; padding-left: 25px;}
   `],
+  animations: [Animations.pageAni]
 })
+
 export class IndexComponent implements OnInit {
+  // @HostBinding('@fadeAnimation')
+  // fadeAnimation;
+
+  animationServiceEventsSubscription: any;
+  
   gridOptions: GridOptions;
   entityTypes$;
   selectedType;
@@ -42,6 +60,7 @@ export class IndexComponent implements OnInit {
     private readonly testData: TestDataService,
     public dialog: MatDialog,
     private readonly pageTitle: PageTitleService,
+    // private animationService: AnimationService,
     // buttonRenderer: ButtonRendererComponent,
 
   ) {
@@ -59,6 +78,12 @@ export class IndexComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.fadeAnimation = this.animationService.animationDirection();
+    // this.animationServiceEventsSubscription = this.animationService.emitCurrentDirection.subscribe((direction: any) => {
+    //   this.fadeAnimation = direction;
+    // });
+
+
     this.claimsToSend = [];
     this.pageTitle.setTitle('Recordings');
     this.entityTypes$ = this.testData.listEntityTypes();

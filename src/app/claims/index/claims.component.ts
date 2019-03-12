@@ -9,12 +9,14 @@ import { ClaimsService } from 'src/app/_shared/services/claims.service';
 import { Subject } from 'rxjs';
 import { ClaimsEditSendComponent } from '../claims-edit-send/claims-edit-send.component';
 import { timingSafeEqual } from 'crypto';
+import { Animations } from '../../_shared/animations';
 
 
 @Component({
   selector: 'app-index',
   templateUrl: './claims.component.html',
-  styleUrls: ['./claims.component.scss']
+  styleUrls: ['./claims.component.scss'],
+  animations: [Animations.pageAni]
 })
 export class IndexComponent implements OnInit {
   gridOptions: GridOptions;
@@ -26,11 +28,13 @@ export class IndexComponent implements OnInit {
   private gridApi;
   private gridColumnApi;
 
+
   @ViewChild('inBoxGrid') inBoxGrid;
   showSpinner2: boolean;
   constructor(
     public dialog: MatDialog,
     private claimsService: ClaimsService,
+  
 
   ) {
     this.listAll();

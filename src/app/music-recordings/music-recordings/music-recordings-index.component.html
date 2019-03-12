@@ -6,13 +6,14 @@
 
 <div class="table-responsive-lg">
   <!-- (rowClicked)="openDialog($event)" -->
-  <ag-grid-angular #agGrid style="width: 100%; height: 700px;" class="ag-theme-material" 
+  <ag-grid-angular @enterAnimateUpDwn #agGrid style="width: 100%; height: 700px;" class="ag-theme-material" 
   [gridOptions]="gridOptions"
     [rowData]="allItems" 
     rowSelection="multiple"
     (cellClicked)="onCellClicked($event)"
     (selectionChanged)="onSelectionChanged($event)"
     [frameworkComponents]="gridOptions.frameworkComponents"
+    animateRows="true"
     >
 
     <ag-grid-column headerName="Recordings">

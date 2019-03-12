@@ -25,6 +25,7 @@ import { SendClaimsComponent } from 'src/app/claims/send-claims/send-claims.comp
 import { FlexModule, FlexLayoutModule } from '@angular/flex-layout';
 import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
 import { ClaimsEditComponent } from '../claims/claims-edit/claims-edit.component';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { ClaimsEditSendComponent } from '../claims/claims-edit-send/claims-edit-send.component';
 
 
@@ -59,7 +60,8 @@ import { ClaimsEditComponent } from '../claims/claims-edit/claims-edit.component
     FlexModule, FlexLayoutModule,
     DynamicFormsMaterialUIModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    // BrowserAnimationsModule
   ],
   declarations: [
     matComponents.MatInputComponent,
@@ -80,6 +82,7 @@ import { ClaimsEditComponent } from '../claims/claims-edit/claims-edit.component
   ClaimsEditComponent,
   // ClaimsEditSendComponent,
   MatListModule,
+// BrowserAnimationsModule
 
   ],
   providers: [

@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material';
 import { MusicReleasesEditComponent } from '../music-releases-edit/music-releases-edit.component';
 import { TestDataService } from '../../services/test-data.service';
 import { MatInputComponent, MatButtonComponent } from 'src/app/_shared/components';
+import { Animations } from 'src/app/_shared/animations';
 
 @Component({
   selector: 'app-index',
@@ -15,6 +16,7 @@ import { MatInputComponent, MatButtonComponent } from 'src/app/_shared/component
   styles: [` 
   dynamic-material-form[fxLayoutAlign] { padding:10px; padding-left: 25px;}
   `],
+  animations: [Animations.pageAni]
 })
 export class IndexComponent implements OnInit {
   public gridOptions: GridOptions;
