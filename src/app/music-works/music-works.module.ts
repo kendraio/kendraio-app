@@ -11,12 +11,15 @@ import { MatGridListModule, MatCardModule } from '@angular/material';
 import { AppMaterialModule } from '../app-material/app-material.module';
 import { AgGridModule } from 'ag-grid-angular';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { RegisterComponent } from './add-new/register.component';
 
 @NgModule({
   declarations: [
     IndexComponent, 
     EditComponent, 
-    DetailComponent],
+    DetailComponent
+  , RegisterComponent
+  ],
   imports: [
     CommonModule,
     MusicWorksRoutingModule,
@@ -28,6 +31,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
       []
   ),
   FlexLayoutModule
-  ]
+  ],
+  entryComponents: [   
+    RegisterComponent
+   ]
 })
 export class MusicWorksModule { }

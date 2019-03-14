@@ -112,6 +112,235 @@ var WORKS_FORM_MODEL = [
 
 /***/ }),
 
+/***/ "./src/app/music-works/_shared/forms/registerWork.ts":
+/*!***********************************************************!*\
+  !*** ./src/app/music-works/_shared/forms/registerWork.ts ***!
+  \***********************************************************/
+/*! exports provided: WORKS_REGISTER_FORM_MODEL */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WORKS_REGISTER_FORM_MODEL", function() { return WORKS_REGISTER_FORM_MODEL; });
+/* harmony import */ var _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ng-dynamic-forms/core */ "./node_modules/@ng-dynamic-forms/core/fesm5/core.js");
+
+var WORKS_REGISTER_FORM_MODEL = [
+    new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicInputModel"]({
+        id: 'title',
+        maxLength: 25,
+        placeholder: 'Title of work',
+        validators: {
+            required: null
+        },
+        errorMessages: {
+            required: 'Field is required'
+        }
+    }),
+    new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicInputModel"]({
+        id: 'altTitle',
+        maxLength: 25,
+        placeholder: 'Any alternative titles',
+        validators: {
+            required: null
+        },
+        errorMessages: {
+            required: 'Field is required'
+        }
+    }),
+    new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicInputModel"]({
+        id: 'Duration',
+        maxLength: 50,
+        placeholder: 'Duration',
+        validators: {
+            required: null
+        },
+        errorMessages: {
+            required: 'Field is required'
+        },
+        additional: {
+            color: 'accent'
+        }
+    }),
+    new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicTextAreaModel"]({
+        id: 'instrumentation',
+        placeholder: 'instrumentation',
+        hint: 'if a classical or dramatic work',
+        validators: {
+            required: null
+        },
+        errorMessages: {
+            required: 'Field is required'
+        }
+    }),
+    new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicTextAreaModel"]({
+        id: 'CAE',
+        placeholder: 'CAE/IPI number of any other writers',
+        hint: 'CAE/IPI number of any other writers',
+        validators: {
+            required: null
+        },
+        errorMessages: {
+            required: 'Field is required'
+        }
+    }),
+    new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicCheckboxGroupModel"]({
+        id: 'cmo',
+        label: 'Please choose all that apply ',
+        group: [
+            new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicCheckboxModel"]({
+                id: 'prs',
+                label: 'PRS',
+                value: true
+            }),
+            new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicCheckboxModel"]({
+                id: 'mcps',
+                label: 'MCPS',
+                value: false
+            }),
+            new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicCheckboxModel"]({
+                id: 'ppl',
+                label: 'PPL',
+                value: false
+            })
+        ]
+    }),
+    new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicFormGroupModel"]({
+        id: 'signoff',
+        group: [
+            new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicSwitchModel"]({
+                id: 'reminder',
+                offLabel: 'Send me a reminder',
+                onLabel: 'Send me a reminder',
+                value: false
+            }),
+            new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicSwitchModel"]({
+                id: 'updates',
+                offLabel: 'Subscribe to Updates',
+                onLabel: 'Subscribe to Updates',
+                value: false
+            }),
+            new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicCheckboxModel"]({
+                id: 'confirm',
+                label: 'I confirm the information given above',
+                value: false,
+                validators: {
+                    requiredTrue: null
+                },
+                errorMessages: {
+                    required: 'You must confirm your data is correct'
+                }
+            })
+        ]
+    })
+];
+
+
+/***/ }),
+
+/***/ "./src/app/music-works/add-new/form.layout.ts":
+/*!****************************************************!*\
+  !*** ./src/app/music-works/add-new/form.layout.ts ***!
+  \****************************************************/
+/*! exports provided: WORKS_FORM_LAYOUT */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WORKS_FORM_LAYOUT", function() { return WORKS_FORM_LAYOUT; });
+var WORKS_FORM_LAYOUT = {
+    'addressStreet': {
+        element: {
+            host: 'material-form-group'
+        }
+    }
+};
+
+
+/***/ }),
+
+/***/ "./src/app/music-works/add-new/register.component.html":
+/*!*************************************************************!*\
+  !*** ./src/app/music-works/add-new/register.component.html ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div>\r\n\r\n\r\n<p>\r\n    As a writer or composer, you can register your own works and amend the details at any time. \r\n    However, if you have a publisher, they will usually manage any registration and amendments on your behalf.\r\n</p>\r\n\r\n  \r\n\r\n  <mat-card>\r\n\r\n      <form [formGroup]=\"formGroup\">\r\n    \r\n          <dynamic-material-form [group]=\"formGroup\"\r\n                                 [layout]=\"formLayout\"\r\n                                 [model]=\"formModel\"\r\n                                 (blur)=\"onBlur($event)\"\r\n                                 (change)=\"onChange($event)\"\r\n                                 (focus)=\"onFocus($event)\"\r\n                                 (matEvent)=\"onMatEvent($event)\" \r\n                                 fxLayout=\"row wrap\" fxLayoutAlign=\"start start\" fxLayoutGap=\"40px\"\r\n                                 ></dynamic-material-form>\r\n\r\n      </form>  \r\n  </mat-card>\r\n\r\n\r\n  <div mat-dialog-actions class=\"align-right\">\r\n      <button mat-button  mat-dialog-close=\"Edit Cancelled\">Cancel</button>\r\n      <button mat-button [mat-dialog-close]=\"data.Name\" cdkFocusInitial [disabled]=\"formGroup.invalid\">Save</button>\r\n    </div>\r\n\r\n<p>You’ll be given a reference when you submit your work details, followed by a unique tune code for each work.</p>\r\n\r\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/music-works/add-new/register.component.scss":
+/*!*************************************************************!*\
+  !*** ./src/app/music-works/add-new/register.component.scss ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL211c2ljLXdvcmtzL2FkZC1uZXcvcmVnaXN0ZXIuY29tcG9uZW50LnNjc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/music-works/add-new/register.component.ts":
+/*!***********************************************************!*\
+  !*** ./src/app/music-works/add-new/register.component.ts ***!
+  \***********************************************************/
+/*! exports provided: RegisterComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RegisterComponent", function() { return RegisterComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ng-dynamic-forms/core */ "./node_modules/@ng-dynamic-forms/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _shared_forms_registerWork__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../_shared/forms/registerWork */ "./src/app/music-works/_shared/forms/registerWork.ts");
+/* harmony import */ var _form_layout__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./form.layout */ "./src/app/music-works/add-new/form.layout.ts");
+
+
+
+
+
+
+var RegisterComponent = /** @class */ (function () {
+    function RegisterComponent(data, formService) {
+        this.data = data;
+        this.formService = formService;
+        this.formModel = _shared_forms_registerWork__WEBPACK_IMPORTED_MODULE_4__["WORKS_REGISTER_FORM_MODEL"];
+        this.formLayout = _form_layout__WEBPACK_IMPORTED_MODULE_5__["WORKS_FORM_LAYOUT"];
+    }
+    RegisterComponent.prototype.ngOnInit = function () {
+        this.formGroup = this.formService.createFormGroup(this.formModel);
+        this.formGroup.patchValue(this.data);
+    };
+    RegisterComponent.prototype.onBlur = function ($event) {
+        console.log("Material blur event on: " + $event.model.id + ": ", $event);
+    };
+    RegisterComponent.prototype.onChange = function ($event) {
+        console.log("Material change event on: " + $event.model.id + ": ", $event);
+    };
+    RegisterComponent.prototype.onFocus = function ($event) {
+        console.log("Material focus event on: " + $event.model.id + ": ", $event);
+    };
+    RegisterComponent.prototype.onMatEvent = function ($event) {
+        console.log("Material " + $event.type + " event on: " + $event.model.id + ": ", $event);
+    };
+    RegisterComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-register',
+            template: __webpack_require__(/*! ./register.component.html */ "./src/app/music-works/add-new/register.component.html"),
+            styles: [__webpack_require__(/*! ./register.component.scss */ "./src/app/music-works/add-new/register.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_3__["MAT_DIALOG_DATA"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object, _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_2__["DynamicFormService"]])
+    ], RegisterComponent);
+    return RegisterComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/music-works/detail/detail.component.html":
 /*!**********************************************************!*\
   !*** ./src/app/music-works/detail/detail.component.html ***!
@@ -304,7 +533,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n\r\n<div class=\"table-responsive-lg\">\r\n\r\n  <ag-grid-angular #agGrid style=\"width: 100%; height: 700px;\" class=\"ag-theme-material\" \r\n  [gridOptions]=\"gridOptions\"\r\n  [rowData]=\"allItems\"\r\n    (cellClicked)=\"onCellClicked($event)\">\r\n\r\n    <ag-grid-column headerName=\"Work\">\r\n\r\n      <ag-grid-column headerName=\"Actions\" [width]=\"100\" [pinned]=\"true\" [cellRenderer]=\"editBtnCellRenderer\">\r\n      </ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Name\" field=\"Name\" [width]=\"165\" [pinned]=\"true\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n\r\n     \r\n    </ag-grid-column>\r\n\r\n    <ag-grid-column headerName=\"Details\">\r\n      <ag-grid-column headerName=\"Type\" field=\"Type\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"ISWC\" field=\"ISWC\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Composer\" field=\"Composer\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Lyricist\" field=\"lyricist\" [width]=\"150\"\r\n        [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Arranger\" field=\"Arranger\" [width]=\"200\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n\r\n\r\n\r\n    </ag-grid-column>\r\n  </ag-grid-angular>\r\n</div>"
+module.exports = "\r\n\r\n\r\n<button mat-button mat-raised-button (click)=\"openAddNewDialog()\">Register New Work</button>\r\n\r\n\r\n\r\n<h2>Your Works</h2>\r\n\r\n<div class=\"table-responsive-lg\">\r\n\r\n  <ag-grid-angular #agGrid style=\"width: 100%; height: 700px;\" class=\"ag-theme-material\" \r\n  [gridOptions]=\"gridOptions\"\r\n  [rowData]=\"allItems\"\r\n    (cellClicked)=\"onCellClicked($event)\">\r\n\r\n    <ag-grid-column headerName=\"Work\">\r\n\r\n      <ag-grid-column headerName=\"Actions\" [width]=\"100\" [pinned]=\"true\" [cellRenderer]=\"editBtnCellRenderer\">\r\n      </ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Name\" field=\"Name\" [width]=\"165\" [pinned]=\"true\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n\r\n     \r\n    </ag-grid-column>\r\n\r\n    <ag-grid-column headerName=\"Details\">\r\n      <ag-grid-column headerName=\"Type\" field=\"Type\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"ISWC\" field=\"ISWC\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Composer\" field=\"Composer\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Lyricist\" field=\"lyricist\" [width]=\"150\"\r\n        [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Arranger\" field=\"Arranger\" [width]=\"200\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n\r\n\r\n\r\n    </ag-grid-column>\r\n  </ag-grid-angular>\r\n</div>\r\n\r\n<p>you can amend the registration details of any works where you are a rightsholder. </p>"
 
 /***/ }),
 
@@ -326,6 +555,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _edit_edit_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../edit/edit.component */ "./src/app/music-works/edit/edit.component.ts");
 /* harmony import */ var _services_test_data_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../services/test-data.service */ "./src/app/services/test-data.service.ts");
+/* harmony import */ var _add_new_register_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../add-new/register.component */ "./src/app/music-works/add-new/register.component.ts");
+
 
 
 
@@ -354,7 +585,7 @@ var IndexComponent = /** @class */ (function () {
         return flag + " " + params.value;
     };
     IndexComponent.prototype.editBtnCellRenderer = function (params) {
-        var btn = '<button type="button" class="btn btn-primary btn-sm">Edit</button>';
+        var btn = '<button type="button" class="btn btn-primary btn-sm">Amend</button>';
         return btn;
     };
     IndexComponent.prototype.changeEntityType = function (type) {
@@ -372,6 +603,16 @@ var IndexComponent = /** @class */ (function () {
     IndexComponent.prototype.openDialog = function (ev) {
         var dialogRef = this.dialog.open(_edit_edit_component__WEBPACK_IMPORTED_MODULE_6__["EditComponent"], {
             data: ev,
+            width: '80%',
+            panelClass: 'formFieldWidth380'
+        });
+        dialogRef.afterClosed().subscribe(function (result) {
+            console.log('The dialog was closed');
+        });
+    };
+    IndexComponent.prototype.openAddNewDialog = function (ev) {
+        var dialogRef = this.dialog.open(_add_new_register_component__WEBPACK_IMPORTED_MODULE_8__["RegisterComponent"], {
+            data: 'ev',
             width: '80%',
             panelClass: 'formFieldWidth380'
         });
@@ -466,6 +707,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ag_grid_angular__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ag-grid-angular */ "./node_modules/ag-grid-angular/main.js");
 /* harmony import */ var ag_grid_angular__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(ag_grid_angular__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var _angular_flex_layout__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/flex-layout */ "./node_modules/@angular/flex-layout/esm5/flex-layout.es5.js");
+/* harmony import */ var _add_new_register_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./add-new/register.component */ "./src/app/music-works/add-new/register.component.ts");
+
 
 
 
@@ -486,7 +729,8 @@ var MusicWorksModule = /** @class */ (function () {
             declarations: [
                 _index_index_component__WEBPACK_IMPORTED_MODULE_4__["IndexComponent"],
                 _edit_edit_component__WEBPACK_IMPORTED_MODULE_5__["EditComponent"],
-                _detail_detail_component__WEBPACK_IMPORTED_MODULE_6__["DetailComponent"]
+                _detail_detail_component__WEBPACK_IMPORTED_MODULE_6__["DetailComponent"],
+                _add_new_register_component__WEBPACK_IMPORTED_MODULE_12__["RegisterComponent"]
             ],
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
@@ -497,6 +741,9 @@ var MusicWorksModule = /** @class */ (function () {
                 _app_material_app_material_module__WEBPACK_IMPORTED_MODULE_9__["AppMaterialModule"],
                 ag_grid_angular__WEBPACK_IMPORTED_MODULE_10__["AgGridModule"].withComponents([]),
                 _angular_flex_layout__WEBPACK_IMPORTED_MODULE_11__["FlexLayoutModule"]
+            ],
+            entryComponents: [
+                _add_new_register_component__WEBPACK_IMPORTED_MODULE_12__["RegisterComponent"]
             ]
         })
     ], MusicWorksModule);

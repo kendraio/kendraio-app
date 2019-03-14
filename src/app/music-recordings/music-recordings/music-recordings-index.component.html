@@ -28,7 +28,7 @@
                     [pinned]="true"
        ></ag-grid-column>
 
-      <ag-grid-column headerName="Name" field="Name" [width]="125" [pinned]="true" [sortable]="true" [resizable]="true"
+      <ag-grid-column headerName="Name" field="Name" [pinned]="true" [sortable]="true" [resizable]="true"
         [filter]="true"
         [editable]="true"
         [cellEditorFramework]="gridOptions.frameworkComponents.inputRenderer"
@@ -45,9 +45,9 @@
       </ag-grid-column>
       <ag-grid-column headerName="Date" field="Date" [width]="100" [sortable]="true" [resizable]="true" [filter]="true">
       </ag-grid-column>
-      <ag-grid-column headerName="Country" field="Country" [width]="150" [cellRenderer]="countryCellRenderer"
+      <ag-grid-column headerName="Country" field="Country"  [cellRenderer]="countryCellRenderer"
         [sortable]="true" [resizable]="true" [filter]="true"></ag-grid-column>
-      <ag-grid-column headerName="Owner" field="Owner" [width]="150" [sortable]="true" [resizable]="true"
+      <ag-grid-column headerName="Owner" field="Owner" [sortable]="true" [resizable]="true"
         [filter]="true"></ag-grid-column>
       <ag-grid-column headerName="Collective" field="Collective" [width]="150" [sortable]="true" [resizable]="true"
         [filter]="true"></ag-grid-column>

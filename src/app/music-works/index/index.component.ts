@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material';
 import {EditComponent} from '../edit/edit.component';
 
 import { TestDataService } from '../../services/test-data.service';
+import { RegisterComponent } from '../add-new/register.component';
 
 @Component({
   selector: 'app-index',
@@ -57,7 +58,7 @@ export class IndexComponent implements OnInit {
     return flag + " " + params.value;
   }
   editBtnCellRenderer(params) {
-    const btn = '<button type="button" class="btn btn-primary btn-sm">Edit</button>';
+    const btn = '<button type="button" class="btn btn-primary btn-sm">Amend</button>';
     return btn;
   }
 
@@ -85,6 +86,18 @@ export class IndexComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
+
+  openAddNewDialog(ev: any): void {
+    let dialogRef = this.dialog.open(RegisterComponent, {
+      data: 'ev',
+      width: '80%',
+      panelClass: 'formFieldWidth380'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
 
   listAll() {
 
