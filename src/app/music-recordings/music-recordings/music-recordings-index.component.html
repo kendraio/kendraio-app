@@ -1,3 +1,58 @@
+
+<mat-toolbar>
+    <span>
+            <button mat-button mat-raised-button (click)="openAddNewDialog()">Register New Recording</button>
+        </span>
+</mat-toolbar>
+
+
+
+<div class="table-responsive-lg" *ngIf="newRecordings?.length"  @enterAnimateUpDwn>
+
+    <table class="table table-striped table-hover table-sm small" [@enterLeaveInOut-2]="newRecordings">
+  
+      <thead class="thead-dark">
+        <tr>
+          <th>Your Ref</th>
+          <th>Title</th>
+          <th>Alt Title</th>
+          <th>Duration</th>       
+          <th >Instrumentation</th>
+          <th >CAE</th>
+          <th >CMO</th>
+          <th >Status</th>
+          <th >Actions</th> 
+        </tr>
+      </thead>
+  
+      <tbody>
+ 
+        <tr *ngFor="let item of newRecordings">
+            <td>ISDN-2345/4321</td>
+            <td>{{item.title}}</td>
+            <td>{{item.altTitle}}</td>
+            <td>{{item.Duration}}</td>     
+            <td>{{item.instrumentation}}</td>
+            <td>{{item.CAE}}</td>
+            <td>{{item.cmo | json}} {{item.cmo[1]}} {{item.cmo[2]}}</td>
+            <td>Submitted.. pending response</td>
+    
+            <td>
+              <button  [routerLink]="['edit', item.ISRC]">Edit</button>   
+              <a mat-stroked-button  [routerLink]="['detail', item.ISRC]">view</a>
+            </td>
+          </tr>
+     
+  
+        </tbody>  
+        </table>  
+  
+  </div>
+
+
+
+
+
 <p>Music recordings
   This will allow the user to manage rights data and other related metadata about recordings. These recordings could be
   unreleased or released.</p>

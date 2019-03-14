@@ -87,7 +87,7 @@ export class IndexComponent implements OnInit {
     });
   }
 
-  openAddNewDialog(ev: any): void {
+  openAddNewDialog(ev?: any): void {
     let dialogRef = this.dialog.open(RegisterComponent, {
       data: 'ev',
       width: '80%',

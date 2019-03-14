@@ -18,6 +18,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 // import { SendClaimsComponent } from '../claims/send-claims/send-claims.component';
 
 import {SharedModule} from '../_shared/shared.module';
+import { RegisterRecordingComponent } from './register-new-recording/register-recording.component';
 // import { ButtonRendererComponent } from './button-renderer.component';
 
 @NgModule({
@@ -25,9 +26,7 @@ import {SharedModule} from '../_shared/shared.module';
     IndexComponent, 
     MusicRecordingsEditComponent, 
     MusicRecordingsDetailComponent,
-    // SendClaimsComponent
-    // DialogDataExampleDialog,
-    // ButtonRendererComponent
+    RegisterRecordingComponent
   ],
   imports: [
     SharedModule,
@@ -44,8 +43,7 @@ import {SharedModule} from '../_shared/shared.module';
       FlexLayoutModule
   ],
   entryComponents: [   
-    // TestSendClaimsComponent 
-    // SendClaimsComponent
-  ]
+    RegisterRecordingComponent
+   ]
 })
 export class MusicRecordingsModule { }

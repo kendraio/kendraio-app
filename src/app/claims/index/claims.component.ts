@@ -113,7 +113,7 @@ if (section === 'releases') {
   this.listAllInBox = result;
 }
        
-        this.deleteSelectedRows();
+        this.deleteSelectedRows('');
         this.showSpinner2 = true;
         setTimeout(() => {
           this.updateInBoxItems(section);
@@ -159,7 +159,14 @@ if (section === 'releases') {
         const datax = rowNode;
         datax.status = 'Withdrawn...';
       });
-      const res = this.inBoxGrid.api.updateRowData({ update: itemsToUpdate });
+
+      this.showSpinner2 = true;
+      setTimeout(() => {
+        const res = this.inBoxGrid.api.updateRowData({ update: itemsToUpdate });
+        this.showSpinner2 = false;
+      }, 2500);
+
+  
     }
   }
 
@@ -201,7 +208,7 @@ if (section === 'releases') {
 
 
 
-  deleteSelectedRows() {
+  deleteSelectedRows(str: any) {
     const selectedData = this.gridApi.getSelectedRows();
     const res = this.gridApi.updateRowData({ remove: selectedData });
   }

@@ -3,16 +3,16 @@ import { DynamicFormModel, DynamicFormLayout, DynamicFormService } from '@ng-dyn
 import { FormGroup } from '@angular/forms';
 
 import { MAT_DIALOG_DATA } from '@angular/material';
-import { WORKS_REGISTER_FORM_MODEL } from '../_shared/forms/registerWork';
+import { RECORDING_REGISTER_FORM_MODEL } from '../_shared/forms/registerRecordings';
 import { WORKS_FORM_LAYOUT } from './form.layout';
 
 @Component({
   selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  templateUrl: './register-recording.component.html',
+  styleUrls: ['./register-recording.component.scss']
 })
-export class RegisterComponent implements OnInit {
-  formModel: DynamicFormModel = WORKS_REGISTER_FORM_MODEL;
+export class RegisterRecordingComponent implements OnInit {
+  formModel: DynamicFormModel = RECORDING_REGISTER_FORM_MODEL;
   formGroup: FormGroup;
   formLayout: DynamicFormLayout = WORKS_FORM_LAYOUT;
 

@@ -1,6 +1,6 @@
 <!-- xx{{listAll$ | json}}xx -->
 
-<button mat-button mat-raised-button (click)="openAddNewDialog()">Claim music usage</button>
+<button mat-button mat-raised-button>Claim music usage</button>
 
 
 
@@ -61,7 +61,7 @@
       </ag-grid-column>
     </ag-grid-angular>
 
-    <mat-action-list> <button mat-raised-button mat-button (click)="deleteSelectedRows()">Delete Selected</button>
+    <mat-action-list> <button mat-raised-button mat-button (click)="deleteSelectedRows('x')">Delete Selected</button>
       <button mat-raised-button mat-button (click)="editSendClaims(claimsToSend)">Edit/Send Selected</button>
     </mat-action-list>
     <div>Selection: <span id="selectedRows">...</span></div> 

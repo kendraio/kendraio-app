@@ -31,7 +31,7 @@
 
   <div mat-dialog-actions class="align-right">
       <button mat-button  mat-dialog-close="Edit Cancelled">Cancel</button>
-      <button mat-button [mat-dialog-close]="data.Name" cdkFocusInitial [disabled]="formGroup.invalid">Save</button>
+      <button mat-button [mat-dialog-close]="formGroup.value" cdkFocusInitial [disabled]="formGroup.invalid">Submit</button>
     </div>
 
 <p>You’ll be given a reference when you submit your work details, followed by a unique tune code for each work.</p>

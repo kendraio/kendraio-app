@@ -13,6 +13,7 @@ import { SendClaimsComponent } from 'src/app/claims/send-claims/send-claims.comp
 import { MatInputComponent, MatButtonComponent } from 'src/app/_shared/components';
 
 import { Animations } from '../../_shared/animations';
+import { RegisterRecordingComponent } from '../register-new-recording/register-recording.component';
 
 @Component({
   selector: 'app-index',
@@ -37,6 +38,7 @@ export class IndexComponent implements OnInit {
   private gridApi;
   private gridColumnApi;
   claimsToSend: Array<any>;
+  newRecordings: any[] = [];
 
 
   constructor(
@@ -127,6 +129,20 @@ export class IndexComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
+  }
+
+  openAddNewDialog(ev?: any): void {
+    let dialogRef = this.dialog.open(RegisterRecordingComponent, {
+      data: 'ev',
+      width: '80%',
+      panelClass: 'formFieldWidth380'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    this.addItemToGrid(result);
+    });
+  }
+  addItemToGrid(result: any): any {
+this.newRecordings.push(result)
   }
 
   onSelectionChanged(ev) {
