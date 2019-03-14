@@ -1,5 +1,8 @@
 <!-- xx{{listAll$ | json}}xx -->
 
+<button mat-button mat-raised-button (click)="openAddNewDialog()">Claim music usage</button>
+
+
 
 <div class="table-responsive-lg">
   <!-- (rowClicked)="openDialog($event)" -->
@@ -65,11 +68,6 @@
 
   </mat-card>
 
- 
-
-
-
-
 
   <mat-card *ngIf="listAllInBox" @enterAnimateUpDwn class="mt-4">
     <mat-card-header> <mat-card-title> Claims sent</mat-card-title>    </mat-card-header>
@@ -79,6 +77,10 @@
       [rowData]="listAllInBox" rowSelection="multiple" (cellClicked)="onCellClicked($event)"
       (selectionChanged)="onSelectionChanged($event)">
       <ag-grid-column headerName="Recordings">
+
+          <ag-grid-column headerName="#" [width]="80" [checkboxSelection]="true" [suppressMenu]="false" [pinned]="true"
+          [headerCheckboxSelection]="true"></ag-grid-column>
+
         <ag-grid-column headerName="Actions" [width]="100" [pinned]="true" [cellRenderer]="editBtnCellRenderer">
         </ag-grid-column>
         <ag-grid-column headerName="Name" field="name" [width]="175" [pinned]="true" [sortable]="true"
@@ -105,6 +107,12 @@
 
       </ag-grid-column>
     </ag-grid-angular>
+
+
+    <mat-action-list> <button mat-raised-button mat-button (click)="withdrawClaims()">Withdraw Selected</button>
+   
+    </mat-action-list>
+
 </mat-card> 
 
 </mat-expansion-panel>

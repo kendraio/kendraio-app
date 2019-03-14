@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { GridOptions } from 'ag-grid-community';
+import { GridOptions, GridApi } from 'ag-grid-community';
 import { MatDialog, MAT_DIALOG_DATA, MatButton } from '@angular/material';
 import { tap, switchMap, delay } from 'rxjs/operators';
 // import { delay } from 'q';
@@ -38,14 +38,11 @@ export class IndexComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private claimsService: ClaimsService,
-
-
   ) {
     this.listAll();
   }
 
   ngOnInit() {
-
 
   }
 
@@ -126,12 +123,8 @@ if (section === 'releases') {
 
 
   updateInBoxItems(section?: string) {
-
-    const itemsToUpdate = [];
- 
+    const itemsToUpdate = []; 
     this.showSpinner2 = false;
-
-
     if (section === 'releases') {
       this.releasesSentGrid.api.forEachNodeAfterFilterAndSort(function (rowNode, index) {
         const data = rowNode.data;
@@ -147,12 +140,28 @@ if (section === 'releases') {
       });
       this.inBoxGrid.api.updateRowData({ update: itemsToUpdate });
     }
-
-
-
-
   }
 
+
+  withdrawClaims(section?: string) {
+    let itemsToUpdate = [];
+    this.showSpinner2 = false;
+    if (section === 'releases') {
+      this.releasesSentGrid.api.forEachNodeAfterFilterAndSort(function (rowNode, index) {
+        const data = rowNode.data;
+        data.status = 'Withdrawn';
+        itemsToUpdate.push(data);  
+      });
+      this.releasesSentGrid.api.updateRowData({ update: itemsToUpdate });
+    } else {
+      itemsToUpdate =  this.inBoxGrid.api.getSelectedRows();
+      itemsToUpdate.forEach(function (rowNode, index) {
+        const datax = rowNode;
+        datax.status = 'Withdrawn...';
+      });
+      const res = this.inBoxGrid.api.updateRowData({ update: itemsToUpdate });
+    }
+  }
 
 
 
