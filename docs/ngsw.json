@@ -1,0 +1,121 @@
+{
+  "configVersion": 1,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "urls": [
+        "/1.c185fb3c599100d9ae80.js",
+        "/10.5fec9ed7906d9eb62de6.js",
+        "/11.926b9f4b9135289a1b9f.js",
+        "/12.f475437a290f18ff9aab.js",
+        "/3.d298ad54991e7df9aab8.js",
+        "/7.fb37a9ef0e3523fafdfd.js",
+        "/8.b74a3a8d0d05c0e69908.js",
+        "/9.b9db724071f5feea4268.js",
+        "/common.13a8ad5a265bfb1bde66.js",
+        "/favicon.ico",
+        "/index.html",
+        "/main.41bb3b54a2fd783f8f0d.js",
+        "/polyfills.e9859d7a023b294012f5.js",
+        "/runtime.4d3f8eac73b08144a1d9.js",
+        "/scripts.286ee48665d1076626b8.js",
+        "/styles.f69d83c1c40dd665dc39.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "urls": [
+        "/assets/data/rin-sample-01.xml",
+        "/assets/icon.png",
+        "/assets/icons/icon-128x128.png",
+        "/assets/icons/icon-144x144.png",
+        "/assets/icons/icon-152x152.png",
+        "/assets/icons/icon-192x192.png",
+        "/assets/icons/icon-384x384.png",
+        "/assets/icons/icon-512x512.png",
+        "/assets/icons/icon-72x72.png",
+        "/assets/icons/icon-96x96.png",
+        "/assets/schemas/Audio.yaml",
+        "/assets/schemas/Clip.yaml",
+        "/assets/schemas/Photo.yaml",
+        "/assets/schemas/Project.yaml",
+        "/assets/schemas/claim.yaml",
+        "/assets/schemas/file.yaml",
+        "/assets/schemas/music-recording.yaml",
+        "/assets/schemas/music-release.yaml",
+        "/assets/schemas/music-work.yaml",
+        "/assets/schemas/payment.yaml",
+        "/assets/schemas/person.yaml",
+        "/assets/schemas/video.yaml",
+        "/assets/swagger/unsplash.json"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/1.c185fb3c599100d9ae80.js": "73f86d669b8019fa089c6e51981f4f17481fa4bc",
+    "/10.5fec9ed7906d9eb62de6.js": "77649b1ec9c37fe39bbe50f7a2386feb74260d16",
+    "/11.926b9f4b9135289a1b9f.js": "69cac7743b9af12871cf07171cd342c29b4fc9b5",
+    "/12.f475437a290f18ff9aab.js": "30a7477a4712d93d489c0c2b255e60631f9daab3",
+    "/3.d298ad54991e7df9aab8.js": "b6a544def6dbd6c4c91088c35896f2549de4d29d",
+    "/7.fb37a9ef0e3523fafdfd.js": "df352950f54b00b8f872eca762a30a3c33f8a327",
+    "/8.b74a3a8d0d05c0e69908.js": "ed0dae0db7e184ad0a1fab224a6be3df3751e693",
+    "/9.b9db724071f5feea4268.js": "0113a23674c5d236ffcaa118d1c400edac752bdc",
+    "/assets/data/rin-sample-01.xml": "ec7fc751bbde79156f7d527da2acd18d2a544f5b",
+    "/assets/icon.png": "a20390923c3df44fade9981fc4f017c4256e09b4",
+    "/assets/icons/icon-128x128.png": "09318c3871d6314431affe2f63fd24acc2d5bcde",
+    "/assets/icons/icon-144x144.png": "c883d55f40650536e8abd5e5c7b71b468c683da6",
+    "/assets/icons/icon-152x152.png": "5bdad3f027c2aa52fcd2368f0694f20be2e5e01d",
+    "/assets/icons/icon-192x192.png": "bc53ac542530f405933b96eb2f938f969d6ca52e",
+    "/assets/icons/icon-384x384.png": "f826af86b899f32cc8af3bae1c79c17254231339",
+    "/assets/icons/icon-512x512.png": "7aa9295cb6c92a49a4ee3d44ecda8adf2180024f",
+    "/assets/icons/icon-72x72.png": "07670d6af9d02e9cbe0ed5e1e67e403243966300",
+    "/assets/icons/icon-96x96.png": "17796a06593a00e631c0e5ca39425afcf51fb72c",
+    "/assets/schemas/Audio.yaml": "1501f5524bb2648ab84ad1330a540b8f44fafa63",
+    "/assets/schemas/Clip.yaml": "9f16888afc068be095c25b066f14440dfaaffa89",
+    "/assets/schemas/Photo.yaml": "d19d16cd7a8e9cba168679bbe1bd2f54d501fdda",
+    "/assets/schemas/Project.yaml": "d2df6e01ca8970a72bd819c7aba96383deb5c694",
+    "/assets/schemas/claim.yaml": "87cdca02e6b5bfd33383c860da014483bc42be1c",
+    "/assets/schemas/file.yaml": "41bd85975c3bf2b0841257f9017b2ec10ced8f1a",
+    "/assets/schemas/music-recording.yaml": "1ea0cad9a9b9df6c2cf91310b10fe3bbdbb693c4",
+    "/assets/schemas/music-release.yaml": "2842cbfd7d5b6d8fd374b27a9af6964e91dab9c1",
+    "/assets/schemas/music-work.yaml": "b27378228773c8ecfb0b24a550b3926bc035a4f7",
+    "/assets/schemas/payment.yaml": "7814280d8b577fbea8a72f04fff9f679f319241f",
+    "/assets/schemas/person.yaml": "1e59851789e14edd0b3d6a46c1ecda7def6c51ab",
+    "/assets/schemas/video.yaml": "6f4da2d48421f64f7281da4aca53674436064e7c",
+    "/assets/swagger/unsplash.json": "69eb1f6aea71b19b29578abc0956378c6efd0467",
+    "/common.13a8ad5a265bfb1bde66.js": "0913352db21e4a21b034d77c592cd5b0e48f697d",
+    "/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
+    "/index.html": "5036c6baa8af998473d766f05b54260616022ad6",
+    "/main.41bb3b54a2fd783f8f0d.js": "5d67d18f767d6059d23b04d67754fec079fec296",
+    "/polyfills.e9859d7a023b294012f5.js": "e3b767ae6a8d87c90b19668a2a9c6fbcf130c5fd",
+    "/runtime.4d3f8eac73b08144a1d9.js": "38af1721e90c776d292ed781f8e876c2390021ff",
+    "/scripts.286ee48665d1076626b8.js": "ba2eaf4085a2f102100e474bcd89861dbd5f40e5",
+    "/styles.f69d83c1c40dd665dc39.css": "7efe68daa6bf4ba5bf7e4b4222c8b5d6ff46834b"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ]
+}
