@@ -17,10 +17,16 @@ import { BehaviorSubject } from 'rxjs';
 export const RECORDING_REGISTER_FORM_MODEL = [
 
     new DynamicInputModel({
+        id: 'ISRC',
+        maxLength: 50,
+        placeholder: 'ISRC',
+    }),
 
-        id: 'title',
+    new DynamicInputModel({
+
+        id: 'recordingTitle',
         maxLength: 25,
-        placeholder: 'Title of work',
+        placeholder: 'Recording Title',
         validators: {
             required: null
         },
@@ -46,26 +52,16 @@ export const RECORDING_REGISTER_FORM_MODEL = [
 
 
     new DynamicInputModel({
-
-        id: 'Duration',
+        id: 'bandArtistName',
         maxLength: 50,
-        placeholder: 'Duration',
-        validators: {
-            required: null
-        },
-        errorMessages: {
-            required: 'Field is required'
-        },
-        additional: {
-            color: 'accent'
-        }
+        placeholder: 'Band/Artist Name',
     }),
 
 
-    new DynamicTextAreaModel ({
+    new DynamicInputModel ({
 
-        id: 'instrumentation',
-        placeholder: 'instrumentation',
+        id: 'genere',
+        placeholder: 'Genere',
         hint: 'if a classical or dramatic work',
      
         validators: {
@@ -76,25 +72,50 @@ export const RECORDING_REGISTER_FORM_MODEL = [
         }
     }),
 
-    new DynamicTextAreaModel ({
-        id: 'CAE',
-        placeholder: 'CAE/IPI number of any other writers',
-        hint: 'CAE/IPI number of any other writers',
-     
-        validators: {
-            required: null
-        },
-        errorMessages: {
-            required: 'Field is required'
-        }
+    new DynamicInputModel ({
+        id: 'date',
+        placeholder: 'Date',
+    }),
+    new DynamicInputModel({
+        id: 'Name',
+        maxLength: 50,
+        placeholder: 'Name',
+    }),
+    new DynamicInputModel({
+        id: 'Line',
+        maxLength: 50,
+        placeholder: 'Line',
+    }),
+    new DynamicInputModel({
+        id: 'countryOfRecording',
+        maxLength: 50,
+        placeholder: 'Country of recording',
+    }),
+    new DynamicInputModel({
+        id: 'countryOfComposition',
+        maxLength: 50,
+        placeholder: 'Country of composition',
+    }),
+    new DynamicInputModel({
+        id: 'duration',
+        maxLength: 50,
+        placeholder: 'Duration',
+    }),
+    new DynamicInputModel({
+        id: 'recordingDate',
+        maxLength: 50,
+        placeholder: 'Recording date',
     }),
 
 
+    new DynamicFormGroupModel({
 
+        id: 'cmo',
+        group: [
     new DynamicCheckboxGroupModel(
         {
 id: 'cmo',
-label: 'Please choose all that apply ',
+label: 'Who would you like to register with?',
 group: [
     new DynamicCheckboxModel(
         {
@@ -121,7 +142,16 @@ group: [
 
 
         }
-    ),
+    ) ,
+
+
+
+
+]
+    }),
+
+
+
 
  
 

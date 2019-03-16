@@ -163,7 +163,7 @@ this.newRecordings.push(result)
       theRow = selectedRow; 
     });
     this.claimsToSend = [];
-    selectedRows.forEach(i=>{ 
+    selectedRows.forEach(i => { 
      
       this.claimsToSend.push(
       {
