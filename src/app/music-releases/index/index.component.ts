@@ -11,6 +11,7 @@ import { MatInputComponent, MatButtonComponent } from 'src/app/_shared/component
 import { Animations } from '../../_shared/animations';
 
 import { SendClaimsComponent } from 'src/app/claims/send-claims/send-claims.component';
+import { RegisterNewReleaseComponent } from '../register-new-release/register-new-release.component';
 
 @Component({
   selector: 'app-index',
@@ -32,6 +33,7 @@ export class IndexComponent implements OnInit {
   private gridApi;
   private gridColumnApi;
   claimsToSend: Array<any>;
+  newReleases: any[] = [];
  
 
 
@@ -106,6 +108,19 @@ export class IndexComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
+  }
+  openAddNewDialog(ev?: any): void {
+    let dialogRef = this.dialog.open(RegisterNewReleaseComponent, {
+      data: 'ev',
+      width: '80%',
+      panelClass: 'formFieldWidth380'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    this.addItemToGrid(result);
+    });
+  }
+  addItemToGrid(result: any): any {
+this.newReleases.push(result)
   }
 
   onSelectionChanged(ev) {
