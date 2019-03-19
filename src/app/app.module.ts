@@ -54,9 +54,13 @@ import { AssetsPageComponent } from './pages/assets-page/assets-page.component';
 import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
 import { DiagramPageComponent } from './pages/diagram-page/diagram-page.component';
+// import { ContactsComponent } from './pages';
+import { ContactsModule } from './contacts/contacts.module';
 // import { AgGridModule } from 'ag-grid-angular';
 // import { MatInputComponent } from './_shared/components';
 // import {DialogDataExampleDialog} from './music-recordings';
+
+
 
 @NgModule({
   declarations: [
@@ -95,6 +99,7 @@ import { DiagramPageComponent } from './pages/diagram-page/diagram-page.componen
     TestImportDialogComponent,
     AssetsPageComponent,
     DiagramPageComponent,
+    //ContactsComponent
     // MatInputComponent
     // DialogDataExampleDialog
     // MusicRecordingsEditComponent
@@ -116,7 +121,8 @@ import { DiagramPageComponent } from './pages/diagram-page/diagram-page.componen
     FormsModule,
     NgxTaggerModule,
     DynamicFormsCoreModule,
-    DynamicFormsMaterialUIModule
+    DynamicFormsMaterialUIModule,
+    ContactsModule
   ],
   entryComponents: [
     AddDocDialogComponent,

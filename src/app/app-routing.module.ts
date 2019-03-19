@@ -14,6 +14,7 @@ import { DropboxPageComponent } from './pages/dropbox-page/dropbox-page.componen
 import { SwaggerPageComponent } from './pages/swagger-page/swagger-page.component';
 import {TestApiPageComponent} from './pages/test-api-page/test-api-page.component';
 import {DiagramPageComponent} from './pages/diagram-page/diagram-page.component';
+import { PeopleComponent } from './contacts/people/people.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,15 @@ const routes: Routes = [
           subTitle: ''
         }
       },
+      // {
+      //   path: 'contacts',
+      //   component: Pages.ContactsComponent,
+      //   data: {
+      //     pageTitle: 'Contacts',
+      //     subTitle: ''
+      //   }
+      // },
+  
       {
         path: 'import',
         component: Pages.ImportPageComponent
@@ -104,6 +114,8 @@ const routes: Routes = [
         path: 'claims',
         loadChildren: './claims/claims.module#ClaimsModule'
       },
+      { path: 'contacts', 
+        loadChildren: './contacts/contacts.module#ContactsModule'},
       {
         path: 'settings',
         loadChildren: './settings/settings.module'

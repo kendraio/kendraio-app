@@ -24,6 +24,11 @@ export class LayoutComponent implements OnInit {
       icon: 'attach_money'
     },
     {
+      href: '/contacts',
+      title: 'Contacts',
+      icon: 'contacts'
+    },
+    {
       href: '/import',
       title: 'Import',
       icon: 'import_export'
