@@ -6,6 +6,10 @@
   id: location
   label: Location
   placeholder: Location
+- type: REFERENCE
+  id: author
+  label: Author
+  listType: Person
 - type: IMAGE_FILE
   id: image
   label: File

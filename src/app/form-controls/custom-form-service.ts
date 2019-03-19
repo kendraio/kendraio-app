@@ -24,7 +24,7 @@ import {
   DynamicFormArrayModel,
   DynamicFormGroupModel,
   DynamicFormModel,
-  DynamicFormService,
+  DynamicFormService, DynamicFormValidationService,
   DynamicInputModel,
   DynamicRadioGroupModel,
   DynamicRatingModel,
@@ -38,8 +38,19 @@ import {
 import { AUDIO_FILE_DYNAMIC_FORM_CONTROL_TYPE, AudioFormModel } from './audio-form-model';
 import {IMAGE_FILE_DYNAMIC_FORM_CONTROL_TYPE, ImageFormModel} from './image-form-model';
 import {REFERENCE_DYNAMIC_FORM_CONTROL_TYPE, ReferenceFormModel} from './reference-form-model';
+import {BehaviorSubject} from 'rxjs';
+import {Injectable} from '@angular/core';
+import {ReferenceFieldService} from '../services/reference-field.service';
 
+@Injectable()
 export class CustomFormService extends DynamicFormService {
+
+  constructor(
+    validationService: DynamicFormValidationService,
+    private readonly refs: ReferenceFieldService
+  ) {
+    super(validationService);
+  }
 
   fromJSON(json: string | object[]): DynamicFormModel | never {
 
@@ -149,8 +160,17 @@ export class CustomFormService extends DynamicFormService {
           break;
 
         case REFERENCE_DYNAMIC_FORM_CONTROL_TYPE:
-          formModel.push(new ReferenceFormModel(model, layout));
+          // formModel.push(new ReferenceFormModel(model, layout));
+
+          if (model.listType !== null) {
+//            console.log({ model });
+            model.list = this.refs.getReferenceValues(model.listType);
+          }
+
+          formModel.push(new DynamicInputModel(model, layout));
+
           break;
+
 
         default:
           throw new Error(`unknown form control model type defined on JSON object with id "${model.id}"`);

@@ -50,6 +50,7 @@ export class DocumentRepositoryService {
   }
 
   listAllOfType(type) {
+    // console.log(`List of type ${type}`);
     return from(this.db.allDocs({
       include_docs: true,
       attachments: true,
