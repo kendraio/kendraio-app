@@ -14,6 +14,10 @@ fields:
     label: Location
     autoComplete: off
     defaultValue: ''
+  - type: REFERENCE
+    id: author
+    label: Author
+    list: person
   - type: IMAGE
     id: image
     label: File

@@ -2,7 +2,12 @@
   id: name
   label: Project title
   placeholder: Project title
-- type: REFERENCE
-  id: owner
-  label: Owner
-  placeholder: Owner
+- type: ARRAY
+  id: owners
+  label: Owners
+  groupPrototype:
+    - type: INPUT
+      id: owner
+      label: Owner
+      placeholder: Owner
+      listType: Person
