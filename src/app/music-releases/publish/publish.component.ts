@@ -23,6 +23,7 @@ export class PublishComponent implements OnInit {
   }
 // Object.keys(adapters);
   get enabled() { return Object.keys(this.adapters.enabledAdapters); }
+  
   onNextStep() {
     console.log(this.data);
     this.nextStep = true;
@@ -30,8 +31,8 @@ export class PublishComponent implements OnInit {
 
   nextClaimStep3(section: string) {
 
-    localStorage.setItem(section, JSON.stringify(this.data.data));
-    this.router.navigate(['/claims']);
+  //  localStorage.setItem(section, JSON.stringify(this.data.data));
+   // this.router.navigate(['/claims']);
 
   }
 

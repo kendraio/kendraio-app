@@ -13,6 +13,7 @@ import { Animations } from '../../_shared/animations';
 import { SendClaimsComponent } from 'src/app/claims/send-claims/send-claims.component';
 import { RegisterNewReleaseComponent } from '../register-new-release/register-new-release.component';
 import { PublishComponent } from '../publish/publish.component';
+import { RegisterComponent } from '../register/register.component';
 
 @Component({
   selector: 'app-index',
@@ -197,6 +198,18 @@ sendToClaim(ev: any): void {
 sendToPublish(ev: any): void {
   const data = {section: 'releases', data: this.claimsToSend };
   const dialogRef = this.dialog.open(PublishComponent, {
+    data: data,
+    width: '80%',
+    panelClass: 'formFieldWidth380', 
+    
+  });
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed');
+  });
+}
+sendToRegister(ev: any): void {
+  const data = {section: 'releases', data: this.claimsToSend };
+  const dialogRef = this.dialog.open(RegisterComponent, {
     data: data,
     width: '80%',
     panelClass: 'formFieldWidth380', 

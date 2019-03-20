@@ -54,12 +54,13 @@ import { RegisterComponent } from './register/register.component';
   ],
   exports: [
     SharedModule,
-    PublishComponent
+    PublishComponent, RegisterComponent
   ],
   
   entryComponents: [   
     RegisterNewReleaseComponent,
-    PublishComponent
+    PublishComponent,
+    RegisterComponent
     
    ]
 })
