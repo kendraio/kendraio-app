@@ -3,8 +3,8 @@
 
 <h1>Publish Distribute Your Release</h1>
 Please be sure all info is correct before starting the distribution process.
-
-<section *ngIf="!nextStep" mat-dialog-content >
+<div *ngIf="!nextStep" >
+<section mat-dialog-content >
   <div class="mt-4" fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="start stretch" mat-dialog-content >
 
     <mat-card *ngFor="let item of data.data; let i = index;">
@@ -30,16 +30,24 @@ Please be sure all info is correct before starting the distribution process.
 
   </div>
 </section>
+
   <div mat-dialog-actions>
     <button mat-button mat-dialog-close="Edit Cancelled">Cancel</button>
-    <button mat-button mat-raised-button (click)="nextClaimStep()">Distribute</button>
+    <button mat-button mat-raised-button (click)="onNextStep()">Distribute</button>
   </div>
+</div>
 
+<div *ngIf="nextStep && enabled.length"  fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="start end" >
 
+<section class="my-5"  mat-dialog-content  fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="start start">
+<div>
+    You are about to post your Releases to the following platforms: 
+    <mat-list>
+      <mat-list-item  *ngFor="let item of enabled; let i = index;" ><b>{{item | uppercase}}</b></mat-list-item>
+    </mat-list>
+   To add more Platforms please enable more <a [routerLink]="[ '/adapters' ]">Adapters</a> 
+</div>
 
-<section *ngIf="nextStep" class="my-5"  mat-dialog-content>
-
-  The folowing claims have been sent to your Claims Folder.
 
   <div [@enterLeaveInOut-2]="data" fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="start stretch">
     <mat-card *ngFor="let item of data.data; let i = index;">
@@ -48,12 +56,16 @@ Please be sure all info is correct before starting the distribution process.
       <p mat-line> {{item.artist}} </p>
     </mat-card>
   </div>
-
 </section>
 
   <div mat-dialog-actions>
     <button mat-button mat-dialog-close="Edit Cancelled">Close</button>
-    <button mat-button mat-raised-button mat-dialog-close="next" (click)="nextClaimStep3(data.section)">View my Claims
-      Organiser</button>
+    <button mat-button mat-raised-button mat-dialog-close="next" (click)="nextClaimStep3(data.section)">Continue</button>
   </div>
 
+</div>
+
+<div *ngIf="enabled.length === 0">
+<h2>You need to enable your   <a mat-dialog-close="true" [routerLink]="[ '/adapters' ]">Adapters</a> before continuing </h2>
+
+</div>

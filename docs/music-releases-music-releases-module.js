@@ -819,7 +819,7 @@ var MusicReleasesModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <pre> {{ data | json }}</pre>  -->\n\n\n<h1>Publish Distribute Your Release</h1>\nPlease be sure all info is correct before starting the distribution process.\n\n<section *ngIf=\"!nextStep\" mat-dialog-content >\n  <div class=\"mt-4\" fxLayout=\"row wrap\" fxLayoutGap=\"20px\" fxLayoutAlign=\"start stretch\" mat-dialog-content >\n\n    <mat-card *ngFor=\"let item of data.data; let i = index;\">\n      <mat-card-header>\n\n        <mat-card-title>Release {{i+1}} / {{data.length}}</mat-card-title>\n        <mat-card-subtitle>{{item.name}}</mat-card-subtitle>\n      </mat-card-header>\n      <mat-card-content>\n        Artist: {{item.artist}}<br>\n        Collective: {{item.collective}}<br>\n        Owner: {{item.owner}}<br>\n      </mat-card-content>\n      <mat-card-actions>\n        <button mat-mini-fab matTooltip=\"Remove from Claim\" (click)=\"removeClaim(i)\">\n          <mat-icon>delete</mat-icon>\n        </button>\n        <button mat-mini-fab matTooltip=\"Edit\" (click)=\"removeClaim(i)\">\n          <mat-icon>edit</mat-icon>\n        </button>\n      </mat-card-actions>\n    </mat-card>\n\n  </div>\n</section>\n  <div mat-dialog-actions>\n    <button mat-button mat-dialog-close=\"Edit Cancelled\">Cancel</button>\n    <button mat-button mat-raised-button (click)=\"nextClaimStep()\">Distribute</button>\n  </div>\n\n\n\n<section *ngIf=\"nextStep\" class=\"my-5\"  mat-dialog-content>\n\n  The folowing claims have been sent to your Claims Folder.\n\n  <div [@enterLeaveInOut-2]=\"data\" fxLayout=\"row wrap\" fxLayoutGap=\"20px\" fxLayoutAlign=\"start stretch\">\n    <mat-card *ngFor=\"let item of data.data; let i = index;\">\n      <mat-icon mat-list-icon>library_music</mat-icon>\n      <h6 mat-line>{{item.name}}</h6>\n      <p mat-line> {{item.artist}} </p>\n    </mat-card>\n  </div>\n\n</section>\n\n  <div mat-dialog-actions>\n    <button mat-button mat-dialog-close=\"Edit Cancelled\">Close</button>\n    <button mat-button mat-raised-button mat-dialog-close=\"next\" (click)=\"nextClaimStep3(data.section)\">View my Claims\n      Organiser</button>\n  </div>\n\n"
+module.exports = "<!-- <pre> {{ data | json }}</pre>  -->\n\n\n<h1>Publish Distribute Your Release</h1>\nPlease be sure all info is correct before starting the distribution process.\n<div *ngIf=\"!nextStep\" >\n<section mat-dialog-content >\n  <div class=\"mt-4\" fxLayout=\"row wrap\" fxLayoutGap=\"20px\" fxLayoutAlign=\"start stretch\" mat-dialog-content >\n\n    <mat-card *ngFor=\"let item of data.data; let i = index;\">\n      <mat-card-header>\n\n        <mat-card-title>Release {{i+1}} / {{data.length}}</mat-card-title>\n        <mat-card-subtitle>{{item.name}}</mat-card-subtitle>\n      </mat-card-header>\n      <mat-card-content>\n        Artist: {{item.artist}}<br>\n        Collective: {{item.collective}}<br>\n        Owner: {{item.owner}}<br>\n      </mat-card-content>\n      <mat-card-actions>\n        <button mat-mini-fab matTooltip=\"Remove from Claim\" (click)=\"removeClaim(i)\">\n          <mat-icon>delete</mat-icon>\n        </button>\n        <button mat-mini-fab matTooltip=\"Edit\" (click)=\"removeClaim(i)\">\n          <mat-icon>edit</mat-icon>\n        </button>\n      </mat-card-actions>\n    </mat-card>\n\n  </div>\n</section>\n\n  <div mat-dialog-actions>\n    <button mat-button mat-dialog-close=\"Edit Cancelled\">Cancel</button>\n    <button mat-button mat-raised-button (click)=\"onNextStep()\">Distribute</button>\n  </div>\n</div>\n\n<div *ngIf=\"nextStep && enabled.length\"  fxLayout=\"row wrap\" fxLayoutGap=\"20px\" fxLayoutAlign=\"start end\" >\n\n<section class=\"my-5\"  mat-dialog-content  fxLayout=\"row wrap\" fxLayoutGap=\"20px\" fxLayoutAlign=\"start start\">\n<div>\n    You are about to post your Releases to the following platforms: \n    <mat-list>\n      <mat-list-item  *ngFor=\"let item of enabled; let i = index;\" ><b>{{item | uppercase}}</b></mat-list-item>\n    </mat-list>\n   To add more Platforms please enable more <a [routerLink]=\"[ '/adapters' ]\">Adapters</a> \n</div>\n\n\n  <div [@enterLeaveInOut-2]=\"data\" fxLayout=\"row wrap\" fxLayoutGap=\"20px\" fxLayoutAlign=\"start stretch\">\n    <mat-card *ngFor=\"let item of data.data; let i = index;\">\n      <mat-icon mat-list-icon>library_music</mat-icon>\n      <h6 mat-line>{{item.name}}</h6>\n      <p mat-line> {{item.artist}} </p>\n    </mat-card>\n  </div>\n</section>\n\n  <div mat-dialog-actions>\n    <button mat-button mat-dialog-close=\"Edit Cancelled\">Close</button>\n    <button mat-button mat-raised-button mat-dialog-close=\"next\" (click)=\"nextClaimStep3(data.section)\">Continue</button>\n  </div>\n\n</div>\n\n<div *ngIf=\"enabled.length === 0\">\n<h2>You need to enable your   <a mat-dialog-close=\"true\" [routerLink]=\"[ '/adapters' ]\">Adapters</a> before continuing </h2>\n\n</div>"
 
 /***/ }),
 
@@ -848,26 +848,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_shared_animations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/_shared/animations */ "./src/app/_shared/animations/index.ts");
+/* harmony import */ var src_app_services_adapters_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/adapters.service */ "./src/app/services/adapters.service.ts");
+
+
 
 
 
 
 var PublishComponent = /** @class */ (function () {
-    function PublishComponent(data, router) {
+    function PublishComponent(data, router, adapters) {
         this.data = data;
         this.router = router;
+        this.adapters = adapters;
         this.nextStep = false;
     }
     PublishComponent.prototype.ngOnInit = function () {
     };
-    PublishComponent.prototype.nextClaimStep = function () {
+    Object.defineProperty(PublishComponent.prototype, "enabled", {
+        // Object.keys(adapters);
+        get: function () { return Object.keys(this.adapters.enabledAdapters); },
+        enumerable: true,
+        configurable: true
+    });
+    PublishComponent.prototype.onNextStep = function () {
         console.log(this.data);
         this.nextStep = true;
     };
     PublishComponent.prototype.nextClaimStep3 = function (section) {
         localStorage.setItem(section, JSON.stringify(this.data.data));
         this.router.navigate(['/claims']);
-        // sidenav.open();
     };
     PublishComponent.prototype.removeClaim = function (i) {
         this.data.splice(i, 1);
@@ -876,10 +886,12 @@ var PublishComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-publish',
             template: __webpack_require__(/*! ./publish.component.html */ "./src/app/music-releases/publish/publish.component.html"),
+            animations: [src_app_shared_animations__WEBPACK_IMPORTED_MODULE_4__["Animations"].pageAni],
             styles: [__webpack_require__(/*! ./publish.component.scss */ "./src/app/music-releases/publish/publish.component.scss")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"])),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object, _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object, _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
+            src_app_services_adapters_service__WEBPACK_IMPORTED_MODULE_5__["AdaptersService"]])
     ], PublishComponent);
     return PublishComponent;
 }());
