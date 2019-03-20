@@ -30,7 +30,6 @@ import { RegisterComponent } from './register/register.component';
     MusicReleasesEditComponent, 
     MusicReleasesDetailComponent, 
     RegisterNewReleaseComponent, PublishComponent, RegisterComponent
-
   ],
   imports: [
     CommonModule,

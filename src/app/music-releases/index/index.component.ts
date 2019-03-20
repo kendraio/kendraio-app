@@ -207,6 +207,7 @@ sendToPublish(ev: any): void {
     console.log('The dialog was closed');
   });
 }
+
 sendToRegister(ev: any): void {
   const data = {section: 'releases', data: this.claimsToSend };
   const dialogRef = this.dialog.open(RegisterComponent, {
