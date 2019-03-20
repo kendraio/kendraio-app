@@ -1,8 +1,8 @@
 <!-- <pre> {{ data | json }}</pre>  -->
 
 
-<h1>Claim Sheet 1</h1>
-Please be sure all info is correct before posting to your Claims Folder.
+<h1>Publish Distribute Your Release</h1>
+Please be sure all info is correct before starting the distribution process.
 
 <section *ngIf="!nextStep" mat-dialog-content >
   <div class="mt-4" fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="start stretch" mat-dialog-content >
@@ -10,7 +10,7 @@ Please be sure all info is correct before posting to your Claims Folder.
     <mat-card *ngFor="let item of data.data; let i = index;">
       <mat-card-header>
 
-        <mat-card-title>Claim {{i+1}} / {{data.length}}</mat-card-title>
+        <mat-card-title>Release {{i+1}} / {{data.length}}</mat-card-title>
         <mat-card-subtitle>{{item.name}}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
@@ -32,12 +32,12 @@ Please be sure all info is correct before posting to your Claims Folder.
 </section>
   <div mat-dialog-actions>
     <button mat-button mat-dialog-close="Edit Cancelled">Cancel</button>
-    <button mat-button mat-raised-button (click)="nextClaimStep()">Send to my Claims Organiser</button>
+    <button mat-button mat-raised-button (click)="nextClaimStep()">Distribute</button>
   </div>
 
 
 
-<section *ngIf="nextStep" class="mt-4"  mat-dialog-content>
+<section *ngIf="nextStep" class="my-5"  mat-dialog-content>
 
   The folowing claims have been sent to your Claims Folder.
 
@@ -49,7 +49,7 @@ Please be sure all info is correct before posting to your Claims Folder.
     </mat-card>
   </div>
 
-
+</section>
 
   <div mat-dialog-actions>
     <button mat-button mat-dialog-close="Edit Cancelled">Close</button>
@@ -57,4 +57,3 @@ Please be sure all info is correct before posting to your Claims Folder.
       Organiser</button>
   </div>
 
-</section>

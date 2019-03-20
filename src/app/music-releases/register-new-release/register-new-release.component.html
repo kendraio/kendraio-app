@@ -3,8 +3,6 @@
   <p>
  introduction about registering a new Release here</p>
   
-    
-  
     <mat-card>
   
         <form [formGroup]="formGroup">
@@ -25,9 +23,13 @@
   
     <div mat-dialog-actions class="align-right">
         <button mat-button  mat-dialog-close="Edit Cancelled">Cancel</button>
-        <button mat-button [mat-dialog-close]="formGroup.value" cdkFocusInitial [disabled]="formGroup.invalid">Submit</button>
+        <button  mat-raised-button [mat-dialog-close]="formGroup.value" cdkFocusInitial [disabled]="formGroup.invalid">Register</button>
+        <button  mat-raised-button [mat-dialog-close]="formGroup.value" cdkFocusInitial [disabled]="formGroup.invalid">Distribute</button>
+        <button  mat-raised-button [mat-dialog-close]="formGroup.value" cdkFocusInitial [disabled]="formGroup.invalid">Save Draught</button>
       </div>
   
-  <p>You’ll be given a reference when you submit your work details, followed by a unique tune code for each work.</p>
+  <!-- <p>You’ll be given a reference when you submit your work details, followed by a unique tune code for each work.</p> -->
   
   </div>
+
+  

@@ -12,6 +12,7 @@ import { Animations } from '../../_shared/animations';
 
 import { SendClaimsComponent } from 'src/app/claims/send-claims/send-claims.component';
 import { RegisterNewReleaseComponent } from '../register-new-release/register-new-release.component';
+import { PublishComponent } from '../publish/publish.component';
 
 @Component({
   selector: 'app-index',
@@ -165,6 +166,19 @@ this.newReleases.push(result)
 sendToClaim(ev: any): void {
   const data = {section: 'releases', data: this.claimsToSend };
   const dialogRef = this.dialog.open(SendClaimsComponent, {
+    data: data,
+    width: '80%',
+    panelClass: 'formFieldWidth380', 
+    
+  });
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed');
+  });
+}
+
+sendToPublish(ev: any): void {
+  const data = {section: 'releases', data: this.claimsToSend };
+  const dialogRef = this.dialog.open(PublishComponent, {
     data: data,
     width: '80%',
     panelClass: 'formFieldWidth380', 

@@ -213,12 +213,6 @@ var RELEASE_REGISTER_FORM_MODEL = [
         id: 'recordingTitle',
         maxLength: 25,
         placeholder: 'Recording Title',
-        validators: {
-            required: null
-        },
-        errorMessages: {
-            required: 'Field is required'
-        }
     }),
     new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicInputModel"]({
         id: 'bandArtistName',
@@ -229,12 +223,6 @@ var RELEASE_REGISTER_FORM_MODEL = [
         id: 'genere',
         placeholder: 'Genere',
         hint: 'if a classical or dramatic work',
-        validators: {
-            required: null
-        },
-        errorMessages: {
-            required: 'Field is required'
-        }
     }),
     new _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_0__["DynamicInputModel"]({
         id: 'date',
@@ -362,7 +350,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<mat-toolbar>\r\n  <span>\r\n          <button mat-button mat-raised-button (click)=\"openAddNewDialog()\">Register New Release</button>\r\n      </span>\r\n      <span>\r\n        <button mat-button mat-raised-button (click)=\"openAddNewDialog()\">Search Release</button>\r\n    </span>\r\n    <span>\r\n      <button mat-button mat-raised-button (click)=\"openAddNewDialog()\">Do something else</button>\r\n  </span>\r\n</mat-toolbar>\r\n\r\n\r\n<mat-progress-bar *ngIf=\"showSpinner\" mode=\"indeterminate\"></mat-progress-bar>\r\n\r\n\r\n\r\n<div class=\"table-responsive-lg\" @enterAnimateUpDwn>\r\n  <ag-grid-angular #agGrid style=\"width: 100%; height: 700px;\" class=\"ag-theme-material\" \r\n                  [gridOptions]=\"gridOptions\"\r\n                  [frameworkComponents]=\"gridOptions.frameworkComponents\"\r\n                  [rowData]=\"allItems\" \r\n                  animateRows=\"true\"  \r\n                  (cellClicked)=\"onCellClicked($event)\" \r\n                  rowSelection=\"multiple\" \r\n                  (selectionChanged)=\"onSelectionChanged($event)\"\r\n                  animateRows=\"true\"\r\n                  >\r\n\r\n    <ag-grid-column headerName=\"Releases\">\r\n      <ag-grid-column headerName=\"#\" [width]=\"80\" [checkboxSelection]=\"true\" [suppressMenu]=\"false\" [pinned]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Actions\" [width]=\"100\" [pinned]=\"true\" [cellRenderer]=\"editBtnCellRenderer\">\r\n      </ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Title\" field=\"Title\" [width]=\"175\" [pinned]=\"true\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"\r\n        [cellEditorFramework]=\"gridOptions.frameworkComponents.inputRenderer\"\r\n        [editable]=\"true\"\r\n        ></ag-grid-column>\r\n        \r\n      <ag-grid-column headerName=\"Artist\" field=\"Artist\" [width]=\"120\" [pinned]=\"true\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"  [editable]=\"false\"></ag-grid-column>\r\n    </ag-grid-column>\r\n\r\n    <ag-grid-column headerName=\"Details\">\r\n\r\n      <ag-grid-column \r\n      headerName=\"Date\" field=\"Date\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n      <ag-grid-column headerName=\"Owner\" field=\"Owner\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Date\" field=\"Date\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n      <ag-grid-column headerName=\"Territory\" field=\"Territory\" [width]=\"100\" [cellRenderer]=\"countryCellRenderer\"\r\n        [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Type\" field=\"Type\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n      <ag-grid-column headerName=\"Format\" field=\"Format\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Catalogue Number\" field=\"Catalogue Number\" [width]=\"150\" [pinned]=\"false\"\r\n        [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Barcode\" field=\"Barcode\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"#tracks\" field=\"Number of tracks\" [width]=\"50\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Distribution\" field=\"Distribution\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Collective\" field=\"Collective\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Submitted to\" field=\"Submitted to\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n\r\n    </ag-grid-column>\r\n  </ag-grid-angular>\r\n\r\n  <mat-action-list *ngIf=\"claimsToSend.length > 0\">  \r\n    <button mat-raised-button mat-button (click)=\"sendToClaim($event)\">Claim Selected</button>\r\n     </mat-action-list> \r\n     <div>Selection: <span id=\"selectedRows\">...</span></div>\r\n\r\n</div>\r\n\r\n"
+module.exports = "<mat-toolbar>\r\n  <span>\r\n    <button mat-button mat-raised-button (click)=\"openAddNewDialog()\">Create Release</button>\r\n  </span>\r\n</mat-toolbar>\r\n\r\n\r\n<mat-progress-bar *ngIf=\"showSpinner\" mode=\"indeterminate\"></mat-progress-bar>\r\n\r\n\r\n\r\n<div class=\"table-responsive-lg\" @enterAnimateUpDwn>\r\n  <ag-grid-angular #agGrid style=\"width: 100%; height: 700px;\" class=\"ag-theme-material\" [gridOptions]=\"gridOptions\"\r\n    [frameworkComponents]=\"gridOptions.frameworkComponents\" [rowData]=\"allItems\" animateRows=\"true\"\r\n    (cellClicked)=\"onCellClicked($event)\" rowSelection=\"multiple\" (selectionChanged)=\"onSelectionChanged($event)\"\r\n    animateRows=\"true\">\r\n\r\n    <ag-grid-column headerName=\"Releases\">\r\n      <ag-grid-column headerName=\"#\" [width]=\"80\" [checkboxSelection]=\"true\" [suppressMenu]=\"false\" [pinned]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Actions\" [width]=\"100\" [pinned]=\"true\" [cellRenderer]=\"editBtnCellRenderer\">\r\n      </ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Title\" field=\"Title\" [width]=\"175\" [pinned]=\"true\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\" [cellEditorFramework]=\"gridOptions.frameworkComponents.inputRenderer\"\r\n        [editable]=\"true\"></ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Artist\" field=\"Artist\" [width]=\"120\" [pinned]=\"true\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\" [editable]=\"false\"></ag-grid-column>\r\n    </ag-grid-column>\r\n\r\n    <ag-grid-column headerName=\"Details\">\r\n\r\n      <ag-grid-column headerName=\"Date\" field=\"Date\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n      <ag-grid-column headerName=\"Owner\" field=\"Owner\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Date\" field=\"Date\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n      <ag-grid-column headerName=\"Territory\" field=\"Territory\" [width]=\"100\" [cellRenderer]=\"countryCellRenderer\"\r\n        [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Type\" field=\"Type\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n      <ag-grid-column headerName=\"Format\" field=\"Format\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Catalogue Number\" field=\"Catalogue Number\" [width]=\"150\" [pinned]=\"false\"\r\n        [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Barcode\" field=\"Barcode\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"#tracks\" field=\"Number of tracks\" [width]=\"50\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Distribution\" field=\"Distribution\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Collective\" field=\"Collective\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Submitted to\" field=\"Submitted to\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n\r\n    </ag-grid-column>\r\n  </ag-grid-angular>\r\n\r\n  <mat-action-list *ngIf=\"claimsToSend.length > 0\">\r\n    <button mat-raised-button mat-button (click)=\"sendToClaim($event)\">Claim Selected</button>\r\n    <button mat-raised-button mat-button (click)=\"sendToRegister($event)\">Register Selected</button>\r\n    <button mat-raised-button mat-button (click)=\"sendToPublish($event)\">Distribute/Publish Selected</button>\r\n  </mat-action-list>\r\n  <div>Selection: <span id=\"selectedRows\">...</span></div>\r\n\r\n</div>"
 
 /***/ }),
 
@@ -388,6 +376,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_animations__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../_shared/animations */ "./src/app/_shared/animations/index.ts");
 /* harmony import */ var src_app_claims_send_claims_send_claims_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/claims/send-claims/send-claims.component */ "./src/app/claims/send-claims/send-claims.component.ts");
 /* harmony import */ var _register_new_release_register_new_release_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../register-new-release/register-new-release.component */ "./src/app/music-releases/register-new-release/register-new-release.component.ts");
+/* harmony import */ var _publish_publish_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../publish/publish.component */ "./src/app/music-releases/publish/publish.component.ts");
+
 
 
 
@@ -507,6 +497,17 @@ var IndexComponent = /** @class */ (function () {
     IndexComponent.prototype.sendToClaim = function (ev) {
         var data = { section: 'releases', data: this.claimsToSend };
         var dialogRef = this.dialog.open(src_app_claims_send_claims_send_claims_component__WEBPACK_IMPORTED_MODULE_10__["SendClaimsComponent"], {
+            data: data,
+            width: '80%',
+            panelClass: 'formFieldWidth380',
+        });
+        dialogRef.afterClosed().subscribe(function (result) {
+            console.log('The dialog was closed');
+        });
+    };
+    IndexComponent.prototype.sendToPublish = function (ev) {
+        var data = { section: 'releases', data: this.claimsToSend };
+        var dialogRef = this.dialog.open(_publish_publish_component__WEBPACK_IMPORTED_MODULE_12__["PublishComponent"], {
             data: data,
             width: '80%',
             panelClass: 'formFieldWidth380',
@@ -733,6 +734,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_flex_layout__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/flex-layout */ "./node_modules/@angular/flex-layout/esm5/flex-layout.es5.js");
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../_shared/shared.module */ "./src/app/_shared/shared.module.ts");
 /* harmony import */ var _register_new_release_register_new_release_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./register-new-release/register-new-release.component */ "./src/app/music-releases/register-new-release/register-new-release.component.ts");
+/* harmony import */ var _publish_publish_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./publish/publish.component */ "./src/app/music-releases/publish/publish.component.ts");
+/* harmony import */ var _register_register_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./register/register.component */ "./src/app/music-releases/register/register.component.ts");
+
+
 
 
 
@@ -758,7 +763,7 @@ var MusicReleasesModule = /** @class */ (function () {
                 _index_index_component__WEBPACK_IMPORTED_MODULE_7__["IndexComponent"],
                 _music_releases_edit_music_releases_edit_component__WEBPACK_IMPORTED_MODULE_8__["MusicReleasesEditComponent"],
                 _music_releases_detail_music_releases_detail_component__WEBPACK_IMPORTED_MODULE_9__["MusicReleasesDetailComponent"],
-                _register_new_release_register_new_release_component__WEBPACK_IMPORTED_MODULE_13__["RegisterNewReleaseComponent"]
+                _register_new_release_register_new_release_component__WEBPACK_IMPORTED_MODULE_13__["RegisterNewReleaseComponent"], _publish_publish_component__WEBPACK_IMPORTED_MODULE_14__["PublishComponent"], _register_register_component__WEBPACK_IMPORTED_MODULE_15__["RegisterComponent"]
             ],
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
@@ -774,14 +779,92 @@ var MusicReleasesModule = /** @class */ (function () {
                 _angular_flex_layout__WEBPACK_IMPORTED_MODULE_11__["FlexLayoutModule"],
             ],
             exports: [
-                _shared_shared_module__WEBPACK_IMPORTED_MODULE_12__["SharedModule"]
+                _shared_shared_module__WEBPACK_IMPORTED_MODULE_12__["SharedModule"],
+                _publish_publish_component__WEBPACK_IMPORTED_MODULE_14__["PublishComponent"]
             ],
             entryComponents: [
-                _register_new_release_register_new_release_component__WEBPACK_IMPORTED_MODULE_13__["RegisterNewReleaseComponent"]
+                _register_new_release_register_new_release_component__WEBPACK_IMPORTED_MODULE_13__["RegisterNewReleaseComponent"],
+                _publish_publish_component__WEBPACK_IMPORTED_MODULE_14__["PublishComponent"]
             ]
         })
     ], MusicReleasesModule);
     return MusicReleasesModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/music-releases/publish/publish.component.html":
+/*!***************************************************************!*\
+  !*** ./src/app/music-releases/publish/publish.component.html ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<!-- <pre> {{ data | json }}</pre>  -->\n\n\n<h1>Publish Distribute Your Release</h1>\nPlease be sure all info is correct before starting the distribution process.\n\n<section *ngIf=\"!nextStep\" mat-dialog-content >\n  <div class=\"mt-4\" fxLayout=\"row wrap\" fxLayoutGap=\"20px\" fxLayoutAlign=\"start stretch\" mat-dialog-content >\n\n    <mat-card *ngFor=\"let item of data.data; let i = index;\">\n      <mat-card-header>\n\n        <mat-card-title>Release {{i+1}} / {{data.length}}</mat-card-title>\n        <mat-card-subtitle>{{item.name}}</mat-card-subtitle>\n      </mat-card-header>\n      <mat-card-content>\n        Artist: {{item.artist}}<br>\n        Collective: {{item.collective}}<br>\n        Owner: {{item.owner}}<br>\n      </mat-card-content>\n      <mat-card-actions>\n        <button mat-mini-fab matTooltip=\"Remove from Claim\" (click)=\"removeClaim(i)\">\n          <mat-icon>delete</mat-icon>\n        </button>\n        <button mat-mini-fab matTooltip=\"Edit\" (click)=\"removeClaim(i)\">\n          <mat-icon>edit</mat-icon>\n        </button>\n      </mat-card-actions>\n    </mat-card>\n\n  </div>\n</section>\n  <div mat-dialog-actions>\n    <button mat-button mat-dialog-close=\"Edit Cancelled\">Cancel</button>\n    <button mat-button mat-raised-button (click)=\"nextClaimStep()\">Distribute</button>\n  </div>\n\n\n\n<section *ngIf=\"nextStep\" class=\"my-5\"  mat-dialog-content>\n\n  The folowing claims have been sent to your Claims Folder.\n\n  <div [@enterLeaveInOut-2]=\"data\" fxLayout=\"row wrap\" fxLayoutGap=\"20px\" fxLayoutAlign=\"start stretch\">\n    <mat-card *ngFor=\"let item of data.data; let i = index;\">\n      <mat-icon mat-list-icon>library_music</mat-icon>\n      <h6 mat-line>{{item.name}}</h6>\n      <p mat-line> {{item.artist}} </p>\n    </mat-card>\n  </div>\n\n</section>\n\n  <div mat-dialog-actions>\n    <button mat-button mat-dialog-close=\"Edit Cancelled\">Close</button>\n    <button mat-button mat-raised-button mat-dialog-close=\"next\" (click)=\"nextClaimStep3(data.section)\">View my Claims\n      Organiser</button>\n  </div>\n\n"
+
+/***/ }),
+
+/***/ "./src/app/music-releases/publish/publish.component.scss":
+/*!***************************************************************!*\
+  !*** ./src/app/music-releases/publish/publish.component.scss ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL211c2ljLXJlbGVhc2VzL3B1Ymxpc2gvcHVibGlzaC5jb21wb25lbnQuc2NzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/music-releases/publish/publish.component.ts":
+/*!*************************************************************!*\
+  !*** ./src/app/music-releases/publish/publish.component.ts ***!
+  \*************************************************************/
+/*! exports provided: PublishComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PublishComponent", function() { return PublishComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
+
+
+var PublishComponent = /** @class */ (function () {
+    function PublishComponent(data, router) {
+        this.data = data;
+        this.router = router;
+        this.nextStep = false;
+    }
+    PublishComponent.prototype.ngOnInit = function () {
+    };
+    PublishComponent.prototype.nextClaimStep = function () {
+        console.log(this.data);
+        this.nextStep = true;
+    };
+    PublishComponent.prototype.nextClaimStep3 = function (section) {
+        localStorage.setItem(section, JSON.stringify(this.data.data));
+        this.router.navigate(['/claims']);
+        // sidenav.open();
+    };
+    PublishComponent.prototype.removeClaim = function (i) {
+        this.data.splice(i, 1);
+    };
+    PublishComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-publish',
+            template: __webpack_require__(/*! ./publish.component.html */ "./src/app/music-releases/publish/publish.component.html"),
+            styles: [__webpack_require__(/*! ./publish.component.scss */ "./src/app/music-releases/publish/publish.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object, _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+    ], PublishComponent);
+    return PublishComponent;
 }());
 
 
@@ -795,7 +878,7 @@ var MusicReleasesModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n\n  <p>\n introduction about registering a new Release here</p>\n  \n    \n  \n    <mat-card>\n  \n        <form [formGroup]=\"formGroup\">\n      \n            <dynamic-material-form [group]=\"formGroup\"\n                                   [layout]=\"formLayout\"\n                                   [model]=\"formModel\"\n                                   (blur)=\"onBlur($event)\"\n                                   (change)=\"onChange($event)\"\n                                   (focus)=\"onFocus($event)\"\n                                   (matEvent)=\"onMatEvent($event)\" \n                                   fxLayout=\"row wrap\" fxLayoutAlign=\"start start\" fxLayoutGap=\"40px\"\n                                   ></dynamic-material-form>\n  \n        </form>  \n    </mat-card>\n  \n  \n    <div mat-dialog-actions class=\"align-right\">\n        <button mat-button  mat-dialog-close=\"Edit Cancelled\">Cancel</button>\n        <button mat-button [mat-dialog-close]=\"formGroup.value\" cdkFocusInitial [disabled]=\"formGroup.invalid\">Submit</button>\n      </div>\n  \n  <p>You’ll be given a reference when you submit your work details, followed by a unique tune code for each work.</p>\n  \n  </div>"
+module.exports = "<div>\n\n  <p>\n introduction about registering a new Release here</p>\n  \n    <mat-card>\n  \n        <form [formGroup]=\"formGroup\">\n      \n            <dynamic-material-form [group]=\"formGroup\"\n                                   [layout]=\"formLayout\"\n                                   [model]=\"formModel\"\n                                   (blur)=\"onBlur($event)\"\n                                   (change)=\"onChange($event)\"\n                                   (focus)=\"onFocus($event)\"\n                                   (matEvent)=\"onMatEvent($event)\" \n                                   fxLayout=\"row wrap\" fxLayoutAlign=\"start start\" fxLayoutGap=\"40px\"\n                                   ></dynamic-material-form>\n  \n        </form>  \n    </mat-card>\n  \n  \n    <div mat-dialog-actions class=\"align-right\">\n        <button mat-button  mat-dialog-close=\"Edit Cancelled\">Cancel</button>\n        <button  mat-raised-button [mat-dialog-close]=\"formGroup.value\" cdkFocusInitial [disabled]=\"formGroup.invalid\">Register</button>\n        <button  mat-raised-button [mat-dialog-close]=\"formGroup.value\" cdkFocusInitial [disabled]=\"formGroup.invalid\">Distribute</button>\n        <button  mat-raised-button [mat-dialog-close]=\"formGroup.value\" cdkFocusInitial [disabled]=\"formGroup.invalid\">Save Draught</button>\n      </div>\n  \n  <!-- <p>You’ll be given a reference when you submit your work details, followed by a unique tune code for each work.</p> -->\n  \n  </div>\n\n  "
 
 /***/ }),
 
@@ -863,6 +946,62 @@ var RegisterNewReleaseComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object, _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_2__["DynamicFormService"]])
     ], RegisterNewReleaseComponent);
     return RegisterNewReleaseComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/music-releases/register/register.component.html":
+/*!*****************************************************************!*\
+  !*** ./src/app/music-releases/register/register.component.html ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  register works!\n</p>\n"
+
+/***/ }),
+
+/***/ "./src/app/music-releases/register/register.component.scss":
+/*!*****************************************************************!*\
+  !*** ./src/app/music-releases/register/register.component.scss ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL211c2ljLXJlbGVhc2VzL3JlZ2lzdGVyL3JlZ2lzdGVyLmNvbXBvbmVudC5zY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/music-releases/register/register.component.ts":
+/*!***************************************************************!*\
+  !*** ./src/app/music-releases/register/register.component.ts ***!
+  \***************************************************************/
+/*! exports provided: RegisterComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RegisterComponent", function() { return RegisterComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var RegisterComponent = /** @class */ (function () {
+    function RegisterComponent() {
+    }
+    RegisterComponent.prototype.ngOnInit = function () {
+    };
+    RegisterComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-register',
+            template: __webpack_require__(/*! ./register.component.html */ "./src/app/music-releases/register/register.component.html"),
+            styles: [__webpack_require__(/*! ./register.component.scss */ "./src/app/music-releases/register/register.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], RegisterComponent);
+    return RegisterComponent;
 }());
 
 

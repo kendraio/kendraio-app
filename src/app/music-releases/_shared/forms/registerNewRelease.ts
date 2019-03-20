@@ -35,12 +35,6 @@ export const RELEASE_REGISTER_FORM_MODEL = [
         id: 'recordingTitle',
         maxLength: 25,
         placeholder: 'Recording Title',
-        validators: {
-            required: null
-        },
-        errorMessages: {
-            required: 'Field is required'
-        }
     }),
 
     new DynamicInputModel({
@@ -55,13 +49,6 @@ export const RELEASE_REGISTER_FORM_MODEL = [
         id: 'genere',
         placeholder: 'Genere',
         hint: 'if a classical or dramatic work',
-     
-        validators: {
-            required: null
-        },
-        errorMessages: {
-            required: 'Field is required'
-        }
     }),
 
     new DynamicInputModel ({

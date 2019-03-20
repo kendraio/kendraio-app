@@ -16,6 +16,8 @@ import {AgGridModule} from 'ag-grid-angular';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SharedModule } from '../_shared/shared.module';
 import { RegisterNewReleaseComponent } from './register-new-release/register-new-release.component';
+import { PublishComponent } from './publish/publish.component';
+import { RegisterComponent } from './register/register.component';
 // import { MatInputComponent } from '../_shared/components';
 //  import { MatInputComponent } from "./mat-input.component";
 
@@ -27,7 +29,7 @@ import { RegisterNewReleaseComponent } from './register-new-release/register-new
     IndexComponent, 
     MusicReleasesEditComponent, 
     MusicReleasesDetailComponent, 
-    RegisterNewReleaseComponent
+    RegisterNewReleaseComponent, PublishComponent, RegisterComponent
 
   ],
   imports: [
@@ -51,11 +53,14 @@ import { RegisterNewReleaseComponent } from './register-new-release/register-new
   // }),
   ],
   exports: [
-    SharedModule
+    SharedModule,
+    PublishComponent
   ],
   
   entryComponents: [   
-    RegisterNewReleaseComponent
+    RegisterNewReleaseComponent,
+    PublishComponent
+    
    ]
 })
 export class MusicReleasesModule { }

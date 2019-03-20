@@ -7,9 +7,11 @@ import {
   MatFormFieldModule,
   MatIconModule,
   MatInputModule, MatListModule, MatProgressBarModule, MatProgressSpinnerModule,
-  MatSelectModule, MatSidenavModule, MatSlideToggleModule, MatSnackBarModule, MatToolbarModule, MatDatepickerModule, MatExpansionModule, MatMenuModule,
+  MatSelectModule, MatSidenavModule, MatSlideToggleModule, 
+  MatSnackBarModule, MatToolbarModule, MatDatepickerModule, 
+  MatExpansionModule, MatMenuModule, MatStepperModule,
 } from '@angular/material';
-import { ScrollingModule } from "@angular/cdk/scrolling";
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 const MATERIAL = [
   MatButtonModule,
@@ -32,7 +34,8 @@ const MATERIAL = [
   MatSnackBarModule,
   MatProgressSpinnerModule,
   MatDatepickerModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatStepperModule,
 ];
 
 @NgModule({
