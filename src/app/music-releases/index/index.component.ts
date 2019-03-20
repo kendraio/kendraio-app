@@ -75,8 +75,8 @@ export class IndexComponent implements OnInit {
   }
 
   countryCellRenderer(params) {
-    const flag = "<img border='0' width='15' height='10' style='margin-bottom: 2px' src='https://www.ag-grid.com/images/flags/gb.png'>";
-    return flag + " " + params.value;
+    const flag = '<img border=\'0\' width=\'15\' height=\'10\' style=\'margin-bottom: 2px\' src=\'https://www.ag-grid.com/images/flags/gb.png\'>';
+    return flag + ' ' + params.value;
     // return this.thing;
   }
 
@@ -121,7 +121,26 @@ export class IndexComponent implements OnInit {
     });
   }
   addItemToGrid(result: any): any {
-this.newReleases.push(result)
+   const r = {'type': 'music-release',
+    'Title': result.recordingTitle,
+    'Artist': result.bandArtistName,
+    'Date': result.date,
+    'Owner': 'owner',
+    'Territory': 'Europe',
+    'Type': result.genere,
+    'Format': result.format,
+    'Catalogue Number': '',
+    'Barcode': '',
+    'Number of tracks': '1',
+    'Distribution': '',
+    'Collective': '',
+    'Submitted to': ''}
+
+    // this.allItems.push(r);
+
+    // this.gridOptions.api.updateRowData({add: [r]});
+    this.gridOptions.api.updateRowData({add: [r], addIndex: 0});
+   // printResult(res);
   }
 
   onSelectionChanged(ev) {
@@ -135,8 +154,7 @@ this.newReleases.push(result)
         return;
       }
       if (index !== 0) {
-        selectedRowsString += ', ';
-      
+        selectedRowsString += ', ';      
       }
       selectedRowsString += selectedRow.Title;
       theRow = selectedRow; 
