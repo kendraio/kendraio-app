@@ -1,0 +1,13 @@
+name: Project
+labelField: name
+fields:
+  - type: TEXT
+    id: name
+    label: Name
+    autoComplete: off
+    defaultValue: ''
+  - type: JSON
+    id: json_data
+    label: Legacy Data
+    autoComplete: off
+    defaultValue: ''
