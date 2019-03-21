@@ -9,7 +9,8 @@ import {
   MatInputModule, MatListModule, MatProgressBarModule, MatProgressSpinnerModule,
   MatSelectModule, MatSidenavModule, MatSlideToggleModule, 
   MatSnackBarModule, MatToolbarModule, MatDatepickerModule, 
-  MatExpansionModule, MatMenuModule, MatStepperModule,
+  MatExpansionModule, MatMenuModule, MatStepperModule, MatTableModule,
+  
 } from '@angular/material';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
@@ -26,6 +27,7 @@ const MATERIAL = [
   MatSidenavModule,
   MatMenuModule,
   MatCheckboxModule,
+  MatTableModule,
   MatToolbarModule,
   MatCardModule,
   MatChipsModule,

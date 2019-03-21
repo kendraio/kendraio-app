@@ -833,7 +833,7 @@ var MusicReleasesModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <pre> {{ data | json }}</pre>  -->\n\n\n<h1>Publish Distribute Your Release</h1>\nPlease be sure all info is correct before starting the distribution process.\n<div *ngIf=\"!nextStep\" >\n<section mat-dialog-content >\n  <div class=\"mt-4\" fxLayout=\"row wrap\" fxLayoutGap=\"20px\" fxLayoutAlign=\"start stretch\" mat-dialog-content >\n\n    <mat-card *ngFor=\"let item of data.data; let i = index;\">\n      <mat-card-header>\n\n        <mat-card-title>Release {{i+1}} / {{data.length}}</mat-card-title>\n        <mat-card-subtitle>{{item.name}}</mat-card-subtitle>\n      </mat-card-header>\n      <mat-card-content>\n        Artist: {{item.artist}}<br>\n        Collective: {{item.collective}}<br>\n        Owner: {{item.owner}}<br>\n      </mat-card-content>\n      <mat-card-actions>\n        <button mat-mini-fab matTooltip=\"Remove from Claim\" (click)=\"removeClaim(i)\">\n          <mat-icon>delete</mat-icon>\n        </button>\n        <button mat-mini-fab matTooltip=\"Edit\" (click)=\"removeClaim(i)\">\n          <mat-icon>edit</mat-icon>\n        </button>\n      </mat-card-actions>\n    </mat-card>\n\n  </div>\n</section>\n\n  <div mat-dialog-actions>\n    <button mat-button mat-dialog-close=\"Edit Cancelled\">Cancel</button>\n    <button mat-button mat-raised-button (click)=\"onNextStep()\">Distribute</button>\n  </div>\n</div>\n\n<div *ngIf=\"nextStep && enabled.length\"  fxLayout=\"row wrap\" fxLayoutGap=\"20px\" fxLayoutAlign=\"start end\" >\n\n<section class=\"my-5\"  mat-dialog-content  fxLayout=\"row wrap\" fxLayoutGap=\"20px\" fxLayoutAlign=\"start start\">\n<div>\n    You are about to post your Releases to the following platforms: \n    <mat-list>\n      <mat-list-item  *ngFor=\"let item of enabled; let i = index;\" ><b>{{item | uppercase}}</b></mat-list-item>\n    </mat-list>\n   To add more Platforms please enable more <a [routerLink]=\"[ '/adapters' ]\">Adapters</a> \n</div>\n\n\n  <div [@enterLeaveInOut-2]=\"data\" fxLayout=\"row wrap\" fxLayoutGap=\"20px\" fxLayoutAlign=\"start stretch\">\n    <mat-card *ngFor=\"let item of data.data; let i = index;\">\n      <mat-icon mat-list-icon>library_music</mat-icon>\n      <h6 mat-line>{{item.name}}</h6>\n      <p mat-line> {{item.artist}} </p>\n    </mat-card>\n  </div>\n</section>\n\n  <div mat-dialog-actions>\n    <button mat-button mat-dialog-close=\"Edit Cancelled\">Close</button>\n    <button mat-button mat-raised-button mat-dialog-close=\"next\" (click)=\"nextClaimStep3(data.section)\">Continue</button>\n  </div>\n\n</div>\n\n<div *ngIf=\"enabled.length === 0\">\n<h2>You need to enable your   <a mat-dialog-close=\"true\" [routerLink]=\"[ '/adapters' ]\">Adapters</a> before continuing </h2>\n\n</div>"
+module.exports = "<!-- <pre> {{ data | json }}</pre>  -->\n\n\n<h1>Publish/Distribute Your Release</h1>\nPlease be sure all info is correct before starting the distribution process.\n<div *ngIf=\"!nextStep\" mat-dialog-content >\n<section>\n  <div class=\"mt-4\" fxLayout=\"row wrap\" fxLayoutGap=\"20px\" fxLayoutAlign=\"start stretch\" mat-dialog-content >\n\n    <mat-card *ngFor=\"let item of data.data; let i = index;\">\n      <mat-card-header>\n\n        <mat-card-title>Release {{i+1}} / {{data.length}}</mat-card-title>\n        <mat-card-subtitle>{{item.name}}</mat-card-subtitle>\n      </mat-card-header>\n      <mat-card-content>\n        Artist: {{item.artist}}<br>\n        Collective: {{item.collective}}<br>\n        Owner: {{item.owner}}<br>\n      </mat-card-content>\n      <mat-card-actions>\n        <button mat-mini-fab matTooltip=\"Remove from Claim\" (click)=\"removeClaim(i)\">\n          <mat-icon>delete</mat-icon>\n        </button>\n        <button mat-mini-fab matTooltip=\"Edit\" (click)=\"removeClaim(i)\">\n          <mat-icon>edit</mat-icon>\n        </button>\n      </mat-card-actions>\n    </mat-card>\n\n  </div>\n</section>\n\n  <div mat-dialog-actions>\n    <button mat-button mat-dialog-close=\"Edit Cancelled\">Cancel</button>\n    <button mat-button mat-raised-button (click)=\"onNextStep()\">Distribute</button>\n  </div>\n</div>\n\n<div *ngIf=\"nextStep && enabled.length\"  fxLayout=\"row wrap\" fxLayoutGap=\"20px\" fxLayoutAlign=\"start end\" >\n\n<section class=\"my-5\"  mat-dialog-content  fxLayout=\"row wrap\" fxLayoutGap=\"20px\" fxLayoutAlign=\"start start\">\n<div>\n    You are about to post your Releases to the following platforms: \n    <mat-list>\n      <mat-list-item  *ngFor=\"let item of enabled; let i = index;\" ><b>{{item | uppercase}}</b></mat-list-item>\n    </mat-list>\n   To add more Platforms please enable more <a [routerLink]=\"[ '/adapters' ]\">Adapters</a> \n</div>\n\n\n  <div [@enterLeaveInOut-2]=\"data\" fxLayout=\"row wrap\" fxLayoutGap=\"20px\" fxLayoutAlign=\"start stretch\">\n    <mat-card *ngFor=\"let item of data.data; let i = index;\">\n      <mat-icon mat-list-icon>library_music</mat-icon>\n      <h6 mat-line>{{item.name}}</h6>\n      <p mat-line> {{item.artist}} </p>\n    </mat-card>\n  </div>\n</section>\n\n  <div mat-dialog-actions>\n    <button mat-button mat-dialog-close=\"Edit Cancelled\">Close</button>\n    <button mat-button mat-raised-button mat-dialog-close=\"next\" (click)=\"nextClaimStep3(data.section)\">Continue</button>\n  </div>\n\n</div>\n\n<div *ngIf=\"enabled.length === 0\">\n<h2>You need to enable your   <a mat-dialog-close=\"true\" [routerLink]=\"[ '/adapters' ]\">Adapters</a> before continuing </h2>\n\n</div>\n\n<div class=\"my-5\"  mat-dialog-content > \n\n \n<table class=\"table table-sm\"> \n  <tr *ngFor=\"let item of dataSource\">\n        <td matBadge=\"8\" style=\"width:80px\"> <mat-chip>{{item.step}}</mat-chip>  </td> \n        <td><b>{{item.name}}</b></td>\n        <td style=\"min-width:200px\">   <mat-progress-bar mode=\"determinate\" value=\"{{item.percentComplete}}\">\n            \n          </mat-progress-bar></td>\n        <td><i class=\"material-icons\" matTooltip=\"Awaiting response\">\n            {{item.icon}} \n            </i> </td>\n    </tr>\n  </table>\n   \n\n\n</div>"
 
 /***/ }),
 
@@ -844,7 +844,7 @@ module.exports = "<!-- <pre> {{ data | json }}</pre>  -->\n\n\n<h1>Publish Distr
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL211c2ljLXJlbGVhc2VzL3B1Ymxpc2gvcHVibGlzaC5jb21wb25lbnQuc2NzcyJ9 */"
+module.exports = ".mat-chip.mat-standard-chip {\n  background-color: #e0e0e0;\n  color: rgba(0, 0, 0, 0.87);\n  border-radius: 16px;\n  padding: 2px;\n  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);\n  display: inline-flex;\n  padding: 7px 12px;\n  border-radius: 16px;\n  align-items: center;\n  cursor: default;\n  min-height: 32px;\n  height: 1px; }\n\n.mat-cell {\n  padding: 6px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbXVzaWMtcmVsZWFzZXMvcHVibGlzaC9DOlxcVXNlcnNcXFRpbVxca2VuZHJhaW8tYXBwL3NyY1xcYXBwXFxtdXNpYy1yZWxlYXNlc1xccHVibGlzaFxccHVibGlzaC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLDBCQUF5QjtFQUN6QiwyQkFBMEI7RUFDMUIsb0JBQW1CO0VBQ25CLGFBQVk7RUFDWiwwREFBb0Q7RUFDcEQscUJBQW9CO0VBQ3BCLGtCQUFpQjtFQUNqQixvQkFBbUI7RUFDbkIsb0JBQW1CO0VBQ25CLGdCQUFlO0VBQ2YsaUJBQWdCO0VBQ2hCLFlBQVcsRUFDZDs7QUFDRDtFQUNBLGFBQVksRUFDWCIsImZpbGUiOiJzcmMvYXBwL211c2ljLXJlbGVhc2VzL3B1Ymxpc2gvcHVibGlzaC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5tYXQtY2hpcC5tYXQtc3RhbmRhcmQtY2hpcCB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZTBlMGUwO1xyXG4gICAgY29sb3I6IHJnYmEoMCwgMCwgMCwgMC44Nyk7XHJcbiAgICBib3JkZXItcmFkaXVzOiAxNnB4O1xyXG4gICAgcGFkZGluZzogMnB4O1xyXG4gICAgdHJhbnNpdGlvbjogYm94LXNoYWRvdyAyODBtcyBjdWJpYy1iZXppZXIoLjQsMCwuMiwxKTtcclxuICAgIGRpc3BsYXk6IGlubGluZS1mbGV4O1xyXG4gICAgcGFkZGluZzogN3B4IDEycHg7XHJcbiAgICBib3JkZXItcmFkaXVzOiAxNnB4O1xyXG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICAgIGN1cnNvcjogZGVmYXVsdDtcclxuICAgIG1pbi1oZWlnaHQ6IDMycHg7XHJcbiAgICBoZWlnaHQ6IDFweDtcclxufVxyXG4ubWF0LWNlbGwge1xyXG5wYWRkaW5nOiA2cHg7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -870,14 +870,28 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+var PROGRESS_DATA = [
+    { step: 1, name: 'Releases Selected', percentComplete: 100, icon: 'done' },
+    { step: 2, name: 'Data confirmed', percentComplete: 100, icon: 'done' },
+];
 var PublishComponent = /** @class */ (function () {
     function PublishComponent(data, router, adapters) {
         this.data = data;
         this.router = router;
         this.adapters = adapters;
         this.nextStep = false;
+        this.displayedColumns = ['step', 'name', 'percentComplete', 'icon'];
+        this.dataSource = [];
+        this.nextDataSource = [];
     }
     PublishComponent.prototype.ngOnInit = function () {
+        PROGRESS_DATA = [
+            { step: 1, name: 'Releases Selected', percentComplete: 100, icon: 'done' },
+            { step: 2, name: 'Data confirmed', percentComplete: 100, icon: 'done' },
+        ];
+        this.dataSource = [];
+        this.nextDataSource = [];
+        this.dataSource = PROGRESS_DATA;
     };
     Object.defineProperty(PublishComponent.prototype, "enabled", {
         // Object.keys(adapters);
@@ -886,8 +900,20 @@ var PublishComponent = /** @class */ (function () {
         configurable: true
     });
     PublishComponent.prototype.onNextStep = function () {
-        console.log(this.data);
+        var _this = this;
+        this.nextDataSource = [];
+        this.nextDataSource = PROGRESS_DATA;
+        this.enabled.forEach(function (input) {
+            _this.nextDataSource.push({
+                step: _this.nextDataSource.length + 1,
+                name: 'Sent to: ' + input,
+                percentComplete: _this.nextDataSource.length * 3,
+                icon: 'schedule'
+            });
+        });
         this.nextStep = true;
+        this.dataSource = [];
+        this.dataSource = this.nextDataSource;
     };
     PublishComponent.prototype.nextClaimStep3 = function (section) {
         //  localStorage.setItem(section, JSON.stringify(this.data.data));

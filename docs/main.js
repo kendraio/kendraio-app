@@ -3391,6 +3391,7 @@ var MATERIAL = [
     _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSidenavModule"],
     _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatMenuModule"],
     _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatCheckboxModule"],
+    _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatTableModule"],
     _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatToolbarModule"],
     _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatCardModule"],
     _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatChipsModule"],

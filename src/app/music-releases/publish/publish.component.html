@@ -1,10 +1,10 @@
 <!-- <pre> {{ data | json }}</pre>  -->
 
 
-<h1>Publish Distribute Your Release</h1>
+<h1>Publish/Distribute Your Release</h1>
 Please be sure all info is correct before starting the distribution process.
-<div *ngIf="!nextStep" >
-<section mat-dialog-content >
+<div *ngIf="!nextStep" mat-dialog-content >
+<section>
   <div class="mt-4" fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="start stretch" mat-dialog-content >
 
     <mat-card *ngFor="let item of data.data; let i = index;">
@@ -67,5 +67,25 @@ Please be sure all info is correct before starting the distribution process.
 
 <div *ngIf="enabled.length === 0">
 <h2>You need to enable your   <a mat-dialog-close="true" [routerLink]="[ '/adapters' ]">Adapters</a> before continuing </h2>
+
+</div>
+
+<div class="my-5"  mat-dialog-content > 
+
+ 
+<table class="table table-sm"> 
+  <tr *ngFor="let item of dataSource">
+        <td matBadge="8" style="width:80px"> <mat-chip>{{item.step}}</mat-chip>  </td> 
+        <td><b>{{item.name}}</b></td>
+        <td style="min-width:200px">   <mat-progress-bar mode="determinate" value="{{item.percentComplete}}">
+            
+          </mat-progress-bar></td>
+        <td><i class="material-icons" matTooltip="Awaiting response">
+            {{item.icon}} 
+            </i> </td>
+    </tr>
+  </table>
+   
+
 
 </div>
