@@ -106,7 +106,7 @@ export class IndexComponent implements OnInit {
 
     this.testData.listAll('file').pipe(
       tap(() => this.showSpinner = true),
-      delay(500)
+      // delay(500)
     )
       .subscribe(res => {
         this.allItems = res;

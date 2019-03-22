@@ -1,51 +1,60 @@
 <!-- <pre> {{ data | json }}</pre>  -->
 
 
-<h1>Claim Sheet</h1>
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat consectetur incidunt facere esse vero minus, voluptates voluptatem autem at ratione non! Alias hic temporibus rerum nisi odit quisquam dolorum fugiat!
+<h1>Claim Sheet 1</h1>
+Please be sure all info is correct before posting to your Claims Folder.
 
-<section *ngIf="!nextStep">
-<div class="mt-4" fxLayout="row wrap" fxLayoutGap="20px"   fxLayoutAlign="start stretch">
+<section *ngIf="!nextStep" mat-dialog-content >
+  <div class="mt-4" fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="start stretch" mat-dialog-content >
 
-<mat-card *ngFor="let item of data; let i = index;"  >
-    <mat-card-header>
-      
+    <mat-card *ngFor="let item of data.data; let i = index;">
+      <mat-card-header>
+
         <mat-card-title>Claim {{i+1}} / {{data.length}}</mat-card-title>
         <mat-card-subtitle>{{item.name}}</mat-card-subtitle>
       </mat-card-header>
-
-    <mat-card-content>
-
- Artist: {{item.artist}}<br>
- Collective: {{item.collective}}<br>
- Owner: {{item.owner}}<br>
-</mat-card-content>
-
+      <mat-card-content>
+        Artist: {{item.artist}}<br>
+        Collective: {{item.collective}}<br>
+        Owner: {{item.owner}}<br>
+      </mat-card-content>
       <mat-card-actions>
-        <button mat-mini-fab matTooltip="Remove from Claim" (click)="removeClaim(i)"><mat-icon>delete</mat-icon></button> 
-        <button mat-mini-fab matTooltip="Edit" (click)="removeClaim(i)"><mat-icon>edit</mat-icon></button>
+        <button mat-mini-fab matTooltip="Remove from Claim" (click)="removeClaim(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-mini-fab matTooltip="Edit" (click)="removeClaim(i)">
+          <mat-icon>edit</mat-icon>
+        </button>
       </mat-card-actions>
+    </mat-card>
 
-</mat-card>
-
-</div>
-
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close="Edit Cancelled">Cancel</button>
-  <button mat-button mat-raised-button (click)="nextClaimStep()">Send to my Claims Organiser</button>
-</div>
-
+  </div>
 </section>
-
-<section *ngIf="nextStep" class="mt-4" fxLayout="row wrap" fxLayoutGap="20px"   fxLayoutAlign="start stretch">
-
-The folowing claims have been sent to your Claims Folder.
-
-{{data | json}}
-
-<div mat-dialog-actions>
-    <button mat-button mat-dialog-close="Edit Cancelled">Close</button>
-    <button mat-button mat-raised-button mat-dialog-close="next" (click)="nextClaimStep3()">View my Claims Organiser</button>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close="Edit Cancelled">Cancel</button>
+    <button mat-button mat-raised-button (click)="nextClaimStep()">Send to my Claims Organiser</button>
   </div>
 
-  </section>  
+
+
+<section *ngIf="nextStep" class="mt-4"  mat-dialog-content>
+
+  The folowing claims have been sent to your Claims Folder.
+
+  <div [@enterLeaveInOut-2]="data" fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="start stretch">
+    <mat-card *ngFor="let item of data.data; let i = index;">
+      <mat-icon mat-list-icon>library_music</mat-icon>
+      <h6 mat-line>{{item.name}}</h6>
+      <p mat-line> {{item.artist}} </p>
+    </mat-card>
+  </div>
+
+
+
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close="Edit Cancelled">Close</button>
+    <button mat-button mat-raised-button mat-dialog-close="next" (click)="nextClaimStep3(data.section)">View my Claims
+      Organiser</button>
+  </div>
+
+</section>

@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 // import { AppMaterialModule } from '../app-material/app-material.module';
 
 import { ClaimsRoutingModule } from './claims-routing.module';
-import { IndexComponent } from './index/index.component';
+import { IndexComponent } from './index/claims.component';
 // import { SendClaimsComponent } from './send-claims/send-claims.component';
 // import { MatButtonModule,  MatButton } from '@angular/material';
 // import {MatDialogModule} from '@angular/material';
@@ -16,11 +16,15 @@ import { AppMaterialModule } from '../app-material/app-material.module';
 
 import {AgGridModule} from 'ag-grid-angular';
 import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
+import { ClaimsEditSendComponent } from './claims-edit-send/claims-edit-send.component';
+import { EditSendFormComponent } from './_shared/forms/edit-send-form/edit-send-form.component';
 
 
 @NgModule({
   declarations: [
-    IndexComponent
+    IndexComponent,
+    ClaimsEditSendComponent,
+    EditSendFormComponent
     //ClaimsEditComponent, 
     // SendClaimsComponent
   ],
@@ -39,7 +43,7 @@ import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
   AppMaterialModule,
   ],
   entryComponents: [   
-  //  SendClaimsComponent
+    ClaimsEditSendComponent
   ]
 })
 export class ClaimsModule { }

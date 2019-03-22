@@ -7,13 +7,48 @@ import {
     DynamicRadioGroupModel,
     DynamicSelectModel,
     DynamicSwitchModel,
-    DynamicTextAreaModel
+    DynamicTextAreaModel,
+    DynamicFormControlModel,
+    DynamicFormValueControlModel
 } from '@ng-dynamic-forms/core';
 import { BehaviorSubject } from 'rxjs';
 
 
 
 export const MY_CLAIMS_FORM_MODEL = [
+
+    // new DynamicFormGroupModel({
+    //     id: 'claim',
+    //     legend: 'Form Group Level 1',
+    //     group: [
+
+
+    //     new DynamicInputModel  ({
+    //         id: 'details', 
+    //         hidden: true
+           
+  
+    //     })
+
+//     // ]Claiming authorship for a work
+// A Claim based on a disagreement over the Authorship of that Work.
+// Claiming author share for a work.
+// A Claim where there is agreement between the Claimants about the Authorship of the Musical Work but disagreement about the Share attributable to each Author. Link?
+// Claiming ownership for a work
+
+      
+    // }),
+
+new DynamicRadioGroupModel({
+    id: 'claimType',
+    label: 'Type of Claim',
+    options: [
+        { value: 'authorship', label: 'Authorship for a work' }, 
+    { value: 'authorshare', label: 'Author share for a work' },
+    { value: 'ownership', label: 'Ownership for a work' }
+    ]
+    
+}),
 
 
     new DynamicTextAreaModel({
@@ -44,8 +79,8 @@ export const MY_CLAIMS_FORM_MODEL = [
     new DynamicSwitchModel({
 
         id: 'reminder',
-        offLabel: 'Send me a reminder',
-        onLabel: 'Send me a reminder',
+        offLabel: 'Send me a receipt',
+        onLabel: 'Send me a receipt',
         value: false
 
     }),

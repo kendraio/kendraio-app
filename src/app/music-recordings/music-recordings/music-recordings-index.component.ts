@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, HostBinding } from '@angular/core';
 import { switchMap, tap, delay } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { IMusicRecording } from 'src/app/_models/classes/musicRecording';
@@ -10,11 +10,10 @@ import { PageTitleService } from 'src/app/services/page-title.service';
 import { MusicRecordingsEditComponent } from '../music-recordings-edit/music-recordings-edit.component';
 import { TestDataService } from '../../services/test-data.service';
 import { SendClaimsComponent } from 'src/app/claims/send-claims/send-claims.component';
-// import { ButtonRendererComponent } from '../button-renderer.component';
-// import {TestSendClaimsComponent} from '..'
+import { MatInputComponent, MatButtonComponent } from 'src/app/_shared/components';
 
-
-
+import { Animations } from '../../_shared/animations';
+import { RegisterRecordingComponent } from '../register-new-recording/register-recording.component';
 
 @Component({
   selector: 'app-index',
@@ -22,8 +21,12 @@ import { SendClaimsComponent } from 'src/app/claims/send-claims/send-claims.comp
   styles: [` 
   dynamic-material-form[fxLayoutAlign] { padding:10px; padding-left: 25px;}
   `],
+  animations: [Animations.pageAni]
 })
+
 export class IndexComponent implements OnInit {
+  // @HostBinding('@fadeAnimation')
+  // fadeAnimation;
   gridOptions: GridOptions;
   entityTypes$;
   selectedType;
@@ -35,19 +38,37 @@ export class IndexComponent implements OnInit {
   private gridApi;
   private gridColumnApi;
   claimsToSend: Array<any>;
+  newRecordings: any[] = [];
 
 
   constructor(
     private readonly testData: TestDataService,
     public dialog: MatDialog,
     private readonly pageTitle: PageTitleService,
+    // private animationService: AnimationService,
     // buttonRenderer: ButtonRendererComponent,
 
   ) {
+    this.gridOptions = <GridOptions>{
+      onGridReady: () => {
+       //   this.gridOptions.api.sizeColumnsToFit();
+      },
+      rowHeight: 48,
+      frameworkComponents: {
+          inputRenderer: MatInputComponent,
+          thing: MatButtonComponent
+      }
+  };
     this.listAll();
   }
 
   ngOnInit() {
+    // this.fadeAnimation = this.animationService.animationDirection();
+    // this.animationServiceEventsSubscription = this.animationService.emitCurrentDirection.subscribe((direction: any) => {
+    //   this.fadeAnimation = direction;
+    // });
+
+
     this.claimsToSend = [];
     this.pageTitle.setTitle('Recordings');
     this.entityTypes$ = this.testData.listEntityTypes();
@@ -110,6 +131,20 @@ export class IndexComponent implements OnInit {
     });
   }
 
+  openAddNewDialog(ev?: any): void {
+    let dialogRef = this.dialog.open(RegisterRecordingComponent, {
+      data: 'ev',
+      width: '80%',
+      panelClass: 'formFieldWidth380'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    this.addItemToGrid(result);
+    });
+  }
+  addItemToGrid(result: any): any {
+this.newRecordings.push(result)
+  }
+
   onSelectionChanged(ev) {
     this.gridApi = ev.api;
 
@@ -128,7 +163,7 @@ export class IndexComponent implements OnInit {
       theRow = selectedRow; 
     });
     this.claimsToSend = [];
-    selectedRows.forEach(i=>{ 
+    selectedRows.forEach(i => { 
      
       this.claimsToSend.push(
       {
@@ -149,8 +184,9 @@ export class IndexComponent implements OnInit {
   }
 
 sendToClaim(ev: any): void {
+  const data = {section: 'recordings', data: this.claimsToSend };
   const dialogRef = this.dialog.open(SendClaimsComponent, {
-    data: this.claimsToSend,
+    data: data,
     width: '80%',
     panelClass: 'formFieldWidth380'
   });
@@ -164,7 +200,7 @@ sendToClaim(ev: any): void {
   listAll() {
     this.testData.listAll('music-recording').pipe(
       tap(() => this.showSpinner = true),
-      delay(500) // fake loading
+      // delay(500) // fake loading
     )
       .subscribe(res => {
         this.allItems = res;

@@ -1,0 +1,37 @@
+
+
+
+
+<mat-grid-list cols="4" rowHeight="2:1">
+    <mat-grid-tile [routerLink]="['people']" ><h2>People</h2>
+      <mat-grid-tile-footer>  We found 35 People
+          <button mat-icon-button>
+              <mat-icon>forward</mat-icon>
+            </button> 
+      </mat-grid-tile-footer>
+    </mat-grid-tile>
+    <mat-grid-tile [routerLink]="['organisations']"><h2>Organisations</h2>
+      <mat-grid-tile-footer>  We found 27 Organisations
+          <button mat-icon-button>
+              <mat-icon>forward</mat-icon>
+            </button> 
+      </mat-grid-tile-footer>
+    </mat-grid-tile>
+  
+
+  </mat-grid-list>
+
+
+
+
+<!-- <mat-toolbar>
+  <span>
+    <button [routerLink]="['people']" mat-raised-button>People</button>
+  </span>
+  <span>
+    <button mat-raised-button [routerLink]="['organisations']">Organisations</button>
+  </span>
+</mat-toolbar> -->
+
+
+<router-outlet></router-outlet>

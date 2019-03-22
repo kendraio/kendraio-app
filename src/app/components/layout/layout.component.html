@@ -1,6 +1,6 @@
 <mat-sidenav-container  class="app-container">
 
-  <mat-sidenav #sidenav mode="side" (keydown.escape)="sidenav.close()">
+  <mat-sidenav #sidenav mode="side" opened (keydown.escape)="sidenav.close()">
     <mat-nav-list>
 
         <mat-list-item (click)="gotoPage('/assets', sidenav)"  >
@@ -27,7 +27,7 @@
   <mat-sidenav-content>
 
     <mat-toolbar>
-      <button mat-icon-button (click)="sidenav.open()">
+      <button mat-icon-button (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
 

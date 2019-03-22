@@ -1,7 +1,5 @@
 name: MusicRecording
 labelField: Name
-forms:
-  edit: assets/forms/musicRecordingEditForm.yaml
 fields:
   - type: TEXT
     id: Name

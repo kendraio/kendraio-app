@@ -60,18 +60,26 @@ import {
 } from '@ng-dynamic-forms/core';
 import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
 import { DiagramPageComponent } from './pages/diagram-page/diagram-page.component';
-import { DynamicAudioInputControlComponent } from './form-controls/dynamic-audio-input-control/dynamic-audio-input-control.component';
+import { DynamicAudioInputControlComponent } from
+    './form-controls/dynamic-audio-input-control/dynamic-audio-input-control.component';
 import {AUDIO_FILE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/audio-form-model';
 import {CustomFormService} from './form-controls/custom-form-service';
 import { DynamicImageInputControlComponent } from './form-controls/dynamic-image-input-control/dynamic-image-input-control.component';
 import {IMAGE_FILE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/image-form-model';
 import { ReferenceInputControlComponent } from './form-controls/reference-input-control/reference-input-control.component';
-import { DynamicReferenceInputControlComponent } from './form-controls/dynamic-reference-input-control/dynamic-reference-input-control.component';
+import { DynamicReferenceInputControlComponent } from
+    './form-controls/dynamic-reference-input-control/dynamic-reference-input-control.component';
 import {REFERENCE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/reference-form-model';
+
+// import { ContactsComponent } from './pages';
+import { ContactsModule } from './contacts/contacts.module';
+import { BloomenTestPageComponent } from './pages/bloomen-test-page/bloomen-test-page.component';
 
 // import { AgGridModule } from 'ag-grid-angular';
 // import { MatInputComponent } from './_shared/components';
 // import {DialogDataExampleDialog} from './music-recordings';
+
+
 
 @NgModule({
   declarations: [
@@ -114,6 +122,8 @@ import {REFERENCE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/reference-for
     DynamicImageInputControlComponent,
     ReferenceInputControlComponent,
     DynamicReferenceInputControlComponent,
+    BloomenTestPageComponent,
+    //ContactsComponent
     // MatInputComponent
     // DialogDataExampleDialog
     // MusicRecordingsEditComponent
@@ -135,7 +145,8 @@ import {REFERENCE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/reference-for
     FormsModule,
     NgxTaggerModule,
     DynamicFormsCoreModule,
-    DynamicFormsMaterialUIModule
+    DynamicFormsMaterialUIModule,
+    ContactsModule
   ],
   entryComponents: [
     AddDocDialogComponent,

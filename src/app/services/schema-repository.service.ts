@@ -18,9 +18,10 @@ export class SchemaRepositoryService {
 
   init() {
     const enabledSchemas = [
-      'Person', 'Photo', 'Project', 'Audio', 'Clip',
+      // 'Person',
+      'Photo', 'Project', 'Audio', 'Clip',
       'file', 'music-recording', 'music-release', 'music-work', 'payment',
-      'claim', 'video'
+      'claim', 'video', 'person', 'BloomenPhoto'
     ];
     return forkJoin(enabledSchemas.map(schemaName => this.http
       .get(`/assets/schemas/${ schemaName }.yaml`, {responseType: 'text'})

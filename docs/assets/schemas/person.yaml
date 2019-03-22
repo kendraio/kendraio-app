@@ -1,0 +1,33 @@
+name: Person
+labelField: FullName
+fields:
+  - type: TEXT
+    id: FullName
+    label: Name
+    autoComplete: off
+    defaultValue: ''
+  - type: TEXT
+    id: ISNI
+    label: ISNI
+    autoComplete: off
+    defaultValue: ''
+  - type: TEXT
+    id: 'CAE/IPI'
+    label: 'CAE/IPI'
+    autoComplete: off
+    defaultValue: ''
+  - type: TEXT
+    id: PhoneNumber
+    label: PhoneNumber
+    autoComplete: off
+    defaultValue: ''
+  - type: TEXT
+    id: Email
+    label: Email
+    autoComplete: off
+    defaultValue: ''
+  - type: JSON
+    id: json_data
+    label: Legacy Data
+    autoComplete: off
+    defaultValue: ''

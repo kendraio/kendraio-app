@@ -1,0 +1,58 @@
+
+<section
+fxLayout="row wrap"
+fxLayoutAlign="start start" 
+fxLayoutGap="20px"
+>
+
+<mat-card>
+
+  <mat-card-header>
+  <b>Claim Details</b>
+  </mat-card-header>
+  <mat-card-content>
+
+
+    <mat-list>
+        <mat-list-item>Name:   {{data.name}} </mat-list-item>
+        <mat-list-item>Artist:   {{data.artist}} </mat-list-item>
+        <mat-list-item>Collective:  {{data.collective}} </mat-list-item>
+        <mat-list-item>Collective:  {{data.owner}} </mat-list-item>
+       </mat-list>
+
+  </mat-card-content>
+
+
+</mat-card>
+
+
+    <mat-card>
+        <mat-card-header>
+            <b>Extra Information</b>
+            <button mat-button ><mat-icon>file_copy</mat-icon> copy from previous</button>
+          </mat-card-header>
+  
+      <form [formGroup]="formGroup">
+
+
+        <dynamic-material-form 
+                      [group]="formGroup" [layout]="formLayout" [model]="formModel" (blur)="onBlur($event)"
+                      (change)="onChange($event)" (focus)="onFocus($event)" (matEvent)="onMatEvent($event)"                  
+                           ></dynamic-material-form>
+  
+      </form>
+    </mat-card>
+  
+    <div mat-dialog-actions class="align-right">
+      <button mat-button mat-dialog-close="Edit Cancelled">Cancel</button>
+      <button mat-raised-button mat-button [mat-dialog-close]="true"  [disabled]="formGroup.invalid">Send</button>
+    </div>
+     <!-- formdata = <pre>{{ data | json }}</pre> -->
+     <!-- formGroup = {{formGroup.value | json}} -->
+  
+  </section>
+
+
+  
+
+

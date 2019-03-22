@@ -19,14 +19,14 @@ export class LayoutComponent implements OnInit {
       icon: 'dashboard'
     },
     {
-      href: '/assets',
-      title: 'Assets',
-      icon: 'favorite'
+      href: '/claims',
+      title: 'Claims',
+      icon: 'attach_money'
     },
     {
-      href: '/claims',
-      title: 'Claims Book',
-      icon: 'attach_money'
+      href: '/contacts',
+      title: 'Contacts',
+      icon: 'contacts'
     },
     {
       href: '/import',
@@ -66,7 +66,7 @@ export class LayoutComponent implements OnInit {
   ];
 
   pageTitle$: Observable<string>;
-//   sidenav: MatSidenav;
+  sidenav: MatSidenav;
 
   constructor(
     private readonly router: Router,
@@ -76,7 +76,7 @@ export class LayoutComponent implements OnInit {
 
   ngOnInit() {
     this.pageTitle$ = this.title.pageTitle$;
-  // sidenav.open();
+  //  this.sidenav.open();
   }
 
   gotoPage(href: string, sidenav: MatSidenav) {

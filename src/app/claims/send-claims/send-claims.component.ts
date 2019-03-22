@@ -1,11 +1,13 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MatButton , MatDialog, MatDialogClose } from '@angular/material';
 import { Router } from '@angular/router';
+import { Animations } from 'src/app/_shared/animations';
 
 @Component({
   selector: 'app-send-claims',
   templateUrl: './send-claims.component.html',
-  styleUrls: ['./send-claims.component.scss']
+  styleUrls: ['./send-claims.component.scss'],
+  animations: [Animations.pageAni]
 })
 export class SendClaimsComponent implements OnInit {
   nextStep = false;
@@ -24,9 +26,9 @@ export class SendClaimsComponent implements OnInit {
     this.nextStep = true;
   }
 
-  nextClaimStep3() {
+  nextClaimStep3(section: string) {
 
-    localStorage.setItem('myClaims', JSON.stringify(this.data));
+    localStorage.setItem(section, JSON.stringify(this.data.data));
 
       this.router.navigate(['/claims']);
     // sidenav.open();

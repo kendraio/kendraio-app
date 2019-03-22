@@ -1,7 +1,5 @@
 name: Photo
 labelField: name
-forms:
-  edit: assets/forms/photoEditForm.yaml
 attachments: ['image']
 fields:
   - type: TEXT
@@ -14,10 +12,6 @@ fields:
     label: Location
     autoComplete: off
     defaultValue: ''
-  - type: REFERENCE
-    id: author
-    label: Author
-    list: person
   - type: IMAGE
     id: image
     label: File
