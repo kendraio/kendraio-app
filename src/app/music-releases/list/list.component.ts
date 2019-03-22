@@ -99,7 +99,7 @@ export class ListComponent implements OnInit {
   }
 
   openDialog(ev: any): void {
-    let dialogRef = this.dialog.open(MusicReleasesEditComponent, {
+    const dialogRef = this.dialog.open(MusicReleasesEditComponent, {
       data: ev,
       width: '80%',
       panelClass: 'formFieldWidth380'
@@ -109,7 +109,7 @@ export class ListComponent implements OnInit {
     });
   }
   openAddNewDialog(ev?: any): void {
-    let dialogRef = this.dialog.open(RegisterNewReleaseComponent, {
+    const dialogRef = this.dialog.open(RegisterNewReleaseComponent, {
       data: 'ev',
       width: '80%',
       panelClass: 'formFieldWidth380'
@@ -132,7 +132,7 @@ export class ListComponent implements OnInit {
     'Number of tracks': '1',
     'Distribution': '',
     'Collective': '',
-    'Submitted to': ''}
+    'Submitted to': ''};
 
     // this.allItems.push(r);
 
@@ -158,7 +158,7 @@ export class ListComponent implements OnInit {
       theRow = selectedRow; 
     });
     this.claimsToSend = [];
-    selectedRows.forEach(i=>{ 
+    selectedRows.forEach(i => { 
      
       this.claimsToSend.push(
       {
