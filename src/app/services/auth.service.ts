@@ -38,7 +38,7 @@ export class AuthService {
 
   public handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {
-      console.log({ authResult });
+      // console.log({ authResult });
       if (authResult && authResult.accessToken && authResult.idToken) {
         window.location.hash = '';
 

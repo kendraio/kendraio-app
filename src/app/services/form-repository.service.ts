@@ -24,9 +24,9 @@ export class FormRepositoryService {
     }
     return this.http.get(schema.forms[formName], {responseType: 'text'}).pipe(
       map(text => YamlLoad(text)),
-      tap(text => console.log({ text })),
+      // tap(text => console.log({ text })),
       map(config => this.formService.fromJSON(config)),
-      tap(form => console.log({ form })),
+      // tap(form => console.log({ form })),
       catchError(err => {
         console.log('error generating form: ', err.message);
         return from([]);
