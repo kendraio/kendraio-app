@@ -1,5 +1,7 @@
 name: Photo
 labelField: description
+forms:
+  edit: assets/forms/bloomenPhotoEditForm.yaml
 fields:
   - type: TEXT
     id: description

@@ -1,0 +1,13 @@
+<!--<ng-container [formGroup]="group">-->
+  <!--<app-remote-image-control [formControlName]="model.id"-->
+                               <!--[placeholder]="model.placeholder"-->
+                               <!--[ngClass]="[getClass('element', 'control'), getClass('grid', 'control')]"-->
+                               <!--(blur)="onBlur($event)"-->
+                               <!--(change)="onChange($event)"-->
+                               <!--(focus)="onFocus($event)"></app-remote-image-control>-->
+<!--</ng-container>-->
+<dynamic-material-input [group]="group"
+                        [layout]="layout"
+                        [model]="model"></dynamic-material-input>
+
+<img [attr.src]="group.get('url').value" class="bloomen-preview">

@@ -74,6 +74,9 @@ import {REFERENCE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/reference-for
 // import { ContactsComponent } from './pages';
 import { ContactsModule } from './contacts/contacts.module';
 import { BloomenTestPageComponent } from './pages/bloomen-test-page/bloomen-test-page.component';
+import { RemoteImageControlComponent } from './form-controls/remote-image-control/remote-image-control.component';
+import { DynamicRemoteImageControlComponent } from './form-controls/dynamic-remote-image-control/dynamic-remote-image-control.component';
+import {REMOTE_IMAGE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/remote-image-model';
 
 // import { AgGridModule } from 'ag-grid-angular';
 // import { MatInputComponent } from './_shared/components';
@@ -123,7 +126,9 @@ import { BloomenTestPageComponent } from './pages/bloomen-test-page/bloomen-test
     ReferenceInputControlComponent,
     DynamicReferenceInputControlComponent,
     BloomenTestPageComponent,
-    //ContactsComponent
+    RemoteImageControlComponent,
+    DynamicRemoteImageControlComponent,
+    // ContactsComponent
     // MatInputComponent
     // DialogDataExampleDialog
     // MusicRecordingsEditComponent
@@ -159,7 +164,8 @@ import { BloomenTestPageComponent } from './pages/bloomen-test-page/bloomen-test
     TestImportDialogComponent,
     DynamicAudioInputControlComponent,
     DynamicImageInputControlComponent,
-    DynamicReferenceInputControlComponent
+    DynamicReferenceInputControlComponent,
+    DynamicRemoteImageControlComponent
   ],
   providers: [
     {
@@ -184,6 +190,8 @@ import { BloomenTestPageComponent } from './pages/bloomen-test-page/bloomen-test
             return DynamicImageInputControlComponent;
           case REFERENCE_DYNAMIC_FORM_CONTROL_TYPE:
             return DynamicReferenceInputControlComponent;
+          case REMOTE_IMAGE_DYNAMIC_FORM_CONTROL_TYPE:
+            return DynamicRemoteImageControlComponent;
         }
       }
     },

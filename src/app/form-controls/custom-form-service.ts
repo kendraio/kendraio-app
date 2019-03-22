@@ -41,6 +41,7 @@ import {REFERENCE_DYNAMIC_FORM_CONTROL_TYPE, ReferenceFormModel} from './referen
 import {BehaviorSubject} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {ReferenceFieldService} from '../services/reference-field.service';
+import {REMOTE_IMAGE_DYNAMIC_FORM_CONTROL_TYPE, RemoteImageModel} from './remote-image-model';
 
 @Injectable()
 export class CustomFormService extends DynamicFormService {
@@ -157,6 +158,10 @@ export class CustomFormService extends DynamicFormService {
 
         case IMAGE_FILE_DYNAMIC_FORM_CONTROL_TYPE:
           formModel.push(new ImageFormModel(model, layout));
+          break;
+
+        case REMOTE_IMAGE_DYNAMIC_FORM_CONTROL_TYPE:
+          formModel.push(new RemoteImageModel(model, layout));
           break;
 
         case REFERENCE_DYNAMIC_FORM_CONTROL_TYPE:
