@@ -1,0 +1,15 @@
+
+
+
+<table class="table table-sm"> 
+    <tr *ngFor="let item of dataSource">
+          <td matBadge="8" style="width:80px"> <mat-chip>{{item.step}}</mat-chip>  </td> 
+          <td><b>{{item.name}}</b></td>
+          <td style="min-width:200px">   <mat-progress-bar mode="determinate" value="{{item.percentComplete}}">
+              
+            </mat-progress-bar></td>
+          <td><i class="material-icons" matTooltip="Awaiting response">
+              {{item.icon}} 
+              </i> </td>
+      </tr>
+    </table>

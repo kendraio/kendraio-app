@@ -322,7 +322,7 @@ var RELEASE_REGISTER_FORM_MODEL = [
 /*!*****************************************!*\
   !*** ./src/app/music-releases/index.ts ***!
   \*****************************************/
-/*! exports provided: IndexComponent, MusicReleasesDetailComponent, MusicReleasesEditComponent */
+/*! exports provided: IndexComponent, MusicReleasesDetailComponent, MusicReleasesEditComponent, TasksComponent, ListComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -335,6 +335,14 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony import */ var _music_releases_edit_music_releases_edit_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./music-releases-edit/music-releases-edit.component */ "./src/app/music-releases/music-releases-edit/music-releases-edit.component.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MusicReleasesEditComponent", function() { return _music_releases_edit_music_releases_edit_component__WEBPACK_IMPORTED_MODULE_2__["MusicReleasesEditComponent"]; });
+
+/* harmony import */ var _tasks_tasks_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tasks/tasks.component */ "./src/app/music-releases/tasks/tasks.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TasksComponent", function() { return _tasks_tasks_component__WEBPACK_IMPORTED_MODULE_3__["TasksComponent"]; });
+
+/* harmony import */ var _list_list_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./list/list.component */ "./src/app/music-releases/list/list.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ListComponent", function() { return _list_list_component__WEBPACK_IMPORTED_MODULE_4__["ListComponent"]; });
+
+
 
 
 
@@ -350,7 +358,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar>\r\n  <span>\r\n    <button mat-button mat-raised-button (click)=\"openAddNewDialog()\">Create Release</button>\r\n  </span>\r\n</mat-toolbar>\r\n\r\n\r\n<mat-progress-bar *ngIf=\"showSpinner\" mode=\"indeterminate\"></mat-progress-bar>\r\n\r\n<!-- <pre> {{ allItems | json }}</pre> -->\r\n\r\n<div class=\"table-responsive-lg\" @enterAnimateUpDwn>\r\n  <ag-grid-angular #agGrid style=\"width: 100%; height: 700px;\" class=\"ag-theme-material\" [gridOptions]=\"gridOptions\"\r\n    [frameworkComponents]=\"gridOptions.frameworkComponents\" [rowData]=\"allItems\" animateRows=\"true\"\r\n    (cellClicked)=\"onCellClicked($event)\" rowSelection=\"multiple\" (selectionChanged)=\"onSelectionChanged($event)\"\r\n    animateRows=\"true\">\r\n\r\n    <ag-grid-column headerName=\"Releases\">\r\n      <ag-grid-column headerName=\"#\" [width]=\"80\" [checkboxSelection]=\"true\" [suppressMenu]=\"false\" [pinned]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Actions\" [width]=\"100\" [pinned]=\"true\" [cellRenderer]=\"editBtnCellRenderer\">\r\n      </ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Title\" field=\"Title\" [width]=\"175\" [pinned]=\"true\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\" [cellEditorFramework]=\"gridOptions.frameworkComponents.inputRenderer\"\r\n        [editable]=\"true\"></ag-grid-column>\r\n\r\n      <ag-grid-column headerName=\"Artist\" field=\"Artist\" [width]=\"120\" [pinned]=\"true\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\" [editable]=\"false\"></ag-grid-column>\r\n    </ag-grid-column>\r\n\r\n    <ag-grid-column headerName=\"Details\">\r\n\r\n      <ag-grid-column headerName=\"Date\" field=\"Date\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n      <ag-grid-column headerName=\"Owner\" field=\"Owner\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Date\" field=\"Date\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n      <ag-grid-column headerName=\"Territory\" field=\"Territory\" [width]=\"100\" [cellRenderer]=\"countryCellRenderer\"\r\n        [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Type\" field=\"Type\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\r\n      </ag-grid-column>\r\n      <ag-grid-column headerName=\"Format\" field=\"Format\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\r\n        [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Catalogue Number\" field=\"Catalogue Number\" [width]=\"150\" [pinned]=\"false\"\r\n        [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Barcode\" field=\"Barcode\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"#tracks\" field=\"Number of tracks\" [width]=\"50\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Distribution\" field=\"Distribution\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Collective\" field=\"Collective\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n      <ag-grid-column headerName=\"Submitted to\" field=\"Submitted to\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"true\"\r\n        [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\r\n\r\n    </ag-grid-column>\r\n  </ag-grid-angular>\r\n\r\n  <mat-action-list *ngIf=\"claimsToSend.length > 0\">\r\n    <button mat-raised-button mat-button (click)=\"sendToClaim($event)\">Claim Selected</button>\r\n    <button mat-raised-button mat-button (click)=\"sendToRegister($event)\">Register Selected</button>\r\n    <button mat-raised-button mat-button (click)=\"sendToPublish($event)\">Distribute/Publish Selected</button>\r\n  </mat-action-list>\r\n  <div>Selection: <span id=\"selectedRows\">...</span></div>\r\n\r\n</div>"
+module.exports = "<mat-toolbar>\r\n\r\n  <span>\r\n      <button mat-button mat-raised-button [routerLink]=\"[ 'list']\">List</button>\r\n      </span>\r\n\r\n  <span>\r\n<button mat-button mat-raised-button [routerLink]=\"[ 'tasks']\">Tasks</button>\r\n</span>\r\n</mat-toolbar>\r\n<router-outlet></router-outlet>\r\n\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -572,6 +580,243 @@ var IndexComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/music-releases/list/list.component.html":
+/*!*********************************************************!*\
+  !*** ./src/app/music-releases/list/list.component.html ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<mat-toolbar>\n    <span>\n      <button mat-button mat-raised-button (click)=\"openAddNewDialog()\">Create Release</button>\n    </span>\n\n  </mat-toolbar>\n  <router-outlet></router-outlet>\n  \n  <mat-progress-bar *ngIf=\"showSpinner\" mode=\"indeterminate\"></mat-progress-bar>\n  \n  <!-- <pre> {{ allItems | json }}</pre> -->\n  \n  <div class=\"table-responsive-lg\" @enterAnimateUpDwn>\n    <ag-grid-angular #agGrid style=\"width: 100%; height: 700px;\" class=\"ag-theme-material\" [gridOptions]=\"gridOptions\"\n      [frameworkComponents]=\"gridOptions.frameworkComponents\" [rowData]=\"allItems\" animateRows=\"true\"\n      (cellClicked)=\"onCellClicked($event)\" rowSelection=\"multiple\" (selectionChanged)=\"onSelectionChanged($event)\"\n      animateRows=\"true\">\n  \n      <ag-grid-column headerName=\"Releases\">\n        <ag-grid-column headerName=\"#\" [width]=\"80\" [checkboxSelection]=\"true\" [suppressMenu]=\"false\" [pinned]=\"true\"\n          [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\n  \n        <ag-grid-column headerName=\"Actions\" [width]=\"100\" [pinned]=\"true\" [cellRenderer]=\"editBtnCellRenderer\">\n        </ag-grid-column>\n  \n        <ag-grid-column headerName=\"Title\" field=\"Title\" [width]=\"175\" [pinned]=\"true\" [sortable]=\"true\"\n          [resizable]=\"true\" [filter]=\"true\" [cellEditorFramework]=\"gridOptions.frameworkComponents.inputRenderer\"\n          [editable]=\"true\"></ag-grid-column>\n  \n        <ag-grid-column headerName=\"Artist\" field=\"Artist\" [width]=\"120\" [pinned]=\"true\" [sortable]=\"true\"\n          [resizable]=\"true\" [filter]=\"true\" [editable]=\"false\"></ag-grid-column>\n      </ag-grid-column>\n  \n      <ag-grid-column headerName=\"Details\">\n  \n        <ag-grid-column headerName=\"Date\" field=\"Date\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\n        </ag-grid-column>\n        <ag-grid-column headerName=\"Owner\" field=\"Owner\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\"\n          [filter]=\"true\"></ag-grid-column>\n        <ag-grid-column headerName=\"Date\" field=\"Date\" [width]=\"100\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\n        </ag-grid-column>\n        <ag-grid-column headerName=\"Territory\" field=\"Territory\" [width]=\"100\" [cellRenderer]=\"countryCellRenderer\"\n          [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\n        <ag-grid-column headerName=\"Type\" field=\"Type\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\">\n        </ag-grid-column>\n        <ag-grid-column headerName=\"Format\" field=\"Format\" [width]=\"150\" [sortable]=\"true\" [resizable]=\"true\"\n          [filter]=\"true\"></ag-grid-column>\n        <ag-grid-column headerName=\"Catalogue Number\" field=\"Catalogue Number\" [width]=\"150\" [pinned]=\"false\"\n          [sortable]=\"true\" [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\n        <ag-grid-column headerName=\"Barcode\" field=\"Barcode\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"true\"\n          [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\n        <ag-grid-column headerName=\"#tracks\" field=\"Number of tracks\" [width]=\"50\" [pinned]=\"false\" [sortable]=\"true\"\n          [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\n        <ag-grid-column headerName=\"Distribution\" field=\"Distribution\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"true\"\n          [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\n        <ag-grid-column headerName=\"Collective\" field=\"Collective\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"true\"\n          [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\n        <ag-grid-column headerName=\"Submitted to\" field=\"Submitted to\" [width]=\"150\" [pinned]=\"false\" [sortable]=\"true\"\n          [resizable]=\"true\" [filter]=\"true\"></ag-grid-column>\n  \n      </ag-grid-column>\n    </ag-grid-angular>\n  \n    <mat-action-list *ngIf=\"claimsToSend.length > 0\">\n      <button mat-raised-button mat-button (click)=\"sendToClaim($event)\">Claim Selected</button>\n      <button mat-raised-button mat-button (click)=\"sendToRegister($event)\">Register Selected</button>\n      <button mat-raised-button mat-button (click)=\"sendToPublish($event)\">Distribute/Publish Selected</button>\n    </mat-action-list>\n    <div>Selection: <span id=\"selectedRows\">...</span></div>\n  \n  </div>"
+
+/***/ }),
+
+/***/ "./src/app/music-releases/list/list.component.scss":
+/*!*********************************************************!*\
+  !*** ./src/app/music-releases/list/list.component.scss ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL211c2ljLXJlbGVhc2VzL2xpc3QvbGlzdC5jb21wb25lbnQuc2NzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/music-releases/list/list.component.ts":
+/*!*******************************************************!*\
+  !*** ./src/app/music-releases/list/list.component.ts ***!
+  \*******************************************************/
+/*! exports provided: ListComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ListComponent", function() { return ListComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var src_app_services_page_title_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/page-title.service */ "./src/app/services/page-title.service.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _music_releases_edit_music_releases_edit_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../music-releases-edit/music-releases-edit.component */ "./src/app/music-releases/music-releases-edit/music-releases-edit.component.ts");
+/* harmony import */ var _services_test_data_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../services/test-data.service */ "./src/app/services/test-data.service.ts");
+/* harmony import */ var src_app_shared_components__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/_shared/components */ "./src/app/_shared/components/index.ts");
+/* harmony import */ var src_app_claims_send_claims_send_claims_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/claims/send-claims/send-claims.component */ "./src/app/claims/send-claims/send-claims.component.ts");
+/* harmony import */ var _register_new_release_register_new_release_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../register-new-release/register-new-release.component */ "./src/app/music-releases/register-new-release/register-new-release.component.ts");
+/* harmony import */ var _publish_publish_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../publish/publish.component */ "./src/app/music-releases/publish/publish.component.ts");
+/* harmony import */ var _register_register_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../register/register.component */ "./src/app/music-releases/register/register.component.ts");
+
+
+
+
+
+
+
+
+
+
+
+
+
+var ListComponent = /** @class */ (function () {
+    function ListComponent(testData, pageTitle, dialog) {
+        this.testData = testData;
+        this.pageTitle = pageTitle;
+        this.dialog = dialog;
+        this.newReleases = [];
+        this.gridOptions = {
+            onGridReady: function () {
+                //   this.gridOptions.api.sizeColumnsToFit();
+            },
+            rowHeight: 48,
+            frameworkComponents: {
+                inputRenderer: src_app_shared_components__WEBPACK_IMPORTED_MODULE_8__["MatInputComponent"],
+                thing: src_app_shared_components__WEBPACK_IMPORTED_MODULE_8__["MatButtonComponent"]
+            }
+        };
+    }
+    ListComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.claimsToSend = [];
+        this.pageTitle.setTitle('Releases');
+        this.entityTypes$ = this.testData.listEntityTypes();
+        this.entityList$ = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["switchMap"])(function (type) { return _this.testData.listEntities(type); }));
+        this.selectedEntity$ = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["switchMap"])(function (id) { return _this.testData.getEntity(_this.selectedType, id); }));
+        this.listAll$ = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["switchMap"])(function (type) { return _this.testData.listAll(type); }));
+        this.listAll();
+    };
+    ListComponent.prototype.countryCellRenderer = function (params) {
+        var flag = '<img border=\'0\' width=\'15\' height=\'10\' style=\'margin-bottom: 2px\' src=\'https://www.ag-grid.com/images/flags/gb.png\'>';
+        return flag + ' ' + params.value;
+        // return this.thing;
+    };
+    ListComponent.prototype.editBtnCellRenderer = function (params) {
+        var btn = '<button class="mat-button mat-raised-button"><span class="mat-button-wrapper">Edit</span><div class="mat-button-ripple mat-ripple"></div><div class="mat-button-focus-overlay"></div></button>';
+        return btn;
+    };
+    ListComponent.prototype.changeEntityType = function (type) {
+        this.selectedType = type;
+        this.entityList$.next(type);
+    };
+    ListComponent.prototype.changeEntity = function (id) {
+        this.selectedEntity$.next(id);
+    };
+    ListComponent.prototype.onCellClicked = function (ev) {
+        if (ev.colDef.headerName === 'Actions') {
+            this.openDialog(ev.data);
+        }
+    };
+    ListComponent.prototype.openDialog = function (ev) {
+        var dialogRef = this.dialog.open(_music_releases_edit_music_releases_edit_component__WEBPACK_IMPORTED_MODULE_6__["MusicReleasesEditComponent"], {
+            data: ev,
+            width: '80%',
+            panelClass: 'formFieldWidth380'
+        });
+        dialogRef.afterClosed().subscribe(function (result) {
+            console.log('The dialog was closed');
+        });
+    };
+    ListComponent.prototype.openAddNewDialog = function (ev) {
+        var _this = this;
+        var dialogRef = this.dialog.open(_register_new_release_register_new_release_component__WEBPACK_IMPORTED_MODULE_10__["RegisterNewReleaseComponent"], {
+            data: 'ev',
+            width: '80%',
+            panelClass: 'formFieldWidth380'
+        });
+        dialogRef.afterClosed().subscribe(function (result) {
+            _this.addItemToGrid(result);
+        });
+    };
+    ListComponent.prototype.addItemToGrid = function (result) {
+        var r = { 'type': 'music-release',
+            'Title': result.recordingTitle,
+            'Artist': result.bandArtistName,
+            'Date': result.date,
+            'Owner': 'owner',
+            'Territory': 'Europe',
+            'Type': result.genere,
+            'Format': result.format,
+            'Catalogue Number': '',
+            'Barcode': '',
+            'Number of tracks': '1',
+            'Distribution': '',
+            'Collective': '',
+            'Submitted to': '' };
+        // this.allItems.push(r);
+        // this.gridOptions.api.updateRowData({add: [r]});
+        this.gridOptions.api.updateRowData({ add: [r], addIndex: 0 });
+        // printResult(res);
+    };
+    ListComponent.prototype.onSelectionChanged = function (ev) {
+        var _this = this;
+        this.gridApi = ev.api;
+        var selectedRows = this.gridApi.getSelectedRows();
+        var selectedRowsString = '';
+        var theRow;
+        selectedRows.forEach(function (selectedRow, index) {
+            if (index > 5) {
+                return;
+            }
+            if (index !== 0) {
+                selectedRowsString += ', ';
+            }
+            selectedRowsString += selectedRow.Title;
+            theRow = selectedRow;
+        });
+        this.claimsToSend = [];
+        selectedRows.forEach(function (i) {
+            _this.claimsToSend.push({
+                'name': i.Title,
+                'artist': i.Artist,
+                'collective': i.Collective,
+                'owner': i.Owner,
+                'date': i.Date,
+                'status': 'Not Sent'
+            });
+        });
+        if (selectedRows.length >= 6) {
+            selectedRowsString += ' - and ' + (selectedRows.length - 6) + ' others';
+        }
+        document.querySelector('#selectedRows').innerHTML = selectedRowsString;
+    };
+    ListComponent.prototype.sendToClaim = function (ev) {
+        var data = { section: 'releases', data: this.claimsToSend };
+        var dialogRef = this.dialog.open(src_app_claims_send_claims_send_claims_component__WEBPACK_IMPORTED_MODULE_9__["SendClaimsComponent"], {
+            data: data,
+            width: '80%',
+            panelClass: 'formFieldWidth380',
+        });
+        dialogRef.afterClosed().subscribe(function (result) {
+            console.log('The dialog was closed');
+        });
+    };
+    ListComponent.prototype.sendToPublish = function (ev) {
+        var data = { section: 'releases', data: this.claimsToSend };
+        var dialogRef = this.dialog.open(_publish_publish_component__WEBPACK_IMPORTED_MODULE_11__["PublishComponent"], {
+            data: data,
+            width: '80%',
+            panelClass: 'formFieldWidth380',
+        });
+        dialogRef.afterClosed().subscribe(function (result) {
+            console.log('The dialog was closed');
+        });
+    };
+    ListComponent.prototype.sendToRegister = function (ev) {
+        var data = { section: 'releases', data: this.claimsToSend };
+        var dialogRef = this.dialog.open(_register_register_component__WEBPACK_IMPORTED_MODULE_12__["RegisterComponent"], {
+            data: data,
+            width: '80%',
+            panelClass: 'formFieldWidth380',
+        });
+        dialogRef.afterClosed().subscribe(function (result) {
+            console.log('The dialog was closed');
+        });
+    };
+    ListComponent.prototype.listAll = function () {
+        var _this = this;
+        this.testData.listAll('music-release').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function () { return _this.showSpinner = true; }))
+            .subscribe(function (res) {
+            _this.allItems = res;
+            _this.showSpinner = false;
+        });
+    };
+    ListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-list',
+            template: __webpack_require__(/*! ./list.component.html */ "./src/app/music-releases/list/list.component.html"),
+            styles: [__webpack_require__(/*! ./list.component.scss */ "./src/app/music-releases/list/list.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_test_data_service__WEBPACK_IMPORTED_MODULE_7__["TestDataService"],
+            src_app_services_page_title_service__WEBPACK_IMPORTED_MODULE_4__["PageTitleService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatDialog"]])
+    ], ListComponent);
+    return ListComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/music-releases/music-releases-detail/music-releases-detail.component.html":
 /*!*******************************************************************************************!*\
   !*** ./src/app/music-releases/music-releases-detail/music-releases-detail.component.html ***!
@@ -719,9 +964,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var routes = [
-    { path: '', component: _index__WEBPACK_IMPORTED_MODULE_3__["IndexComponent"] },
-    { path: 'edit/:id', component: _index__WEBPACK_IMPORTED_MODULE_3__["MusicReleasesEditComponent"] },
-    { path: 'detail/:id', component: _index__WEBPACK_IMPORTED_MODULE_3__["MusicReleasesDetailComponent"] },
+    { path: '',
+        component: _index__WEBPACK_IMPORTED_MODULE_3__["IndexComponent"],
+        children: [
+            { path: 'tasks', component: _index__WEBPACK_IMPORTED_MODULE_3__["TasksComponent"] },
+            { path: 'list', component: _index__WEBPACK_IMPORTED_MODULE_3__["ListComponent"] },
+        ]
+    }
 ];
 var MusicReleasesRoutingModule = /** @class */ (function () {
     function MusicReleasesRoutingModule() {
@@ -766,6 +1015,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _register_new_release_register_new_release_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./register-new-release/register-new-release.component */ "./src/app/music-releases/register-new-release/register-new-release.component.ts");
 /* harmony import */ var _publish_publish_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./publish/publish.component */ "./src/app/music-releases/publish/publish.component.ts");
 /* harmony import */ var _register_register_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./register/register.component */ "./src/app/music-releases/register/register.component.ts");
+/* harmony import */ var _tasks_tasks_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./tasks/tasks.component */ "./src/app/music-releases/tasks/tasks.component.ts");
+/* harmony import */ var _list_list_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./list/list.component */ "./src/app/music-releases/list/list.component.ts");
+
+
 
 
 
@@ -793,7 +1046,9 @@ var MusicReleasesModule = /** @class */ (function () {
                 _index_index_component__WEBPACK_IMPORTED_MODULE_7__["IndexComponent"],
                 _music_releases_edit_music_releases_edit_component__WEBPACK_IMPORTED_MODULE_8__["MusicReleasesEditComponent"],
                 _music_releases_detail_music_releases_detail_component__WEBPACK_IMPORTED_MODULE_9__["MusicReleasesDetailComponent"],
-                _register_new_release_register_new_release_component__WEBPACK_IMPORTED_MODULE_13__["RegisterNewReleaseComponent"], _publish_publish_component__WEBPACK_IMPORTED_MODULE_14__["PublishComponent"], _register_register_component__WEBPACK_IMPORTED_MODULE_15__["RegisterComponent"]
+                _register_new_release_register_new_release_component__WEBPACK_IMPORTED_MODULE_13__["RegisterNewReleaseComponent"],
+                _publish_publish_component__WEBPACK_IMPORTED_MODULE_14__["PublishComponent"], _register_register_component__WEBPACK_IMPORTED_MODULE_15__["RegisterComponent"],
+                _tasks_tasks_component__WEBPACK_IMPORTED_MODULE_16__["TasksComponent"], _list_list_component__WEBPACK_IMPORTED_MODULE_17__["ListComponent"]
             ],
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
@@ -833,7 +1088,7 @@ var MusicReleasesModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <pre> {{ data | json }}</pre>  -->\n\n\n<h1>Publish/Distribute Your Release</h1>\nPlease be sure all info is correct before starting the distribution process.\n<div *ngIf=\"!nextStep\" mat-dialog-content >\n<section>\n  <div class=\"mt-4\" fxLayout=\"row wrap\" fxLayoutGap=\"20px\" fxLayoutAlign=\"start stretch\" mat-dialog-content >\n\n    <mat-card *ngFor=\"let item of data.data; let i = index;\">\n      <mat-card-header>\n\n        <mat-card-title>Release {{i+1}} / {{data.length}}</mat-card-title>\n        <mat-card-subtitle>{{item.name}}</mat-card-subtitle>\n      </mat-card-header>\n      <mat-card-content>\n        Artist: {{item.artist}}<br>\n        Collective: {{item.collective}}<br>\n        Owner: {{item.owner}}<br>\n      </mat-card-content>\n      <mat-card-actions>\n        <button mat-mini-fab matTooltip=\"Remove from Claim\" (click)=\"removeClaim(i)\">\n          <mat-icon>delete</mat-icon>\n        </button>\n        <button mat-mini-fab matTooltip=\"Edit\" (click)=\"removeClaim(i)\">\n          <mat-icon>edit</mat-icon>\n        </button>\n      </mat-card-actions>\n    </mat-card>\n\n  </div>\n</section>\n\n  <div mat-dialog-actions>\n    <button mat-button mat-dialog-close=\"Edit Cancelled\">Cancel</button>\n    <button mat-button mat-raised-button (click)=\"onNextStep()\">Distribute</button>\n  </div>\n</div>\n\n<div *ngIf=\"nextStep && enabled.length\"  fxLayout=\"row wrap\" fxLayoutGap=\"20px\" fxLayoutAlign=\"start end\" >\n\n<section class=\"my-5\"  mat-dialog-content  fxLayout=\"row wrap\" fxLayoutGap=\"20px\" fxLayoutAlign=\"start start\">\n<div>\n    You are about to post your Releases to the following platforms: \n    <mat-list>\n      <mat-list-item  *ngFor=\"let item of enabled; let i = index;\" ><b>{{item | uppercase}}</b></mat-list-item>\n    </mat-list>\n   To add more Platforms please enable more <a [routerLink]=\"[ '/adapters' ]\">Adapters</a> \n</div>\n\n\n  <div [@enterLeaveInOut-2]=\"data\" fxLayout=\"row wrap\" fxLayoutGap=\"20px\" fxLayoutAlign=\"start stretch\">\n    <mat-card *ngFor=\"let item of data.data; let i = index;\">\n      <mat-icon mat-list-icon>library_music</mat-icon>\n      <h6 mat-line>{{item.name}}</h6>\n      <p mat-line> {{item.artist}} </p>\n    </mat-card>\n  </div>\n</section>\n\n  <div mat-dialog-actions>\n    <button mat-button mat-dialog-close=\"Edit Cancelled\">Close</button>\n    <button mat-button mat-raised-button mat-dialog-close=\"next\" (click)=\"nextClaimStep3(data.section)\">Continue</button>\n  </div>\n\n</div>\n\n<div *ngIf=\"enabled.length === 0\">\n<h2>You need to enable your   <a mat-dialog-close=\"true\" [routerLink]=\"[ '/adapters' ]\">Adapters</a> before continuing </h2>\n\n</div>\n\n<div class=\"my-5\"  mat-dialog-content > \n\n \n<table class=\"table table-sm\"> \n  <tr *ngFor=\"let item of dataSource\">\n        <td matBadge=\"8\" style=\"width:80px\"> <mat-chip>{{item.step}}</mat-chip>  </td> \n        <td><b>{{item.name}}</b></td>\n        <td style=\"min-width:200px\">   <mat-progress-bar mode=\"determinate\" value=\"{{item.percentComplete}}\">\n            \n          </mat-progress-bar></td>\n        <td><i class=\"material-icons\" matTooltip=\"Awaiting response\">\n            {{item.icon}} \n            </i> </td>\n    </tr>\n  </table>\n   \n\n\n</div>"
+module.exports = "<!-- <pre> {{ data | json }}</pre>  -->\n\n\n<h2>Publish/Distribute Your Release</h2>\nPlease be sure all info is correct before starting the distribution process.\n<div *ngIf=\"!nextStep\" mat-dialog-content >\n<section>\n  <div class=\"mt-3\" fxLayout=\"row wrap\" fxLayoutGap=\"20px\" fxLayoutAlign=\"start stretch\" mat-dialog-content >\n\n    <mat-card *ngFor=\"let item of data.data; let i = index;\">\n      <mat-card-header>\n\n        <mat-card-title>Release {{i+1}} / {{data.length}}</mat-card-title>\n        <mat-card-subtitle>{{item.name}}</mat-card-subtitle>\n      </mat-card-header>\n      <mat-card-content>\n        Artist: {{item.artist}}<br>\n        Collective: {{item.collective}}<br>\n        Owner: {{item.owner}}<br>\n      </mat-card-content>\n      <mat-card-actions>\n        <button mat-mini-fab matTooltip=\"Remove from Claim\" (click)=\"removeClaim(i)\">\n          <mat-icon>delete</mat-icon>\n        </button>\n        <button mat-mini-fab matTooltip=\"Edit\" (click)=\"removeClaim(i)\">\n          <mat-icon>edit</mat-icon>\n        </button>\n      </mat-card-actions>\n    </mat-card>\n\n  </div>\n</section>\n\n  <div mat-dialog-actions>\n    <button mat-button mat-dialog-close=\"Edit Cancelled\">Cancel</button>\n    <button mat-button mat-raised-button (click)=\"onNextStep()\">Distribute</button>\n  </div>\n</div>\n\n<div *ngIf=\"nextStep && enabled.length\"  fxLayout=\"row wrap\" fxLayoutGap=\"20px\" fxLayoutAlign=\"start end\" >\n\n<section class=\"my-5\"  mat-dialog-content  fxLayout=\"row wrap\" fxLayoutGap=\"20px\" fxLayoutAlign=\"start start\">\n<div>\n    You are about to post your Releases to the following platforms: \n    <mat-list>\n      <mat-list-item  *ngFor=\"let item of enabled; let i = index;\" ><b>{{item | uppercase}}</b></mat-list-item>\n    </mat-list>\n   To add more Platforms please enable more <a [routerLink]=\"[ '/adapters' ]\">Adapters</a> \n</div>\n\n\n  <div [@enterLeaveInOut-2]=\"data\" fxLayout=\"row wrap\" fxLayoutGap=\"20px\" fxLayoutAlign=\"start stretch\">\n    <mat-card *ngFor=\"let item of data.data; let i = index;\">\n      <mat-icon mat-list-icon>library_music</mat-icon>\n      <h6 mat-line>{{item.name}}</h6>\n      <p mat-line> {{item.artist}} </p>\n    </mat-card>\n  </div>\n</section>\n\n  <div mat-dialog-actions>\n    <button mat-button mat-dialog-close=\"Edit Cancelled\">Close</button>\n    <button mat-button mat-raised-button mat-dialog-close=\"next\" (click)=\"nextClaimStep3(data.section)\">Continue</button>\n  </div>\n\n</div>\n\n<div *ngIf=\"enabled.length === 0\">\n<h2>You need to enable your   <a mat-dialog-close=\"true\" [routerLink]=\"[ '/adapters' ]\">Adapters</a> before continuing </h2>\n\n</div>\n\n<div class=\"my-5\"  mat-dialog-content > \n\n \n<table class=\"table table-sm\" [@enterLeaveInOut-3]=\"dataSource\"> \n  <tr *ngFor=\"let item of dataSource\">\n        <td matBadge=\"8\" style=\"width:80px\"> <mat-chip>{{item.step}}</mat-chip>  </td> \n        <td><b>{{item.name}}</b></td>\n        <td style=\"min-width:200px\">   <mat-progress-bar mode=\"determinate\" value=\"{{item.percentComplete}}\">\n            \n          </mat-progress-bar></td>\n        <td><i class=\"material-icons\" matTooltip=\"Awaiting response\">\n            {{item.icon}} \n            </i> </td>\n    </tr>\n  </table>\n   \n\n\n</div>"
 
 /***/ }),
 
@@ -1103,6 +1358,110 @@ var RegisterComponent = /** @class */ (function () {
             src_app_services_adapters_service__WEBPACK_IMPORTED_MODULE_5__["AdaptersService"]])
     ], RegisterComponent);
     return RegisterComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/music-releases/tasks/tasks.component.html":
+/*!***********************************************************!*\
+  !*** ./src/app/music-releases/tasks/tasks.component.html ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n\n\n<table class=\"table table-sm\"> \n    <tr *ngFor=\"let item of dataSource\">\n          <td matBadge=\"8\" style=\"width:80px\"> <mat-chip>{{item.step}}</mat-chip>  </td> \n          <td><b>{{item.name}}</b></td>\n          <td style=\"min-width:200px\">   <mat-progress-bar mode=\"determinate\" value=\"{{item.percentComplete}}\">\n              \n            </mat-progress-bar></td>\n          <td><i class=\"material-icons\" matTooltip=\"Awaiting response\">\n              {{item.icon}} \n              </i> </td>\n      </tr>\n    </table>"
+
+/***/ }),
+
+/***/ "./src/app/music-releases/tasks/tasks.component.scss":
+/*!***********************************************************!*\
+  !*** ./src/app/music-releases/tasks/tasks.component.scss ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL211c2ljLXJlbGVhc2VzL3Rhc2tzL3Rhc2tzLmNvbXBvbmVudC5zY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/music-releases/tasks/tasks.component.ts":
+/*!*********************************************************!*\
+  !*** ./src/app/music-releases/tasks/tasks.component.ts ***!
+  \*********************************************************/
+/*! exports provided: TasksComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TasksComponent", function() { return TasksComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_services_adapters_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/adapters.service */ "./src/app/services/adapters.service.ts");
+
+
+
+
+
+var PROGRESS_DATA = [
+    { step: 1, name: 'Releases Selected', percentComplete: 100, icon: 'done' },
+    { step: 2, name: 'Data confirmed', percentComplete: 100, icon: 'done' },
+];
+var TasksComponent = /** @class */ (function () {
+    function TasksComponent(data, router, adapters) {
+        this.data = data;
+        this.router = router;
+        this.adapters = adapters;
+        this.nextStep = false;
+        this.displayedColumns = ['step', 'name', 'percentComplete', 'icon'];
+        this.dataSource = [];
+        this.nextDataSource = [];
+    }
+    TasksComponent.prototype.ngOnInit = function () {
+        PROGRESS_DATA = [
+            { step: 1, name: 'Releases Selected', percentComplete: 100, icon: 'done' },
+            { step: 2, name: 'Data confirmed', percentComplete: 100, icon: 'done' },
+        ];
+        this.dataSource = [];
+        this.nextDataSource = [];
+        this.dataSource = PROGRESS_DATA;
+        this.onNextStep();
+    };
+    Object.defineProperty(TasksComponent.prototype, "enabled", {
+        get: function () { return Object.keys(this.adapters.enabledAdapters); },
+        enumerable: true,
+        configurable: true
+    });
+    TasksComponent.prototype.onNextStep = function () {
+        var _this = this;
+        this.nextDataSource = [];
+        this.nextDataSource = PROGRESS_DATA;
+        this.enabled.forEach(function (input) {
+            _this.nextDataSource.push({
+                step: _this.nextDataSource.length + 1,
+                name: 'Sent to: ' + input,
+                percentComplete: _this.nextDataSource.length * 3,
+                icon: 'schedule'
+            });
+        });
+        this.nextStep = true;
+        this.dataSource = [];
+        this.dataSource = this.nextDataSource;
+    };
+    TasksComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-tasks',
+            template: __webpack_require__(/*! ./tasks.component.html */ "./src/app/music-releases/tasks/tasks.component.html"),
+            styles: [__webpack_require__(/*! ./tasks.component.scss */ "./src/app/music-releases/tasks/tasks.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object, _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
+            src_app_services_adapters_service__WEBPACK_IMPORTED_MODULE_4__["AdaptersService"]])
+    ], TasksComponent);
+    return TasksComponent;
 }());
 
 

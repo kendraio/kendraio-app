@@ -1,0 +1,56 @@
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+  <h2> Tasks for Recordings (7)</h2>
+    </mat-expansion-panel-header>
+</mat-expansion-panel>
+
+<mat-expansion-panel class="my-5">
+    <mat-expansion-panel-header>
+  <h2> Tasks for Releases (19)</h2>
+    </mat-expansion-panel-header>
+
+
+    <div>
+        
+<h2><span matBadge="8" style="width:80px"> <mat-chip>1</mat-chip>  </span> Little Earthquakes</h2>
+    </div>
+    
+
+    <table class="table table-sm ml-5"> 
+        <tr *ngFor="let item of dataSource">
+              <td matBadge="8" style="width:80px"> <mat-chip>{{item.step}}</mat-chip>  </td> 
+              <td><b>{{item.date}}</b></td>
+              <td><b>{{item.name}}</b></td>
+              <td style="min-width:200px">   <mat-progress-bar mode="determinate" value="{{item.percentComplete}}">
+                  
+                </mat-progress-bar></td>
+              <td><i class="material-icons" matTooltip="Awaiting response">
+                  {{item.icon}} 
+                  </i> </td>
+          </tr>
+        </table>
+
+
+        <div>
+        
+            <h2><span matBadge="8" style="width:80px"> <mat-chip>2</mat-chip>  </span> Stoner drone from outer space</h2>
+                </div>
+                
+            
+                <table class="table table-sm ml-5"> 
+                    <tr *ngFor="let item of dataSource">
+                          <td matBadge="8" style="width:80px"> <mat-chip>{{item.step}}</mat-chip>  </td> 
+                          <td><b>{{item.date}}</b></td>
+                          <td><b>{{item.name}}</b></td>
+                          <td style="min-width:200px">   <mat-progress-bar mode="determinate" value="{{item.percentComplete}}">
+                              
+                            </mat-progress-bar></td>
+                          <td><i class="material-icons" matTooltip="Awaiting response">
+                              {{item.icon}} 
+                              </i> </td>
+                      </tr>
+                    </table>
+
+
+
+</mat-expansion-panel>

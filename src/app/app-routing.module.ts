@@ -37,6 +37,7 @@ const routes: Routes = [
           subTitle: ''
         }
       },
+
       // {
       //   path: 'contacts',
       //   component: Pages.ContactsComponent,
@@ -116,6 +117,13 @@ const routes: Routes = [
       },
       { path: 'contacts', 
         loadChildren: './contacts/contacts.module#ContactsModule'},
+
+        { path: 'tasks', 
+        loadChildren: './tasks/tasks.module#TasksModule'},
+
+        { path: 'reports', 
+        loadChildren: './reports/reports.module#ReportsModule'},
+
       {
         path: 'settings',
         loadChildren: './settings/settings.module'

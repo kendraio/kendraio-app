@@ -2865,9 +2865,15 @@ var map = {
 		"./src/app/music-works/music-works.module.ts",
 		"music-works-music-works-module"
 	],
+	"./reports/reports.module": [
+		"./src/app/reports/reports.module.ts"
+	],
 	"./settings/settings.module": [
 		"./src/app/settings/settings.module.ts",
 		"settings-settings-module"
+	],
+	"./tasks/tasks.module": [
+		"./src/app/tasks/tasks.module.ts"
 	]
 };
 function webpackAsyncContext(req) {
@@ -2913,6 +2919,24 @@ var Animations = /** @class */ (function () {
             Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["transition"])('* => *', [
                 Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["query"])(':enter', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["style"])({ opacity: 0 }), { optional: true }),
                 Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["query"])(':enter', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["stagger"])('200ms', [
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["animate"])('.6s ease-in', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["keyframes"])([
+                        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["style"])({ opacity: 0, transform: 'scale(1)', offset: 0 }),
+                        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["style"])({ opacity: .4, transform: 'scale(1.01)', offset: 0.3 }),
+                        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["style"])({ opacity: 1, transform: 'scale(1)', offset: 1.0 }),
+                    ]))
+                ]), { optional: true }),
+                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["query"])(':leave', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["stagger"])('300ms', [
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["animate"])('.6s ease-out', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["keyframes"])([
+                        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["style"])({ opacity: 1, transform: 'scale(.5)', offset: 0 }),
+                        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["style"])({ opacity: .5, transform: 'scale(0)', offset: 0.3 }),
+                    ]))
+                ]), { optional: true })
+            ])
+        ]),
+        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["trigger"])('enterLeaveInOut-3', [
+            Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["transition"])('* => *', [
+                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["query"])(':enter', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["style"])({ opacity: 0 }), { optional: true }),
+                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["query"])(':enter', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["stagger"])('700ms', [
                     Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["animate"])('.6s ease-in', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["keyframes"])([
                         Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["style"])({ opacity: 0, transform: 'scale(1)', offset: 0 }),
                         Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["style"])({ opacity: .4, transform: 'scale(1.01)', offset: 0.3 }),
@@ -3565,6 +3589,10 @@ var routes = [
             },
             { path: 'contacts',
                 loadChildren: './contacts/contacts.module#ContactsModule' },
+            { path: 'tasks',
+                loadChildren: './tasks/tasks.module#TasksModule' },
+            { path: 'reports',
+                loadChildren: './reports/reports.module#ReportsModule' },
             {
                 path: 'settings',
                 loadChildren: './settings/settings.module'
@@ -3688,6 +3716,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ng_dynamic_forms_ui_material__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! @ng-dynamic-forms/ui-material */ "./node_modules/@ng-dynamic-forms/ui-material/fesm5/ui-material.js");
 /* harmony import */ var _pages_diagram_page_diagram_page_component__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./pages/diagram-page/diagram-page.component */ "./src/app/pages/diagram-page/diagram-page.component.ts");
 /* harmony import */ var _contacts_contacts_module__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./contacts/contacts.module */ "./src/app/contacts/contacts.module.ts");
+/* harmony import */ var _tasks_tasks_module__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! ./tasks/tasks.module */ "./src/app/tasks/tasks.module.ts");
+/* harmony import */ var _reports_reports_module__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! ./reports/reports.module */ "./src/app/reports/reports.module.ts");
 
 
 
@@ -3743,6 +3773,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // import { ContactsComponent } from './pages';
+
+
+// import { ReportsComponent } from './reports/reports.component';
 
 // import { AgGridModule } from 'ag-grid-angular';
 // import { MatInputComponent } from './_shared/components';
@@ -3807,7 +3840,9 @@ var AppModule = /** @class */ (function () {
                 ngx_tagger__WEBPACK_IMPORTED_MODULE_36__["NgxTaggerModule"],
                 _ng_dynamic_forms_core__WEBPACK_IMPORTED_MODULE_50__["DynamicFormsCoreModule"],
                 _ng_dynamic_forms_ui_material__WEBPACK_IMPORTED_MODULE_51__["DynamicFormsMaterialUIModule"],
-                _contacts_contacts_module__WEBPACK_IMPORTED_MODULE_53__["ContactsModule"]
+                _contacts_contacts_module__WEBPACK_IMPORTED_MODULE_53__["ContactsModule"],
+                _tasks_tasks_module__WEBPACK_IMPORTED_MODULE_54__["TasksModule"],
+                _reports_reports_module__WEBPACK_IMPORTED_MODULE_55__["ReportsModule"]
             ],
             entryComponents: [
                 _dialogs_add_doc_dialog_add_doc_dialog_component__WEBPACK_IMPORTED_MODULE_30__["AddDocDialogComponent"],
@@ -4157,6 +4192,16 @@ var LayoutComponent = /** @class */ (function () {
                 href: '/claims',
                 title: 'Claims',
                 icon: 'attach_money'
+            },
+            {
+                href: '/tasks',
+                title: 'Tasks',
+                icon: 'alarm_on'
+            },
+            {
+                href: '/reports',
+                title: 'Reports',
+                icon: 'assignment'
             },
             {
                 href: '/contacts',
@@ -6861,7 +6906,7 @@ var ImportPageComponent = /** @class */ (function () {
 /*!********************************!*\
   !*** ./src/app/pages/index.ts ***!
   \********************************/
-/*! exports provided: AssetsPageComponent, DashboardPageComponent, ImportPageComponent, ContactsComponent */
+/*! exports provided: AssetsPageComponent, DashboardPageComponent, ImportPageComponent, ContactsComponent, TasksComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6877,6 +6922,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony import */ var _contacts_contacts_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../contacts/contacts.component */ "./src/app/contacts/contacts.component.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ContactsComponent", function() { return _contacts_contacts_component__WEBPACK_IMPORTED_MODULE_3__["ContactsComponent"]; });
+
+/* harmony import */ var _tasks_tasks_tasks_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../tasks/tasks/tasks.component */ "./src/app/tasks/tasks/tasks.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TasksComponent", function() { return _tasks_tasks_tasks_component__WEBPACK_IMPORTED_MODULE_4__["TasksComponent"]; });
+
 
 
 
@@ -7462,6 +7511,141 @@ var ObjectKeysPipe = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/reports/reports-routing.module.ts":
+/*!***************************************************!*\
+  !*** ./src/app/reports/reports-routing.module.ts ***!
+  \***************************************************/
+/*! exports provided: ReportsRoutingModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ReportsRoutingModule", function() { return ReportsRoutingModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _reports_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./reports.component */ "./src/app/reports/reports.component.ts");
+
+
+
+
+var routes = [
+    {
+        path: '',
+        component: _reports_component__WEBPACK_IMPORTED_MODULE_3__["ReportsComponent"]
+    }
+];
+var ReportsRoutingModule = /** @class */ (function () {
+    function ReportsRoutingModule() {
+    }
+    ReportsRoutingModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+            imports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forChild(routes)],
+            exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]]
+        })
+    ], ReportsRoutingModule);
+    return ReportsRoutingModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/reports/reports.component.html":
+/*!************************************************!*\
+  !*** ./src/app/reports/reports.component.html ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  reports works!\n</p>\n"
+
+/***/ }),
+
+/***/ "./src/app/reports/reports.component.scss":
+/*!************************************************!*\
+  !*** ./src/app/reports/reports.component.scss ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3JlcG9ydHMvcmVwb3J0cy5jb21wb25lbnQuc2NzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/reports/reports.component.ts":
+/*!**********************************************!*\
+  !*** ./src/app/reports/reports.component.ts ***!
+  \**********************************************/
+/*! exports provided: ReportsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ReportsComponent", function() { return ReportsComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var ReportsComponent = /** @class */ (function () {
+    function ReportsComponent() {
+    }
+    ReportsComponent.prototype.ngOnInit = function () {
+    };
+    ReportsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-reports',
+            template: __webpack_require__(/*! ./reports.component.html */ "./src/app/reports/reports.component.html"),
+            styles: [__webpack_require__(/*! ./reports.component.scss */ "./src/app/reports/reports.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], ReportsComponent);
+    return ReportsComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/reports/reports.module.ts":
+/*!*******************************************!*\
+  !*** ./src/app/reports/reports.module.ts ***!
+  \*******************************************/
+/*! exports provided: ReportsModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ReportsModule", function() { return ReportsModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _reports_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./reports-routing.module */ "./src/app/reports/reports-routing.module.ts");
+/* harmony import */ var _reports_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./reports.component */ "./src/app/reports/reports.component.ts");
+
+
+
+
+
+var ReportsModule = /** @class */ (function () {
+    function ReportsModule() {
+    }
+    ReportsModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+            declarations: [_reports_component__WEBPACK_IMPORTED_MODULE_4__["ReportsComponent"]],
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
+                _reports_routing_module__WEBPACK_IMPORTED_MODULE_3__["ReportsRoutingModule"]
+            ]
+        })
+    ], ReportsModule);
+    return ReportsModule;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/services/adapters.service.ts":
 /*!**********************************************!*\
   !*** ./src/app/services/adapters.service.ts ***!
@@ -8001,6 +8185,197 @@ var TestDataService = /** @class */ (function () {
             _schema_repository_service__WEBPACK_IMPORTED_MODULE_5__["SchemaRepositoryService"]])
     ], TestDataService);
     return TestDataService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/tasks/tasks-routing.module.ts":
+/*!***********************************************!*\
+  !*** ./src/app/tasks/tasks-routing.module.ts ***!
+  \***********************************************/
+/*! exports provided: TasksRoutingModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TasksRoutingModule", function() { return TasksRoutingModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _tasks_tasks_tasks_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../tasks/tasks/tasks.component */ "./src/app/tasks/tasks/tasks.component.ts");
+
+
+
+
+var routes = [
+    {
+        path: '',
+        component: _tasks_tasks_tasks_component__WEBPACK_IMPORTED_MODULE_3__["TasksComponent"]
+        // children: [
+        //   { path: 'tas', component: pages.PeopleComponent },
+        //   { path: 'organisations', component: pages.OrganisationsComponent },
+        // ]  
+    }
+];
+var TasksRoutingModule = /** @class */ (function () {
+    function TasksRoutingModule() {
+    }
+    TasksRoutingModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+            imports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forChild(routes)],
+            exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]]
+        })
+    ], TasksRoutingModule);
+    return TasksRoutingModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/tasks/tasks.module.ts":
+/*!***************************************!*\
+  !*** ./src/app/tasks/tasks.module.ts ***!
+  \***************************************/
+/*! exports provided: TasksModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TasksModule", function() { return TasksModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _tasks_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tasks-routing.module */ "./src/app/tasks/tasks-routing.module.ts");
+/* harmony import */ var _tasks_tasks_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./tasks/tasks.component */ "./src/app/tasks/tasks/tasks.component.ts");
+/* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../_shared/shared.module */ "./src/app/_shared/shared.module.ts");
+/* harmony import */ var _app_material_app_material_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../app-material/app-material.module */ "./src/app/app-material/app-material.module.ts");
+
+
+
+
+
+
+
+var TasksModule = /** @class */ (function () {
+    function TasksModule() {
+    }
+    TasksModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+            declarations: [_tasks_tasks_component__WEBPACK_IMPORTED_MODULE_4__["TasksComponent"]],
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
+                _tasks_routing_module__WEBPACK_IMPORTED_MODULE_3__["TasksRoutingModule"],
+                _shared_shared_module__WEBPACK_IMPORTED_MODULE_5__["SharedModule"],
+                _app_material_app_material_module__WEBPACK_IMPORTED_MODULE_6__["AppMaterialModule"]
+            ]
+        })
+    ], TasksModule);
+    return TasksModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/tasks/tasks/tasks.component.html":
+/*!**************************************************!*\
+  !*** ./src/app/tasks/tasks/tasks.component.html ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<mat-expansion-panel>\n    <mat-expansion-panel-header>\n  <h2> Tasks for Recordings (7)</h2>\n    </mat-expansion-panel-header>\n</mat-expansion-panel>\n\n<mat-expansion-panel class=\"my-5\">\n    <mat-expansion-panel-header>\n  <h2> Tasks for Releases (19)</h2>\n    </mat-expansion-panel-header>\n\n\n    <div>\n        \n<h2><span matBadge=\"8\" style=\"width:80px\"> <mat-chip>1</mat-chip>  </span> Little Earthquakes</h2>\n    </div>\n    \n\n    <table class=\"table table-sm ml-5\"> \n        <tr *ngFor=\"let item of dataSource\">\n              <td matBadge=\"8\" style=\"width:80px\"> <mat-chip>{{item.step}}</mat-chip>  </td> \n              <td><b>{{item.date}}</b></td>\n              <td><b>{{item.name}}</b></td>\n              <td style=\"min-width:200px\">   <mat-progress-bar mode=\"determinate\" value=\"{{item.percentComplete}}\">\n                  \n                </mat-progress-bar></td>\n              <td><i class=\"material-icons\" matTooltip=\"Awaiting response\">\n                  {{item.icon}} \n                  </i> </td>\n          </tr>\n        </table>\n\n\n        <div>\n        \n            <h2><span matBadge=\"8\" style=\"width:80px\"> <mat-chip>2</mat-chip>  </span> Stoner drone from outer space</h2>\n                </div>\n                \n            \n                <table class=\"table table-sm ml-5\"> \n                    <tr *ngFor=\"let item of dataSource\">\n                          <td matBadge=\"8\" style=\"width:80px\"> <mat-chip>{{item.step}}</mat-chip>  </td> \n                          <td><b>{{item.date}}</b></td>\n                          <td><b>{{item.name}}</b></td>\n                          <td style=\"min-width:200px\">   <mat-progress-bar mode=\"determinate\" value=\"{{item.percentComplete}}\">\n                              \n                            </mat-progress-bar></td>\n                          <td><i class=\"material-icons\" matTooltip=\"Awaiting response\">\n                              {{item.icon}} \n                              </i> </td>\n                      </tr>\n                    </table>\n\n\n\n</mat-expansion-panel>"
+
+/***/ }),
+
+/***/ "./src/app/tasks/tasks/tasks.component.scss":
+/*!**************************************************!*\
+  !*** ./src/app/tasks/tasks/tasks.component.scss ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".mat-chip.mat-standard-chip {\n  background-color: #e0e0e0;\n  color: rgba(0, 0, 0, 0.87);\n  border-radius: 16px;\n  padding: 2px;\n  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);\n  display: inline-flex;\n  padding: 7px 12px;\n  border-radius: 16px;\n  align-items: center;\n  cursor: default;\n  min-height: 32px;\n  height: 1px; }\n\n.mat-cell {\n  padding: 6px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGFza3MvdGFza3MvQzpcXFVzZXJzXFxUaW1cXGtlbmRyYWlvLWFwcC9zcmNcXGFwcFxcdGFza3NcXHRhc2tzXFx0YXNrcy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLDBCQUF5QjtFQUN6QiwyQkFBMEI7RUFDMUIsb0JBQW1CO0VBQ25CLGFBQVk7RUFDWiwwREFBb0Q7RUFDcEQscUJBQW9CO0VBQ3BCLGtCQUFpQjtFQUNqQixvQkFBbUI7RUFDbkIsb0JBQW1CO0VBQ25CLGdCQUFlO0VBQ2YsaUJBQWdCO0VBQ2hCLFlBQVcsRUFDZDs7QUFDRDtFQUNBLGFBQVksRUFDWCIsImZpbGUiOiJzcmMvYXBwL3Rhc2tzL3Rhc2tzL3Rhc2tzLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLm1hdC1jaGlwLm1hdC1zdGFuZGFyZC1jaGlwIHtcclxuICAgIGJhY2tncm91bmQtY29sb3I6ICNlMGUwZTA7XHJcbiAgICBjb2xvcjogcmdiYSgwLCAwLCAwLCAwLjg3KTtcclxuICAgIGJvcmRlci1yYWRpdXM6IDE2cHg7XHJcbiAgICBwYWRkaW5nOiAycHg7XHJcbiAgICB0cmFuc2l0aW9uOiBib3gtc2hhZG93IDI4MG1zIGN1YmljLWJlemllciguNCwwLC4yLDEpO1xyXG4gICAgZGlzcGxheTogaW5saW5lLWZsZXg7XHJcbiAgICBwYWRkaW5nOiA3cHggMTJweDtcclxuICAgIGJvcmRlci1yYWRpdXM6IDE2cHg7XHJcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gICAgY3Vyc29yOiBkZWZhdWx0O1xyXG4gICAgbWluLWhlaWdodDogMzJweDtcclxuICAgIGhlaWdodDogMXB4O1xyXG59XHJcbi5tYXQtY2VsbCB7XHJcbnBhZGRpbmc6IDZweDtcclxufSJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/tasks/tasks/tasks.component.ts":
+/*!************************************************!*\
+  !*** ./src/app/tasks/tasks/tasks.component.ts ***!
+  \************************************************/
+/*! exports provided: TasksComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TasksComponent", function() { return TasksComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_services_adapters_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/adapters.service */ "./src/app/services/adapters.service.ts");
+
+
+
+
+var PROGRESS_DATA = [
+    { step: 1, name: 'Releases Selected', date: '24 Feb 2019', percentComplete: 100, icon: 'done' },
+    { step: 2, name: 'Data confirmed', date: '24 Feb 2019', percentComplete: 100, icon: 'done' },
+];
+var TasksComponent = /** @class */ (function () {
+    function TasksComponent(router, adapters) {
+        this.router = router;
+        this.adapters = adapters;
+        this.nextStep = false;
+        this.displayedColumns = ['step', 'name', 'percentComplete', 'icon'];
+        this.dataSource = [];
+        this.nextDataSource = [];
+    }
+    TasksComponent.prototype.ngOnInit = function () {
+        PROGRESS_DATA = [
+            { step: 1, name: 'Releases Selected', date: '24 Feb 2019', percentComplete: 100, icon: 'done' },
+            { step: 2, name: 'Data confirmed', date: '24 Feb 2019', percentComplete: 100, icon: 'done' },
+        ];
+        this.dataSource = [];
+        this.nextDataSource = [];
+        this.dataSource = PROGRESS_DATA;
+        this.onNextStep();
+    };
+    Object.defineProperty(TasksComponent.prototype, "enabled", {
+        // Object.keys(adapters);
+        get: function () { return Object.keys(this.adapters.enabledAdapters); },
+        enumerable: true,
+        configurable: true
+    });
+    TasksComponent.prototype.onNextStep = function () {
+        var _this = this;
+        this.nextDataSource = [];
+        this.nextDataSource = PROGRESS_DATA;
+        this.enabled.forEach(function (input) {
+            _this.nextDataSource.push({
+                step: _this.nextDataSource.length + 1,
+                name: 'Sent to: ' + input,
+                percentComplete: _this.nextDataSource.length * 3,
+                date: '02 Mar 2018',
+                icon: 'schedule'
+            });
+        });
+        this.nextStep = true;
+        this.dataSource = [];
+        this.dataSource = this.nextDataSource;
+    };
+    TasksComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-tasks',
+            template: __webpack_require__(/*! ./tasks.component.html */ "./src/app/tasks/tasks/tasks.component.html"),
+            styles: [__webpack_require__(/*! ./tasks.component.scss */ "./src/app/tasks/tasks/tasks.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            src_app_services_adapters_service__WEBPACK_IMPORTED_MODULE_3__["AdaptersService"]])
+    ], TasksComponent);
+    return TasksComponent;
 }());
 
 

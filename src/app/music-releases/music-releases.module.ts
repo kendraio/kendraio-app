@@ -18,6 +18,8 @@ import { SharedModule } from '../_shared/shared.module';
 import { RegisterNewReleaseComponent } from './register-new-release/register-new-release.component';
 import { PublishComponent } from './publish/publish.component';
 import { RegisterComponent } from './register/register.component';
+import { TasksComponent } from './tasks/tasks.component';
+import { ListComponent } from './list/list.component';
 // import { MatInputComponent } from '../_shared/components';
 //  import { MatInputComponent } from "./mat-input.component";
 
@@ -29,7 +31,9 @@ import { RegisterComponent } from './register/register.component';
     IndexComponent, 
     MusicReleasesEditComponent, 
     MusicReleasesDetailComponent, 
-    RegisterNewReleaseComponent, PublishComponent, RegisterComponent
+    RegisterNewReleaseComponent, 
+    PublishComponent, RegisterComponent, 
+    TasksComponent, ListComponent
   ],
   imports: [
     CommonModule,

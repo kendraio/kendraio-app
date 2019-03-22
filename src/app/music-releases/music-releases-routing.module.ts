@@ -3,9 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 import * as pages from './index';
 
 const routes: Routes = [
-  { path: '', component: pages.IndexComponent },
-  { path: 'edit/:id', component: pages.MusicReleasesEditComponent },
-  { path: 'detail/:id', component: pages.MusicReleasesDetailComponent },
+  { path: '', 
+  component: pages.IndexComponent,
+  children: [
+    { path: 'tasks', component: pages.TasksComponent },
+    { path: 'list', component: pages.ListComponent },
+  ] 
+}
+
 ];
 
 @NgModule({

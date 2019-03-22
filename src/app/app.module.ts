@@ -56,6 +56,9 @@ import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
 import { DiagramPageComponent } from './pages/diagram-page/diagram-page.component';
 // import { ContactsComponent } from './pages';
 import { ContactsModule } from './contacts/contacts.module';
+import { TasksModule } from './tasks/tasks.module';
+// import { ReportsComponent } from './reports/reports.component';
+import { ReportsModule } from './reports/reports.module';
 // import { AgGridModule } from 'ag-grid-angular';
 // import { MatInputComponent } from './_shared/components';
 // import {DialogDataExampleDialog} from './music-recordings';
@@ -99,7 +102,8 @@ import { ContactsModule } from './contacts/contacts.module';
     TestImportDialogComponent,
     AssetsPageComponent,
     DiagramPageComponent,
-    //ContactsComponent
+    // ReportsComponent,
+    // ContactsComponent
     // MatInputComponent
     // DialogDataExampleDialog
     // MusicRecordingsEditComponent
@@ -122,7 +126,9 @@ import { ContactsModule } from './contacts/contacts.module';
     NgxTaggerModule,
     DynamicFormsCoreModule,
     DynamicFormsMaterialUIModule,
-    ContactsModule
+    ContactsModule,
+    TasksModule,
+    ReportsModule
   ],
   entryComponents: [
     AddDocDialogComponent,

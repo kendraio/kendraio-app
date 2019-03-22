@@ -24,6 +24,16 @@ export class LayoutComponent implements OnInit {
       icon: 'attach_money'
     },
     {
+      href: '/tasks',
+      title: 'Tasks',
+      icon: 'alarm_on'
+    },
+    {
+      href: '/reports',
+      title: 'Reports',
+      icon: 'assignment'
+    },
+    {
       href: '/contacts',
       title: 'Contacts',
       icon: 'contacts'
