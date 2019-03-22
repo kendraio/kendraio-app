@@ -14,6 +14,7 @@ export class RegisterNewReleaseComponent implements OnInit {
   formModel: DynamicFormModel = RELEASE_REGISTER_FORM_MODEL;
   formGroup: FormGroup;
   //formLayout: DynamicFormLayout = WORKS_FORM_LAYOUT;
+  formLayout = {};
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
