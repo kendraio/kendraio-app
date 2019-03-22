@@ -56,6 +56,7 @@ import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
 import { DiagramPageComponent } from './pages/diagram-page/diagram-page.component';
 // import { ContactsComponent } from './pages';
 import { ContactsModule } from './contacts/contacts.module';
+import { BloomenTestPageComponent } from './pages/bloomen-test-page/bloomen-test-page.component';
 // import { AgGridModule } from 'ag-grid-angular';
 // import { MatInputComponent } from './_shared/components';
 // import {DialogDataExampleDialog} from './music-recordings';
@@ -99,6 +100,7 @@ import { ContactsModule } from './contacts/contacts.module';
     TestImportDialogComponent,
     AssetsPageComponent,
     DiagramPageComponent,
+    BloomenTestPageComponent,
     //ContactsComponent
     // MatInputComponent
     // DialogDataExampleDialog

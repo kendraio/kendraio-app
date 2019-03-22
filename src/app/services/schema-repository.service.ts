@@ -21,7 +21,7 @@ export class SchemaRepositoryService {
       // 'Person',
       'Photo', 'Project', 'Audio', 'Clip',
       'file', 'music-recording', 'music-release', 'music-work', 'payment',
-      'claim', 'video', 'person'
+      'claim', 'video', 'person', 'BloomenPhoto'
     ];
     return forkJoin(enabledSchemas.map(schemaName => this.http
       .get(`/assets/schemas/${ schemaName }.yaml`, {responseType: 'text'})
