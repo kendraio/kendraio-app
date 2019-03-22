@@ -10,7 +10,7 @@
   
   <!-- <pre> {{ allItems | json }}</pre> -->
   
-  <div class="table-responsive-lg" @enterAnimateUpDwn>
+  <div class="table-responsive-lg">
     <ag-grid-angular #agGrid style="width: 100%; height: 700px;" class="ag-theme-material" [gridOptions]="gridOptions"
       [frameworkComponents]="gridOptions.frameworkComponents" [rowData]="allItems" animateRows="true"
       (cellClicked)="onCellClicked($event)" rowSelection="multiple" (selectionChanged)="onSelectionChanged($event)"

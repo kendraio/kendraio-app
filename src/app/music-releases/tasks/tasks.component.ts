@@ -29,7 +29,7 @@ export class TasksComponent implements OnInit {
   
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    // @Inject(MAT_DIALOG_DATA) public data: any,
     private readonly router: Router,
     private readonly adapters: AdaptersService
   ) { }
