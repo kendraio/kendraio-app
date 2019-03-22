@@ -124,6 +124,13 @@ import {REMOTE_IMAGE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/remote-ima
     TestImportDialogComponent,
     AssetsPageComponent,
     DiagramPageComponent,
+    BloomenTestPageComponent,
+    RemoteImageControlComponent,
+    ReferenceInputControlComponent,
+    DynamicAudioInputControlComponent,
+    DynamicImageInputControlComponent,
+    DynamicReferenceInputControlComponent,
+    DynamicRemoteImageControlComponent
     // ReportsComponent,
     // ContactsComponent
     // MatInputComponent
