@@ -25,7 +25,7 @@ export class DocumentRepositoryService {
   resetApp() {
     this.db.destroy();
     // Defer execution of this to ensure database deleted before re-init
-    setTimeout(() => this.init(), 0);
+    setTimeout(() => this.init(), 100);
   }
 
   // Initialise the database
@@ -50,6 +50,7 @@ export class DocumentRepositoryService {
   }
 
   listAllOfType(type) {
+    // console.log(`List of type ${type}`);
     return from(this.db.allDocs({
       include_docs: true,
       attachments: true,

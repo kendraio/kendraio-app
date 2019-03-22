@@ -1,32 +1,20 @@
-<form #ngForm="ngForm" *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit()" autocomplete="off">
+<form *ngIf="!!formGroup" [formGroup]="formGroup" autocomplete="off">
 
-  <div class="mb-1" *ngFor="let field of _schema.fields" [ngSwitch]="field.type">
-    <app-text-input-form-control *ngSwitchCase="'TEXT'"
-                                 [placeholder]="field.label"
-                                 [formControlName]="field.id"></app-text-input-form-control>
-    <app-image-input-control *ngSwitchCase="'IMAGE'"
-                             [placeholder]="field.label"
-                             [tagControl]="formGroup.get('tags')"
-                             [formControlName]="field.id"></app-image-input-control>
+  <dynamic-material-form *ngIf="!!formModel" [group]="formGroup"
+                         [layout]="formLayout"
+                         [model]="formModel"></dynamic-material-form>
 
-    <app-audio-input-control *ngSwitchCase="'AUDIO'"
-                             [placeholder]="field.label"
-                             [clipControl]="formGroup.get('clips')"
-                             [formControlName]="field.id"></app-audio-input-control>
-
-    <!-- The Legacy Form Control is used as a temporary display of JSON data -->
-    <!-- TODO: Convert legacy data to use appropriate schemas -->
-    <app-legacy-data-form-control *ngSwitchCase="'JSON'"
-                                  [doc]="_doc"
-                                  [formControlName]="field.id"></app-legacy-data-form-control>
-
+  <div class="form-buttons">
+    <button type="button" (click)="onSubmit()" [disabled]="formGroup.invalid" mat-flat-button color="primary">Save</button>
+    <button type="button" mat-stroked-button (click)="resetForm()">Reset</button>
+    <button type="button" mat-stroked-button color="warn">Delete</button>
+    <button type="button" mat-flat-button (click)="cancelled.emit()">Cancel</button>
   </div>
-
-
-  <button type="button" (click)="ngForm.onSubmit($event)" [disabled]="formGroup.invalid" mat-stroked-button color="primary">Save</button>
-  <button type="button" color="warn" mat-flat-button (click)="resetForm()">Reset</button>
-  <button type="button" mat-flat-button (click)="cancelled.emit()">Cancel</button>
-  <!--<pre>{{ formGroup.value | json }}</pre>-->
 </form>
 <div *ngIf="errorMessage" class="message">{{ errorMessage }}</div>
+<!--formGroup:-->
+<!--<pre>{{ formGroup?.value | json }}</pre>-->
+<!--_doc:-->
 <!--<pre>{{ _doc | json }}</pre>-->
+<!--formModel:-->
+<!--<pre>{{ formModel }}</pre>-->

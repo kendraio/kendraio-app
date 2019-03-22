@@ -1,33 +1,10 @@
 name: Person
-labelField: FullName
+labelField: name
+forms:
+  edit: assets/forms/personEditForm.yaml
 fields:
   - type: TEXT
-    id: FullName
+    id: name
     label: Name
-    autoComplete: off
-    defaultValue: ''
-  - type: TEXT
-    id: ISNI
-    label: ISNI
-    autoComplete: off
-    defaultValue: ''
-  - type: TEXT
-    id: 'CAE/IPI'
-    label: 'CAE/IPI'
-    autoComplete: off
-    defaultValue: ''
-  - type: TEXT
-    id: PhoneNumber
-    label: PhoneNumber
-    autoComplete: off
-    defaultValue: ''
-  - type: TEXT
-    id: Email
-    label: Email
-    autoComplete: off
-    defaultValue: ''
-  - type: JSON
-    id: json_data
-    label: Legacy Data
     autoComplete: off
     defaultValue: ''

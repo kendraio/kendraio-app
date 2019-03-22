@@ -15,6 +15,7 @@ import { SwaggerPageComponent } from './pages/swagger-page/swagger-page.componen
 import {TestApiPageComponent} from './pages/test-api-page/test-api-page.component';
 import {DiagramPageComponent} from './pages/diagram-page/diagram-page.component';
 import { PeopleComponent } from './contacts/people/people.component';
+import {BloomenTestPageComponent} from './pages/bloomen-test-page/bloomen-test-page.component';
 
 const routes: Routes = [
   {
@@ -94,6 +95,10 @@ const routes: Routes = [
       {
         path: 'test-api',
         component: TestApiPageComponent
+      },
+      {
+        path: 'bloomen-api',
+        component: BloomenTestPageComponent
       },
       {
         path: 'files',

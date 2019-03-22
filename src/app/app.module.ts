@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import {APP_INITIALIZER, NgModule, Type} from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -51,14 +51,36 @@ import { AssetsPageComponent } from './pages/assets-page/assets-page.component';
 
 // import {MusicRecordingsEditComponent} from './music-recordings/index';
 
-import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
+import {
+  DYNAMIC_FORM_CONTROL_MAP_FN,
+  DynamicFormControl,
+  DynamicFormControlModel,
+  DynamicFormsCoreModule,
+  DynamicFormService
+} from '@ng-dynamic-forms/core';
 import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
 import { DiagramPageComponent } from './pages/diagram-page/diagram-page.component';
+import { DynamicAudioInputControlComponent } from
+    './form-controls/dynamic-audio-input-control/dynamic-audio-input-control.component';
+import {AUDIO_FILE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/audio-form-model';
+import {CustomFormService} from './form-controls/custom-form-service';
+import { DynamicImageInputControlComponent } from './form-controls/dynamic-image-input-control/dynamic-image-input-control.component';
+import {IMAGE_FILE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/image-form-model';
+import { ReferenceInputControlComponent } from './form-controls/reference-input-control/reference-input-control.component';
+import { DynamicReferenceInputControlComponent } from
+    './form-controls/dynamic-reference-input-control/dynamic-reference-input-control.component';
+import {REFERENCE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/reference-form-model';
+
 // import { ContactsComponent } from './pages';
 import { ContactsModule } from './contacts/contacts.module';
 import { TasksModule } from './tasks/tasks.module';
 // import { ReportsComponent } from './reports/reports.component';
 import { ReportsModule } from './reports/reports.module';
+import { BloomenTestPageComponent } from './pages/bloomen-test-page/bloomen-test-page.component';
+import { RemoteImageControlComponent } from './form-controls/remote-image-control/remote-image-control.component';
+import { DynamicRemoteImageControlComponent } from './form-controls/dynamic-remote-image-control/dynamic-remote-image-control.component';
+import {REMOTE_IMAGE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/remote-image-model';
+
 // import { AgGridModule } from 'ag-grid-angular';
 // import { MatInputComponent } from './_shared/components';
 // import {DialogDataExampleDialog} from './music-recordings';
@@ -138,7 +160,11 @@ import { ReportsModule } from './reports/reports.module';
     ConfirmDeleteDialogComponent,
     ReplaceImageUrlDialogComponent,
     EditClipDialogComponent,
-    TestImportDialogComponent
+    TestImportDialogComponent,
+    DynamicAudioInputControlComponent,
+    DynamicImageInputControlComponent,
+    DynamicReferenceInputControlComponent,
+    DynamicRemoteImageControlComponent
   ],
   providers: [
     {
@@ -152,6 +178,25 @@ import { ReportsModule } from './reports/reports.module';
       multi: true,
       useFactory: (docsRepo: DocumentRepositoryService) => () => docsRepo.init(),
       deps: [ DocumentRepositoryService ]
+    },
+    {
+      provide: DYNAMIC_FORM_CONTROL_MAP_FN,
+      useValue: (model: DynamicFormControlModel): Type<DynamicFormControl> | null  => {
+        switch (model.type) {
+          case AUDIO_FILE_DYNAMIC_FORM_CONTROL_TYPE:
+            return DynamicAudioInputControlComponent;
+          case IMAGE_FILE_DYNAMIC_FORM_CONTROL_TYPE:
+            return DynamicImageInputControlComponent;
+          case REFERENCE_DYNAMIC_FORM_CONTROL_TYPE:
+            return DynamicReferenceInputControlComponent;
+          case REMOTE_IMAGE_DYNAMIC_FORM_CONTROL_TYPE:
+            return DynamicRemoteImageControlComponent;
+        }
+      }
+    },
+    {
+      provide: DynamicFormService,
+      useClass: CustomFormService
     }
   ],
   bootstrap: [AppComponent]

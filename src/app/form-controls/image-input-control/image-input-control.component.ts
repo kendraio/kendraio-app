@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { ControlValueAccessor, FormArray, FormControl, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { blobToDataURL } from "blob-util";
-import { Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
+import { ControlValueAccessor, FormArray, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { blobToDataURL } from 'blob-util';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-image-input-control',
@@ -48,7 +48,7 @@ export class ImageInputControlComponent implements OnInit, OnDestroy, ControlVal
   }
 
   deleteTag(i) {
-    const newTags = [ ...this.tagControl.value.splice(0, i), ...this.tagControl.value.splice(i+1)];
+    const newTags = [ ...this.tagControl.value.splice(0, i), ...this.tagControl.value.splice(i + 1)];
     this.tagControl.setValue(newTags);
   }
 
