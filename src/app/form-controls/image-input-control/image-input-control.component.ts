@@ -22,7 +22,7 @@ export class ImageInputControlComponent implements OnInit, OnDestroy, ControlVal
   @Input() placeholder: string;
 
   @Output() updateTags = new EventEmitter();
-  tags = new FormControl([]);
+  // tags = new FormControl([]);
   destroy$ = new Subject();
 
   @Input() tagControl: FormControl;
@@ -38,9 +38,6 @@ export class ImageInputControlComponent implements OnInit, OnDestroy, ControlVal
   }
 
   constructor() {
-    this.tags.valueChanges
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(tags => this.updateTags.emit(tags));
   }
 
   ngOnDestroy() {
@@ -60,6 +57,9 @@ export class ImageInputControlComponent implements OnInit, OnDestroy, ControlVal
   }
 
   ngOnInit() {
+    this.tagControl.valueChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(tags => this.updateTags.emit(tags));
   }
 
   registerOnChange(fn: any): void {
