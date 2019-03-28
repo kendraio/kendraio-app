@@ -31,12 +31,16 @@ const routes: Routes = [
         component: Pages.DashboardPageComponent
       },
       {
-        path: 'assets',
+        path: 'oldassets',
         component: Pages.AssetsPageComponent,
         data: {
           pageTitle: 'My Assets',
           subTitle: ''
         }
+      },
+      {
+        path: 'assets',
+        loadChildren: './assets/assets.module#AssetsModule'
       },
 
       // {
@@ -100,22 +104,22 @@ const routes: Routes = [
         path: 'bloomen-api',
         component: BloomenTestPageComponent
       },
-      {
-        path: 'files',
-        loadChildren: './files/files.module#FilesModule'
-      },
-      {
-        path: 'recordings',
-        loadChildren: './music-recordings/music-recordings.module#MusicRecordingsModule'
-      },
-      {
-        path: 'releases',
-        loadChildren: './music-releases/music-releases.module#MusicReleasesModule'
-      },
-      {
-        path: 'works',
-        loadChildren: './music-works/music-works.module#MusicWorksModule'
-      },
+      // {
+      //   path: 'files',
+      //   loadChildren: './files/files.module#FilesModule'
+      // },
+      // {
+      //   path: 'recordings',
+      //   loadChildren: './music-recordings/music-recordings.module#MusicRecordingsModule'
+      // },
+      // {
+      //   path: 'releases',
+      //   loadChildren: './music-releases/music-releases.module#MusicReleasesModule'
+      // },
+      // {
+      //   path: 'works',
+      //   loadChildren: './music-works/music-works.module#MusicWorksModule'
+      // },
       {
         path: 'claims',
         loadChildren: './claims/claims.module#ClaimsModule'

@@ -7,10 +7,10 @@
             <mat-icon mat-list-icon [matMenuTriggerFor]="menu">favorite</mat-icon>
             <a matLine [matMenuTriggerFor]="menu">Assets</a>
             <mat-menu #menu="matMenu">
-              <button  (click)="gotoPage('/files', sidenav)"  mat-menu-item>Files</button>
-              <button mat-menu-item (click)="gotoPage('/recordings', sidenav)" >Recordings</button>
-              <button mat-menu-item (click)="gotoPage('/releases', sidenav)">Releases</button>
-              <button mat-menu-item (click)="gotoPage('/works', sidenav)" >Works</button>
+              <button  (click)="gotoPage('/assets/files', sidenav)"  mat-menu-item>Files</button>
+              <button mat-menu-item (click)="gotoPage('/assets/recordings', sidenav)" >Recordings</button>
+              <button mat-menu-item (click)="gotoPage('/assets/releases', sidenav)">Releases</button>
+              <button mat-menu-item (click)="gotoPage('/assets/works', sidenav)" >Works</button>
             </mat-menu>      
           </mat-list-item>
 

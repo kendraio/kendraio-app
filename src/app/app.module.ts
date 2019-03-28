@@ -80,6 +80,7 @@ import { BloomenTestPageComponent } from './pages/bloomen-test-page/bloomen-test
 import { RemoteImageControlComponent } from './form-controls/remote-image-control/remote-image-control.component';
 import { DynamicRemoteImageControlComponent } from './form-controls/dynamic-remote-image-control/dynamic-remote-image-control.component';
 import {REMOTE_IMAGE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/remote-image-model';
+import { AssetsModule } from './assets/assets.module';
 
 // import { AgGridModule } from 'ag-grid-angular';
 // import { MatInputComponent } from './_shared/components';
@@ -157,7 +158,8 @@ import {REMOTE_IMAGE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/remote-ima
     DynamicFormsMaterialUIModule,
     ContactsModule,
     TasksModule,
-    ReportsModule
+    ReportsModule,
+    AssetsModule
   ],
   entryComponents: [
     AddDocDialogComponent,
