@@ -36,3 +36,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mt-1 {
   margin-top: 1em;
 }
+
+dynamic-material-form-control .mat-form-field {
+  width: 100%;
+}
