@@ -4,9 +4,12 @@ import { Routes, RouterModule } from '@angular/router';
 import * as pages from './index';
 
 const routes: Routes = [
-  { path: '', component: pages.IndexComponent },
-  { path: 'edit/:id', component: pages.MusicRecordingsEditComponent },
-  { path: 'detail/:id', component: pages.MusicRecordingsDetailComponent },
+  { path: '', component: pages.IndexComponent, 
+  data: {
+    breadcrumb: ''
+  } }
+  // { path: 'edit/:id', component: pages.MusicRecordingsEditComponent },
+  // { path: 'detail/:id', component: pages.MusicRecordingsDetailComponent },
 ];
 
 @NgModule({

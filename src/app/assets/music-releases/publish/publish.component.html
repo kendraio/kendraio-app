@@ -32,7 +32,7 @@ Please be sure all info is correct before starting the distribution process.
 </section>
 
   <div mat-dialog-actions>
-    <button mat-button mat-dialog-close="Edit Cancelled">Cancel</button>
+    <button mat-button mat-dialog-close="cancel">Cancel</button>
     <button mat-button mat-raised-button (click)="onNextStep()">Distribute</button>
   </div>
 </div>
@@ -59,7 +59,7 @@ Please be sure all info is correct before starting the distribution process.
 </section>
 
   <div mat-dialog-actions>
-    <button mat-button mat-dialog-close="Edit Cancelled">Close</button>
+    <button mat-button mat-dialog-close="cancel">Close</button>
     <button mat-button mat-raised-button mat-dialog-close="next" (click)="nextClaimStep3(data.section)">Continue</button>
   </div>
 

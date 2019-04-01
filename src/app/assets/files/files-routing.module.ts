@@ -10,9 +10,19 @@ import {
 // import { SharedModule } from '../_shared/shared.module';
 
 const routes: Routes = [
-  { path: '', component: FilesComponent },
-  { path: 'file-detail/:id', component: FileDetailsComponent},
-  { path: 'file-edit/:id', component: FileEditComponent},
+  { path: '', component: FilesComponent, 
+  data: {
+    breadcrumb: ''
+  }
+},
+  { path: 'file-detail/:id', component: FileDetailsComponent, 
+  data: {
+    breadcrumb: 'gsdfgsdf'
+  }},
+  { path: 'file-edit/:id', component: FileEditComponent, 
+  data: {
+    breadcrumb: 'sdfgsdfg'
+  }},
   ];
 
 @NgModule({

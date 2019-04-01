@@ -1,8 +1,29 @@
+<section fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="40px" fxFlexFill>
 
-     
 
 
-<mat-grid-list cols="4" rowHeight="1:1">
+  <button mat-raised-button [routerLink]="['files']">
+    Files
+  </button>
+
+  <button mat-raised-button [routerLink]="['recordings']">
+    Recordings
+  </button>
+
+  <button mat-raised-button [routerLink]="['releases']">
+    Releases
+  </button>
+
+  <button mat-raised-button [routerLink]="['works']">
+    Works
+  </button>
+
+
+</section>
+
+
+
+<!-- <mat-grid-list cols="4" rowHeight="1:1">
     <mat-grid-tile [routerLink]="['files']" ><h2>Files</h2>
       <mat-grid-tile-footer>  We found 356 files
           <button mat-icon-button>
@@ -33,7 +54,8 @@
 
    
     </mat-grid-tile>
-  </mat-grid-list>
+  </mat-grid-list> -->
 
+<app-breadcrumb></app-breadcrumb>
 
-   
+<router-outlet></router-outlet>

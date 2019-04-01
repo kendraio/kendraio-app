@@ -81,6 +81,7 @@ import { RemoteImageControlComponent } from './form-controls/remote-image-contro
 import { DynamicRemoteImageControlComponent } from './form-controls/dynamic-remote-image-control/dynamic-remote-image-control.component';
 import {REMOTE_IMAGE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/remote-image-model';
 import { AssetsModule } from './assets/assets.module';
+// import { BreadcrumbComponent } from './_shared/components/breadcrumb/breadcrumb.component';
 
 // import { AgGridModule } from 'ag-grid-angular';
 // import { MatInputComponent } from './_shared/components';
@@ -131,7 +132,8 @@ import { AssetsModule } from './assets/assets.module';
     DynamicAudioInputControlComponent,
     DynamicImageInputControlComponent,
     DynamicReferenceInputControlComponent,
-    DynamicRemoteImageControlComponent
+    DynamicRemoteImageControlComponent,
+    // BreadcrumbComponent
     // ReportsComponent,
     // ContactsComponent
     // MatInputComponent

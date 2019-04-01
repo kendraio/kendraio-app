@@ -4,10 +4,23 @@ import * as pages from './index';
 
 const routes: Routes = [
   { path: '', 
-  component: pages.IndexComponent,
+  component: pages.ReleasesComponent,
+  data: {
+     breadcrumb: ''
+  },
   children: [
-    { path: 'tasks', component: pages.TasksComponent },
-    { path: 'list', component: pages.ListComponent },
+    { path: 'tasks', component: pages.TasksComponent,
+  data: {
+    breadcrumb: 'Tasks'
+  }
+
+  
+  },
+    { path: 'list', component: pages.ListComponent,
+    data: {
+      breadcrumb: 'List'
+    }
+  },
   ] 
 }
 

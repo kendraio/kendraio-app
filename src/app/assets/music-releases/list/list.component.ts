@@ -115,7 +115,10 @@ export class ListComponent implements OnInit {
       panelClass: 'formFieldWidth380'
     });
     dialogRef.afterClosed().subscribe(result => {
-    this.addItemToGrid(result);
+      if (result !== 'cancel') {
+ this.addItemToGrid(result);
+      }
+   
     });
   }
   addItemToGrid(result: any): any {

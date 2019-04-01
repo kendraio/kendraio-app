@@ -1,13 +1,28 @@
-<mat-toolbar>
 
-  <span>
-      <button mat-button mat-raised-button [routerLink]="[ 'list']">List</button>
-      </span>
 
-  <span>
-<button mat-button mat-raised-button [routerLink]="[ 'tasks']">Tasks</button>
-</span>
-</mat-toolbar>
+
+
+
+
+<section fxLayout="row wrap"
+fxLayoutAlign="start start"
+fxLayoutGap="40px"
+fxFlexFill  >
+
+        <button mat-button mat-raised-button [routerLink]="['list']">
+            <mat-icon>forward</mat-icon> List
+          </button> 
+
+          <button mat-button mat-raised-button [routerLink]="['tasks']">
+              <mat-icon>forward</mat-icon> Tasks
+            </button> 
+
+
+
+
+
+ </section>
+
 <router-outlet></router-outlet>
 
 

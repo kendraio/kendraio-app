@@ -7,7 +7,7 @@ import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
 import { AppMaterialModule } from '../../app-material/app-material.module';
 
 import { MusicReleasesRoutingModule } from './music-releases-routing.module';
-import { IndexComponent, 
+import { ReleasesComponent, 
   MusicReleasesEditComponent,
    MusicReleasesDetailComponent, 
    RegisterNewReleaseComponent,
@@ -25,7 +25,7 @@ import { SharedModule } from '../../_shared/shared.module';
 
 @NgModule({
   declarations: [
-    IndexComponent, 
+    ReleasesComponent, 
     MusicReleasesEditComponent, 
     MusicReleasesDetailComponent, 
     RegisterNewReleaseComponent, 
@@ -61,7 +61,8 @@ import { SharedModule } from '../../_shared/shared.module';
   entryComponents: [   
     RegisterNewReleaseComponent,
     PublishComponent,
-    RegisterComponent
+    RegisterComponent,
+    MusicReleasesEditComponent
     
    ]
 })

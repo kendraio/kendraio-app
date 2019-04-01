@@ -3,6 +3,7 @@ import { PageTitleService } from '../services/page-title.service';
 import { MatGridListModule } from '@angular/material';
 import { from, ObservableInput } from 'rxjs';
 
+
 @Component({
   selector: 'app-assets-page',
   templateUrl: './assets.component.html',
@@ -17,7 +18,7 @@ export class AssetsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.pageTitle.setTitle('Assets');
+    this.pageTitle.setTitle('Assets');    
     this.dummyData = from([{
       datasets: [{
         data: [20, 40, 30, 10]

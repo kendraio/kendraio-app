@@ -51,14 +51,14 @@ export class IndexComponent implements OnInit {
   ) {
     this.gridOptions = <GridOptions>{
       onGridReady: () => {
-       //   this.gridOptions.api.sizeColumnsToFit();
+        //   this.gridOptions.api.sizeColumnsToFit();
       },
       rowHeight: 48,
       frameworkComponents: {
-          inputRenderer: MatInputComponent,
-          thing: MatButtonComponent
+        inputRenderer: MatInputComponent,
+        thing: MatButtonComponent
       }
-  };
+    };
     this.listAll();
   }
 
@@ -138,11 +138,14 @@ export class IndexComponent implements OnInit {
       panelClass: 'formFieldWidth380'
     });
     dialogRef.afterClosed().subscribe(result => {
-    this.addItemToGrid(result);
+      if (result !== 'cancel') {
+        this.addItemToGrid(result);
+      }
     });
   }
+
   addItemToGrid(result: any): any {
-this.newRecordings.push(result)
+    this.newRecordings.push(result)
   }
 
   onSelectionChanged(ev) {
@@ -151,49 +154,48 @@ this.newRecordings.push(result)
     const selectedRows = this.gridApi.getSelectedRows();
     let selectedRowsString = '';
     let theRow;
-    selectedRows.forEach(function(selectedRow, index) {
+    selectedRows.forEach(function (selectedRow, index) {
       if (index > 5) {
         return;
       }
       if (index !== 0) {
         selectedRowsString += ', ';
-      
       }
       selectedRowsString += selectedRow.Name;
-      theRow = selectedRow; 
+      theRow = selectedRow;
     });
     this.claimsToSend = [];
-    selectedRows.forEach(i => { 
-     
+    selectedRows.forEach(i => {
+
       this.claimsToSend.push(
-      {
-       'name': i.Name,
-       'artist': i.Artist,
-       'collective': i.Collective,
-       'owner': i.Owner,
-       'status': 'Not Sent'
-      });
-   });
+        {
+          'name': i.Name,
+          'artist': i.Artist,
+          'collective': i.Collective,
+          'owner': i.Owner,
+          'status': 'Not Sent'
+        });
+    });
 
 
     if (selectedRows.length >= 6) {
       selectedRowsString += ' - and ' + (selectedRows.length - 6) + ' others';
     }
     document.querySelector('#selectedRows').innerHTML = selectedRowsString;
-  
+
   }
 
-sendToClaim(ev: any): void {
-  const data = {section: 'recordings', data: this.claimsToSend };
-  const dialogRef = this.dialog.open(SendClaimsComponent, {
-    data: data,
-    width: '80%',
-    panelClass: 'formFieldWidth380'
-  });
-  dialogRef.afterClosed().subscribe(result => {
-    console.log('The dialog was closed');
-  });
-}
+  sendToClaim(ev: any): void {
+    const data = { section: 'recordings', data: this.claimsToSend };
+    const dialogRef = this.dialog.open(SendClaimsComponent, {
+      data: data,
+      width: '80%',
+      panelClass: 'formFieldWidth380'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 
 
 
@@ -218,7 +220,7 @@ sendToClaim(ev: any): void {
 //   template: `
 //   <pre> {{ data | json }}</pre> 
 //   <div mat-dialog-actions class="align-right">
-//     <button mat-button mat-dialog-close="Edit Cancelled">Cancel</button>
+//     <button mat-button mat-dialog-close="cancel">Cancel</button>
 //     <button mat-button [mat-dialog-close]="data.Name">Send All</button>
 //   </div>
 //   `

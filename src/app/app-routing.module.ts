@@ -40,7 +40,10 @@ const routes: Routes = [
       },
       {
         path: 'assets',
-        loadChildren: './assets/assets.module#AssetsModule'
+        loadChildren: './assets/assets.module#AssetsModule',
+        data: {
+          breadcrumb: 'Assets ='
+        }
       },
 
       // {

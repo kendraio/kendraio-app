@@ -23,7 +23,7 @@ import { RegisterComponent } from './register/register.component';
   `],
   animations: [Animations.pageAni]
 })
-export class IndexComponent implements OnInit {
+export class ReleasesComponent implements OnInit {
   public gridOptions: GridOptions;
   entityTypes$;
   selectedType;
@@ -36,7 +36,7 @@ export class IndexComponent implements OnInit {
   private gridColumnApi;
   claimsToSend: Array<any>;
   newReleases: any[] = [];
- 
+
 
 
   constructor(
@@ -46,14 +46,14 @@ export class IndexComponent implements OnInit {
   ) {
     this.gridOptions = <GridOptions>{
       onGridReady: () => {
-       //   this.gridOptions.api.sizeColumnsToFit();
+        //   this.gridOptions.api.sizeColumnsToFit();
       },
       rowHeight: 48,
       frameworkComponents: {
-          inputRenderer: MatInputComponent,
-          thing: MatButtonComponent
+        inputRenderer: MatInputComponent,
+        thing: MatButtonComponent
       }
-  };
+    };
 
   }
 
@@ -84,7 +84,7 @@ export class IndexComponent implements OnInit {
     const btn = '<button class="mat-button mat-raised-button"><span class="mat-button-wrapper">Edit</span><div class="mat-button-ripple mat-ripple"></div><div class="mat-button-focus-overlay"></div></button>';
     return btn;
   }
-  
+
 
   changeEntityType(type) {
     this.selectedType = type;
@@ -117,30 +117,34 @@ export class IndexComponent implements OnInit {
       panelClass: 'formFieldWidth380'
     });
     dialogRef.afterClosed().subscribe(result => {
-    this.addItemToGrid(result);
+      if (result !== 'cancel') {
+        this.addItemToGrid(result);
+      }
     });
   }
   addItemToGrid(result: any): any {
-   const r = {'type': 'music-release',
-    'Title': result.recordingTitle,
-    'Artist': result.bandArtistName,
-    'Date': result.date,
-    'Owner': 'owner',
-    'Territory': 'Europe',
-    'Type': result.genere,
-    'Format': result.format,
-    'Catalogue Number': '',
-    'Barcode': '',
-    'Number of tracks': '1',
-    'Distribution': '',
-    'Collective': '',
-    'Submitted to': ''}
+    const r = {
+      'type': 'music-release',
+      'Title': result.recordingTitle,
+      'Artist': result.bandArtistName,
+      'Date': result.date,
+      'Owner': 'owner',
+      'Territory': 'Europe',
+      'Type': result.genere,
+      'Format': result.format,
+      'Catalogue Number': '',
+      'Barcode': '',
+      'Number of tracks': '1',
+      'Distribution': '',
+      'Collective': '',
+      'Submitted to': ''
+    }
 
     // this.allItems.push(r);
 
     // this.gridOptions.api.updateRowData({add: [r]});
-    this.gridOptions.api.updateRowData({add: [r], addIndex: 0});
-   // printResult(res);
+    this.gridOptions.api.updateRowData({ add: [r], addIndex: 0 });
+    // printResult(res);
   }
 
   onSelectionChanged(ev) {
@@ -149,76 +153,76 @@ export class IndexComponent implements OnInit {
     const selectedRows = this.gridApi.getSelectedRows();
     let selectedRowsString = '';
     let theRow;
-    selectedRows.forEach(function(selectedRow, index) {
+    selectedRows.forEach(function (selectedRow, index) {
       if (index > 5) {
         return;
       }
       if (index !== 0) {
-        selectedRowsString += ', ';      
+        selectedRowsString += ', ';
       }
       selectedRowsString += selectedRow.Title;
-      theRow = selectedRow; 
+      theRow = selectedRow;
     });
     this.claimsToSend = [];
-    selectedRows.forEach(i=>{ 
-     
+    selectedRows.forEach(i => {
+
       this.claimsToSend.push(
-      {
-       'name': i.Title,
-       'artist': i.Artist,
-       'collective': i.Collective,
-       'owner': i.Owner,
-       'date': i.Date,
-       'status': 'Not Sent'
-      });
-   });
+        {
+          'name': i.Title,
+          'artist': i.Artist,
+          'collective': i.Collective,
+          'owner': i.Owner,
+          'date': i.Date,
+          'status': 'Not Sent'
+        });
+    });
 
 
     if (selectedRows.length >= 6) {
       selectedRowsString += ' - and ' + (selectedRows.length - 6) + ' others';
     }
     document.querySelector('#selectedRows').innerHTML = selectedRowsString;
-  
+
   }
 
-sendToClaim(ev: any): void {
-  const data = {section: 'releases', data: this.claimsToSend };
-  const dialogRef = this.dialog.open(SendClaimsComponent, {
-    data: data,
-    width: '80%',
-    panelClass: 'formFieldWidth380', 
-    
-  });
-  dialogRef.afterClosed().subscribe(result => {
-    console.log('The dialog was closed');
-  });
-}
+  sendToClaim(ev: any): void {
+    const data = { section: 'releases', data: this.claimsToSend };
+    const dialogRef = this.dialog.open(SendClaimsComponent, {
+      data: data,
+      width: '80%',
+      panelClass: 'formFieldWidth380',
 
-sendToPublish(ev: any): void {
-  const data = {section: 'releases', data: this.claimsToSend };
-  const dialogRef = this.dialog.open(PublishComponent, {
-    data: data,
-    width: '80%',
-    panelClass: 'formFieldWidth380', 
-    
-  });
-  dialogRef.afterClosed().subscribe(result => {
-    console.log('The dialog was closed');
-  });
-}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 
-sendToRegister(ev: any): void {
-  const data = {section: 'releases', data: this.claimsToSend };
-  const dialogRef = this.dialog.open(RegisterComponent, {
-    data: data,
-    width: '80%',
-    panelClass: 'formFieldWidth380', 
-    
-  });
-  dialogRef.afterClosed().subscribe(result => {
-    console.log('The dialog was closed');
-  });
-}
+  sendToPublish(ev: any): void {
+    const data = { section: 'releases', data: this.claimsToSend };
+    const dialogRef = this.dialog.open(PublishComponent, {
+      data: data,
+      width: '80%',
+      panelClass: 'formFieldWidth380',
+
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  sendToRegister(ev: any): void {
+    const data = { section: 'releases', data: this.claimsToSend };
+    const dialogRef = this.dialog.open(RegisterComponent, {
+      data: data,
+      width: '80%',
+      panelClass: 'formFieldWidth380',
+
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 
   listAll() {
 

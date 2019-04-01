@@ -6,24 +6,43 @@ import * as pages from './';
 const routes: Routes = [
   {
     path: '',
-    component: pages.AssetsComponent
+    component: pages.AssetsComponent,
+    data: {
+      breadcrumb: 'Assets'
+    },
+    children: [
+      {
+        path: 'files',
+        loadChildren: './files/files.module#FilesModule',
+        data: {
+          breadcrumb: 'Files'
+        }
+      },
+      {
+        path: 'releases',
+        loadChildren: './music-releases/music-releases.module#MusicReleasesModule',
+        data: {
+          breadcrumb: 'Releases'
+        }
+      },
+      {
+        path: 'recordings',
+        loadChildren: './music-recordings/music-recordings.module#MusicRecordingsModule',
+        data: {
+          breadcrumb: 'Recordings'
+        }
+      },
+      {
+        path: 'works',
+        loadChildren: './music-works/music-works.module#MusicWorksModule',
+        data: {
+          breadcrumb: 'Works'
+        }
+      },
+    ]
   },
-  {
-    path: 'files',
-    loadChildren: './files/files.module#FilesModule'
-  },
-  {
-    path: 'releases',
-    loadChildren: './music-releases/music-releases.module#MusicReleasesModule'
-  },
-  {
-    path: 'recordings',
-    loadChildren: './music-recordings/music-recordings.module#MusicRecordingsModule'
-  },
-  {
-    path: 'works',
-    loadChildren: './music-works/music-works.module#MusicWorksModule'
-  },
+
+
 ];
 
 @NgModule({
