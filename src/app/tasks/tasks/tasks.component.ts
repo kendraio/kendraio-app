@@ -68,8 +68,19 @@ export class TasksComponent implements OnInit {
     this.dataSource = [];
  this.dataSource = this.nextDataSource;
   }
+  
   openDialog(itemData: string) {
     this.dialog.open(DialogDataDialogComponent, {
+      data: {
+        section: itemData
+      }
+    });
+  }
+
+  openDialogProgress(itemData: string) {
+    this.dialog.open(DialogProgressComponent, {
+      height: '60%',
+      width: '80%',
       data: {
         section: itemData
       }
@@ -82,5 +93,12 @@ export class TasksComponent implements OnInit {
   templateUrl: './dialog.html',
 })
 export class DialogDataDialogComponent {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+}
+
+@Component({
+  templateUrl: './dialogProgress.html',
+})
+export class DialogProgressComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 }

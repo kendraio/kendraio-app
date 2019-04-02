@@ -77,7 +77,7 @@
   <table class="table table-sm ml-5">
     <tr *ngFor="let item of dataSource">
       <td matBadge="8" style="width:80px">
-        <mat-chip>{{item.step}}</mat-chip>
+        <mat-chip (click)="openDialogProgress('total')">{{item.step}}</mat-chip>
       </td>
       <td><b>{{item.date}}</b></td>
       <td><b>{{item.name}}</b></td>
@@ -115,7 +115,10 @@
 
 </mat-expansion-panel>
 
-Status of task
+
+  
+
+<!-- Status of task
 As a button
 As a progress bar
 Stepper •-•-•-•-• (each adapter has unique steps)
@@ -125,4 +128,4 @@ Bread crumbs
 Own whole screen / tab.
 Draft, Sent, In progress, Failed, Needs more input, Completed
 Mapping states of task from adapter to generic
-Task history for any given object.
+Task history for any given object. -->
