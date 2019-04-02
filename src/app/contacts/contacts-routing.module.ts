@@ -6,9 +6,19 @@ const routes: Routes = [
   {
     path: '',
     component: pages.ContactsComponent,
+    data: {
+      breadcrumb: ''
+    },
     children: [
-      { path: 'people', component: pages.PeopleComponent },
-      { path: 'organisations', component: pages.OrganisationsComponent },
+      { path: 'people', component: pages.PeopleComponent,  
+      data: {
+        breadcrumb: 'People'
+      } },
+      { path: 'organisations', component: pages.OrganisationsComponent,
+      data: {
+        breadcrumb: 'Organisations'
+      } 
+    },
     ]
   }
 ];

@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: pages.AssetsComponent,
     data: {
-      breadcrumb: 'Assets'
+      breadcrumb: ''
     },
     children: [
       {

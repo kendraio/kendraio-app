@@ -5,7 +5,10 @@ import { ReportsComponent } from './reports.component';
 const routes: Routes = [
   {
     path: '',
-    component: ReportsComponent
+    component: ReportsComponent,
+    data: {
+      breadcrumb: ''
+    },
   
   }
   

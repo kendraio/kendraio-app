@@ -17,6 +17,10 @@ import {DiagramPageComponent} from './pages/diagram-page/diagram-page.component'
 import { PeopleComponent } from './contacts/people/people.component';
 import {BloomenTestPageComponent} from './pages/bloomen-test-page/bloomen-test-page.component';
 
+
+// NB all routes must have a breadcrumb
+
+
 const routes: Routes = [
   {
     path: 'callback',
@@ -25,10 +29,16 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
+    data: {
+      breadcrumb: 'Home'
+    },
     children: [
       {
         path: 'dashboard',
-        component: Pages.DashboardPageComponent
+        component: Pages.DashboardPageComponent,
+        data: {
+          breadcrumb: 'Dashboard'
+        },
       },
       {
         path: 'oldassets',
@@ -42,7 +52,7 @@ const routes: Routes = [
         path: 'assets',
         loadChildren: './assets/assets.module#AssetsModule',
         data: {
-          breadcrumb: 'Assets ='
+          breadcrumb: 'Assets'
         }
       },
 
@@ -57,55 +67,94 @@ const routes: Routes = [
   
       {
         path: 'import',
-        component: Pages.ImportPageComponent
+        component: Pages.ImportPageComponent,
+        data: {
+          breadcrumb: 'Import'
+        },
       },
       {
         path: 'upload',
-        component: UploadPageComponent
+        component: UploadPageComponent,
+        data: {
+          breadcrumb: 'Upload'
+        }
       },
       {
         path: 'visualise',
-        component: VisualisePageComponent
+        component: VisualisePageComponent,
+        data: {
+          breadcrumb: 'Visualise'
+        }
       },
       {
         path: 'diagram/:adapter/:id',
-        component: DiagramPageComponent
+        component: DiagramPageComponent,
+        data: {
+          breadcrumb: 'Diagram'
+        }
       },
       {
         path: 'adapters',
-        component: AdaptersPageComponent
+        component: AdaptersPageComponent,
+        data: {
+          breadcrumb: 'Adapters'
+        }
       },
       {
         path: 'settings',
-        component: SettingsPageComponent
+        component: SettingsPageComponent,
+        data: {
+          breadcrumb: 'Settings'
+        }
       },
       {
         path: 'user',
-        component: UserPageComponent
+        component: UserPageComponent,
+        data: {
+          breadcrumb: 'User'
+        }
       },
       {
         path: 'docs',
-        component: DocsListPageComponent
+        component: DocsListPageComponent,
+        data: {
+          breadcrumb: 'Docs'
+        }
       },
       {
         path: 'docs/:id',
-        component: DocEditPageComponent
+        component: DocEditPageComponent,
+        data: {
+          breadcrumb: 'View'
+        }
       },
       {
         path: 'dropbox',
-        component: DropboxPageComponent
+        component: DropboxPageComponent,
+        data: {
+          breadcrumb: 'Dashboard'
+        }
       },
       {
         path: 'api-client/:id',
-        component: SwaggerPageComponent
+        component: SwaggerPageComponent,
+        data: {
+          breadcrumb: 'Dashboard'
+        }
       },
       {
         path: 'test-api',
-        component: TestApiPageComponent
+        component: TestApiPageComponent,
+        data: {
+          breadcrumb: 'Dashboard'
+        }
       },
       {
         path: 'bloomen-api',
-        component: BloomenTestPageComponent
+        component: BloomenTestPageComponent,
+        data: {
+          breadcrumb: 'Bloomen'
+        }
       },
       // {
       //   path: 'files',
@@ -125,20 +174,39 @@ const routes: Routes = [
       // },
       {
         path: 'claims',
-        loadChildren: './claims/claims.module#ClaimsModule'
+        loadChildren: './claims/claims.module#ClaimsModule',
+        data: {
+          breadcrumb: 'Claims'
+        } 
       },
       { path: 'contacts', 
-        loadChildren: './contacts/contacts.module#ContactsModule'},
+        loadChildren: './contacts/contacts.module#ContactsModule',
+        data: {
+          breadcrumb: 'Contacts'
+        } 
+      },
 
         { path: 'tasks', 
-        loadChildren: './tasks/tasks.module#TasksModule'},
+        loadChildren: './tasks/tasks.module#TasksModule',
+      
+        data: {
+          breadcrumb: 'Tasks'
+        } 
+      },
 
         { path: 'reports', 
-        loadChildren: './reports/reports.module#ReportsModule'},
+        loadChildren: './reports/reports.module#ReportsModule',  
+        data: {
+          breadcrumb: 'Reports'
+        }
+      },
 
       {
         path: 'settings',
-        loadChildren: './settings/settings.module'
+        loadChildren: './settings/settings.module',
+        data: {
+          breadcrumb: 'Settings'
+        }
       },
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     ]

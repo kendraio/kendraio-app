@@ -26,8 +26,9 @@ export class BreadcrumbComponent implements OnInit {
     route: ActivatedRoute,
     url: string = '',
     breadcrumbs: Array<BreadCrumb> = []): Array<BreadCrumb> {
-    const label = route.routeConfig ? route.routeConfig.data[ 'breadcrumb' ]  : 'Home';
-    const path = route.routeConfig ? route.routeConfig.path || 'assets' : '..'; // fix this
+    const label = route.routeConfig ? route.routeConfig.data[ 'breadcrumb' ] : 'Home';
+    // const path = route.routeConfig ? route.routeConfig.path || 'assets' : '..'; // fix this
+    const path = route.routeConfig ? route.routeConfig.path : '..'; // fix this
     const nextUrl = `${url}/${path}`;
     const breadcrumb = {
       label: label,
