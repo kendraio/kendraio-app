@@ -8,21 +8,25 @@ const routes: Routes = [
     path: '',
     component: pages.AssetsComponent,
     data: {
-      breadcrumb: ''
+      breadcrumb: '',
+      menuLabel: 'Assets'
     },
     children: [
       {
         path: 'files',
         loadChildren: './files/files.module#FilesModule',
         data: {
-          breadcrumb: 'Files'
+          breadcrumb: 'Files',
+          menuLabel: 'Asset Files'
+  
         }
       },
       {
         path: 'releases',
         loadChildren: './music-releases/music-releases.module#MusicReleasesModule',
         data: {
-          breadcrumb: 'Releases'
+          breadcrumb: 'Releases',
+          menuLabel: 'Asset Releases'
         }
       },
       {

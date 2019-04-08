@@ -1,0 +1,73 @@
+<mat-sidenav-container  class="app-container" style="height:100vh">
+
+    <mat-sidenav #sidenav mode="side" opened (keydown.escape)="sidenav.close()">
+        <!-- <app-main-menu></app-main-menu> -->
+
+        <mat-nav-list>
+
+            <mat-list-item *ngFor="let  item of newMenuItems" (click)="gotoPage(item.path, sidenav)">
+                <mat-icon mat-list-icon>{{ item.icon }}</mat-icon>
+                <a matLine>{{ item.parentLabel }}{{ item.label }}</a> {{item.hasChildren}}
+              </mat-list-item>
+            
+            
+            </mat-nav-list>
+
+
+
+        <mat-list-item  *ngFor="let item of menuItems">
+            <!-- Handle branch node buttons here -->
+            <span *ngIf="item.children && item.children.length > 0">
+                   
+              <button mat-button [matMenuTriggerFor]="menu.childMenu"  [routerLink]="item.path"
+              [disabled]="item.disabled">
+              <mat-icon mat-list-icon>{{ item.icon }}</mat-icon>
+                {{item.label}}
+              </button>
+              <app-menu-item #menu [items]="item.children"></app-menu-item>
+            </span>
+            <!-- Leaf node buttons here -->
+            <span *ngIf="!item.children || item.children.length === 0">
+              <button mat-button color="primary" [routerLink]="item.path">
+                    <mat-icon mat-list-icon>{{ item.icon }}</mat-icon>
+                {{item.label}}
+              </button>
+            </span>
+          </mat-list-item >
+
+    </mat-sidenav>
+  
+    <mat-sidenav-content>
+  
+      <mat-toolbar>
+        <button mat-icon-button (click)="sidenav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+  
+        <span>{{ pageTitle$ | async }}</span>
+        <span class="spacer"></span>
+  
+   
+  
+  
+        <button mat-icon-button (click)="gotoPage('/user', sidenav)">
+          <mat-icon>person</mat-icon>
+        </button>
+      </mat-toolbar>
+  
+    
+  
+      <div class="page-content">
+          <app-breadcrumb></app-breadcrumb>
+      
+        <router-outlet></router-outlet>
+      </div>
+
+
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+
+
+
+  

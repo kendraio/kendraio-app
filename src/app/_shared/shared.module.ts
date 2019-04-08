@@ -26,6 +26,8 @@ import { FlexModule, FlexLayoutModule } from '@angular/flex-layout';
 import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
 import { ClaimsEditComponent } from '../claims/claims-edit/claims-edit.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
+// import { MenuComponent } from './components/menu/menu.component';
+// import { MenuItemComponent } from './components/menu/menu-item.component';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { ClaimsEditSendComponent } from '../claims/claims-edit-send/claims-edit-send.component';
 
@@ -70,6 +72,8 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
     SendClaimsComponent,
     ClaimsEditComponent,
     BreadcrumbComponent,
+    // MenuComponent,
+    // MenuItemComponent,
     // ClaimsEditSendComponent
   ],
   exports: [
