@@ -3,6 +3,13 @@ export interface BreadCrumb {
     url: string;
 }
 
+export interface RouteData {
+pageTitle?: string;
+pageSubTitle?: string;
+icon?: string;
+breadcrumb?: string
+}
+
 export interface MenuItem {
     label: string;
     path?: string;

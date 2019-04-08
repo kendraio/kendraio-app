@@ -14,6 +14,8 @@ import { MatInputComponent, MatButtonComponent } from 'src/app/_shared/component
 
 import { Animations } from '../../_shared/animations';
 import { RegisterRecordingComponent } from './register-new-recording/register-recording.component';
+import { RouteData } from 'src/app/_models/classes/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-index',
@@ -39,16 +41,19 @@ export class IndexComponent implements OnInit {
   private gridColumnApi;
   claimsToSend: Array<any>;
   newRecordings: any[] = [];
+  routeData: RouteData;
 
 
   constructor(
     private readonly testData: TestDataService,
     public dialog: MatDialog,
     private readonly pageTitle: PageTitleService,
+    private route: ActivatedRoute,
     // private animationService: AnimationService,
     // buttonRenderer: ButtonRendererComponent,
 
   ) {
+    this.routeData = this.route.snapshot.data;
     this.gridOptions = <GridOptions>{
       onGridReady: () => {
         //   this.gridOptions.api.sizeColumnsToFit();
@@ -70,7 +75,7 @@ export class IndexComponent implements OnInit {
 
 
     this.claimsToSend = [];
-    this.pageTitle.setTitle('Recordings');
+    this.pageTitle.setTitle(this.routeData.pageTitle);   
     this.entityTypes$ = this.testData.listEntityTypes();
 
     this.entityList$ = new Subject<string>().pipe(

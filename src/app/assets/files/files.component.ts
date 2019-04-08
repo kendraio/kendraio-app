@@ -9,6 +9,8 @@ import { PageTitleService } from 'src/app/services/page-title.service';
 
 import { TestDataService } from 'src/app/services/test-data.service';
 import { FileEditComponent } from './file-edit/file-edit.component';
+import { RouteData } from 'src/app/_models/classes/common';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -27,20 +29,22 @@ export class FilesComponent implements OnInit {
   listAll$;
   showSpinner: boolean;
   allItems: any[]; // TODO:  should be IFile[]
+  routeData: RouteData;
 
 
   constructor(
     private readonly testData: TestDataService,
     public dialog: MatDialog,
     private readonly pageTitle: PageTitleService,
-    // buttonRenderer: ButtonRendererComponent,
+    private route: ActivatedRoute,
 
   ) {
+    this.routeData = this.route.snapshot.data;
     this.listAll();
   }
 
   ngOnInit() {
-    this.pageTitle.setTitle('Files');
+    this.pageTitle.setTitle(this.routeData.pageTitle);   
     this.entityTypes$ = this.testData.listEntityTypes();
 
     this.entityList$ = new Subject<string>().pipe(

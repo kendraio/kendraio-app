@@ -15,8 +15,10 @@ export class BreadcrumbComponent implements OnInit {
     distinctUntilChanged(),
     map(event => this.buildBreadCrumb(this.activatedRoute))
   );
-  constructor(private activatedRoute: ActivatedRoute,
-    private router: Router) {
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+    ) {
   }
 
   ngOnInit() {

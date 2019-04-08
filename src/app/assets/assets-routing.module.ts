@@ -16,6 +16,7 @@ const routes: Routes = [
         path: 'files',
         loadChildren: './files/files.module#FilesModule',
         data: {
+          pageTitle: 'Assets: Files',
           breadcrumb: 'Files',
           menuLabel: 'Asset Files'
   
@@ -25,6 +26,7 @@ const routes: Routes = [
         path: 'releases',
         loadChildren: './music-releases/music-releases.module#MusicReleasesModule',
         data: {
+          pageTitle: 'Assets: Releases',
           breadcrumb: 'Releases',
           menuLabel: 'Asset Releases'
         }
@@ -33,6 +35,7 @@ const routes: Routes = [
         path: 'recordings',
         loadChildren: './music-recordings/music-recordings.module#MusicRecordingsModule',
         data: {
+          pageTitle: 'Assets: Recordings',
           breadcrumb: 'Recordings'
         }
       },
@@ -40,6 +43,7 @@ const routes: Routes = [
         path: 'works',
         loadChildren: './music-works/music-works.module#MusicWorksModule',
         data: {
+          pageTitle: 'Assets: Works',
           breadcrumb: 'Works'
         }
       },

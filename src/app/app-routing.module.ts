@@ -45,8 +45,9 @@ const routes: Routes = [
         path: 'dashboard',
         component: Pages.DashboardPageComponent,
         data: {
+          pageTitle: 'Dashboard',
           breadcrumb: 'Dashboard',
-          menuLabel: 'Dashj title',
+          menuLabel: 'Dash title',
           icon: 'dashboard'
         },
       },
@@ -62,6 +63,7 @@ const routes: Routes = [
         path: 'assets',
         loadChildren: './assets/assets.module#AssetsModule',
         data: {
+          pageTitle: 'Assets',
           breadcrumb: 'Assets',
           menuLabel: 'Assets'
           
@@ -81,6 +83,7 @@ const routes: Routes = [
         path: 'import',
         component: Pages.ImportPageComponent,
         data: {
+          pageTitle: 'Import',
           breadcrumb: 'Import',
           menuLabel:  'Import'
         },
@@ -89,6 +92,7 @@ const routes: Routes = [
         path: 'upload',
         component: UploadPageComponent,
         data: {
+          pageTitle: 'Upload',
           breadcrumb: 'Upload',
           menuLabel:  'Upload'
         }
@@ -113,6 +117,7 @@ const routes: Routes = [
         path: 'adapters',
         component: AdaptersPageComponent,
         data: {
+          pageTitle: 'Adapters',
           breadcrumb: 'Adapters',
           menuLabel:  'Adapters'
         }
@@ -121,6 +126,7 @@ const routes: Routes = [
         path: 'settings',
         component: SettingsPageComponent,
         data: {
+          pageTitle: 'Settings',
           breadcrumb: 'Settings',
           menuLabel:  'Settings'
         }
@@ -129,6 +135,7 @@ const routes: Routes = [
         path: 'user',
         component: UserPageComponent,
         data: {
+          pageTitle: 'User',
           breadcrumb: 'User'
         }
       },
@@ -136,6 +143,7 @@ const routes: Routes = [
         path: 'docs',
         component: DocsListPageComponent,
         data: {
+          pageTitle: 'Docs',
           breadcrumb: 'Docs'
         }
       },
@@ -164,6 +172,7 @@ const routes: Routes = [
         path: 'test-api',
         component: TestApiPageComponent,
         data: {
+          pageTitle: 'Test API',
           breadcrumb: 'Dashboard'
         }
       },
@@ -171,6 +180,7 @@ const routes: Routes = [
         path: 'bloomen-api',
         component: BloomenTestPageComponent,
         data: {
+          pageTitle: 'Bloomen API',
           breadcrumb: 'Bloomen',
           menuLabel: 'Bloomen API'
         }
@@ -180,6 +190,7 @@ const routes: Routes = [
         path: 'claims',
         loadChildren: './claims/claims.module#ClaimsModule',
         data: {
+          pageTitle: 'Claims',
           breadcrumb: 'Claims',
           menuLabel: 'Claims'
         } 
@@ -187,6 +198,7 @@ const routes: Routes = [
       { path: 'contacts', 
         loadChildren: './contacts/contacts.module#ContactsModule',
         data: {
+          pageTitle: 'Contacts',
           breadcrumb: 'Contacts',
           menuLabel: 'Contacts'
 
@@ -196,6 +208,7 @@ const routes: Routes = [
         { path: 'tasks', 
         loadChildren: './tasks/tasks.module#TasksModule',      
         data: {
+          pageTitle: 'Tasks',
           breadcrumb: 'Tasks',
           menuLabel: 'Tasks'
         } 
@@ -204,6 +217,7 @@ const routes: Routes = [
         { path: 'reports', 
         loadChildren: './reports/reports.module#ReportsModule',  
         data: {
+          pageTitle: 'Reports',
           breadcrumb: 'Reports',
           menuLabel: 'Reports'
         }
@@ -213,6 +227,7 @@ const routes: Routes = [
         path: 'settings',
         loadChildren: './settings/settings.module',
         data: {
+          pageTitle: 'Settings',
           breadcrumb: 'Settings',
           menuLabel: 'Settings'
         }

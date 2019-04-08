@@ -10,6 +10,8 @@ import {EditComponent} from './edit/edit.component';
 
 import { TestDataService } from 'src/app/services/test-data.service';
 import { RegisterComponent } from './add-new/register.component';
+import { RouteData } from 'src/app/_models/classes/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-index',
@@ -27,17 +29,20 @@ export class WorksComponent implements OnInit {
   listAll$;
   showSpinner: boolean;
   allItems: IMusicRelease[];
+  routeData: RouteData;
 
   constructor(
     private readonly testData: TestDataService,
     private readonly pageTitle: PageTitleService,
     public dialog: MatDialog,
+    private route: ActivatedRoute,
   ) {
+    this.routeData = this.route.snapshot.data;
   }
 
   ngOnInit() {
 
-    this.pageTitle.setTitle('Works');
+    this.pageTitle.setTitle(this.routeData.pageTitle);   
     this.entityTypes$ = this.testData.listEntityTypes();
 
     this.entityList$ = new Subject<string>().pipe(
