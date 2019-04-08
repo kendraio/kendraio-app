@@ -10,11 +10,6 @@
                 <a matLine>{{ item.parentLabel }}{{ item.label }}</a> {{item.hasChildren}}
               </mat-list-item> -->
             
-            
-          
-
-
-
         <mat-list-item  *ngFor="let item of menuItems">
             <!-- Handle branch node buttons here -->
             <span *ngIf="item.children && item.children.length > 0">

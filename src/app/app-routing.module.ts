@@ -62,7 +62,7 @@ const routes: Routes = [
         path: 'assets',
         loadChildren: './assets/assets.module#AssetsModule',
         data: {
-          breadcrumb: 'Assets Parent',
+          breadcrumb: 'Assets',
           menuLabel: 'Assets'
           
         }
