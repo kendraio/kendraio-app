@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import {map, tap} from 'rxjs/operators';
 import {DocumentRepositoryService} from './document-repository.service';
 import {SchemaRepositoryService} from './schema-repository.service';
+import { includes } from 'lodash';
 
 // Service for communicating with the Kendraio Test API
 // The data is pulled from a Google Spreadsheet via an API proxy.
@@ -58,7 +59,8 @@ export class TestDataService {
   getEntityCounts() {
     return this.docs.listAll().pipe(
       map(({ rows }) => rows.reduce((acc, item) => {
-        const type = item['id'].split(':')[0].split('_')[1];
+        const namedType = item['id'].split(':')[0];
+        const type = includes(namedType, '_') ? namedType.split('_')[1] : namedType;
         acc[type] = acc[type] ? acc[type] + 1 : 1;
         return acc;
       }, {})),
