@@ -16,7 +16,7 @@ import {
   MatSelectModule,
   MatSliderModule,
   MatButtonModule,
-  MatMenuModule, MatDialogModule, MatTooltipModule, MatListModule
+  MatMenuModule, MatDialogModule, MatTooltipModule, MatListModule, MatTreeModule
 } from '@angular/material';
 
 import * as matComponents from '../_shared/components';
@@ -54,6 +54,7 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
     MatDialogModule,
     MatTooltipModule,
     MatListModule,
+    MatTreeModule,
     AgGridModule.withComponents(
       [
         matComponents.MatInputComponent,
@@ -88,7 +89,8 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
   ClaimsEditComponent,
   // ClaimsEditSendComponent,
   MatListModule,
-  BreadcrumbComponent
+  BreadcrumbComponent,
+  MatTreeModule
 // BrowserAnimationsModule
 
   ],

@@ -2,3 +2,35 @@
 .formFieldWidth380  .mat-form-field-infix {
     width: 380px;
  }
+
+ .ken-tree-invisible {
+    display: none;
+    // transition: all 2s ease;
+  }
+  
+  .ken-tree ul,
+  .ken-tree li {
+    margin-top: 0;
+    margin-bottom: 0;
+    list-style-type: none;
+    // transition: all 2s ease;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding-left: 10px;
+    cursor: pointer;
+  }
+
+  
+  :active, :focus, :visited { 
+      outline: none; 
+    -moz-outline-style: none; 
+}
+
+button:focus {
+    outline: none!important; 
+}
+
+.page-content{
+    padding:16px
+}

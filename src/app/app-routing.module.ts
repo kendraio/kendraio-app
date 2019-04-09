@@ -97,22 +97,22 @@ const routes: Routes = [
           menuLabel:  'Upload'
         }
       },
-      // {
-      //   path: 'visualise',
-      //   component: VisualisePageComponent,
-      //   data: {
-      //     breadcrumb: 'Visualise',
-      //     menuLabel:  'Visualise'
-      //   }
-      // },
-      // {
-      //   path: 'diagram/:adapter/:id',
-      //   component: DiagramPageComponent,
-      //   data: {
-      //     breadcrumb: 'Diagram',
-      //     menuLabel:  'Diagram'
-      //   }
-      // },
+      {
+        path: 'visualise',
+        component: VisualisePageComponent,
+        data: {
+          breadcrumb: 'Visualise',
+          menuLabel:  'Visualise'
+        }
+      },
+      {
+        path: 'diagram/:adapter/:id',
+        component: DiagramPageComponent,
+        data: {
+          breadcrumb: 'Diagram',
+          menuLabel:  'Diagram'
+        }
+      },
       {
         path: 'adapters',
         component: AdaptersPageComponent,
@@ -147,27 +147,27 @@ const routes: Routes = [
           breadcrumb: 'Docs'
         }
       },
-      // {
-      //   path: 'docs/:id',
-      //   component: DocEditPageComponent,
-      //   data: {
-      //     breadcrumb: 'View'
-      //   }
-      // },
-      // {
-      //   path: 'dropbox',
-      //   component: DropboxPageComponent,
-      //   data: {
-      //     breadcrumb: 'Dropbox'
-      //   }
-      // },
-      // {
-      //   path: 'api-client/:id',
-      //   component: SwaggerPageComponent,
-      //   data: {
-      //     breadcrumb: 'API'
-      //   }
-      // },
+      {
+        path: 'docs/:id',
+        component: DocEditPageComponent,
+        data: {
+          breadcrumb: 'View'
+        }
+      },
+      {
+        path: 'dropbox',
+        component: DropboxPageComponent,
+        data: {
+          breadcrumb: 'Dropbox'
+        }
+      },
+      {
+        path: 'api-client/:id',
+        component: SwaggerPageComponent,
+        data: {
+          breadcrumb: 'API'
+        }
+      },
       {
         path: 'test-api',
         component: TestApiPageComponent,

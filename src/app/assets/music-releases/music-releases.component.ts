@@ -37,10 +37,8 @@ export class ReleasesComponent implements OnInit {
   private gridApi;
   private gridColumnApi;
   claimsToSend: Array<any>;
-  newReleases: any[] = [];
+  newReleases: any[] = [];    // TODO  Type Me
   routeData: RouteData;
-
-
 
   constructor(
     private readonly testData: TestDataService,
@@ -75,7 +73,6 @@ export class ReleasesComponent implements OnInit {
     this.listAll$ = new Subject<string>().pipe(
       switchMap(type => this.testData.listAll(type))
     );
-
     this.listAll();
   }
 

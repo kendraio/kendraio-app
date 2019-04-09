@@ -17,3 +17,27 @@
     </span>
   </span>
 </mat-menu>
+
+<!-- <mat-nav-list>
+
+    
+<mat-list-item  *ngFor="let item of menuItems">
+ 
+    <span *ngIf="item.children && item.children.length > 0">
+           
+      <button mat-button [matMenuTriggerFor]="menu.childMenu"  [routerLink]="item.path"
+      [disabled]="item.disabled">
+      <mat-icon mat-list-icon>{{ item.icon }}</mat-icon>
+        {{item.label}}
+      </button>
+      <app-menu-item #menu [items]="item.children"></app-menu-item>
+    </span>
+ 
+    <span *ngIf="!item.children || item.children.length === 0">
+      <button mat-button color="primary" [routerLink]="item.path">
+            <mat-icon mat-list-icon>{{ item.icon }}</mat-icon>
+        {{item.label}}
+      </button>
+    </span>
+  </mat-list-item >
+<mat-nav-list> -->

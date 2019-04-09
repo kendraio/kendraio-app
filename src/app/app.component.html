@@ -1,35 +1,40 @@
 <mat-sidenav-container  class="app-container" style="height:100vh">
 
-    <mat-sidenav #sidenav mode="side" opened (keydown.escape)="sidenav.close()">
-        <!-- <app-main-menu></app-main-menu> -->
+    <mat-sidenav #sidenav mode="side" opened (keydown.escape)="sidenav.close()" style="min-width: 205px;">
+      
+        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="ken-tree">
+            <!-- This is the tree node template for leaf nodes -->
+            <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
+              <li class="mat-tree-node  mat-menu-item" [routerLink]="node.path">
+                <!-- use a disabled button to provide padding for tree leaf -->
+                <mat-icon>{{node.icon}}</mat-icon>
+                {{node.label}}
+              </li>
+            </mat-tree-node>
+            <!-- This is the tree node template for expandable nodes -->
+            <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+              <li >
+                <div class="mat-tree-node mat-menu-item">
+                   <button mat-icon-button matTreeNodeToggle 
+                  [attr.aria-label]="'toggle ' + node.label" onfocus="this.blur">
+                  <mat-icon>{{node.icon}}</mat-icon>
+              <span  [routerLink]="node.path"> {{node.label}}</span> 
 
-        <mat-nav-list>
+                
+            <mat-icon class="mat-icon-rtl-mirror">
+              {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+          </button>
 
-            <!-- <mat-list-item *ngFor="let  item of newMenuItems" (click)="gotoPage(item.path, sidenav)">
-                <mat-icon mat-list-icon>{{ item.icon }}</mat-icon>
-                <a matLine>{{ item.parentLabel }}{{ item.label }}</a> {{item.hasChildren}}
-              </mat-list-item> -->
-            
-        <mat-list-item  *ngFor="let item of menuItems">
-            <!-- Handle branch node buttons here -->
-            <span *ngIf="item.children && item.children.length > 0">
-                   
-              <button mat-button [matMenuTriggerFor]="menu.childMenu"  [routerLink]="item.path"
-              [disabled]="item.disabled">
-              <mat-icon mat-list-icon>{{ item.icon }}</mat-icon>
-                {{item.label}}
-              </button>
-              <app-menu-item #menu [items]="item.children"></app-menu-item>
-            </span>
-            <!-- Leaf node buttons here -->
-            <span *ngIf="!item.children || item.children.length === 0">
-              <button mat-button color="primary" [routerLink]="item.path">
-                    <mat-icon mat-list-icon>{{ item.icon }}</mat-icon>
-                {{item.label}}
-              </button>
-            </span>
-          </mat-list-item >
-  </mat-nav-list>
+                </div>
+                <ul [class.ken-tree-invisible]="!treeControl.isExpanded(node)">
+                  <ng-container matTreeNodeOutlet></ng-container>
+                </ul>
+              </li>
+            </mat-nested-tree-node>
+          </mat-tree>
+
+
     </mat-sidenav>
   
     <mat-sidenav-content>
