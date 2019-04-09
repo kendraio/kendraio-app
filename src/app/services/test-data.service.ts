@@ -55,6 +55,16 @@ export class TestDataService {
     return this.docs.listAllOfType(type);
   }
 
+  getEntityCounts() {
+    return this.docs.listAll().pipe(
+      map(({ rows }) => rows.reduce((acc, item) => {
+        const type = item['id'].split(':')[0].split('_')[1];
+        acc[type] = acc[type] ? acc[type] + 1 : 1;
+        return acc;
+      }, {})),
+    );
+  }
+
   getEntity(type: string, id: number, $config = { live: false }) {
     if ($config.live) {
       return this.http.get(`${KENDRAIO_API}${type}/${id}`);
