@@ -1,21 +1,15 @@
 import { Component, OnInit, Inject, HostBinding } from '@angular/core';
-import { switchMap, tap, delay } from 'rxjs/operators';
-import { Subject } from 'rxjs';
 import { IMusicRecording } from 'src/app/_models/classes/musicRecording';
-
-import { GridOptions } from 'ag-grid-community';
-import { MatDialog, MAT_DIALOG_DATA, MatButton } from '@angular/material';
-
-import { PageTitleService } from 'src/app/services/page-title.service';
 import { MusicRecordingsEditComponent } from './music-recordings-edit/music-recordings-edit.component';
-import { TestDataService } from '../../services/test-data.service';
 import { SendClaimsComponent } from 'src/app/claims/send-claims/send-claims.component';
-import { MatInputComponent, MatButtonComponent } from 'src/app/_shared/components';
-
 import { Animations } from '../../_shared/animations';
 import { RegisterRecordingComponent } from './register-new-recording/register-recording.component';
-import { RouteData } from 'src/app/_models/classes/common';
-import { ActivatedRoute } from '@angular/router';
+import { BaseComponent } from 'src/app/_shared/base/base.component';
+
+import { switchMap, tap, delay } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+
+import { MatInputComponent, MatButtonComponent } from 'src/app/_shared/components';
 
 @Component({
   selector: 'app-index',
@@ -26,10 +20,7 @@ import { ActivatedRoute } from '@angular/router';
   animations: [Animations.pageAni]
 })
 
-export class IndexComponent implements OnInit {
-  // @HostBinding('@fadeAnimation')
-  // fadeAnimation;
-  gridOptions: GridOptions;
+export class IndexComponent extends BaseComponent implements OnInit {
   entityTypes$;
   selectedType;
   entityList$;
@@ -41,20 +32,10 @@ export class IndexComponent implements OnInit {
   private gridColumnApi;
   claimsToSend: Array<any>;
   newRecordings: any[] = [];
-  routeData: RouteData;
 
 
-  constructor(
-    private readonly testData: TestDataService,
-    public dialog: MatDialog,
-    private readonly pageTitle: PageTitleService,
-    private route: ActivatedRoute,
-    // private animationService: AnimationService,
-    // buttonRenderer: ButtonRendererComponent,
-
-  ) {
-    this.routeData = this.route.snapshot.data;
-    this.gridOptions = <GridOptions>{
+  ngOnInit() {    
+    this.gridOptions = {
       onGridReady: () => {
         //   this.gridOptions.api.sizeColumnsToFit();
       },
@@ -65,19 +46,8 @@ export class IndexComponent implements OnInit {
       }
     };
     this.listAll();
-  }
-
-  ngOnInit() {
-    // this.fadeAnimation = this.animationService.animationDirection();
-    // this.animationServiceEventsSubscription = this.animationService.emitCurrentDirection.subscribe((direction: any) => {
-    //   this.fadeAnimation = direction;
-    // });
-
-
-    this.claimsToSend = [];
-    this.pageTitle.setTitle(this.routeData.pageTitle);   
+    this.claimsToSend = [];  
     this.entityTypes$ = this.testData.listEntityTypes();
-
     this.entityList$ = new Subject<string>().pipe(
       switchMap(type => this.testData.listEntities(type))
     );
@@ -87,8 +57,6 @@ export class IndexComponent implements OnInit {
     this.listAll$ = new Subject<string>().pipe(
       switchMap(type => this.testData.listAll(type))
     );
-
-    //  this.listAll();
   }
 
   countryCellRenderer(params) {

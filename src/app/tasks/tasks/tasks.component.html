@@ -69,14 +69,14 @@
 
   <div>
 
-    <h2><span matBadge="8" style="width:80px">
+    <h2><span  style="width:80px">
         <mat-chip>1</mat-chip>
       </span> Little Earthquakes</h2>
   </div>
 
   <table class="table table-sm ml-5">
     <tr *ngFor="let item of dataSource">
-      <td matBadge="8" style="width:80px">
+      <td  style="width:80px">
         <mat-chip (click)="openDialogProgress('total')">{{item.step}}</mat-chip>
       </td>
       <td><b>{{item.date}}</b></td>
@@ -92,14 +92,14 @@
 
 
   <div>
-    <h2><span matBadge="8" style="width:80px">
+    <h2><span  style="width:80px">
         <mat-chip>2</mat-chip>
       </span>Drone from outer space</h2>
   </div>
 
   <table class="table table-sm ml-5">
     <tr *ngFor="let item of dataSource">
-      <td matBadge="8" style="width:80px">
+      <td  style="width:80px">
         <mat-chip>{{item.step}}</mat-chip>
       </td>
       <td><b>{{item.date}}</b></td>
