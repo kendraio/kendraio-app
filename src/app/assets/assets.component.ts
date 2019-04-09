@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageTitleService } from '../services/page-title.service';
 import { MatGridListModule } from '@angular/material';
 import { from, ObservableInput } from 'rxjs';
+import { TestDataService } from '../services/test-data.service';
 
 
 @Component({
@@ -13,8 +14,10 @@ export class AssetsComponent implements OnInit {
   dummyData: ObservableInput<any>;
   dummyData2;
   data$;
+  entityCounts: any = {};
   constructor(
     private readonly pageTitle: PageTitleService,
+    private readonly testData: TestDataService,
   ) { }
 
   ngOnInit() {
@@ -41,6 +44,14 @@ export class AssetsComponent implements OnInit {
         'PRS India'
       ]
     }]);
+
+
+this.testData.getEntityCounts()
+.subscribe(res => {
+  this.entityCounts  = res;
+}) ;
+
+
 
 
   }

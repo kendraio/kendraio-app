@@ -1,30 +1,33 @@
 <section fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="40px" fxFlexFill class="mb-4">
 
 
+    <!-- <a [routerLink]="['/assets']" routerLinkActive #temp="routerLinkActive">   {{ temp.isActive ? 'assets' : 'CLOSE' }}   </a> -->
 
-  <button
-  matBadge="65" matBadgePosition="before" matBadgeColor="accent"
+  <button routerLinkActive="active"
+  matBadge="{{entityCounts['file']}}" matBadgePosition="before" matBadgeColor="accent"
   mat-flat-button color="primary"  [routerLink]="['files']">
     Files
   </button>
 
-  <button
-  matBadge="17" matBadgePosition="before" matBadgeColor="accent"  mat-flat-button color="primary"  [routerLink]="['recordings']">
+  <button  routerLinkActive="active"
+  matBadge="{{entityCounts['music-recording']}}" matBadgePosition="before" matBadgeColor="accent"  mat-flat-button color="primary"  [routerLink]="['recordings']">
     Recordings
   </button>
 
-  <button
-  matBadge="42" matBadgePosition="before" matBadgeColor="accent" mat-flat-button color="primary" [routerLink]="['releases']">
+  <button  routerLinkActive="active"
+  matBadge="{{entityCounts['music-release']}}" matBadgePosition="before" matBadgeColor="accent" mat-flat-button color="primary" [routerLink]="['releases']">
     Releases
   </button>
 
-  <button
-  matBadge="35" matBadgePosition="before" matBadgeColor="accent"  mat-flat-button color="primary"  [routerLink]="['works']">
+  <button  routerLinkActive="active"
+  matBadge="{{entityCounts['music-work']}}" matBadgePosition="before" matBadgeColor="accent"  mat-flat-button color="primary"  [routerLink]="['works']">
     Works
   </button>
 
-
 </section>
+
+
+
 
 
 

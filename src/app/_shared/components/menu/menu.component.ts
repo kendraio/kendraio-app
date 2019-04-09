@@ -39,6 +39,16 @@ export const MENUITEMS: MenuItem[] = [
         label: 'Recordings',
         icon: 'library_music', 
         path: 'assets/recordings',
+      },
+      {
+        label: 'Files',
+        icon: 'library_music', 
+        path: 'assets/files',
+      },
+      {
+        label: 'Works',
+        icon: 'library_music', 
+        path: 'assets/works',
       }
     ]
   },

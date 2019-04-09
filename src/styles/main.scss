@@ -34,3 +34,11 @@ button:focus {
 .page-content{
     padding:16px
 }
+
+.mat-tree-node {
+  padding-left: 16px;
+}
+
+button.active {
+  background-color: silver!important;
+}
