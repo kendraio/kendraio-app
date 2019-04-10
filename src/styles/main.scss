@@ -10,16 +10,31 @@
   
   .ken-tree ul,
   .ken-tree li {
-    margin-top: 0;
-    margin-bottom: 0;
+    margin: 0;
     list-style-type: none;
     // transition: all 2s ease;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     font-size: 14px;
     font-weight: 500;
-    padding-left: 10px;
+    // padding-left: 10px;
     cursor: pointer;
   }
+  .ken-tree li > ul  {
+  background: rgba(0, 0, 0, 0.04);
+  }
+
+  .ken-tree li > ul > .mat-tree-node li, .mat-nested-tree-node li {
+ //   background: rgba(0, 0, 0, 0.04);
+  //  font-size: 12px
+    }
+
+
+    .mat-nested-tree-node  ul li{
+      font-size: 12px!important;
+      // padding: 0 !important;
+      min-height: 28px !important;
+
+    }
 
   
   :active, :focus, :visited { 
@@ -36,9 +51,20 @@ button:focus {
 }
 
 .mat-tree-node {
-  padding-left: 16px;
+ // padding-left: 16px;
 }
 
 button.active {
-  background-color: silver!important;
+  // background-color: silver!important;
+opacity:.4;
+cursor: default;
+}
+
+.menu-item--active{
+  // background: rgba(0, 0, 0, 0.2);
+  background-color: whitesmoke;
+}
+
+.mat-menu-item{
+  padding: 10px 16px;
 }

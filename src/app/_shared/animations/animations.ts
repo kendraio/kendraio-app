@@ -135,7 +135,7 @@ export class Animations {
             ),
             transition( // down
                 '* => *', [
-                    animate('2s cubic-bezier(0.175, 0.885, 0.32, 1.275)'),
+                    animate('.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)'),
                 ]
             ),
             // transition( //up
