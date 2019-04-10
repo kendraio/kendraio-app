@@ -86,6 +86,8 @@ import { MenuItemComponent } from './_shared/components/menu/menu-item.component
 import { Menu2ItemComponent } from './_shared/components/menu/menu-2-item.component';
 import { DynamicDebugControlComponent } from './form-controls/dynamic-debug-control/dynamic-debug-control.component';
 import {DEBUG_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/debug-form-model';
+import {AppSettingsService} from './services/app-settings.service';
+import { DebugOnlyDirective } from './directives/debug-only.directive';
 // import { BreadcrumbComponent } from './_shared/components/breadcrumb/breadcrumb.component';
 
 // import { AgGridModule } from 'ag-grid-angular';
@@ -141,7 +143,8 @@ import {DEBUG_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/debug-form-model'
     MainMenuComponent,
     MenuItemComponent,
     Menu2ItemComponent,
-    DynamicDebugControlComponent
+    DynamicDebugControlComponent,
+    DebugOnlyDirective
     // BreadcrumbComponent
     // ReportsComponent,
     // ContactsComponent
@@ -199,6 +202,12 @@ import {DEBUG_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/debug-form-model'
       multi: true,
       useFactory: (docsRepo: DocumentRepositoryService) => () => docsRepo.init(),
       deps: [ DocumentRepositoryService ]
+    },
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      useFactory: (settings: AppSettingsService) => () => settings.init(),
+      deps: [ AppSettingsService ]
     },
     {
       provide: DYNAMIC_FORM_CONTROL_MAP_FN,
