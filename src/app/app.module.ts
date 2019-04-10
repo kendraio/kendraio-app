@@ -81,6 +81,9 @@ import { RemoteImageControlComponent } from './form-controls/remote-image-contro
 import { DynamicRemoteImageControlComponent } from './form-controls/dynamic-remote-image-control/dynamic-remote-image-control.component';
 import {REMOTE_IMAGE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/remote-image-model';
 import { AssetsModule } from './assets/assets.module';
+import { MainMenuComponent } from './_shared/components/main-menu/main-menu.component';
+import { MenuItemComponent } from './_shared/components/menu/menu-item.component';
+import { Menu2ItemComponent } from './_shared/components/menu/menu-2-item.component';
 // import { BreadcrumbComponent } from './_shared/components/breadcrumb/breadcrumb.component';
 
 // import { AgGridModule } from 'ag-grid-angular';
@@ -133,6 +136,9 @@ import { AssetsModule } from './assets/assets.module';
     DynamicImageInputControlComponent,
     DynamicReferenceInputControlComponent,
     DynamicRemoteImageControlComponent,
+    MainMenuComponent,
+    MenuItemComponent,
+    Menu2ItemComponent
     // BreadcrumbComponent
     // ReportsComponent,
     // ContactsComponent

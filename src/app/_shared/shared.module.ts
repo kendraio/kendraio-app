@@ -16,7 +16,7 @@ import {
   MatSelectModule,
   MatSliderModule,
   MatButtonModule,
-  MatMenuModule, MatDialogModule, MatTooltipModule, MatListModule
+  MatMenuModule, MatDialogModule, MatTooltipModule, MatListModule, MatTreeModule
 } from '@angular/material';
 
 import * as matComponents from '../_shared/components';
@@ -26,6 +26,9 @@ import { FlexModule, FlexLayoutModule } from '@angular/flex-layout';
 import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
 import { ClaimsEditComponent } from '../claims/claims-edit/claims-edit.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
+// import { BaseComponent } from './base/base.component';
+// import { MenuComponent } from './components/menu/menu.component';
+// import { MenuItemComponent } from './components/menu/menu-item.component';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { ClaimsEditSendComponent } from '../claims/claims-edit-send/claims-edit-send.component';
 
@@ -52,6 +55,7 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
     MatDialogModule,
     MatTooltipModule,
     MatListModule,
+    MatTreeModule,
     AgGridModule.withComponents(
       [
         matComponents.MatInputComponent,
@@ -70,6 +74,9 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
     SendClaimsComponent,
     ClaimsEditComponent,
     BreadcrumbComponent,
+    // BaseComponent,
+    // MenuComponent,
+    // MenuItemComponent,
     // ClaimsEditSendComponent
   ],
   exports: [
@@ -84,7 +91,8 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
   ClaimsEditComponent,
   // ClaimsEditSendComponent,
   MatListModule,
-  BreadcrumbComponent
+  BreadcrumbComponent,
+  MatTreeModule
 // BrowserAnimationsModule
 
   ],

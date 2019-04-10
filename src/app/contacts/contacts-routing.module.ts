@@ -7,16 +7,19 @@ const routes: Routes = [
     path: '',
     component: pages.ContactsComponent,
     data: {
-      breadcrumb: ''
+      breadcrumb: '',
+      menuLabel: 'Contacts'
     },
     children: [
       { path: 'people', component: pages.PeopleComponent,  
       data: {
-        breadcrumb: 'People'
+        breadcrumb: 'People',
+        menuLabel: 'Contacts/People'
       } },
       { path: 'organisations', component: pages.OrganisationsComponent,
       data: {
-        breadcrumb: 'Organisations'
+        breadcrumb: 'Organisations',
+        menuLabel: 'Contacts/Organisations'
       } 
     },
     ]

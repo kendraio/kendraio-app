@@ -14,6 +14,8 @@ import { SendClaimsComponent } from 'src/app/claims/send-claims/send-claims.comp
 import { RegisterNewReleaseComponent } from './register-new-release/register-new-release.component';
 import { PublishComponent } from './publish/publish.component';
 import { RegisterComponent } from './register/register.component';
+import { RouteData } from 'src/app/_models/classes/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-index',
@@ -35,15 +37,16 @@ export class ReleasesComponent implements OnInit {
   private gridApi;
   private gridColumnApi;
   claimsToSend: Array<any>;
-  newReleases: any[] = [];
-
-
+  newReleases: any[] = [];    // TODO  Type Me
+  routeData: RouteData;
 
   constructor(
     private readonly testData: TestDataService,
     private readonly pageTitle: PageTitleService,
     public dialog: MatDialog,
+    private route: ActivatedRoute,
   ) {
+    this.routeData = this.route.snapshot.data;
     this.gridOptions = <GridOptions>{
       onGridReady: () => {
         //   this.gridOptions.api.sizeColumnsToFit();
@@ -59,7 +62,7 @@ export class ReleasesComponent implements OnInit {
 
   ngOnInit() {
     this.claimsToSend = [];
-    this.pageTitle.setTitle('Releases');
+    this.pageTitle.setTitle(this.routeData.pageTitle);   
     this.entityTypes$ = this.testData.listEntityTypes();
     this.entityList$ = new Subject<string>().pipe(
       switchMap(type => this.testData.listEntities(type))
@@ -70,7 +73,6 @@ export class ReleasesComponent implements OnInit {
     this.listAll$ = new Subject<string>().pipe(
       switchMap(type => this.testData.listAll(type))
     );
-
     this.listAll();
   }
 

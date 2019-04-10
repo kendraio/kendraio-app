@@ -2,13 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 // import { TestDataService } from 'src/app/_shared/services/test-api.service';
 import { switchMap, tap, delay } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-
-import { GridOptions } from 'ag-grid-community';
-import { MatDialog, MAT_DIALOG_DATA, MatButton } from '@angular/material';
-import { PageTitleService } from 'src/app/services/page-title.service';
-
-import { TestDataService } from 'src/app/services/test-data.service';
 import { FileEditComponent } from './file-edit/file-edit.component';
+import { BaseComponent } from 'src/app/_shared/base/base.component';
 
 
 @Component({
@@ -18,8 +13,7 @@ import { FileEditComponent } from './file-edit/file-edit.component';
   dynamic-material-form[fxLayoutAlign] { padding:10px; padding-left: 25px;}
   `],
 })
-export class FilesComponent implements OnInit {
-  gridOptions: GridOptions;
+export class FilesComponent extends BaseComponent  implements OnInit {
   entityTypes$;
   selectedType;
   entityList$;
@@ -27,20 +21,19 @@ export class FilesComponent implements OnInit {
   listAll$;
   showSpinner: boolean;
   allItems: any[]; // TODO:  should be IFile[]
+  // constructor(
+  //   private readonly testData: TestDataService,
+  //   public dialog: MatDialog,
+  //   private readonly pageTitle: PageTitleService,
+  //   private route: ActivatedRoute,
 
-
-  constructor(
-    private readonly testData: TestDataService,
-    public dialog: MatDialog,
-    private readonly pageTitle: PageTitleService,
-    // buttonRenderer: ButtonRendererComponent,
-
-  ) {
-    this.listAll();
-  }
+  // ) {
+  //   this.routeData = this.route.snapshot.data; 
+  // }
 
   ngOnInit() {
-    this.pageTitle.setTitle('Files');
+    this.listAll();
+    this.pageTitle.setTitle(this.routeData.pageTitle);   
     this.entityTypes$ = this.testData.listEntityTypes();
 
     this.entityList$ = new Subject<string>().pipe(

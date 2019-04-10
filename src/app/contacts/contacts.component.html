@@ -2,6 +2,28 @@
 
 
 
+
+<section fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="40px" fxFlexFill class="mb-4">
+
+
+  
+    <button mat-flat-button 
+    matBadge="17" matBadgePosition="before" matBadgeColor="accent"
+    color="primary" [routerLink]="['organisations']">
+        Organisations
+    </button>
+  
+    <button  mat-flat-button
+    matBadge="68" matBadgePosition="before" matBadgeColor="accent"
+    color="primary"  [routerLink]="['people']">
+        People
+    </button>
+  
+  
+  </section>
+
+
+<!-- 
 <mat-grid-list cols="4" rowHeight="2:1">
     <mat-grid-tile [routerLink]="['people']" ><h2>People</h2>
       <mat-grid-tile-footer>  We found 35 People
@@ -19,7 +41,7 @@
     </mat-grid-tile>
   
 
-  </mat-grid-list>
+  </mat-grid-list> -->
 
 
 

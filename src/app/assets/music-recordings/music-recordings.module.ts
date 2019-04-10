@@ -43,7 +43,8 @@ import { RegisterRecordingComponent } from './register-new-recording/register-re
       FlexLayoutModule
   ],
   entryComponents: [   
-    RegisterRecordingComponent
+    RegisterRecordingComponent,
+    MusicRecordingsEditComponent
    ]
 })
 export class MusicRecordingsModule { }

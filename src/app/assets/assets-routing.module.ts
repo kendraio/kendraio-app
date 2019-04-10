@@ -8,27 +8,34 @@ const routes: Routes = [
     path: '',
     component: pages.AssetsComponent,
     data: {
-      breadcrumb: ''
+      breadcrumb: '',
+      menuLabel: 'Assets'
     },
     children: [
       {
         path: 'files',
         loadChildren: './files/files.module#FilesModule',
         data: {
-          breadcrumb: 'Files'
+          pageTitle: 'Assets: Files',
+          breadcrumb: 'Files',
+          menuLabel: 'Asset Files'
+  
         }
       },
       {
         path: 'releases',
         loadChildren: './music-releases/music-releases.module#MusicReleasesModule',
         data: {
-          breadcrumb: 'Releases'
+          pageTitle: 'Assets: Releases',
+          breadcrumb: 'Releases',
+          menuLabel: 'Asset Releases'
         }
       },
       {
         path: 'recordings',
         loadChildren: './music-recordings/music-recordings.module#MusicRecordingsModule',
         data: {
+          pageTitle: 'Assets: Recordings',
           breadcrumb: 'Recordings'
         }
       },
@@ -36,6 +43,7 @@ const routes: Routes = [
         path: 'works',
         loadChildren: './music-works/music-works.module#MusicWorksModule',
         data: {
+          pageTitle: 'Assets: Works',
           breadcrumb: 'Works'
         }
       },

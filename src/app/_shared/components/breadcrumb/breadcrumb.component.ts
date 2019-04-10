@@ -15,8 +15,10 @@ export class BreadcrumbComponent implements OnInit {
     distinctUntilChanged(),
     map(event => this.buildBreadCrumb(this.activatedRoute))
   );
-  constructor(private activatedRoute: ActivatedRoute,
-    private router: Router) {
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+    ) {
   }
 
   ngOnInit() {
@@ -37,7 +39,7 @@ export class BreadcrumbComponent implements OnInit {
     let newBreadcrumbs;
 
     newBreadcrumbs = [...breadcrumbs, breadcrumb];
-    console.log(route.routeConfig)
+    // console.log(route.routeConfig)
 
     if (route.firstChild !== null) {
       return this.buildBreadCrumb(route.firstChild, nextUrl, newBreadcrumbs).filter(item => item['label'] > '');
