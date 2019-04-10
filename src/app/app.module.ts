@@ -84,6 +84,8 @@ import { AssetsModule } from './assets/assets.module';
 import { MainMenuComponent } from './_shared/components/main-menu/main-menu.component';
 import { MenuItemComponent } from './_shared/components/menu/menu-item.component';
 import { Menu2ItemComponent } from './_shared/components/menu/menu-2-item.component';
+import { DynamicDebugControlComponent } from './form-controls/dynamic-debug-control/dynamic-debug-control.component';
+import {DEBUG_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/debug-form-model';
 // import { BreadcrumbComponent } from './_shared/components/breadcrumb/breadcrumb.component';
 
 // import { AgGridModule } from 'ag-grid-angular';
@@ -138,7 +140,8 @@ import { Menu2ItemComponent } from './_shared/components/menu/menu-2-item.compon
     DynamicRemoteImageControlComponent,
     MainMenuComponent,
     MenuItemComponent,
-    Menu2ItemComponent
+    Menu2ItemComponent,
+    DynamicDebugControlComponent
     // BreadcrumbComponent
     // ReportsComponent,
     // ContactsComponent
@@ -181,7 +184,8 @@ import { Menu2ItemComponent } from './_shared/components/menu/menu-2-item.compon
     DynamicAudioInputControlComponent,
     DynamicImageInputControlComponent,
     DynamicReferenceInputControlComponent,
-    DynamicRemoteImageControlComponent
+    DynamicRemoteImageControlComponent,
+    DynamicDebugControlComponent
   ],
   providers: [
     {
@@ -208,6 +212,8 @@ import { Menu2ItemComponent } from './_shared/components/menu/menu-2-item.compon
             return DynamicReferenceInputControlComponent;
           case REMOTE_IMAGE_DYNAMIC_FORM_CONTROL_TYPE:
             return DynamicRemoteImageControlComponent;
+          case DEBUG_DYNAMIC_FORM_CONTROL_TYPE:
+            return DynamicDebugControlComponent;
         }
       }
     },

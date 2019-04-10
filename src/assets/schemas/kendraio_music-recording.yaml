@@ -54,7 +54,7 @@ fields:
     autoComplete: off
     defaultValue: ''
   - type: JSON
-    id: json_data
-    label: Legacy Data
+    id: json_debug
+    label: Debug
     autoComplete: off
     defaultValue: ''
