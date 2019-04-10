@@ -37,7 +37,7 @@ export class ImportProgressDialogComponent implements OnInit {
         name: _r['RecordingInformationNotification'].ProjectList.Project.ProjectName,
         json_data: _r
       };
-      this.docsRepo.addNew('Project', data).subscribe(() => {
+      this.docsRepo.addNew('mrin_Project', data).subscribe(() => {
         interval(10).pipe(
           startWith(0),
           take(100),

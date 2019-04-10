@@ -1,0 +1,35 @@
+name: Photo
+labelField: description
+forms:
+  edit: assets/forms/bloomenPhotoEditForm.yaml
+fields:
+  - type: TEXT
+    id: description
+    label: Photo description
+    autoComplete: off
+    defaultValue: ''
+  - type: TEXT
+    id: price
+    label: Price
+    autoComplete: off
+    defaultValue: ''
+  - type: TEXT
+    id: attribution
+    label: Attribution
+    autoComplete: off
+    defaultValue: ''
+  - type: TEXT
+    id: url
+    label: Photo URL
+    autoComplete: off
+    defaultValue: ''
+  - type: TEXT
+    id: rightsRegion
+    label: Rights region
+    autoComplete: off
+    defaultValue: ''
+  - type: JSON
+    id: json_data
+    label: Legacy Data
+    autoComplete: off
+    defaultValue: ''
