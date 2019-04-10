@@ -28,7 +28,7 @@
       "dest": "/docs/index.html"
     },
     {
-      "src": "^/(.*/.*)",
+      "src": "^/(.*)",
       "headers": { "cache-control": "public,max-age=0,must-revalidate" },
       "dest": "/docs/index.html"
     }
