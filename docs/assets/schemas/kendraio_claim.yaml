@@ -1,0 +1,8 @@
+name: Claim
+labelField: Title
+fields:
+  - type: TEXT
+    id: Title
+    label: Title
+    autoComplete: off
+    defaultValue: ''
