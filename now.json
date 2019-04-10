@@ -8,7 +8,12 @@
   ],
   "routes": [
     {
-      "src": "/(assets/.+|.+\\.css|.+\\.js)",
+      "src": "/(assets/.+|.+\\.css|.+\\.js|.+\\.ico|.+\\.json|.+\\.txt)",
+      "headers": { "cache-control": "max-age=31536000,immutable" },
+      "dest": "/docs/$1"
+    },
+    {
+      "src": "/(.+|.+\\.css|.+\\.js|.+\\.ico|.+\\.json|.+\\.txt)",
       "headers": { "cache-control": "max-age=31536000,immutable" },
       "dest": "/docs/$1"
     },
