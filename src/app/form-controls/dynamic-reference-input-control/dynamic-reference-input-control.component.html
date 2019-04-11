@@ -1,15 +1,62 @@
-<!--<ng-container [formGroup]="group">-->
-<!--  <app-reference-input-control [formControlName]="model.id"-->
-<!--                               [placeholder]="model.placeholder"-->
-<!--                               [ngClass]="[getClass('element', 'control'), getClass('grid', 'control')]"-->
-<!--                               (blur)="onBlur($event)"-->
-<!--                               (change)="onChange($event)"-->
-<!--                               (focus)="onFocus($event)"></app-reference-input-control>-->
-<!--</ng-container>-->
+<mat-form-field [appearance]="model.getAdditional('appearance', 'legacy')"
+                [color]="model.getAdditional('color', 'primary')"
+                [floatLabel]="model.getAdditional('floatLabel', LABEL_OPTIONS && LABEL_OPTIONS['float'] || 'auto')"
+                [formGroup]="group"
+                [hideRequiredMarker]="model.getAdditional('hideRequiredMarker', false)"
+                [ngClass]="getClass('grid','control')"
+                [textMask]="{mask: (model.mask || false), showMask: model.mask && !(model.placeholder)}">
 
-<dynamic-material-input [model]="model"
-                        [group]="group"
-                        [layout]="layout"
-                        (blur)="onBlur($event)"
-                        (change)="onChange($event)"
-                        (focus)="onFocus($event)"></dynamic-material-input>
+  <ng-container *ngIf="model.label" ngProjectAs="mat-label">
+
+    <mat-label>{{ model.label }}</mat-label>
+
+  </ng-container>
+
+  <span *ngIf="model.prefix" matPrefix [innerHTML]="model.prefix"></span>
+
+  <input matInput
+         [attr.accept]="model.accept"
+         [attr.max]="model.max"
+         [attr.min]="model.min"
+         [attr.multiple]="model.multiple"
+         [attr.step]="model.step"
+         [autocomplete]="model.autoComplete"
+         [autofocus]="model.autoFocus"
+         [errorStateMatcher]="model.getAdditional('errorStateMatcher', errorStateMatcher)"
+         [formControlName]="model.id"
+         [id]="elementId"
+         [maxlength]="model.maxLength"
+         [matAutocomplete]="matAutocomplete"
+         [minlength]="model.minLength"
+         [name]="model.name"
+         [ngClass]="getClass('element', 'control')"
+         [pattern]="model.pattern"
+         [placeholder]="model.placeholder"
+         [readonly]="model.readOnly"
+         [required]="model.required"
+         [spellcheck]="model.spellCheck"
+         [tabindex]="model.tabIndex"
+         [type]="model.inputType"
+         (blur)="onBlur($event)"
+         (change)="onChange($event)"
+         (focus)="onFocus($event)"/>
+
+  <span *ngIf="model.suffix" matSuffix [innerHTML]="model.suffix"></span>
+
+  <mat-hint *ngIf="model.hint !== null" align="start" [innerHTML]="model.hint"></mat-hint>
+
+  <mat-hint *ngIf="showCharacterHint" align="end">{{ characterHint }}</mat-hint>
+
+  <mat-error *ngFor="let message of errorMessages">{{ message }}</mat-error>
+
+</mat-form-field>
+
+<mat-autocomplete #matAutocomplete="matAutocomplete"
+                  [autoActiveFirstOption]="model.getAdditional('autoActiveFirstOption', AUTOCOMPLETE_OPTIONS['autoActiveFirstOption'])"
+                  [disableRipple]="model.getAdditional('disableRipple', RIPPLE_OPTIONS && RIPPLE_OPTIONS['disabled'] || false)"
+                  [displayWith]="model.getAdditional('displayWith', null)"
+                  (optionSelected)="onChange($event)">
+
+  <mat-option *ngFor="let option of model.list$ | async" [value]="option">{{ option }}</mat-option>
+
+</mat-autocomplete>

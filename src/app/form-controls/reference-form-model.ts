@@ -1,7 +1,7 @@
 import {
   DynamicFormControlLayout,
   DynamicInputControlModel,
-  DynamicInputControlModelConfig,
+  DynamicInputControlModelConfig, DynamicInputModel,
   serializable
 } from '@ng-dynamic-forms/core';
 
@@ -14,7 +14,7 @@ export interface DynamicReferenceInputControlConfig extends DynamicInputControlM
   relatedType?: string;
 }
 
-export class ReferenceFormModel extends DynamicInputControlModel<string> {
+export class ReferenceFormModel extends DynamicInputModel {
 
   // TODO: custom properties of this form model
   // @serializable() relatedType: string | null;

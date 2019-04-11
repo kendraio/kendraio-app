@@ -88,6 +88,8 @@ import { DynamicDebugControlComponent } from './form-controls/dynamic-debug-cont
 import {DEBUG_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/debug-form-model';
 import {AppSettingsService} from './services/app-settings.service';
 import { DebugOnlyDirective } from './directives/debug-only.directive';
+import {TextMaskModule} from 'angular2-text-mask';
+import {MatAutocompleteModule} from '@angular/material';
 // import { BreadcrumbComponent } from './_shared/components/breadcrumb/breadcrumb.component';
 
 // import { AgGridModule } from 'ag-grid-angular';
@@ -173,7 +175,9 @@ import { DebugOnlyDirective } from './directives/debug-only.directive';
     ContactsModule,
     TasksModule,
     ReportsModule,
-    AssetsModule
+    AssetsModule,
+    TextMaskModule,
+    MatAutocompleteModule
   ],
   entryComponents: [
     AddDocDialogComponent,

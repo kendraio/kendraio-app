@@ -173,11 +173,13 @@ export class CustomFormService extends DynamicFormService {
           // formModel.push(new ReferenceFormModel(model, layout));
 
           if (model.listType !== null) {
-//            console.log({ model });
             model.list = this.refs.getReferenceValues(model.listType);
           }
 
-          formModel.push(new DynamicInputModel(model, layout));
+          // TODO: Remove label
+          // c.f. https://github.com/udos86/ng-dynamic-forms/issues/954
+          model.isFormFieldControl = true;
+          formModel.push(new ReferenceFormModel(model, layout));
 
           break;
 
