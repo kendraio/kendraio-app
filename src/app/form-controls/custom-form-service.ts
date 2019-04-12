@@ -42,6 +42,7 @@ import {BehaviorSubject} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {ReferenceFieldService} from '../services/reference-field.service';
 import {REMOTE_IMAGE_DYNAMIC_FORM_CONTROL_TYPE, RemoteImageModel} from './remote-image-model';
+import {DEBUG_DYNAMIC_FORM_CONTROL_TYPE, DebugFormModel} from './debug-form-model';
 
 @Injectable()
 export class CustomFormService extends DynamicFormService {
@@ -164,15 +165,21 @@ export class CustomFormService extends DynamicFormService {
           formModel.push(new RemoteImageModel(model, layout));
           break;
 
+        case DEBUG_DYNAMIC_FORM_CONTROL_TYPE:
+          formModel.push(new DebugFormModel(model, layout));
+          break;
+
         case REFERENCE_DYNAMIC_FORM_CONTROL_TYPE:
           // formModel.push(new ReferenceFormModel(model, layout));
 
           if (model.listType !== null) {
-//            console.log({ model });
             model.list = this.refs.getReferenceValues(model.listType);
           }
 
-          formModel.push(new DynamicInputModel(model, layout));
+          // TODO: Remove label
+          // c.f. https://github.com/udos86/ng-dynamic-forms/issues/954
+          model.isFormFieldControl = true;
+          formModel.push(new ReferenceFormModel(model, layout));
 
           break;
 

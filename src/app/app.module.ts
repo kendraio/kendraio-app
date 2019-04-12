@@ -85,6 +85,12 @@ import { MainMenuComponent } from './_shared/components/main-menu/main-menu.comp
 import { MenuItemComponent } from './_shared/components/menu/menu-item.component';
 import { Menu2ItemComponent } from './_shared/components/menu/menu-2-item.component';
 import { MessagesModule } from './messages/messages.module';
+import { DynamicDebugControlComponent } from './form-controls/dynamic-debug-control/dynamic-debug-control.component';
+import {DEBUG_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/debug-form-model';
+import {AppSettingsService} from './services/app-settings.service';
+import { DebugOnlyDirective } from './directives/debug-only.directive';
+import {TextMaskModule} from 'angular2-text-mask';
+import {MatAutocompleteModule} from '@angular/material';
 // import { BreadcrumbComponent } from './_shared/components/breadcrumb/breadcrumb.component';
 
 // import { AgGridModule } from 'ag-grid-angular';
@@ -139,7 +145,9 @@ import { MessagesModule } from './messages/messages.module';
     DynamicRemoteImageControlComponent,
     MainMenuComponent,
     MenuItemComponent,
-    Menu2ItemComponent
+    Menu2ItemComponent,
+    DynamicDebugControlComponent,
+    DebugOnlyDirective
     // BreadcrumbComponent
     // ReportsComponent,
     // ContactsComponent
@@ -169,7 +177,9 @@ import { MessagesModule } from './messages/messages.module';
     TasksModule,
     ReportsModule,
     AssetsModule,
-    MessagesModule
+    MessagesModule,
+    TextMaskModule,
+    MatAutocompleteModule
   ],
   entryComponents: [
     AddDocDialogComponent,
@@ -183,7 +193,8 @@ import { MessagesModule } from './messages/messages.module';
     DynamicAudioInputControlComponent,
     DynamicImageInputControlComponent,
     DynamicReferenceInputControlComponent,
-    DynamicRemoteImageControlComponent
+    DynamicRemoteImageControlComponent,
+    DynamicDebugControlComponent
   ],
   providers: [
     {
@@ -199,6 +210,12 @@ import { MessagesModule } from './messages/messages.module';
       deps: [ DocumentRepositoryService ]
     },
     {
+      provide: APP_INITIALIZER,
+      multi: true,
+      useFactory: (settings: AppSettingsService) => () => settings.init(),
+      deps: [ AppSettingsService ]
+    },
+    {
       provide: DYNAMIC_FORM_CONTROL_MAP_FN,
       useValue: (model: DynamicFormControlModel): Type<DynamicFormControl> | null  => {
         switch (model.type) {
@@ -210,6 +227,8 @@ import { MessagesModule } from './messages/messages.module';
             return DynamicReferenceInputControlComponent;
           case REMOTE_IMAGE_DYNAMIC_FORM_CONTROL_TYPE:
             return DynamicRemoteImageControlComponent;
+          case DEBUG_DYNAMIC_FORM_CONTROL_TYPE:
+            return DynamicDebugControlComponent;
         }
       }
     },

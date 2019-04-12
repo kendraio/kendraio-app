@@ -7,7 +7,30 @@
     { "src": "docs/**", "use": "@now/static" }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "/docs/$1" },
-    { "src": ".*", "dest": "/index.html" }
+    {
+      "src": "/(assets/.+|.+\\.css|.+\\.js|.+\\.ico|.+\\.json|.+\\.txt)",
+      "headers": { "cache-control": "max-age=31536000,immutable" },
+      "dest": "/docs/$1"
+    },
+    {
+      "src": "/(.+|.+\\.css|.+\\.js|.+\\.ico|.+\\.json|.+\\.txt)",
+      "headers": { "cache-control": "max-age=31536000,immutable" },
+      "dest": "/docs/$1"
+    },
+    {
+      "src": "/(.*).html",
+      "headers": { "cache-control": "public,max-age=0,must-revalidate" },
+      "dest": "/docs/$1.html"
+    },
+    {
+      "src": "^/(.*)",
+      "headers": { "cache-control": "public,max-age=0,must-revalidate" },
+      "dest": "/docs/index.html"
+    },
+    {
+      "src": "^/(.*)",
+      "headers": { "cache-control": "public,max-age=0,must-revalidate" },
+      "dest": "/docs/index.html"
+    }
   ]
 }

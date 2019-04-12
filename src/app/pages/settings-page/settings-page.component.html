@@ -6,3 +6,9 @@
   
   <button (click)="resetApp()" mat-raised-button color="warn">Reset App</button>
 </mat-card>
+
+<mat-card>
+  <p>Debug mode <b>{{ isDebug ? 'enabled' : 'disabled' }}</b></p>
+
+  <button mat-raised-button color="primary" (click)="toggleDebugMode()">Toggle debug mode</button>
+</mat-card>

@@ -5,6 +5,7 @@ import { ConfirmAppResetDialogComponent } from '../../dialogs/confirm-app-reset-
 import { PageTitleService } from '../../services/page-title.service';
 import { AdaptersService } from '../../services/adapters.service';
 import { DocumentRepositoryService } from '../../services/document-repository.service';
+import {AppSettingsService} from '../../services/app-settings.service';
 
 @Component({
   selector: 'app-settings-page',
@@ -13,16 +14,20 @@ import { DocumentRepositoryService } from '../../services/document-repository.se
 })
 export class SettingsPageComponent implements OnInit {
 
+  isDebug = false;
+
   constructor(
     private readonly router: Router,
     private readonly dialog: MatDialog,
     private readonly pageTitle: PageTitleService,
     private readonly adapters: AdaptersService,
-    private readonly database: DocumentRepositoryService
+    private readonly database: DocumentRepositoryService,
+    private readonly settings: AppSettingsService
   ) { }
 
   ngOnInit() {
     this.pageTitle.setTitle('App settings');
+    this.isDebug = this.settings.get('debug-mode', false);
   }
 
   resetApp() {
@@ -37,4 +42,10 @@ export class SettingsPageComponent implements OnInit {
       }
     });
   }
+
+  toggleDebugMode() {
+    this.isDebug = !this.isDebug;
+    this.settings.set('debug-mode', this.isDebug);
+  }
+
 }

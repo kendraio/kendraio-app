@@ -1,0 +1,13 @@
+name: Payment
+labelField: Source
+fields:
+  - type: TEXT
+    id: Source
+    label: Source
+    autoComplete: off
+    defaultValue: ''
+  - type: JSON
+    id: json_data
+    label: Legacy Data
+    autoComplete: off
+    defaultValue: ''
