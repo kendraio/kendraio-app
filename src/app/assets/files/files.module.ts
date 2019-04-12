@@ -11,6 +11,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { FilesRoutingModule } from './files-routing.module';
 import { FilesComponent, FileDetailsComponent, FileEditComponent } from '.';
+import { SharedModule } from 'src/app/_shared/shared.module';
 
 
 
@@ -26,7 +27,8 @@ import { FilesComponent, FileDetailsComponent, FileEditComponent } from '.';
     AgGridModule.withComponents(
       []
   ),
-  FlexLayoutModule
+  FlexLayoutModule,
+  SharedModule
   ],
   exports: [
     FilesComponent

@@ -15,6 +15,7 @@ import {AppSettingsService} from '../../services/app-settings.service';
 export class SettingsPageComponent implements OnInit {
 
   isDebug = false;
+  showHelp = true;
 
   constructor(
     private readonly router: Router,
@@ -28,6 +29,7 @@ export class SettingsPageComponent implements OnInit {
   ngOnInit() {
     this.pageTitle.setTitle('App settings');
     this.isDebug = this.settings.get('debug-mode', false);
+    this.showHelp = this.settings.get('showHelp', false);
   }
 
   resetApp() {
@@ -46,6 +48,11 @@ export class SettingsPageComponent implements OnInit {
   toggleDebugMode() {
     this.isDebug = !this.isDebug;
     this.settings.set('debug-mode', this.isDebug);
+  }
+
+  toggleShowHelp() {
+    this.showHelp = !this.showHelp;
+    this.settings.set('showHelp', this.showHelp);
   }
 
 }
