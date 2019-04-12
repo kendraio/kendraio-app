@@ -68,3 +68,26 @@ cursor: default;
 .mat-menu-item{
   padding: 10px 16px;
 }
+
+.messagedesk {
+  position: fixed;
+  right: 10px;
+  top: 10px;
+  max-width: 200px;
+  z-index: 10;
+  .card {
+    background-color: smokewhite;
+    width: 16vw;
+    min-width: 220px;
+    max-width: 275px;
+    box-shadow: inset -55px 2px 16px -55px rgba(0, 0, 0, 0.2), 5px 12px 7px -12px rgba(0, 0, 0, 0.2);
+    .card-body {
+      padding: 1rem 0.5rem 1rem 0.5rem !important;
+      font-size: small;
+      @media (min-height: 901px) {
+        font-size: 1rem;
+        padding: 0.6rem !important;
+      }
+    }
+  }
+}

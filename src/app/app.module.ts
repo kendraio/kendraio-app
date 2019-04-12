@@ -84,6 +84,7 @@ import { AssetsModule } from './assets/assets.module';
 import { MainMenuComponent } from './_shared/components/main-menu/main-menu.component';
 import { MenuItemComponent } from './_shared/components/menu/menu-item.component';
 import { Menu2ItemComponent } from './_shared/components/menu/menu-2-item.component';
+import { MessagesModule } from './messages/messages.module';
 // import { BreadcrumbComponent } from './_shared/components/breadcrumb/breadcrumb.component';
 
 // import { AgGridModule } from 'ag-grid-angular';
@@ -167,7 +168,8 @@ import { Menu2ItemComponent } from './_shared/components/menu/menu-2-item.compon
     ContactsModule,
     TasksModule,
     ReportsModule,
-    AssetsModule
+    AssetsModule,
+    MessagesModule
   ],
   entryComponents: [
     AddDocDialogComponent,

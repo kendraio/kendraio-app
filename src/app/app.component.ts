@@ -2,12 +2,14 @@ import { Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { MenuItem } from './_models/classes/common';
 import {MENUITEMS } from './_shared/components/menu/menu.component';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { PageTitleService } from './services/page-title.service';
 import { Title } from '@angular/platform-browser';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
+import { HelpTextService } from './_shared/services/help-text.service';
+import { filter, distinctUntilChanged, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -24,17 +26,45 @@ export class AppComponent {
   pageTitle$: Observable<string>;
   treeControl = new NestedTreeControl<MenuItem>(node => node.children);
   dataSource = new MatTreeNestedDataSource<MenuItem>();
+  sub: Subscription;
 
   constructor(
     public auth: AuthService,
     private readonly router: Router,
+    private readonly route: ActivatedRoute,
     private readonly title: PageTitleService,
+    private readonly help: HelpTextService,
     private titleService: Title
     ) {
     auth.handleAuthentication();
     this.menuItems = MENUITEMS;
     this.dataSource.data = MENUITEMS;
     this.pageTitle$ = this.title.pageTitle$;
+
+
+    // this.router.events.pipe(
+    //   filter(event => event instanceof NavigationEnd),
+    //   distinctUntilChanged(),
+    // //  map(event => console.log(this.route.snapshot))
+    // ).subscribe(
+    //   eventx => {
+    //     console.log(this.route.snapshot);
+    //     if (eventx instanceof NavigationEnd) {
+    //      console.log('navEnd1');
+    //     }
+    //   }
+    // );
+
+    // this.sub = this.router.events.subscribe(
+    //   event => {
+    //     console.log('this.route.snapshot');
+    //     if (event instanceof NavigationEnd) {
+    //      console.log('navEnd');
+    //     }
+    //   }
+    
+    // );
+
 
   }
 

@@ -35,7 +35,6 @@ export class IndexComponent implements OnInit {
   routeData: RouteData;
   subTitle: string;
 
-
   @ViewChild('inBoxGrid') inBoxGrid;
   @ViewChild('releasesNotSentGrid') releasesNotSentGrid;
   @ViewChild('releasesSentGrid') releasesSentGrid;
@@ -70,7 +69,6 @@ export class IndexComponent implements OnInit {
       }
       if (index !== 0) {
         selectedRowsString += ', ';
-
       }
       selectedRowsString += selectedRow.name;
       theRow = selectedRow;

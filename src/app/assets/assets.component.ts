@@ -3,6 +3,7 @@ import { PageTitleService } from '../services/page-title.service';
 import { MatGridListModule } from '@angular/material';
 import { from, ObservableInput } from 'rxjs';
 import { TestDataService } from '../services/test-data.service';
+import { HelpTextService } from '../_shared/services/help-text.service';
 
 
 @Component({
@@ -15,13 +16,16 @@ export class AssetsComponent implements OnInit {
   dummyData2;
   data$;
   entityCounts: any = {};
+  pageHelp = [];
   constructor(
     private readonly pageTitle: PageTitleService,
     private readonly testData: TestDataService,
+    public help: HelpTextService,
   ) { }
 
   ngOnInit() {
-    this.pageTitle.setTitle('Assets');    
+    this.pageTitle.setTitle('Assets');  
+  //  this.getHelpTextForPage('assets')   
     this.dummyData = from([{
       datasets: [{
         data: [20, 40, 30, 10]
@@ -45,15 +49,37 @@ export class AssetsComponent implements OnInit {
       ]
     }]);
 
-
 this.testData.getEntityCounts()
 .subscribe(res => {
   this.entityCounts  = res;
 }) ;
 
-
-
-
   }
+
+  getHelpTextForPage(itemRef: string) {
+
+    // this.pageHelp =  this.help.getHelpTextForSection(itemRef) || [];
+
+    // if (this.pageHelp.length) {
+    //   const v = this.pageHelp[0].items.filter(f => f.ref === itemRef)[0].text;
+    //   console.log(v);
+    //   return v;
+    // }
+  }
+
+
+  // askHelp(itemRef: string) {
+
+  //   //this.pageHelp =  this.help.getHelpTextForSection('assets') || [];
+
+  //   if (this.pageHelp.length) {
+  //     const v = this.pageHelp[0].items.filter(f => f.ref === itemRef)[0].text;
+  //     console.log(v);
+  //     return v;
+  //   }
+  // }
+
+
+
 
 }

@@ -45,6 +45,7 @@ export class IndexComponent extends BaseComponent implements OnInit {
         thing: MatButtonComponent
       }
     };
+    // this.getHelpText('recordings');
     this.listAll();
     this.claimsToSend = [];  
     this.entityTypes$ = this.testData.listEntityTypes();
