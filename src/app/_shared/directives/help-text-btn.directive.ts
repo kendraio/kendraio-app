@@ -16,7 +16,7 @@ export class HelpTextBtnDirective {
 
     const div = this.renderer.createElement('div');
     const text = this.renderer.createText('?');
-    this.showHelp = this.settings.get('showHelp', false);
+    this.showHelp = this.settings.getTmp('showHelp', true);
      if (this.showHelp) {
     this.renderer.appendChild(div, text);
     this.renderer.addClass(div, 'k-help-badge');

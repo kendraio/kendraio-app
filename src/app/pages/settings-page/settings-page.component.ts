@@ -29,7 +29,7 @@ export class SettingsPageComponent implements OnInit {
   ngOnInit() {
     this.pageTitle.setTitle('App settings');
     this.isDebug = this.settings.get('debug-mode', false);
-    this.showHelp = this.settings.get('showHelp', false);
+     this.showHelp = this.settings.getTmp('showHelp', true);
   }
 
   resetApp() {

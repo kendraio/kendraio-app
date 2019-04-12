@@ -26,6 +26,14 @@ export class AppSettingsService {
     return this.settings[name];
   }
 
+  getTmp(name, defaultValue) {  // Hi Darren this is temp workaround so i can set default value
+    if (this.settings[name] === undefined) {
+      return defaultValue;
+    }
+    return this.settings[name];
+  }
+
+
   set(name, value) {
     this.settings[name] = value;
     localStorage.setItem('kendraio-app-settings', JSON.stringify(this.settings));
