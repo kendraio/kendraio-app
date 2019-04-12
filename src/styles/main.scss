@@ -91,3 +91,27 @@ cursor: default;
     }
   }
 }
+
+.k-help-badge{
+  position: absolute;
+  text-align: center;
+  display: inline-block;
+  border-radius: 50%;
+  transition: -webkit-transform 200ms ease-in-out;
+  transition: transform 200ms ease-in-out;
+  transition: transform 200ms ease-in-out, -webkit-transform 200ms ease-in-out;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  top: -13px;
+  right: -18px;
+  background-color: pink;
+  cursor: POINTER;
+  font-size: small;
+  &:hover{
+    background-color: green;
+  }
+}

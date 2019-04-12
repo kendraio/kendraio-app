@@ -3,15 +3,15 @@
         "section": "assets",
         "items": [
             {
-                "text": "Ipsum dolor sit amet consectetur adipisicing elit. Eius minima perspiciatis doloribus vero maxime enim, sunt ex ad qui, laudantium ea necessitatibus quas dolor saepe quaerat! Vel placeat voluptatibus odio!",
+                "text": "All about assets: Ipsum dolor sit amet consectetur adipisicing elit. Eius minima perspiciatis doloribus vero maxime enim, sunt ex ad qui, laudantium ea necessitatibus quas dolor saepe quaerat! Vel placeat voluptatibus odio!",
                 "ref": "assets"
             },
             {
-                "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius minima perspiciatis doloribus vero maxime enim, sunt ex ad qui, laudantium ea necessitatibus quas dolor saepe quaerat! Vel placeat voluptatibus odio!",
+                "text": "Help with Recordings. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius minima perspiciatis doloribus vero maxime enim, sunt ex ad qui, laudantium ea necessitatibus quas dolor saepe quaerat! Vel placeat voluptatibus odio!",
                 "ref": "recordings"
             },
             {
-                "text": "worksEius minima perspiciatis doloribus vero maxime enim, sunt ex ad qui.",
+                "text": "Lets talk about your Works. Eius minima perspiciatis doloribus vero maxime enim, sunt ex ad qui.",
                 "ref": "works"
             }
         ]

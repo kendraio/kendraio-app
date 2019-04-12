@@ -27,6 +27,7 @@ import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
 import { ClaimsEditComponent } from '../claims/claims-edit/claims-edit.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { HelpTextService } from './services/help-text.service';
+import { HelpTextBtnDirective } from './directives/help-text-btn.directive';
 // import { BaseComponent } from './base/base.component';
 // import { MenuComponent } from './components/menu/menu.component';
 // import { MenuItemComponent } from './components/menu/menu-item.component';
@@ -75,6 +76,7 @@ import { HelpTextService } from './services/help-text.service';
     SendClaimsComponent,
     ClaimsEditComponent,
     BreadcrumbComponent,
+    HelpTextBtnDirective,
     // BaseComponent,
     // MenuComponent,
     // MenuItemComponent,
@@ -93,7 +95,8 @@ import { HelpTextService } from './services/help-text.service';
   // ClaimsEditSendComponent,
   MatListModule,
   BreadcrumbComponent,
-  MatTreeModule
+  MatTreeModule,
+  HelpTextBtnDirective
 // BrowserAnimationsModule
 
   ],

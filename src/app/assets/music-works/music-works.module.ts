@@ -12,6 +12,7 @@ import { AppMaterialModule } from 'src/app/app-material/app-material.module';
 import { AgGridModule } from 'ag-grid-angular';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RegisterComponent } from './add-new/register.component';
+import { SharedModule } from 'src/app/_shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { RegisterComponent } from './add-new/register.component';
   , RegisterComponent
   ],
   imports: [
+    SharedModule,
     CommonModule,
     MusicWorksRoutingModule,
     FormsModule,
