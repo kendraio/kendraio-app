@@ -45,8 +45,8 @@ const routes: Routes = [
         path: 'dashboard',
         component: Pages.DashboardPageComponent,
         data: {
-          pageTitle: 'Dashboard',
-          breadcrumb: 'Dashboard',
+          pageTitle: {'de': 'Instrumententafel' , 'fr': '', 'en-US': 'Dashboard' },
+          breadcrumb: {'de': 'Instrumententafel' , 'fr': '', 'en-US': 'Dashboard' },
           menuLabel: 'Dash title',
           icon: 'dashboard'
         },
@@ -63,9 +63,9 @@ const routes: Routes = [
         path: 'assets',
         loadChildren: './assets/assets.module#AssetsModule',
         data: {
-          pageTitle: 'Assets',
-          breadcrumb: 'Assets',
-          menuLabel: 'Assets'
+          pageTitle: {'de': 'Vermögenswerte' , 'fr': '', 'en-US': 'Assets-----'},
+          breadcrumb: {'de': 'Vermögenswerte' , 'fr': '', 'en-US': 'Assets'},
+          menuLabel: 'Assets-BGTT'
           
         }
       },
@@ -84,7 +84,7 @@ const routes: Routes = [
         component: Pages.ImportPageComponent,
         data: {
           pageTitle: 'Import',
-          breadcrumb: 'Import',
+          breadcrumb: {'de': 'Einführen' , 'fr': '', 'en-US': 'Import'},
           menuLabel:  'Import'
         },
       },
@@ -93,7 +93,7 @@ const routes: Routes = [
         component: UploadPageComponent,
         data: {
           pageTitle: 'Upload',
-          breadcrumb: 'Upload',
+          breadcrumb: {'de': 'Hochladen' , 'fr': '', 'en-US': 'Upload'},
           menuLabel:  'Upload'
         }
       },
@@ -118,7 +118,7 @@ const routes: Routes = [
         component: AdaptersPageComponent,
         data: {
           pageTitle: 'Adapters',
-          breadcrumb: 'Adapters',
+          breadcrumb:  {'de': 'Instrumententafel' , 'fr': '', 'en-US': 'Adapters'},
           menuLabel:  'Adapters'
         }
       },
@@ -127,7 +127,7 @@ const routes: Routes = [
         component: SettingsPageComponent,
         data: {
           pageTitle: 'Settings',
-          breadcrumb: 'Settings',
+          breadcrumb:  {'de': 'die Einstellungen' , 'fr': '', 'en-US': 'Settings'},
           menuLabel:  'Settings'
         }
       },

@@ -8,6 +8,7 @@ import { TestDataService } from 'src/app/services/test-data.service';
 import { GridOptions } from 'ag-grid-community';
 import { HelpTextService } from '../services/help-text.service';
 import { filter, distinctUntilChanged, map } from 'rxjs/operators';
+import { AppConfigService } from '../services/config.service';
 
 @Injectable()
 export abstract class BaseComponent {
@@ -22,6 +23,7 @@ export abstract class BaseComponent {
     protected dialog: MatDialog,
     protected readonly testData: TestDataService,
     protected help: HelpTextService,
+    protected config: AppConfigService
   ) { 
     // this.router.events.pipe(
     //   filter(event => event instanceof NavigationEnd),
@@ -29,7 +31,7 @@ export abstract class BaseComponent {
     //   map(event => console.log(this.route))
     // );
     this.routeData = this.route.snapshot.data;
-    this.pageTitle.setTitle(this.routeData.pageTitle);   
+    this.pageTitle.setTitle(this.routeData.pageTitle[this.config.locale]);   
   //  this.pageHelp = this.help.getHelpTextForSection('assets');
   }
 

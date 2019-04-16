@@ -6,7 +6,7 @@
     <a *ngIf="!isLast && breadcrumb.label; else lastRoute"
        [routerLink]="[breadcrumb.url]"
        routerLinkActive="active">
-      {{ breadcrumb.label }}
+       {{ breadcrumb.label}}
     </a>
     <ng-template #lastRoute>{{ breadcrumb?.label }}</ng-template>
   </li>

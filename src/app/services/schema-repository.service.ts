@@ -24,7 +24,7 @@ export class SchemaRepositoryService {
       'kendraio_claim', 'kendraio_video', 'kendraio_person', 'bloomen_Photo'
     ];
     return forkJoin(enabledSchemas.map(schemaName => this.http
-      .get(`/assets/schemas/${ schemaName }.yaml`, {responseType: 'text'})
+      .get(`assets/schemas/${ schemaName }.yaml`, {responseType: 'text'})
       .pipe(
         map(text => YamlLoad(text)),
         tap(schema => this.schemas[schemaName] = schema)

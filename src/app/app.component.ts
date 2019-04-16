@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { MenuItem } from './_models/classes/common';
 import {MENUITEMS } from './_shared/components/menu/menu.component';
@@ -10,6 +10,7 @@ import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { HelpTextService } from './_shared/services/help-text.service';
 import { filter, distinctUntilChanged, map } from 'rxjs/operators';
+import { LOCALE_ID } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +28,7 @@ export class AppComponent {
   treeControl = new NestedTreeControl<MenuItem>(node => node.children);
   dataSource = new MatTreeNestedDataSource<MenuItem>();
   sub: Subscription;
+  today = Date.now();
 
   constructor(
     public auth: AuthService,
@@ -34,7 +36,8 @@ export class AppComponent {
     private readonly route: ActivatedRoute,
     private readonly title: PageTitleService,
     private readonly help: HelpTextService,
-    private titleService: Title
+    private titleService: Title,
+    @Inject(LOCALE_ID) public locale: string
     ) {
     auth.handleAuthentication();
     this.menuItems = MENUITEMS;

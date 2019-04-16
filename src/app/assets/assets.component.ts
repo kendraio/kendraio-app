@@ -4,6 +4,9 @@ import { MatGridListModule } from '@angular/material';
 import { from, ObservableInput } from 'rxjs';
 import { TestDataService } from '../services/test-data.service';
 import { HelpTextService } from '../_shared/services/help-text.service';
+import { ActivatedRoute } from '@angular/router';
+import { RouteData } from '../_models/classes/common';
+import { AppConfigService } from '../_shared/services/config.service';
 
 
 @Component({
@@ -12,19 +15,27 @@ import { HelpTextService } from '../_shared/services/help-text.service';
   styleUrls: ['./assets.component.scss']
 })
 export class AssetsComponent implements OnInit {
+  routeData: RouteData;
   dummyData: ObservableInput<any>;
   dummyData2;
   data$;
   entityCounts: any = {};
   pageHelp = [];
   constructor(
+    private route: ActivatedRoute,
+    // private router: Router,
     private readonly pageTitle: PageTitleService,
     private readonly testData: TestDataService,
     public help: HelpTextService,
-  ) { }
+    public config: AppConfigService,
+    
+  ) { 
+    this.routeData = this.route.snapshot.data;
+    this.pageTitle.setTitle(this.routeData.pageTitle[this.config.locale]);   
+  }
 
   ngOnInit() {
-    this.pageTitle.setTitle('Assets');  
+ //   this.pageTitle.setTitle('Assets');  
   //  this.getHelpTextForPage('assets')   
     this.dummyData = from([{
       datasets: [{

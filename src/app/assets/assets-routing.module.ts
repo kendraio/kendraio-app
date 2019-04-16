@@ -16,8 +16,8 @@ const routes: Routes = [
         path: 'files',
         loadChildren: './files/files.module#FilesModule',
         data: {
-          pageTitle: 'Assets: Files',
-          breadcrumb: 'Files',
+          pageTitle: {'de': 'Dateien' , 'fr': '', 'en-US': 'Files'},
+          breadcrumb: {'de': 'Dateien' , 'fr': '', 'en-US': 'Files'},
           menuLabel: 'Asset Files'
   
         }
@@ -26,8 +26,8 @@ const routes: Routes = [
         path: 'releases',
         loadChildren: './music-releases/music-releases.module#MusicReleasesModule',
         data: {
-          pageTitle: 'Assets: Releases',
-          breadcrumb: 'Releases',
+          pageTitle: {'de': 'Veröffentlichungen' , 'fr': '', 'en-US': 'Releases'},
+          breadcrumb: {'de': 'Veröffentlichungen' , 'fr': '', 'en-US': 'Releases'},
           menuLabel: 'Asset Releases'
         }
       },
@@ -35,8 +35,8 @@ const routes: Routes = [
         path: 'recordings',
         loadChildren: './music-recordings/music-recordings.module#MusicRecordingsModule',
         data: {
-          pageTitle: 'Assets: Recordings',
-          breadcrumb: 'Recordings'
+          pageTitle:  {'de': 'Aufnahmen' , 'fr': '', 'en-US': 'Recordings'},
+          breadcrumb: {'de': 'Aufnahmen' , 'fr': '', 'en-US': 'Recordings'},
         }
       },
       {
@@ -44,7 +44,7 @@ const routes: Routes = [
         loadChildren: './music-works/music-works.module#MusicWorksModule',
         data: {
           pageTitle: 'Assets: Works',
-          breadcrumb: 'Works'
+          breadcrumb: {'de': 'Arbeitet' , 'fr': '', 'en-US': 'Works'},
         }
       },
     ]

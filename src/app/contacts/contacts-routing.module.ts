@@ -8,17 +8,17 @@ const routes: Routes = [
     component: pages.ContactsComponent,
     data: {
       breadcrumb: '',
-      menuLabel: 'Contacts'
+      menuLabel: 'Contacts XXX'
     },
     children: [
       { path: 'people', component: pages.PeopleComponent,  
       data: {
-        breadcrumb: 'People',
+        breadcrumb: {'de': 'Menschen' , 'fr': '', 'en-US': 'People'},
         menuLabel: 'Contacts/People'
       } },
       { path: 'organisations', component: pages.OrganisationsComponent,
       data: {
-        breadcrumb: 'Organisations',
+        breadcrumb: {'de': 'Organisationen' , 'fr': '', 'en-US': 'Organisations'},
         menuLabel: 'Contacts/Organisations'
       } 
     },

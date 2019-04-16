@@ -33,7 +33,7 @@ export class FilesComponent extends BaseComponent  implements OnInit {
 
   ngOnInit() {
     this.listAll();
-    this.pageTitle.setTitle(this.routeData.pageTitle);   
+    // this.pageTitle.setTitle(this.routeData.pageTitle);   
     this.entityTypes$ = this.testData.listEntityTypes();
 
     this.entityList$ = new Subject<string>().pipe(

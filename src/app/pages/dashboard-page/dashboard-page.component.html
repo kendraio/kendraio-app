@@ -1,6 +1,15 @@
 
 <div class="mat-typography">
-  <h3>Welcome to the Kendraio App</h3>
+  <h3 i18n="welcome msg@@welcomemsg">Welcome to the Kendraio App</h3>
+
+           
+  {{ TODAY | date:'fullDate' }}      
+
+
+
+
+
+
   <a routerLink="/docs" mat-flat-button color="primary">Documents</a>
 </div>
 
@@ -13,3 +22,5 @@
   <br>
   <a routerLink="/bloomen-api" mat-flat-button color="primary">Bloomen API</a>
 </div>
+
+

@@ -81,6 +81,18 @@
             ]
           },
           "configurations": {
+
+            "de": {
+              "aot": true,
+              "outputPath": "dist/kendraio-app-de/",
+              "baseHref": "/de/",
+              "i18nFile": "src/locale/messages.de.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "de"           
+            },
+        
+
+
             "production": {
               "fileReplacements": [
                 {
@@ -114,6 +126,12 @@
             "browserTarget": "kendraio-app:build"
           },
           "configurations": {
+            "de": {
+              "browserTarget": "kendraio-app:build:de",
+              "baseHref": "/de/"
+      
+            },
+
             "production": {
               "browserTarget": "kendraio-app:build:production"
             }

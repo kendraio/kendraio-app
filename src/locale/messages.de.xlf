@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="welcomemsg" datatype="html">
+        <source>Welcome to the Kendraio App</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/dashboard-page/dashboard-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <note priority="1" from="description">welcome msg</note>
+      <target>Willkommen bei der Kendraio App</target></trans-unit>
+      <trans-unit id="helpdesk" datatype="html">
+        <source>Help Desk</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/messages/messages.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      <target>Beratungsstelle</target></trans-unit>
+            <trans-unit id="56eec7a486ce9bc187caf00d04e949180bcf8de5" datatype="html">
+        <source>Music recordings
+  This will allow the user to manage rights data and other related metadata about recordings. These recordings could be
+  unreleased or released.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/assets/music-recordings/music-recordings.component.html</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      <target>Auf diese Weise kann der Benutzer Rechtedaten und andere verwandte Metadaten zu Aufzeichnungen verwalten. 
+      Diese Aufnahmen könnten sein unveröffentlicht oder veröffentlicht.</target></trans-unit>
+    </body>
+  </file>
+</xliff>

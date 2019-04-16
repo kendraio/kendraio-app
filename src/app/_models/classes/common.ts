@@ -11,7 +11,7 @@ breadcrumb?: string;
 }
 
 export interface MenuItem {
-    label: string;
+    label: Label;
     path?: string;
     parentLabel?: String;
     icon: string;
@@ -33,4 +33,11 @@ ref: string;
         timer?: number;
         link?: string;
         }
+
+        export interface Label {
+            de: string;
+            fr: string;
+            'en-US': string;
+        }
+
         

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { BreadCrumb } from 'src/app/_models/classes/common';
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
@@ -10,6 +10,7 @@ import { distinctUntilChanged, filter, map } from 'rxjs/operators';
   encapsulation: ViewEncapsulation.None
 })
 export class BreadcrumbComponent implements OnInit {
+  @Input() locale = 'en-US';
   breadcrumbs$ = this.router.events.pipe(
     filter(event => event instanceof NavigationEnd),
     distinctUntilChanged(),
@@ -18,7 +19,7 @@ export class BreadcrumbComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router
-    ) {
+  ) {
   }
 
   ngOnInit() {
@@ -28,8 +29,7 @@ export class BreadcrumbComponent implements OnInit {
     route: ActivatedRoute,
     url: string = '',
     breadcrumbs: Array<BreadCrumb> = []): Array<BreadCrumb> {
-    const label = route.routeConfig ? route.routeConfig.data[ 'breadcrumb' ] : 'Home';
-    // const path = route.routeConfig ? route.routeConfig.path || 'assets' : '..'; // fix this
+    const label = route.routeConfig ? route.routeConfig.data['breadcrumb'][this.locale] : 'Home';
     const path = route.routeConfig ? route.routeConfig.path : '..'; // fix this
     const nextUrl = `${url}/${path}`;
     const breadcrumb = {
@@ -37,11 +37,10 @@ export class BreadcrumbComponent implements OnInit {
       url: nextUrl,
     };
     let newBreadcrumbs;
-
     newBreadcrumbs = [...breadcrumbs, breadcrumb];
-    // console.log(route.routeConfig)
 
     if (route.firstChild !== null) {
+      console.log(this.buildBreadCrumb(route.firstChild, nextUrl, newBreadcrumbs).filter(item => item['label'] > ''));
       return this.buildBreadCrumb(route.firstChild, nextUrl, newBreadcrumbs).filter(item => item['label'] > '');
 
     }

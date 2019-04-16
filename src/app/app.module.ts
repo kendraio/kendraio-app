@@ -91,6 +91,8 @@ import {AppSettingsService} from './services/app-settings.service';
 import { DebugOnlyDirective } from './directives/debug-only.directive';
 import {TextMaskModule} from 'angular2-text-mask';
 import {MatAutocompleteModule} from '@angular/material';
+import { LOCALE_ID  } from '@angular/core';
+
 // import { BreadcrumbComponent } from './_shared/components/breadcrumb/breadcrumb.component';
 
 // import { AgGridModule } from 'ag-grid-angular';

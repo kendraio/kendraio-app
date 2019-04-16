@@ -10,7 +10,7 @@
         <li class="mat-tree-node  mat-menu-item">
           <!-- use a disabled button to provide padding for tree leaf -->
           <mat-icon>{{node.icon}}</mat-icon>
-          <span class="ml-2"> {{node.label}} </span>
+          <span class="ml-2"> {{node.label[locale]}} </span>
         </li>
       </mat-tree-node>
 
@@ -20,7 +20,7 @@
           <div class="mat-tree-node mat-menu-item" [routerLink]="node.path" routerLinkActive="menu-item--active">
             <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.label" onfocus="this.blur">
               <mat-icon>{{node.icon}} </mat-icon>
-              <span class="ml-2" [routerLink]="node.path"> {{node.label}}</span>
+              <span class="ml-2" [routerLink]="node.path"> {{node.label[locale]}}</span>
 
               <mat-icon class="mat-icon-rtl-mirror">
                 {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
@@ -43,41 +43,37 @@
   <mat-sidenav-content>
 
     <mat-toolbar>
+
+
+
       <button mat-icon-button (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
 
       <span>
-        {{ pageTitle$ | async }}
+        {{ pageTitle$ | async }}  <small> {{ today | date:'fullDate' }}</small> 
       </span>
       <span class="spacer"></span>
 
-
-
-      <!-- (click)="gotoPage('/user', sidenav)" -->
-      <button mat-icon-button>
-        <mat-icon>person</mat-icon>
-      </button>
+      <button mat-icon-button><mat-icon>person</mat-icon> </button>
+      <button mat-icon-button><mat-icon matBadge="2" class="example-icon" aria-hidden="false" aria-label="Example heart icon">notifications</mat-icon></button>
+      <button mat-icon-button><mat-icon [routerLink]="['settings']" routerLinkActive="router-link-active"  class="example-icon" aria-hidden="false" aria-label="Example heart icon">settings</mat-icon></button>
+ 
     </mat-toolbar>
 
 
 
     <div class="page-content">
-      <app-breadcrumb></app-breadcrumb>
+      <app-breadcrumb [locale]="locale"></app-breadcrumb>
       <router-outlet name="popup"></router-outlet>
       <router-outlet></router-outlet>
-
-
     </div>
-
 
   </mat-sidenav-content>
 
 
 
-  <mat-sidenav position="end"
-  #sidenav2 mode="over">
-  EndEndEndEndEndEndEndEndEndEndEnd</mat-sidenav>
+
 
 
 </mat-sidenav-container>
