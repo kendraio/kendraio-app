@@ -67,7 +67,15 @@ const routes: Routes = [
           pageTitle: {'de': 'Vermögenswerte' , 'fr': '', 'en-US': 'Assets-----'},
           breadcrumb: {'de': 'Vermögenswerte' , 'fr': '', 'en-US': 'Assets'},
           menuLabel: 'Assets-BGTT'
-          
+        }
+      },
+      {
+        path: 'channels',
+        loadChildren: './channels/channels.module#ChannelsModule',
+        data: {
+          pageTitle: {'de': 'Channels' , 'fr': '', 'en-US': 'Channels'},
+          breadcrumb: {'de': 'Channels' , 'fr': '', 'en-US': 'Channels'},
+          menuLabel: 'Assets-BGTT'
         }
       },
 
@@ -166,7 +174,7 @@ const routes: Routes = [
     path: 'youtube',
     component: YoutubePageComponent,
     data: {
-      breadcrumb: 'YouTube'
+      breadcrumb:  {'de': 'meine YouTube' , 'fr': '', 'en': 'YouTube'},
     }
   },
 

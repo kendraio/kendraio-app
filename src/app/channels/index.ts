@@ -1,0 +1,2 @@
+export * from './channels.component';
+

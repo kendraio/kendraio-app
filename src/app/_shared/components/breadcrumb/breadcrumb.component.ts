@@ -10,7 +10,7 @@ import { distinctUntilChanged, filter, map } from 'rxjs/operators';
   encapsulation: ViewEncapsulation.None
 })
 export class BreadcrumbComponent implements OnInit {
-  @Input() locale = 'en-US';
+  @Input() locale = 'en';
   breadcrumbs$ = this.router.events.pipe(
     filter(event => event instanceof NavigationEnd),
     distinctUntilChanged(),

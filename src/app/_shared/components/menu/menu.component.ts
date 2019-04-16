@@ -14,7 +14,7 @@ export const MENUITEMS: MenuItem[] = [
     ]
   },
   {
-    label: {'de': 'VermögenswerteX' , 'fr': '', 'en-US': 'Assets'},
+    label: {'de': 'Vermögenswerte' , 'fr': '', 'en-US': 'Assets'},
     icon: 'favorite',   
     path: '/assets',
     children: [
@@ -52,6 +52,20 @@ export const MENUITEMS: MenuItem[] = [
       }
     ]
   },
+
+  {
+    label: {'de': 'Channels' , 'fr': '', 'en-US': 'Channels'},
+    icon: 'live_tv',   
+    path: '/channels',
+    children: [
+      {        
+          path: '../youtube',
+          label: {'de': 'Ansprüche' , 'fr': '', 'en-US': 'YouTube'},
+          icon: 'attach_money'
+        },
+      
+  ]
+},
 
 
   {
