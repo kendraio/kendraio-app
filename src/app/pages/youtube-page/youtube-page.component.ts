@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {YoutubeDataService} from '../../services/youtube-data.service';
 
 @Component({
   selector: 'app-youtube-page',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class YoutubePageComponent implements OnInit {
 
-  constructor() { }
+  data$;
+
+  constructor(
+    private readonly yt: YoutubeDataService
+  ) { }
 
   ngOnInit() {
+    this.data$ = this.yt.getVideos();
   }
 
 }
