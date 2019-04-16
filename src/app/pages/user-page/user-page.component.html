@@ -16,6 +16,9 @@
       <ng-container *ngIf="a.provider === 'dropbox'">
         - <a routerLink="/dropbox">Files</a>
       </ng-container>
+      <ng-container *ngIf="a.provider === 'google-oauth2'">
+        - <a routerLink="/youtube">Videos</a>
+      </ng-container>
     </li>
   </ul>
   <!--<pre>{{ profile | json }}</pre>-->

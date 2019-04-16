@@ -91,6 +91,7 @@ import {AppSettingsService} from './services/app-settings.service';
 import { DebugOnlyDirective } from './directives/debug-only.directive';
 import {TextMaskModule} from 'angular2-text-mask';
 import {MatAutocompleteModule} from '@angular/material';
+import { YoutubePageComponent } from './components/youtube-page/youtube-page.component';
 // import { BreadcrumbComponent } from './_shared/components/breadcrumb/breadcrumb.component';
 
 // import { AgGridModule } from 'ag-grid-angular';
@@ -147,7 +148,8 @@ import {MatAutocompleteModule} from '@angular/material';
     MenuItemComponent,
     Menu2ItemComponent,
     DynamicDebugControlComponent,
-    DebugOnlyDirective
+    DebugOnlyDirective,
+    YoutubePageComponent
     // BreadcrumbComponent
     // ReportsComponent,
     // ContactsComponent

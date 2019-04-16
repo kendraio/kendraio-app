@@ -17,6 +17,7 @@ import {DiagramPageComponent} from './pages/diagram-page/diagram-page.component'
 import { PeopleComponent } from './contacts/people/people.component';
 import {BloomenTestPageComponent} from './pages/bloomen-test-page/bloomen-test-page.component';
 import { DashboardPageComponent } from './pages';
+import {YoutubePageComponent} from './components/youtube-page/youtube-page.component';
 
 
 // NB all routes must have a breadcrumb
@@ -161,6 +162,14 @@ const routes: Routes = [
           breadcrumb: 'Dropbox'
         }
       },
+  {
+    path: 'youtube',
+    component: YoutubePageComponent,
+    data: {
+      breadcrumb: 'YouTube'
+    }
+  },
+
       {
         path: 'api-client/:id',
         component: SwaggerPageComponent,
