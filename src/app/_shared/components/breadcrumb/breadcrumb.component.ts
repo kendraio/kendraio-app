@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { BreadCrumb } from 'src/app/_models/classes/common';
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-breadcrumb',
@@ -18,7 +19,8 @@ export class BreadcrumbComponent implements OnInit {
   );
   constructor(
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public translate: TranslateService
   ) {
   }
 
@@ -29,7 +31,7 @@ export class BreadcrumbComponent implements OnInit {
     route: ActivatedRoute,
     url: string = '',
     breadcrumbs: Array<BreadCrumb> = []): Array<BreadCrumb> {
-    const label = route.routeConfig ? route.routeConfig.data['breadcrumb'][this.locale] : 'Home';
+    const label = route.routeConfig ? route.routeConfig.data['breadcrumb']['en-US'] : 'Home';
     const path = route.routeConfig ? route.routeConfig.path : '..'; // fix this
     const nextUrl = `${url}/${path}`;
     const breadcrumb = {

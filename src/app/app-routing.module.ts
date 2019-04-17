@@ -47,7 +47,7 @@ const routes: Routes = [
         component: Pages.DashboardPageComponent,
         data: {
           pageTitle: {'de': 'Instrumententafel' , 'fr': '', 'en-US': 'Dashboard' },
-          breadcrumb: {'de': 'Instrumententafel' , 'fr': '', 'en-US': 'Dashboard' },
+          breadcrumb: {'de': 'Instrumententafel' , 'fr': '', 'en-US': 'dashboard' },
           menuLabel: 'Dash title',
           icon: 'dashboard'
         },
@@ -64,8 +64,8 @@ const routes: Routes = [
         path: 'assets',
         loadChildren: './assets/assets.module#AssetsModule',
         data: {
-          pageTitle: {'de': 'Vermögenswerte' , 'fr': '', 'en-US': 'Assets-----'},
-          breadcrumb: {'de': 'Vermögenswerte' , 'fr': '', 'en-US': 'Assets'},
+          pageTitle: {'de': 'Vermögenswerte' , 'fr': '', 'en-US': 'Assets--'},
+          breadcrumb: {'de': 'Vermögenswerte' , 'fr': '', 'en-US': 'assets'},
           menuLabel: 'Assets-BGTT'
         }
       },
@@ -136,7 +136,7 @@ const routes: Routes = [
         component: SettingsPageComponent,
         data: {
           pageTitle: 'Settings',
-          breadcrumb:  {'de': 'die Einstellungen' , 'fr': '', 'en-US': 'Settings'},
+          breadcrumb:  {'de': 'die Einstellungen' , 'fr': '', 'en-US': 'settings'},
           menuLabel:  'Settings'
         }
       },
@@ -245,7 +245,7 @@ const routes: Routes = [
         loadChildren: './settings/settings.module',
         data: {
           pageTitle: 'Settings',
-          breadcrumb: 'Settings',
+          breadcrumb: 'settings',
           menuLabel: 'Settings'
         }
       },

@@ -1,0 +1,14 @@
+{
+	"HOME": "Bem vindo ao Kendraio App",
+	"assets": "Ativos",
+	"dashboard": "painel de controle",
+	"files.intro": "Esta é a página de arquivos",
+	"files.title": "Arquivos",
+	"home.welcome": "Bem vindo ao Kendraio App",
+	"recordings.btnAddNew": "Registrar nova gravação",
+	"recordings.intro": "Gravações de música Isso permitirá que o usuário gerencie dados de direitos e outros metadados relacionados sobre gravações. Essas gravações podem ser inéditas ou liberadas.",
+	"recordings.title": "Gravações",
+	"works.intro": "Esta é a página permite que você gerencie seus trabalhos",
+	"works.registerNew": "Registrar novo trabalho",
+	"works.title": "Trabalho"
+}

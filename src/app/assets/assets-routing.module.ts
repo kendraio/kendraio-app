@@ -17,7 +17,7 @@ const routes: Routes = [
         loadChildren: './files/files.module#FilesModule',
         data: {
           pageTitle: {'de': 'Dateien' , 'fr': '', 'en-US': 'Files'},
-          breadcrumb: {'de': 'Dateien' , 'fr': '', 'en-US': 'Files'},
+          breadcrumb: {'de': 'Dateien' , 'fr': '', 'en-US': 'files.title'},
           menuLabel: 'Asset Files'
   
         }
@@ -36,7 +36,7 @@ const routes: Routes = [
         loadChildren: './music-recordings/music-recordings.module#MusicRecordingsModule',
         data: {
           pageTitle:  {'de': 'Aufnahmen' , 'fr': '', 'en-US': 'Recordings'},
-          breadcrumb: {'de': 'Aufnahmen' , 'fr': '', 'en-US': 'Recordings'},
+          breadcrumb: {'de': 'Aufnahmen' , 'fr': '', 'en-US': 'recordings.title'},
         }
       },
       {
@@ -44,7 +44,7 @@ const routes: Routes = [
         loadChildren: './music-works/music-works.module#MusicWorksModule',
         data: {
           pageTitle: 'Assets: Works',
-          breadcrumb: {'de': 'Arbeitet' , 'fr': '', 'en-US': 'Works'},
+          breadcrumb: {'de': 'Arbeitet' , 'fr': '', 'en-US': 'works.title'},
         }
       },
     ]

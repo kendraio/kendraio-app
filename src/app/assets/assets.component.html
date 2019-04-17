@@ -6,22 +6,22 @@
   <button routerLinkActive="active"
   matBadge="{{entityCounts['file']}}" matBadgePosition="before" matBadgeColor="accent"
   mat-flat-button color="primary"  [routerLink]="['files']">
-    Files
+  {{'files.title' | translate}}
   </button>
 
   <button  routerLinkActive="active" 
   matBadge="{{entityCounts['music-recording']}}" matBadgePosition="before" matBadgeColor="accent"  mat-flat-button color="primary"  [routerLink]="['recordings']">
-    Recordings
+   {{'recordings.title' | translate}}
   </button>
 
   <button  routerLinkActive="active"
   matBadge="{{entityCounts['music-release']}}" matBadgePosition="before" matBadgeColor="accent" mat-flat-button color="primary" [routerLink]="['releases']">
-    Releases
+  {{'releases.title' | translate}}
   </button>
 
   <button  routerLinkActive="active"
   matBadge="{{entityCounts['music-work']}}" matBadgePosition="before" matBadgeColor="accent"  mat-flat-button color="primary"  [routerLink]="['works']">
-    Works
+  {{'works.title' | translate}}
   </button>
 
 </section>

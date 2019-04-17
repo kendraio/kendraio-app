@@ -2,7 +2,9 @@
 
 <mat-toolbar>
     <span>
-<button mat-button mat-raised-button (click)="openAddNewDialog()">Register New Work</button>  <span class="ml-3" appHelp="works"></span>
+<button mat-button mat-raised-button (click)="openAddNewDialog()">
+{{ 'works.registerNew'  | translate}}
+</button>  <span class="ml-3" appHelp="works"></span>
 </span>
 </mat-toolbar>  
 

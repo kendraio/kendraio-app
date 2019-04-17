@@ -2,6 +2,13 @@
 	"HOME": "Kendraioアプリへようこそ",
 	"assets": "資産",
 	"dashboard": "ダッシュボード",
+	"files.intro": "これはファイルページです。",
+	"files.title": "ファイル",
+	"home.welcome": "Kendraioアプリへようこそ",
 	"recordings.btnAddNew": "新しい記録を登録",
-	"recordings.intro": "音楽の録音これにより、ユーザーは権利データや録音に関するその他の関連メタデータを管理できます。これらの記録は未発表または公開される可能性があります。"
+	"recordings.intro": "音楽の録音これにより、ユーザーは権利データや録音に関するその他の関連メタデータを管理できます。これらの記録は未発表または公開される可能性があります。",
+	"recordings.title": "レコーディング",
+	"works.intro": "このページではあなたの作品を管理することができます",
+	"works.registerNew": "新しい作品を登録する",
+	"works.title": "作品"
 }

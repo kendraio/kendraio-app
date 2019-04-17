@@ -6,10 +6,12 @@
     <a *ngIf="!isLast && breadcrumb.label; else lastRoute"
        [routerLink]="[breadcrumb.url]"
        routerLinkActive="active">
-       {{ breadcrumb.label}}
+       {{translate.get(breadcrumb.label) | async}}
     </a>
-    <ng-template #lastRoute>{{ breadcrumb?.label }}</ng-template>
+    <ng-template #lastRoute> {{translate.get(breadcrumb.label) | async}}</ng-template>
   </li>
 </ol>
+
+
 
 <!-- <pre>{{breadcrumbs$ | async | json}}</pre> -->

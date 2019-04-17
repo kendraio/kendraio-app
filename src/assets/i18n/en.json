@@ -2,6 +2,13 @@
 	"HOME": "Welcome to the Kendraio App",
 	"assets": "Assets",
 	"dashboard": "Dashboard",
+	"files.intro": "This is the Files Page",
+	"files.title": "Files",
+	"home.welcome": "Welcome to the Kendraio App",
 	"recordings.btnAddNew": "Register New Recording",
-	"recordings.intro": "Music recordings This will allow the user to manage rights data and other related metadata about recordings. These recordings could be unreleased or released."
+	"recordings.intro": "Music recordings This will allow the user to manage rights data and other related metadata about recordings. These recordings could be unreleased or released.",
+	"recordings.title": "Recordings",
+	"works.intro": "This is page allows you to manage your Works",
+	"works.registerNew": "Register New Work",
+	"works.title": "Works"
 }
