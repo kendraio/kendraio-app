@@ -1,7 +1,9 @@
 
 <mat-toolbar>
     <span>
-            <button mat-button mat-raised-button (click)="openAddNewDialog()">Register New Recording</button> <span class="ml-3" appHelp="recordings"></span>
+            <button mat-button mat-raised-button (click)="openAddNewDialog()">
+              {{'recordings.btnAddNew' | translate }}
+            </button> <span class="ml-3" appHelp="recordings"></span>
         </span>
 </mat-toolbar>
 
@@ -53,9 +55,10 @@
 
 
 
-<p i18n>Music recordings
-  This will allow the user to manage rights data and other related metadata about recordings. These recordings could be
-  unreleased or released.</p>
+<p i18n>
+    {{ 'recordings.intro' | translate }}
+
+</p>
 
 <mat-progress-bar *ngIf="showSpinner" mode="indeterminate"></mat-progress-bar>
 

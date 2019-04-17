@@ -54,6 +54,11 @@
         {{ pageTitle$ | async }}  <small> {{ today | date:'fullDate' }}</small> 
       </span>
       <span class="spacer"></span>
+      <div>          
+          <select #langSelect (change)="translate.use(langSelect.value)">
+            <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
+          </select>        
+      </div>
 
       <button mat-icon-button><mat-icon>person</mat-icon> </button>
       <button mat-icon-button><mat-icon matBadge="2" class="example-icon" aria-hidden="false" aria-label="Example heart icon">notifications</mat-icon></button>
@@ -64,6 +69,12 @@
 
 
     <div class="page-content">
+
+
+   
+
+
+
       <app-breadcrumb [locale]="locale"></app-breadcrumb>
       <router-outlet name="popup"></router-outlet>
       <router-outlet></router-outlet>

@@ -9,6 +9,7 @@ import { GridOptions } from 'ag-grid-community';
 import { HelpTextService } from '../services/help-text.service';
 import { filter, distinctUntilChanged, map } from 'rxjs/operators';
 import { AppConfigService } from '../services/config.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export abstract class BaseComponent {
@@ -23,7 +24,8 @@ export abstract class BaseComponent {
     protected dialog: MatDialog,
     protected readonly testData: TestDataService,
     protected help: HelpTextService,
-    protected config: AppConfigService
+    protected config: AppConfigService,
+    protected translate: TranslateService
   ) { 
     // this.router.events.pipe(
     //   filter(event => event instanceof NavigationEnd),
@@ -33,6 +35,10 @@ export abstract class BaseComponent {
     this.routeData = this.route.snapshot.data;
     this.pageTitle.setTitle(this.routeData.pageTitle[this.config.locale]);   
   //  this.pageHelp = this.help.getHelpTextForSection('assets');
+
+
+
+
   }
 
   getHelpText(page: string, itemRef: string) {

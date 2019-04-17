@@ -28,6 +28,7 @@ import { ClaimsEditComponent } from '../claims/claims-edit/claims-edit.component
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { HelpTextService } from './services/help-text.service';
 import { HelpTextBtnDirective } from './directives/help-text-btn.directive';
+import { TranslateModule } from '@ngx-translate/core';
 // import { BaseComponent } from './base/base.component';
 // import { MenuComponent } from './components/menu/menu.component';
 // import { MenuItemComponent } from './components/menu/menu-item.component';
@@ -96,9 +97,9 @@ import { HelpTextBtnDirective } from './directives/help-text-btn.directive';
   MatListModule,
   BreadcrumbComponent,
   MatTreeModule,
-  HelpTextBtnDirective
+  HelpTextBtnDirective,
 // BrowserAnimationsModule
-
+TranslateModule
   ],
   providers: [
     DatePipe,

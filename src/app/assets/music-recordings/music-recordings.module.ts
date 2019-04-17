@@ -19,6 +19,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import {SharedModule} from 'src/app/_shared/shared.module';
 import { RegisterRecordingComponent } from './register-new-recording/register-recording.component';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { HttpLoaderFactory } from 'src/app/app.module';
+import { HttpClient } from 'selenium-webdriver/http';
 // import { ButtonRendererComponent } from './button-renderer.component';
 
 @NgModule({
@@ -40,7 +43,16 @@ import { RegisterRecordingComponent } from './register-new-recording/register-re
         AgGridModule.withComponents(
           []
       ),
-      FlexLayoutModule
+      FlexLayoutModule,
+    //   TranslateModule.forChild(
+    // //     {
+    // //     loader: {
+    // //         provide: TranslateLoader,
+    // //         useFactory: HttpLoaderFactory,
+    // //         deps: [HttpClient]
+    // //     }
+    // // }
+    // ),
   ],
   entryComponents: [   
     RegisterRecordingComponent,

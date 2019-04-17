@@ -19,7 +19,7 @@ import { AdaptersPageComponent } from './pages/adapters-page/adapters-page.compo
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
 import { UserPageComponent } from './pages/user-page/user-page.component';
 import { ConfirmAppResetDialogComponent } from './dialogs/confirm-app-reset-dialog/confirm-app-reset-dialog.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ObjectKeysPipe } from './pipes/object-keys.pipe';
 import { ImportProgressDialogComponent } from './dialogs/import-progress-dialog/import-progress-dialog.component';
 import { AddNewNodeDialogComponent } from './dialogs/add-new-node-dialog/add-new-node-dialog.component';
@@ -99,7 +99,13 @@ import { YoutubePageComponent } from './pages/youtube-page/youtube-page.componen
 // import { AgGridModule } from 'ag-grid-angular';
 // import { MatInputComponent } from './_shared/components';
 // import {DialogDataExampleDialog} from './music-recordings';
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 
 @NgModule({
@@ -171,6 +177,13 @@ import { YoutubePageComponent } from './pages/youtube-page/youtube-page.componen
     StoreModule.forRoot({}),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([]),
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+      }
+  }),
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
@@ -239,7 +252,8 @@ import { YoutubePageComponent } from './pages/youtube-page/youtube-page.componen
     {
       provide: DynamicFormService,
       useClass: CustomFormService
-    }
+    },
+    // { provide: LOCALE_ID, useValue: 'de-DE' }
   ],
   bootstrap: [AppComponent]
 })

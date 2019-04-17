@@ -1,12 +1,26 @@
 
 <div class="mat-typography">
-  <h3 i18n="welcome msg@@welcomemsg">Welcome to the Kendraio App</h3>
+  <h3 i18n="welcome msg@@welcomemsg">{{'HOME' | translate }}</h3>
+
+
 
            
   {{ TODAY | date:'fullDate' }}      
 
 
+  <!-- <div>
+    <h2>{{ 'HOME' | translate }}</h2>
+    <label>
+      {{ 'HOME.SELECT' | translate }}
+      <select #langSelect (change)="translate.use(langSelect.value)">
+        <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
+      </select>
+    </label>
+  </div> -->
 
+
+
+  <h4>xxx{{ 'recordings.intro' | translate }}xxxx</h4>
 
 
 

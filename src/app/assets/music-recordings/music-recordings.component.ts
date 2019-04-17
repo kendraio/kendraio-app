@@ -11,6 +11,8 @@ import { Subject } from 'rxjs';
 
 import { MatInputComponent, MatButtonComponent } from 'src/app/_shared/components';
 
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-index',
   templateUrl: './music-recordings.component.html',

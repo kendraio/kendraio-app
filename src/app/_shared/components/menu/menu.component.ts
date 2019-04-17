@@ -63,6 +63,11 @@ export const MENUITEMS: MenuItem[] = [
           label: {'de': 'Ansprüche' , 'fr': '', 'en-US': 'YouTube'},
           icon: 'attach_money'
         },
+        {        
+          path: 'channels/spotify',
+          label: {'de': 'Spotify' , 'fr': '', 'en-US': 'Spotify'},
+          icon: 'attach_money'
+        },
       
   ]
 },

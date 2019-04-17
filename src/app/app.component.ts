@@ -11,6 +11,7 @@ import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { HelpTextService } from './_shared/services/help-text.service';
 import { filter, distinctUntilChanged, map } from 'rxjs/operators';
 import { LOCALE_ID } from '@angular/core';
+import { LangChangeEvent, TranslateService, TranslationChangeEvent } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +30,7 @@ export class AppComponent {
   dataSource = new MatTreeNestedDataSource<MenuItem>();
   sub: Subscription;
   today = Date.now();
+  transViaService = '';
 
   constructor(
     public auth: AuthService,
@@ -37,12 +39,29 @@ export class AppComponent {
     private readonly title: PageTitleService,
     private readonly help: HelpTextService,
     private titleService: Title,
-    @Inject(LOCALE_ID) public locale: string
+    @Inject(LOCALE_ID) public locale: string,
+    public translate: TranslateService
     ) {
     auth.handleAuthentication();
     this.menuItems = MENUITEMS;
     this.dataSource.data = MENUITEMS;
     this.pageTitle$ = this.title.pageTitle$;
+    translate.addLangs(['en', 'fr', 'de', 'pt', 'it', 'ru', 'ja', 'es']);
+    translate.setDefaultLang('en');
+
+    const browserLang = translate.getBrowserLang();
+    console.log(browserLang);
+    translate.use(browserLang.match(/en|fr|de|pt|it|ru|ja|es/) ? browserLang : 'en');
+
+
+    this.translate.onLangChange.subscribe((event: TranslationChangeEvent) => {
+      this.translate.get('dashboard').subscribe(value => {
+     //   this.pageTitle.setTitle(value);
+         titleService.setTitle(value);
+        this.transViaService = value;
+        console.log(value);
+      });
+    });
 
 
     // this.router.events.pipe(
@@ -70,6 +89,14 @@ export class AppComponent {
 
 
   }
+
+  // onLangChange;.subscribe((event: LangChangeEvent) => {
+  //  console.log()
+  // });
+
+  // onTranslationChange.subscribe((event: TranslationChangeEvent) => {
+  //   // do something
+  // });
 
   hasChild = (_: number, node: MenuItem) => !!node.children && node.children.length > 0;
 
