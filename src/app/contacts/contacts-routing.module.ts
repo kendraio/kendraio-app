@@ -13,12 +13,12 @@ const routes: Routes = [
     children: [
       { path: 'people', component: pages.PeopleComponent,  
       data: {
-        breadcrumb: {'de': 'Menschen' , 'fr': '', 'en-US': 'People'},
+        breadcrumb: {'de': 'Menschen' , 'fr': '', 'en-US': 'contacts.people'},
         menuLabel: 'Contacts/People'
       } },
       { path: 'organisations', component: pages.OrganisationsComponent,
       data: {
-        breadcrumb: {'de': 'Organisationen' , 'fr': '', 'en-US': 'Organisations'},
+        breadcrumb: {'de': 'Organisationen' , 'fr': '', 'en-US': 'contacts.organisations'},
         menuLabel: 'Contacts/Organisations'
       } 
     },

@@ -3,13 +3,13 @@
     <button mat-flat-button 
     matBadge="{{entityCounts['organisations']}}" matBadgePosition="before" matBadgeColor="accent" routerLinkActive="active"
     color="primary" [routerLink]="['organisations']">
-        Organisations
+              {{'contacts.organisations' | translate}}
     </button>
   
     <button  mat-flat-button
     matBadge="{{entityCounts['person']}}" matBadgePosition="before" matBadgeColor="accent" routerLinkActive="active"
     color="primary"  [routerLink]="['people']">
-        People
+      {{'contacts.people' | translate}}
     </button>
     <!-- {{ entityCounts | json }} -->
   

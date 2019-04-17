@@ -208,7 +208,7 @@ const routes: Routes = [
         loadChildren: './claims/claims.module#ClaimsModule',
         data: {
           pageTitle: 'Claims',
-          breadcrumb: 'Claims',
+          breadcrumb: 'claims',
           menuLabel: 'Claims'
         } 
       },
@@ -216,7 +216,7 @@ const routes: Routes = [
         loadChildren: './contacts/contacts.module#ContactsModule',
         data: {
           pageTitle: 'Contacts',
-          breadcrumb: 'Contacts',
+          breadcrumb: 'contacts',
           menuLabel: 'Contacts'
 
         } 
@@ -226,7 +226,7 @@ const routes: Routes = [
         loadChildren: './tasks/tasks.module#TasksModule',      
         data: {
           pageTitle: 'Tasks',
-          breadcrumb: 'Tasks',
+          breadcrumb: 'tasks',
           menuLabel: 'Tasks'
         } 
       },
