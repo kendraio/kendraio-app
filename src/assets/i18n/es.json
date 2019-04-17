@@ -1,6 +1,10 @@
 {
 	"HOME": "Bienvenido a la aplicación Kendraio",
 	"assets": "bienes",
+	"claims": "Reclamaciones",
+	"contacts.organisations": "Organizaciones",
+	"contacts.people": "Gente",
+	"contacts.title": "Contactos",
 	"dashboard": "Tablero",
 	"files.intro": "Esta es la página de archivos.",
 	"files.title": "archivos",
@@ -8,6 +12,8 @@
 	"recordings.btnAddNew": "Registrar nueva grabación",
 	"recordings.intro": "Grabaciones de música Esto permitirá al usuario administrar los datos de derechos y otros metadatos relacionados con las grabaciones. Estas grabaciones pueden ser inéditas o publicadas.",
 	"recordings.title": "Grabaciones",
+	"settings": "Ajustes",
+	"tasks": "Tareas",
 	"works.intro": "Esta página le permite gestionar sus obras.",
 	"works.registerNew": "Registrar nuevo trabajo",
 	"works.title": "Trabajos"

@@ -3,7 +3,7 @@ import { MenuItem } from 'src/app/_models/classes/common';
 export const MENUITEMS: MenuItem[] = [
   {
     path: '/dashboard',
-    label: {'de': 'Instrumententafel' , 'fr': '', 'en-US': 'Dashboard' },
+    label: {'de': 'Instrumententafel' , 'fr': '', 'en-US': 'dashboard' },
     icon: 'dashboard',
     children: [
       {
@@ -14,7 +14,7 @@ export const MENUITEMS: MenuItem[] = [
     ]
   },
   {
-    label: {'de': 'Vermögenswerte' , 'fr': '', 'en-US': 'Assets'},
+    label: {'de': 'Vermögenswerte' , 'fr': '', 'en-US': 'assets'},
     icon: 'favorite',   
     path: '/assets',
     children: [
@@ -41,12 +41,12 @@ export const MENUITEMS: MenuItem[] = [
         path: 'assets/recordings',
       },
       {
-        label: {'de': 'Dateien' , 'fr': '', 'en-US': 'Files'},
+        label: {'de': 'Dateien' , 'fr': '', 'en-US': 'files.title'},
         icon: 'library_music', 
         path: 'assets/files',
       },
       {
-        label: {'de': 'Arbeitet' , 'fr': '', 'en-US': 'Works'},
+        label: {'de': 'Arbeitet' , 'fr': '', 'en-US': 'works.title'},
         icon: 'library_music', 
         path: 'assets/works',
       }
@@ -75,12 +75,12 @@ export const MENUITEMS: MenuItem[] = [
 
   {
     path: '/claims',
-    label: {'de': 'Ansprüche' , 'fr': '', 'en-US': 'Claims'},
+    label: {'de': 'Ansprüche' , 'fr': '', 'en-US': 'claims'},
     icon: 'attach_money'
   },
   {
     path: '/tasks',
-    label: {'de': 'Aufgaben' , 'fr': '', 'en-US': 'Tasks'},
+    label: {'de': 'Aufgaben' , 'fr': '', 'en-US': 'tasks'},
     icon: 'alarm_on'
   },
   {
@@ -89,17 +89,17 @@ export const MENUITEMS: MenuItem[] = [
     icon: 'assignment'
   },
   {
-    label: {'de': 'Kontakte' , 'fr': '', 'en-US': 'Contacts'},
+    label: {'de': 'Kontakte' , 'fr': '', 'en-US': 'contacts.title'},
     icon: 'contacts',   
     path: '/contacts',
     children: [
       {
-        label: {'de': 'Menschen' , 'fr': '', 'en-US': 'People'},
+        label: {'de': 'Menschen' , 'fr': '', 'en-US': 'contacts.people'},
         icon: 'people', 
         path: 'contacts/people',
       },
       {
-        label: {'de': 'Organisationen' , 'fr': '', 'en-US': 'Organisations'},
+        label: {'de': 'Organisationen' , 'fr': '', 'en-US': 'contacts.organisations'},
         icon: 'business', 
         path: 'contacts/organisations',
       }
@@ -127,7 +127,7 @@ export const MENUITEMS: MenuItem[] = [
   },
   {
     path: '/settings',
-    label: {'de': 'die Einstellungen' , 'fr': '', 'en-US': 'Settings'},
+    label: {'de': 'die Einstellungen' , 'fr': '', 'en-US': 'settings'},
     icon: 'settings'
   },
   {

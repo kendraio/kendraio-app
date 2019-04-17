@@ -1,6 +1,10 @@
 {
 	"HOME": "Willkommen bei der Kendraio App",
 	"assets": "Vermögenswerte",
+	"claims": "Ansprüche",
+	"contacts.organisations": "Organisationen",
+	"contacts.people": "Menschen",
+	"contacts.title": "Kontakte",
 	"dashboard": "Instrumententafel",
 	"files.intro": "Dies ist die Datei-Seite",
 	"files.title": "Dateien",
@@ -8,6 +12,8 @@
 	"recordings.btnAddNew": "Registrieren Sie eine neue Aufnahme",
 	"recordings.intro": "Musikaufnahmen Damit kann der Benutzer die Rechte- und andere Metadaten zu den Aufnahmen verwalten. Diese Aufnahmen könnten nicht veröffentlicht oder veröffentlicht werden.",
 	"recordings.title": "Aufnahmen",
+	"settings": "die Einstellungen",
+	"tasks": "Aufgaben",
 	"works.intro": "Auf dieser Seite können Sie Ihre Arbeiten verwalten",
 	"works.registerNew": "Neue Arbeit registrieren",
 	"works.title": "Arbeitet"
