@@ -39,6 +39,18 @@
       "dest": "/docs/$1.js"
     },
     {
+      "src": "^/(.*).json$",
+      "dest": "/docs/$1.json"
+    },
+    {
+      "src": "^/(.*).yaml$",
+      "dest": "/docs/$1.yaml"
+    },
+    {
+      "src": "^/assets/(.*)",
+      "dest": "/docs/assets/$1"
+    },
+    {
       "src": "^/(.*)",
       "dest": "/docs/index.html"
     }
