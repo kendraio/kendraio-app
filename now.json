@@ -4,10 +4,55 @@
     "enabled": true
   },
   "builds": [
-    { "src": "docs/**", "use": "@now/static" }
+    {
+      "src": "docs/**",
+      "use": "@now/static"
+    }
   ],
   "routes": [
-    { "src": "(.*\\..*)", "dest": "/docs/$1" },
-    { "src": ".*", "dest": "/docs/index.html" }
+    {
+      "src": "^/3rdpartylicense.txt",
+      "dest": "/docs/3rdpartylicense.txt"
+    },
+    {
+      "src": "^/favicon.ico",
+      "dest": "/docs/favicon.ico"
+    },
+    {
+      "src": "^/main(.*)",
+      "dest": "/docs/main$1"
+    },
+    {
+      "src": "^/polyfills(.*)",
+      "dest": "/docs/polyfills$1"
+    },
+    {
+      "src": "^/styles(.*)",
+      "dest": "/docs/styles$1"
+    },
+    {
+      "src": "^/runtime(.*)",
+      "dest": "/docs/runtime$1"
+    },
+    {
+      "src": "^/(.*).js$",
+      "dest": "/docs/$1.js"
+    },
+    {
+      "src": "^/(.*).json$",
+      "dest": "/docs/$1.json"
+    },
+    {
+      "src": "^/(.*).yaml$",
+      "dest": "/docs/$1.yaml"
+    },
+    {
+      "src": "^/assets/(.*)",
+      "dest": "/docs/assets/$1"
+    },
+    {
+      "src": "^/(.*)",
+      "dest": "/docs/index.html"
+    }
   ]
 }
