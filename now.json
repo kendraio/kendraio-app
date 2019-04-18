@@ -40,7 +40,7 @@
     },
     {
       "src": "^/(.*)",
-      "dest": "/index.html"
+      "dest": "/docs/index.html"
     }
   ]
 }
