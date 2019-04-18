@@ -2,19 +2,33 @@
 	"HOME": "Bienvenue sur l'application Kendraio",
 	"assets": "Les atouts",
 	"claims": "Réclamations",
-	"contacts.organisations": "Les organisations",
-	"contacts.people": "Personnes",
-	"contacts.title": "Contacts",
+	"contacts": {
+		"organisations": "Les organisations",
+		"people": "Personnes",
+		"title": "Contacts"
+	},
 	"dashboard": "Tableau de bord",
-	"files.intro": "Ceci est la page des fichiers",
-	"files.title": "Des dossiers",
-	"home.welcome": "Bienvenue sur l'application Kendraio",
-	"recordings.btnAddNew": "Enregistrer un nouvel enregistrement",
-	"recordings.intro": "Enregistrements musicaux Ceci permettra à l'utilisateur de gérer les données de droits et autres métadonnées associées concernant les enregistrements. Ces enregistrements pourraient ne pas être publiés ou publiés.",
-	"recordings.title": "Enregistrements",
+	"files": {
+		"intro": "Ceci est la page des fichiers",
+		"title": "Des dossiers"
+	},
+	"help": {
+		"1": "Ceci est un exemple de texte d'aide. Il n’est là que pour votre plus grand plaisir et pour donner aux développeurs une idée de ce à quoi HelpText ressemble réellement dans différentes langues. Cool hey?",
+		"tmp2": "Ce texte n’est rien de plus que des trucs de placement factice."
+	},
+	"home": {
+		"welcome": "Bienvenue sur l'application Kendraio"
+	},
+	"recordings": {
+		"btnAddNew": "Enregistrer un nouvel enregistrement",
+		"intro": "Enregistrements musicaux Ceci permettra à l'utilisateur de gérer les données de droits et autres métadonnées associées concernant les enregistrements. Ces enregistrements pourraient ne pas être publiés ou publiés.",
+		"title": "Enregistrements"
+	},
 	"settings": "Réglages",
 	"tasks": "les tâches",
-	"works.intro": "Cette page vous permet de gérer vos travaux.",
-	"works.registerNew": "Enregistrer un nouveau travail",
-	"works.title": "Travaux"
+	"works": {
+		"intro": "Cette page vous permet de gérer vos travaux.",
+		"registerNew": "Enregistrer un nouveau travail",
+		"title": "Travaux"
+	}
 }
