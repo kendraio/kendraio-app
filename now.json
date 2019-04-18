@@ -8,17 +8,17 @@
   ],
   "routes": [
     {
-      "src": "/(assets/.+|.+\\.css|.+\\.js|.+\\.ico|.+\\.json|.+\\.txt)",
+      "src": "(assets/.+|.+\\.css|.+\\.js|.+\\.ico|.+\\.json|.+\\.txt)",
       "headers": { "cache-control": "max-age=31536000,immutable" },
       "dest": "/docs/$1"
     },
     {
-      "src": "/(.+|.+\\.css|.+\\.js|.+\\.ico|.+\\.json|.+\\.txt)",
+      "src": "(.+|.+\\.css|.+\\.js|.+\\.ico|.+\\.json|.+\\.txt)",
       "headers": { "cache-control": "max-age=31536000,immutable" },
       "dest": "/docs/$1"
     },
     {
-      "src": "/(.*).html",
+      "src": "(.*).html",
       "headers": { "cache-control": "public,max-age=0,must-revalidate" },
       "dest": "/docs/$1.html"
     },
