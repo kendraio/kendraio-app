@@ -1,4 +1,4 @@
-<section fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="40px" fxFlexFill class="mb-4" appHelp="test">
+<section fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="40px" fxFlexFill class="mb-4" appHelp="help.1">
 
     <button mat-flat-button 
     matBadge="{{entityCounts['organisations']}}" matBadgePosition="before" matBadgeColor="accent" routerLinkActive="active"
@@ -11,10 +11,8 @@
     color="primary"  [routerLink]="['people']">
       {{'contacts.people' | translate}}
     </button>
-    <!-- {{ entityCounts | json }} -->
-  
+    <!-- {{ entityCounts | json }} -->  
   </section>
-
 
 <!-- 
 <mat-grid-list cols="4" rowHeight="2:1">
@@ -37,8 +35,6 @@
   </mat-grid-list> -->
 
 
-
-
 <!-- <mat-toolbar>
   <span>
     <button [routerLink]="['people']" mat-raised-button>People</button>
@@ -49,6 +45,4 @@
 </mat-toolbar> -->
 
 
-
 <router-outlet></router-outlet>
-

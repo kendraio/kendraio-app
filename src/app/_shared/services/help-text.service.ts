@@ -5,6 +5,7 @@ import { HelpText } from 'src/app/_models/classes/common';
 import { MessageService } from './message.service';
 import { Router } from '@angular/router';
 import { AppConfigService } from './config.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,7 @@ export class HelpTextService {
     private messageService: MessageService,
     private config: AppConfigService,
     private router: Router,
+    public translate: TranslateService
   ) {
 
 
@@ -41,7 +43,21 @@ export class HelpTextService {
     this.getHelpText().subscribe((res: any[]) => {
       this.pageHelp = res.filter(page => page.section === pageRef);
       from(this.pageHelp).subscribe((items: any) => {
-        this.itemHelp = items.items.filter(section => section.ref === itemRef);
+        // this.itemHelp = items.items.filter(section => section.ref === itemRef);
+
+         let helpText: string;
+
+        this.translate.get(itemRef).subscribe((str) => {
+          helpText =  str;
+          // return boo;
+        });
+       
+        this.itemHelp = {
+          ref: '',
+          text: helpText
+        };
+
+        // this.itemHelp = this.translate.get('works.intro');
         this.askHelpHandler(this.itemHelp, 'css', 0);
       });
 
