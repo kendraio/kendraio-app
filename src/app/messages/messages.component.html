@@ -13,7 +13,7 @@
           <div>
        
            <i class="fa fa-window-close btn-close btn-close--tl" aria-hidden="true"></i>
-           <div *ngIf="i<10" class="card-body" [innerHtml]="message.msgObj[0].text">
+           <div *ngIf="i<10" class="card-body" [innerHtml]="message.msgObj.text">
            </div>
        
            <div class="nav-item" *ngIf="message.link?.length">
@@ -27,7 +27,6 @@
           <button mat-button>Got it</button>
         </mat-card-actions>
       </mat-card>
-
 
 </section>
 

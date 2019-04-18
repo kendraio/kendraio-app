@@ -2,19 +2,33 @@
 	"HOME": "Benvenuti nell'app Kendraio",
 	"assets": "Risorse",
 	"claims": "reclami",
-	"contacts.organisations": "organizzazioni",
-	"contacts.people": "persone",
-	"contacts.title": "Contatti",
+	"contacts": {
+		"organisations": "organizzazioni",
+		"people": "persone",
+		"title": "Contatti"
+	},
 	"dashboard": "Cruscotto",
-	"files.intro": "Questa è la Pagina dei File",
-	"files.title": "file",
-	"home.welcome": "Benvenuti nell'app Kendraio",
-	"recordings.btnAddNew": "Registra nuova registrazione",
-	"recordings.intro": "Registrazioni musicali Ciò consentirà all'utente di gestire i dati dei diritti e altri metadati relativi alle registrazioni. Queste registrazioni potrebbero non essere pubblicate o rilasciate.",
-	"recordings.title": "registrazioni",
+	"files": {
+		"intro": "Questa è la Pagina dei File",
+		"title": "file"
+	},
+	"help": {
+		"1": "Questo è un esempio di testo di aiuto. È qui solo per il tuo piacere di visione e per dare agli sviluppatori un'idea di come realmente appare il testo in diverse lingue. Ehi ehi?",
+		"tmp2": "Questo testo non è altro che roba da collocamento fittizio."
+	},
+	"home": {
+		"welcome": "Benvenuti nell'app Kendraio"
+	},
+	"recordings": {
+		"btnAddNew": "Registra nuova registrazione",
+		"intro": "Registrazioni musicali Ciò consentirà all'utente di gestire i dati dei diritti e altri metadati relativi alle registrazioni. Queste registrazioni potrebbero non essere pubblicate o rilasciate.",
+		"title": "registrazioni"
+	},
 	"settings": "impostazioni",
 	"tasks": "compiti",
-	"works.intro": "Questa è la pagina che ti consente di gestire i tuoi lavori",
-	"works.registerNew": "Registrati New Work",
-	"works.title": "Lavori"
+	"works": {
+		"intro": "Questa è la pagina che ti consente di gestire i tuoi lavori",
+		"registerNew": "Registrati New Work",
+		"title": "Lavori"
+	}
 }
