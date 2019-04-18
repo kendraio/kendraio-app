@@ -101,6 +101,7 @@ import { YoutubePageComponent } from './pages/youtube-page/youtube-page.componen
 // import {DialogDataExampleDialog} from './music-recordings';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { YoutubeUploadComponent } from './components/youtube-upload/youtube-upload.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -157,7 +158,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     Menu2ItemComponent,
     DynamicDebugControlComponent,
     DebugOnlyDirective,
-    YoutubePageComponent
+    YoutubePageComponent,
+    YoutubeUploadComponent
     // BreadcrumbComponent
     // ReportsComponent,
     // ContactsComponent

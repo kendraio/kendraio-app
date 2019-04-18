@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import {AuthService} from './auth.service';
 import {from, of} from 'rxjs';
-import {catchError, map, switchMap} from 'rxjs/operators';
+import {catchError, map, switchMap, tap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class YoutubeDataService {
+
+  categoryCache;
 
   constructor(
     private readonly auth: AuthService,
@@ -28,15 +30,19 @@ export class YoutubeDataService {
     });
   }
 
-  getVideos() {
+  getAccessToken() {
     return from(this.getProfileData()).pipe(
       catchError(err => {
         // console.log(err);
         return of({});
       }),
-      switchMap((user) => {
-        console.log(user);
-        const { access_token } = user as any;
+      map(({ access_token }) => access_token)
+    );
+  }
+
+  getVideos() {
+    return this.getAccessToken().pipe(
+      switchMap(access_token => {
         return this.http.get('https://www.googleapis.com/youtube/v3/search', {
           params: {
             part: 'snippet',
@@ -47,6 +53,30 @@ export class YoutubeDataService {
             'Authorization': `Bearer ${access_token}`
           }
         });
+      })
+    );
+  }
+
+  getCategories() {
+    if (!!this.categoryCache) {
+      return this.categoryCache;
+    }
+    const url = 'https://www.googleapis.com/youtube/v3/videoCategories';
+    return this.getAccessToken().pipe(
+      switchMap(access_token => {
+        return this.http.get<any>(url, {
+          params: {
+            part: 'snippet',
+            regionCode: 'gb'
+          },
+          headers: {
+            'Authorization': `Bearer ${access_token}`
+          }
+        });
+      }),
+      map(({ items }) => (items || []).map(({ id, snippet: { title }}) => ({ id, title }))),
+      tap(categories => {
+        this.categoryCache = categories;
       })
     );
   }

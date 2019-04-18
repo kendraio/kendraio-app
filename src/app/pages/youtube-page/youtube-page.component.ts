@@ -1,19 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {YoutubeDataService} from '../../services/youtube-data.service';
 
-/*
-{
-  "snippet": {
-    "categoryId": "22",
-    "description": "Description of uploaded video.",
-    "title": "Test video upload."
-  },
-  "status": {
-    "privacyStatus": "private"
-  }
-}
- */
-
 @Component({
   selector: 'app-youtube-page',
   templateUrl: './youtube-page.component.html',
@@ -30,5 +17,4 @@ export class YoutubePageComponent implements OnInit {
   ngOnInit() {
     this.data$ = this.yt.getVideos();
   }
-
 }
