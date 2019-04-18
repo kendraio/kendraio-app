@@ -36,10 +36,10 @@ const routes: Routes = [
   //   }
 
   // },
-  // {
-  //   path: 'callback',
-  //   component: AuthCallbackComponent
-  // },
+  {
+    path: 'callback',
+    component: AuthCallbackComponent
+  },
 
  //   children: [
       {
