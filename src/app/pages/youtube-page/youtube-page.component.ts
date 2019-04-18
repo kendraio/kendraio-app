@@ -17,5 +17,4 @@ export class YoutubePageComponent implements OnInit {
   ngOnInit() {
     this.data$ = this.yt.getVideos();
   }
-
 }

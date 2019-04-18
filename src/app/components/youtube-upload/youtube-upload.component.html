@@ -1,0 +1,37 @@
+<mat-accordion>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Upload
+      </mat-panel-title>
+      <mat-icon>cloud_upload</mat-icon>
+    </mat-expansion-panel-header>
+
+
+    <mat-form-field>
+      <input matInput placeholder="Title">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Description">
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <mat-label>Category</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let cat of categories$ | async" [value]="cat['id']">
+          {{ cat['title'] }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <input type="file" placeholder="Select file">
+
+    <mat-checkbox [(ngModel)]="checked">Private</mat-checkbox>
+
+    <mat-action-row>
+      <button mat-button color="primary" (click)="uploadFile()">Upload</button>
+    </mat-action-row>
+
+  </mat-expansion-panel>
+</mat-accordion>
