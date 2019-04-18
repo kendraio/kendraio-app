@@ -42,7 +42,7 @@ export class BreadcrumbComponent implements OnInit {
     newBreadcrumbs = [...breadcrumbs, breadcrumb];
 
     if (route.firstChild !== null) {
-      console.log(this.buildBreadCrumb(route.firstChild, nextUrl, newBreadcrumbs).filter(item => item['label'] > ''));
+      // console.log(this.buildBreadCrumb(route.firstChild, nextUrl, newBreadcrumbs).filter(item => item['label'] > ''));
       return this.buildBreadCrumb(route.firstChild, nextUrl, newBreadcrumbs).filter(item => item['label'] > '');
 
     }

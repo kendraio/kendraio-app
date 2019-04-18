@@ -17,6 +17,7 @@
 		"tmp2": "This text is nothing more than dummy placement stuff."
 	},
 	"home": {
+		"title": "Home",
 		"welcome": "Welcome to the Kendraio App"
 	},
 	"recordings": {
@@ -24,8 +25,18 @@
 		"intro": "Music recordings This will allow the user to manage rights data and other related metadata about recordings. These recordings could be unreleased or released.",
 		"title": "Recordings"
 	},
+	"releases": {
+		"title": "Releases"
+	},
+	"reports": {
+		"intro": "This page allows you to manage your Reports",
+		"title": "Reports"
+	},
 	"settings": "Settings",
 	"tasks": "Tasks",
+	"upload": {
+		"title": "Upload"
+	},
 	"works": {
 		"intro": "This is page allows you to manage your Works",
 		"registerNew": "Register New Work",

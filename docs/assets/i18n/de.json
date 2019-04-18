@@ -17,6 +17,7 @@
 		"tmp2": "Dieser Text ist nichts weiter als Dummy-Platzierungen."
 	},
 	"home": {
+		"title": "Zuhause",
 		"welcome": "Willkommen bei der Kendraio App"
 	},
 	"recordings": {
@@ -24,8 +25,18 @@
 		"intro": "Musikaufnahmen Damit kann der Benutzer die Rechte- und andere Metadaten zu den Aufnahmen verwalten. Diese Aufnahmen könnten nicht veröffentlicht oder veröffentlicht werden.",
 		"title": "Aufnahmen"
 	},
+	"releases": {
+		"title": "Veröffentlichungen"
+	},
+	"reports": {
+		"intro": "Auf dieser Seite können Sie Ihre Berichte verwalten",
+		"title": "Berichte"
+	},
 	"settings": "die Einstellungen",
 	"tasks": "Aufgaben",
+	"upload": {
+		"title": "Hochladen"
+	},
 	"works": {
 		"intro": "Auf dieser Seite können Sie Ihre Arbeiten verwalten",
 		"registerNew": "Neue Arbeit registrieren",

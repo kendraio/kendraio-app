@@ -85,7 +85,7 @@ export const MENUITEMS: MenuItem[] = [
   },
   {
     path: '/reports',
-    label: {'de': 'Berichte' , 'fr': '', 'en-US': 'Reports'},
+    label: {'de': 'Berichte' , 'fr': '', 'en-US': 'reports.title'},
     icon: 'assignment'
   },
   {
@@ -112,7 +112,7 @@ export const MENUITEMS: MenuItem[] = [
   },
   {
     path: '/upload',
-    label: {'de': 'Hochladen' , 'fr': '', 'en-US': 'Upload'},
+    label: {'de': 'Hochladen' , 'fr': '', 'en-US': 'upload.title'},
     icon: 'cloud_upload'
   },
   // {

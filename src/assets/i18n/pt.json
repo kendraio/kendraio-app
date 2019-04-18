@@ -17,6 +17,7 @@
 		"tmp2": "Este texto nada mais é do que material de colocação simulado."
 	},
 	"home": {
+		"title": "Casa",
 		"welcome": "Bem vindo ao Kendraio App"
 	},
 	"recordings": {
@@ -24,8 +25,18 @@
 		"intro": "Gravações de música Isso permitirá que o usuário gerencie dados de direitos e outros metadados relacionados sobre gravações. Essas gravações podem ser inéditas ou liberadas.",
 		"title": "Gravações"
 	},
+	"releases": {
+		"title": "Lançamentos"
+	},
+	"reports": {
+		"intro": "Esta página permite que você gerencie seus relatórios",
+		"title": "relatórios"
+	},
 	"settings": "Definições",
 	"tasks": "tarefas",
+	"upload": {
+		"title": "Envio"
+	},
 	"works": {
 		"intro": "Esta é a página permite que você gerencie seus trabalhos",
 		"registerNew": "Registrar novo trabalho",

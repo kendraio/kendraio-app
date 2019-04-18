@@ -17,6 +17,7 @@
 		"tmp2": "Questo testo non è altro che roba da collocamento fittizio."
 	},
 	"home": {
+		"title": "Casa",
 		"welcome": "Benvenuti nell'app Kendraio"
 	},
 	"recordings": {
@@ -24,8 +25,18 @@
 		"intro": "Registrazioni musicali Ciò consentirà all'utente di gestire i dati dei diritti e altri metadati relativi alle registrazioni. Queste registrazioni potrebbero non essere pubblicate o rilasciate.",
 		"title": "registrazioni"
 	},
+	"releases": {
+		"title": "Uscite"
+	},
+	"reports": {
+		"intro": "Questa pagina ti consente di gestire i tuoi rapporti",
+		"title": "rapporti"
+	},
 	"settings": "impostazioni",
 	"tasks": "compiti",
+	"upload": {
+		"title": "CARICARE"
+	},
 	"works": {
 		"intro": "Questa è la pagina che ti consente di gestire i tuoi lavori",
 		"registerNew": "Registrati New Work",

@@ -64,7 +64,7 @@ const routes: Routes = [
         path: 'assets',
         loadChildren: './assets/assets.module#AssetsModule',
         data: {
-          pageTitle: {'de': 'Vermögenswerte' , 'fr': '', 'en-US': 'Assets--'},
+          pageTitle: {'de': 'Vermögenswerte' , 'fr': '', 'en-US': 'assets'},
           breadcrumb: {'de': 'Vermögenswerte' , 'fr': '', 'en-US': 'assets'},
           menuLabel: 'Assets-BGTT'
         }
@@ -74,7 +74,7 @@ const routes: Routes = [
         loadChildren: './channels/channels.module#ChannelsModule',
         data: {
           pageTitle: {'de': 'Channels' , 'fr': '', 'en-US': 'Channels'},
-          breadcrumb: {'de': 'Channels' , 'fr': '', 'en-US': 'Channels'},
+          breadcrumb: {'de': 'Channels' , 'fr': '', 'en-US': 'channels'},
           menuLabel: 'Assets-BGTT'
         }
       },
@@ -235,7 +235,7 @@ const routes: Routes = [
         loadChildren: './reports/reports.module#ReportsModule',  
         data: {
           pageTitle: 'Reports',
-          breadcrumb: 'Reports',
+          breadcrumb: 'reports.title',
           menuLabel: 'Reports'
         }
       },
