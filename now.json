@@ -7,7 +7,7 @@
     { "src": "docs/**", "use": "@now/static" }
   ],
   "routes": [
-    { "src": "(.*\\..*)", "dest": "/docs/$1" },
+    { "src": "(.*\\.js)", "dest": "/docs/$1" },
     { "src": ".*", "dest": "/docs/index.html" }
   ]
 }
