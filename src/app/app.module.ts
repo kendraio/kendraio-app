@@ -216,6 +216,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     DynamicDebugControlComponent
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: 'de-DE' } ,
     {
       provide: APP_INITIALIZER,
       multi: true,
@@ -254,8 +255,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     {
       provide: DynamicFormService,
       useClass: CustomFormService
-    },
-    // { provide: LOCALE_ID, useValue: 'de-DE' }
+    }
   ],
   bootstrap: [AppComponent]
 })

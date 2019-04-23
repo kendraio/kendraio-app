@@ -46,12 +46,13 @@ export class AppComponent {
     this.menuItems = MENUITEMS;
     this.dataSource.data = MENUITEMS;
     this.pageTitle$ = this.title.pageTitle$;
-    translate.addLangs(['en', 'fr', 'de', 'pt', 'it', 'ru', 'ja', 'es', 'el']);
-    translate.setDefaultLang('en');
-
     const browserLang = translate.getBrowserLang();
     console.log(browserLang);
-    translate.use(browserLang.match(/en|fr|de|pt|it|ru|ja|es|el/) ? browserLang : 'en');
+    translate.addLangs(['en', 'fr', 'de', 'pt', 'it', 'ru', 'ja', 'es', 'el']);
+    translate.setDefaultLang('fr');
+
+   
+    translate.use(browserLang.match(/en|fr|de|pt|it|ru|ja|es|el/) ? browserLang : 'fr');
 
 
     this.translate.onLangChange.subscribe((event: TranslationChangeEvent) => {

@@ -90,6 +90,11 @@
               "i18nFormat": "xlf",
               "i18nLocale": "de"           
             },
+            "fr": {
+              "aot": true,
+              "i18nLocale": "fr"           
+            },
+        
         
 
 
@@ -130,6 +135,9 @@
               "browserTarget": "kendraio-app:build:de",
               "baseHref": "/de/"
       
+            },
+            "fr": {
+              "browserTarget": "kendraio-app:build:fr"
             },
 
             "production": {
