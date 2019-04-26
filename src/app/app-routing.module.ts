@@ -78,6 +78,15 @@ const routes: Routes = [
           menuLabel: 'Assets-BGTT'
         }
       },
+      {
+        path: 'bloomen',
+        loadChildren: './bloomen/bloomen.module#BloomenModule',
+        data: {
+          pageTitle: {'de': 'Channels' , 'fr': '', 'en-US': 'Bloomen'},
+          breadcrumb: {'de': 'Bloomen' , 'fr': '', 'en-US': 'Bloomen'},
+          menuLabel: 'Bloomen'
+        }
+      },
 
       // {
       //   path: 'contacts',

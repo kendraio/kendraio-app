@@ -36,7 +36,7 @@ export class YoutubeDataService {
         // console.log(err);
         return of({});
       }),
-      map(({ access_token }) => access_token)
+      map(({ access_token }: any) => access_token)
     );
   }
 

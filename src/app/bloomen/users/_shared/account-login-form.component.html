@@ -1,0 +1,90 @@
+<div *ngIf="isLoading">
+<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+<span class="sr-only">Loading...</span>
+</div>
+<!-- [formGroup]="loginForm" -->
+<form  (submit)="submit()" novalidate>
+
+  <div class="row" *ngIf="mode != 'edit'">
+    <div class="col-12">
+      <label class="form-label">Email</label>
+      <input class="form-control form-input" autofocus [readonly]="mode === 'create'" [required]="mode === 'reset'" value="{{email}}" formControlName="email">
+    </div>
+  </div>
+
+
+
+    <div class="row form-group"  *ngIf="mode === 'edit'">
+        <div class="col-12">
+          <label class="form-label">Current Password</label>
+
+          <div class="form-input-group">
+              <div class="form-input-group__control">
+
+                      <input autofocus type="{{showPassword?'text':'password'}}" class="form-control form-input required" placeholder="Enter Current Password"
+                      formControlName="currentPassword">
+
+
+              </div>
+              <span class="form-input-group__btn">
+                  <button
+                  class="form-btn form-btn--input-group form-btn--outline"
+                  type="button"  (click)="toggleShowPassword()"><span class="form-btn__text"> {{showPassword ? 'Hide' : 'Show'}}</span></button>
+              </span>
+          </div>
+
+
+        </div>
+      </div>
+
+
+
+  <div class="row form-group">
+    <div class="col-12">
+      <label class="form-label">Create a new Password</label>
+
+      <div class="form-input-group">
+          <div class="form-input-group__control">
+              <div class="form-input">
+                  <input autofocus type="{{showPassword?'text':'password'}}" class="form-control" placeholder="Enter New Password" required formControlName="password">
+                <small>Password must contain at least one upper case character, at least one number and at least 8 characters in length.</small>
+              </div>
+              <!-- *ngIf="loginForm.controls.password.errors?.pattern" -->
+              <div class="alert alert-danger" >Password is too weak</div>
+
+
+          </div>
+          <span class="form-input-group__btn">
+              <button
+              class="form-btn form-btn--input-group form-btn--outline"
+              type="button"  (click)="toggleShowPassword()"><span class="form-btn__text"> {{showPassword ? 'Hide' : 'Show'}}</span></button>
+          </span>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row  form-group">
+    <div class="col-12">
+      <div class="form-group">
+        <label class="form-label">Confirm Password</label>
+        <input class="form-control form-input" type="password" placeholder="Please enter your password again" name="confirmPassword" required
+          formControlName="confirmPassword" autocomplete="new-password" />
+      </div>
+    </div>
+  </div>
+
+  <!-- *ngIf="loginForm.controls.confirmPassword.errors?.MatchPassword && loginForm.controls.password.valid && loginForm.controls.confirmPassword.value.length > 2" -->
+  <div class="alert alert-danger" 
+ >Passwords do not match</div>
+
+  <div class="form-group">
+    <button type="submit" [disabled]="loginForm.invalid" class="btn btn-success float-right">
+      Submit
+    </button>
+  </div>
+
+
+
+
+</form>
