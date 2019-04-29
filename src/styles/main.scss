@@ -2,3 +2,135 @@
 .formFieldWidth380  .mat-form-field-infix {
     width: 380px;
  }
+
+ .ken-tree-invisible {
+    display: none;
+    // transition: all 2s ease;
+  }
+  
+  .ken-tree ul,
+  .ken-tree li {
+    margin: 0;
+    list-style-type: none;
+    // transition: all 2s ease;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    // padding-left: 10px;
+    cursor: pointer;
+  }
+  .ken-tree li > ul  {
+  background: rgba(0, 0, 0, 0.04);
+  }
+
+  .ken-tree li > ul > .mat-tree-node li, .mat-nested-tree-node li {
+ //   background: rgba(0, 0, 0, 0.04);
+  //  font-size: 12px
+    }
+
+
+    .mat-nested-tree-node  ul li{
+   
+      // padding: 0 !important;
+      min-height: 28px !important;
+
+    }
+
+  
+  :active, :focus, :visited { 
+      outline: none; 
+    -moz-outline-style: none; 
+}
+
+button:focus {
+    outline: none!important; 
+}
+
+.page-content{
+    padding:16px
+}
+
+.mat-tree-node {
+ // padding-left: 16px;
+}
+
+button.active {
+  // background-color: silver!important;
+opacity:.4;
+cursor: default;
+}
+
+.menu-item--active{
+  // background: rgba(0, 0, 0, 0.2);
+  background-color: whitesmoke;
+}
+
+.mat-menu-item{
+  padding: 10px 16px;
+}
+
+.messagedesk {
+  position: fixed;
+  right: 10px;
+  top: 10px;
+  max-width: 200px;
+  z-index: 10;
+  .card {
+    background-color: smokewhite;
+    width: 16vw;
+    min-width: 220px;
+    max-width: 275px;
+    box-shadow: inset -55px 2px 16px -55px rgba(0, 0, 0, 0.2), 5px 12px 7px -12px rgba(0, 0, 0, 0.2);
+    .card-body {
+      padding: 1rem 0.5rem 1rem 0.5rem !important;
+      font-size: small;
+      @media (min-height: 901px) {
+        font-size: 1rem;
+        padding: 0.6rem !important;
+      }
+    }
+  }
+}
+
+.k-help-badge{
+  position: absolute;
+  text-align: center;
+  display: inline-block;
+  border-radius: 50%;
+  transition: -webkit-transform 200ms ease-in-out;
+  transition: transform 200ms ease-in-out;
+  transition: transform 200ms ease-in-out, -webkit-transform 200ms ease-in-out;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  top: -13px;
+  right: -18px;
+  background-color: pink;
+  cursor: POINTER;
+  font-size: small;
+  &:hover{
+    background-color: green;
+  }
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+.page-content {
+  margin: 1em;
+}
+
+.app-container {
+   position: absolute;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+ }
+
+ .mat-menu-item {
+  text-transform: capitalize;
+ }
