@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DocumentRepositoryService } from "../../services/document-repository.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import { map, switchMap } from "rxjs/operators";
+import {map, switchMap, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-doc-edit-page',

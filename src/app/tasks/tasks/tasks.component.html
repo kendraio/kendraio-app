@@ -1,56 +1,131 @@
+
+
+<section class="my-5" fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="40px" fxFlexFill>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Tasks in Progress</mat-card-title>
+    <mat-card-subtitle>awaiting next step</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+  <div style="text-align: center; font-size: 5rem">12</div> 
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="openDialog('in progress')">view</button>
+  </mat-card-actions>
+</mat-card>
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>Tasks Failed</mat-card-title>
+      <mat-card-subtitle>need your attention</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <div style="text-align: center; font-size: 5rem">4</div> 
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button (click)="openDialog('failed')">view</button>
+    </mat-card-actions>
+  </mat-card>
+  <mat-card>
+      <mat-card-header>
+        <mat-card-title>Tasks Complete</mat-card-title>
+        <mat-card-subtitle>24 Feb 1961 - 1 Apr 2019</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+          <div style="text-align: center; font-size: 5rem">82</div> 
+      </mat-card-content>
+      <mat-card-actions>
+          <button mat-button (click)="openDialog('complete')">view</button>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-header>
+          <mat-card-title>Tasks Total</mat-card-title>
+          <mat-card-subtitle>24 Feb 1961 - 1 Apr 2019</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <div style="text-align: center; font-size: 5rem">98</div> 
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button (click)="openDialog('total')">view</button>
+        </mat-card-actions>
+      </mat-card>
+
+
+</section>
+
 <mat-expansion-panel>
-    <mat-expansion-panel-header>
-  <h2> Tasks for Recordings (7)</h2>
-    </mat-expansion-panel-header>
+  <mat-expansion-panel-header>
+    <h2> Tasks for Recordings: <small class="small"> in progress = 2 </small> <small class="small"> failed = 0 </small> <small class="small"> complete = 4 </small> <small class="small"> total = 6 </small></h2>
+  </mat-expansion-panel-header>
 </mat-expansion-panel>
 
 <mat-expansion-panel class="my-5">
-    <mat-expansion-panel-header>
-  <h2> Tasks for Releases (19)</h2>
-    </mat-expansion-panel-header>
+  <mat-expansion-panel-header>
+    <h2> Tasks for Releases: <small class="small"> in progress = 6 </small> <small class="small"> failed = 2 </small> <small class="small"> complete = 14 </small> <small class="small"> total = 22 </small></h2>
+  </mat-expansion-panel-header>
 
 
-    <div>
-        
-<h2><span matBadge="8" style="width:80px"> <mat-chip>1</mat-chip>  </span> Little Earthquakes</h2>
-    </div>
-    
 
-    <table class="table table-sm ml-5"> 
-        <tr *ngFor="let item of dataSource">
-              <td matBadge="8" style="width:80px"> <mat-chip>{{item.step}}</mat-chip>  </td> 
-              <td><b>{{item.date}}</b></td>
-              <td><b>{{item.name}}</b></td>
-              <td style="min-width:200px">   <mat-progress-bar mode="determinate" value="{{item.percentComplete}}">
-                  
-                </mat-progress-bar></td>
-              <td><i class="material-icons" matTooltip="Awaiting response">
-                  {{item.icon}} 
-                  </i> </td>
-          </tr>
-        </table>
+  <div>
 
+    <h2><span  style="width:80px">
+        <mat-chip>1</mat-chip>
+      </span> Little Earthquakes</h2>
+  </div>
 
-        <div>
-        
-            <h2><span matBadge="8" style="width:80px"> <mat-chip>2</mat-chip>  </span>Drone from outer space</h2>
-                </div>
-                
-            
-                <table class="table table-sm ml-5"> 
-                    <tr *ngFor="let item of dataSource">
-                          <td matBadge="8" style="width:80px"> <mat-chip>{{item.step}}</mat-chip>  </td> 
-                          <td><b>{{item.date}}</b></td>
-                          <td><b>{{item.name}}</b></td>
-                          <td style="min-width:200px">   <mat-progress-bar mode="determinate" value="{{item.percentComplete}}">
-                              
-                            </mat-progress-bar></td>
-                          <td><i class="material-icons" matTooltip="Awaiting response">
-                              {{item.icon}} 
-                              </i> </td>
-                      </tr>
-                    </table>
+  <table class="table table-sm ml-5">
+    <tr *ngFor="let item of dataSource">
+      <td  style="width:80px">
+        <mat-chip (click)="openDialogProgress('total')">{{item.step}}</mat-chip>
+      </td>
+      <td><b>{{item.date}}</b></td>
+      <td><b>{{item.name}}</b></td>
+      <td style="min-width:200px">
+        <mat-progress-bar mode="determinate" value="{{item.percentComplete}}"></mat-progress-bar>
+      </td>
+      <td><i class="material-icons" matTooltip="Awaiting response">
+          {{item.icon}}
+        </i> </td>
+    </tr>
+  </table>
 
 
+  <div>
+    <h2><span  style="width:80px">
+        <mat-chip>2</mat-chip>
+      </span>Drone from outer space</h2>
+  </div>
+
+  <table class="table table-sm ml-5">
+    <tr *ngFor="let item of dataSource">
+      <td  style="width:80px">
+        <mat-chip>{{item.step}}</mat-chip>
+      </td>
+      <td><b>{{item.date}}</b></td>
+      <td><b>{{item.name}}</b></td>
+      <td style="min-width:200px">
+        <mat-progress-bar mode="determinate" value="{{item.percentComplete}}"></mat-progress-bar>
+      </td>
+      <td><i class="material-icons" matTooltip="Awaiting response">
+          {{item.icon}}
+        </i> </td>
+    </tr>
+  </table>
 
 </mat-expansion-panel>
+
+
+  
+
+<!-- Status of task
+As a button
+As a progress bar
+Stepper •-•-•-•-• (each adapter has unique steps)
+Overview of all tasks for given (set of) object (average)
+Group by object
+Bread crumbs
+Own whole screen / tab.
+Draft, Sent, In progress, Failed, Needs more input, Completed
+Mapping states of task from adapter to generic
+Task history for any given object. -->

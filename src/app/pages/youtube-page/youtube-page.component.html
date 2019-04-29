@@ -1,0 +1,15 @@
+
+<app-youtube-upload></app-youtube-upload>
+
+<div *ngIf="data$ | async as data">
+  <ul *ngIf="data['items'] && data['items'].length > 0">
+    <li *ngFor="let d of data['items']">
+      <img [attr.src]="d['snippet']['thumbnails']['default']['url']">
+      <h4>{{ d['snippet']['title'] }}</h4>
+      <p>{{ d['snippet']['description'] }}</p>
+      <p><strong>videoId:</strong> {{ d['id']['videoId'] }}</p>
+    </li>
+  </ul>
+
+  <pre appDebugOnly>{{ data | json }}</pre>
+</div>

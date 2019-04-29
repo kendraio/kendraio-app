@@ -19,7 +19,7 @@ import { AdaptersPageComponent } from './pages/adapters-page/adapters-page.compo
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
 import { UserPageComponent } from './pages/user-page/user-page.component';
 import { ConfirmAppResetDialogComponent } from './dialogs/confirm-app-reset-dialog/confirm-app-reset-dialog.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ObjectKeysPipe } from './pipes/object-keys.pipe';
 import { ImportProgressDialogComponent } from './dialogs/import-progress-dialog/import-progress-dialog.component';
 import { AddNewNodeDialogComponent } from './dialogs/add-new-node-dialog/add-new-node-dialog.component';
@@ -80,11 +80,33 @@ import { BloomenTestPageComponent } from './pages/bloomen-test-page/bloomen-test
 import { RemoteImageControlComponent } from './form-controls/remote-image-control/remote-image-control.component';
 import { DynamicRemoteImageControlComponent } from './form-controls/dynamic-remote-image-control/dynamic-remote-image-control.component';
 import {REMOTE_IMAGE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/remote-image-model';
+import { AssetsModule } from './assets/assets.module';
+import { MainMenuComponent } from './_shared/components/main-menu/main-menu.component';
+import { MenuItemComponent } from './_shared/components/menu/menu-item.component';
+import { Menu2ItemComponent } from './_shared/components/menu/menu-2-item.component';
+import { MessagesModule } from './messages/messages.module';
+import { DynamicDebugControlComponent } from './form-controls/dynamic-debug-control/dynamic-debug-control.component';
+import {DEBUG_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/debug-form-model';
+import {AppSettingsService} from './services/app-settings.service';
+import { DebugOnlyDirective } from './directives/debug-only.directive';
+import {TextMaskModule} from 'angular2-text-mask';
+import {MatAutocompleteModule} from '@angular/material';
+import { LOCALE_ID  } from '@angular/core';
+
+import { YoutubePageComponent } from './pages/youtube-page/youtube-page.component';
+// import { BreadcrumbComponent } from './_shared/components/breadcrumb/breadcrumb.component';
 
 // import { AgGridModule } from 'ag-grid-angular';
 // import { MatInputComponent } from './_shared/components';
 // import {DialogDataExampleDialog} from './music-recordings';
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { YoutubeUploadComponent } from './components/youtube-upload/youtube-upload.component';
 
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 
 @NgModule({
@@ -130,7 +152,15 @@ import {REMOTE_IMAGE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/remote-ima
     DynamicAudioInputControlComponent,
     DynamicImageInputControlComponent,
     DynamicReferenceInputControlComponent,
-    DynamicRemoteImageControlComponent
+    DynamicRemoteImageControlComponent,
+    MainMenuComponent,
+    MenuItemComponent,
+    Menu2ItemComponent,
+    DynamicDebugControlComponent,
+    DebugOnlyDirective,
+    YoutubePageComponent,
+    YoutubeUploadComponent
+    // BreadcrumbComponent
     // ReportsComponent,
     // ContactsComponent
     // MatInputComponent
@@ -149,6 +179,13 @@ import {REMOTE_IMAGE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/remote-ima
     StoreModule.forRoot({}),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([]),
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+      }
+  }),
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
@@ -157,7 +194,11 @@ import {REMOTE_IMAGE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/remote-ima
     DynamicFormsMaterialUIModule,
     ContactsModule,
     TasksModule,
-    ReportsModule
+    ReportsModule,
+    AssetsModule,
+    MessagesModule,
+    TextMaskModule,
+    MatAutocompleteModule
   ],
   entryComponents: [
     AddDocDialogComponent,
@@ -171,9 +212,11 @@ import {REMOTE_IMAGE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/remote-ima
     DynamicAudioInputControlComponent,
     DynamicImageInputControlComponent,
     DynamicReferenceInputControlComponent,
-    DynamicRemoteImageControlComponent
+    DynamicRemoteImageControlComponent,
+    DynamicDebugControlComponent
   ],
   providers: [
+    // { provide: LOCALE_ID, useValue: 'de-DE' } ,
     {
       provide: APP_INITIALIZER,
       multi: true,
@@ -187,6 +230,12 @@ import {REMOTE_IMAGE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/remote-ima
       deps: [ DocumentRepositoryService ]
     },
     {
+      provide: APP_INITIALIZER,
+      multi: true,
+      useFactory: (settings: AppSettingsService) => () => settings.init(),
+      deps: [ AppSettingsService ]
+    },
+    {
       provide: DYNAMIC_FORM_CONTROL_MAP_FN,
       useValue: (model: DynamicFormControlModel): Type<DynamicFormControl> | null  => {
         switch (model.type) {
@@ -198,6 +247,8 @@ import {REMOTE_IMAGE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/remote-ima
             return DynamicReferenceInputControlComponent;
           case REMOTE_IMAGE_DYNAMIC_FORM_CONTROL_TYPE:
             return DynamicRemoteImageControlComponent;
+          case DEBUG_DYNAMIC_FORM_CONTROL_TYPE:
+            return DynamicDebugControlComponent;
         }
       }
     },

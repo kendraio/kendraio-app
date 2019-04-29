@@ -18,13 +18,13 @@ export class SchemaRepositoryService {
 
   init() {
     const enabledSchemas = [
-      // 'Person',
-      'Photo', 'Project', 'Audio', 'Clip',
-      'file', 'music-recording', 'music-release', 'music-work', 'payment',
-      'claim', 'video', 'person', 'BloomenPhoto'
+      'schema_Person',
+      'schema_Photo', 'mrin_Project', 'schema_Audio', 'kendraio_Clip',
+      'kendraio_file', 'kendraio_music-recording', 'kendraio_music-release', 'kendraio_music-work', 'kendraio_payment',
+      'kendraio_claim', 'kendraio_video', 'kendraio_person', 'bloomen_Photo'
     ];
     return forkJoin(enabledSchemas.map(schemaName => this.http
-      .get(`/assets/schemas/${ schemaName }.yaml`, {responseType: 'text'})
+      .get(`assets/schemas/${ schemaName }.yaml`, {responseType: 'text'})
       .pipe(
         map(text => YamlLoad(text)),
         tap(schema => this.schemas[schemaName] = schema)

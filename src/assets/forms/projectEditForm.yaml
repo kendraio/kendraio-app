@@ -2,12 +2,8 @@
   id: name
   label: Project title
   placeholder: Project title
-- type: ARRAY
-  id: owners
-  label: Owners
-  groupPrototype:
-    - type: INPUT
-      id: owner
-      label: Owner
-      placeholder: Owner
-      listType: Person
+- type: REFERENCE
+  id: owner
+  label: Owner
+  placeholder: Owner
+  listType: schema_Person

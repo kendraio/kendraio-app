@@ -1,0 +1,70 @@
+<section appHelp="help.1" fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="40px" fxFlexFill class="mb-4">
+
+
+    <!-- <a [routerLink]="['/assets']" routerLinkActive #temp="routerLinkActive">   {{ temp.isActive ? 'assets' : 'CLOSE' }}   </a> -->
+
+  <button routerLinkActive="active"
+  matBadge="{{entityCounts['file']}}" matBadgePosition="before" matBadgeColor="accent"
+  mat-flat-button color="primary"  [routerLink]="['files']">
+  {{'files.title' | translate}}
+  </button>
+
+  <button  routerLinkActive="active" 
+  matBadge="{{entityCounts['music-recording']}}" matBadgePosition="before" matBadgeColor="accent"  mat-flat-button color="primary"  [routerLink]="['recordings']">
+   {{'recordings.title' | translate}}
+  </button>
+
+  <button  routerLinkActive="active"
+  matBadge="{{entityCounts['music-release']}}" matBadgePosition="before" matBadgeColor="accent" mat-flat-button color="primary" [routerLink]="['releases']">
+  {{'releases.title' | translate}}
+  </button>
+
+  <button  routerLinkActive="active"
+  matBadge="{{entityCounts['music-work']}}" matBadgePosition="before" matBadgeColor="accent"  mat-flat-button color="primary"  [routerLink]="['works']">
+  {{'works.title' | translate}}
+  </button>
+
+</section>
+
+
+
+
+
+
+
+<!-- <mat-grid-list cols="4" rowHeight="1:1">
+    <mat-grid-tile [routerLink]="['files']" ><h2>Files</h2>
+      <mat-grid-tile-footer>  We found 356 files
+          <button mat-icon-button>
+              <mat-icon>forward</mat-icon>
+            </button> 
+      </mat-grid-tile-footer>
+    </mat-grid-tile>
+    <mat-grid-tile [routerLink]="['recordings']"><h2>Recordings</h2>
+      <mat-grid-tile-footer>  We found 27 Recordings
+          <button mat-icon-button>
+              <mat-icon>forward</mat-icon>
+            </button> 
+      </mat-grid-tile-footer>
+    </mat-grid-tile>
+    <mat-grid-tile [routerLink]="['releases']"><h2>Releases</h2>
+      <mat-grid-tile-footer>  We found 32 Releases
+          <button mat-icon-button>
+              <mat-icon>forward</mat-icon>
+            </button> 
+      </mat-grid-tile-footer>
+    </mat-grid-tile>
+    <mat-grid-tile [routerLink]="['works']" ><h2>Works</h2><br>
+<mat-grid-tile-footer>  <div>We found 32 Works</div>    
+  <button mat-icon-button>
+  <mat-icon>forward</mat-icon>
+</button> 
+</mat-grid-tile-footer>
+
+   
+    </mat-grid-tile>
+  </mat-grid-list> -->
+
+<!-- <app-breadcrumb></app-breadcrumb> -->
+
+<router-outlet></router-outlet>

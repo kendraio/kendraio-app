@@ -24,7 +24,7 @@ export class TestImportDialogComponent implements OnInit {
   ngOnInit() {
     const { content: { type, records } } = this.data;
     this.importType = type;
-    forkJoin(records.map(item => this.docsRepo.addNew(type, { type, ...item })))
+    forkJoin(records.map(item => this.docsRepo.addNew(`kendraio_${type}`, { type, ...item })))
       .subscribe(() => {
         interval(10).pipe(
           startWith(0),

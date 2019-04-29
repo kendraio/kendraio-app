@@ -1,0 +1,91 @@
+<!-- <pre> {{ data | json }}</pre>  -->
+
+
+<h2>Publish/Distribute Your Release</h2>
+Please be sure all info is correct before starting the distribution process.
+<div *ngIf="!nextStep" mat-dialog-content >
+<section>
+  <div class="mt-3" fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="start stretch" mat-dialog-content >
+
+    <mat-card *ngFor="let item of data.data; let i = index;">
+      <mat-card-header>
+
+        <mat-card-title>Release {{i+1}} / {{data.length}}</mat-card-title>
+        <mat-card-subtitle>{{item.name}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        Artist: {{item.artist}}<br>
+        Collective: {{item.collective}}<br>
+        Owner: {{item.owner}}<br>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-mini-fab matTooltip="Remove from Claim" (click)="removeClaim(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-mini-fab matTooltip="Edit" (click)="removeClaim(i)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
+  </div>
+</section>
+
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close="cancel">Cancel</button>
+    <button mat-button mat-raised-button (click)="onNextStep()">Distribute</button>
+  </div>
+</div>
+
+<div *ngIf="nextStep && enabled.length"  fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="start end" >
+
+<section class="my-5"  mat-dialog-content  fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="start start">
+<div>
+    You are about to post your Releases to the following platforms: 
+    <mat-list>
+      <mat-list-item  *ngFor="let item of enabled; let i = index;" ><b>{{item | uppercase}}</b></mat-list-item>
+    </mat-list>
+   To add more Platforms please enable more <a [routerLink]="[ '/adapters' ]">Adapters</a> 
+</div>
+
+
+  <div [@enterLeaveInOut-2]="data" fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="start stretch">
+    <mat-card *ngFor="let item of data.data; let i = index;">
+      <mat-icon mat-list-icon>library_music</mat-icon>
+      <h6 mat-line>{{item.name}}</h6>
+      <p mat-line> {{item.artist}} </p>
+    </mat-card>
+  </div>
+</section>
+
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close="cancel">Close</button>
+    <button mat-button mat-raised-button mat-dialog-close="next" (click)="nextClaimStep3(data.section)">Continue</button>
+  </div>
+
+</div>
+
+<div *ngIf="enabled.length === 0">
+<h2>You need to enable your   <a mat-dialog-close="true" [routerLink]="[ '/adapters' ]">Adapters</a> before continuing </h2>
+
+</div>
+
+<div class="my-5"  mat-dialog-content > 
+
+ 
+<table class="table table-sm" [@enterLeaveInOut-3]="dataSource"> 
+  <tr *ngFor="let item of dataSource">
+        <td  style="width:80px"> <mat-chip>{{item.step}}</mat-chip>  </td> 
+        <td><b>{{item.name}}</b></td>
+        <td style="min-width:200px">   <mat-progress-bar mode="determinate" value="{{item.percentComplete}}">
+            
+          </mat-progress-bar></td>
+        <td><i class="material-icons" matTooltip="Awaiting response">
+            {{item.icon}} 
+            </i> </td>
+    </tr>
+  </table>
+   
+
+
+</div>

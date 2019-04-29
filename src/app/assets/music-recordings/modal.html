@@ -1,0 +1,82 @@
+<h1 mat-dialog-title>{{data.Name}}</h1>
+<div class="row">
+
+
+<div class="col-sm-12 col-lg-6">
+     
+        <mat-form-field>
+          <input matInput [(ngModel)]="data.Name"  placeholder="Recording Name">
+        </mat-form-field>
+    </div>
+
+    <div class="col-sm-12 col-lg-6">
+ 
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.Artist" placeholder="Who is the Artist">
+  </mat-form-field>
+</div>
+
+<div class="col-sm-12 col-lg-6">
+  
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.Details" placeholder="Details">
+  </mat-form-field>
+</div>
+
+<div class="col-sm-12 col-lg-6">
+  
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.ISRC" placeholder="ISRC">
+  </mat-form-field>
+</div>
+
+<div class="col-sm-12 col-lg-6">
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.ISWC" placeholder="ISWC">
+  </mat-form-field>
+</div>
+
+<div class="col-sm-12 col-lg-6">
+ 
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.Date" placeholder="Date">
+  </mat-form-field>
+</div>
+<div class="col-sm-12 col-lg-6">
+ 
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.Country" placeholder="Country">
+  </mat-form-field>
+</div>
+
+<div class="col-sm-12 col-lg-6">
+ 
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.Owner" placeholder="Owner">
+  </mat-form-field>
+</div>
+
+<div class="col-sm-12 col-lg-6">
+
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.Collective" placeholder="Collective">
+  </mat-form-field>
+</div>
+
+<div class="col-sm-12 col-lg-6">
+  <mat-form-field>
+    <input matInput [(ngModel)]="data['Submitted to']" placeholder="Submitted to">
+  </mat-form-field>
+</div>
+
+
+
+</div>
+
+
+
+
+<div mat-dialog-actions class="align-right">
+  <button mat-button  mat-dialog-close="cancel">Cancel</button>
+  <button mat-button [mat-dialog-close]="data.Name" cdkFocusInitial>Save</button>
+</div>

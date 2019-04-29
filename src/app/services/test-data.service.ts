@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import {map, tap} from 'rxjs/operators';
 import {DocumentRepositoryService} from './document-repository.service';
 import {SchemaRepositoryService} from './schema-repository.service';
+import { includes } from 'lodash';
 
 // Service for communicating with the Kendraio Test API
 // The data is pulled from a Google Spreadsheet via an API proxy.
@@ -10,6 +11,9 @@ import {SchemaRepositoryService} from './schema-repository.service';
 // https://github.com/kendraio/google-sheets-api-proxy
 
 const KENDRAIO_API = 'https://google-sheets-api-proxy.now.sh/';
+
+const isKendraioSchema = item => item.startsWith('kendraio_');
+const removePrefix = item => item.split('_')[1];
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +31,7 @@ export class TestDataService {
     if ($config.live) {
       return this.http.get(KENDRAIO_API);
     }
-    return this.schemas.getSchemaList();
+    return this.schemas.getSchemaList().filter(isKendraioSchema).map(removePrefix);
   }
 
   listEntities(type: string, $config = { live: false }) {
@@ -35,7 +39,11 @@ export class TestDataService {
       return this.http.get(`${KENDRAIO_API}${type}`);
     }
     return this.docs.listAll().pipe(
-      map(({ rows }) => rows.filter(({ id }) => id.startsWith(type)))
+      map(({ rows }) =>
+        rows
+          .filter(({ id }) => id.startsWith(`kendraio_${type}`))
+          .map(removePrefix)
+      )
     );
   }
 
@@ -52,7 +60,18 @@ export class TestDataService {
         })
       );
     }
-    return this.docs.listAllOfType(type);
+    return this.docs.listAllOfType(`kendraio_${type}`);
+  }
+
+  getEntityCounts() {
+    return this.docs.listAll().pipe(
+      map(({ rows }) => rows.reduce((acc, item) => {
+        const namedType = item['id'].split(':')[0];
+        const type = includes(namedType, '_') ? namedType.split('_')[1] : namedType;
+        acc[type] = acc[type] ? acc[type] + 1 : 1;
+        return acc;
+      }, {})),
+    );
   }
 
   getEntity(type: string, id: number, $config = { live: false }) {

@@ -10,6 +10,9 @@ import { Subject } from 'rxjs';
 import { ClaimsEditSendComponent } from '../claims-edit-send/claims-edit-send.component';
 import { timingSafeEqual } from 'crypto';
 import { Animations } from '../../_shared/animations';
+import { PageTitleService } from 'src/app/services/page-title.service';
+import { RouteData } from 'src/app/_models/classes/common';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -29,21 +32,28 @@ export class IndexComponent implements OnInit {
   allItems: any[];
   private gridApi;
   private gridColumnApi;
-
+  routeData: RouteData;
+  subTitle: string;
 
   @ViewChild('inBoxGrid') inBoxGrid;
   @ViewChild('releasesNotSentGrid') releasesNotSentGrid;
   @ViewChild('releasesSentGrid') releasesSentGrid;
   showSpinner2: boolean;
+
   constructor(
     public dialog: MatDialog,
     private claimsService: ClaimsService,
+    private pageTitle: PageTitleService,
+    private route: ActivatedRoute,
   ) {
+    this.routeData = this.route.snapshot.data;
     this.listAll();
+    // this.pageTitle = this.routeData['pageTitle'] || 'Assets Management';
+    this.subTitle = this.routeData['subTitle'];
   }
 
   ngOnInit() {
-
+    this.pageTitle.setTitle(this.routeData.pageTitle);    
   }
 
 
@@ -59,7 +69,6 @@ export class IndexComponent implements OnInit {
       }
       if (index !== 0) {
         selectedRowsString += ', ';
-
       }
       selectedRowsString += selectedRow.name;
       theRow = selectedRow;

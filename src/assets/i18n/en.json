@@ -1,0 +1,45 @@
+{
+	"HOME": "Welcome to the Kendraio App",
+	"assets": "Assets",
+	"claims": "Claims",
+	"contacts": {
+		"organisations": "Organisations",
+		"people": "People",
+		"title": "Contacts"
+	},
+	"dashboard": "Dashboard",
+	"files": {
+		"intro": "This is the Files Page",
+		"title": "Files"
+	},
+	"help": {
+		"1": "This is sample help text. It is only here for your viewing pleasure and to give the developers an idea of what HelpText actually looks like in different languages. Cool hey?",
+		"tmp2": "This text is nothing more than dummy placement stuff."
+	},
+	"home": {
+		"title": "Home",
+		"welcome": "Welcome to the Kendraio App"
+	},
+	"recordings": {
+		"btnAddNew": "Register New Recording",
+		"intro": "Music recordings This will allow the user to manage rights data and other related metadata about recordings. These recordings could be unreleased or released.",
+		"title": "Recordings"
+	},
+	"releases": {
+		"title": "Releases"
+	},
+	"reports": {
+		"intro": "This page allows you to manage your Reports",
+		"title": "Reports"
+	},
+	"settings": "Settings",
+	"tasks": "Tasks",
+	"upload": {
+		"title": "Upload"
+	},
+	"works": {
+		"intro": "This is page allows you to manage your Works",
+		"registerNew": "Register New Work",
+		"title": "Works"
+	}
+}

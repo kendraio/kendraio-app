@@ -16,26 +16,75 @@ import {TestApiPageComponent} from './pages/test-api-page/test-api-page.componen
 import {DiagramPageComponent} from './pages/diagram-page/diagram-page.component';
 import { PeopleComponent } from './contacts/people/people.component';
 import {BloomenTestPageComponent} from './pages/bloomen-test-page/bloomen-test-page.component';
+import { DashboardPageComponent } from './pages';
+import {YoutubePageComponent} from './pages/youtube-page/youtube-page.component';
+
+
+// NB all routes must have a breadcrumb
+
 
 const routes: Routes = [
+
+
+  // {
+  //   path: '',
+  //   component: DashboardPageComponent,
+  //   data: {
+  //     breadcrumb: 'Home',
+  //     menuLabel: 'Home title',
+  //     icon: 'dashboard'
+  //   }
+
+  // },
   {
     path: 'callback',
     component: AuthCallbackComponent
   },
-  {
-    path: '',
-    component: LayoutComponent,
-    children: [
+
+ //   children: [
       {
         path: 'dashboard',
-        component: Pages.DashboardPageComponent
+        component: Pages.DashboardPageComponent,
+        data: {
+          pageTitle: {'de': 'Instrumententafel' , 'fr': '', 'en-US': 'Dashboard' },
+          breadcrumb: {'de': 'Instrumententafel' , 'fr': '', 'en-US': 'dashboard' },
+          menuLabel: 'Dash title',
+          icon: 'dashboard'
+        },
       },
+      // {
+      //   path: 'oldassets',
+      //   component: Pages.AssetsPageComponent,
+      //   data: {
+      //     pageTitle: 'My Assets',
+      //     subTitle: ''
+      //   }
+      // },
       {
         path: 'assets',
-        component: Pages.AssetsPageComponent,
+        loadChildren: './assets/assets.module#AssetsModule',
         data: {
-          pageTitle: 'My Assets',
-          subTitle: ''
+          pageTitle: {'de': 'Vermögenswerte' , 'fr': '', 'en-US': 'assets'},
+          breadcrumb: {'de': 'Vermögenswerte' , 'fr': '', 'en-US': 'assets'},
+          menuLabel: 'Assets-BGTT'
+        }
+      },
+      {
+        path: 'channels',
+        loadChildren: './channels/channels.module#ChannelsModule',
+        data: {
+          pageTitle: {'de': 'Channels' , 'fr': '', 'en-US': 'Channels'},
+          breadcrumb: {'de': 'Channels' , 'fr': '', 'en-US': 'channels'},
+          menuLabel: 'Assets-BGTT'
+        }
+      },
+      {
+        path: 'bloomen',
+        loadChildren: './bloomen/bloomen.module#BloomenModule',
+        data: {
+          pageTitle: {'de': 'Channels' , 'fr': '', 'en-US': 'Bloomen'},
+          breadcrumb: {'de': 'Bloomen' , 'fr': '', 'en-US': 'Bloomen'},
+          menuLabel: 'Bloomen'
         }
       },
 
@@ -50,96 +99,176 @@ const routes: Routes = [
   
       {
         path: 'import',
-        component: Pages.ImportPageComponent
+        component: Pages.ImportPageComponent,
+        data: {
+          pageTitle: 'Import',
+          breadcrumb: {'de': 'Einführen' , 'fr': '', 'en-US': 'Import'},
+          menuLabel:  'Import'
+        },
       },
       {
         path: 'upload',
-        component: UploadPageComponent
+        component: UploadPageComponent,
+        data: {
+          pageTitle: 'Upload',
+          breadcrumb: {'de': 'Hochladen' , 'fr': '', 'en-US': 'Upload'},
+          menuLabel:  'Upload'
+        }
       },
       {
         path: 'visualise',
-        component: VisualisePageComponent
+        component: VisualisePageComponent,
+        data: {
+          breadcrumb: 'Visualise',
+          menuLabel:  'Visualise'
+        }
       },
       {
         path: 'diagram/:adapter/:id',
-        component: DiagramPageComponent
+        component: DiagramPageComponent,
+        data: {
+          breadcrumb: 'Diagram',
+          menuLabel:  'Diagram'
+        }
       },
       {
         path: 'adapters',
-        component: AdaptersPageComponent
+        component: AdaptersPageComponent,
+        data: {
+          pageTitle: 'Adapters',
+          breadcrumb:  {'de': 'Instrumententafel' , 'fr': '', 'en-US': 'Adapters'},
+          menuLabel:  'Adapters'
+        }
       },
       {
         path: 'settings',
-        component: SettingsPageComponent
+        component: SettingsPageComponent,
+        data: {
+          pageTitle: 'Settings',
+          breadcrumb:  {'de': 'die Einstellungen' , 'fr': '', 'en-US': 'settings'},
+          menuLabel:  'Settings'
+        }
       },
       {
         path: 'user',
-        component: UserPageComponent
+        component: UserPageComponent,
+        data: {
+          pageTitle: 'User',
+          breadcrumb: 'User'
+        }
       },
       {
         path: 'docs',
-        component: DocsListPageComponent
+        component: DocsListPageComponent,
+        data: {
+          pageTitle: 'Docs',
+          breadcrumb: 'Docs'
+        }
       },
       {
         path: 'docs/:id',
-        component: DocEditPageComponent
+        component: DocEditPageComponent,
+        data: {
+          breadcrumb: 'View'
+        }
       },
       {
         path: 'dropbox',
-        component: DropboxPageComponent
+        component: DropboxPageComponent,
+        data: {
+          breadcrumb: 'Dropbox'
+        }
       },
+  {
+    path: 'youtube',
+    component: YoutubePageComponent,
+    data: {
+      breadcrumb:  {'de': 'meine YouTube' , 'fr': '', 'en': 'YouTube'},
+    }
+  },
+
       {
         path: 'api-client/:id',
-        component: SwaggerPageComponent
+        component: SwaggerPageComponent,
+        data: {
+          breadcrumb: 'API'
+        }
       },
       {
         path: 'test-api',
-        component: TestApiPageComponent
+        component: TestApiPageComponent,
+        data: {
+          pageTitle: 'Test API',
+          breadcrumb: 'Dashboard'
+        }
       },
       {
         path: 'bloomen-api',
-        component: BloomenTestPageComponent
+        component: BloomenTestPageComponent,
+        data: {
+          pageTitle: 'Bloomen API',
+          breadcrumb: 'Bloomen',
+          menuLabel: 'Bloomen API'
+        }
       },
-      {
-        path: 'files',
-        loadChildren: './files/files.module#FilesModule'
-      },
-      {
-        path: 'recordings',
-        loadChildren: './music-recordings/music-recordings.module#MusicRecordingsModule'
-      },
-      {
-        path: 'releases',
-        loadChildren: './music-releases/music-releases.module#MusicReleasesModule'
-      },
-      {
-        path: 'works',
-        loadChildren: './music-works/music-works.module#MusicWorksModule'
-      },
+   
       {
         path: 'claims',
-        loadChildren: './claims/claims.module#ClaimsModule'
+        loadChildren: './claims/claims.module#ClaimsModule',
+        data: {
+          pageTitle: 'Claims',
+          breadcrumb: 'claims',
+          menuLabel: 'Claims'
+        } 
       },
       { path: 'contacts', 
-        loadChildren: './contacts/contacts.module#ContactsModule'},
+        loadChildren: './contacts/contacts.module#ContactsModule',
+        data: {
+          pageTitle: 'Contacts',
+          breadcrumb: 'contacts',
+          menuLabel: 'Contacts'
+
+        } 
+      },
 
         { path: 'tasks', 
-        loadChildren: './tasks/tasks.module#TasksModule'},
+        loadChildren: './tasks/tasks.module#TasksModule',      
+        data: {
+          pageTitle: 'Tasks',
+          breadcrumb: 'tasks',
+          menuLabel: 'Tasks'
+        } 
+      },
 
         { path: 'reports', 
-        loadChildren: './reports/reports.module#ReportsModule'},
+        loadChildren: './reports/reports.module#ReportsModule',  
+        data: {
+          pageTitle: 'Reports',
+          breadcrumb: 'reports.title',
+          menuLabel: 'Reports'
+        }
+      },
 
       {
         path: 'settings',
-        loadChildren: './settings/settings.module'
+        loadChildren: './settings/settings.module',
+        data: {
+          pageTitle: 'Settings',
+          breadcrumb: 'settings',
+          menuLabel: 'Settings'
+        }
       },
-      { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-    ]
-  }
+       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+       { path: '**', redirectTo: './', pathMatch: 'full' },
+  //  ]
+ // }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(
+    routes,
+    // {enableTracing: true}
+    )],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

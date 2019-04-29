@@ -1,7 +1,20 @@
+<section fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="40px" fxFlexFill class="mb-4" appHelp="help.1">
 
+    <button mat-flat-button 
+    matBadge="{{entityCounts['organisations']}}" matBadgePosition="before" matBadgeColor="accent" routerLinkActive="active"
+    color="primary" [routerLink]="['organisations']">
+              {{'contacts.organisations' | translate}}
+    </button>
+  
+    <button  mat-flat-button
+    matBadge="{{entityCounts['person']}}" matBadgePosition="before" matBadgeColor="accent" routerLinkActive="active"
+    color="primary"  [routerLink]="['people']">
+      {{'contacts.people' | translate}}
+    </button>
+    <!-- {{ entityCounts | json }} -->  
+  </section>
 
-
-
+<!-- 
 <mat-grid-list cols="4" rowHeight="2:1">
     <mat-grid-tile [routerLink]="['people']" ><h2>People</h2>
       <mat-grid-tile-footer>  We found 35 People
@@ -19,9 +32,7 @@
     </mat-grid-tile>
   
 
-  </mat-grid-list>
-
-
+  </mat-grid-list> -->
 
 
 <!-- <mat-toolbar>

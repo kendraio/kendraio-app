@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MatButton, MatDialog, MatDialogClose } from '@angular/material';
 import { Router } from '@angular/router';
 import { Animations } from 'src/app/_shared/animations';
@@ -11,6 +11,10 @@ export interface DistributionProgress {
   percentComplete: number;
   icon: string;
   date: string;
+}
+
+export interface DialogData {
+  section: 'section' | 'unicorn' | 'lion';
 }
 
 let PROGRESS_DATA: DistributionProgress[] = [
@@ -32,7 +36,8 @@ export class TasksComponent implements OnInit {
 
   constructor(
     private readonly router: Router,
-    private readonly adapters: AdaptersService
+    private readonly adapters: AdaptersService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -63,5 +68,37 @@ export class TasksComponent implements OnInit {
     this.dataSource = [];
  this.dataSource = this.nextDataSource;
   }
+  
+  openDialog(itemData: string) {
+    this.dialog.open(DialogDataDialogComponent, {
+      data: {
+        section: itemData
+      }
+    });
+  }
 
+  openDialogProgress(itemData: string) {
+    this.dialog.open(DialogProgressComponent, {
+      height: '60%',
+      width: '80%',
+      data: {
+        section: itemData
+      }
+    });
+  }
+
+}
+
+@Component({
+  templateUrl: './dialog.html',
+})
+export class DialogDataDialogComponent {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+}
+
+@Component({
+  templateUrl: './dialogProgress.html',
+})
+export class DialogProgressComponent {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 }

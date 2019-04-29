@@ -5,7 +5,10 @@ import { TasksComponent } from '../tasks/tasks/tasks.component';
 const routes: Routes = [
   {
     path: '',
-    component:  TasksComponent
+    component:  TasksComponent,
+    data: {
+      breadcrumb: ''
+    },
     // children: [
     //   { path: 'tas', component: pages.PeopleComponent },
     //   { path: 'organisations', component: pages.OrganisationsComponent },

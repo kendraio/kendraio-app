@@ -69,7 +69,12 @@ export class BloomenTestPageComponent implements OnInit {
       .subscribe(photos => {
         if (photos) {
           const type = 'BloomenPhoto';
-          const records = photos.map(photo => omit(photo, ['__v', '_id']));
+          const records = photos.map(photo => {
+            return {
+              ...omit(photo, ['__v', '_id']),
+              url: photo['url'] ? photo.url.replace('http://', 'https://') : ''
+            };
+          });
           this.doImport({ type, records });
         }
       });

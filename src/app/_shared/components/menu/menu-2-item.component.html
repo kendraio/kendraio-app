@@ -1,0 +1,22 @@
+<ul>
+
+  <li *ngFor="let child of items">
+ 
+    <span *ngIf="child.children && child.children.length > 0">
+      <div  color="primary" >
+        <mat-icon>{{child.icon}}</mat-icon>
+        <span>{{child.label}}</span>
+      </div>
+      <app-menu-2-item #menu [items]="child.children"></app-menu-2-item>
+    </span>
+  
+    <span *ngIf="!child.children || child.children.length === 0">
+      <div [routerLink]="child.path">
+        <mat-icon>{{child.icon}}</mat-icon>
+        <span>{{child.label}}</span>
+      </div>
+    </span>
+
+  </li>
+
+</ul>

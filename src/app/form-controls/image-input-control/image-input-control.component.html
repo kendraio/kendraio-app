@@ -1,7 +1,7 @@
 <input type="file" #filePicker (change)="onFileChange($event)">
 <button class="mb-1" type="button" mat-stroked-button (click)="filePicker.click()">Replace file</button>
 
-<ngx-tagger class="mt-1" *ngIf="src" [formControl]="tagControl">
+<ngx-tagger class="image-preview-outer mt-1" *ngIf="src" [formControl]="tagControl">
   <img class="image-preview" ngxTagBase [src]="src" alt="tag image">
 </ngx-tagger>
 

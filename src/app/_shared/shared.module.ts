@@ -16,7 +16,7 @@ import {
   MatSelectModule,
   MatSliderModule,
   MatButtonModule,
-  MatMenuModule, MatDialogModule, MatTooltipModule, MatListModule
+  MatMenuModule, MatDialogModule, MatTooltipModule, MatListModule, MatTreeModule
 } from '@angular/material';
 
 import * as matComponents from '../_shared/components';
@@ -25,6 +25,13 @@ import { SendClaimsComponent } from 'src/app/claims/send-claims/send-claims.comp
 import { FlexModule, FlexLayoutModule } from '@angular/flex-layout';
 import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
 import { ClaimsEditComponent } from '../claims/claims-edit/claims-edit.component';
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
+import { HelpTextService } from './services/help-text.service';
+import { HelpTextBtnDirective } from './directives/help-text-btn.directive';
+import { TranslateModule } from '@ngx-translate/core';
+// import { BaseComponent } from './base/base.component';
+// import { MenuComponent } from './components/menu/menu.component';
+// import { MenuItemComponent } from './components/menu/menu-item.component';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { ClaimsEditSendComponent } from '../claims/claims-edit-send/claims-edit-send.component';
 
@@ -51,6 +58,7 @@ import { ClaimsEditComponent } from '../claims/claims-edit/claims-edit.component
     MatDialogModule,
     MatTooltipModule,
     MatListModule,
+    MatTreeModule,
     AgGridModule.withComponents(
       [
         matComponents.MatInputComponent,
@@ -68,6 +76,11 @@ import { ClaimsEditComponent } from '../claims/claims-edit/claims-edit.component
     matComponents.MatButtonComponent,
     SendClaimsComponent,
     ClaimsEditComponent,
+    BreadcrumbComponent,
+    HelpTextBtnDirective,
+    // BaseComponent,
+    // MenuComponent,
+    // MenuItemComponent,
     // ClaimsEditSendComponent
   ],
   exports: [
@@ -82,12 +95,16 @@ import { ClaimsEditComponent } from '../claims/claims-edit/claims-edit.component
   ClaimsEditComponent,
   // ClaimsEditSendComponent,
   MatListModule,
+  BreadcrumbComponent,
+  MatTreeModule,
+  HelpTextBtnDirective,
 // BrowserAnimationsModule
-
+TranslateModule
   ],
   providers: [
     DatePipe,
     LowerCasePipe,
+    HelpTextService
   ],
   entryComponents: [   
     SendClaimsComponent,
