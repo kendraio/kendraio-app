@@ -3,6 +3,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { BreadCrumb } from 'src/app/_models/classes/common';
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
+import { get } from 'lodash-es';
 
 @Component({
   selector: 'app-breadcrumb',
@@ -31,7 +32,7 @@ export class BreadcrumbComponent implements OnInit {
     route: ActivatedRoute,
     url: string = '',
     breadcrumbs: Array<BreadCrumb> = []): Array<BreadCrumb> {
-    const label = route.routeConfig ? route.routeConfig.data['breadcrumb']['en-US'] : 'Home';
+    const label = get('routeConfig.data.breadcrumb.en-US', 'Home');
     const path = route.routeConfig ? route.routeConfig.path : '..'; // fix this
     const nextUrl = `${url}/${path}`;
     const breadcrumb = {
