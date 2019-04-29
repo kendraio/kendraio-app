@@ -1,3 +1,6 @@
+<mat-card *ngIf="error$ | async as error" class="yt-error">
+  <p>{{ error }}</p>
+</mat-card>
 
 <app-youtube-upload></app-youtube-upload>
 

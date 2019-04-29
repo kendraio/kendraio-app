@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AuthService} from './auth.service';
-import {from, of} from 'rxjs';
+import {BehaviorSubject, from, of} from 'rxjs';
 import {catchError, map, switchMap, tap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 
@@ -10,6 +10,8 @@ import {HttpClient} from '@angular/common/http';
 export class YoutubeDataService {
 
   categoryCache;
+  _error = new BehaviorSubject<null|string>(null);
+  error$ = this._error.asObservable();
 
   constructor(
     private readonly auth: AuthService,
@@ -33,7 +35,7 @@ export class YoutubeDataService {
   getAccessToken() {
     return from(this.getProfileData()).pipe(
       catchError(err => {
-        // console.log(err);
+        this._error.next(err.message);
         return of({});
       }),
       map(({ access_token }: any) => access_token)
@@ -52,14 +54,19 @@ export class YoutubeDataService {
           headers: {
             'Authorization': `Bearer ${access_token}`
           }
-        });
+        }).pipe(
+          catchError(err => {
+            this._error.next(err.message);
+            return of({});
+          })
+        );
       })
     );
   }
 
   getCategories() {
     if (!!this.categoryCache) {
-      return this.categoryCache;
+      return of(this.categoryCache);
     }
     const url = 'https://www.googleapis.com/youtube/v3/videoCategories';
     return this.getAccessToken().pipe(
