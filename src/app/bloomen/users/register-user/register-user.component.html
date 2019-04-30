@@ -10,8 +10,8 @@
     </mat-card-header>
     <mat-card-content formGroupName="accountDetails">
 
-      <app-account-form [data]="value" (formData)="eventHandler($event, 'accountDetails')"></app-account-form>
-
+      <app-account-form  (formData)="eventHandler($event, 'accountDetails')"></app-account-form>
+<!-- [data]="value" -->
     </mat-card-content>
   </mat-card>
 
@@ -22,8 +22,8 @@
     </mat-card-header>
     <mat-card-content formGroupName="logonDetails">
 
-      <app-account-login-form mode="new" [data]="value" (formData)="eventHandler($event, 'logonDetails')">
-
+      <app-account-login-form mode="new" (formData)="eventHandler($event, 'logonDetails')">
+<!-- [data]="value"  -->
       </app-account-login-form>
 
     </mat-card-content>
@@ -32,6 +32,6 @@
 </form>
 
 
-
+<!-- 
 {{ registerUser.value | json }}
-{{ accountDetails.valid}}
+{{ accountDetails.valid}} -->
