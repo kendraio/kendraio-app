@@ -7,31 +7,40 @@
       <mat-icon>cloud_upload</mat-icon>
     </mat-expansion-panel-header>
 
+    <ng-container *ngIf="!isUploading; else uploadProgress">
+      <form [formGroup]="form">
+        <mat-form-field>
+          <input matInput placeholder="Title" formControlName="title">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Description" formControlName="description">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Category</mat-label>
+          <mat-select formControlName="category">
+            <mat-option *ngFor="let cat of categories$ | async" [value]="cat['id']">
+              {{ cat['title'] }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Title">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Description">
-    </mat-form-field>
+        <input type="file" placeholder="Select file" (change)="onFileChange($event)">
 
+        <mat-checkbox formControlName="isPrivate">Private</mat-checkbox>
+      </form>
+    </ng-container>
 
-    <mat-form-field>
-      <mat-label>Category</mat-label>
-      <mat-select>
-        <mat-option *ngFor="let cat of categories$ | async" [value]="cat['id']">
-          {{ cat['title'] }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <ng-template #uploadProgress>
+      <mat-progress-bar mode="determinate" [value]="progress$ | async"></mat-progress-bar>
+      <p>Waiting for upload...</p>
+    </ng-template>
 
-    <input type="file" placeholder="Select file">
-
-    <mat-checkbox [(ngModel)]="checked">Private</mat-checkbox>
 
     <mat-action-row>
-      <button mat-button color="primary" (click)="uploadFile()">Upload</button>
+      <button mat-flat-button [disabled]="form.invalid || isUploading" color="primary" (click)="uploadFile()">Upload</button>
     </mat-action-row>
 
   </mat-expansion-panel>
 </mat-accordion>
+
+<!--<pre>{{ form.getRawValue() | json }}</pre>-->

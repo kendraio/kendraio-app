@@ -1,5 +1,8 @@
 {
   "version": 2,
+  "alias": [
+    "dev.app.kendra.io"
+  ],
   "github": {
     "enabled": true
   },

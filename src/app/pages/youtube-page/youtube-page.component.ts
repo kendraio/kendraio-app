@@ -9,12 +9,14 @@ import {YoutubeDataService} from '../../services/youtube-data.service';
 export class YoutubePageComponent implements OnInit {
 
   data$;
+  error$;
 
   constructor(
     private readonly yt: YoutubeDataService
   ) { }
 
   ngOnInit() {
+    this.error$ = this.yt.error$;
     this.data$ = this.yt.getVideos();
   }
 }

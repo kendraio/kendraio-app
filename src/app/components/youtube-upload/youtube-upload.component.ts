@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {YoutubeDataService} from '../../services/youtube-data.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 /*
 {
@@ -21,18 +22,39 @@ import {YoutubeDataService} from '../../services/youtube-data.service';
 })
 export class YoutubeUploadComponent implements OnInit {
 
+  form: FormGroup;
+
   categories$;
-  checked = true; // is private video?
+  progress$;
+
+  isUploading = false;
 
   constructor(
+    private readonly fb: FormBuilder,
     private readonly yt: YoutubeDataService
   ) { }
 
   ngOnInit() {
+    this.form = this.fb.group({
+      title: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      category: ['', [Validators.required]],
+      file: [null, [Validators.required]],
+      isPrivate: [true]
+    });
     this.categories$ = this.yt.getCategories();
+    this.progress$ = this.yt.progress$;
+  }
+
+  onFileChange(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.form.get('file').setValue(file);
+    }
   }
 
   uploadFile() {
-
+    this.isUploading = true;
+    this.yt.uploadVideo(this.form.getRawValue());
   }
 }
