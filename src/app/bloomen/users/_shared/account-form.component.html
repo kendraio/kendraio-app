@@ -1,142 +1,87 @@
-
-<div class="col-12 key-container" [hidden]="userForm.valid">
-  <i class="fa fa-circle fa-1" style="color:red"></i> = Required field
-</div>
-[formGroup]="userForm"
-<form  (submit)="submit()" novalidate autocomplete="on">
-  <div class="row">
-    <div class="col-6">
+<!-- [formGroup]="userForm" -->
+<form (submit)="submit()" novalidate autocomplete="on" 
+[formGroup]="userForm">
 
 
-      <section class="row" formGroupName="contactDetails">
-
-        <div class="col-6">
-          <section class="form-group">
-            <label class="form-label">First Names</label>
-            <input class="form-control form-input required" placeholder="" formControlName="firstname" />
-         
-          </section>
-        </div>
-        <div class="col-6">
-          <section class="form-group">
-            <label class="form-label">Last Name</label>
-            <input class="form-control form-input required" placeholder="" formControlName="lastname" />
-     
-          </section>
-        </div>
-
-        <div class="col-12">
-          <section class="form-group">
-            <label class="form-label">Email</label>
-            <input class="form-control form-input required" type="email" placeholder="" formControlName="email" email (keyup)="onEmailChange()"
-              [ngClass]="{'isLoading' : isLoading}" />
-            
-
-            <!-- <input class="form-control" formControlName="grexname" appInputMask="goodGuys" appPreventBadWords="badWords" (msg)="getErrorMsg($event)"/>  -->
-
-            <div *ngIf="isLoading">Checking Email.... please wait</div>
-            <div [ngClass]="msg?.isValid ? '':'has-danger'">
-              {{msg?.msg}}
-            </div>
-          </section>
-        </div>
-        <div class="col-12">
-          <section class="form-group">
-            <label class="form-label">Telephone</label>
-            <input class="form-control form-input" placeholder="" appInputMask="phone" formControlName="telephone" />
-          </section>
-        </div>
-
-      </section>
-
-      <div class="col-12">
-        <div class="card">
-          <div class="card-body small">
-              <i class="fa fa-exclamation-triangle " aria-hidden="true" style="color:orange"> </i>
+  <section>
 
 
-            <b> Personal Data Statement</b>
-        
+      <section class="form-container" fxLayout="row"  fxLayoutGap="40px" fxFlexFill>
+      <mat-form-field appearance="standard">
+        <mat-label>First Names</mat-label>
+        <input matInput placeholder="Enter First Names" formControlName="firstname">
 
-            <br>
+      </mat-form-field>
 
 
 
-            <div class="form-checkbox mt-2" [ngClass]="address.valid && iAccept.value !== true ? 'flashit' : ''">
-              <input type="checkbox" class="form-check-input" formControlName="iAccept" id="optionsRadios2" [value]="true">
-              <label class="form-checkbox__label" for="optionsRadios2"> </label>
-              <span class="form-checkbox__text">
-                I accept
-              </span>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-
-
-
-    </div>
-
-    <section class="col-6" formGroupName="address">
-
-      <section class="form-group">
-        <label class="form-label">Country</label>
-        <!-- <app-country-lookup [currentCountry]="myCountry" (country)="getCountry($event)"></app-country-lookup> -->
-      </section>
-
-      <!-- <app-postcode-lookup *ngIf="(isUK && editAddress) || (isUK && mode === 'create')" (address)="getAddress($event)"></app-postcode-lookup> -->
-
-      <div *ngIf="(isUK && addressSelected) || (!isUK && countrySelected ) || (mode === 'edit')">
-        <section class="form-group">
-          <label class="form-label">Address
-            <button type="button" class="button button--action button--sm" *ngIf="mode === 'edit' && isUK && !editAddress" (click)="editAddress=!editAddress">Change Address</button>
-          </label>
-          <input class="form-control form-input required" placeholder="" formControlName="addressLine1" />
-        </section>
-
-        <section class="form-group">
-          <label class="form-label">Address Line 2</label>
-          <input class="form-control form-input" placeholder="" formControlName="addressLine2" [readonly]="isUK" />
-        </section>
-
-        <section class="form-group">
-          <label class="form-label">City</label>
-          <input class="form-control form-input required" placeholder="" formControlName="townCity" name="townCity" [readonly]="isUK"
-          />
-        </section>
-
-        <section class="form-group">
-          <label class="form-label">County/State</label>
-          <input class="form-control form-input" placeholder="" formControlName="countyState" name="countyState" [readonly]="isUK"
-          />
-        </section>
-
-        <section class="form-group">
-          <label class="form-label">Postcode <span [hidden]="isUK">/ Zip Code</span></label>
-          <input class="form-control form-input required" placeholder="" formControlName="postCode" [readonly]="isUK" />
-        </section>
-
-      </div>
+      <mat-form-field appearance="standard">
+        <mat-label>Last Name</mat-label>
+        <input matInput placeholder="Enter Last Name" [formControl]="lastname">
+        <mat-error *ngIf="lastname.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
     </section>
 
+
+
+
+    <section  class="form-container" fxLayout="row"  fxLayoutGap="40px" fxFlexFill>
+
+      <mat-form-field appearance="standard">
+        <mat-label>Email</mat-label>
+        <!-- (keyup)="onEmailChange()"  -->
+        <input matInput type="email" placeholder="Enter Email" email
+        [ngClass]="{'isLoading' : isLoading}"
+        [formControl]="email">
+        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+        <mat-hint align="end" *ngIf="isLoading">Checking Email.... please wait</mat-hint>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="standard">
+        <mat-label>Telephone</mat-label>
+        <input matInput placeholder="Enter Telephone/Mobile" [formControl]="telephone">
+      </mat-form-field>
+
+    </section>
+
+    <!-- | {{ userForm.value | json }} -->
+
+  </section>
+
+  <div>
+    <div class="card">
+      <div class="card-body small">
+        <i class="fa fa-exclamation-triangle " aria-hidden="true" style="color:orange"> </i>
+      </div>
+    </div>
   </div>
 
 
-  <div class="form-group clea">
 
 
 
-    <button type="submit" [disabled]="!userForm.valid || iAccept.value === false" class="button button--action button--lg float-right">
+
+
+
+
+
+
+  <!-- <div class="form-group clear">
+
+
+
+    <button type="submit" [disabled]="!userForm.valid" class="button button--action button--lg float-right">
       Submit
     </button>
-    <div  *ngIf="(iAccept.value === '' || iAccept.value === false) && userForm.valid" class="float-right small " style="clear: both">
-    <p><i class="fa fa-exclamation-triangle " aria-hidden="true" style="color:orange"> </i>  You must accept the <b>Personal Data Statement</b> to continue</p>
+    <div *ngIf="(iAccept.value === '' || iAccept.value === false) && userForm.valid" class="float-right small "
+      style="clear: both">
+      <p><i class="fa fa-exclamation-triangle " aria-hidden="true" style="color:orange"> </i> You must accept the
+        <b>Personal Data Statement</b> to continue</p>
     </div>
-    <!-- <pre>{{iAccept.value | json}}</pre> -->
+ 
 
 
-  </div>
+  </div> -->
 
 </form>

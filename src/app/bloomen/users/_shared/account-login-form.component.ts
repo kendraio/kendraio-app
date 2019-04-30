@@ -1,5 +1,5 @@
 
-import {distinctUntilChanged,  map, filter, tap } from 'rxjs/operators';
+import {distinctUntilChanged,  map, filter, tap, debounceTime } from 'rxjs/operators';
 // import { AppState, IUser, PageStatus } from '../../_shared/interfaces';
 // import { UserService } from '../../_shared/services';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,6 +14,7 @@ import { Store } from '@ngrx/store';
 
 import { IUser } from 'src/app/_models/classes';
 import { PasswordValidation, PasswordStrength } from 'src/app/_shared/directives/passwordValidation';
+import { Subscription } from 'rxjs';
 
 @Component({
   // animations: [routeAnimation],
@@ -26,13 +27,15 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
   @Input() email: string;
   @Input() mode: string;
   @Output() onSubmit = new EventEmitter<IUser>();
-  @HostBinding('@routing') routing
+  @Input()
+  data: any;
+  @Output()
+  formData: EventEmitter<Object> = new EventEmitter<Object>();
+  // @HostBinding('@routing') routing
   @HostBinding('style.display') display = 'block';
 
-  _animationServiceEventsSubscription: any;
-  plantGroup: string;
+  // _animationServiceEventsSubscription: any;
   subTitle: string;
-  showNamer = false;
   user: IUser;
   isLoading: boolean;
   showPassword = false;
@@ -41,12 +44,11 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
   passwordCtrl: FormControl;
   confirmPasswordCtrl: FormControl;
   currentPasswordCtrl: FormControl;
-
+  hidePassword = true;
   // passwordPattern: RegExp = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!+_#\-&$£*])(?=.*[0-9]).{8,24}?$/g;
-
   passwordPattern: RegExp = /^(?=.*[a-z])(?=.*[A-Z]).{8,30}$/g;
-
   private userFormChanges: any;
+  sub: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -57,30 +59,26 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
     // private _store: Store<AppState>,
   ) {
     // this.passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!+_#\-&$£*])(?=.*[0-9])$/g
-
- 
   }
 
   ngOnInit() {
-    const currentPasswordCtrl = this.fb.control('', [Validators.required, Validators.minLength(8)]);
+  //  const currentPasswordCtrl = this.fb.control('', [Validators.required, Validators.minLength(8)]);
     // const password = fb.control('', [Validators.required, Validators.minLength(8), Validators.pattern(this.passwordPattern)]);
     // const confirmPasswordCtrl = fb.control({ value: '', disabled: true}, [Validators.required]);
    
-
-
     this.loginForm = this.fb.group({
-      currentPassword: currentPasswordCtrl,
+      currentPassword: '', //currentPasswordCtrl,
       password: ['', [
         Validators.required,
-        PasswordStrength.strong,
+         PasswordStrength.strong,
         // Validators.pattern(this.passwordPattern)
       ]],
       confirmPassword: [{ value: '', disabled: true}, [Validators.required]],
-      email: ''
-    }, {
+      userName: ''
+    }, 
+    {
         validator: PasswordValidation.MatchPassword
-      })
-    this.subTitle = this.route.snapshot.data['subTitle'];
+      });
 
     // this.routing = this._animationService.animationDirection();
     // this._animationServiceEventsSubscription = this._animationService.emitCurrentDirection.subscribe((direction: any) => {
@@ -89,7 +87,7 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
 
     this.currentPasswordCtrl = (<any>this.loginForm).controls.currentPassword;
     this.passwordCtrl = (<any>this.loginForm).controls.password;
-    this.confirmPasswordCtrl = (<any>this.loginForm).controls.confirmPassword;
+    this.confirmPasswordCtrl = (<any>this.loginForm).controls.confirmPassword; //TODO is this nessesary?
     if (this.mode === 'create' || this.mode === 'reset') {
       this.currentPasswordCtrl.setValidators(null);
       this.currentPasswordCtrl.updateValueAndValidity();
@@ -100,13 +98,29 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
     passwordStatusChange$.pipe(distinctUntilChanged()).subscribe(
       status => {
         if (status === 'INVALID') {
+          this.confirmPassword.disable();
         } else if (status === 'VALID') {
-          this.loginForm.get('confirmPassword').enable()
+          this.confirmPassword.enable();
         }
-      })
+      });
 
+      this.sub = this.loginForm.valueChanges
+      .pipe(
+        distinctUntilChanged(),
+        debounceTime(600)
+      )
+      .subscribe(newValue => {
 
+        this.formData.emit(this.loginForm);
 
+      });
+
+  }
+  get password() {
+    return this.loginForm.get('password');
+  }
+  get confirmPassword() {
+    return this.loginForm.get('confirmPassword');
   }
   ngOnDestroy() {
     //   this.userFormChanges.unsubscribe()

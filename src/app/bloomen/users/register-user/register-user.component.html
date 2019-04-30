@@ -1,3 +1,37 @@
-<p>
-  register-user works!
-</p>
+<div class="mat-typography mb-3">
+  <h2>Register New User</h2>
+</div>
+
+<form [formGroup]="registerUser" autocomplete="off">
+  <mat-card class="mb-3">
+    <mat-card-header>
+      <mat-card-title>User Details</mat-card-title>
+      <mat-card-subtitle></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content formGroupName="accountDetails">
+
+      <app-account-form [data]="value" (formData)="eventHandler($event, 'accountDetails')"></app-account-form>
+
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="mb-2">
+    <mat-card-header>
+      <mat-card-title>User Login</mat-card-title>
+      <mat-card-subtitle></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content formGroupName="logonDetails">
+
+      <app-account-login-form mode="new" [data]="value" (formData)="eventHandler($event, 'logonDetails')">
+
+      </app-account-login-form>
+
+    </mat-card-content>
+  </mat-card>
+  <button mat-flat-button color="primary" [disabled]="accountDetails.invalid || logonDetails.invalid">Submit</button>
+</form>
+
+
+
+{{ registerUser.value | json }}
+{{ accountDetails.valid}}

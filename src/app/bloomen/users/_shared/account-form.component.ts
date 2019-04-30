@@ -42,16 +42,21 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
   pageTitle: string;
   @Input()
   mode: string;
+  @Input()
+  data: any;
+  @Output()
+  formData: EventEmitter<Object> = new EventEmitter<Object>();
+
   // @Output()
   onSubmit = new EventEmitter<IUser>();
-  @HostBinding('@routing')
-  routing;
+  // @HostBinding('@routing')
+  // routing;
   @HostBinding('style.display')
   display = 'block';
   emailChanges$: Observable<string>;
 
-  emailCtrl: FormControl;
-  _animationServiceEventsSubscription: any;
+  email: FormControl;
+  // _animationServiceEventsSubscription: any;
   plantGroup: string;
   subTitle: string;
   showNamer = false;
@@ -65,10 +70,10 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
   msg: any = '';
   errorMessage: string;
   originalEmail: string;
-  isUK: boolean;
-  countrySelected: boolean;
-  addressSelected = false;
-  editAddress = this.mode === 'edit';
+  // isUK: boolean;
+  // countrySelected: boolean;
+  // addressSelected = false;
+  // editAddress = this.mode === 'edit';
   // myCountry: Country = new Country('', '', '');
   // EMAIL_REGEXP = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
   EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -76,6 +81,9 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
   TEL_REGEX = /^[\d\s]+$/i;
 
   now: string;
+  lastname: FormControl;
+  telephone: FormControl;
+  sub: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -85,35 +93,50 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
     // private _animationService: AnimationService,
     private validationService: ValidationService
   ) {
-    // this.createForm();
+     this.createForm();
   }
   // updateOn: 'blur' USE THIS TODO:
 
+  getErrorMessage() {
+    return this.email.hasError('required') ? 'You must enter a value' :
+        this.email.hasError('pattern') ? 'Not a valid email' :
+            '';
+  }
+
   createForm() {
-    this.emailCtrl = this._fb.control('', [
+    this.email = new FormControl('', [Validators.required, Validators.email]);
+    // this.email = this._fb.control('', [
+    //   Validators.required,
+    //   Validators.minLength(9),
+    //   Validators.pattern(this.EMAIL_REGEXP)
+    // ]);
+    this.lastname = this._fb.control('timothy', [
       Validators.required,
-      Validators.minLength(3),
-      Validators.pattern(this.EMAIL_REGEXP)
+      Validators.minLength(3)
+    ]);
+    this.telephone = this._fb.control('boo', [
+      Validators.required,
+      Validators.minLength(3)
     ]);
     this.userForm = this._fb.group({
-      iAccept: [false, [Validators.required]],
-      rhsRef: this.now,
-      contactDetails: this._fb.group({
+      // iAccept: [false, [Validators.required]],
+      // bloomenRef: this.now,
+      // contactDetails: this._fb.group({
         // <-- the child FormGroup
         firstname: ['', [Validators.required, Validators.minLength(2)]],
-        lastname: ['', Validators.required],
-        email: this.emailCtrl,
-        telephone: ''
-      }),
-      address: this._fb.group({
-        // <-- the child FormGroup
-        addressLine1: ['', Validators.required],
-        addressLine2: '',
-        townCity: ['', Validators.required],
-        countyState: '',
-        country: ['', Validators.required],
-        postCode: ''
-      })
+        lastname: this.lastname,
+        email: this.email,
+        telephone: this.telephone,
+      // }),
+      // address: this._fb.group({
+      //   // <-- the child FormGroup
+      //   addressLine1: ['', Validators.required],
+      //   addressLine2: '',
+      //   townCity: ['', Validators.required],
+      //   countyState: '',
+      //   country: ['', Validators.required],
+      //   postCode: ''
+      // })
     });
   }
   get address(): any {
@@ -125,7 +148,7 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
   ngOnInit() {
     this.now = (Math.floor(Math.random() * 9999) + 1).toString(); // Date().toString();
     this.createForm();
-    this.emailChanges$ = this.emailCtrl.valueChanges;
+    this.emailChanges$ = this.email.valueChanges;
     // this.currentUser$ = this.currentUser;
     this.subTitle = this.route.snapshot.data['subTitle'];
     this.crumb = this.route.snapshot.data['crumbs'];
@@ -142,21 +165,35 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
         debounceTime(400),
         tap(() => {
           this.isUnique = false;
-          this.emailCtrl.setValidators([
+          this.email.setValidators([
             Validators.required,
             Validators.minLength(8),
             Validators.pattern(this.EMAIL_REGEXP)
           ]);
-          this.emailCtrl.updateValueAndValidity();
+          this.email.updateValueAndValidity();
           this.isLoading = true;
           this.msg = null;
         })
       )
       .pipe(debounceTime(400))
       .subscribe(val => {
-        // this.checkEmailName(this.emailCtrl.value);
+        // this.checkEmailName(this.email.value);
         this.isLoading = false;
       });
+
+
+      this.sub = this.userForm.valueChanges
+      .pipe(
+        distinctUntilChanged(),
+        debounceTime(600)
+      )
+      .subscribe(newValue => {
+
+        this.formData.emit(this.userForm);
+
+      });
+
+
   }
 
   ngOnChanges() {
@@ -174,20 +211,20 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
     //       debounceTime(500),
     //       tap(() => {
     //         this.isUnique = false;
-    //         this.emailCtrl.setValidators([
+    //         this.email.setValidators([
     //           Validators.required,
     //           Validators.minLength(8),
     //           Validators.pattern(this.EMAIL_REGEXP)
     //         ]);
-    //         this.emailCtrl.updateValueAndValidity();
+    //         this.email.updateValueAndValidity();
     //         this.isLoading = true;
     //         this.msg = null;
     //       })
     //     )
     //     //    .debounceTime(400)
     //     .subscribe(val => {
-    //       if (this.originalEmail !== this.emailCtrl.value) {
-    //         this.checkEmailName(this.emailCtrl.value);
+    //       if (this.originalEmail !== this.email.value) {
+    //         this.checkEmailName(this.email.value);
     //       }
     //       this.isLoading = false;
     //     });
@@ -195,7 +232,7 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   // checkEmailName(val: string): void {
-  //   if (this.emailCtrl.valid && this.emailCtrl.value !== this.originalEmail) {
+  //   if (this.email.valid && this.email.value !== this.originalEmail) {
   //     const sub = this.validationService
   //       .checkForDupEmail(val)
   //       .subscribe((res: string) => this.onEmailChecked(res), (error: any) => (this.errorMessage = <any>error));
@@ -210,27 +247,27 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
     } else {
       this.msg = { msg: 'This Email is Already in use! Please try another', isValid: false };
     }
-    this.emailCtrl.setValidators([
+    this.email.setValidators([
       Validators.required,
       Validators.minLength(8),
       // isValid(this.isUnique),
       Validators.pattern(this.EMAIL_REGEXP)
     ]);
-    this.emailCtrl.updateValueAndValidity();
+    this.email.updateValueAndValidity();
     this.isLoading = false;
   }
   onEmailChange() {}
 
   getAddress(event): void {
-    this.addressSelected = true;
-    this.address.patchValue(event);
+    // this.addressSelected = true;
+    // this.address.patchValue(event);
   }
 
   getCountry(event): void {
-    this.addressSelected = false;
-    this.countrySelected = event;
-    this.isUK = event === 'GB';
-    this.address.controls.country.patchValue(event);
+    // this.addressSelected = false;
+    // this.countrySelected = event;
+    // this.isUK = event === 'GB';
+    // this.address.controls.country.patchValue(event);
   }
 
   submit() {

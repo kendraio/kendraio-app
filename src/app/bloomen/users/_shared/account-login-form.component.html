@@ -1,88 +1,63 @@
 <div *ngIf="isLoading">
-<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-<span class="sr-only">Loading...</span>
+  <span class="sr-only">Loading...</span>
 </div>
+
 <!-- [formGroup]="loginForm" -->
-<form  (submit)="submit()" novalidate>
+<form (submit)="submit()"  novalidate
+[formGroup]="loginForm">
+  
+  <div *ngIf="mode != 'edit'"  class="form-container" fxLayout="row"  fxLayoutGap="40px" fxFlexFill>
 
-  <div class="row" *ngIf="mode != 'edit'">
-    <div class="col-12">
-      <label class="form-label">Email</label>
-      <input class="form-control form-input" autofocus [readonly]="mode === 'create'" [required]="mode === 'reset'" value="{{email}}" formControlName="email">
-    </div>
+      <mat-form-field appearance="standard">
+        <mat-label>Email/Username</mat-label>
+        <input matInput placeholder="Enter Email/Username" autofocus 
+        [readonly]="mode === 'create'"
+          [required]="mode === 'reset'" value="{{email}}" 
+          formControlName="userName"
+          >
+      </mat-form-field>
+  
   </div>
 
 
 
-    <div class="row form-group"  *ngIf="mode === 'edit'">
-        <div class="col-12">
-          <label class="form-label">Current Password</label>
+  <section  class="form-container" fxLayout="row"  fxLayoutGap="40px" fxFlexFill>
+  
+      <mat-form-field appearance="standard" *ngIf="mode === 'edit'">
+        <mat-label>Current Password</mat-label>
+        <input matInput placeholder="Enter current password" [type]="hide ? 'password' : 'text'">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </mat-form-field>
+ 
+      <mat-form-field appearance="standard">
+        <mat-label>Password</mat-label>
+        <input  formControlName="password" matInput placeholder="Enter new password" [type]="hidePassword ? 'password' : 'text'">
+        <mat-icon matSuffix 
+        (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}
 
-          <div class="form-input-group">
-              <div class="form-input-group__control">
+        </mat-icon>
+        <!-- <mat-hint>Password is too weak</mat-hint> -->
+        <mat-error *ngIf="password.invalid">Password is too weak</mat-error>
+      
+      </mat-form-field>
+    <!-- *ngIf="loginForm.controls.password.errors?.pattern" -->
 
-                      <input autofocus type="{{showPassword?'text':'password'}}" class="form-control form-input required" placeholder="Enter Current Password"
-                      formControlName="currentPassword">
+    <mat-form-field appearance="standard">
+      <mat-label>Confirm Password</mat-label>
+      <input formControlName="confirmPassword" matInput placeholder="Enter your password again" [type]="hidePassword ? 'password' : 'text'">
+      <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}
+      </mat-icon>
+      <mat-error *ngIf="confirmPassword.invalid">oops</mat-error>
+    </mat-form-field>
+  
+</section>  
+<mat-hint  *ngIf="password.invalid && password.value.length > 2">Password must contain at least one upper case character, at least one number and at least 8 characters
+    in length.</mat-hint>
 
+  <!--  -->
+  <div class="alert alert-danger" *ngIf="confirmPassword.errors?.MatchPassword && password.valid && confirmPassword.value.length > 2">Passwords do not match</div>
 
-              </div>
-              <span class="form-input-group__btn">
-                  <button
-                  class="form-btn form-btn--input-group form-btn--outline"
-                  type="button"  (click)="toggleShowPassword()"><span class="form-btn__text"> {{showPassword ? 'Hide' : 'Show'}}</span></button>
-              </span>
-          </div>
-
-
-        </div>
-      </div>
-
-
-
-  <div class="row form-group">
-    <div class="col-12">
-      <label class="form-label">Create a new Password</label>
-
-      <div class="form-input-group">
-          <div class="form-input-group__control">
-              <div class="form-input">
-                  <input autofocus type="{{showPassword?'text':'password'}}" class="form-control" placeholder="Enter New Password" required formControlName="password">
-                <small>Password must contain at least one upper case character, at least one number and at least 8 characters in length.</small>
-              </div>
-              <!-- *ngIf="loginForm.controls.password.errors?.pattern" -->
-              <div class="alert alert-danger" >Password is too weak</div>
-
-
-          </div>
-          <span class="form-input-group__btn">
-              <button
-              class="form-btn form-btn--input-group form-btn--outline"
-              type="button"  (click)="toggleShowPassword()"><span class="form-btn__text"> {{showPassword ? 'Hide' : 'Show'}}</span></button>
-          </span>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="row  form-group">
-    <div class="col-12">
-      <div class="form-group">
-        <label class="form-label">Confirm Password</label>
-        <input class="form-control form-input" type="password" placeholder="Please enter your password again" name="confirmPassword" required
-          formControlName="confirmPassword" autocomplete="new-password" />
-      </div>
-    </div>
-  </div>
-
-  <!-- *ngIf="loginForm.controls.confirmPassword.errors?.MatchPassword && loginForm.controls.password.valid && loginForm.controls.confirmPassword.value.length > 2" -->
-  <div class="alert alert-danger" 
- >Passwords do not match</div>
-
-  <div class="form-group">
-    <button type="submit" [disabled]="loginForm.invalid" class="btn btn-success float-right">
-      Submit
-    </button>
-  </div>
+ 
 
 
 
