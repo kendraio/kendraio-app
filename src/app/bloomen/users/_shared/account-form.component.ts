@@ -110,11 +110,11 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
     //   Validators.minLength(9),
     //   Validators.pattern(this.EMAIL_REGEXP)
     // ]);
-    this.lastname = this._fb.control('timothy', [
+    this.lastname = this._fb.control('', [
       Validators.required,
       Validators.minLength(3)
     ]);
-    this.telephone = this._fb.control('boo', [
+    this.telephone = this._fb.control('', [
       Validators.required,
       Validators.minLength(3)
     ]);

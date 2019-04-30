@@ -13,7 +13,6 @@ export class PasswordValidation {
     }
 }
 
-// import { FormControl } from '@angular/forms';
 
 export interface ValidationResult {
     [key: string]: boolean;
@@ -28,8 +27,6 @@ export class PasswordStrength {
         const hasLower = /[a-z]/.test(control.value);
         const hasSpecial = /[!+_#\-&$£*]/.test(control.value);
         const isGoodLength = /.{8,30}/.test(control.value);
-        // console.log('Num, Upp, Low', hasNumber, hasUpper, hasLower);
-        // && hasSpecial
         const valid = hasNumber && hasUpper && hasLower && isGoodLength;
         if (!valid) {
             // return what´s not valid

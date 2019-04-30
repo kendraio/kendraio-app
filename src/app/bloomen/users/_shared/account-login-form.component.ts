@@ -74,7 +74,7 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
         // Validators.pattern(this.passwordPattern)
       ]],
       confirmPassword: [{ value: '', disabled: true}, [Validators.required]],
-      userName: ''
+      username: ''
     }, 
     {
         validator: PasswordValidation.MatchPassword

@@ -28,10 +28,15 @@
 
     </mat-card-content>
   </mat-card>
-  <button mat-flat-button color="primary" [disabled]="accountDetails.invalid || logonDetails.invalid">Submit</button>
+  <button mat-flat-button color="primary" (click)="submit()" 
+  [disabled]="accountDetails.invalid || logonDetails.invalid">Submit</button>
 </form>
 
+<!-- {{childFormIsVaild}}===
+
+{{accountDetails.invalid}} || {{logonDetails.invalid}} -->
 
 <!-- 
 {{ registerUser.value | json }}
-{{ accountDetails.valid}} -->
+{{ accountDetails.valid}} 
+-->
