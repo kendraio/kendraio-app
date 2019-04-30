@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {AuthService} from './auth.service';
 import {BehaviorSubject, from, of} from 'rxjs';
 import {catchError, map, switchMap, tap} from 'rxjs/operators';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpEventType, HttpHeaders} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +10,12 @@ import {HttpClient} from '@angular/common/http';
 export class YoutubeDataService {
 
   categoryCache;
+
   _error = new BehaviorSubject<null|string>(null);
   error$ = this._error.asObservable();
+
+  _progress = new BehaviorSubject<number>(0);
+  progress$ = this._progress.asObservable();
 
   constructor(
     private readonly auth: AuthService,
@@ -25,6 +29,7 @@ export class YoutubeDataService {
           reject(err);
           return;
         }
+        // console.log({ profile });
         const ytProfile = (profile['identities'] || [])
           .find(item => item['provider'] === 'google-oauth2');
         resolve(ytProfile);
@@ -64,6 +69,69 @@ export class YoutubeDataService {
     );
   }
 
+  uploadVideo({ title, description, category, file, isPrivate}) {
+    console.log({ title, description, category, file, isPrivate});
+    const url = 'https://www.googleapis.com/upload/youtube/v3/videos';
+    this.getAccessToken().pipe(
+      switchMap(access_token => {
+        return this.http.post(url, {
+          snippet: {
+            title,
+            description,
+            categoryId: category
+          },
+          status: {
+            // TODO: Always private for testing
+            privacyStatus: isPrivate ? 'private' : 'private'
+          }
+        }, {
+          params: {
+            part: 'snippet,status',
+            uploadType: 'resumable'
+          },
+          headers: {
+            'Authorization': `Bearer ${access_token}`
+          },
+          observe: 'response'
+        }).pipe(
+          catchError(err => {
+            this._error.next(err.message);
+            return of(null);
+          }),
+          tap(console.log),
+          switchMap(({ headers }) => {
+            const [ location ] = headers.getAll('location');
+            return this.http.put(location, (file as File), {
+              headers: {
+                'Authorization': `Bearer ${access_token}`
+              },
+              observe: 'events',
+              reportProgress: true
+            }).pipe(
+              catchError(err => {
+                this._error.next(err.message);
+                return of(null);
+              }),
+              tap(console.log),
+              tap((event) => {
+                switch (event.type) {
+                  case HttpEventType.UploadProgress:
+                    const progress = Math.round(100 * event.loaded / event.total);
+                    this._progress.next(progress);
+                    return { status: 'progress', message: progress };
+                  case HttpEventType.Response:
+                    return event.body;
+                  default:
+                    return `Unhandled event: ${event.type}`;
+                }
+              })
+            );
+          })
+        );
+      }),
+    ).subscribe();
+  }
+
   getCategories() {
     if (!!this.categoryCache) {
       return of(this.categoryCache);
@@ -79,7 +147,12 @@ export class YoutubeDataService {
           headers: {
             'Authorization': `Bearer ${access_token}`
           }
-        });
+        }).pipe(
+          catchError(err => {
+            this._error.next(err.message);
+            return of({ items: [] });
+          })
+        );
       }),
       map(({ items }) => (items || []).map(({ id, snippet: { title }}) => ({ id, title }))),
       tap(categories => {
