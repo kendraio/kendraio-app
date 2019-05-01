@@ -1,13 +1,8 @@
 <mat-card>
   <h3>Profile data</h3>
-  <form [formGroup]="form">
-    <mat-form-field class="full-width-field">
-      <input autocomplete="off" formControlName="ipi"
-             matInput
-             placeholder="IPI">
-    </mat-form-field>
-    <button mat-flat-button color="primary" (click)="saveProfile()">Save</button>
-  </form>
+  <app-dynamic-form-repo [formGroup]="form"
+                         formName="assets/forms/userProfile.yaml"></app-dynamic-form-repo>
+  <button mat-flat-button color="primary" (click)="saveProfile()">Save</button>
 </mat-card>
 
 <mat-card *ngIf="isAuthenticated; else notLoggedIn">

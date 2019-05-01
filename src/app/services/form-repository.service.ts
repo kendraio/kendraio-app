@@ -22,7 +22,11 @@ export class FormRepositoryService {
     if (!schema || !schema['forms']) {
       return from([]);
     }
-    return this.http.get(schema.forms[formName], {responseType: 'text'}).pipe(
+    return this.getForm(schema.forms[formName]);
+  }
+
+  getForm(formName) {
+    return this.http.get(formName, {responseType: 'text'}).pipe(
       map(text => YamlLoad(text)),
       // tap(text => console.log({ text })),
       map(config => this.formService.fromJSON(config)),
