@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PageTitleService } from '../../services/page-title.service';
 import { AuthService } from '../../services/auth.service';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-user-page',
@@ -11,16 +12,22 @@ export class UserPageComponent implements OnInit {
 
   profile: any;
 
+  form: FormGroup;
+
   get isAuthenticated() {
     return this.auth.isAuthenticated();
   }
 
   constructor(
     private readonly pageTitle: PageTitleService,
-    private readonly auth: AuthService
+    private readonly auth: AuthService,
+    private readonly fb: FormBuilder
   ) { }
 
   ngOnInit() {
+    this.form = this.fb.group({
+      ipi: ['']
+    });
     this.pageTitle.setTitle('User settings');
     if (this.auth.userProfile) {
       this.profile = this.auth.userProfile;
@@ -34,6 +41,10 @@ export class UserPageComponent implements OnInit {
         this.profile = {};
       }
     }
+    const profile = JSON.parse(localStorage.getItem('kendraio-user-profile'));
+    if (!!profile) {
+      this.form.patchValue(profile);
+    }
   }
 
   linkAccount() {
@@ -46,5 +57,9 @@ export class UserPageComponent implements OnInit {
 
   onLogout() {
     this.auth.logout();
+  }
+
+  saveProfile() {
+    localStorage.setItem('kendraio-user-profile', JSON.stringify(this.form.getRawValue()));
   }
 }
