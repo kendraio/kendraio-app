@@ -67,14 +67,14 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
     // const confirmPasswordCtrl = fb.control({ value: '', disabled: true}, [Validators.required]);
    
     this.loginForm = this.fb.group({
-      currentPassword: '', //currentPasswordCtrl,
-      password: ['', [
+      currentPassword: 'Whollop-99', //currentPasswordCtrl,
+      password: ['Whollop99', [
         Validators.required,
          PasswordStrength.strong,
         // Validators.pattern(this.passwordPattern)
       ]],
-      confirmPassword: [{ value: '', disabled: true}, [Validators.required]],
-      username: ''
+      confirmPassword: [{ value: 'Whollop99', disabled: true}, [Validators.required]],
+      username: 'testUserName'
     }, 
     {
         validator: PasswordValidation.MatchPassword

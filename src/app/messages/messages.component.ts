@@ -16,7 +16,7 @@ export class MessagesComponent {
     public messageService: MessageService,
     private router: Router) {
 
-      this.messageService.closeMe(0)
+     // this.messageService.closeMe(0)
 
      }
 

@@ -15,6 +15,7 @@ export class MessageService {
 
   addMessage(message: Message): void {
  //   alert(message.msgObj[0].text);
+//  this.messages.unshift(message);
     const objectModifiedIndex = this.messages.findIndex(objectModified => objectModified.msgObj === message.msgObj);
     const currentDate = new Date();
 

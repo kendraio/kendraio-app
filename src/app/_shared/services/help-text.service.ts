@@ -40,28 +40,42 @@ export class HelpTextService {
 
 
   getItemHelpText(pageRef: string, itemRef: string): any {
-    this.getHelpText().subscribe((res: any[]) => {
-      this.pageHelp = res.filter(page => page.section === pageRef);
-      from(this.pageHelp).subscribe((items: any) => {
-        // this.itemHelp = items.items.filter(section => section.ref === itemRef);
+    let helpText: string;
+    this.translate.get(itemRef).subscribe((str) => {
+      helpText =  str;
+      // return boo;
+      this.itemHelp = {
+        ref: '',
+        text: helpText
+      };
 
-         let helpText: string;
 
-        this.translate.get(itemRef).subscribe((str) => {
-          helpText =  str;
-          // return boo;
-        });
-       
-        this.itemHelp = {
-          ref: '',
-          text: helpText
-        };
-
-        // this.itemHelp = this.translate.get('works.intro');
-        this.askHelpHandler(this.itemHelp, 'css', 0);
-      });
 
     });
+
+    this.askHelpHandler(this.itemHelp, 'css', 0);
+    // this.getHelpText().subscribe((res: any[]) => {
+    //   this.pageHelp = res.filter(page => page.section === pageRef);
+    //   from(this.pageHelp).subscribe((items: any) => {
+    //     // this.itemHelp = items.items.filter(section => section.ref === itemRef);
+
+    //     //  let helpText: string;
+
+    //     this.translate.get(itemRef).subscribe((str) => {
+    //       helpText =  str;
+    //       // return boo;
+    //     });
+       
+    //     this.itemHelp = {
+    //       ref: '',
+    //       text: helpText
+    //     };
+
+    //     // this.itemHelp = this.translate.get('works.intro');
+    //     this.askHelpHandler(this.itemHelp, 'css', 0);
+    //   });
+
+    // });
   }
 
 
@@ -98,14 +112,13 @@ export class HelpTextService {
 
 
   askHelpHandler(msgObj: any, css: string, timer?: number) {
-    // OBSELETE
-    this.router.navigate([{ outlets: { popup: ['messages'] } }]);
     // this.messageService.isDisplayed = true;
     this.messageService.addMessage({
       msgObj: msgObj,
       cssClass: css,
       timer: timer
     });
+    this.router.navigate([{ outlets: { popup: ['messages'] } }]);
   }
 
 

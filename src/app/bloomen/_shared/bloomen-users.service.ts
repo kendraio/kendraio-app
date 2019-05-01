@@ -20,10 +20,7 @@ export class BloomenUsersService {
   // }
 
 
-
-
   create(bloomenUser: any): any {
-
     bloomenUser = this.userMapper(bloomenUser)
     localStorage.setItem('currentuser', JSON.stringify(bloomenUser));
     //  return this.http.post<IUser>(`${environment.appApi.baseUrl}/accounts/register`, contact)
@@ -36,7 +33,7 @@ export class BloomenUsersService {
       'username': user.logonDetails.username,
       'password': user.logonDetails.password,
       'email': user.accountDetails.email,
-      'invitation': 'invitationString'
+      'invitation': 'tim@test.com'
     };
 
     return mappedUser;

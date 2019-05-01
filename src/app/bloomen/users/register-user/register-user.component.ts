@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { BloomenUsersService } from '../../_shared/bloomen-users.service';
+import { HelpTextService } from 'src/app/_shared/services/help-text.service';
+import { helpers } from 'chart.js';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-user',
@@ -10,10 +13,13 @@ import { BloomenUsersService } from '../../_shared/bloomen-users.service';
 export class RegisterUserComponent implements OnInit {
   childFormIsVaild: boolean;
   registerUser: FormGroup;
+  isLoading: boolean;
 
   constructor(
     private fb: FormBuilder,
-    private userService: BloomenUsersService
+    private userService: BloomenUsersService,
+    private help: HelpTextService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -47,27 +53,43 @@ export class RegisterUserComponent implements OnInit {
     });
   }
 
-
   submit() {
-    this.userService.create(this.registerUser.value)
-      .subscribe(val => {
-        this.handleResponse(val);
-      },
-        error => {
-          console.log(error.error.error);
-          alert(error.error.error);
-          // this.isValid = false;
-          // this.showForm = true
-          // this.msgHeader = 'Oops a Daisy! ' + this.handleError(error.error.errorMessage) + ' Please check and try again';
-        });
+    this.isLoading = true;
+    this.handleResponse('val');
+    // this.userService.create(this.registerUser.value)
+    //   .subscribe(val => {
+    //     this.handleResponse(val);
+    //   },
+    //     error => {
+    //    //   console.log(error.error.error);
+    //   //    alert(error.error.error);
+    //       // this.isValid = false;
+    //       // this.showForm = true
+    //       this.help.askHelp('', 'bloomen.registerFail' );
+    //    //    this.msgHeader = 'Oops a Daisy! ' + this.handleError(error.error.errorMessage) + ' Please check and try again';
+    //     });
 
   }
 
   handleResponse(str: string) {
-    // this.isValid = true;
-    // this.msgHeader = 'Your Password has been re-set!'
-    // this.showForm = false;
-    // this.formStatus = 'complete'
+
+    setTimeout(() => {
+      this.help.askHelp('', 'bloomen.registerSuccess');
+      this.isLoading = false;  
+
+      this.router.navigate([{outlets: {primary: 'bloomen/users' , popup: ['messages']}}]);
+
+      // this.name.setErrors({ invalid: true, valid: false, badword: true })
+   // this[form].setErrors({ invalid: false});
+    }, 3000);
+
+  //   setTimeout(() => {
+   //  this.router.navigate(['bloomen/users', { outlets: { popup: ['messages']} }]);
+  //   }, 5000);
+  //   setTimeout(() => {
+  //   //  this.router.navigate([{ outlets: { popup: null } }]);
+  //   }, 7000);
+
   }
 
 

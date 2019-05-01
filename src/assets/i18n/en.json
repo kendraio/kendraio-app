@@ -41,5 +41,11 @@
 		"intro": "This is page allows you to manage your Works",
 		"registerNew": "Register New Work",
 		"title": "Works"
+	},
+	"bloomen": {
+		"intro": "This is page allows you to manage your Users",
+		"registerSuccess": "Your User has been sucessfully Registered",
+		"registerFail": "User Registration Failed!",
+		"title": "Bloomen"
 	}
 }

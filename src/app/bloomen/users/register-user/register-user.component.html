@@ -2,6 +2,9 @@
   <h2>Register New User</h2>
 </div>
 
+<mat-progress-bar *ngIf="isLoading" mode="buffer"></mat-progress-bar>
+
+
 <form [formGroup]="registerUser" autocomplete="off">
   <mat-card class="mb-3">
     <mat-card-header>

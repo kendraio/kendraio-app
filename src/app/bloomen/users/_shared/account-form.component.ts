@@ -104,17 +104,17 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   createForm() {
-    this.email = new FormControl('', [Validators.required, Validators.email]);
+    this.email = new FormControl('test@test.com', [Validators.required, Validators.email]);
     // this.email = this._fb.control('', [
     //   Validators.required,
     //   Validators.minLength(9),
     //   Validators.pattern(this.EMAIL_REGEXP)
     // ]);
-    this.lastname = this._fb.control('', [
+    this.lastname = this._fb.control('lastName', [
       Validators.required,
       Validators.minLength(3)
     ]);
-    this.telephone = this._fb.control('', [
+    this.telephone = this._fb.control('999-999-999', [
       Validators.required,
       Validators.minLength(3)
     ]);
@@ -123,7 +123,7 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
       // bloomenRef: this.now,
       // contactDetails: this._fb.group({
         // <-- the child FormGroup
-        firstname: ['', [Validators.required, Validators.minLength(2)]],
+        firstname: ['firstName', [Validators.required, Validators.minLength(2)]],
         lastname: this.lastname,
         email: this.email,
         telephone: this.telephone,
