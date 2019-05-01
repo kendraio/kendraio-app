@@ -1,0 +1,4 @@
+- type: INPUT
+  id: ipi
+  label: IPI
+  placeholder: IPI
