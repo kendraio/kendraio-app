@@ -16,6 +16,16 @@ const routes: Routes = [
   
         }
       },
+      {
+        path: 'list',
+        component: ListComponent,
+        data: {
+          pageTitle: {'de': 'Dateien' , 'fr': '', 'en-US': 'List User'},
+          breadcrumb: {'de': 'Dateien' , 'fr': '', 'en-US': 'list.title'},
+          menuLabel: 'List'
+  
+        }
+      },
 
       {
         path: 'register',
