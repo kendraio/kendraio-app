@@ -2,3 +2,7 @@
   id: ipi
   label: IPI
   placeholder: IPI
+- type: INPUT
+  id: fullName
+  label: Full name
+  placeholder: Full name

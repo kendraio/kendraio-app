@@ -2,7 +2,7 @@
   <h3>Profile data</h3>
   <app-dynamic-form-repo [formGroup]="form"
                          formName="assets/forms/userProfile.yaml"></app-dynamic-form-repo>
-  <button mat-flat-button color="primary" (click)="saveProfile()">Save</button>
+  <button mat-flat-button [color]="form.touched ? 'primary' : undefined" (click)="saveProfile()">Save</button>
 </mat-card>
 
 <mat-card *ngIf="isAuthenticated; else notLoggedIn">

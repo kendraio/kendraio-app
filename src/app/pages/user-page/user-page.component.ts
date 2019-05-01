@@ -26,7 +26,8 @@ export class UserPageComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      ipi: ['']
+      ipi: [''],
+      fullName: ['']
     });
     this.pageTitle.setTitle('User settings');
     if (this.auth.userProfile) {
