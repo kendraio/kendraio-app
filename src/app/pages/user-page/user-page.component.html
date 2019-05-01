@@ -1,4 +1,13 @@
-<div *ngIf="isAuthenticated; else notLoggedIn">
+<mat-card>
+  <h3>Profile data</h3>
+  <app-dynamic-form-repo [formGroup]="form"
+                         formName="assets/forms/userProfile.yaml"></app-dynamic-form-repo>
+  <button mat-flat-button [color]="form.touched ? 'primary' : undefined" (click)="saveProfile()">Save</button>
+</mat-card>
+
+<mat-card *ngIf="isAuthenticated; else notLoggedIn">
+  <h3>Identities</h3>
+
   <p>You are logged in as <em>{{ profile?.nickname }}</em></p>
 
   <br>
@@ -21,15 +30,18 @@
       </ng-container>
     </li>
   </ul>
-  <!--<pre>{{ profile | json }}</pre>-->
-  <button mat-raised-button (click)="onLogout()">Logout</button>
+  <pre appDebugOnly>{{ profile | json }}</pre>
+  <button mat-flat-button color="primary" (click)="onLogout()">Logout</button>
 
   <br><br>
-  <button mat-raised-button (click)="linkAccount()">Link Account</button>
-</div>
+  <button mat-flat-button color="primary" (click)="linkAccount()">Link Account</button>
+</mat-card>
 
 <ng-template #notLoggedIn>
-  <p>No profiles are saved on this device
-  </p>
-  <button mat-raised-button (click)="onLogin()">Login</button>
+  <mat-card>
+    <p>No profiles are saved on this device. You can connect multiple profiles by
+      logging in using different authentication providers.
+    </p>
+    <button mat-flat-button color="primary" (click)="onLogin()">Login</button>
+  </mat-card>
 </ng-template>
