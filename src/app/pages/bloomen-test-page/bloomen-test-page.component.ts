@@ -68,7 +68,7 @@ export class BloomenTestPageComponent implements OnInit {
     }).pipe(tap(console.log))
       .subscribe(photos => {
         if (photos) {
-          const type = 'BloomenPhoto';
+          const type = 'bloomen_Photo';
           const records = photos.map(photo => {
             return {
               ...omit(photo, ['__v', '_id']),

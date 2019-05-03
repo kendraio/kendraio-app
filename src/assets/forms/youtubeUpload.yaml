@@ -1,0 +1,8 @@
+- type: INPUT
+  id: title
+  label: Title
+  placeholder: Title
+- type: INPUT
+  id: description
+  label: Description
+  placeholder: Description

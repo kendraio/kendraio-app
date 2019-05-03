@@ -102,6 +102,7 @@ import { YoutubePageComponent } from './pages/youtube-page/youtube-page.componen
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { YoutubeUploadComponent } from './components/youtube-upload/youtube-upload.component';
+import { DynamicFormRepoComponent } from './components/dynamic-form-repo/dynamic-form-repo.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -159,7 +160,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     DynamicDebugControlComponent,
     DebugOnlyDirective,
     YoutubePageComponent,
-    YoutubeUploadComponent
+    YoutubeUploadComponent,
+    DynamicFormRepoComponent
     // BreadcrumbComponent
     // ReportsComponent,
     // ContactsComponent
