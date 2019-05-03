@@ -10,14 +10,14 @@
       <mat-form-field appearance="standard">
         <mat-label>First Names</mat-label>
         <input matInput placeholder="Enter First Names" formControlName="firstname">
-
+        <mat-error *ngIf="firstname.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
 
 
 
       <mat-form-field appearance="standard">
         <mat-label>Last Name</mat-label>
-        <input matInput placeholder="Enter Last Name" [formControl]="lastname">
+        <input matInput placeholder="Enter Last Name" [formControl]="lastname" >
         <mat-error *ngIf="lastname.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
     </section>
@@ -45,7 +45,7 @@
 
     </section>
 
-    <!-- | {{ userForm.value | json }} -->
+    | {{ userForm.valid | json }}
 
   </section>
 

@@ -12,8 +12,7 @@ const routes: Routes = [
         data: {
           pageTitle: {'de': 'Dateien' , 'fr': '', 'en-US': 'List User'},
           breadcrumb: {'de': 'Dateien' , 'fr': '', 'en-US': 'list.title'},
-          menuLabel: 'List'
-  
+          menuLabel: 'List'  
         }
       },
       {
@@ -22,8 +21,7 @@ const routes: Routes = [
         data: {
           pageTitle: {'de': 'Dateien' , 'fr': '', 'en-US': 'List User'},
           breadcrumb: {'de': 'Dateien' , 'fr': '', 'en-US': 'list.title'},
-          menuLabel: 'List'
-  
+          menuLabel: 'List'  
         }
       },
 

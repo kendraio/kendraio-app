@@ -1,23 +1,15 @@
 
 import {distinctUntilChanged,  map, filter, tap, debounceTime } from 'rxjs/operators';
-// import { AppState, IUser, PageStatus } from '../../_shared/interfaces';
 // import { UserService } from '../../_shared/services';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl, } from '@angular/forms';
 import { Component, HostBinding, OnChanges, OnDestroy, OnInit, SimpleChanges, Input, Output, EventEmitter } from '@angular/core';
-
 // import { AnimationService } from '../../_shared/animations/animation.service';
-// import { routeAnimation } from '../../_shared/animations/routeAnimations';
-
-import { Store } from '@ngrx/store';
-
-
 import { IUser } from 'src/app/_models/classes';
 import { PasswordValidation, PasswordStrength } from 'src/app/_shared/directives/passwordValidation';
 import { Subscription } from 'rxjs';
 
 @Component({
-  // animations: [routeAnimation],
   selector: 'app-account-login-form',
   templateUrl: './account-login-form.component.html'
 })
@@ -31,10 +23,8 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
   data: any;
   @Output()
   formData: EventEmitter<Object> = new EventEmitter<Object>();
-  // @HostBinding('@routing') routing
   @HostBinding('style.display') display = 'block';
 
-  // _animationServiceEventsSubscription: any;
   subTitle: string;
   user: IUser;
   isLoading: boolean;
@@ -54,17 +44,13 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
-    // private _userService: UserService,
-    // private _animationService: AnimationService,
-    // private _store: Store<AppState>,
+
   ) {
     // this.passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!+_#\-&$£*])(?=.*[0-9])$/g
   }
 
   ngOnInit() {
-  //  const currentPasswordCtrl = this.fb.control('', [Validators.required, Validators.minLength(8)]);
-    // const password = fb.control('', [Validators.required, Validators.minLength(8), Validators.pattern(this.passwordPattern)]);
-    // const confirmPasswordCtrl = fb.control({ value: '', disabled: true}, [Validators.required]);
+
    
     this.loginForm = this.fb.group({
       currentPassword: 'Whollop-99', //currentPasswordCtrl,
@@ -74,16 +60,11 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
         // Validators.pattern(this.passwordPattern)
       ]],
       confirmPassword: [{ value: 'Whollop99', disabled: true}, [Validators.required]],
-      username: 'testUserName'
+      username: [{ value: 'Whollop99'}, [Validators.required, Validators.minLength(4)]]
     }, 
     {
         validator: PasswordValidation.MatchPassword
       });
-
-    // this.routing = this._animationService.animationDirection();
-    // this._animationServiceEventsSubscription = this._animationService.emitCurrentDirection.subscribe((direction: any) => {
-    //   this.routing = direction;
-    // });
 
     this.currentPasswordCtrl = (<any>this.loginForm).controls.currentPassword;
     this.passwordCtrl = (<any>this.loginForm).controls.password;
@@ -123,7 +104,7 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
     return this.loginForm.get('confirmPassword');
   }
   ngOnDestroy() {
-    //   this.userFormChanges.unsubscribe()
+    //   this.userFormChanges.unsubscribe() //TODO!!!
   }
 
   toggleShowPassword(): void {

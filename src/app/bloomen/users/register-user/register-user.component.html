@@ -32,11 +32,11 @@
     </mat-card-content>
   </mat-card>
   <button mat-flat-button color="primary" (click)="submit()" 
-  [disabled]="accountDetails.invalid || logonDetails.invalid">Submit</button>
+  [disabled]="!allFormsVaild">Submit</button>
 </form>
 
-<!-- {{childFormIsVaild}}===
-
+{{allFormsVaild}}===!!
+<!-- 
 {{accountDetails.invalid}} || {{logonDetails.invalid}} -->
 
 <!-- 

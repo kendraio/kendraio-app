@@ -11,7 +11,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./register-user.component.scss']
 })
 export class RegisterUserComponent implements OnInit {
-  childFormIsVaild: boolean;
+  regFormIsVaild = false;
+  logonFormIsVaild = false;
+  allFormsVaild = false;
   registerUser: FormGroup;
   isLoading: boolean;
 
@@ -34,23 +36,39 @@ export class RegisterUserComponent implements OnInit {
   }
   createForm() {
     this.registerUser = this.fb.group({
-      accountDetails: ['', Validators.required],
-      logonDetails: ['', Validators.required]
+      accountDetails: [''],
+      logonDetails: ['']
     });
   }
 
   eventHandler(event: any, form: string) {
-    this.childFormIsVaild = event.valid;
-    setTimeout(() => {
 
-      if (event.valid) {
-        this[form].patchValue(event.value);
-        
-      }
-      // this.name.setErrors({ invalid: true, valid: false, badword: true })
-   // this[form].setErrors({ invalid: false});
-      console.log(this.registerUser.valid);
-    });
+    switch (form) {
+      case 'accountDetails':
+      this.regFormIsVaild = event.valid && event.dirty;
+        break;
+
+      case 'logonDetails':
+      this.logonFormIsVaild = event.valid && event.dirty;
+      console.log(event);
+        break;
+
+      default:
+        break;
+    }
+
+this.allFormsVaild = this.logonFormIsVaild && this.regFormIsVaild;
+    // setTimeout(() => {
+
+    // if (event.valid) {
+    //   this[form].patchValue(event.value);        
+    // }
+    // this.name.setErrors({ invalid: true, valid: false, badword: true })
+    // this[form].setErrors({ invalid: false});
+    console.log(this.accountDetails.valid);
+    console.log(this.logonDetails.valid);
+    console.log(event);
+    // });
   }
 
   submit() {
@@ -75,20 +93,20 @@ export class RegisterUserComponent implements OnInit {
 
     setTimeout(() => {
       this.help.askHelp('', 'bloomen.registerSuccess');
-      this.isLoading = false;  
+      this.isLoading = false;
 
-      this.router.navigate([{outlets: {primary: 'bloomen/users' , popup: ['messages']}}]);
+      this.router.navigate([{ outlets: { primary: 'bloomen/users', popup: ['messages'] } }]);
 
       // this.name.setErrors({ invalid: true, valid: false, badword: true })
-   // this[form].setErrors({ invalid: false});
+      // this[form].setErrors({ invalid: false});
     }, 3000);
 
-  //   setTimeout(() => {
-   //  this.router.navigate(['bloomen/users', { outlets: { popup: ['messages']} }]);
-  //   }, 5000);
-  //   setTimeout(() => {
-  //   //  this.router.navigate([{ outlets: { popup: null } }]);
-  //   }, 7000);
+    //   setTimeout(() => {
+    //  this.router.navigate(['bloomen/users', { outlets: { popup: ['messages']} }]);
+    //   }, 5000);
+    //   setTimeout(() => {
+    //   //  this.router.navigate([{ outlets: { popup: null } }]);
+    //   }, 7000);
 
   }
 

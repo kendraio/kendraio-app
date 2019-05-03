@@ -1,6 +1,4 @@
 import { distinctUntilChanged, debounceTime, map, filter, tap } from 'rxjs/operators';
-
-// import { UserService } from '../../_shared/services';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import {
@@ -17,21 +15,12 @@ import {
 } from '@angular/core';
 
 // import { AnimationService } from '../../_shared/animations/animation.service';
-// import { routeAnimation } from '../../_shared/animations/routeAnimations';
-
-import { Store } from '@ngrx/store';
-
 import { Observable, of, Subscription } from 'rxjs';
 import { ValidationService } from 'src/app/_shared/services/validation.service';
 import { IUser } from 'src/app/_models/classes';
 
-
 // import { environment } from 'environments/environment';
-
-// import { Country } from '../../_shared/country-lookup/country-lookup.component';
-
 @Component({
-  // animations: [routeAnimation],
   selector: 'app-account-form',
   templateUrl: './account-form.component.html'
 })
@@ -56,7 +45,6 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
   emailChanges$: Observable<string>;
 
   email: FormControl;
-  // _animationServiceEventsSubscription: any;
   plantGroup: string;
   subTitle: string;
   showNamer = false;
@@ -70,17 +58,13 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
   msg: any = '';
   errorMessage: string;
   originalEmail: string;
-  // isUK: boolean;
-  // countrySelected: boolean;
-  // addressSelected = false;
-  // editAddress = this.mode === 'edit';
-  // myCountry: Country = new Country('', '', '');
   // EMAIL_REGEXP = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
   EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   TEL_REGEX = /^[\d\s]+$/i;
 
   now: string;
+  firstname: FormControl;
   lastname: FormControl;
   telephone: FormControl;
   sub: Subscription;
@@ -89,8 +73,6 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
     private route: ActivatedRoute,
     private router: Router,
     private _fb: FormBuilder,
-    // private _userService: UserService,
-    // private _animationService: AnimationService,
     private validationService: ValidationService
   ) {
      this.createForm();
@@ -105,38 +87,24 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
 
   createForm() {
     this.email = new FormControl('test@test.com', [Validators.required, Validators.email]);
-    // this.email = this._fb.control('', [
-    //   Validators.required,
-    //   Validators.minLength(9),
-    //   Validators.pattern(this.EMAIL_REGEXP)
-    // ]);
+    this.firstname = this._fb.control('', [
+      Validators.required,
+      Validators.minLength(2)
+    ]);
     this.lastname = this._fb.control('lastName', [
       Validators.required,
-      Validators.minLength(3)
+      Validators.minLength(2)
     ]);
     this.telephone = this._fb.control('999-999-999', [
       Validators.required,
-      Validators.minLength(3)
+      Validators.minLength(8)
     ]);
     this.userForm = this._fb.group({
-      // iAccept: [false, [Validators.required]],
       // bloomenRef: this.now,
-      // contactDetails: this._fb.group({
-        // <-- the child FormGroup
-        firstname: ['firstName', [Validators.required, Validators.minLength(2)]],
+        firstname: this.firstname,
         lastname: this.lastname,
         email: this.email,
         telephone: this.telephone,
-      // }),
-      // address: this._fb.group({
-      //   // <-- the child FormGroup
-      //   addressLine1: ['', Validators.required],
-      //   addressLine2: '',
-      //   townCity: ['', Validators.required],
-      //   countyState: '',
-      //   country: ['', Validators.required],
-      //   postCode: ''
-      // })
     });
   }
   get address(): any {
@@ -152,13 +120,6 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
     // this.currentUser$ = this.currentUser;
     this.subTitle = this.route.snapshot.data['subTitle'];
     this.crumb = this.route.snapshot.data['crumbs'];
-    // this.routing = this._animationService.animationDirection();
-    // this._animationServiceEventsSubscription = this._animationService.emitCurrentDirection.subscribe(
-    //   (direction: any) => {
-    //     this.routing = direction;
-    //   }
-    // );
-
     this.emailSub = this.emailChanges$
       .pipe(
         distinctUntilChanged(),
@@ -197,38 +158,7 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges() {
-    // if (this.currentUser) {
-    //   this.isUK = this.currentUser.address.country === 'GB';
-    //   this.myCountry.code = this.currentUser.address.country;
-    //   if (!this.originalEmail) {
-    //     this.originalEmail = this.currentUser.contactDetails.email;
-    //   }
-    //   this.emailSub.unsubscribe();
-    //   this.userForm.patchValue(this.currentUser);
-    //   this.emailSub = this.emailChanges$
-    //     .pipe(
-    //       distinctUntilChanged(),
-    //       debounceTime(500),
-    //       tap(() => {
-    //         this.isUnique = false;
-    //         this.email.setValidators([
-    //           Validators.required,
-    //           Validators.minLength(8),
-    //           Validators.pattern(this.EMAIL_REGEXP)
-    //         ]);
-    //         this.email.updateValueAndValidity();
-    //         this.isLoading = true;
-    //         this.msg = null;
-    //       })
-    //     )
-    //     //    .debounceTime(400)
-    //     .subscribe(val => {
-    //       if (this.originalEmail !== this.email.value) {
-    //         this.checkEmailName(this.email.value);
-    //       }
-    //       this.isLoading = false;
-    //     });
-    // }
+console.log('ive changed')
   }
 
   // checkEmailName(val: string): void {
@@ -258,18 +188,6 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
   }
   onEmailChange() {}
 
-  getAddress(event): void {
-    // this.addressSelected = true;
-    // this.address.patchValue(event);
-  }
-
-  getCountry(event): void {
-    // this.addressSelected = false;
-    // this.countrySelected = event;
-    // this.isUK = event === 'GB';
-    // this.address.controls.country.patchValue(event);
-  }
-
   submit() {
     if (this.userForm.valid) {
       this.onSubmit.emit(this.userForm.value);
@@ -277,31 +195,18 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-  // selectCountry() {
-  //   this.addressSelected = false
-  //   this.countrySelected = (this.address.value.country)
-  //   this.isUK = (this.address.value.country === 'RHS');
-  // }
-
   prepareSaveUser(): IUser {
     const formModel = this.userForm.value;
     const saveUser: IUser = {
       id: '',
       fName: '',
       lName: ''
-      // contactDetails: {
-      //   firstname: formModel.contactDetails.firstName,
-      //   lastname: formModel.contactDetails.lastName,
-      //   email: formModel.contactDetails.email,
-      //   telephone: formModel.contactDetails.telephone
-      // },
-      // address: formModel.address
     };
     return saveUser;
   }
 
   ngOnDestroy() {
-    // this.userFormChanges.unsubscribe()
+    // this.userFormChanges.unsubscribe() // TODO!!
     this.emailSub.unsubscribe();
   }
 
