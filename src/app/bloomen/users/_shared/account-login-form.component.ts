@@ -8,6 +8,8 @@ import { Component, HostBinding, OnChanges, OnDestroy, OnInit, SimpleChanges, In
 import { IUser } from 'src/app/_models/classes';
 import { PasswordValidation, PasswordStrength } from 'src/app/_shared/directives/passwordValidation';
 import { Subscription } from 'rxjs';
+import { DynamicFormModel, DynamicFormLayout, DynamicFormService } from '@ng-dynamic-forms/core';
+import { LOGIN_FORM_MODEL } from '../../_shared/form-models/login-form.modal';
 
 @Component({
   selector: 'app-account-login-form',
@@ -40,18 +42,22 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
   private userFormChanges: any;
   sub: Subscription;
 
+  formGroupNew: FormGroup;
+  // formLayout: DynamicFormLayout = FORM_LAYOUT;
+
+  formModel: DynamicFormModel = LOGIN_FORM_MODEL;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
-
+    private formService: DynamicFormService
   ) {
     // this.passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!+_#\-&$£*])(?=.*[0-9])$/g
   }
+  
 
-  ngOnInit() {
-
-   
+  ngOnInit() {   
     this.loginForm = this.fb.group({
       currentPassword: 'Whollop-99', //currentPasswordCtrl,
       password: ['Whollop99', [
@@ -95,6 +101,8 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
         this.formData.emit(this.loginForm);
 
       });
+
+      this.formGroupNew = this.formService.createFormGroup(this.formModel);
 
   }
   get password() {

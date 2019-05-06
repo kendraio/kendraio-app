@@ -58,6 +58,26 @@ export const MENUITEMS: MenuItem[] = [
     icon: 'live_tv',   
     path: '/channels',
     children: [
+      {
+        path: '/bloomen',
+        label: {'de': 'Bloomen' , 'fr': '', 'en-US': 'Bloomen'},
+        icon: 'brightness_5',
+        children: [
+          {
+            label: {'de': 'Menschen' , 'fr': '', 'en-US': 'Users'},
+            icon: 'people', 
+            path: 'bloomen/users',
+         
+          children: [
+            {
+              label: {'de': 'Menschen' , 'fr': '', 'en-US': 'register'},
+              icon: 'people', 
+              path: 'bloomen/users/register',
+            }
+          ]
+        }
+        ]
+      },
       {        
           path: '../youtube',
           label: {'de': 'Ansprüche' , 'fr': '', 'en-US': 'YouTube'},
@@ -72,26 +92,7 @@ export const MENUITEMS: MenuItem[] = [
   ]
 },
 
-  {
-    path: '/bloomen',
-    label: {'de': 'Bloomen' , 'fr': '', 'en-US': 'Bloomen'},
-    icon: 'brightness_5',
-    children: [
-      {
-        label: {'de': 'Menschen' , 'fr': '', 'en-US': 'Users'},
-        icon: 'people', 
-        path: 'bloomen/users',
-     
-      children: [
-        {
-          label: {'de': 'Menschen' , 'fr': '', 'en-US': 'register'},
-          icon: 'people', 
-          path: 'bloomen/users/register',
-        }
-      ]
-    }
-    ]
-  },
+
 
 
 
