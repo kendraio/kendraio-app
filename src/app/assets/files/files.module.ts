@@ -26,9 +26,9 @@ import { SharedModule } from 'src/app/_shared/shared.module';
     AppMaterialModule,
     AgGridModule.withComponents(
       []
-  ),
-  FlexLayoutModule,
-  SharedModule
+    ),
+    FlexLayoutModule,
+    SharedModule
   ],
   exports: [
     FilesComponent

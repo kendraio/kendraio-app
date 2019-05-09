@@ -1,7 +1,7 @@
 <!-- <pre> {{ data | json }}</pre>  -->
 
 
-<h1>Claim Sheet 1</h1>
+<h1>Claim Sheet</h1>
 Please be sure all info is correct before posting to your Claims Folder.
 
 <section *ngIf="!nextStep" mat-dialog-content >
@@ -30,7 +30,7 @@ Please be sure all info is correct before posting to your Claims Folder.
 
   </div>
 </section>
-  <div mat-dialog-actions>
+  <div mat-dialog-actions *ngIf="!nextStep">
     <button mat-button mat-dialog-close="cancel">Cancel</button>
     <button mat-button mat-raised-button (click)="nextClaimStep()">Send to my Claims Organiser</button>
   </div>
