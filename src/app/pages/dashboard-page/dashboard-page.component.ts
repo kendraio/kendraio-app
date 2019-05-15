@@ -24,7 +24,8 @@ export class DashboardPageComponent implements OnInit {
     public translate: TranslateService
     // private readonly navigator: Navigator,
     // private readonly database: DatabaseService
-  ) { 
+  ) {
+    this.pageTitle.setTitle('Dashboard');
     // translate.addLangs(['en', 'fr', 'de', 'pt', 'it', 'ru', 'ja', 'es']);
     // translate.setDefaultLang('en');
 
