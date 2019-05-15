@@ -5,13 +5,6 @@ export const MENUITEMS: MenuItem[] = [
     path: '/dashboard',
     label: {'de': 'Instrumententafel' , 'fr': '', 'en-US': 'dashboard' },
     icon: 'dashboard',
-    children: [
-      {
-        label: {'de': 'Prüfung' , 'fr': '', 'en-US': 'Test API'},
-        icon: 'contacts', 
-        path: 'test-api',
-      },
-    ]
   },
   {
     label: {'de': 'Vermögenswerte' , 'fr': '', 'en-US': 'assets'},
@@ -132,7 +125,19 @@ export const MENUITEMS: MenuItem[] = [
   {
     path: '/import',
     label: {'de': 'Einführen' , 'fr': '', 'en-US': 'Import'},
-    icon: 'import_export'
+    icon: 'import_export',
+    children: [
+      {
+        label: {'de': 'Prüfung' , 'fr': '', 'en-US': 'Test API'},
+        icon: 'import_export',
+        path: 'test-api',
+      },
+      {
+        label: {'de': 'Prüfung' , 'fr': '', 'en-US': 'Bloomen API'},
+        icon: 'import_export',
+        path: 'bloomen-api',
+      },
+    ]
   },
   {
     path: '/upload',
