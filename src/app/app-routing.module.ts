@@ -258,7 +258,7 @@ const routes: Routes = [
           menuLabel: 'Settings'
         }
       },
-       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+       { path: '', redirectTo: '/tasks', pathMatch: 'full' },
        { path: '**', redirectTo: './', pathMatch: 'full' },
   //  ]
  // }
