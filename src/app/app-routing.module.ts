@@ -268,7 +268,7 @@ const routes: Routes = [
         }
       },
        { path: '', redirectTo: '/tasks', pathMatch: 'full' },
-       { path: '**', redirectTo: './', pathMatch: 'full' },
+       { path: '**', redirectTo: '/tasks', pathMatch: 'full' },
   //  ]
  // }
 ];

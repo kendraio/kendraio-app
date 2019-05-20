@@ -5,13 +5,7 @@ export const MENUITEMS: MenuItem[] = [
     path: '/dashboard',
     label: 'dashboard' ,
     icon: 'dashboard',
-    children: [
-      {
-        label: 'Test API',
-        icon: 'contacts', 
-        path: 'test-api',
-      },
-    ]
+ 
   },
   {
     label: 'assets',
