@@ -177,17 +177,17 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppRoutingModule,
     BrowserAnimationsModule,
     AppMaterialModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
     StoreModule.forRoot({}),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([]),
     TranslateModule.forRoot({
       loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient]
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
       }
-  }),
+    }),
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
@@ -223,23 +223,23 @@ export function HttpLoaderFactory(http: HttpClient) {
       provide: APP_INITIALIZER,
       multi: true,
       useFactory: (schemaRepo: SchemaRepositoryService) => () => schemaRepo.init(),
-      deps: [ SchemaRepositoryService ]
+      deps: [SchemaRepositoryService]
     },
     {
       provide: APP_INITIALIZER,
       multi: true,
       useFactory: (docsRepo: DocumentRepositoryService) => () => docsRepo.init(),
-      deps: [ DocumentRepositoryService ]
+      deps: [DocumentRepositoryService]
     },
     {
       provide: APP_INITIALIZER,
       multi: true,
       useFactory: (settings: AppSettingsService) => () => settings.init(),
-      deps: [ AppSettingsService ]
+      deps: [AppSettingsService]
     },
     {
       provide: DYNAMIC_FORM_CONTROL_MAP_FN,
-      useValue: (model: DynamicFormControlModel): Type<DynamicFormControl> | null  => {
+      useValue: (model: DynamicFormControlModel): Type<DynamicFormControl> | null => {
         switch (model.type) {
           case AUDIO_FILE_DYNAMIC_FORM_CONTROL_TYPE:
             return DynamicAudioInputControlComponent;
@@ -258,6 +258,9 @@ export function HttpLoaderFactory(http: HttpClient) {
       provide: DynamicFormService,
       useClass: CustomFormService
     }
+  ],
+  exports: [
+    DebugOnlyDirective
   ],
   bootstrap: [AppComponent]
 })
