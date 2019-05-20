@@ -1,8 +1,8 @@
 
-import { NgModule } from '@angular/core';
+import { NgModule, Type } from '@angular/core';
 import { CommonModule, LowerCasePipe, DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, FormControl, FormGroup, ReactiveFormsModule, NG_VALIDATORS, NG_ASYNC_VALIDATORS, Validator } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {
   MatCardModule,
@@ -29,12 +29,26 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
 import { HelpTextService } from './services/help-text.service';
 import { HelpTextBtnDirective } from './directives/help-text-btn.directive';
 import { TranslateModule } from '@ngx-translate/core';
+import { PasswordStrength, PasswordStrength2, matchPasswords } from './directives/passwordValidation';
+import { DYNAMIC_VALIDATORS, ValidatorFactory, DYNAMIC_FORM_CONTROL_MAP_FN, DynamicFormControlModel, DynamicFormControl, 
+  DynamicInputControlModel, 
+  DynamicInputModel, 
+  DynamicSelectModel} from '@ng-dynamic-forms/core';
+import { PasswordInputComponent } from './form-controls/password-input/password-input.component';
+import { DynamicPasswordInputComponent } from './form-controls/password-input/dynamic/dynamic-password-input/dynamic-password-input.component';
+import { DEBUG_DYNAMIC_FORM_CONTROL_TYPE } from '../form-controls/debug-form-model';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyMaterialModule } from '@ngx-formly/material';
+import { AccountLoginFormComponent } from '../bloomen/users/_shared';
 // import { BaseComponent } from './base/base.component';
 // import { MenuComponent } from './components/menu/menu.component';
 // import { MenuItemComponent } from './components/menu/menu-item.component';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { ClaimsEditSendComponent } from '../claims/claims-edit-send/claims-edit-send.component';
 
+export function minlengthValidationMessage(err, field) {
+  return `Should have at least ${field.templateOptions.minLength} characters`;
+}
 
 @NgModule({
   imports: [
@@ -70,6 +84,13 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     ReactiveFormsModule,
     // BrowserAnimationsModule
+    // FormlyMaterialModule,
+    // FormlyModule.forRoot({
+    //   validationMessages: [
+    //     { name: 'required', message: 'This field is required' },
+    //     { name: 'minlength', message: minlengthValidationMessage },
+    //   ],
+    // }),
   ],
   declarations: [
     matComponents.MatInputComponent,
@@ -78,6 +99,9 @@ import { TranslateModule } from '@ngx-translate/core';
     ClaimsEditComponent,
     BreadcrumbComponent,
     HelpTextBtnDirective,
+    PasswordInputComponent,
+    DynamicPasswordInputComponent,
+    // AccountLoginFormComponent
     // BaseComponent,
     // MenuComponent,
     // MenuItemComponent,
@@ -104,11 +128,35 @@ TranslateModule
   providers: [
     DatePipe,
     LowerCasePipe,
-    HelpTextService
+    HelpTextService,
+    {provide: NG_VALIDATORS , useValue: PasswordStrength2, multi: true},
+    {provide: NG_VALIDATORS , useValue: matchPasswords, multi: true},
+
+    {
+      provide: DYNAMIC_FORM_CONTROL_MAP_FN,
+      useValue: (model: DynamicFormControlModel): Type<DynamicFormControl> | null  => {
+  
+        switch (model.type) {
+  
+          case DynamicInputModel.toString():
+          return DynamicPasswordInputComponent;
+  
+          }
+       }
+    }
+
+
+  //   {
+  //     provide: DYNAMIC_VALIDATORS,
+  //     useValue: new Map<string, Validator | ValidatorFactory>([
+  //         ['myCustomValidator', myCustomValidator]
+  //     ])
+  // }
   ],
   entryComponents: [   
     SendClaimsComponent,
     ClaimsEditComponent,
+    DynamicPasswordInputComponent
     // ClaimsEditSendComponent //may move this to claims module
    ]
 })

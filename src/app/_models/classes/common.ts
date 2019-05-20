@@ -11,13 +11,15 @@ breadcrumb?: string;
 }
 
 export interface MenuItem {
-    label: Label;
+    label: string;
     path?: string;
     parentLabel?: String;
     icon: string;
     hasChildren?: boolean;
     disabled?: boolean;
     children?: MenuItem[];
+    expandable?: boolean;
+    level?: number;
 }
 
 export interface HelpText {

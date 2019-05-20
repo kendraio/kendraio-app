@@ -16,7 +16,7 @@ import {
 
 // import { AnimationService } from '../../_shared/animations/animation.service';
 import { Observable, of, Subscription } from 'rxjs';
-import { ValidationService } from 'src/app/_shared/services/validation.service';
+// import { ValidationService } from 'src/app/_shared/services/validation.service';
 import { IUser } from 'src/app/_models/classes';
 
 // import { environment } from 'environments/environment';
@@ -73,7 +73,7 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
     private route: ActivatedRoute,
     private router: Router,
     private _fb: FormBuilder,
-    private validationService: ValidationService
+    // private validationService: ValidationService
   ) {
      this.createForm();
   }

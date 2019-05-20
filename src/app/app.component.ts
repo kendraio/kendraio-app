@@ -12,8 +12,11 @@ import { HelpTextService } from './_shared/services/help-text.service';
 import { filter, distinctUntilChanged, map } from 'rxjs/operators';
 import { LOCALE_ID } from '@angular/core';
 import { LangChangeEvent, TranslateService, TranslationChangeEvent } from '@ngx-translate/core';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { Animations } from './_shared/animations';
 
 @Component({
+  animations: [Animations.pageAni],
   selector: 'app-root',
   templateUrl: 'app.component.html'
   // `
@@ -24,6 +27,7 @@ import { LangChangeEvent, TranslateService, TranslationChangeEvent } from '@ngx-
   // `
 })
 export class AppComponent {
+  isOpen = true;
   menuItems: MenuItem[];
   pageTitle$: Observable<string>;
   treeControl = new NestedTreeControl<MenuItem>(node => node.children);
@@ -100,6 +104,18 @@ export class AppComponent {
   // });
 
   hasChild = (_: number, node: MenuItem) => !!node.children && node.children.length > 0;
+
+  collapseAll(ev) {
+    const level = this.dataSource.data.indexOf(ev)
+    
+    if (level > -1) {
+       for (let i = 0; i < this.dataSource.data.length; i++) {
+          if (this.dataSource.data[i].label !== ev.label) {
+            this.treeControl.collapse(this.dataSource.data[i]);
+          }
+        }
+        }
+      }
 
   public setTitle( newTitle: string) {
     this.titleService.setTitle( newTitle );

@@ -7,6 +7,24 @@ export class Animations {
 
     static pageAni: AnimationMetadata[] = [
 
+        trigger('openClose', [
+            // ...
+            state('open', style({
+                display: 'block',
+                opacity: 1,
+            })),
+            state('closed', style({
+                height: '0px',
+                opacity: 0.5,
+            })),
+            transition('open => closed', [
+                animate('1s 500ms ease-out')
+            ]),
+            transition('closed => open', [
+                animate('500ms  ease-out')
+            ]),
+        ]),
+
 
         trigger('enterLeaveInOut-2', [
             transition('* => *', [

@@ -5,7 +5,7 @@ import * as pages from './';
 const routes: Routes = [
   {
     path: '',
-    component: pages.ChannelsComponent,
+    component: pages.NotificationsComponent,
     data: {
       breadcrumb: '',
       menuLabel: ''
@@ -17,4 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ChannelsRoutingModule { }
+export class NotificationsRoutingModule { }

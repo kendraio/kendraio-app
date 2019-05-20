@@ -8,8 +8,10 @@ import { Component, HostBinding, OnChanges, OnDestroy, OnInit, SimpleChanges, In
 import { IUser } from 'src/app/_models/classes';
 import { PasswordValidation, PasswordStrength } from 'src/app/_shared/directives/passwordValidation';
 import { Subscription } from 'rxjs';
-import { DynamicFormModel, DynamicFormLayout, DynamicFormService } from '@ng-dynamic-forms/core';
+ import { DynamicFormModel, DynamicFormLayout, DynamicFormService } from '@ng-dynamic-forms/core';
 import { LOGIN_FORM_MODEL } from '../../_shared/form-models/login-form.modal';
+import { LOGIN_FORM_LAYOUT } from '../../_shared/form-models/login-form.layout';
+import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 
 @Component({
   selector: 'app-account-login-form',
@@ -43,9 +45,54 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
   sub: Subscription;
 
   formGroupNew: FormGroup;
-  // formLayout: DynamicFormLayout = FORM_LAYOUT;
-
+  formLayout: DynamicFormLayout = LOGIN_FORM_LAYOUT;
   formModel: DynamicFormModel = LOGIN_FORM_MODEL;
+
+  form = new FormGroup({});
+  model: any = {};
+  options: FormlyFormOptions = {};
+
+
+  fields: FormlyFieldConfig[] = [{
+    key: 'password',
+    validators: {
+      fieldMatch: {
+        expression: (control) => {
+          const value = control.value;
+
+          return value.passwordConfirm === value.password
+            // avoid displaying the message error when values are empty
+            || (!value.passwordConfirm || !value.password);
+        },
+        message: 'Password Not Matching',
+        errorPath: 'passwordConfirm',
+      },
+    },
+    fieldGroup: [
+      {
+        key: 'password',
+        type: 'input',
+        templateOptions: {
+          type: 'password',
+          label: 'Password',
+          placeholder: 'Must be at least 3 characters',
+          required: true,
+          minLength: 8,
+        },
+      },
+      {
+        key: 'passwordConfirm',
+        type: 'input',
+        hideExpression: (model) => !model.password,
+        templateOptions: {
+          type: 'password',
+          label: 'Confirm Password',
+          placeholder: 'Please re-enter your password',
+          required: true,
+        },
+      },
+    ],
+  }];
 
   constructor(
     private route: ActivatedRoute,
@@ -54,6 +101,7 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
     private formService: DynamicFormService
   ) {
     // this.passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!+_#\-&$£*])(?=.*[0-9])$/g
+    this.formGroupNew = this.formService.createFormGroup(this.formModel);
   }
   
 
@@ -81,13 +129,13 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
     }
 
     this.showPassword = false;
-    const passwordStatusChange$ = this.passwordCtrl.statusChanges;
+    const passwordStatusChange$ = this.password2.statusChanges;
     passwordStatusChange$.pipe(distinctUntilChanged()).subscribe(
       status => {
         if (status === 'INVALID') {
-          this.confirmPassword.disable();
+          this.confirmPassword2.disable();
         } else if (status === 'VALID') {
-          this.confirmPassword.enable();
+          this.confirmPassword2.enable();
         }
       });
 
@@ -102,9 +150,27 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
 
       });
 
-      this.formGroupNew = this.formService.createFormGroup(this.formModel);
+//        this.sub.add(
+// this.password2.statusChanges.subscribe(
+//   (val) => {
+//     this.confirmPassword2.enable();
+// })
+
+//        );
+
+      // this.formGroupNew = this.formService.createFormGroup(this.formModel);
+      // this.formGroupNew.get('password').setValidators(
+      //   PasswordStrength.strong
+      // );
 
   }
+  get password2() {
+    return this.formGroupNew.get('passwordSetterGroup.password');
+  }
+  get confirmPassword2() {
+    return this.formGroupNew.get('passwordSetterGroup.confirmPassword');
+  }
+
   get password() {
     return this.loginForm.get('password');
   }
@@ -124,6 +190,23 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
       this.onSubmit.emit(this.loginForm.value);
     }
 
+  }
+
+  
+  onBlur($event) {
+    console.log(`Material blur event on: ${$event.model.id}: `, $event);
+  }
+
+  onChange($event) {
+    console.log(`Material change event on: ${$event.model.id}: `, $event);
+  }
+
+  onFocus($event) {
+    console.log(`Material focus event on: ${$event.model.id}: `, $event);
+  }
+
+  onMatEvent($event) {
+    console.log(`Material ${$event.type} event on: ${$event.model.id}: `, $event);
   }
 
 }

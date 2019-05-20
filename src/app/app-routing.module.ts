@@ -87,6 +87,15 @@ const routes: Routes = [
           menuLabel: 'Bloomen'
         }
       },
+      {
+        path: 'notifications',
+        loadChildren: './notifications/notifications.module#NotificationsModule',
+        data: {
+          pageTitle: {'de': 'Channels' , 'fr': '', 'en-US': 'Notifications'},
+          breadcrumb: {'de': 'Channels' , 'fr': '', 'en-US': 'notifications'},
+          menuLabel: 'Notifications'
+        }
+      },
 
       // {
       //   path: 'contacts',

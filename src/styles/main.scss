@@ -5,7 +5,10 @@
 
  .ken-tree-invisible {
     display: none;
-    // transition: all 2s ease;
+   //height:0;
+   opacity: 0;
+  // transform: translateY(-30px);
+     transition: all 500ms ease;
   }
   
   .ken-tree ul,
@@ -21,6 +24,11 @@
   }
   .ken-tree li > ul  {
   background: rgba(0, 0, 0, 0.04);
+ // height:auto;
+//  display: block;
+ overflow: hidden;
+//  opacity: 1;
+//  transition: all 2s ease-in;
   }
 
   .ken-tree li > ul > .mat-tree-node li, .mat-nested-tree-node li {
@@ -134,7 +142,16 @@ cursor: default;
  .mat-menu-item {
   text-transform: capitalize;
  }
+//  .mat-drawer,  .mat-sidenav {
+//    min-width:200px;
+//    transition: all 3s ease-in-out;
+//    position: relative!important;
+//  }
 
  .form-container > * {
   width: 100%;
+}
+
+dynamic-material-form-control:not(:last-child) {
+  margin-right: 40px;
 }
