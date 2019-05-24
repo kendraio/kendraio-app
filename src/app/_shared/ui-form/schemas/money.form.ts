@@ -1,6 +1,6 @@
 import { PERCENTAGE_INPUT, MONEY_INPUT } from './form-elements';
 
-export const MONEY_FORM = (disabled = false) => ({
+export const MONEY_FORM = (disabled = false, hidden = false) => ({
   id: 'MONEY',
   template: [
     {
@@ -10,7 +10,7 @@ export const MONEY_FORM = (disabled = false) => ({
         label: 'Test a few numbers'
       },
       fieldGroup: [
-        MONEY_INPUT(disabled),
+        MONEY_INPUT(disabled, hidden),
         PERCENTAGE_INPUT(disabled)
       ]
     }
