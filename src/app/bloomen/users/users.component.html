@@ -28,13 +28,11 @@ class="mb-4">
 
 Details
 
-<form (click)="interactionWithFormly()" [formGroup]="form" (ngSubmit)="submit()">
+<form [formGroup]="form" (ngSubmit)="submit()">
   <formly-form [model]="model" [fields]="fields" [form]="form" (modelChange)="modelChange($event)"></formly-form>
 </form>
 
-| {{ fields}}
-| {{ form.valid | json }}
-| {{ model | json }}
+
 
 
 

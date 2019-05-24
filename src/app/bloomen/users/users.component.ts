@@ -26,7 +26,6 @@ export class UsersComponent implements OnInit, AfterViewInit {
   constructor(
     private router: Router,
     private formlyService: FormlyService, 
-    // private counters: CountersService
   ) { }
 
   ngOnInit() {
@@ -45,22 +44,22 @@ routeFn(rt: string) {
     }
 
     ngAfterViewInit() {
-      // perfume.getInstance().start(TIMERS.get('FormlyComponentFI'));
+
     }
   
     public submit() {
       console.log(this.model);
-      // perfume.getInstance().end(TIMERS.get('FillForm'));
+
     }
   
     public switchForm(id) {
       this.model = {};
-      this.fields = this.formlyService.getFormById(id);
+      this.fields = this.formlyService.getFormById(id, false);
     }
     
     public interactionWithFormly() {
       if (!this.firstInteraction) {
-        // perfume.getInstance().end(TIMERS.get('FormlyComponentFI'));
+
         this.firstInteraction = true;
       }
     }
@@ -69,14 +68,14 @@ routeFn(rt: string) {
   
     public modelChange(e) {
       if (!this.startFilling) {
-        // perfume.getInstance().start(TIMERS.get('FillForm'));
-        this.startFilling = true;
+
+        this.startFilling = true; // not in  use
       } 
     }  
     
     public detailsModelChange(e) {
       if (!this.startFilling) {
-        // perfume.getInstance().start(TIMERS.get('FillForm'));
+ 
         this.startFilling = true;
       } 
     }
