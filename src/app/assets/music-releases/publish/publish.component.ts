@@ -21,7 +21,7 @@ let PROGRESS_DATA: DistributionProgress[] = [
   selector: 'app-publish',
   templateUrl: './publish.component.html',
   styleUrls: ['./publish.component.scss'],
-  animations: [Animations.pageAni]
+  animations: [Animations.kendraAnimations]
 })
 export class PublishComponent implements OnInit {  
   nextStep = false;

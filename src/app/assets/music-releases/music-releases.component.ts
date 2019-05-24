@@ -23,7 +23,7 @@ import { ActivatedRoute } from '@angular/router';
   styles: [` 
   dynamic-material-form[fxLayoutAlign] { padding:10px; padding-left: 25px;}
   `],
-  animations: [Animations.pageAni]
+  animations: [Animations.kendraAnimations]
 })
 export class ReleasesComponent implements OnInit {
   public gridOptions: GridOptions;

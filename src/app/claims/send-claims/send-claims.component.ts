@@ -7,7 +7,7 @@ import { Animations } from 'src/app/_shared/animations';
   selector: 'app-send-claims',
   templateUrl: './send-claims.component.html',
   styleUrls: ['./send-claims.component.scss'],
-  animations: [Animations.pageAni]
+  animations: [Animations.kendraAnimations]
 })
 export class SendClaimsComponent implements OnInit {
   nextStep = false;

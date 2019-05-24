@@ -8,7 +8,7 @@ import { AdaptersService } from 'src/app/services/adapters.service';
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
-  animations: [Animations.pageAni]
+  animations: [Animations.kendraAnimations]
 })
 export class RegisterComponent implements OnInit {
   nextStep = false;

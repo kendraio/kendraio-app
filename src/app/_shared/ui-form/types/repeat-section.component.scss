@@ -1,0 +1,21 @@
+$component: ".formly-repeat-section";
+
+#{$component} {
+  &__action {
+    color: #0275D8;
+    cursor: pointer;
+    display: inline-block;
+    margin: 0;
+
+    &:hover {
+      font-weight: bold;
+    }
+  }
+
+  &__icon {
+    margin-left: auto;
+    padding-top: 8px;
+    margin-right: 10px;
+    font-size: 22px;
+  }
+}

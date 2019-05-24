@@ -9,7 +9,7 @@ import { NG_VALIDATORS } from '@angular/forms';
 import { PasswordStrength } from '../_shared/directives/passwordValidation';
 
 @NgModule({
-  declarations: [UsersComponent],
+  declarations: [],
   imports: [
     CommonModule,
     BloomenRoutingModule,

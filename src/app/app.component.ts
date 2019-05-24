@@ -16,7 +16,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { Animations } from './_shared/animations';
 
 @Component({
-  animations: [Animations.pageAni],
+  animations: [Animations.kendraAnimations],
   selector: 'app-root',
   templateUrl: 'app.component.html'
   // `

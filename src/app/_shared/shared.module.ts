@@ -40,6 +40,8 @@ import { DEBUG_DYNAMIC_FORM_CONTROL_TYPE } from '../form-controls/debug-form-mod
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { AccountLoginFormComponent } from '../bloomen/users/_shared';
+import { UiFormModule } from './ui-form/ui-form.module';
+import { UsersComponent } from '../bloomen/users/users.component';
 // import { BaseComponent } from './base/base.component';
 // import { MenuComponent } from './components/menu/menu.component';
 // import { MenuItemComponent } from './components/menu/menu-item.component';
@@ -47,7 +49,7 @@ import { AccountLoginFormComponent } from '../bloomen/users/_shared';
 // import { ClaimsEditSendComponent } from '../claims/claims-edit-send/claims-edit-send.component';
 
 export function minlengthValidationMessage(err, field) {
-  return `Should have at least ${field.templateOptions.minLength} characters`;
+  return `what the.. ${field.templateOptions.minLength} characters`;
 }
 
 @NgModule({
@@ -83,6 +85,15 @@ export function minlengthValidationMessage(err, field) {
     DynamicFormsMaterialUIModule,
     FormsModule,
     ReactiveFormsModule,
+    FormlyMaterialModule,
+    FormlyModule.forRoot({
+      // validationMessages: 
+      // [
+      //   // { name: 'required', message: 'This field is required' },
+      //   // { name: 'minlength', message: minlengthValidationMessage },
+      // ],
+    }),
+    UiFormModule
     // BrowserAnimationsModule
     // FormlyMaterialModule,
     // FormlyModule.forRoot({
@@ -106,6 +117,7 @@ export function minlengthValidationMessage(err, field) {
     // MenuComponent,
     // MenuItemComponent,
     // ClaimsEditSendComponent
+    UsersComponent
   ],
   exports: [
   //  matComponents.MatInputComponent,
@@ -122,6 +134,8 @@ export function minlengthValidationMessage(err, field) {
   BreadcrumbComponent,
   MatTreeModule,
   HelpTextBtnDirective,
+  UsersComponent,
+  UiFormModule,
 // BrowserAnimationsModule
 TranslateModule
   ],

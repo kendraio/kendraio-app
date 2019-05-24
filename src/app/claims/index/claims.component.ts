@@ -19,7 +19,7 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'app-index',
   templateUrl: './claims.component.html',
   styleUrls: ['./claims.component.scss'],
-  animations: [Animations.pageAni]
+  animations: [Animations.kendraAnimations]
 })
 export class IndexComponent implements OnInit {
   gridOptions: GridOptions;

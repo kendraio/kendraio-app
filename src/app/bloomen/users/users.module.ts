@@ -12,11 +12,13 @@ import { PasswordStrength } from 'src/app/_shared/directives/passwordValidation'
 import { NG_VALIDATORS } from '@angular/forms';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { FormlyModule } from '@ngx-formly/core';
+import { UsersComponent } from './users.component';
+import { UiFormModule } from '../../_shared/ui-form/ui-form.module';
 // import { UsersComponent } from './users.component';
 
 
 @NgModule({
-  declarations: [RegisterUserComponent, AccountFormComponent, AccountLoginFormComponent, ListComponent, 
+  declarations: [RegisterUserComponent, AccountFormComponent, AccountLoginFormComponent, ListComponent
     ],
   imports: [
     CommonModule,
@@ -30,6 +32,7 @@ import { FormlyModule } from '@ngx-formly/core';
         { name: 'minlength', message: minlengthValidationMessage },
       ],
     }),
+    
   ],
   exports: [
     AccountFormComponent,

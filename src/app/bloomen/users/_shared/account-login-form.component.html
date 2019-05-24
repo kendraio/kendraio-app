@@ -2,8 +2,18 @@
   <span class="sr-only">Loading...</span>
 </div>
 
+
+
+
+
+
+
+
+
+
+
 <!-- [formGroup]="loginForm" -->
-<form (submit)="submit()" novalidate [formGroup]="loginForm">
+<!-- <form (submit)="submit()" novalidate [formGroup]="loginForm">
 
   <div *ngIf="mode != 'edit'" class="form-container" fxLayout="row" fxLayoutGap="40px" fxFlexFill>
 
@@ -32,11 +42,11 @@
       <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}
 
       </mat-icon>
-      <!-- <mat-hint>Password is too weak</mat-hint> -->
+
       <mat-error *ngIf="password.invalid">Password is too weak</mat-error>
 
     </mat-form-field>
-    <!-- *ngIf="loginForm.controls.password.errors?.pattern" -->
+
 
     <mat-form-field appearance="standard">
       <mat-label>Confirm Password</mat-label>
@@ -52,18 +62,18 @@
     character, at least one number and at least 8 characters
     in length.</mat-hint>
 
-  <!--  -->
+ 
   <div class="alert alert-danger"
     *ngIf="confirmPassword.errors?.MatchPassword && password.valid && confirmPassword.value.length > 2">Passwords do not
     match</div>
 
 
 </form>
-<hr>
+<hr> -->
 
 <form [formGroup]="formGroupNew">
 
-  <dynamic-material-form [group]="formGroupNew" [layout]="formLayout" [model]="formModel" (blur)="onBlur($event)"
+  <!-- <dynamic-material-form [group]="formGroupNew" [layout]="formLayout" [model]="formModel" (blur)="onBlur($event)"
     (change)="onChange($event)" (focus)="onFocus($event)" (matEvent)="onMatEvent($event)">
 
     <ng-template modelId="password" >
@@ -75,7 +85,7 @@
 
 
 
-  </dynamic-material-form>
+  </dynamic-material-form> -->
 
   <!-- <mat-error *ngIf="formGroupNew.get('password').invalid">Password is too weak</mat-error> -->
 
@@ -89,3 +99,5 @@
   <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form"></formly-form>
   <button type="submit" class="btn btn-primary submit-button">Submit</button>
 </form>
+
+

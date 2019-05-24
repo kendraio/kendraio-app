@@ -59,7 +59,6 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
       fieldMatch: {
         expression: (control) => {
           const value = control.value;
-
           return value.passwordConfirm === value.password
             // avoid displaying the message error when values are empty
             || (!value.passwordConfirm || !value.password);
@@ -75,7 +74,7 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
         templateOptions: {
           type: 'password',
           label: 'Password',
-          placeholder: 'Must be at least 3 characters',
+          placeholder: `Must be at least 8 characters`,
           required: true,
           minLength: 8,
         },
