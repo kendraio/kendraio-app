@@ -13,6 +13,16 @@ import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 
 // @PerfumeAfterViewInit('FormlyComponent')
 export class UsersComponent implements OnInit, AfterViewInit {
+
+
+
+  countries: any[] = [
+    { label: 'Un Kngdm', value: 'UK' },
+    { label: 'United States of America', value: 'USA' },
+    { label: 'Greece', value: 'GR' }
+  ];
+
+
   public form = new FormGroup({});
   public fields: FormlyFieldConfig[] = [
    ...this.formlyService.getDefaultForm()

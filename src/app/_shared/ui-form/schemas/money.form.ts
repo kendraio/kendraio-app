@@ -5,7 +5,7 @@ export const MONEY_FORM = (disabled = false, hidden = false) => ({
   template: [
     {
       key: 'money',
-      wrappers: ['error-on-top'],
+      wrappers: ['errors-on-top'],
       templateOptions: {
         label: 'Test a few numbers'
       },

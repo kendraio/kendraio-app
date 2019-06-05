@@ -4,10 +4,11 @@ import {
     minlengthValidationMessage,
     minValidationMessage,
     passwordMatchValidationMessage,
-    maximumNumValidationMessage
+    maximumNumValidationMessage,
+    PasswordStrengthValidationMessage
   } from './helpers/validations-messages';
 
-  import { maximumNumValidation, passwordMatchValidation } from './helpers/validators';
+  import { maximumNumValidation, passwordMatchValidation, PasswordStrengthValidation } from './helpers/validators';
   import { PanelWrapperComponent, AnimationWrapperComponent, ErrorWrapperComponent } from './wrappers';
   import { RepeatSectionComponent } from './types/repeat-section.component';
   import { FormlyFieldInputMoney } from './types/money.component';
@@ -22,7 +23,8 @@ import {
       { name: 'min', message: minValidationMessage },
       { name: 'max', message: maxValidationMessage },
       { name: 'passwordMatchValidation', message: passwordMatchValidationMessage },
-      { name: 'maximumNumValidation', message: maximumNumValidationMessage }
+      { name: 'maximumNumValidation', message: maximumNumValidationMessage },
+      { name: 'PasswordStrengthValidation', message: PasswordStrengthValidationMessage }
     ],
     wrappers: [
       { name: 'panel', component: PanelWrapperComponent },
@@ -36,6 +38,7 @@ import {
     ],
     validators: [
       { name: 'maximumNumValidation', validation: maximumNumValidation },
-      { name: 'passwordMatchValidation', validation: passwordMatchValidation }
+      { name: 'passwordMatchValidation', validation: passwordMatchValidation },
+      { name: 'PasswordStrengthValidation', validation: PasswordStrengthValidation}
     ]
   };

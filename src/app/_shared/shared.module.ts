@@ -48,6 +48,8 @@ import { UsersComponent } from '../bloomen/users/users.component';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { ClaimsEditSendComponent } from '../claims/claims-edit-send/claims-edit-send.component';
 
+import { NgSelectModule } from '@ng-select/ng-select';
+
 export function minlengthValidationMessage(err, field) {
   return `what the.. ${field.templateOptions.minLength} characters`;
 }
@@ -93,7 +95,7 @@ export function minlengthValidationMessage(err, field) {
       //   // { name: 'minlength', message: minlengthValidationMessage },
       // ],
     }),
-    UiFormModule
+    UiFormModule,
     // BrowserAnimationsModule
     // FormlyMaterialModule,
     // FormlyModule.forRoot({
@@ -102,6 +104,7 @@ export function minlengthValidationMessage(err, field) {
     //     { name: 'minlength', message: minlengthValidationMessage },
     //   ],
     // }),
+    NgSelectModule
   ],
   declarations: [
     matComponents.MatInputComponent,
@@ -136,6 +139,7 @@ export function minlengthValidationMessage(err, field) {
   HelpTextBtnDirective,
   UsersComponent,
   UiFormModule,
+  NgSelectModule,
 // BrowserAnimationsModule
 TranslateModule
   ],

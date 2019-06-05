@@ -21,6 +21,10 @@ export function minlengthValidationMessage(err, field) {
     return `err:1 Passwords dont match`;
   }
 
+  export function PasswordStrengthValidationMessage(err, field) {
+    return `Password is too weak please...`;
+  }
+
   export function maximumNumValidationMessage(err, field) {
     return `wrong wrong wrong`;
   }

@@ -34,7 +34,7 @@ export class Field {
       type: 'password',
       minLength: 8,
       required: true,
-      hideExpression: 'model.password',
+      // {hideExpression: 'model.password'}
     };
 
     return this.input(key, { ...templateOptions, ...defaults }, options);
