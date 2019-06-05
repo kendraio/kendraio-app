@@ -6,4 +6,5 @@ export * from './money-input';
 export * from './percentage-input';
 export * from './password';
 export * from './password-confirm';
+export * from './typeahead-input';
 

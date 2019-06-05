@@ -16,6 +16,8 @@ import { FormlyFieldInputPercentage } from './types/percentage.component';
 import { config } from './config';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { AppMaterialModule } from 'src/app/app-material/app-material.module';
+import { FormlyFieldTypeahead } from './types/typeahead.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 // import { SharedModule } from '../shared.module';
 
 @NgModule({
@@ -25,21 +27,26 @@ import { AppMaterialModule } from 'src/app/app-material/app-material.module';
     ReactiveFormsModule,
     FormlyModule.forRoot(config),
     TextMaskModule,
-    AppMaterialModule
+    AppMaterialModule,
+    NgSelectModule
     // SharedModule
   ],
   exports: [
     FormsModule,
     ReactiveFormsModule,
     FormlyModule,
-    FormlyMaterialModule  ],
+    FormlyMaterialModule ,  
+    NgSelectModule
+  ],
   declarations: [
     PanelWrapperComponent,
     ErrorWrapperComponent,
     AnimationWrapperComponent,
     RepeatSectionComponent,
     FormlyFieldInputMoney,
-    FormlyFieldInputPercentage
+    FormlyFieldInputPercentage,
+    FormlyFieldTypeahead
+
   ]
 })
 export class UiFormModule {}

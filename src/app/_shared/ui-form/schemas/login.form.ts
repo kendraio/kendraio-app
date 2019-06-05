@@ -1,5 +1,5 @@
 import { Field } from '../helpers/fields';
-import { USERNAME, EMAIL, PASSWORD, PASSWORDCONFIRM, MONEY_INPUT } from './form-elements';
+import { USERNAME, EMAIL, PASSWORD, PASSWORDCONFIRM, MONEY_INPUT, TYPEAHEAD } from './form-elements';
 import { FormlyFormOptions } from '@ngx-formly/core';
 
 
@@ -41,7 +41,8 @@ export const LOGIN_FORM = (disabled = false, hidden = false) => ({
         EMAIL(disabled),
         PASSWORD(disabled),
         PASSWORDCONFIRM(true),
-        MONEY_INPUT(disabled, hidden)
+        MONEY_INPUT(disabled, hidden),
+        TYPEAHEAD(disabled),
       ] 
     }
   ]
