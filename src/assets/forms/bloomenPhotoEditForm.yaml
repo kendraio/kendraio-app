@@ -18,3 +18,5 @@
   id: rightsRegion
   label: Rights region
   listType: Rights region
+- type: JSON_DEBUG
+  id: json_data

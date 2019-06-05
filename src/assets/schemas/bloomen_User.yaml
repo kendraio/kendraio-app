@@ -1,0 +1,35 @@
+name: User
+labelField: username
+forms:
+  edit: assets/forms/bloomenUserEditForm.yaml
+fields:
+  - type: TEXT
+    id: username
+    label: Username
+    autoComplete: off
+    defaultValue: ''
+  - type: TEXT
+    id: email
+    label: Email
+    autoComplete: off
+    defaultValue: ''
+  - type: TEXT
+    id: id
+    label: ID
+    autoComplete: off
+    defaultValue: ''
+  - type: TEXT
+    id: hash
+    label: Hash
+    autoComplete: off
+    defaultValue: ''
+  - type: TEXT
+    id: role
+    label: Role
+    autoComplete: off
+    defaultValue: ''
+  - type: JSON
+    id: json_data
+    label: Legacy Data
+    autoComplete: off
+    defaultValue: ''
