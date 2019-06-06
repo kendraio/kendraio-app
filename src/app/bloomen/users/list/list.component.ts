@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {BloomenApiService} from '../../../services/bloomen-api.service';
 
 @Component({
   selector: 'app-list',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListComponent implements OnInit {
 
-  constructor() { }
+  users$;
+  displayedColumns: string[] = ['role', 'username', 'hash', 'organisation', 'createdAtUTC'];
+
+  constructor(
+    private readonly bloomenApi: BloomenApiService
+  ) { }
 
   ngOnInit() {
+    this.users$ = this.bloomenApi.getUsers();
   }
 
 }
