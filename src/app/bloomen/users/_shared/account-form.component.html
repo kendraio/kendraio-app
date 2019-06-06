@@ -1,61 +1,31 @@
-<!-- [formGroup]="userForm" -->
-<form (submit)="submit()" novalidate autocomplete="on" 
-[formGroup]="userForm">
-
-
-  <section>
-
-
-      <section class="form-container" fxLayout="row"  fxLayoutGap="40px" fxFlexFill>
-      <mat-form-field appearance="standard">
-        <mat-label>First Names</mat-label>
-        <input matInput placeholder="Enter First Names" formControlName="firstname">
-        <mat-error *ngIf="firstname.invalid">{{getErrorMessage()}}</mat-error>
-      </mat-form-field>
-
-
-
-      <mat-form-field appearance="standard">
-        <mat-label>Last Name</mat-label>
-        <input matInput placeholder="Enter Last Name" [formControl]="lastname" >
-        <mat-error *ngIf="lastname.invalid">{{getErrorMessage()}}</mat-error>
-      </mat-form-field>
-    </section>
-
-
-
-
-    <section  class="form-container" fxLayout="row"  fxLayoutGap="40px" fxFlexFill>
-
-      <mat-form-field appearance="standard">
-        <mat-label>Email</mat-label>
-        <!-- (keyup)="onEmailChange()"  -->
-        <input matInput type="email" placeholder="Enter Email" email
-        [ngClass]="{'isLoading' : isLoading}"
-        [formControl]="email">
-        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
-        <mat-hint align="end" *ngIf="isLoading">Checking Email.... please wait</mat-hint>
-      </mat-form-field>
-
-
-      <mat-form-field appearance="standard">
-        <mat-label>Telephone</mat-label>
-        <input matInput placeholder="Enter Telephone/Mobile" [formControl]="telephone">
-      </mat-form-field>
-
-    </section>
-
-    | {{ userForm.valid | json }}
-
-  </section>
-
-  <div>
-    <div class="card">
-      <div class="card-body small">
-        <i class="fa fa-exclamation-triangle " aria-hidden="true" style="color:orange"> </i>
-      </div>
-    </div>
+<div class="row mb-4">
+  <div class="col-3">
+    <button (click)="switchForm('DEFAULT')" type="show" class="btn btn-primary">Default Form</button>
   </div>
+  <div class="col-3">
+    <button (click)="switchForm('LOGIN')" type="show" class="btn btn-primary">Login Form</button>
+  </div>
+  <div class="col-3">
+    <button (click)="switchForm('MONEY')" type="button" class="btn btn-secondary">Test Form</button>
+  </div>
+</div>
+
+
+<form [formGroup]="userForm" (ngSubmit)="submit()">
+  <formly-form 
+      [model]="model" 
+      [fields]="fields" 
+      [form]="userForm" 
+      (modelChange)="modelChange($event)">
+                                         </formly-form>
+</form>
+
+
+
+
+
+<section class="form-container" fxLayout="row" fxLayoutGap="40px" fxFlexFill>
+</section>
 
 
 
@@ -67,10 +37,9 @@
 
 
 
-  <!-- <div class="form-group clear">
 
 
-
+<!-- <div class="form-group clear">
     <button type="submit" [disabled]="!userForm.valid" class="button button--action button--lg float-right">
       Submit
     </button>
@@ -79,9 +48,4 @@
       <p><i class="fa fa-exclamation-triangle " aria-hidden="true" style="color:orange"> </i> You must accept the
         <b>Personal Data Statement</b> to continue</p>
     </div>
- 
-
-
   </div> -->
-
-</form>

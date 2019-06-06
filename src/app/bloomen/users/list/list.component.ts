@@ -7,7 +7,7 @@ import {BloomenApiService} from '../../../services/bloomen-api.service';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-
+  selectedUserIds: number[];
   users$;
   displayedColumns: string[] = ['role', 'username', 'hash', 'organisation', 'createdAtUTC'];
 
@@ -18,5 +18,7 @@ export class ListComponent implements OnInit {
   ngOnInit() {
     this.users$ = this.bloomenApi.getUsers();
   }
+
+  addCustomUser = (term) => ({id: term, name: term});
 
 }

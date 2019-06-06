@@ -43,55 +43,11 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
   passwordPattern: RegExp = /^(?=.*[a-z])(?=.*[A-Z]).{8,30}$/g;
   private userFormChanges: any;
   sub: Subscription;
-
   formGroupNew: FormGroup;
-  formLayout: DynamicFormLayout = LOGIN_FORM_LAYOUT;
-  formModel: DynamicFormModel = LOGIN_FORM_MODEL;
-
   form = new FormGroup({});
   model: any = {};
   options: FormlyFormOptions = {};
-
-
-  fields: FormlyFieldConfig[] = [{
-    key: 'password',
-    validators: {
-      fieldMatch: {
-        expression: (control) => {
-          const value = control.value;
-          return value.passwordConfirm === value.password
-            // avoid displaying the message error when values are empty
-            || (!value.passwordConfirm || !value.password);
-        },
-        message: 'Password Not Matching',
-        errorPath: 'passwordConfirm',
-      },
-    },
-    fieldGroup: [
-      {
-        key: 'password',
-        type: 'input',
-        templateOptions: {
-          type: 'password',
-          label: 'Password',
-          placeholder: `Must be at least 8 characters`,
-          required: true,
-          minLength: 8,
-        },
-      },
-      {
-        key: 'passwordConfirm',
-        type: 'input',
-        hideExpression: (model) => !model.password,
-        templateOptions: {
-          type: 'password',
-          label: 'Confirm Password',
-          placeholder: 'Please re-enter your password',
-          required: true,
-        },
-      },
-    ],
-  }];
+  public fields: FormlyFieldConfig[]
 
   constructor(
     private route: ActivatedRoute,
@@ -100,11 +56,11 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
     private formService: DynamicFormService
   ) {
     // this.passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!+_#\-&$£*])(?=.*[0-9])$/g
-    this.formGroupNew = this.formService.createFormGroup(this.formModel);
+    // this.formGroupNew = this.formService.createFormGroup(this.formModel);
   }
-  
 
-  ngOnInit() {   
+
+  ngOnInit() {
     this.loginForm = this.fb.group({
       currentPassword: 'Whollop-99', //currentPasswordCtrl,
       password: ['Whollop99', [
@@ -114,7 +70,7 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
       ]],
       confirmPassword: [{ value: 'Whollop99', disabled: true}, [Validators.required]],
       username: [{ value: 'Whollop99'}, [Validators.required, Validators.minLength(4)]]
-    }, 
+    },
     {
         validator: PasswordValidation.MatchPassword
       });
@@ -128,15 +84,15 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
     }
 
     this.showPassword = false;
-    const passwordStatusChange$ = this.password2.statusChanges;
-    passwordStatusChange$.pipe(distinctUntilChanged()).subscribe(
-      status => {
-        if (status === 'INVALID') {
-          this.confirmPassword2.disable();
-        } else if (status === 'VALID') {
-          this.confirmPassword2.enable();
-        }
-      });
+    // const passwordStatusChange$ = this.password2.statusChanges;
+    // passwordStatusChange$.pipe(distinctUntilChanged()).subscribe(
+    //   status => {
+    //     if (status === 'INVALID') {
+    //       // this.confirmPassword2.disable();
+    //     } else if (status === 'VALID') {
+    //       this.confirmPassword2.enable();
+    //     }
+    //   });
 
       this.sub = this.loginForm.valueChanges
       .pipe(
@@ -163,19 +119,19 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
       // );
 
   }
-  get password2() {
-    return this.formGroupNew.get('passwordSetterGroup.password');
-  }
-  get confirmPassword2() {
-    return this.formGroupNew.get('passwordSetterGroup.confirmPassword');
-  }
+  // get password2() {
+  //   return this.formGroupNew.get('passwordSetterGroup.password');
+  // }
+  // get confirmPassword2() {
+  //   return this.formGroupNew.get('passwordSetterGroup.confirmPassword');
+  // }
 
-  get password() {
-    return this.loginForm.get('password');
-  }
-  get confirmPassword() {
-    return this.loginForm.get('confirmPassword');
-  }
+  // get password() {
+  //   return this.loginForm.get('password');
+  // }
+  // get confirmPassword() {
+  //   return this.loginForm.get('confirmPassword');
+  // }
   ngOnDestroy() {
     //   this.userFormChanges.unsubscribe() //TODO!!!
   }
@@ -191,7 +147,7 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
 
   }
 
-  
+
   onBlur($event) {
     console.log(`Material blur event on: ${$event.model.id}: `, $event);
   }

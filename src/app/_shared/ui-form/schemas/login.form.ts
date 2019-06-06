@@ -34,16 +34,15 @@ export const LOGIN_FORM = (disabled = false, hidden = false) => ({
       templateOptions: {
         label: 'Login Form',
       },
-  
+
 
       fieldGroup: [
         USERNAME(disabled),
         EMAIL(disabled),
         PASSWORD(disabled),
-        PASSWORDCONFIRM(true),
-        MONEY_INPUT(disabled, hidden),
-        TYPEAHEAD(disabled),
-      ] 
+        PASSWORDCONFIRM(true)
+
+      ]
     }
   ]
 });

@@ -1,8 +1,43 @@
-
-
 <div class="mat-typography mb-3">
   <h2>Current Users</h2>
 </div>
+
+<label>Custom tags</label>
+
+<p>
+  Selected user IDs: {{selectedUserIds}}
+</p>
+<hr />
+
+
+<ng-select [items]="users$ | async" 
+[addTag]="addCustomUser" 
+placeholder="Select a User"
+[multiple]="true" 
+bindLabel="username" 
+bindValue="id"
+  [(ngModel)]="selectedUserIds">
+
+  <ng-template ng-header-tmp>
+    Custom header
+  </ng-template>
+  <ng-template ng-label-tmp let-item="item"> 
+
+     <b> {{item.username}}</b> is cool  -----  
+  </ng-template>
+  <ng-template ng-option-tmp let-item="item" let-index="index">
+    <img height="15" width="15" [src]="item.avatar" />
+    <b>{{item.username}}</b> ( {{item.role}})
+  </ng-template>
+  <ng-template ng-footer-tmp>
+    Custom footer
+  </ng-template>
+</ng-select>
+
+<hr>
+
+
+
 
 <ng-container *ngIf="users$ | async as users">
   <table mat-table [dataSource]="users" class="user-table mat-elevation-z8">
@@ -32,5 +67,5 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-<!--  <pre>{{ users | json }}</pre>-->
+  <!--  <pre>{{ users | json }}</pre>-->
 </ng-container>

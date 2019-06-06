@@ -1,5 +1,5 @@
 import { Field } from '../helpers/fields';
-import { FULLNAME, EMAIL, COUNTRIES, MESSAGE } from './form-elements';
+import { FULLNAME, EMAIL, MESSAGE, TYPEAHEAD } from './form-elements';
 
 export const DEFAULT_FORM = (disabled = false) => ({
   id: 'DEFAULT',
@@ -12,7 +12,7 @@ export const DEFAULT_FORM = (disabled = false) => ({
       fieldGroup: [
         FULLNAME(false),
         EMAIL(disabled),
-        COUNTRIES(disabled),
+        TYPEAHEAD(disabled),
         MESSAGE(disabled)
       ]
     }

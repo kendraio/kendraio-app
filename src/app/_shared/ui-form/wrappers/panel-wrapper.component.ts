@@ -5,7 +5,7 @@ import { FieldWrapper } from '@ngx-formly/core';
   selector: 'formly-wrapper-panel',
   template: `
     <div class="card mb-5">
-      <div class="card-header">{{ to.label }} ttt{{to | json}}ttt {{formControl.value.email | json}}</div>
+      <div class="card-header">{{ to.label }}</div>
       <div class="card-body">
         <ng-container #fieldComponent></ng-container>
         <button type="submit" class="btn btn-success" [disabled]="!form.valid">

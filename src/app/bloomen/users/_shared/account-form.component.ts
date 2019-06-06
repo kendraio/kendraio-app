@@ -18,6 +18,8 @@ import {
 import { Observable, of, Subscription } from 'rxjs';
 // import { ValidationService } from 'src/app/_shared/services/validation.service';
 import { IUser } from 'src/app/_models/classes';
+import { FormlyService } from 'src/app/_shared/ui-form/services/formly.service';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 
 // import { environment } from 'environments/environment';
 @Component({
@@ -49,7 +51,14 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
   subTitle: string;
   showNamer = false;
   // user: IUser;
-  userForm: FormGroup;
+  // userForm: FormGroup;
+  public userForm = new FormGroup({});
+  public fields: FormlyFieldConfig[] = [
+   ...this.formlyService.getDefaultForm()
+  ];
+
+
+
   crumb: string;
   // private userFormChanges: any;
   private emailSub: Subscription;
@@ -60,22 +69,22 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
   originalEmail: string;
   // EMAIL_REGEXP = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
   EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
   TEL_REGEX = /^[\d\s]+$/i;
-
   now: string;
   firstname: FormControl;
   lastname: FormControl;
   telephone: FormControl;
   sub: Subscription;
+  model: {};
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private _fb: FormBuilder,
+    private fb: FormBuilder,
+    private formlyService: FormlyService,
     // private validationService: ValidationService
   ) {
-     this.createForm();
+
   }
   // updateOn: 'blur' USE THIS TODO:
 
@@ -85,28 +94,7 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
             '';
   }
 
-  createForm() {
-    this.email = new FormControl('test@test.com', [Validators.required, Validators.email]);
-    this.firstname = this._fb.control('', [
-      Validators.required,
-      Validators.minLength(2)
-    ]);
-    this.lastname = this._fb.control('lastName', [
-      Validators.required,
-      Validators.minLength(2)
-    ]);
-    this.telephone = this._fb.control('999-999-999', [
-      Validators.required,
-      Validators.minLength(8)
-    ]);
-    this.userForm = this._fb.group({
-      // bloomenRef: this.now,
-        firstname: this.firstname,
-        lastname: this.lastname,
-        email: this.email,
-        telephone: this.telephone,
-    });
-  }
+
   get address(): any {
     return this.userForm.get('address');
   }
@@ -115,32 +103,12 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
   }
   ngOnInit() {
     this.now = (Math.floor(Math.random() * 9999) + 1).toString(); // Date().toString();
-    this.createForm();
-    this.emailChanges$ = this.email.valueChanges;
+
+    // this.emailChanges$ = this.email.valueChanges;
     // this.currentUser$ = this.currentUser;
     this.subTitle = this.route.snapshot.data['subTitle'];
     this.crumb = this.route.snapshot.data['crumbs'];
-    this.emailSub = this.emailChanges$
-      .pipe(
-        distinctUntilChanged(),
-        debounceTime(400),
-        tap(() => {
-          this.isUnique = false;
-          this.email.setValidators([
-            Validators.required,
-            Validators.minLength(8),
-            Validators.pattern(this.EMAIL_REGEXP)
-          ]);
-          this.email.updateValueAndValidity();
-          this.isLoading = true;
-          this.msg = null;
-        })
-      )
-      .pipe(debounceTime(400))
-      .subscribe(val => {
-        // this.checkEmailName(this.email.value);
-        this.isLoading = false;
-      });
+
 
 
       this.sub = this.userForm.valueChanges
@@ -161,6 +129,21 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
 console.log('ive changed')
   }
 
+
+  public switchForm(id) {
+    this.model = {};
+    this.fields = this.formlyService.getFormById(id, false);
+  }
+
+  public interactionWithFormly() {
+  }
+
+
+  public modelChange(e) {
+  }
+
+  public detailsModelChange(e) {
+  }
   // checkEmailName(val: string): void {
   //   if (this.email.valid && this.email.value !== this.originalEmail) {
   //     const sub = this.validationService
@@ -207,7 +190,7 @@ console.log('ive changed')
 
   ngOnDestroy() {
     // this.userFormChanges.unsubscribe() // TODO!!
-    this.emailSub.unsubscribe();
+    // this.emailSub.unsubscribe();
   }
 
   toggleLogin() {

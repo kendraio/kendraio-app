@@ -1,6 +1,6 @@
 <mat-sidenav-container class="app-container" style="height:100vh">
 
-  <mat-sidenav #sidenav mode="side" opened (keydown.escape)="sidenav.close()" style="min-width: 205px;">
+  <mat-sidenav #sidenav mode="side" opened (keydown.escape)="sidenav.close()" style="width: 260px;">
 
     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="mt-5 ken-tree">
 
@@ -16,13 +16,13 @@
       <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
         <li>
           <button mat-button
-                [routerLink]="node.path" 
-                (click)="collapseAll(node)"   
-              
-                matTreeNodeToggle [routerLink]="node.path" 
-                routerLinkActive="menu-item--active" 
+                [routerLink]="node.path"
+                (click)="collapseAll(node)"
+
+                matTreeNodeToggle [routerLink]="node.path"
+                routerLinkActive="menu-item--active"
                 style=" width: 100%; text-align: left">
-           
+
               <mat-icon>{{node.icon}} </mat-icon>
 
               <span class="ml-2"> {{node.label | translate}}</span>
@@ -30,7 +30,7 @@
               <mat-icon class="mat-icon-rtl-mirror">
                 {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
               </mat-icon>
-         
+
           </button>
 
           <!-- <ul *ngIf="treeControl.isExpanded(node)">
@@ -60,16 +60,16 @@
 
       </span>
       <span class="spacer"></span>
-      <div>          
+      <div>
           <select #langSelect (change)="translate.use(langSelect.value)">
             <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
-          </select>        
+          </select>
       </div>
 
       <button mat-icon-button><mat-icon>person</mat-icon> </button>
       <button mat-icon-button><mat-icon matBadge="2" class="example-icon" aria-hidden="false" aria-label="Example heart icon">notifications</mat-icon></button>
       <button mat-icon-button><mat-icon [routerLink]="['settings']" routerLinkActive="router-link-active"  class="example-icon" aria-hidden="false" aria-label="Example heart icon">settings</mat-icon></button>
- 
+
     </mat-toolbar>
 
 
@@ -77,7 +77,7 @@
     <div class="page-content">
 
 
-   
+
 
 
 

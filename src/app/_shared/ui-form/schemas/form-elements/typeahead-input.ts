@@ -15,10 +15,10 @@ export const TYPEAHEAD = (disabled) => ({
       placeholder: 'Search for a state:',
       search$: (term) => {
         if ((!term || term === '')) {
-          return from(states);
+          return of(states);
         }
 
-        return from(states.filter(v => v.Name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10));
+        return of(states.filter(v => v.Name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10));
       },
     //   wrappers: ['form-field']
     },

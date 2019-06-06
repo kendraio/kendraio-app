@@ -1,0 +1,7 @@
+{
+    "files.trimTrailingWhitespace": true,
+    "search.exclude": {
+        "**/node_modules": false,
+        "**/node_modules/**": true
+    }
+}
