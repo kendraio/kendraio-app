@@ -6,16 +6,16 @@
     <button (click)="switchForm('LOGIN')" type="show" class="btn btn-primary">Login Form</button>
   </div>
   <div class="col-3">
-    <button (click)="switchForm('MONEY')" type="button" class="btn btn-secondary">Test Form</button>
+    <button (click)="switchForm('YOUTUBE')" type="button" class="btn btn-secondary">Test Form</button>
   </div>
 </div>
 
 
 <form [formGroup]="userForm" (ngSubmit)="submit()">
-  <formly-form 
-      [model]="model" 
-      [fields]="fields" 
-      [form]="userForm" 
+  <formly-form
+      [model]="model"
+      [fields]="fields"
+      [form]="userForm"
       (modelChange)="modelChange($event)">
                                          </formly-form>
 </form>

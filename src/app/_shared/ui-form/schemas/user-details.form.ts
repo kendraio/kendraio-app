@@ -1,7 +1,8 @@
 import { Field } from '../helpers/fields';
-import { EMAIL, COUNTRIES, MESSAGE, FNAME, LNAME } from './form-elements';
+import * as el from './form-elements';
 
-export const USERDETAILS_FORM = (disabled = false) => ({
+export const USERDETAILS_FORM = (disabled = false) => (
+  {
   id: 'USERDETAILS',
   template: [
     {
@@ -10,10 +11,11 @@ export const USERDETAILS_FORM = (disabled = false) => ({
         label: 'User Details'
       },
       fieldGroup: [
-        FNAME(true),
-        LNAME(disabled),
-        EMAIL(disabled),
+        el.FNAME(true),
+        el.LNAME(disabled),
+        el.EMAIL(disabled, 'boo@boo.com'),
       ]
     }
   ]
-});
+}
+);

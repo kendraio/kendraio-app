@@ -10,8 +10,8 @@ export const DEFAULT_FORM = (disabled = false) => ({
         label: 'Formly'
       },
       fieldGroup: [
-        FULLNAME(false),
-        EMAIL(disabled),
+        FULLNAME(false, 'Stan laurel'),
+        EMAIL(disabled, 'boo3@boo.com'),
         TYPEAHEAD(disabled),
         MESSAGE(disabled)
       ]

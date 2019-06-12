@@ -35,7 +35,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   constructor(
     private router: Router,
-    private formlyService: FormlyService, 
+    private formlyService: FormlyService,
   ) { }
 
   ngOnInit() {
@@ -44,29 +44,27 @@ export class UsersComponent implements OnInit, AfterViewInit {
       this.router.navigate([{ outlets: { popup: null } }]);
 //   this.userDetailsfields = this.formlyService.getFormById('USERDETAILS');
     }, 3000);
+
   }
 
-
-
 routeFn(rt: string) {
-  
       this.router.navigate(['bloomen/users/' + rt]) ;
     }
 
     ngAfterViewInit() {
 
     }
-  
+
     public submit() {
       console.log(this.model);
 
     }
-  
+
     public switchForm(id) {
       this.model = {};
       this.fields = this.formlyService.getFormById(id, false);
     }
-    
+
     public interactionWithFormly() {
       if (!this.firstInteraction) {
 
@@ -74,20 +72,20 @@ routeFn(rt: string) {
       }
     }
 
-    
-  
+
+
     public modelChange(e) {
       if (!this.startFilling) {
 
         this.startFilling = true; // not in  use
-      } 
-    }  
-    
+      }
+    }
+
     public detailsModelChange(e) {
       if (!this.startFilling) {
- 
+
         this.startFilling = true;
-      } 
+      }
     }
 
 }

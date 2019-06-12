@@ -21,6 +21,8 @@ import { IUser } from 'src/app/_models/classes';
 import { FormlyService } from 'src/app/_shared/ui-form/services/formly.service';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
+import { FULLNAME, EMAIL, MESSAGE, TYPEAHEAD } from '../../../_shared/ui-form/schemas/form-elements';
+
 // import { environment } from 'environments/environment';
 @Component({
   selector: 'app-account-form',
@@ -54,7 +56,7 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
   // userForm: FormGroup;
   public userForm = new FormGroup({});
   public fields: FormlyFieldConfig[] = [
-   ...this.formlyService.getDefaultForm()
+    ...this.formlyService.getDefaultForm()
   ];
 
 
@@ -76,12 +78,14 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
   telephone: FormControl;
   sub: Subscription;
   model: {};
+  dataFromFakeData: {};
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
     private formlyService: FormlyService,
+    // private fullnamex = FULLNAME,
     // private validationService: ValidationService
   ) {
 
@@ -90,8 +94,8 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
 
   getErrorMessage() {
     return this.email.hasError('required') ? 'You must enter a value' :
-        this.email.hasError('pattern') ? 'Not a valid email' :
-            '';
+      this.email.hasError('pattern') ? 'Not a valid email' :
+        '';
   }
 
 
@@ -111,7 +115,7 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
 
 
 
-      this.sub = this.userForm.valueChanges
+    this.sub = this.userForm.valueChanges
       .pipe(
         distinctUntilChanged(),
         debounceTime(600)
@@ -126,16 +130,53 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges() {
-console.log('ive changed')
+    console.log('ive changed')
   }
+
+
+     makePropSetter<T>(prop: string): (val: T) => T {
+      return function(val) {
+        this.props[prop] = val;
+        return val;
+      }
+    }
 
 
   public switchForm(id) {
-    this.model = {};
-    this.fields = this.formlyService.getFormById(id, false);
+
+    const mappedFields = [
+      { 'field': 'FULLNAME', 'enabled': false },
+      { 'field': 'EMAIL', 'enabled': false },
+    ];
+
+    const myFields = [
+      // FULLNAME(false, data['fullname']),
+      // EMAIL(false, data['email']),
+    ];
+
+
+    this.formlyService.getYoutubeData()
+      .subscribe(newValue => {
+        this.dataFromFakeData = newValue;
+        this.fields = this.formlyService.getJSONFormById(id, false);
+        this.model = {};
+        mappedFields.forEach(v => {
+          // const fname: any = ;
+// console.log(this.fullnamex)
+              // v['field'](false, this.dataFromFakeData['fullname']);
+              // this[v.field.toLowerCase()]();
+
+        });
+
+        this.fields = this.formlyService.getFormById(id, false, this.dataFromFakeData);
+
+
+      });
+
   }
 
-  public interactionWithFormly() {
+  public FULLNAME() {
+    console.log('gggg');
   }
 
 
@@ -169,7 +210,7 @@ console.log('ive changed')
     this.email.updateValueAndValidity();
     this.isLoading = false;
   }
-  onEmailChange() {}
+  onEmailChange() { }
 
   submit() {
     if (this.userForm.valid) {

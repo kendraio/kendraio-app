@@ -1,6 +1,5 @@
 import {AbstractControl, FormControl, ValidationErrors} from '@angular/forms';
 export class PasswordValidation {
-
     static MatchPassword(AC: AbstractControl) {
        let password = AC.get('password').value; // to get value in input tag
        let confirmPassword = AC.get('confirmPassword').value; // to get value in input tag
@@ -18,7 +17,6 @@ export function matchPasswords(control: FormControl): {[s: string]: boolean} {
     const password = control.get('password');
     const confirmPassword = control.get('confirmPassword');
     if (password.value !== confirmPassword.value) {
-  
       return {
         'noMatchingPasswords': true
       };
@@ -66,7 +64,7 @@ export function PasswordStrength2(control: AbstractControl): ValidationErrors | 
         const hasError = !valid;
 
         return hasError ? {
-            PasswordStrong: true, 
+            PasswordStrong: true,
             msg: 'bongo'
         } : null;
     // }

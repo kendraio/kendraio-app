@@ -2,7 +2,7 @@ import { Field } from '../../helpers/fields';
 
 let startTyping = true;
 
-export const FULLNAME = (disabled) => {
+export const FULLNAME = (disabled, defaultValue) => {
   const templateOptions = {
     label: 'Full Name',
     placeholder: 'Enter your full name',
@@ -14,6 +14,9 @@ export const FULLNAME = (disabled) => {
       'name',
       {
         ...templateOptions
+      },
+      {
+        defaultValue: defaultValue
       }
     )
   };

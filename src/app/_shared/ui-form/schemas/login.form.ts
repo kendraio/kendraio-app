@@ -38,10 +38,9 @@ export const LOGIN_FORM = (disabled = false, hidden = false) => ({
 
       fieldGroup: [
         USERNAME(disabled),
-        EMAIL(disabled),
+        EMAIL(disabled, 'boo2@boo2.com'),
         PASSWORD(disabled),
         PASSWORDCONFIRM(true)
-
       ]
     }
   ]

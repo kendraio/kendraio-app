@@ -16,7 +16,7 @@ export class Field {
     };
   }
 
-  public static input(key: string, templateOptions?: FormlyTemplateOptions, options?: any): FormlyFieldConfig {
+  public static input(key: string,  templateOptions?: FormlyTemplateOptions, options?: any): FormlyFieldConfig {
     return this.field('input', key, templateOptions, options);
   }
 
@@ -26,7 +26,7 @@ export class Field {
       label: 'Email'
     };
 
-    return this.input(key, { ...templateOptions, ...defaults }, options);
+    return this.input(key,  { ...templateOptions, ...defaults }, options);
   }
 
   public static password(key: string, templateOptions?: FormlyTemplateOptions, options?: any): FormlyFieldConfig {
@@ -36,7 +36,6 @@ export class Field {
       required: true,
       // {hideExpression: 'model.password'}
     };
-
     return this.input(key, { ...templateOptions, ...defaults }, options);
   }
 
