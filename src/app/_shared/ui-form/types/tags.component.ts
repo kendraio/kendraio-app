@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { FieldType } from '@ngx-formly/core';
 
 @Component({
@@ -6,17 +6,19 @@ import { FieldType } from '@ngx-formly/core';
     changeDetection: ChangeDetectionStrategy.Default,
     template: `
         <label>{{to.label}}</label>
- 
+
         <ng-select [items]="[]"
                    [addTag]="true"
                    [multiple]="true"
                    [selectOnTab]="true"
-                   [isOpen]="false">
+                   [isOpen]="false"
+                   [formControl]="formControl"
+                   >
         </ng-select>
              <mat-hint> {{ to.description }} </mat-hint>
     `
 })
-export class SelectTagsComponent  extends FieldType  {
+export class SelectTagsComponent  extends FieldType implements OnInit  {
 
     loading = false;
 
