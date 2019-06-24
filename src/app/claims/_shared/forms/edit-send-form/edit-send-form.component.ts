@@ -11,20 +11,18 @@ import { CLAIMS_FORM_LAYOUT } from './form.layout';
   styleUrls: ['./edit-send-form.component.scss']
 })
 export class EditSendFormComponent implements OnInit, OnChanges {
-  @Input() 
+  @Input()
   data: any;
-  
+
   formModel: DynamicFormModel = MY_CLAIMS_FORM_MODEL;
   formGroup: FormGroup;
   formLayout: DynamicFormLayout = CLAIMS_FORM_LAYOUT;
 
   constructor(
     private formService: DynamicFormService
-  ) { 
+  ) {
 
   }
-
-
 
   ngOnInit() {
     this.formGroup = this.formService.createFormGroup(this.formModel);
@@ -33,7 +31,7 @@ export class EditSendFormComponent implements OnInit, OnChanges {
     // this.formGroup.get('claim.details').patchValue(this.data);
    this.formGroup.addControl('details', new FormControl(''));
    this.formGroup.get('details').patchValue(this.data);
-    
+
   }
   ngOnChanges(changes: SimpleChanges) {
     if (this.formGroup) {

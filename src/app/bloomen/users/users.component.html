@@ -1,10 +1,10 @@
 
 
-<section appHelp="help.1" 
-fxLayout="row wrap" 
-fxLayoutAlign="start center" 
-fxLayoutGap="40px" 
-fxFlexFill 
+<section appHelp="help.1"
+fxLayout="row wrap"
+fxLayoutAlign="start center"
+fxLayoutGap="40px"
+fxFlexFill
 class="mb-4">
 
 <button mat-flat-button  routerLinkActive="active" color="primary"  [routerLink]="[ '/bloomen/users/register' ]">Register New User</button>
@@ -13,7 +13,10 @@ class="mb-4">
 
 </section>
 
-
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <formly-form [model]="modelJS" [fields]="fieldsJS" [options]="options" [form]="form"></formly-form>
+    <button type="submit" class="btn btn-primary submit-button" [disabled]="!form.valid">Submit</button>
+  </form>
 
 
 <router-outlet></router-outlet>

@@ -1,14 +1,14 @@
-import { Field } from '../../helpers/fields';
+import { Field } from '../../../ui-form-x/helpers/fields';
 
 export const MONEY_INPUT = (disable, hidden) => ({
   ...Field.field(
-    'money', 
-    'money-value', 
-    { 
-      disabled: disable, 
-      label: 'TEST Mask' 
+    'money',
+    'money-value',
+    {
+      disabled: disable,
+      label: 'TEST Mask'
     },
-    { 
+    {
       validators: {
         validation: ['maximumNumValidation']
       }

@@ -1,5 +1,10 @@
 import { Field } from '../helpers/fields';
-import { USERNAME, EMAIL, PASSWORD, PASSWORDCONFIRM, MONEY_INPUT, TYPEAHEAD } from './form-elements';
+import { USERNAME,
+EMAIL,
+PASSWORD,
+PASSWORDCONFIRM,
+// MONEY_INPUT, TYPEAHEAD
+} from './form-elements';
 import { FormlyFormOptions } from '@ngx-formly/core';
 
 

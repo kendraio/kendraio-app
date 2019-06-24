@@ -1,9 +1,10 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormlyService } from 'src/app/_shared/ui-form/services/formly.service';
+import { KendraioFormService } from 'src/app/_shared/ui-form/services/kendraio.form.service';
 import { FormGroup } from '@angular/forms';
 
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
+import { FormlyJsonschema } from '@ngx-formly/core/json-schema';
 
 @Component({
   selector: 'app-users',
@@ -13,7 +14,51 @@ import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 
 // @PerfumeAfterViewInit('FormlyComponent')
 export class UsersComponent implements OnInit, AfterViewInit {
-
+  modelJS: any = {
+    firstName: 'Chuck',
+    lastName: 'Norris',
+    age: 75,
+    bio: 'Roundhouse kicking asses since 1940',
+    password: 'noneed',
+  };
+  options: FormlyFormOptions = {};
+  fieldsJS: FormlyFieldConfig[] = [this.formlyJsonschema.toFieldConfig({
+    'title': 'A registration form',
+    'description': 'A simple form example.',
+    'type': 'object',
+    'required': [
+      'lastName',
+    ],
+    'properties': {
+      'firstName': {
+        'type': 'string',
+        'title': 'First name',
+        'required': 'true'
+      },
+      'lastName': {
+        'type': 'string',
+        'title': 'Last name',
+      },
+      'age': {
+        'type': 'integer',
+        'title': 'Age',
+      },
+      'bio': {
+        'type': 'string',
+        'title': 'Bio',
+      },
+      'password': {
+        'type': 'string',
+        'title': 'Password',
+        'minLength': 3,
+      },
+      'telephone': {
+        'type': 'string',
+        'title': 'Telephone',
+        'minLength': 10,
+      },
+    },
+  })];
 
 
   countries: any[] = [
@@ -25,7 +70,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   public form = new FormGroup({});
   public fields: FormlyFieldConfig[] = [
-   ...this.formlyService.getDefaultForm()
+  //  ...this.formlyService.getDefaultForm()
   ];
   public userDetailsfields: FormlyFieldConfig[];
   public model = {};
@@ -35,7 +80,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   constructor(
     private router: Router,
-    private formlyService: FormlyService,
+    private formlyService: KendraioFormService,
+    private formlyJsonschema: FormlyJsonschema
   ) { }
 
   ngOnInit() {
@@ -62,7 +108,7 @@ routeFn(rt: string) {
 
     public switchForm(id) {
       this.model = {};
-      this.fields = this.formlyService.getFormById(id, false);
+      // this.fields = this.formlyService.getFormById(id, false);
     }
 
     public interactionWithFormly() {

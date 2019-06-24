@@ -18,7 +18,7 @@
 
 <mat-list-item *ngFor="let  item of newMenuItems" (click)="gotoPage(item.path, sidenav)">
     <mat-icon mat-list-icon>{{ item.icon }}</mat-icon>
-    <a matLine>{{ item.parentLabel }}{{ item.label }}</a> {{item.hasChildren}}
+    <a matLine>{{ item.parentLabel }}{{ item.label }} boo</a> {{item.hasChildren}}
   </mat-list-item>
 
 

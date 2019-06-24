@@ -5,43 +5,43 @@ export const MENUITEMS: MenuItem[] = [
     path: '/dashboard',
     label: 'dashboard' ,
     icon: 'dashboard',
- 
+
   },
   {
     label: 'assets',
-    icon: 'favorite',   
+    icon: 'favorite',
     path: '/assets',
     children: [
       {
         label: 'Releases',
-        icon: 'radio', 
+        icon: 'radio',
         path: 'assets/releases',
         children: [
           {
             label: 'List',
-            icon: 'list', 
+            icon: 'list',
             path: 'assets/releases/list',
           },
           {
             label: 'Tasks',
-            icon: 'list', 
+            icon: 'list',
             path: 'assets/releases/tasks',
           }
         ]
       },
       {
         label: 'Recordings',
-        icon: 'library_music', 
+        icon: 'library_music',
         path: 'assets/recordings',
       },
       {
         label: 'files.title',
-        icon: 'library_music', 
+        icon: 'library_music',
         path: 'assets/files',
       },
       {
         label: 'works.title',
-        icon: 'library_music', 
+        icon: 'library_music',
         path: 'assets/works',
       }
     ]
@@ -49,7 +49,7 @@ export const MENUITEMS: MenuItem[] = [
 
   {
     label: 'Services',
-    icon: 'live_tv',   
+    icon: 'live_tv',
     path: '/channels',
     children: [
       {
@@ -59,30 +59,30 @@ export const MENUITEMS: MenuItem[] = [
         children: [
           {
             label: 'Users',
-            icon: 'people', 
+            icon: 'people',
             path: 'bloomen/users',
-         
+
           children: [
             {
               label: 'register',
-              icon: 'people', 
+              icon: 'people',
               path: 'bloomen/users/register',
             }
           ]
         }
         ]
       },
-      {        
-          path: '../youtube',
-          label: 'YouTube',
+      {
+          path: '/channels/youtube',
+          label: 'YouTube2',
           icon: 'attach_money'
         },
-        {        
+        {
           path: 'channels/spotify',
           label: 'Spotify',
           icon: 'attach_money'
         },
-      
+
   ]
 },
 
@@ -103,24 +103,24 @@ export const MENUITEMS: MenuItem[] = [
   },
   {
     label:  'contacts.title',
-    icon: 'contacts',   
+    icon: 'contacts',
     path: '/contacts',
     children: [
       {
         label:  'contacts.people',
-        icon: 'people', 
+        icon: 'people',
         path: 'contacts/people',
       },
       {
         label:  'contacts.organisations',
-        icon: 'business', 
+        icon: 'business',
         path: 'contacts/organisations',
       }
     ]
   },
   {
     label: 'notifications',
-    icon: 'notifications',   
+    icon: 'notifications',
     path: '/notifications',
   },
   {

@@ -5,10 +5,7 @@ import { FieldType } from '@ngx-formly/core';
   selector: 'formly-field-input-percentage',
   template: `
   <mat-form-field appearance="standard">
-  <mat-label>  {{ to.label }} </mat-label>
-     <label class="form-control-label control-label">
-       {{ to.label }}
-     </label>
+  <mat-label>  {{ to.label }} </mat-label> 
      <input matInput type="text"  [textMask]="{mask: limitToHundred}" [formControl]="formControl" [formlyAttributes]="field">
      <mat-error></mat-error>
      <mat-hint> {{ to.description }} </mat-hint>

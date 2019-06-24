@@ -7,10 +7,10 @@ import createNumberMask from 'text-mask-addons/dist/createNumberMask';
   selector: 'formly-field-input-money',
   template: `
 
-     <mat-form-field appearance="standard">
+     <mat-form-field appearance="standard" style="width:100%">
      <mat-label>  {{ to.label }} </mat-label>
      <input matInput type="text"  [textMask]="{mask: numberMask}" [formControl]="formControl" [formlyAttributes]="field">
-     <mat-error></mat-error>
+     <mat-error>OOPS</mat-error>
      <mat-hint></mat-hint>
    </mat-form-field>
 
@@ -23,3 +23,4 @@ export class FormlyFieldInputMoney extends FieldType {
     allowDecimal: true
   });
 }
+

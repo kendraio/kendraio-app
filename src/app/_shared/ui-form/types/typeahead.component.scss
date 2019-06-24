@@ -1,6 +1,11 @@
 :host ::ng-deep {
     .ng-select {
-      padding-bottom: 0;
+      font-size: inherit;
+    font-weight: 400;
+    line-height: 1.125;
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+
+      padding-bottom: 10px;
       .ng-select-container {
         color: inherit;
         min-height: inherit;

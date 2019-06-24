@@ -9,7 +9,19 @@ const routes: Routes = [
     data: {
       breadcrumb: '',
       menuLabel: ''
-    }
+    },
+    children: [
+      {
+        path: 'youtube',
+        loadChildren: './youtube/youtube.module#YoutubeModule',
+        data: {
+          pageTitle: {'en-US': 'My YouTube'},
+          breadcrumb: { 'en-US': 'My YouTube'},
+          menuLabel: 'My YouTube'
+
+        }
+      }
+    ]
   }
 ];
 

@@ -21,8 +21,7 @@ export function maximumNumValidation(control, type) {
     // return value === value2
     //   // avoid displaying the message error when values are empty
     //   || (!value || !value2);
-    // const value2 = control2.value;
-  
+    // const value2 = control2.value;  
     return null;
   }
 

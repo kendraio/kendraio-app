@@ -18,7 +18,7 @@ import {
 import { Observable, of, Subscription } from 'rxjs';
 // import { ValidationService } from 'src/app/_shared/services/validation.service';
 import { IUser } from 'src/app/_models/classes';
-import { FormlyService } from 'src/app/_shared/ui-form/services/formly.service';
+import { KendraioFormService } from 'src/app/_shared/ui-form/services/kendraio.form.service';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
 import { FULLNAME, EMAIL, MESSAGE, TYPEAHEAD } from '../../../_shared/ui-form/schemas/form-elements';
@@ -56,7 +56,7 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
   // userForm: FormGroup;
   public userForm = new FormGroup({});
   public fields: FormlyFieldConfig[] = [
-    ...this.formlyService.getDefaultForm()
+    // ...this.formService.getDefaultForm()
   ];
 
 
@@ -84,7 +84,7 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
-    private formlyService: FormlyService,
+    private formService: KendraioFormService,
     // private fullnamex = FULLNAME,
     // private validationService: ValidationService
   ) {
@@ -155,23 +155,19 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
     ];
 
 
-    this.formlyService.getYoutubeData()
-      .subscribe(newValue => {
-        this.dataFromFakeData = newValue;
-        this.fields = this.formlyService.getJSONFormById(id, false);
-        this.model = {};
-        mappedFields.forEach(v => {
-          // const fname: any = ;
-// console.log(this.fullnamex)
-              // v['field'](false, this.dataFromFakeData['fullname']);
-              // this[v.field.toLowerCase()]();
-
-        });
-
-        this.fields = this.formlyService.getFormById(id, false, this.dataFromFakeData);
-
-
-      });
+//     this.formService.getYoutubeData()
+//       .subscribe(newValue => {
+//         this.dataFromFakeData = newValue;
+//         this.fields = this.formService.getJSONFormById(id, false);
+//         this.model = {};
+//         mappedFields.forEach(v => {
+//           // const fname: any = ;
+// // console.log(this.fullnamex)
+//               // v['field'](false, this.dataFromFakeData['fullname']);
+//               // this[v.field.toLowerCase()]();
+//         });
+//         this.fields = this.formService.getFormById(id, false, this.dataFromFakeData);
+//       });
 
   }
 
