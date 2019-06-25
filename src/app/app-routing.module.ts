@@ -253,7 +253,6 @@ const routes: Routes = [
           menuLabel: 'Tasks'
         }
       },
-
         { path: 'reports',
         loadChildren: './reports/reports.module#ReportsModule',
         data: {
