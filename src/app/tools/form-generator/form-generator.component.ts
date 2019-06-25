@@ -81,7 +81,6 @@ const uiSchema = {};
 
 }
 
-
 // {
 // 	"title": "PRS recording",
 // 	"description": "Register a recording with PRS.",
