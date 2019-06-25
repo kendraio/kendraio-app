@@ -103,6 +103,7 @@ import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { YoutubeUploadComponent } from './components/youtube-upload/youtube-upload.component';
 import { DynamicFormRepoComponent } from './components/dynamic-form-repo/dynamic-form-repo.component';
+import { BloomenSearchPageComponent } from './pages/bloomen-search-page/bloomen-search-page.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -161,7 +162,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     DebugOnlyDirective,
     YoutubePageComponent,
     YoutubeUploadComponent,
-    DynamicFormRepoComponent
+    DynamicFormRepoComponent,
+    BloomenSearchPageComponent
     // BreadcrumbComponent
     // ReportsComponent,
     // ContactsComponent

@@ -1,0 +1,27 @@
+<div *ngIf="bloomenAuth && bloomenAuth.length > 0; else noAuth">
+
+  <mat-form-field appearance="outline">
+    <mat-label>Search</mat-label>
+    <input matInput placeholder="Search term..." [formControl]="searchControl">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+
+</div>
+
+<div *ngIf="errorMessage && errorMessage.length > 0" class="mat-typography">
+  <p>Error fetching results: {{ errorMessage }}</p>
+</div>
+
+<div *ngIf="results && results.length > 0">
+  <mat-card *ngFor="let r of results">
+    <pre style="font-size: 0.75em">{{ r | json }}</pre>
+  </mat-card>
+</div>
+
+<ng-template #noAuth>
+  <mat-card>
+    <p>
+      No authorisation found for Bloomen API. Please enter Auth on <a routerLink="/user">account page</a>.
+    </p>
+  </mat-card>
+</ng-template>

@@ -27,15 +27,16 @@ export class UserPageComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       ipi: [''],
-      fullName: ['']
+      fullName: [''],
+      bloomenAuth: ['']
     });
     this.pageTitle.setTitle('User settings');
     if (this.auth.userProfile) {
       this.profile = this.auth.userProfile;
     } else {
       try {
-        this.auth.getProfile((err, profile) => {
-          this.profile = profile;
+        this.auth.getProfile((err, _profile) => {
+          this.profile = _profile;
         });
       } catch (e) {
         // There was an error fetching profile

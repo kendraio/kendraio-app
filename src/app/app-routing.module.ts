@@ -18,6 +18,7 @@ import { PeopleComponent } from './contacts/people/people.component';
 import {BloomenTestPageComponent} from './pages/bloomen-test-page/bloomen-test-page.component';
 import { DashboardPageComponent } from './pages';
 import {YoutubePageComponent} from './pages/youtube-page/youtube-page.component';
+import {BloomenSearchPageComponent} from './pages/bloomen-search-page/bloomen-search-page.component';
 
 
 // NB all routes must have a breadcrumb
@@ -86,6 +87,10 @@ const routes: Routes = [
           breadcrumb: {'de': 'Bloomen' , 'fr': '', 'en-US': 'Bloomen'},
           menuLabel: 'Bloomen'
         }
+      },
+      {
+          path: 'bloomen/search',
+          component: BloomenSearchPageComponent
       },
       {
         path: 'notifications',
