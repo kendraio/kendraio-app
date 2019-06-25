@@ -6,3 +6,6 @@
   id: fullName
   label: Full name
   placeholder: Full name
+- type: INPUT
+  id: bloomenAuth
+  label: Bloomen Auth
