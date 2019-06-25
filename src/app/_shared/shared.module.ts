@@ -30,9 +30,9 @@ import { HelpTextService } from './services/help-text.service';
 import { HelpTextBtnDirective } from './directives/help-text-btn.directive';
 import { TranslateModule } from '@ngx-translate/core';
 import { PasswordStrength, PasswordStrength2, matchPasswords } from './directives/passwordValidation';
-import { DYNAMIC_VALIDATORS, ValidatorFactory, DYNAMIC_FORM_CONTROL_MAP_FN, DynamicFormControlModel, DynamicFormControl, 
-  DynamicInputControlModel, 
-  DynamicInputModel, 
+import { DYNAMIC_VALIDATORS, ValidatorFactory, DYNAMIC_FORM_CONTROL_MAP_FN, DynamicFormControlModel, DynamicFormControl,
+  DynamicInputControlModel,
+  DynamicInputModel,
   DynamicSelectModel} from '@ng-dynamic-forms/core';
 import { PasswordInputComponent } from './form-controls/password-input/password-input.component';
 import { DynamicPasswordInputComponent } from './form-controls/password-input/dynamic/dynamic-password-input/dynamic-password-input.component';
@@ -49,6 +49,7 @@ import { UsersComponent } from '../bloomen/users/users.component';
 // import { ClaimsEditSendComponent } from '../claims/claims-edit-send/claims-edit-send.component';
 
 import { NgSelectModule } from '@ng-select/ng-select';
+import { KendraioFormComponent } from './ui-form/kendraio-form/kendraio-form.component';
 
 export function minlengthValidationMessage(err, field) {
   return `what the.. ${field.templateOptions.minLength} characters`;
@@ -89,7 +90,7 @@ export function minlengthValidationMessage(err, field) {
     ReactiveFormsModule,
     FormlyMaterialModule,
     FormlyModule.forRoot({
-      // validationMessages: 
+      // validationMessages:
       // [
       //   // { name: 'required', message: 'This field is required' },
       //   // { name: 'minlength', message: minlengthValidationMessage },
@@ -120,7 +121,8 @@ export function minlengthValidationMessage(err, field) {
     // MenuComponent,
     // MenuItemComponent,
     // ClaimsEditSendComponent
-    UsersComponent
+    UsersComponent,
+    // KendraioFormComponent,
   ],
   exports: [
   //  matComponents.MatInputComponent,
@@ -135,6 +137,7 @@ export function minlengthValidationMessage(err, field) {
   // ClaimsEditSendComponent,
   MatListModule,
   BreadcrumbComponent,
+
   MatTreeModule,
   HelpTextBtnDirective,
   UsersComponent,
@@ -153,12 +156,12 @@ TranslateModule
     {
       provide: DYNAMIC_FORM_CONTROL_MAP_FN,
       useValue: (model: DynamicFormControlModel): Type<DynamicFormControl> | null  => {
-  
+
         switch (model.type) {
-  
+
           case DynamicInputModel.toString():
           return DynamicPasswordInputComponent;
-  
+
           }
        }
     }
@@ -171,7 +174,7 @@ TranslateModule
   //     ])
   // }
   ],
-  entryComponents: [   
+  entryComponents: [
     SendClaimsComponent,
     ClaimsEditComponent,
     DynamicPasswordInputComponent

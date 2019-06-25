@@ -11,9 +11,12 @@ import { UiFormModule } from '../../_shared/ui-form/ui-form.module';
 
 import { MyYoutubeComponent } from './my-youtube/my-youtube.component';
 import { YoutubeIndexComponent } from './youtube-index/youtube-index.component';
+import { KendraioFormComponent } from 'src/app/_shared/ui-form/kendraio-form/kendraio-form.component';
 
 @NgModule({
-  declarations: [MyYoutubeComponent, YoutubeIndexComponent],
+  declarations: [MyYoutubeComponent, YoutubeIndexComponent,
+    KendraioFormComponent
+  ],
   imports: [
     CommonModule,
     SharedModule,

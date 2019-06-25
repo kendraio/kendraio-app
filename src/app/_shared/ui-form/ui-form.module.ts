@@ -5,9 +5,9 @@ import { FormlyModule } from '@ngx-formly/core';
 import { TextMaskModule } from 'angular2-text-mask';
 // import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 
-import { PanelWrapperComponent, 
-// ErrorWrapperComponent, 
-// AnimationWrapperComponent 
+import { PanelWrapperComponent,
+// ErrorWrapperComponent,
+// AnimationWrapperComponent
 } from './wrappers';
 
 
@@ -38,6 +38,7 @@ import {
   MatButtonModule,
   // MatNativeDateModule
 } from '@angular/material';
+// import { KendraioFormComponent } from './kendraio-form/kendraio-form.component';
 
 
 @NgModule({
@@ -47,7 +48,7 @@ import {
     ReactiveFormsModule,
     FormlyModule.forRoot(config),
     TextMaskModule,
-   
+
     // AppMaterialModule,
     NgSelectModule,
     // SharedModule
@@ -69,7 +70,7 @@ import {
     FormsModule,
     ReactiveFormsModule,
     FormlyModule,
-    FormlyMaterialModule ,  
+    FormlyMaterialModule ,
     MatButtonToggleModule,
     MatButtonModule,
     MatCheckboxModule,
@@ -92,7 +93,8 @@ import {
     FormlyFieldInputPercentage,
     FormlyFieldTypeahead,
     FormlyFieldVideoViewer,
-    SelectTagsComponent
+    SelectTagsComponent,
+    // KendraioFormComponent
 
   ]
 })

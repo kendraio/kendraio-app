@@ -29,17 +29,15 @@ export class KendraioFormService {
 
 
   uiMapper(formlyConfig, jsonSchema, uiSchema) {
-let i = 0
+let i = 0;
     Object.keys(jsonSchema.properties).forEach(function (key) {
-      console.log(key, jsonSchema.properties[key]);
       Object.keys(uiSchema).forEach(function (uiKey) {
         if (uiKey === key) {
-          console.log('match: ' + uiSchema[key]['ui:disabled']);
           formlyConfig['fieldGroup'][i]['templateOptions']['disabled'] = uiSchema[key]['ui:disabled'];
           formlyConfig['fieldGroup'][i]['templateOptions']['placeholder'] = uiSchema[key]['ui:placeholder'];
         }
       });
-      i++
+      i++;
     })
     return formlyConfig;
   }

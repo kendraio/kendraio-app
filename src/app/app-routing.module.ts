@@ -105,7 +105,7 @@ const routes: Routes = [
       //     subTitle: ''
       //   }
       // },
-  
+
       {
         path: 'import',
         component: Pages.ImportPageComponent,
@@ -220,7 +220,7 @@ const routes: Routes = [
           menuLabel: 'Bloomen API'
         }
       },
-   
+
       {
         path: 'claims',
         loadChildren: './claims/claims.module#ClaimsModule',
@@ -228,29 +228,29 @@ const routes: Routes = [
           pageTitle: 'Claims',
           breadcrumb: 'claims',
           menuLabel: 'Claims'
-        } 
+        }
       },
-      { path: 'contacts', 
+      { path: 'contacts',
         loadChildren: './contacts/contacts.module#ContactsModule',
         data: {
           pageTitle: 'Contacts',
           breadcrumb: 'contacts',
           menuLabel: 'Contacts'
 
-        } 
+        }
       },
 
-        { path: 'tasks', 
-        loadChildren: './tasks/tasks.module#TasksModule',      
+        { path: 'tasks',
+        loadChildren: './tasks/tasks.module#TasksModule',
         data: {
           pageTitle: 'Tasks',
           breadcrumb: 'tasks',
           menuLabel: 'Tasks'
-        } 
+        }
       },
 
-        { path: 'reports', 
-        loadChildren: './reports/reports.module#ReportsModule',  
+        { path: 'reports',
+        loadChildren: './reports/reports.module#ReportsModule',
         data: {
           pageTitle: 'Reports',
           breadcrumb: 'reports.title',
@@ -267,6 +267,16 @@ const routes: Routes = [
           menuLabel: 'Settings'
         }
       },
+      {
+        path: 'tools',
+        loadChildren: './tools/tools.module#ToolsModule',
+        data: {
+          pageTitle: 'Tools',
+          breadcrumb: 'tools',
+          menuLabel: 'Tools'
+        }
+      },
+
        { path: '', redirectTo: '/tasks', pathMatch: 'full' },
        { path: '**', redirectTo: '/tasks', pathMatch: 'full' },
   //  ]

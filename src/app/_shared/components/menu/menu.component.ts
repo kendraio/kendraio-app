@@ -173,6 +173,11 @@ export const MENUITEMS: MenuItem[] = [
     path: '/user',
     label: 'Identities',
     icon: 'person'
+  },
+  {
+    path: '/tools',
+    label: 'Tools',
+    icon: 'tool'
   }
 ];
 

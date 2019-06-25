@@ -1,0 +1,32 @@
+<div style="float: left; width:30%; margin-right: 28px">
+
+  <form [formGroup]="schemaform"  novalidate>
+
+    <textarea style="width:100%; height:600px"  formControlName="JSONSchema" name="JSONSchema"  autofocus>
+    </textarea>
+
+
+    <textarea  formControlName="UISchema" name="UISchema" >
+      </textarea>
+
+      <textarea style="width:100%; height:400px"  formControlName="model" name="model" >
+        </textarea>
+
+
+  </form>
+  </div>
+  <!-- {{schemaform.value | json}} -->
+  <div style="float: left; width:60%">
+  <form >
+    <formly-form
+              [fields]="fields"
+              [options]="options"
+              [model]="model"
+                              ></formly-form>
+
+  <p></p>
+  <p></p>
+
+
+  </form>
+</div>
