@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { tap, distinctUntilChanged, debounce, debounceTime } from 'rxjs/operators';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
@@ -42,32 +42,46 @@ export class FormGeneratorComponent implements OnInit {
 
     this.subscription = this.formChanges$.pipe(
       distinctUntilChanged(),
-      debounceTime(2000),
+      debounceTime(500),
       tap(() => {
+        this.isLoading = true;
       })
     )
       // .debounceTime(2000)
       .subscribe(newVal => {
-        // this.doit ();
-        this.generateForm()
+        this.generateForm();
+        this.isLoading = false;
       });
 
   }
 
   generateForm() {
-const jsonSchema = JSON.parse(this.schemaform.get('JSONSchema').value);
-this.model = JSON.parse(this.schemaform.get('model').value);
-// this.model = model;
-const uiSchema = {};
+    let uiSchema = {};
+    let jsonSchema = {};
+    let isValid = true;
+    try {
+    jsonSchema = JSON.parse(this.schemaform.get('JSONSchema').value);
+  isValid = true;
+  } catch (e) {
+    console.log('schema not valid');
+ isValid = false;
+}
+    console.log(jsonSchema);
+    this.model = JSON.parse(this.schemaform.get('model').value);
+    console.log(this.model);
+
+try {
+     uiSchema = JSON.parse(this.schemaform.get('UISchema').value);
+  } catch (e) {
+      // return false;
+  }
 
 
-    // this.formService.getFormData('youtube')
-    //   .subscribe(([uiSchema, jsonSchema]) => {
-          this.formConfig = this.formlyJsonschema.toFieldConfig(jsonSchema);
-          this.fields = [this.formService.uiMapper(this.formConfig, jsonSchema, uiSchema)];
-              console.log(jsonSchema);
-      // });
-
+    console.log(uiSchema);
+    if (isValid) {
+    this.formConfig = this.formlyJsonschema.toFieldConfig(jsonSchema);
+    this.fields = [this.formService.uiMapper(this.formConfig, jsonSchema, uiSchema)];
+    }
 
   }
 
@@ -77,7 +91,7 @@ const uiSchema = {};
       UISchema: [''],
       model: [JSON.stringify(this.model)],
     });
-  };
+  }
 
 }
 
@@ -125,6 +139,14 @@ const uiSchema = {};
 // 		"contentType": {
 // 			"type": "string",
 // 			"title": "Content Type"
-// 		}
+// 		},
+// "testList":{
+//   "type": "string",
+//  "title":"Test List",
+//        "enum": [
+//          "option #0",
+//          "option #1"
+//  ]
+//  }
 // 	}
 // }
