@@ -2,13 +2,17 @@
 
   <form [formGroup]="schemaform"  novalidate>
 
+
+   <label for=""> JSON Schema</label>
     <textarea style="width:100%; height:600px"  formControlName="JSONSchema" name="JSONSchema"  autofocus>
     </textarea>
 
-
-    <textarea  formControlName="UISchema" name="UISchema" >
+<label for="">UI Schema (not working 100%)</label>
+    <textarea  style="width:100%; height:200px"   formControlName="UISchema" name="UISchema" >
       </textarea>
 
+
+      <label for="">Model</label>
       <textarea style="width:100%; height:400px"  formControlName="model" name="model" >
         </textarea>
 
@@ -26,6 +30,9 @@
 
   <p></p>
   <p></p>
+  <div *ngIf="!isValid">
+   <h3>JSON not valid!!!</h3>
+  </div>
 
 
   </form>

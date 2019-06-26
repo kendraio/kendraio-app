@@ -1,0 +1,65 @@
+
+  {
+    "isrc": {
+      "ui:disabled": true,
+      "ui:placeholder": "Enter the Video Title"
+    }
+  }
+
+
+
+  {
+	"title": "PRS recording",
+	"description": "Register a recording with PRS.",
+	"type": "object",
+	"required": [
+		"isrc",
+		"bandArtist",
+		"recordingTitle",
+		"contentType",
+		"pDate"
+	],
+	"properties": {
+		"isrc": {
+			"type": "string",
+			"title": "ISRC",
+			"minLength": 12,
+			"maxLength": 12,
+			"default": ""
+		},
+		"bandArtist": {
+			"type": "string",
+			"title": "Band/Artist name "
+		},
+		"recordingTitle": {
+			"type": "string",
+			"title": "Recording Title"
+		},
+		"versionType": {
+			"type": "string",
+			"title": "Version Type"
+		},
+		"genre": {
+			"type": "string",
+			"title": "Genre"
+		},
+
+		"remastered": {
+			"type": "boolean",
+			"title": "Remastered",
+			"description": "This recording is remastered"
+		},
+		"contentType": {
+			"type": "string",
+			"title": "Content Type"
+		},
+"testList":{
+  "type": "string",
+ "title":"Test List",
+       "enum": [
+         "option #0",
+         "option #1"
+ ]
+ }
+	}
+}

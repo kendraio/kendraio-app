@@ -30,6 +30,8 @@ export class KendraioFormService {
 
   uiMapper(formlyConfig, jsonSchema, uiSchema) {
 let i = 0;
+try {
+
     Object.keys(jsonSchema.properties).forEach(function (key) {
       Object.keys(uiSchema).forEach(function (uiKey) {
         if (uiKey === key) {
@@ -38,8 +40,12 @@ let i = 0;
         }
       });
       i++;
-    })
-    return formlyConfig;
+    });
+   return formlyConfig;
+  } catch (e) {
+
+  }
+
   }
 
   // public getFormById(id: string, disabled = false, data?: object) {

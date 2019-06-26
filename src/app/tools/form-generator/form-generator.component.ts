@@ -17,10 +17,20 @@ export class FormGeneratorComponent implements OnInit {
   formChanges$: Observable<any>;
   private subscription: Subscription;
   model: any = {
-    title: 'The Forest',
-    description: 'Born in the morning in the drizzlin rain. Trouble is his middle name',
-    videoId: 'YA9N4nsAxZo',
-    tags: ['this', 'is', 'tagging', 'in', 'action']
+    bandArtist: 'The Forest',
+    recordingTitle: 'Born in the morning',
+    isrc: 'YA9N4nsAxZo'
+  };
+
+  uiSchemaDefault: any =   {
+    "isrc": {
+      "ui:disabled": true,
+      "ui:placeholder": "Enter your ISRC"
+    },
+    "versionType": {
+      "ui:disabled": false,
+      "ui:placeholder": "Enter  Version Type"
+    }
   };
 
   formConfig: any;
@@ -28,6 +38,7 @@ export class FormGeneratorComponent implements OnInit {
   jsonSchema: any;
   uiSchema: any;
   fields: FormlyFieldConfig[];
+  isValid: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -58,95 +69,72 @@ export class FormGeneratorComponent implements OnInit {
   generateForm() {
     let uiSchema = {};
     let jsonSchema = {};
-    let isValid = true;
-    try {
-    jsonSchema = JSON.parse(this.schemaform.get('JSONSchema').value);
-  isValid = true;
-  } catch (e) {
-    console.log('schema not valid');
- isValid = false;
-}
-    console.log(jsonSchema);
-    this.model = JSON.parse(this.schemaform.get('model').value);
-    console.log(this.model);
+    this.isValid = true;
 
-try {
-     uiSchema = JSON.parse(this.schemaform.get('UISchema').value);
-  } catch (e) {
-      // return false;
+    //  if (this.isJson(this.schemaform.get('JSONSchema').value)) {
+
+    //  }
+
+    // try {
+    //   jsonSchema = JSON.parse(this.schemaform.get('JSONSchema').value);
+    //   this.isValid = true;
+    // } catch (e) {
+    //   console.log('schema not valid');
+    //   this.isValid = false;
+    // }
+
+    jsonSchema = this.isValidJsonSchema(jsonSchema);
+
+    this.model = JSON.parse(this.schemaform.get('model').value);
+
+
+    uiSchema = this.isValidJson(uiSchema);
+
+
+
+    if (this.isValid) {
+      this.formConfig = this.formlyJsonschema.toFieldConfig(jsonSchema);
+      this.fields = [this.formService.uiMapper(this.formConfig, jsonSchema, uiSchema)];
+    }
+
+  }
+
+  private isValidJson(uiSchema: {}) {
+    try {
+      uiSchema = JSON.parse(this.schemaform.get('UISchema').value);
+    } catch (e) {
+      // this.isValid = false;
+      if (Object.keys(uiSchema).length === 0) {
+        // return;
+      }  else {
+        this.isValid = false;
+      }
+    }
+    return uiSchema;
   }
 
 
-    console.log(uiSchema);
-    if (isValid) {
-    this.formConfig = this.formlyJsonschema.toFieldConfig(jsonSchema);
-    this.fields = [this.formService.uiMapper(this.formConfig, jsonSchema, uiSchema)];
+  private isValidJsonSchema(jsonSchema: {}) {
+    try {
+      this.isValid = true;
+      jsonSchema = JSON.parse(this.schemaform.get('JSONSchema').value);
+    } catch (e) {
+      this.isValid = false;
+      if (Object.keys(jsonSchema).length === 0) {
+      }  else {
+        this.isValid = false;
+      }
     }
-
+    return jsonSchema;
   }
 
   createForm() {
     this.schemaform = this.fb.group({
       JSONSchema: [''],
-      UISchema: [''],
+      UISchema: [JSON.stringify(this.uiSchemaDefault)],
       model: [JSON.stringify(this.model)],
     });
   }
 
 }
 
-// {
-// 	"title": "PRS recording",
-// 	"description": "Register a recording with PRS.",
-// 	"type": "object",
-// 	"required": [
-// 		"isrc",
-// 		"bandArtist",
-// 		"recordingTitle",
-// 		"contentType",
-// 		"pDate"
-// 	],
-// 	"properties": {
-// 		"isrc": {
-// 			"type": "string",
-// 			"title": "ISRC",
-// 			"minLength": 12,
-// 			"maxLength": 12,
-// 			"default": ""
-// 		},
-// 		"bandArtist": {
-// 			"type": "string",
-// 			"title": "Band/Artist name "
-// 		},
-// 		"recordingTitle": {
-// 			"type": "string",
-// 			"title": "Recording Title"
-// 		},
-// 		"versionType": {
-// 			"type": "string",
-// 			"title": "Version Type"
-// 		},
-// 		"genre": {
-// 			"type": "string",
-// 			"title": "Genre"
-// 		},
-
-// 		"remastered": {
-// 			"type": "boolean",
-// 			"title": "Remastered",
-// 			"description": "This recording is remastered"
-// 		},
-// 		"contentType": {
-// 			"type": "string",
-// 			"title": "Content Type"
-// 		},
-// "testList":{
-//   "type": "string",
-//  "title":"Test List",
-//        "enum": [
-//          "option #0",
-//          "option #1"
-//  ]
-//  }
-// 	}
-// }
