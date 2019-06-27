@@ -1,14 +1,4 @@
-
-  {
-    "isrc": {
-      "ui:disabled": true,
-      "ui:placeholder": "Enter the Video Title"
-    }
-  }
-
-
-
-  {
+{
 	"title": "PRS recording",
 	"description": "Register a recording with PRS.",
 	"type": "object",
@@ -29,7 +19,7 @@
 		},
 		"bandArtist": {
 			"type": "string",
-			"title": "Band/Artist name "
+			"title": "Band/Artist name"
 		},
 		"recordingTitle": {
 			"type": "string",
@@ -37,29 +27,81 @@
 		},
 		"versionType": {
 			"type": "string",
-			"title": "Version Type"
+			"title": "Version Type",
+			"enum": [
+				"Album",
+				"Alternative",
+				"Demo",
+				"Edit",
+				"Instrumental",
+				"Karaoke",
+				"Live",
+				"Radio edit",
+				"Remix",
+				"Session"
+			]
 		},
-		"genre": {
-			"type": "string",
-			"title": "Genre"
-		},
-
 		"remastered": {
 			"type": "boolean",
 			"title": "Remastered",
 			"description": "This recording is remastered"
 		},
+		"genre": {
+           "type": "string",
+           "title":"Genre",
+			"enum": [
+				"Alternative Rock",
+				"Adult contemporary",
+				"Bhangra",
+				"Blues",
+				"Chamber music",
+				"Children's music",
+				"Christian",
+				"Classical",
+				"Country",
+				"Dance",
+				"Easy listening",
+				"Erotic",
+				"Folk",
+				"Gospel",
+				"Hip Hop",
+				"Jazz",
+				"Latin",
+				"Middle of the road",
+				"Musical (theatre)",
+				"New Age",
+				"Opera",
+				"Operetta",
+				"Other",
+				"Pop",
+				"Rap",
+				"Reggae",
+				"Religious",
+				"Rhythm and Blues",
+				"Rock",
+				"Rock and Roll",
+				"Show",
+				"Soul",
+				"Sound effects",
+				"Spoken word",
+				"Unclassified",
+				"World music"
+			]
+		},
 		"contentType": {
 			"type": "string",
-			"title": "Content Type"
+			"title": "Content Type",
+			"enum": [
+				"Audio",
+				"video"
+			]
 		},
-"testList":{
-  "type": "string",
- "title":"Test List",
-       "enum": [
-         "option #0",
-         "option #1"
- ]
- }
+		"pDate": {
+			"type": "datepicker",
+			"title": "(P)Date ",
+			"minLength": 4,
+			"maxLength": 4
+
+		}
 	}
 }

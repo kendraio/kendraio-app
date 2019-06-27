@@ -37,6 +37,8 @@ try {
         if (uiKey === key) {
           formlyConfig['fieldGroup'][i]['templateOptions']['disabled'] = uiSchema[key]['ui:disabled'];
           formlyConfig['fieldGroup'][i]['templateOptions']['placeholder'] = uiSchema[key]['ui:placeholder'];
+          formlyConfig['fieldGroup'][i]['templateOptions']['type'] = uiSchema[key]['ui:type'];
+          formlyConfig['fieldGroup'][i]['templateOptions']['required'] = uiSchema[key]['ui:required'];
         }
       });
       i++;

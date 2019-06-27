@@ -21,6 +21,10 @@
   </div>
   <!-- {{schemaform.value | json}} -->
   <div style="float: left; width:60%">
+
+    <h3>{{formDescription}}</h3>
+    <h4>{{formLabel}}</h4>
+
   <form >
     <formly-form
               [fields]="fields"
@@ -28,7 +32,7 @@
               [model]="model"
                               ></formly-form>
 
-  <p></p>
+  <p>Hint: Try changing 'type' to password, date, datepicker, tags</p>
   <p></p>
   <div *ngIf="!isValid">
    <h3>JSON not valid!!!</h3>

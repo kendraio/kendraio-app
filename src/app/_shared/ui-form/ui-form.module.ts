@@ -18,13 +18,13 @@ import { FormlyFieldInputPercentage } from './types/percentage.component';
 
 import { config } from './config';
 import { FormlyMaterialModule } from '@ngx-formly/material';
-// import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule } from '@angular/material/core';
 // import { AppMaterialModule } from './app/app-material/app-material.module';
 import { FormlyFieldTypeahead } from './types/typeahead.component';
 import { FormlyFieldVideoViewer } from './types';
 import { NgSelectModule } from '@ng-select/ng-select';
 // import { SharedModule } from '../shared.module';
-// import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
+import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
 
 import {
   MatButtonToggleModule,
@@ -64,7 +64,7 @@ import {
     MatSelectModule,
     MatSliderModule,
     // MatNativeDateModule,
-    // FormlyMatDatepickerModule
+    FormlyMatDatepickerModule
   ],
   exports: [
     FormsModule,
@@ -81,8 +81,8 @@ import {
     MatSelectModule,
     MatSliderModule,
     NgSelectModule,
-    // MatNativeDateModule,
-    // FormlyMatDatepickerModule
+    MatNativeDateModule,
+    FormlyMatDatepickerModule
   ],
   declarations: [
     PanelWrapperComponent,

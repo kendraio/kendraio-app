@@ -29,7 +29,9 @@ export class FormGeneratorComponent implements OnInit {
     },
     "versionType": {
       "ui:disabled": false,
-      "ui:placeholder": "Enter  Version Type"
+      "ui:placeholder": "Enter  Version Type",
+      "ui:type": "textarea",
+      "ui:required": true,
     }
   };
 
@@ -39,6 +41,8 @@ export class FormGeneratorComponent implements OnInit {
   uiSchema: any;
   fields: FormlyFieldConfig[];
   isValid: boolean;
+  formDescription: string;
+  formLabel: string;
 
   constructor(
     private fb: FormBuilder,
@@ -67,6 +71,10 @@ export class FormGeneratorComponent implements OnInit {
   }
 
   generateForm() {
+
+
+
+
     let uiSchema = {};
     let jsonSchema = {};
     this.isValid = true;
@@ -74,7 +82,6 @@ export class FormGeneratorComponent implements OnInit {
     //  if (this.isJson(this.schemaform.get('JSONSchema').value)) {
 
     //  }
-
     // try {
     //   jsonSchema = JSON.parse(this.schemaform.get('JSONSchema').value);
     //   this.isValid = true;
@@ -84,19 +91,17 @@ export class FormGeneratorComponent implements OnInit {
     // }
 
     jsonSchema = this.isValidJsonSchema(jsonSchema);
-
     this.model = JSON.parse(this.schemaform.get('model').value);
-
-
     uiSchema = this.isValidJson(uiSchema);
-
-
 
     if (this.isValid) {
       this.formConfig = this.formlyJsonschema.toFieldConfig(jsonSchema);
       this.fields = [this.formService.uiMapper(this.formConfig, jsonSchema, uiSchema)];
     }
+console.log(this.formConfig.templateOptions)
 
+this.formDescription = this.formConfig.templateOptions.description;
+this.formLabel =  this.formConfig.templateOptions.label;
   }
 
   private isValidJson(uiSchema: {}) {
