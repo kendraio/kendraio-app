@@ -2,19 +2,27 @@
 
   <form [formGroup]="schemaform"  novalidate>
 
-
-   <label for=""> JSON Schema</label>
-    <textarea style="width:100%; height:600px"  formControlName="JSONSchema" name="JSONSchema"  autofocus>
-    </textarea>
-
-<label for="">UI Schema (not working 100%)</label>
-    <textarea  style="width:100%; height:200px"   formControlName="UISchema" name="UISchema" >
-      </textarea>
+    <label for="">JSON Schema - (paste as plain-text!)</label>
+<pre contenteditable="true" formControlName="JSONSchema">
 
 
-      <label for="">Model</label>
-      <textarea style="width:100%; height:400px"  formControlName="model" name="model" >
-        </textarea>
+</pre>
+
+
+
+
+   <!-- <label for=""> JSON Schema</label>
+    <textarea style="width:100%; height:600px"   name="JSONSchema"  autofocus>
+    </textarea> -->
+
+<label for="">UI Schema (not working 100%) - (paste as plain-text!)</label>
+<pre contenteditable="true"  style="width:100%; height:200px"   formControlName="UISchema" name="UISchema" >
+      </pre>
+
+
+      <label for="">Model - (paste as plain-text!)</label>
+      <pre contenteditable="true"style="width:100%; height:400px"  formControlName="model" name="model" >
+        </pre>
 
 
   </form>

@@ -22,7 +22,7 @@ export class FormGeneratorComponent implements OnInit {
     isrc: 'YA9N4nsAxZo'
   };
 
-  uiSchemaDefault: any =   {
+  uiSchemaDefault: any = {
     "isrc": {
       "ui:disabled": true,
       "ui:placeholder": "Enter your ISRC"
@@ -97,11 +97,12 @@ export class FormGeneratorComponent implements OnInit {
     if (this.isValid) {
       this.formConfig = this.formlyJsonschema.toFieldConfig(jsonSchema);
       this.fields = [this.formService.uiMapper(this.formConfig, jsonSchema, uiSchema)];
+      this.formDescription = this.formConfig.templateOptions.description;
+      this.formLabel = this.formConfig.templateOptions.label;
     }
-console.log(this.formConfig.templateOptions)
+    // console.log(this.formConfig.templateOptions)
 
-this.formDescription = this.formConfig.templateOptions.description;
-this.formLabel =  this.formConfig.templateOptions.label;
+
   }
 
   private isValidJson(uiSchema: {}) {
@@ -111,7 +112,7 @@ this.formLabel =  this.formConfig.templateOptions.label;
       // this.isValid = false;
       if (Object.keys(uiSchema).length === 0) {
         // return;
-      }  else {
+      } else {
         this.isValid = false;
       }
     }
@@ -126,7 +127,7 @@ this.formLabel =  this.formConfig.templateOptions.label;
     } catch (e) {
       this.isValid = false;
       if (Object.keys(jsonSchema).length === 0) {
-      }  else {
+      } else {
         this.isValid = false;
       }
     }

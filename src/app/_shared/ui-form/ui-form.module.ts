@@ -5,6 +5,7 @@ import { FormlyModule } from '@ngx-formly/core';
 import { TextMaskModule } from 'angular2-text-mask';
 // import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 
+
 import { PanelWrapperComponent,
 // ErrorWrapperComponent,
 // AnimationWrapperComponent
@@ -38,6 +39,7 @@ import {
   MatButtonModule,
   // MatNativeDateModule
 } from '@angular/material';
+// import { ContentEditableFormDirective } from '../directives/editable-content';
 // import { KendraioFormComponent } from './kendraio-form/kendraio-form.component';
 
 
@@ -94,6 +96,7 @@ import {
     FormlyFieldTypeahead,
     FormlyFieldVideoViewer,
     SelectTagsComponent,
+    // ContentEditableFormDirective
     // KendraioFormComponent
 
   ]
