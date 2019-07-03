@@ -27,10 +27,10 @@ export class FormGeneratorComponent implements OnInit {
       "ui:disabled": true,
       "ui:placeholder": "Enter your ISRC"
     },
-    "versionType": {
+    "bandArtist": {
       "ui:disabled": false,
       "ui:placeholder": "Enter  Version Type",
-      "ui:type": "textarea",
+      "ui:type": "datepicker",
       "ui:required": true,
     }
   };
@@ -75,8 +75,8 @@ export class FormGeneratorComponent implements OnInit {
 
 
 
-    let uiSchema = {};
-    let jsonSchema = {};
+    let uiSchema: any = {};
+    let jsonSchema: any = {};
     this.isValid = true;
 
     //  if (this.isJson(this.schemaform.get('JSONSchema').value)) {
@@ -94,11 +94,15 @@ export class FormGeneratorComponent implements OnInit {
     this.model = JSON.parse(this.schemaform.get('model').value);
     uiSchema = this.isValidJson(uiSchema);
 
+
     if (this.isValid) {
+      jsonSchema.properties.bandArtist.type = uiSchema.bandArtist['ui:type'];
       this.formConfig = this.formlyJsonschema.toFieldConfig(jsonSchema);
       this.fields = [this.formService.uiMapper(this.formConfig, jsonSchema, uiSchema)];
       this.formDescription = this.formConfig.templateOptions.description;
       this.formLabel = this.formConfig.templateOptions.label;
+
+
     }
     // console.log(this.formConfig.templateOptions)
 

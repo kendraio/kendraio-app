@@ -34,6 +34,7 @@ try {
 
     Object.keys(jsonSchema.properties).forEach(function (key) {
       Object.keys(uiSchema).forEach(function (uiKey) {
+        jsonSchema.properties.bandArtist.type = 'datepicker';
         if (uiKey === key) {
           formlyConfig['fieldGroup'][i]['templateOptions']['disabled'] = uiSchema[key]['ui:disabled'];
           formlyConfig['fieldGroup'][i]['templateOptions']['placeholder'] = uiSchema[key]['ui:placeholder'];
