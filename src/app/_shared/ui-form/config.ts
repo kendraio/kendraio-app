@@ -75,6 +75,15 @@ export const config: ConfigOption = {
       },
     },
     {
+      name: 'date',
+      extends: 'input',
+      defaultOptions: {
+        templateOptions: {
+          type: 'date',
+        },
+      },
+    },
+    {
       name: 'integer',
       extends: 'input',
       // defaultOptions: {

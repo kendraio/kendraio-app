@@ -27,15 +27,15 @@ export class KendraioFormService {
    return this.http.get<FormlyFieldConfig[]>('assets/YouTube/youtube-edit-video-basic.json');
   }
 
-
   uiMapper(formlyConfig, jsonSchema, uiSchema) {
 let i = 0;
 try {
 
     Object.keys(jsonSchema.properties).forEach(function (key) {
       Object.keys(uiSchema).forEach(function (uiKey) {
-        jsonSchema.properties.bandArtist.type = 'datepicker';
+        // jsonSchema.properties.bandArtist.type = 'datepicker';
         if (uiKey === key) {
+          jsonSchema.properties.bandArtist.type = uiSchema.bandArtist['ui:type'];
           formlyConfig['fieldGroup'][i]['templateOptions']['disabled'] = uiSchema[key]['ui:disabled'];
           formlyConfig['fieldGroup'][i]['templateOptions']['placeholder'] = uiSchema[key]['ui:placeholder'];
           formlyConfig['fieldGroup'][i]['templateOptions']['type'] = uiSchema[key]['ui:type'];
@@ -44,12 +44,35 @@ try {
       });
       i++;
     });
-   return formlyConfig;
+   return formlyConfig
+    // , jsonSchema] ;
   } catch (e) {
 
   }
 
   }
+
+  jsonMapper(jsonSchema, uiSchema) {
+    let i = 0;
+    try {
+    
+        Object.keys(uiSchema).forEach(function (key) {
+          Object.keys(jsonSchema.properties).forEach(function (uiKey) {
+            // jsonSchema.properties.bandArtist.type = 'datepicker';
+            if (uiKey === key) {
+              jsonSchema.properties[i].type = uiSchema.bandArtist['ui:type'];
+
+            }
+          });
+          i++;
+        });
+       return jsonSchema
+        // , jsonSchema] ;
+      } catch (e) {
+    
+      }
+    
+      }
 
   // public getFormById(id: string, disabled = false, data?: object) {
   //   const ob = FORMS_VALUES(disabled, data)[id];

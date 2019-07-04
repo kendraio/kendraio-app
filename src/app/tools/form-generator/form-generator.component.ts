@@ -94,11 +94,37 @@ export class FormGeneratorComponent implements OnInit {
     this.model = JSON.parse(this.schemaform.get('model').value);
     uiSchema = this.isValidJson(uiSchema);
 
+//     function doSomething(a,b,c,d,e,f){
+//       return {a,b,c,d,e,f};
+// }
+// let {a,b,c,d,e,f}=doSomething(1,2,3,4,5,6);
+// console.log(a,b,c,d,e,f);
+
 
     if (this.isValid) {
-      jsonSchema.properties.bandArtist.type = uiSchema.bandArtist['ui:type'];
+      // jsonSchema = this.formService.jsonMapper(jsonSchema, uiSchema)
+
+
+      let i = 0;
+      try {
+                Object.keys(uiSchema).forEach(function (uiKey) {
+            Object.keys(jsonSchema.properties).forEach(function (schemaKey) {
+              if ((uiKey === schemaKey) && uiSchema[uiKey]['ui:type']) {
+                jsonSchema.properties[schemaKey].type = uiSchema[uiKey]['ui:type'];
+                }
+            });
+            i++;
+          });
+        } catch (e) {
+              }
+
+
+      // jsonSchema.properties.bandArtist.type = uiSchema.bandArtist['ui:type'];
+      let newConfig: any ;
       this.formConfig = this.formlyJsonschema.toFieldConfig(jsonSchema);
       this.fields = [this.formService.uiMapper(this.formConfig, jsonSchema, uiSchema)];
+    //  this.fields =  newConfig[0][0];
+    //  jsonSchema  = newConfig[0][1];
       this.formDescription = this.formConfig.templateOptions.description;
       this.formLabel = this.formConfig.templateOptions.label;
 

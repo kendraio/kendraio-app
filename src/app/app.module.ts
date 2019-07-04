@@ -34,7 +34,7 @@ import { DocEditFormComponent } from './forms/doc-edit-form/doc-edit-form.compon
 import { ImageInputControlComponent } from './form-controls/image-input-control/image-input-control.component';
 import { TextInputFormControlComponent } from './form-controls/text-input-form-control/text-input-form-control.component';
 import { AppMaterialModule } from './app-material/app-material.module';
-import { NgxTaggerModule } from 'ngx-tagger';
+// import { NgxTaggerModule } from 'ngx-ngxTagPreview';
 import { SchemaRepositoryService } from './services/schema-repository.service';
 import { DocumentRepositoryService } from './services/document-repository.service';
 import { DropboxPageComponent } from './pages/dropbox-page/dropbox-page.component';
@@ -193,7 +193,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    NgxTaggerModule,
+    // NgxTaggerModule,
     DynamicFormsCoreModule,
     DynamicFormsMaterialUIModule,
     ContactsModule,
