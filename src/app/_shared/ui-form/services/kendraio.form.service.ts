@@ -38,7 +38,7 @@ try {
           jsonSchema.properties.bandArtist.type = uiSchema.bandArtist['ui:type'];
           formlyConfig['fieldGroup'][i]['templateOptions']['disabled'] = uiSchema[key]['ui:disabled'];
           formlyConfig['fieldGroup'][i]['templateOptions']['placeholder'] = uiSchema[key]['ui:placeholder'];
-          formlyConfig['fieldGroup'][i]['templateOptions']['type'] = uiSchema[key]['ui:type'];
+          // formlyConfig['fieldGroup'][i]['templateOptions']['type'] = uiSchema[key]['ui:type'];
           formlyConfig['fieldGroup'][i]['templateOptions']['required'] = uiSchema[key]['ui:required'];
         }
       });
@@ -55,7 +55,7 @@ try {
   jsonMapper(jsonSchema, uiSchema) {
     let i = 0;
     try {
-    
+
         Object.keys(uiSchema).forEach(function (key) {
           Object.keys(jsonSchema.properties).forEach(function (uiKey) {
             // jsonSchema.properties.bandArtist.type = 'datepicker';
@@ -69,9 +69,9 @@ try {
        return jsonSchema
         // , jsonSchema] ;
       } catch (e) {
-    
+
       }
-    
+
       }
 
   // public getFormById(id: string, disabled = false, data?: object) {
