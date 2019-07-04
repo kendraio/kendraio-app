@@ -44,7 +44,7 @@
 		"remastered": {
 			"type": "boolean",
 			"title": "Remastered",
-			"description": "This recording is remastered"
+			"description": "This recording is remastered" 	 	
 		},
 		"genre": {
            "type": "string",
