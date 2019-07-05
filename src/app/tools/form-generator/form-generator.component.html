@@ -1,9 +1,9 @@
 <div style="float: left; width:45%; margin-right: 28px">
 
-  <form [formGroup]="schemaform"  novalidate>
+  <form [formGroup]="schemaform" novalidate>
 
     <label for="">JSON Schema - (paste as plain-text!)</label>
-<pre contenteditable="true" formControlName="JSONSchema">
+    <pre contenteditable="true" formControlName="JSONSchema">
 
 
 </pre>
@@ -11,42 +11,68 @@
 
 
 
-   <!-- <label for=""> JSON Schema</label>
+    <!-- <label for=""> JSON Schema</label>
     <textarea style="width:100%; height:600px"   name="JSONSchema"  autofocus>
     </textarea> -->
 
-<label for="">UI Schema (not working 100%) - (paste as plain-text!)</label>
-<pre contenteditable="true"  style="width:100%; height:200px"   formControlName="UISchema" name="UISchema" >
+    <label for="">UI Schema (not working 100%) - (paste as plain-text!)</label>
+
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Example UI Schema:
+          </mat-panel-title>
+          <mat-panel-description>
+            Copy and Paste the code below
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <pre>
+{{uiSchemaDefault | json}}
+</pre>
+      </mat-expansion-panel>
+    </mat-accordion>
+  <pre contenteditable="true" style="width:100%; height:200px" formControlName="UISchema" name="UISchema">
       </pre>
 
 
-      <label for="">Model - (paste as plain-text!)</label>
-      <pre contenteditable="true" style="width:100%; height:400px"  formControlName="model" name="model" >
+    <label for="">Model - (paste as plain-text!)</label>
+
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Example Model:
+          </mat-panel-title>
+          <mat-panel-description>
+            Copy and Paste the code below
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <pre>
+{{egModel | json}}
+</pre>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <pre contenteditable="true" style="width:100%; height:400px" formControlName="model" name="model">
         </pre>
-xxxxxxxx{{model | json}}xxxxxx
-
-
 
   </form>
+</div>
+<!-- {{schemaform.value | json}} -->
+<div style="float: left; width:50%">
+
+  <h3>{{formDescription}}</h3>
+  <h4>{{formLabel}}</h4>
+
+  <form>
+    <formly-form [fields]="fields" [options]="options" [model]="model"></formly-form>
+    <div *ngIf="isValid">
+    <p>Hint: Try changing 'type' to password, date, datepicker, tags etc etc</p>
   </div>
-  <!-- {{schemaform.value | json}} -->
-  <div style="float: left; width:50%">
-
-    <h3>{{formDescription}}</h3>
-    <h4>{{formLabel}}</h4>
-
-  <form >
-    <formly-form
-              [fields]="fields"
-              [options]="options"
-              [model]="model"
-                              ></formly-form>
-
-  <p>Hint: Try changing 'type' to password, date, datepicker, tags</p>
-  <p></p>
-  <div *ngIf="!isValid">
-   <h3>JSON not valid!!!</h3>
-  </div>
+    <p></p>
+    <div *ngIf="!isValid">
+      <h3>JSON not valid!!!</h3>
+    </div>
 
 
   </form>

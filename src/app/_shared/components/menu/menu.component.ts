@@ -79,7 +79,7 @@ export const MENUITEMS: MenuItem[] = [
       },
       {
           path: '/channels/youtube',
-          label: 'YouTube2',
+          label: 'YouTube',
           icon: 'attach_money'
         },
         {

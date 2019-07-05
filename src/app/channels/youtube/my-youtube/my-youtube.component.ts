@@ -36,7 +36,7 @@ export class MyYoutubeComponent {
     this.formService.getFormData('youtube')
       .subscribe(([uiSchema, jsonSchema]) => {
           this.formConfig = this.formlyJsonschema.toFieldConfig(jsonSchema);
-          this.fields, jsonSchema = [this.formService.uiMapper(this.formConfig, jsonSchema, uiSchema)];
+          this.fields = [this.formService.uiMapper(this.formConfig, jsonSchema, uiSchema)];
               console.log(jsonSchema);
       });
   }

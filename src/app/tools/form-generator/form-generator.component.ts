@@ -21,6 +21,7 @@ export class FormGeneratorComponent implements OnInit {
     recordingTitle: 'Born in the morning',
     isrc: 'YA9N4nsAxZo'
   };
+  egModel: any = this.model;
 
   uiSchemaDefault: any = {
     "isrc": {
@@ -37,7 +38,7 @@ export class FormGeneratorComponent implements OnInit {
       "ui:type": "money"
     },
     "pDate": {
-      "ui:type": "money"
+      "ui:type": "percentage"
     }
   };
 
@@ -77,25 +78,9 @@ export class FormGeneratorComponent implements OnInit {
   }
 
   generateForm() {
-
-
-
-
     let uiSchema: any = {};
     let jsonSchema: any = {};
     this.isValid = true;
-
-    //  if (this.isJson(this.schemaform.get('JSONSchema').value)) {
-
-    //  }
-    // try {
-    //   jsonSchema = JSON.parse(this.schemaform.get('JSONSchema').value);
-    //   this.isValid = true;
-    // } catch (e) {
-    //   console.log('schema not valid');
-    //   this.isValid = false;
-    // }
-
     jsonSchema = this.isValidJsonSchema(jsonSchema);
     this.model = JSON.parse(this.schemaform.get('model').value);
     uiSchema = this.isValidJson(uiSchema);
@@ -108,10 +93,7 @@ export class FormGeneratorComponent implements OnInit {
       this.fields = [this.formService.uiMapper(this.formConfig, jsonSchema, uiSchema)];
       this.formDescription = this.formConfig.templateOptions.description;
       this.formLabel = this.formConfig.templateOptions.label;
-
     }
-
-
 
   }
 
@@ -165,8 +147,8 @@ export class FormGeneratorComponent implements OnInit {
   createForm() {
     this.schemaform = this.fb.group({
       JSONSchema: [''],
-      UISchema: [JSON.stringify(this.uiSchemaDefault)],
-      model: [JSON.stringify(this.model)],
+      UISchema: [],
+      model: [],
     });
   }
 
