@@ -65,11 +65,12 @@
   <h4>{{formLabel}}</h4>
 
   <form [formGroup]="form"  (ngSubmit)="submit()">
-    <formly-form [fields]="fields" [options]="options" [model]="model"></formly-form>
+    <formly-form [fields]="fields" [options]="options" [model]="model" [form]="form"></formly-form>
     <div *ngIf="isValid">
     <p>Hint: Try changing 'type' to password, date, datepicker, tags etc etc</p>
 
-    <button type="submit" mat-raised-button color="primary">submit</button>
+    <button type="submit" mat-raised-button color="primary" *ngIf="form.valid">Submit</button>
+
 
   </div>
     <p></p>
