@@ -1,6 +1,7 @@
+
 {
-	"title": "PRS recording",
-	"description": "Register a recording with PRS.",
+	"title": "PPL recording",
+	"description": "Register a recording with PPL.",
 	"type": "object",
 	"required": [
 		"isrc",
@@ -44,11 +45,11 @@
 		"remastered": {
 			"type": "boolean",
 			"title": "Remastered",
-			"description": "This recording is remastered" 	 	
+			"description": "This recording is remastered"
 		},
 		"genre": {
-           "type": "string",
-           "title":"Genre",
+			"type": "string",
+			"title": "Genre",
 			"enum": [
 				"Alternative Rock",
 				"Adult contemporary",
@@ -97,11 +98,241 @@
 			]
 		},
 		"pDate": {
-			"type": "datepicker",
+			"type": "integer",
 			"title": "(P)Date ",
+			"description": "This is usually the year in which copies were first issued to the public. If this took place more than 50 years after the recording was made, or if you are unsure, please contact us to clarify.",
 			"minLength": 4,
 			"maxLength": 4
 
+		},
+		"pName": {
+			"type": "string",
+			"title": "(P)Name ",
+			"description": "The name of the original copyright owner of the sound recording as of the (P)Date.",
+			"minLength": 4,
+			"maxLength": 4
+
+		},
+		"recordingCountry": {
+			"type": "string",
+			"title": "Primary Country of Recording",
+			"enum": [
+				"United Kingdom",
+				"United States",
+				"Germany",
+				"..needs finishing.."
+			]
+		},
+		"commissioningCountry": {
+			"type": "string",
+			"title": "Country of Commissioning",
+			"enum": [
+				"United Kingdom",
+				"United States",
+				"Germany",
+				"..needs finishing.."
+			]
+		},
+		"alternativeTitle": {
+			"type": "string",
+			"title": "Alternative Title"
+		},
+
+		"durationMin": {
+			"title": "Duration Min.",
+			"type": "integer",
+			"minimum": 0,
+			"maximum": 999
+		},
+		"durationSec": {
+			"title": "Duration Sec.",
+			"type": "integer",
+			"minimum": 0,
+			"maximum": 59
+		},
+		"recordingDate": {
+			"title": "Recording Date",
+			"type": "datepicker"
+		},
+		"recordingLanguage": {
+			"type": "string",
+			"title": "Language",
+			"enum": [
+				"English",
+				"Arabic",
+				"Bengali",
+				"..needs finishing.."
+			]
+		},
+		"firstPublicationCountry": {
+			"type": "string",
+			"title": "Country of First Publication",
+			"enum": [
+				"United Kingdom",
+				"United States",
+				"Germany",
+				"..needs finishing.."
+			]
+		},
+		"recordingVenue": {
+			"type": "string",
+			"title": "Recording Venue "
+		},
+		"containsExplicitLyrics": {
+			"type": "boolean",
+			"title": "Explicit",
+			"description": "This is an indicator that the recording contains explicit lyrical content."
+		},
+		"containsSample": {
+			"type": "boolean",
+			"title": "Sample",
+			"description": "This recording contains a Sample"
+		},
+		"isMedley": {
+			"type": "boolean",
+			"title": "Medley",
+			"description": "The recording is a Medley of more than one individual musical or lyrical works"
+		},
+		"publisherName": {
+			"type": "string",
+			"title": "Publisher Name"
+		},
+		"publisherPercentage": {
+			"title": "Publisher Percentage",
+			"type": "integer",
+			"minimum": 0,
+			"maximum": 100
+		},
+		"featuredPerformersCount": {
+			"title": "Number of Featured Performers",
+			"description": "The number of unique Contracted and Other Featured performers who have contributed to the recording. Please refer to the PPL Repertoire Style Guide for further information.",
+			"type": "integer",
+			"minimum": 0,
+			"maximum": 100
+		},
+		"nonFeaturedPerformersCount": {
+			"title": "Number of Non Featured Performers",
+			"description": "The number of unique Non-Featured performers who have contributed to the recording. Please refer to the PPL Repertoire Style Guide for further information.",
+			"type": "integer",
+			"minimum": 0,
+			"maximum": 100
+		},
+		"performanceDate": {
+			"title": "Date of Performance",
+			"type": "datepicker",
+			"format": "Recording Date"
+		},
+		"performanceCountry": {
+			"type": "string",
+			"title": "Country of Performance",
+			"enum": [
+				"United Kingdom",
+				"United States",
+				"Germany",
+				"..needs finishing.."
+			]
+		},
+		"featuredPerformerName": {
+			"type": "string",
+			"title": "Featured Performer Name"
+		},
+		"featuredPerformerCategory": {
+			"type": "string",
+			"title": "Featured Performer Category",
+			"enum": [
+				"Contracted Featured Performer",
+				"Other Feature Artist"
+			]
+		},
+		"featuredPerformerRole": {
+			"type": "string",
+			"title": "Featured Performer Role",
+			"enum": [
+				"Vocals",
+				"Guitar",
+				"Keyboards",
+				"Drums",
+				"Bass Guitar",
+				" -- Needs finishing --"
+			]
+		},
+		"featuredPerformerDate": {
+			"type": "datepicker",
+			"title": "Featured Performer Date of Performance"
+		},
+		"featuredPerformerCountry": {
+			"type": "string",
+			"title": "Featured Performer Country of Performance",
+			"enum": [
+				"United Kingdom",
+				"United States",
+				"Germany",
+				"..needs finishing.."
+			]
+		},
+
+		"studioPersonnelName": {
+			"type": "string",
+			"title": "Studio Personnel Name"
+		},
+		"studioPersonnelCategory": {
+			"type": "string",
+			"title": "Studio Personnel Category",
+			"enum": [
+				"Studio Personnel Non-Perf"
+			]
+		},
+		"studioPersonnelRole": {
+			"type": "string",
+			"title": "Studio Personnel Role",
+			"enum": [
+				"Producer",
+				"Band",
+				"Bandleader",
+				"Engineer",
+				"Remixer",
+				" -- Needs finishing --"
+			]
+		},
+		"studioPersonnelrDate": {
+			"type": "datepicker",
+			"title": "Studio Personnel Date of Performance"
+		},
+		"studioPersonnelCountry": {
+			"type": "string",
+			"title": "Studio Personnel Country of Performance",
+			"enum": [
+				"United Kingdom",
+				"United States",
+				"Germany",
+				"..needs finishing.."
+			]
+		},
+		"composerName": {
+			"type": "string",
+			"title": "Composer Name"
+		},
+		"composerCategory": {
+			"type": "string",
+			"title": "Composers Category",
+			"enum": [
+				"Composer (musical content)",
+				"Author (lyrical content)",
+				"Arranger"
+			]
+		},
+		"composerRole": {
+			"type": "string",
+			"title": "Composers Role",
+			"enum": [
+				"Arranger",
+				"Arranger (Guitar)",
+				"Author",
+				"Arranger",
+				"Composer",
+				"Composer, Author, Arranger",
+				"..needs finishing.."
+			]
 		}
 	}
 }
