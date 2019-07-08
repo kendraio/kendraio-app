@@ -27,4 +27,8 @@ export class KendraioFormComponent implements OnInit {
   ngOnInit() {
   }
 
+  submit() {
+    alert(JSON.stringify(this.model));
+  }
+
 }

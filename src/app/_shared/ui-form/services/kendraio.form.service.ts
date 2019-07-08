@@ -30,22 +30,21 @@ export class KendraioFormService {
   uiMapper(formlyConfig, jsonSchema, uiSchema) {
 let i = 0;
 try {
-
+if (Object.keys(uiSchema).length) {
     Object.keys(jsonSchema.properties).forEach(function (key) {
       Object.keys(uiSchema).forEach(function (uiKey) {
-        // jsonSchema.properties.bandArtist.type = 'datepicker';
         if (uiKey === key) {
           jsonSchema.properties.bandArtist.type = uiSchema.bandArtist['ui:type'];
           formlyConfig['fieldGroup'][i]['templateOptions']['disabled'] = uiSchema[key]['ui:disabled'];
           formlyConfig['fieldGroup'][i]['templateOptions']['placeholder'] = uiSchema[key]['ui:placeholder'];
-          // formlyConfig['fieldGroup'][i]['templateOptions']['type'] = uiSchema[key]['ui:type'];
           formlyConfig['fieldGroup'][i]['templateOptions']['required'] = uiSchema[key]['ui:required'];
         }
       });
       i++;
     });
-   return formlyConfig
-    // , jsonSchema] ;
+  }
+
+   return formlyConfig;
   } catch (e) {
 
   }
@@ -66,8 +65,7 @@ try {
           });
           i++;
         });
-       return jsonSchema
-        // , jsonSchema] ;
+       return jsonSchema;
       } catch (e) {
 
       }

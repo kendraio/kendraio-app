@@ -35,7 +35,7 @@ export class FormGeneratorComponent implements OnInit {
       "ui:required": true
     },
     "recordingTitle": {
-      "ui:type": "money"
+      "ui:type": "videoviewer"
     },
     "pDate": {
       "ui:type": "percentage"
@@ -50,6 +50,7 @@ export class FormGeneratorComponent implements OnInit {
   isValid: boolean;
   formDescription: string;
   formLabel: string;
+  form = new FormGroup({});
 
   constructor(
     private fb: FormBuilder,
@@ -82,7 +83,9 @@ export class FormGeneratorComponent implements OnInit {
     let jsonSchema: any = {};
     this.isValid = true;
     jsonSchema = this.isValidJsonSchema(jsonSchema);
+    if (this.schemaform.get('model').value) {
     this.model = JSON.parse(this.schemaform.get('model').value);
+  }
     uiSchema = this.isValidJson(uiSchema);
 
     if (this.isValid) {
@@ -117,7 +120,9 @@ export class FormGeneratorComponent implements OnInit {
 
   private isValidJson(uiSchema: {}) {
     try {
+      if(this.schemaform.get('UISchema').value){
       uiSchema = JSON.parse(this.schemaform.get('UISchema').value);
+    }
     } catch (e) {
       // this.isValid = false;
       if (Object.keys(uiSchema).length === 0) {
@@ -150,6 +155,10 @@ export class FormGeneratorComponent implements OnInit {
       UISchema: [],
       model: [],
     });
+  }
+
+  submit() {
+    alert(JSON.stringify(this.model));
   }
 
 }

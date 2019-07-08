@@ -182,7 +182,7 @@ export const MENUITEMS: MenuItem[] = [
   {
     path: '/tools',
     label: 'Tools',
-    icon: 'tool'
+    icon: 'build'
   }
 ];
 
