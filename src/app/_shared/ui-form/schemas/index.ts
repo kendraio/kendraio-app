@@ -17,3 +17,8 @@
 //   [YOUTUBE_FORM(data).id]: YOUTUBE_FORM(disabled, data).template,
 // });
 
+
+export const FORMS_VALUES = (disabled = false) => ({
+    // 'basic': getFormData(),
+  });
+

@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { FormlyJsonschema } from '@ngx-formly/core/json-schema';
 import { KendraioFormService } from 'src/app/_shared/ui-form/services/kendraio.form.service'
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-my-youtube',
@@ -24,21 +25,43 @@ export class MyYoutubeComponent {
   jsonSchema: any;
   uiSchema: any;
   fields: FormlyFieldConfig[];
+  routePath: any;
 
   constructor(
     private formlyJsonschema: FormlyJsonschema,
-    private formService: KendraioFormService
+    private formService: KendraioFormService,
+    private route: ActivatedRoute,
   ) {
-    this.getJSONSchema();
+
+    this.routePath = this.route.snapshot.routeConfig.path;
+    this.getJSONSchema(this.routePath);
   }
 
-  getJSONSchema() {
-    this.formService.getFormData('youtube')
+  getJSONSchema(form: any) {
+    this.formService.getFormData(form)
       .subscribe(([uiSchema, jsonSchema]) => {
+        this.uiTypeMapper(uiSchema, jsonSchema);
           this.formConfig = this.formlyJsonschema.toFieldConfig(jsonSchema);
           this.fields = [this.formService.uiMapper(this.formConfig, jsonSchema, uiSchema)];
-              console.log(jsonSchema);
+              // console.log(jsonSchema);
       });
+  }
+
+  private uiTypeMapper(uiSchema: any, jsonSchema: any) {
+    try {
+      Object.keys(uiSchema).forEach(function (uiKey) {
+        Object.keys(jsonSchema.properties).forEach(function (schemaKey) {
+          if ((uiKey === schemaKey) && uiSchema[uiKey]['ui:type']) {
+            jsonSchema.properties[schemaKey].type = uiSchema[uiKey]['ui:type'];
+          } else {
+            jsonSchema.properties[schemaKey].type = jsonSchema.properties[schemaKey].type;
+          }
+        });
+        // i++;
+      });
+    } catch (e) {
+    }
+   // return i;
   }
 
   submit() {

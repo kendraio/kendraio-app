@@ -18,6 +18,22 @@ const routes: Routes = [
       breadcrumb: 'My YouTube',
       menuLabel: 'My YouTube'
     }
+  },
+  {
+    path: 'basic',
+    component: pages.MyYoutubeComponent,
+    data: {
+      breadcrumb: 'YouTube',
+      menuLabel: 'Basic Form'
+    }
+  },
+  {
+    path: 'advanced',
+    component: pages.MyYoutubeComponent,
+    data: {
+      breadcrumb: 'My YouTube',
+      menuLabel: 'Advanced Form'
+    }
   }
 ];
 

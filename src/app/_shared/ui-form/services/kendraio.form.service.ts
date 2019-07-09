@@ -15,7 +15,7 @@ import { Observable, from, forkJoin } from 'rxjs';
 export class KendraioFormService {
   constructor(private http: HttpClient) { }
 
-    getFormData(formId): Observable<any> {
+  getFormData(formId): Observable<any> {
     return forkJoin([this.getUI(formId), this.getSchema(formId)]);
   }
 
@@ -28,13 +28,14 @@ export class KendraioFormService {
   }
 
   uiMapper(formlyConfig, jsonSchema, uiSchema) {
+    console.log(jsonSchema);
 let i = 0;
 try {
 if (Object.keys(uiSchema).length) {
     Object.keys(jsonSchema.properties).forEach(function (key) {
       Object.keys(uiSchema).forEach(function (uiKey) {
         if (uiKey === key) {
-          jsonSchema.properties.bandArtist.type = uiSchema.bandArtist['ui:type'];
+        //  jsonSchema.properties.bandArtist.type = uiSchema.bandArtist['ui:type'];
           formlyConfig['fieldGroup'][i]['templateOptions']['disabled'] = uiSchema[key]['ui:disabled'];
           formlyConfig['fieldGroup'][i]['templateOptions']['placeholder'] = uiSchema[key]['ui:placeholder'];
           formlyConfig['fieldGroup'][i]['templateOptions']['required'] = uiSchema[key]['ui:required'];

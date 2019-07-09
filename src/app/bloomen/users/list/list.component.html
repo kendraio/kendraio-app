@@ -10,20 +10,20 @@
 <hr />
 
 
-<ng-select [items]="users$ | async" 
-[addTag]="addCustomUser" 
+<ng-select [items]="users$ | async"
+[addTag]="addCustomUser"
 placeholder="Select a User"
-[multiple]="true" 
-bindLabel="username" 
+[multiple]="true"
+bindLabel="username"
 bindValue="id"
   [(ngModel)]="selectedUserIds">
 
   <ng-template ng-header-tmp>
     Custom header
   </ng-template>
-  <ng-template ng-label-tmp let-item="item"> 
+  <ng-template ng-label-tmp let-item="item">
 
-     <b> {{item.username}}</b> is cool  -----  
+     <b> {{item.username}}</b> is cool  -----
   </ng-template>
   <ng-template ng-option-tmp let-item="item" let-index="index">
     <img height="15" width="15" [src]="item.avatar" />
@@ -37,6 +37,7 @@ bindValue="id"
 <hr>
 
 
+LIST COMPONENT
 
 
 <ng-container *ngIf="users$ | async as users">
@@ -69,3 +70,4 @@ bindValue="id"
 
   <!--  <pre>{{ users | json }}</pre>-->
 </ng-container>
+

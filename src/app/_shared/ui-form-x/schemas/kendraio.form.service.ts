@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { FULLNAME, EMAIL, TYPEAHEAD } from '../schemas/form-elements';
 import { Observable, from, forkJoin } from 'rxjs';
+import { FORMS_VALUES } from '../../ui-form/schemas';
 
 @Injectable({
   providedIn: 'root'
@@ -44,11 +45,11 @@ let i = 0
     return formlyConfig;
   }
 
-  // public getFormById(id: string, disabled = false, data?: object) {
-  //   const ob = FORMS_VALUES(disabled, data)[id];
-  //   console.log(ob)
-  //   return ob;
-  // }
+  public getFormById(id: string, disabled = false) {
+    const ob = FORMS_VALUES(disabled)[id];
+    console.log(ob);
+    return ob;
+  }
 
   // public getJSONFormById(id: string, disabled = false, data: any = {}) {
   //   const frm = this.generateCleanJsonConfiguration(FORMS_VALUES(disabled, data)[id]);
