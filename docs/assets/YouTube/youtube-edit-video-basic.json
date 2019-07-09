@@ -22,7 +22,7 @@
 			"type": "tags",
 			"title": "Tags ",
       "description": "Press enter to add a tag"
-      
+
 		},
 		"description": {
 			"type": "textarea",
