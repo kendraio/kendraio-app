@@ -19,7 +19,7 @@ import { AdaptersPageComponent } from './pages/adapters-page/adapters-page.compo
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
 import { UserPageComponent } from './pages/user-page/user-page.component';
 import { ConfirmAppResetDialogComponent } from './dialogs/confirm-app-reset-dialog/confirm-app-reset-dialog.component';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ObjectKeysPipe } from './pipes/object-keys.pipe';
 import { ImportProgressDialogComponent } from './dialogs/import-progress-dialog/import-progress-dialog.component';
 import { AddNewNodeDialogComponent } from './dialogs/add-new-node-dialog/add-new-node-dialog.component';
@@ -104,6 +104,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { YoutubeUploadComponent } from './components/youtube-upload/youtube-upload.component';
 import { DynamicFormRepoComponent } from './components/dynamic-form-repo/dynamic-form-repo.component';
 import { BloomenSearchPageComponent } from './pages/bloomen-search-page/bloomen-search-page.component';
+import { HttpErrorInterceptor } from './_shared/404.interceptor';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -172,7 +173,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     // MusicRecordingsEditComponent
   ],
   imports: [
-    // AgGridModule.withComponents([ 
+    // AgGridModule.withComponents([
     //   // MatInputComponent
     // ]),
     BrowserModule,
@@ -239,6 +240,11 @@ export function HttpLoaderFactory(http: HttpClient) {
       useFactory: (settings: AppSettingsService) => () => settings.init(),
       deps: [AppSettingsService]
     },
+    {
+    provide: HTTP_INTERCEPTORS,
+    useClass: HttpErrorInterceptor,
+    multi: true
+  },
     {
       provide: DYNAMIC_FORM_CONTROL_MAP_FN,
       useValue: (model: DynamicFormControlModel): Type<DynamicFormControl> | null => {

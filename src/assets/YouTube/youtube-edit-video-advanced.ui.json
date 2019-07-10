@@ -1,0 +1,8 @@
+{
+    "recordingDate": {
+      "ui:disabled": false,
+      "ui:placeholder": "Enter the Video Title",
+      "ui:type": "datepicker"
+    }
+}
+

@@ -11,7 +11,7 @@ import {
 import { maximumNumValidation, passwordMatchValidation, PasswordStrengthValidation } from './helpers/validators';
 import {
   PanelWrapperComponent,
-  // AnimationWrapperComponent, ErrorWrapperComponent 
+  // AnimationWrapperComponent, ErrorWrapperComponent
 } from './wrappers';
 // import { RepeatSectionComponent } from './types/repeat-section.component';
 // import { FormlyFieldInputMoney } from './types/money.component';
@@ -45,7 +45,7 @@ export const config: ConfigOption = {
       name: 'money', component: FormlyFieldInputMoney,
       defaultOptions: {
         expressionProperties: {},
-        defaultValue: 0,
+        defaultValue: 5903,
         templateOptions: {
           placeholder: 'hello',
           disabled: false,

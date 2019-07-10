@@ -9,7 +9,7 @@
     		"videoId": {
 			"title": "Video",
 			"description": "",
-			"type": "videoviewer"
+			"type": "string"
 		},
 		"title": {
 			"title": "Title",
@@ -19,7 +19,7 @@
 			"maxLength": 100
 		},
 		"tags": {
-			"type": "tags",
+			"type": "string",
 			"title": "Tags ",
       "description": "Press enter to add a tag"
 

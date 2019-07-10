@@ -4,10 +4,12 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 // import { DEFAULT_FORM } from '../schemas/default.form';
 // import { LOGIN_FORM } from '../schemas/login.form';
 // import { FORMS_VALUES } from '../schemas';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { FULLNAME, EMAIL, TYPEAHEAD } from '../schemas/form-elements';
-import { Observable, from, forkJoin } from 'rxjs';
+import { Observable, from, forkJoin, throwError } from 'rxjs';
+import { FORM_APIS } from '../api-config';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -19,12 +21,18 @@ export class KendraioFormService {
     return forkJoin([this.getUI(formId), this.getSchema(formId)]);
   }
 
-  getUI(formId: String) {
-    return this.http.get('assets/YouTube/youtube-edit-vdeo-basic-UI.json');
+  getUI(formId: string): Observable<any> {
+    const url = FORM_APIS.youtube[formId].uiSchema;
+
+    return this.http.get(url)
+    .pipe(catchError(this.errorHandler))
+
+
   }
 
   getSchema(formId: string): Observable<any> {
-   return this.http.get<FormlyFieldConfig[]>('assets/YouTube/youtube-edit-video-basic.json');
+    const url = FORM_APIS.youtube[formId].jsonSchema;
+   return this.http.get<FormlyFieldConfig[]>(url);
   }
 
   uiMapper(formlyConfig, jsonSchema, uiSchema) {
@@ -70,6 +78,19 @@ if (Object.keys(uiSchema).length) {
       } catch (e) {
 
       }
+
+      }
+
+      errorHandler(error: HttpErrorResponse) { // added HttpInterceptor so maybe dont need this
+        if (error.error instanceof ErrorEvent) {
+          console.error('An error occurred:', error.error.message);
+        } else {
+          console.error(
+            `Backend http returned code ${error.status}, ` +
+            `body was: ${error.error}`);
+        }
+        return throwError(
+          'Something naughty happened; please try again later.');
 
       }
 

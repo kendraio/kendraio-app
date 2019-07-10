@@ -9,6 +9,8 @@ import { HttpClient } from '@angular/common/http';
 import { FULLNAME, EMAIL, TYPEAHEAD } from '../schemas/form-elements';
 import { Observable, from, forkJoin } from 'rxjs';
 import { FORMS_VALUES } from '../../ui-form/schemas';
+import { FORM_APIS } from '../../ui-form/api-config';
+
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +23,7 @@ export class KendraioFormService {
   }
 
   getUI(formId: String) {
-    return this.http.get('assets/youtube-ui.json');
+    return this.http.get(`${FORM_APIS.youtube}.` + formId);
   }
 
   getSchema(formId: string): Observable<any> {
@@ -46,7 +48,7 @@ let i = 0
   }
 
   public getFormById(id: string, disabled = false) {
-    const ob = FORMS_VALUES(disabled)[id];
+    const ob = FORM_APIS; // FORMS_VALUES(disabled)[id];
     console.log(ob);
     return ob;
   }

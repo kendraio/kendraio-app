@@ -14,9 +14,9 @@ import { ActivatedRoute } from '@angular/router';
 export class MyYoutubeComponent {
   form = new FormGroup({});
   model: any = {
-    title: 'The Forest',
+    title: 'As it is in Hell',
     description: 'Born in the morning in the drizzlin rain. Trouble is his middle name',
-    videoId: 'YA9N4nsAxZo',
+    videoId: 'BeW1e40mSGQ',
     tags: ['this', 'is', 'tagging', 'in', 'action']
   };
 
@@ -26,6 +26,8 @@ export class MyYoutubeComponent {
   uiSchema: any;
   fields: FormlyFieldConfig[];
   routePath: any;
+  formDescription: string;
+  formLabel: string;
 
   constructor(
     private formlyJsonschema: FormlyJsonschema,
@@ -43,6 +45,8 @@ export class MyYoutubeComponent {
         this.uiTypeMapper(uiSchema, jsonSchema);
           this.formConfig = this.formlyJsonschema.toFieldConfig(jsonSchema);
           this.fields = [this.formService.uiMapper(this.formConfig, jsonSchema, uiSchema)];
+          this.formDescription = this.formConfig.templateOptions.description;
+          this.formLabel = this.formConfig.templateOptions.label;
               // console.log(jsonSchema);
       });
   }
