@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { FormlyJsonschema } from '@ngx-formly/core/json-schema';
-import { KendraioFormService } from 'src/app/_shared/ui-form/services/kendraio.form.service'
+import { KendraioFormService } from 'src/app/_shared/ui-form/services/kendraio.form.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

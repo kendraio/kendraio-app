@@ -9,7 +9,7 @@ import { PanelWrapperComponent, ErrorWrapperComponent, AnimationWrapperComponent
 
 
 import { RepeatSectionComponent } from './types/repeat-section.component';
-import { FormlyFieldInputMoney } from './types/money.component';
+import { FormlyFieldInputMoney, FieldInputVisibilityComponent} from './types';
 import { FormlyFieldInputPercentage } from './types/percentage.component';
 
 
@@ -35,7 +35,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     FormsModule,
     ReactiveFormsModule,
     FormlyModule,
-    FormlyMaterialModule ,  
+    FormlyMaterialModule ,
     NgSelectModule
   ],
   declarations: [

@@ -22,13 +22,16 @@
 			"type": "string",
 			"title": "Tags ",
       "description": "Press enter to add a tag"
-
 		},
 		"description": {
 			"type": "textarea",
 			"title": "Bio",
 			"minLength": 2,
 			"maxLength": 5000
+		},
+		"visibility": {
+			"type": "object",
+			"title": "Visibility "
 		}
 	}
 }

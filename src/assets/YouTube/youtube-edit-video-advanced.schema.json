@@ -2,11 +2,6 @@
 	"title": "Edit Video Advanced",
 	"description": "YouTube Advanced Form",
 	"type": "object",
-	"required": [
-		"firstName",
-		"isdn",
-		"claim"
-	],
 	"properties": {
 
 		"recordingDate": {

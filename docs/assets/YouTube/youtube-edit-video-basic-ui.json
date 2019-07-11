@@ -12,5 +12,8 @@
   },
   "tags": {
     "ui:type": "tags"
+},
+"visibility": {
+  "ui:type": "visibility"
 }
 }

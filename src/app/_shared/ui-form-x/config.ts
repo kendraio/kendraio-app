@@ -11,7 +11,7 @@ import {
   import { maximumNumValidation, passwordMatchValidation, PasswordStrengthValidation } from './helpers/validators';
   import { PanelWrapperComponent, AnimationWrapperComponent, ErrorWrapperComponent } from './wrappers';
   import { RepeatSectionComponent } from './types/repeat-section.component';
-  import { FormlyFieldInputMoney } from './types/money.component';
+  import { FormlyFieldInputMoney } from './types/';
   import { FormlyFieldInputPercentage } from './types/percentage.component';
   import { ConfigOption } from '@ngx-formly/core';
 import { FormlyFieldTypeahead } from './types/typeahead.component';

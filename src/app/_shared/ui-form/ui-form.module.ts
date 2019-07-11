@@ -14,7 +14,7 @@ import { PanelWrapperComponent,
 
 
 // import { RepeatSectionComponent } from './types/repeat-section.component';
-import { FormlyFieldInputMoney, SelectTagsComponent } from './types/';
+import { FormlyFieldInputMoney, SelectTagsComponent, FieldInputVisibilityComponent } from './types/';
 import { FormlyFieldInputPercentage } from './types/percentage.component';
 
 import { config } from './config';
@@ -96,6 +96,7 @@ import {
     FormlyFieldTypeahead,
     FormlyFieldVideoViewer,
     SelectTagsComponent,
+    FieldInputVisibilityComponent
     // ContentEditableFormDirective
     // KendraioFormComponent
 

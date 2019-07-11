@@ -11,11 +11,11 @@ import { FieldArrayType, FormlyFormBuilder } from '@ngx-formly/core';
         [field]="field"
         [options]="options"
         [form]="formControl">
-        <i class="fa fa-trash formly-repeat-section__icon" 
+        <i class="fa fa-trash formly-repeat-section__icon"
            (click)="remove(i)"></i>
       </formly-group>
     </div>
-    <div class="formly-repeat-section__action" 
+    <div class="formly-repeat-section__action"
          (click)="add()">
       {{field.fieldArray.templateOptions.btnText}}
     </div>

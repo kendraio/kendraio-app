@@ -40,3 +40,27 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 dynamic-material-form-control .mat-form-field {
   width: 100%;
 }
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+
+.in {
+  display: block;
+}
+.out {
+  display: none;
+}
+
+.schedule-popup{
+  // display:none;
+  position: absolute;
+  box-shadow: 3px 3px 3px rgba(55,3, 3, .5);
+  padding: 16px;
+  background-color: silver;
+transform: translate(80px,-50px);
+transition: all 2s ease;
+&.in{
+  display: block;
+  transform: translate(80px,-50px);
+}
+}
