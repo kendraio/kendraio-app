@@ -19,9 +19,7 @@ import { Animations } from '../../animations';
   <mat-radio-button value="3">Unlisted</mat-radio-button>
 </mat-radio-group>
 
-<div
-class="card"
-[ngClass]="val === '2' ? 'in' : 'out'" >
+<div class="card" [ngClass]="val === '2' ? 'in' : 'out'" >
 
 
 <label (click)="showSchedulue = !showSchedulue"> <b>+ Add Schedule</b></label>
@@ -40,13 +38,6 @@ class="card"
 
     </div>
 </div>
-{{formx.value | json}}
-
-
-
-
-
-
 </div>
  `,
  animations: [Animations.kendraAnimations]
