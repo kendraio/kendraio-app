@@ -13,6 +13,8 @@ import { Animations } from '../../animations';
 
 <div class="popup-container" [formGroup]="formx">
 
+<label>{{to.label}}</label><br/>
+
   <mat-radio-group aria-label="Visibility"  (change)="radioChange($event)" formControlName="option" >
   <mat-radio-button value="1">Public</mat-radio-button>
   <mat-radio-button value="2" >Private</mat-radio-button>
@@ -21,8 +23,7 @@ import { Animations } from '../../animations';
 
 <div class="card" [ngClass]="val === '2' ? 'in' : 'out'" >
 
-
-<label (click)="showSchedulue = !showSchedulue"> <b>+ Add Schedule</b></label>
+<label (click)="showSchedulue = !showSchedulue"> <b> + Add Schedule</b></label>
 
     <div class="schedule-popup" *ngIf="showSchedulue" [ngClass]="showSchedulue ? 'in' : 'out'"   @enterAnimateUpDwn >
             Shedule as Public
@@ -35,6 +36,8 @@ import { Animations } from '../../animations';
 <option value="mercedes">22222</option>
 <option value="audi">33333</option>
 </select>
+
+<label (click)="showSchedulue = false">Close</label>
 
     </div>
 </div>
