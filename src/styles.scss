@@ -57,11 +57,11 @@ dynamic-material-form-control .mat-form-field {
   box-shadow: 3px 3px 3px rgba(55,3, 3, .5);
   padding: 16px;
   background-color: silver;
-transform: translate(80px,-80px);
+transform: translatey(-80px);
 transition: all 2s ease;
 z-index: 9;
 &.in{
   display: block;
-  transform: translate(80px,-50px);
+//  transform: translate(80px,-80px);
 }
 }

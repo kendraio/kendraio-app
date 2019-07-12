@@ -21,9 +21,14 @@ import { Animations } from '../../animations';
   <mat-radio-button value="3">Unlisted</mat-radio-button>
 </mat-radio-group>
 
-<div class="card" [ngClass]="val === '2' ? 'in' : 'out'" >
+<div class="card" [ngClass]="val === '2' ? 'in' : 'out'" *ngIf="val === '2'"  @enterAnimateUpDwn >
 
 <label (click)="showSchedulue = !showSchedulue"> <b> + Add Schedule</b></label>
+
+<div *ngIf="date"  @enterAnimateUpDwn>
+Date: {{date}} <br>
+Time: {{time}}
+</div>
 
     <div class="schedule-popup" *ngIf="showSchedulue" [ngClass]="showSchedulue ? 'in' : 'out'"   @enterAnimateUpDwn >
             Shedule as Public
@@ -72,11 +77,11 @@ export class FieldInputVisibilityComponent  extends FieldType implements OnInit 
   });
   }
 
-  get height() {
+  get date() {
     return this.formx.get('date').value;
   }
 
-  get diameter() {
+  get time() {
     return this.formx.get('time').value;
   }
 
