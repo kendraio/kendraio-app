@@ -10,7 +10,7 @@
   // transform: translateY(-30px);
      transition: all 500ms ease;
   }
-  
+
   .ken-tree ul,
   .ken-tree li {
     margin: 0;
@@ -38,20 +38,20 @@
 
 
     .mat-nested-tree-node  ul li{
-   
+
       // padding: 0 !important;
       min-height: 28px !important;
 
     }
 
-  
-  :active, :focus, :visited { 
-      outline: none; 
-    -moz-outline-style: none; 
+
+  :active, :focus, :visited {
+      outline: none;
+    -moz-outline-style: none;
 }
 
 button:focus {
-    outline: none!important; 
+    outline: none!important;
 }
 
 .page-content{
@@ -154,4 +154,8 @@ cursor: default;
 
 dynamic-material-form-control:not(:last-child) {
   margin-right: 40px;
+}
+
+.mat-menu-item .mat-icon-no-color, .mat-menu-item-submenu-trigger::after {
+   color: rgba(0, 0, 0, 1);
 }

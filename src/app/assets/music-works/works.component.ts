@@ -16,7 +16,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-index',
   templateUrl: './works.component.html',
-  styles: [` 
+  styles: [`
   dynamic-material-form[fxLayoutAlign] { padding:10px; padding-left: 25px;}
   `],
 })
@@ -42,7 +42,7 @@ export class WorksComponent implements OnInit {
 
   ngOnInit() {
 
-    this.pageTitle.setTitle(this.routeData.pageTitle);   
+    this.pageTitle.setTitle(this.routeData.pageTitle);
     this.entityTypes$ = this.testData.listEntityTypes();
 
     this.entityList$ = new Subject<string>().pipe(
@@ -62,8 +62,9 @@ export class WorksComponent implements OnInit {
     const flag = "<img border='0' width='15' height='10' style='margin-bottom: 2px' src='https://www.ag-grid.com/images/flags/gb.png'>";
     return flag + " " + params.value;
   }
+
   editBtnCellRenderer(params) {
-    const btn = '<button type="button" class="btn btn-primary btn-sm">Amend</button>';
+    const btn = '<button class="mat-button mat-raised-button"><span class="mat-button-wrapper">Edit</span><div class="mat-button-ripple mat-ripple"></div><div class="mat-button-focus-overlay"></div></button>';
     return btn;
   }
 

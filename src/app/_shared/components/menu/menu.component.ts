@@ -8,7 +8,7 @@ export const MENUITEMS: MenuItem[] = [
 
   },
   {
-    label: 'assets',
+    label: 'Assets',
     icon: 'favorite',
     path: '/assets',
     children: [

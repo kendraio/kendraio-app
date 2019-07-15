@@ -9,7 +9,7 @@ import { BaseComponent } from 'src/app/_shared/base/base.component';
 @Component({
   selector: 'app-index',
   templateUrl: './files.component.html',
-  styles: [` 
+  styles: [`
   dynamic-material-form[fxLayoutAlign] { padding:10px; padding-left: 25px;}
   `],
 })
@@ -28,12 +28,12 @@ export class FilesComponent extends BaseComponent  implements OnInit {
   //   private route: ActivatedRoute,
 
   // ) {
-  //   this.routeData = this.route.snapshot.data; 
+  //   this.routeData = this.route.snapshot.data;
   // }
 
   ngOnInit() {
     this.listAll();
-    // this.pageTitle.setTitle(this.routeData.pageTitle);   
+    // this.pageTitle.setTitle(this.routeData.pageTitle);
     this.entityTypes$ = this.testData.listEntityTypes();
 
     this.entityList$ = new Subject<string>().pipe(
@@ -55,7 +55,7 @@ export class FilesComponent extends BaseComponent  implements OnInit {
   }
 
   editBtnCellRenderer(params) {
-    const btn = '<button type="button" class="btn btn-primary btn-sm">Edit</button>';
+    const btn = '<button class="mat-button mat-raised-button"><span class="mat-button-wrapper">Edit</span><div class="mat-button-ripple mat-ripple"></div><div class="mat-button-focus-overlay"></div></button>';
     return btn;
   }
 

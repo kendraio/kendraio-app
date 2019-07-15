@@ -9,7 +9,7 @@
         <li class="mat-tree-node  mat-menu-item"  [routerLink]="node.path">
           <!-- use a disabled button to provide padding for tree leaf -->
           <mat-icon>{{node.icon}}</mat-icon>
-          <span class="ml-2"> {{node.label | translate}} </span>
+          <span class="ml-2">{{node.label | translate}}</span>
         </li>
       </mat-tree-node>
 
@@ -20,12 +20,11 @@
                 (click)="collapseAll(node)"
 
                 matTreeNodeToggle [routerLink]="node.path"
-                routerLinkActive="menu-item--active"
-                style=" width: 100%; text-align: left">
+                routerLinkActive="menu-item--active">
 
-              <mat-icon>{{node.icon}} </mat-icon>
+              <mat-icon>{{node.icon}}</mat-icon>
 
-              <span class="ml-2"> {{node.label | translate}}</span>
+              <span class="ml-2">{{node.label | translate}}</span>
 
               <mat-icon class="mat-icon-rtl-mirror">
                 {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
