@@ -11,8 +11,8 @@ import { Animations } from '../../animations';
   selector: 'app-field-input-visibility',
   template: `
 
-<div class="popup-container" [formGroup]="formx">
-
+<div class="popup-container mat-card" [formGroup]="formx">
+<div class="mat-card-content">
 <label>{{to.label}}</label><br/>
 
   <mat-radio-group aria-label="Visibility"  (change)="radioChange($event)" formControlName="option" >
@@ -21,7 +21,7 @@ import { Animations } from '../../animations';
   <mat-radio-button value="3">Unlisted</mat-radio-button>
 </mat-radio-group>
 
-<div class="card" [ngClass]="val === '2' ? 'in' : 'out'" *ngIf="val === '2'"  @enterAnimateUpDwn >
+<div  [ngClass]="val === '2' ? 'in' : 'out'" *ngIf="val === '2'"  @enterAnimateUpDwn >
 
 <label (click)="showSchedulue = !showSchedulue"> <b> + Add Schedule</b></label>
 
@@ -45,6 +45,7 @@ Time: {{time}}
 <label (click)="showSchedulue = false">Close</label>
 
     </div>
+</div>
 </div>
 </div>
  `,

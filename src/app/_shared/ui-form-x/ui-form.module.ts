@@ -6,10 +6,8 @@ import { TextMaskModule } from 'angular2-text-mask';
 
 import { PanelWrapperComponent, ErrorWrapperComponent, AnimationWrapperComponent } from './wrappers';
 
-
-
 import { RepeatSectionComponent } from './types/repeat-section.component';
-import { FormlyFieldInputMoney, FieldInputVisibilityComponent} from './types';
+// import { FormlyFieldInputMoney, FieldInputVisibilityComponent} from './types';
 import { FormlyFieldInputPercentage } from './types/percentage.component';
 
 

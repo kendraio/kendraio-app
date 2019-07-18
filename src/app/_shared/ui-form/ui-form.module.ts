@@ -14,7 +14,7 @@ import { PanelWrapperComponent,
 
 
 // import { RepeatSectionComponent } from './types/repeat-section.component';
-import { FormlyFieldInputMoney, SelectTagsComponent, FieldInputVisibilityComponent } from './types/';
+import { FormlyFieldInputMoney, SelectTagsComponent, FieldInputVisibilityComponent, FieldInputPlaylistComponent } from './types/';
 import { FormlyFieldInputPercentage } from './types/percentage.component';
 
 import { config } from './config';
@@ -34,6 +34,7 @@ import {
   MatIconModule,
   MatInputModule,
   MatRadioModule,
+  MatListModule,
   MatSelectModule,
   MatSliderModule,
   MatButtonModule,
@@ -63,6 +64,7 @@ import {
     MatIconModule,
     MatInputModule,
     MatRadioModule,
+    MatListModule,
     MatSelectModule,
     MatSliderModule,
     // MatNativeDateModule,
@@ -80,6 +82,7 @@ import {
     MatIconModule,
     MatInputModule,
     MatRadioModule,
+    MatListModule,
     MatSelectModule,
     MatSliderModule,
     NgSelectModule,
@@ -96,7 +99,8 @@ import {
     FormlyFieldTypeahead,
     FormlyFieldVideoViewer,
     SelectTagsComponent,
-    FieldInputVisibilityComponent
+    FieldInputVisibilityComponent,
+    FieldInputPlaylistComponent
     // ContentEditableFormDirective
     // KendraioFormComponent
 

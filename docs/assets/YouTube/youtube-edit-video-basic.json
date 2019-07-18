@@ -32,6 +32,10 @@
 		"visibility": {
 			"type": "object",
 			"title": "Visibility "
+		},
+		"playlist": {
+			"type": "object",
+			"title": "Playlists"
 		}
 	}
 }

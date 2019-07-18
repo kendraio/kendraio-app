@@ -15,5 +15,8 @@
 },
 "visibility": {
   "ui:type": "visibility"
+},
+"playlist": {
+  "ui:type": "playlist"
 }
 }
