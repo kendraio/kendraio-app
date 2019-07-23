@@ -9,46 +9,7 @@ import { Animations } from '../../animations';
 
 @Component({
   selector: 'app-field-input-visibility',
-  template: `
-
-<div class="popup-container mat-card" [formGroup]="formx">
-<div class="mat-card-content">
-<label>{{to.label}}</label><br/>
-
-  <mat-radio-group aria-label="Visibility"  (change)="radioChange($event)" formControlName="option" >
-  <mat-radio-button value="1">Public</mat-radio-button>
-  <mat-radio-button value="2" >Private</mat-radio-button>
-  <mat-radio-button value="3">Unlisted</mat-radio-button>
-</mat-radio-group>
-
-<div  [ngClass]="val === '2' ? 'in' : 'out'" *ngIf="val === '2'"  @enterAnimateUpDwn >
-
-<label (click)="showSchedulue = !showSchedulue"> <b> + Add Schedule</b></label>
-
-<div *ngIf="date"  @enterAnimateUpDwn>
-Date: {{date}} <br>
-Time: {{time}}
-</div>
-
-    <div class="schedule-popup" *ngIf="showSchedulue" [ngClass]="showSchedulue ? 'in' : 'out'"   @enterAnimateUpDwn >
-            Shedule as Public
-
-<input type="date"  class="pr form-control form-input"  formControlName="date" />
-<input class="pr form-control form-input" formControlName="time" />
-<select>
-<option value="gmt">gmt uk</option>
-<option value="saab">11111</option>
-<option value="mercedes">22222</option>
-<option value="audi">33333</option>
-</select>
-
-<label (click)="showSchedulue = false">Close</label>
-
-    </div>
-</div>
-</div>
-</div>
- `,
+  templateUrl: 'visibility.component.html',
  animations: [Animations.kendraAnimations]
 })
 // tslint:disable-next-line: component-class-suffiximplements OnInit

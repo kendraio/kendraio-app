@@ -1,0 +1,63 @@
+<div class="popup-container mt-5"
+>
+<mat-card @enterAnimateUpDwn style="max-width: 340px" [formGroup]="formx">
+  <mat-card-header>
+    <mat-label>{{to.label}}</mat-label>
+  </mat-card-header>
+
+  <mat-card-content>
+
+    <mat-radio-group aria-label="Visibility" (change)="radioChange($event)" formControlName="option">
+      <mat-radio-button value="1">Public</mat-radio-button>
+      <mat-radio-button value="2">Private</mat-radio-button>
+      <mat-radio-button value="3">Unlisted</mat-radio-button>
+    </mat-radio-group>
+ng
+    <div [ngClass]="val === '2' ? 'in' : 'out'" *ngIf="val === '2'" @enterAnimateUpDwn>
+
+      <label (click)="showSchedulue = !showSchedulue"> <b> + Add Schedule</b></label>
+
+      <div *ngIf="date" @enterAnimateUpDwn>
+        Date: {{date}} <br>
+        Time: {{time}}
+      </div>
+
+      <div class="schedule" *ngIf="showSchedulue" [ngClass]="showSchedulue ? 'in' : 'out'" @enterAnimateUpDwn>
+     <mat-label><b>Shedule as Public</b></mat-label><br>
+
+        <mat-form-field>
+            <mat-label>Date</mat-label>
+          <input  matInput type="date" class="pr form-control form-input" formControlName="date" />
+        </mat-form-field>
+
+
+        <mat-form-field>
+            <mat-label>Time</mat-label>
+          <input  matInput class="pr form-control form-input" formControlName="time" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Time zone</mat-label>
+          <mat-select>
+            <mat-option value="Public">GMT</mat-option>
+            <mat-option value="Private">HRT</mat-option>
+            <mat-option value="Unlisted">INR</mat-option>
+            <mat-option value="Unlisted">...more to come</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+      </div>
+    </div>
+  </mat-card-content>
+
+
+  <mat-card-actions>
+
+   <button type="button" *ngIf="showSchedulue" mat-button (click)="showSchedulue = false">Close</button>
+
+  </mat-card-actions>
+
+</mat-card>
+
+</div>

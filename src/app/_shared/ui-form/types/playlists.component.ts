@@ -5,64 +5,9 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { Animations } from '../../animations';
 
-
-
 @Component({
   selector: 'app-field-input-visibility',
-  template: `
-
-<div class="popup-container" >
-
-<label>{{to.label}}</label>
-<br/>
-
-<div class="mat-card" @enterAnimateUpDwn style="max-width: 340px"  [formGroup]="formx" >
-
-
-<mat-selection-list #playlists  formControlName="myPlaylistCtrl" >
-  <mat-list-option checkboxPosition="before"
-              *ngFor="let playlist of myPlaylists"
-              [value]="playlist"
-              (click)="onListControlChanged(playlists)"
-              >
-    {{playlist.name  | titlecase}} ({{playlist.visibility}})
-  </mat-list-option>
-</mat-selection-list>
-<small>
-
-
-
-Selected: {{ playlists.selectedOptions.selected.length }}
-</small>
-</div>
-
-
-<div>
-<label (click)="showNewPlaylist = !showNewPlaylist"> <b>Add New Playlist</b></label>
-</div>
-
-    <div class="schedule-popup" *ngIf="showNewPlaylist" [ngClass]="showNewPlaylist ? 'in' : 'out'"   @enterAnimateUpDwn >
-
-    <div [formGroup]="newPlaylistForm">
-<input class="pr form-control form-input"  formControlName="playlistTitle" />
-
-<label>Visibility</label>
-<select formControlName="visibility" >
-<option value="Public">Public</option>
-<option value="Private">Private</option>
-<option value="Unlisted">Unlisted</option>
-</select>
-
-<label (click)="showNewPlaylist = false">Close</label>
-
-
-    <label (click)="showNewPlaylist = false" (click)="createPlayList()">Create</label>
-
-    </div>
-
-</div>
-</div>
- `,
+  templateUrl: 'playlists.component.html',
   animations: [Animations.kendraAnimations]
 })
 // tslint:disable-next-line: component-class-suffiximplements OnInit
@@ -87,8 +32,6 @@ export class FieldInputPlaylistComponent extends FieldType implements OnInit {
       { 'id': '3' }
     ];
 
-
-
   val: string;
   showSchedulue: boolean;
   newPlaylistForm = new FormGroup({});
@@ -104,7 +47,6 @@ export class FieldInputPlaylistComponent extends FieldType implements OnInit {
   }
 
   ngOnInit(): void {
-
 
     this.newPlaylistForm = this.fb.group({
       visibility: '',
@@ -124,10 +66,6 @@ export class FieldInputPlaylistComponent extends FieldType implements OnInit {
     // .subscribe(res => {
 
     //               //       this.onListControlChanged(res);
-
-
-
-
     //                   //  this.formControl.patchValue(this.formx.value);
     //                 //   this.formControl.patchValue(this.myPlaylistCtrl);
     //                   //  this.myPlaylist = this.myPlaylistCtrl;
@@ -137,8 +75,6 @@ export class FieldInputPlaylistComponent extends FieldType implements OnInit {
     //                 // });
 
     // });
-
-
     //  this.formx.get('myPlaylistCtrl').valueChanges.subscribe(value => {
     // console.log(value);
 

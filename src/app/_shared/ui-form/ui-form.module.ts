@@ -38,6 +38,8 @@ import {
   MatSelectModule,
   MatSliderModule,
   MatButtonModule,
+  MatCard,
+  MatCardModule
   // MatNativeDateModule
 } from '@angular/material';
 // import { ContentEditableFormDirective } from '../directives/editable-content';
@@ -66,6 +68,7 @@ import {
     MatRadioModule,
     MatListModule,
     MatSelectModule,
+    MatCardModule,
     MatSliderModule,
     // MatNativeDateModule,
     FormlyMatDatepickerModule
@@ -86,6 +89,7 @@ import {
     MatSelectModule,
     MatSliderModule,
     NgSelectModule,
+    MatCardModule,
     MatNativeDateModule,
     FormlyMatDatepickerModule
   ],
