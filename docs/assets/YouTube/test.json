@@ -1,0 +1,28 @@
+{
+	"definitions": {
+		"largeEnum": {
+			"type": "string",
+			"enum": [
+				"Album",
+				"Alternative",
+				"Demo",
+				"Edit",
+				"Instrumental",
+				"Karaoke",
+				"Live",
+				"Radio edit",
+				"Remix",
+				"Session"
+			]
+		}
+	},
+	"title": "PPL recording",
+	"description": "Register a recording with PPL.",
+	"type": "object",
+	"properties": {
+		"versionType": {
+			"title": "test drop",
+			"$ref": "#/definitions/largeEnum"
+		}
+	}
+}

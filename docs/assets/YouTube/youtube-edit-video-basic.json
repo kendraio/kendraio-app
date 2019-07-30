@@ -1,0 +1,41 @@
+{
+	"title": "Edit Video",
+	"description": "This form allows you to edit your video",
+	"type": "object",
+	"required": [
+		"title"
+	],
+	"properties": {
+    		"videoId": {
+			"title": "Video",
+			"description": "",
+			"type": "string"
+		},
+		"title": {
+			"title": "Title",
+			"description": "",
+			"type": "string",
+			"minLength": 2,
+			"maxLength": 100
+		},
+		"tags": {
+			"type": "string",
+			"title": "Tags ",
+      "description": "Press enter to add a tag"
+		},
+		"description": {
+			"type": "textarea",
+			"title": "Bio",
+			"minLength": 2,
+			"maxLength": 5000
+		},
+		"visibility": {
+			"type": "object",
+			"title": "Visibility "
+		},
+		"playlist": {
+			"type": "object",
+			"title": "Playlists"
+		}
+	}
+}

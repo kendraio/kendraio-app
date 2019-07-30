@@ -1,0 +1,18 @@
+name: Clip
+labelField: name
+fields:
+  - type: TEXT
+    id: name
+    label: Clip name
+    autoComplete: off
+    defaultValue: ''
+  - type: TEXT
+    id: role
+    label: Role
+    autoComplete: off
+    defaultValue: ''
+  - type: TEXT
+    id: contributor
+    label: Contributor
+    autoComplete: off
+    defaultValue: ''
