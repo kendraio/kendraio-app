@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-// import * as mermaidAPI from 'mermaid';
+import * as mermaidAPI from 'mermaid';
 import {ActivatedRoute} from '@angular/router';
 import {filter, map, switchMap, tap} from 'rxjs/operators';
 import {AdaptersService} from '../../services/adapters.service';
@@ -50,9 +50,9 @@ export class DiagramPageComponent implements OnInit, AfterViewInit {
     ).subscribe(({ title, graphDef }) => {
       this.title = title;
       this.graphDef = graphDef;
-      // this.graph = mermaidAPI.render('graphDiv', graphDef, svgCode => {
-      //   this.diagram.nativeElement.innerHTML = svgCode;
-      // });
+      this.graph = mermaidAPI.render('graphDiv', graphDef, svgCode => {
+        this.diagram.nativeElement.innerHTML = svgCode;
+      });
     });
   }
 }
