@@ -25,38 +25,36 @@ export class KendraioFormService {
     const url = FORM_APIS.youtube[formId].uiSchema;
 
     return this.http.get(url)
-    .pipe(catchError(this.errorHandler))
-
-
+      .pipe(catchError(this.errorHandler));
   }
 
   getSchema(formId: string): Observable<any> {
     const url = FORM_APIS.youtube[formId].jsonSchema;
-   return this.http.get<FormlyFieldConfig[]>(url);
+    return this.http.get<FormlyFieldConfig[]>(url);
   }
 
   uiMapper(formlyConfig, jsonSchema, uiSchema) {
     console.log(jsonSchema);
-let i = 0;
-try {
-if (Object.keys(uiSchema).length) {
-    Object.keys(jsonSchema.properties).forEach(function (key) {
-      Object.keys(uiSchema).forEach(function (uiKey) {
-        if (uiKey === key) {
-        //  jsonSchema.properties.bandArtist.type = uiSchema.bandArtist['ui:type'];
-          formlyConfig['fieldGroup'][i]['templateOptions']['disabled'] = uiSchema[key]['ui:disabled'];
-          formlyConfig['fieldGroup'][i]['templateOptions']['placeholder'] = uiSchema[key]['ui:placeholder'];
-          formlyConfig['fieldGroup'][i]['templateOptions']['required'] = uiSchema[key]['ui:required'];
-        }
-      });
-      i++;
-    });
-  }
+    let i = 0;
+    try {
+      if (Object.keys(uiSchema).length) {
+        Object.keys(jsonSchema.properties).forEach(function (key) {
+          Object.keys(uiSchema).forEach(function (uiKey) {
+            if (uiKey === key) {
+              //  jsonSchema.properties.bandArtist.type = uiSchema.bandArtist['ui:type'];
+              formlyConfig['fieldGroup'][i]['templateOptions']['disabled'] = uiSchema[key]['ui:disabled'];
+              formlyConfig['fieldGroup'][i]['templateOptions']['placeholder'] = uiSchema[key]['ui:placeholder'];
+              formlyConfig['fieldGroup'][i]['templateOptions']['required'] = uiSchema[key]['ui:required'];
+            }
+          });
+          i++;
+        });
+      }
 
-   return formlyConfig;
-  } catch (e) {
+      return formlyConfig;
+    } catch (e) {
 
-  }
+    }
 
   }
 
@@ -64,35 +62,35 @@ if (Object.keys(uiSchema).length) {
     let i = 0;
     try {
 
-        Object.keys(uiSchema).forEach(function (key) {
-          Object.keys(jsonSchema.properties).forEach(function (uiKey) {
-            // jsonSchema.properties.bandArtist.type = 'datepicker';
-            if (uiKey === key) {
-              jsonSchema.properties[i].type = uiSchema.bandArtist['ui:type'];
+      Object.keys(uiSchema).forEach(function (key) {
+        Object.keys(jsonSchema.properties).forEach(function (uiKey) {
+          // jsonSchema.properties.bandArtist.type = 'datepicker';
+          if (uiKey === key) {
+            jsonSchema.properties[i].type = uiSchema.bandArtist['ui:type'];
 
-            }
-          });
-          i++;
+          }
         });
-       return jsonSchema;
-      } catch (e) {
+        i++;
+      });
+      return jsonSchema;
+    } catch (e) {
 
-      }
+    }
 
-      }
+  }
 
-      errorHandler(error: HttpErrorResponse) { // added HttpInterceptor so maybe dont need this
-        if (error.error instanceof ErrorEvent) {
-          console.error('An error occurred:', error.error.message);
-        } else {
-          console.error(
-            `Backend http returned code ${error.status}, ` +
-            `body was: ${error.error}`);
-        }
-        return throwError(
-          'Something naughty happened; please try again later.');
+  errorHandler(error: HttpErrorResponse) { // added HttpInterceptor so maybe dont need this
+    if (error.error instanceof ErrorEvent) {
+      console.error('An error occurred:', error.error.message);
+    } else {
+      console.error(
+        `Backend http returned code ${error.status}, ` +
+        `body was: ${error.error}`);
+    }
+    return throwError(
+      'Something naughty happened; please try again later.');
 
-      }
+  }
 
   // public getFormById(id: string, disabled = false, data?: object) {
   //   const ob = FORMS_VALUES(disabled, data)[id];

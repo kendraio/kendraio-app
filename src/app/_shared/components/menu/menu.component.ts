@@ -50,7 +50,7 @@ export const MENUITEMS: MenuItem[] = [
   {
     label: 'Services',
     icon: 'live_tv',
-    path: '/channels',
+    path: '/services',
     children: [
       {
         path: '/bloomen',
@@ -78,12 +78,12 @@ export const MENUITEMS: MenuItem[] = [
         ]
       },
       {
-          path: '/channels/youtube',
+          path: '/services/youtube',
           label: 'YouTube',
           icon: 'attach_money'
         },
         {
-          path: 'channels/spotify',
+          path: 'services/spotify',
           label: 'Spotify',
           icon: 'attach_money'
         },

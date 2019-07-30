@@ -14,15 +14,14 @@ import { PanelWrapperComponent,
 
 
 // import { RepeatSectionComponent } from './types/repeat-section.component';
-import { FormlyFieldInputMoney, SelectTagsComponent, FieldInputVisibilityComponent, FieldInputPlaylistComponent } from './types/';
-import { FormlyFieldInputPercentage } from './types/percentage.component';
+import * as types from './types/';
 
 import { config } from './config';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { MatNativeDateModule } from '@angular/material/core';
 // import { AppMaterialModule } from './app/app-material/app-material.module';
 import { FormlyFieldTypeahead } from './types/typeahead.component';
-import { FormlyFieldVideoViewer } from './types';
+
 import { NgSelectModule } from '@ng-select/ng-select';
 // import { SharedModule } from '../shared.module';
 import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
@@ -98,13 +97,14 @@ import {
     // ErrorWrapperComponent,
     // AnimationWrapperComponent,
     // RepeatSectionComponent,
-    FormlyFieldInputMoney,
-    FormlyFieldInputPercentage,
+    types.FormlyFieldInputMoney,
+    types.FormlyFieldInputPercentage,
     FormlyFieldTypeahead,
-    FormlyFieldVideoViewer,
-    SelectTagsComponent,
-    FieldInputVisibilityComponent,
-    FieldInputPlaylistComponent
+    types.FormlyFieldVideoViewer,
+    types.SelectTagsComponent,
+    types.FieldInputVisibilityComponent,
+    types.FieldInputPlaylistComponent,
+    types.FieldCountriesComponent
     // ContentEditableFormDirective
     // KendraioFormComponent
 

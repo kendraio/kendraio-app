@@ -12,7 +12,7 @@
       <mat-radio-button value="2">Private</mat-radio-button>
       <mat-radio-button value="3">Unlisted</mat-radio-button>
     </mat-radio-group>
-ng
+
     <div [ngClass]="val === '2' ? 'in' : 'out'" *ngIf="val === '2'" @enterAnimateUpDwn>
 
       <label (click)="showSchedulue = !showSchedulue"> <b> + Add Schedule</b></label>
@@ -23,7 +23,7 @@ ng
       </div>
 
       <div class="schedule" *ngIf="showSchedulue" [ngClass]="showSchedulue ? 'in' : 'out'" @enterAnimateUpDwn>
-     <mat-label><b>Shedule as Public</b></mat-label><br>
+     <mat-label><b>Schedule as Public</b></mat-label><br>
 
         <mat-form-field>
             <mat-label>Date</mat-label>

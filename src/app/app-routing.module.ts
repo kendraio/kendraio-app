@@ -71,7 +71,7 @@ const routes: Routes = [
         }
       },
       {
-        path: 'channels',
+        path: 'services',
         loadChildren: './channels/channels.module#ChannelsModule',
         data: {
           pageTitle: {'de': 'Channels' , 'fr': '', 'en-US': 'Channels'},

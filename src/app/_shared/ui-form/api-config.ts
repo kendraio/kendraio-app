@@ -9,6 +9,10 @@ export const FORM_APIS = {
         advanced:     {
             jsonSchema: 'assets/YouTube/youtube-edit-video-advanced.schema.json',
             uiSchema: 'assets/YouTube/youtube-edit-video-advanced.ui.json',
+        },
+        arrays:     {
+            jsonSchema: 'assets/YouTube/arrays.json',
+            uiSchema: 'assets/YouTube/youtube-edit-video-advanced.ui.json',
         }
       },
 

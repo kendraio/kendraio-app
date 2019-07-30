@@ -5,6 +5,9 @@ import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { FormlyJsonschema } from '@ngx-formly/core/json-schema';
 import { KendraioFormService } from 'src/app/_shared/ui-form/services/kendraio.form.service';
 import { ActivatedRoute } from '@angular/router';
+import { tap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-my-youtube',
@@ -15,7 +18,7 @@ export class MyYoutubeComponent {
   form = new FormGroup({});
   model: any = {
     title: 'As it is in Hell',
-    description: 'Born in the morning in the drizzlin rain. Trouble is his middle name',
+    description: '',
     videoId: 'BeW1e40mSGQ',
     tags: ['this', 'is', 'tagging', 'in', 'action']
   };
@@ -33,11 +36,27 @@ export class MyYoutubeComponent {
     private formlyJsonschema: FormlyJsonschema,
     private formService: KendraioFormService,
     private route: ActivatedRoute,
+    private http: HttpClient,
   ) {
 
     this.routePath = this.route.snapshot.routeConfig.path;
     this.getJSONSchema(this.routePath);
+  // this.loadExample()
   }
+
+  loadExample() {
+    this.http.get<any>(`assets/YouTube/arrays.json`).pipe(
+      tap(({ schema, model }) => {
+        this.form = new FormGroup({});
+        this.options = {};
+        this.fields = [this.formlyJsonschema.toFieldConfig(schema)];
+        this.model = model;
+      }),
+    ).subscribe();
+  }
+
+
+
 
   getJSONSchema(form: any) {
     this.formService.getFormData(form)
