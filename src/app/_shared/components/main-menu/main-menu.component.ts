@@ -3,7 +3,7 @@ import { ActivatedRoute, NavigationEnd, Router, Route, Routes } from '@angular/r
 
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { MenuItem } from 'src/app/_models/classes/common';
-import { LoadedRouterConfig } from '@angular/router/src/config';
+// import { LoadedRouterConfig } from '@angular/router/src/config';
 import { __values } from 'tslib';
 // import { LoadedRouterConfig } from '@angular/router/src/config';
 
@@ -78,7 +78,7 @@ return children.length > 0;
     } else {
       return false;
     }
-   
+
   }
 
 
@@ -103,11 +103,11 @@ return children.length > 0;
         }
 
         if (route.loadChildren && route.loadChildren.length > 0) {
-          
-            const routerConfig = <LoadedRouterConfig>(<any>routes)['_loadedConfig'];
-            if (routerConfig) {
-                this.printPaths2(fullPath, routerConfig.routes);
-            }
+
+            // const routerConfig = <LoadedRouterConfig>(<any>routes)['_loadedConfig'];
+            // if (routerConfig) {
+            //     this.printPaths2(fullPath, routerConfig.routes);
+            // }
         }
     }
 }

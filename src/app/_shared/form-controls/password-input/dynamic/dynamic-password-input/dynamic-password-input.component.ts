@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
-import { DynamicFormControlComponent, DynamicFormLayout, 
-  DynamicFormControlCustomEvent, 
+import { DynamicFormControlComponent, DynamicFormLayout,
+  DynamicFormControlCustomEvent,
   DynamicFormLayoutService, DynamicFormValidationService, DynamicInputModel } from '@ng-dynamic-forms/core';
 import { FormGroup } from '@angular/forms';
 import { PasswordInputComponent } from '../../password-input.component';

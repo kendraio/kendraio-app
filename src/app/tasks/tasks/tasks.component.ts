@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MatDialog, MatDialogClose 
 import { Router } from '@angular/router';
 import { Animations } from 'src/app/_shared/animations';
 import { AdaptersService } from 'src/app/services/adapters.service';
-import { TrustedScriptString } from '@angular/core/src/sanitization/bypass';
+// import { TrustedScriptString } from '@angular/core/src/sanitization/bypass';
 
 export interface DistributionProgress {
   name: string;
@@ -44,24 +44,24 @@ export class TasksComponent implements OnInit {
   ngOnInit() {
     PROGRESS_DATA = [
       {step: 1, name: 'Releases Selected',date: '24 Feb 2019',  percentComplete: 100, icon: 'done'},
-      {step: 2, name: 'Data confirmed', date: '24 Feb 2019', percentComplete: 100, icon: 'done'},    
+      {step: 2, name: 'Data confirmed', date: '24 Feb 2019', percentComplete: 100, icon: 'done'},
     ];
     this.dataSource = [];
     this.nextDataSource = [];
-    this.dataSource = PROGRESS_DATA;  
+    this.dataSource = PROGRESS_DATA;
     this.onNextStep();
   }
 // Object.keys(adapters);
   get enabled() { return Object.keys(this.adapters.enabledAdapters); }
-  
+
   onNextStep() {
     this.nextDataSource = [];
-    this.nextDataSource = PROGRESS_DATA;  
+    this.nextDataSource = PROGRESS_DATA;
     this.enabled.forEach(input => {
       this.nextDataSource.push(  {
-        step: this.nextDataSource.length + 1, 
-        name: 'Sent to: ' + input, 
-        percentComplete: this.nextDataSource.length * 3, 
+        step: this.nextDataSource.length + 1,
+        name: 'Sent to: ' + input,
+        percentComplete: this.nextDataSource.length * 3,
         date: '02 Mar 2018',
         icon: 'schedule'});
     });
@@ -69,7 +69,7 @@ export class TasksComponent implements OnInit {
     this.dataSource = [];
  this.dataSource = this.nextDataSource;
   }
-  
+
   openDialog(itemData: string) {
     this.dialog.open(DialogDataDialogComponent, {
       data: {
