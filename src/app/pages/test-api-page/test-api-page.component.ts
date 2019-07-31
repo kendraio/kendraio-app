@@ -5,7 +5,7 @@ import {catchError, map, mergeMap, switchMap, take, tap, withLatestFrom} from 'r
 import {ImportProgressDialogComponent} from '../../dialogs/import-progress-dialog/import-progress-dialog.component';
 import {Router} from '@angular/router';
 import {PageTitleService} from '../../services/page-title.service';
-import {MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import {TestImportDialogComponent} from '../../dialogs/test-import-dialog/test-import-dialog.component';
 
 @Component({

@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { blobToDataURL } from 'blob-util';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { EditClipDialogComponent } from '../../dialogs/edit-clip-dialog/edit-clip-dialog.component';
 import { ConfirmDeleteDialogComponent } from '../../dialogs/confirm-delete-dialog/confirm-delete-dialog.component';
 import { WaveformComponent } from '../../components/waveform/waveform.component';
@@ -33,7 +33,7 @@ export class AudioInputControlComponent implements OnInit, OnDestroy, ControlVal
 
   @Input() clipControl: FormControl;
 
-  @ViewChild('player') player: WaveformComponent;
+  @ViewChild('player', { static: false }) player: WaveformComponent;
   isPlaying = false;
 
   clipValues;

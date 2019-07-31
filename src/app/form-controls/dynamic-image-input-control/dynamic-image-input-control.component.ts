@@ -30,7 +30,7 @@ export class DynamicImageInputControlComponent extends DynamicFormControlCompone
   @Output() customEvent: EventEmitter<DynamicFormControlCustomEvent> = new EventEmitter();
   @Output() focus: EventEmitter<any> = new EventEmitter();
 
-  @ViewChild(ImageInputControlComponent) imageInputControlComponent: ImageInputControlComponent;
+  @ViewChild(ImageInputControlComponent, { static: true }) imageInputControlComponent: ImageInputControlComponent;
 
   tagControl = new FormControl([]);
 

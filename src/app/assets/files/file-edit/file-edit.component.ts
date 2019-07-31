@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { DynamicFormModel, DynamicFormLayout, DynamicFormService } from '@ng-dynamic-forms/core';
 import { FormGroup } from '@angular/forms';
 
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FILES_FORM_MODEL } from '../_shared/forms/formModel';
 import { FILES_FORM_LAYOUT } from '../_shared/forms/form.layout';
 

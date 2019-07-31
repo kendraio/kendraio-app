@@ -15,7 +15,7 @@ const BASE_PATH = 'https://kendraio.github.io/kendraio-adapter/';
 })
 export class DiagramPageComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('diagram') diagram: ElementRef;
+  @ViewChild('diagram', { static: true }) diagram: ElementRef;
 
   title = '';
   graph;

@@ -90,7 +90,7 @@ import {DEBUG_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/debug-form-model'
 import {AppSettingsService} from './services/app-settings.service';
 import { DebugOnlyDirective } from './directives/debug-only.directive';
 import {TextMaskModule} from 'angular2-text-mask';
-import {MatAutocompleteModule} from '@angular/material';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { LOCALE_ID  } from '@angular/core';
 
 import { YoutubePageComponent } from './pages/youtube-page/youtube-page.component';

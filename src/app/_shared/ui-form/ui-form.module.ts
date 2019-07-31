@@ -26,21 +26,19 @@ import { NgSelectModule } from '@ng-select/ng-select';
 // import { SharedModule } from '../shared.module';
 import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
 
-import {
-  MatButtonToggleModule,
-  MatCheckboxModule,
-  MatFormFieldModule,
-  MatIconModule,
-  MatInputModule,
-  MatRadioModule,
-  MatListModule,
-  MatSelectModule,
-  MatSliderModule,
-  MatButtonModule,
-  MatCard,
-  MatCardModule
-  // MatNativeDateModule
-} from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCard, MatCardModule
+// MatNativeDateModule
+ } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSliderModule } from '@angular/material/slider';
 // import { ContentEditableFormDirective } from '../directives/editable-content';
 // import { KendraioFormComponent } from './kendraio-form/kendraio-form.component';
 

@@ -5,7 +5,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppMaterialModule } from 'src/app/app-material/app-material.module';
 
-import { MatGridListModule, MatCardModule , MatButtonModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { MusicRecordingsRoutingModule } from './music-recordings-routing.module';
 import { IndexComponent, MusicRecordingsEditComponent, MusicRecordingsDetailComponent} from './';

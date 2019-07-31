@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { IMusicRelease } from 'src/app/_models/classes/musicRelease';
 import { GridOptions } from 'ag-grid-community';
 import { PageTitleService } from 'src/app/services/page-title.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 
 import {EditComponent} from './edit/edit.component';
 

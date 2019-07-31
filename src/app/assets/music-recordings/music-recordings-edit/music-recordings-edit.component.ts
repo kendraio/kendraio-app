@@ -3,7 +3,10 @@ import { DynamicFormModel, DynamicFormService, DynamicFormLayout } from '@ng-dyn
 
 import { FormsModule, FormGroup, FormArray, FormBuilder, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MY_FORM_MODEL } from '../_shared/forms/formModel';
-import { LabelOptions, MAT_LABEL_GLOBAL_OPTIONS, MatDatepicker, MatInput, MAT_DIALOG_DATA } from '@angular/material';
+import { LabelOptions, MAT_LABEL_GLOBAL_OPTIONS } from '@angular/material/core';
+import { MatDatepicker } from '@angular/material/datepicker';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatInput } from '@angular/material/input';
 import { FORM_LAYOUT } from './form.layout';
 
 @Component({

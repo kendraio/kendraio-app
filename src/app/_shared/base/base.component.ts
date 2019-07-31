@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { RouteData } from 'src/app/_models/classes/common';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { PageTitleService } from 'src/app/services/page-title.service';
-import { MatDialog, MAT_DIALOG_DATA, MatButton } from '@angular/material';
+import { MatButton } from '@angular/material/button';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { TestDataService } from 'src/app/services/test-data.service';
 import { GridOptions } from 'ag-grid-community';

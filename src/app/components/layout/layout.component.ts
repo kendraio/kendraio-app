@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatSidenav, MatMenu } from '@angular/material';
+import { MatMenu } from '@angular/material/menu';
+import { MatSidenav } from '@angular/material/sidenav';
 import { Observable } from 'rxjs';
 import {SharedModule} from '../../_shared/shared.module';
 import { PageTitleService } from '../../services/page-title.service';

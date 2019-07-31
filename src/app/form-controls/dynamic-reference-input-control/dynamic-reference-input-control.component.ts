@@ -11,14 +11,8 @@ import {
 
 import {ImageInputControlComponent} from '../image-input-control/image-input-control.component';
 import {ReferenceFormModel} from '../reference-form-model';
-import {
-  ErrorStateMatcher,
-  MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,
-  MAT_LABEL_GLOBAL_OPTIONS, MAT_RIPPLE_GLOBAL_OPTIONS,
-  MatAutocompleteDefaultOptions,
-  RippleGlobalOptions,
-  LabelOptions
-} from '@angular/material';
+import { MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MatAutocompleteDefaultOptions } from '@angular/material/autocomplete';
+import { ErrorStateMatcher, MAT_LABEL_GLOBAL_OPTIONS, MAT_RIPPLE_GLOBAL_OPTIONS, RippleGlobalOptions, LabelOptions } from '@angular/material/core';
 import {DynamicMaterialInputComponent} from '@ng-dynamic-forms/ui-material';
 
 @Component({

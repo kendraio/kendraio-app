@@ -3,7 +3,7 @@ import { DynamicFormModel, DynamicFormService, DynamicFormLayout } from '@ng-dyn
 
 import { FormsModule, FormGroup, FormArray, FormBuilder, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MY_CLAIMS_FORM_MODEL } from '../_shared/forms/formModel';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CLAIMS_FORM_LAYOUT } from '../claims-edit/form.layout';
 
 @Component({

@@ -21,7 +21,7 @@ export class DynamicPasswordInputComponent  extends DynamicFormControlComponent 
   @Output() customEvent: EventEmitter<DynamicFormControlCustomEvent> = new EventEmitter();
   @Output() focus: EventEmitter<any> = new EventEmitter();
 
-  @ViewChild(PasswordInputComponent) passwordInputComponent: PasswordInputComponent;
+  @ViewChild(PasswordInputComponent, { static: true }) passwordInputComponent: PasswordInputComponent;
 
   constructor(protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService) {
