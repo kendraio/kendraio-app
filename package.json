@@ -27,8 +27,6 @@
     "@angular/pwa": "^0.13.8",
     "@angular/router": "~8.2.0-rc.0",
     "@angular/service-worker": "~8.2.0-rc.0",
-    "@ng-dynamic-forms/core": "^7.2.0",
-    "@ng-dynamic-forms/ui-material": "^7.2.0",
     "@ng-select/ng-select": "^2.20.0",
     "@ngrx/effects": "^8.1.0",
     "@ngrx/entity": "^8.1.0",
