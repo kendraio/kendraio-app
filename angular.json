@@ -88,14 +88,14 @@
               "baseHref": "/de/",
               "i18nFile": "src/locale/messages.de.xlf",
               "i18nFormat": "xlf",
-              "i18nLocale": "de"           
+              "i18nLocale": "de"
             },
             "fr": {
               "aot": true,
-              "i18nLocale": "fr"           
+              "i18nLocale": "fr"
             },
-        
-        
+
+
 
 
             "production": {
@@ -105,7 +105,7 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": true,
+              "optimization": false,
               "outputHashing": "all",
               "sourceMap": false,
               "extractCss": true,
@@ -113,7 +113,7 @@
               "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": true,
+              "buildOptimizer": false,
               "budgets": [
                 {
                   "type": "initial",
@@ -134,7 +134,7 @@
             "de": {
               "browserTarget": "kendraio-app:build:de",
               "baseHref": "/de/"
-      
+
             },
             "fr": {
               "browserTarget": "kendraio-app:build:fr"
