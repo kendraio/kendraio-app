@@ -10,8 +10,8 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 @Component({
     selector: 'formly-field-typeahead',
     template: `
-    <label>{{to.label}}</label>
-        <ng-select [items]="countries"
+    <mat-form-field>
+        <ng-select ngSelectMat [items]="countries"
                    bindLabel="name"
                    bindValue="id"
                    [placeholder]="to.label"
@@ -24,7 +24,7 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
     <b> {{item.name}}</b>  ({{item.alpha3}})
 </ng-template>
         </ng-select>
-
+        </mat-form-field>
     `,
     styleUrls: ['./typeahead.component.scss'],
   })

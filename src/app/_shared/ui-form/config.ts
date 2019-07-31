@@ -42,7 +42,6 @@ export const config: ConfigOption = {
     { name: 'visibility', component: types.FieldInputVisibilityComponent },
     { name: 'playlist', component: types.FieldInputPlaylistComponent },
     { name: 'tags', component: types.SelectTagsComponent },
-    { name: 'tags', component: types.SelectTagsComponent },
     { name: 'countries', component: types.FieldCountriesComponent
 
   },
