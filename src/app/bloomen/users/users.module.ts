@@ -10,7 +10,7 @@ import { AppMaterialModule } from 'src/app/app-material/app-material.module';
 import { ListComponent } from './list/list.component';
 import { PasswordStrength } from 'src/app/_shared/directives/passwordValidation';
 import { NG_VALIDATORS } from '@angular/forms';
-import { FormlyMaterialModule } from '@ngx-formly/material';
+// import { FormlyMaterialModule } from '@ngx-formly/material';
 import { FormlyModule } from '@ngx-formly/core';
 import { UsersComponent } from './users.component';
 import { UiFormModule } from '../../_shared/ui-form/ui-form.module';
@@ -25,14 +25,14 @@ import { UiFormModule } from '../../_shared/ui-form/ui-form.module';
     UsersRoutingModule,
     SharedModule,
     AppMaterialModule,
-    FormlyMaterialModule,
+    // FormlyMaterialModule,
     FormlyModule.forRoot({
       validationMessages: [
         { name: 'required', message: 'This field is required' },
         { name: 'minlength', message: minlengthValidationMessage },
       ],
     }),
-    
+
   ],
   exports: [
     AccountFormComponent,

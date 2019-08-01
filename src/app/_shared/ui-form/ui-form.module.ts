@@ -17,7 +17,7 @@ import { PanelWrapperComponent,
 import * as types from './types/';
 
 import { config } from './config';
-import { FormlyMaterialModule } from '@ngx-formly/material';
+// import { FormlyMaterialModule } from '@ngx-formly/material';
 import { MatNativeDateModule } from '@angular/material/core';
 // import { AppMaterialModule } from './app/app-material/app-material.module';
 import { FormlyFieldTypeahead } from './types/typeahead.component';
@@ -55,7 +55,7 @@ import { MatSliderModule } from '@angular/material/slider';
     NgSelectModule,
     // SharedModule
     // FormlyBootstrapModule,
-    FormlyMaterialModule,
+    // FormlyMaterialModule,
     MatButtonToggleModule,
     MatButtonModule,
     MatCheckboxModule,
@@ -74,7 +74,7 @@ import { MatSliderModule } from '@angular/material/slider';
     FormsModule,
     ReactiveFormsModule,
     FormlyModule,
-    FormlyMaterialModule ,
+    // FormlyMaterialModule ,
     MatButtonToggleModule,
     MatButtonModule,
     MatCheckboxModule,

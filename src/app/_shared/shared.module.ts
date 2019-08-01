@@ -40,7 +40,7 @@ import { PasswordInputComponent } from './form-controls/password-input/password-
 import { DynamicPasswordInputComponent } from './form-controls/password-input/dynamic/dynamic-password-input/dynamic-password-input.component';
 import { DEBUG_DYNAMIC_FORM_CONTROL_TYPE } from '../form-controls/debug-form-model';
 import { FormlyModule } from '@ngx-formly/core';
-import { FormlyMaterialModule } from '@ngx-formly/material';
+// import { FormlyMaterialModule } from '@ngx-formly/material';
 import { AccountLoginFormComponent } from '../bloomen/users/_shared';
 import { UiFormModule } from './ui-form/ui-form.module';
 import { UsersComponent } from '../bloomen/users/users.component';
@@ -90,7 +90,7 @@ export function minlengthValidationMessage(err, field) {
     DynamicFormsMaterialUIModule,
     FormsModule,
     ReactiveFormsModule,
-    FormlyMaterialModule,
+    // FormlyMaterialModule,
     FormlyModule.forRoot({
       // validationMessages:
       // [
