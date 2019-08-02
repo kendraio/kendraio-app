@@ -5,6 +5,8 @@
   <button mat-flat-button [color]="form.touched ? 'primary' : undefined" (click)="saveProfile()">Save</button>
 </mat-card>
 
+<app-user-ipn-form></app-user-ipn-form>
+
 <mat-card *ngIf="isAuthenticated; else notLoggedIn">
   <h3>Identities</h3>
 

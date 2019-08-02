@@ -105,6 +105,7 @@ import { YoutubeUploadComponent } from './components/youtube-upload/youtube-uplo
 import { DynamicFormRepoComponent } from './components/dynamic-form-repo/dynamic-form-repo.component';
 import { BloomenSearchPageComponent } from './pages/bloomen-search-page/bloomen-search-page.component';
 import { HttpErrorInterceptor } from './_shared/404.interceptor';
+import { UserIpnFormComponent } from './forms/user-ipn-form/user-ipn-form.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -164,7 +165,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     YoutubePageComponent,
     YoutubeUploadComponent,
     DynamicFormRepoComponent,
-    BloomenSearchPageComponent
+    BloomenSearchPageComponent,
+    UserIpnFormComponent
     // BreadcrumbComponent
     // ReportsComponent,
     // ContactsComponent
