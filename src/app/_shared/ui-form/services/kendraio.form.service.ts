@@ -22,6 +22,7 @@ export class KendraioFormService {
   }
 
   getUI(formId: string): Observable<any> {
+    // TODO: need to remove hard-coded reference to YouTube here
     const url = FORM_APIS.youtube[formId].uiSchema;
 
     return this.http.get(url)
