@@ -62,6 +62,8 @@ export class MyYoutubeComponent {
     this.formService.getFormData(form)
       .subscribe(([uiSchema, jsonSchema]) => {
         this.formService.uiTypeMapper(uiSchema, jsonSchema);
+        // TODO: This is duplicated code, also appears in form-generator component
+        // TODO: Possible refactor to move to service?
           this.formConfig = this.formlyJsonschema.toFieldConfig(jsonSchema);
           this.fields = [this.formService.uiMapper(this.formConfig, jsonSchema, uiSchema)];
           this.formDescription = this.formConfig.templateOptions.description;
