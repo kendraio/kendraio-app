@@ -379,7 +379,7 @@ SOFTWARE.
 
 
 autolinker
-MIT Licensed. http://www.opensource.org/licenses/mit-license.php
+MIT
 The MIT License (MIT)
 
 Copyright (c) 2014 Gregory Jacobs (http://greg-jacobs.com)

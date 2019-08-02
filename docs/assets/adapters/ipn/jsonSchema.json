@@ -1,0 +1,17 @@
+{
+  "title": "IPN",
+  "description": "This form allows you to add your IPN",
+  "type": "object",
+  "required": [
+    "ipn"
+  ],
+  "properties": {
+    "ipn": {
+      "title": "IPN",
+      "description": "",
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 20
+    }
+  }
+}

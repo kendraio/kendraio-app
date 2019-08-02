@@ -1,0 +1,6 @@
+{
+  "ipn": {
+    "ui:disabled": false,
+    "ui:placeholder": "eg 1234567890"
+  }
+}
