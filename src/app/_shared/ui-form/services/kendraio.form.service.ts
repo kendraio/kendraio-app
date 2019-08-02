@@ -58,6 +58,25 @@ export class KendraioFormService {
 
   }
 
+  // Moved from my-youtube component
+  uiTypeMapper(uiSchema: any, jsonSchema: any) {
+    try {
+      Object.keys(uiSchema).forEach(function (uiKey) {
+        Object.keys(jsonSchema.properties).forEach(function (schemaKey) {
+          if ((uiKey === schemaKey) && uiSchema[uiKey]['ui:type']) {
+            jsonSchema.properties[schemaKey].type = uiSchema[uiKey]['ui:type'];
+          } else {
+            // Variable is assigned to itself?
+            jsonSchema.properties[schemaKey].type = jsonSchema.properties[schemaKey].type;
+          }
+        });
+        // i++;
+      });
+    } catch (e) {
+    }
+    // return i;
+  }
+
   jsonMapper(jsonSchema, uiSchema) {
     let i = 0;
     try {
