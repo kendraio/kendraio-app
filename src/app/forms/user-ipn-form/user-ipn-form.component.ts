@@ -3,6 +3,7 @@ import { FormlyJsonschema } from '@ngx-formly/core/json-schema';
 import { KendraioFormService } from '../../_shared/ui-form/services/kendraio.form.service';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
+import { get } from 'lodash-es';
 
 @Component({
   selector: 'app-user-ipn-form',
@@ -19,6 +20,8 @@ export class UserIpnFormComponent implements OnInit {
   formConfig: any;
   formDescription: string;
   formLabel: string;
+
+  isFormLoaded = false;
 
   constructor(
     // TODO: I would rather not have to inject both form services.
@@ -38,6 +41,12 @@ export class UserIpnFormComponent implements OnInit {
         // TODO: I lifted this from my-youtube to test form service
         this.formConfig = this.formlyJsonschema.toFieldConfig(jsonSchema);
         this.fields = [this.formService.uiMapper(this.formConfig, jsonSchema, uiSchema)];
+        console.log({ jsonSchema, uiSchema });
+        this.isFormLoaded = true;
+        // TODO: Might be better to use title/desc from uiSchema rather than jsonSchema
+        // as jsonSchema data model, but data model could be shared by multiple forms
+        this.formLabel = get(jsonSchema, 'title', '');
+        this.formDescription = get(jsonSchema, 'description', '');
       });
   }
 

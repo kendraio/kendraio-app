@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1564744767130,
+  "timestamp": 1564991403076,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -27,7 +27,7 @@
         "/common.6abddd41e4369ce138ba.js",
         "/favicon.ico",
         "/index.html",
-        "/main.0c5bf4acc3ade2a258be.js",
+        "/main.c7e35ee4994b77baddaa.js",
         "/polyfills.355f2b8ac73855af7d0f.js",
         "/runtime.509cb5becde7e595b6a0.js",
         "/scripts.286ee48665d1076626b8.js",
@@ -383,8 +383,8 @@
     "/assets/YouTube/youtube-edit-video-basic-ui.json": "e80fdcf50f13b117d3d741bd04d9fb956649280f",
     "/assets/YouTube/youtube-edit-video-basic.json": "11864c911ee8cb91765590b9adbac3ebd37a2bae",
     "/assets/YouTube/youtube-ui.json": "b5577917cac5638b050dced20a3ade9955372286",
-    "/assets/adapters/ipn/jsonSchema.json": "f9493f6177a06405c514739f8e764d09289a2826",
-    "/assets/adapters/ipn/uiSchema.json": "9ce66c48e1e73f8f7f4ef80a23b495056d9547e5",
+    "/assets/adapters/ipn/jsonSchema.json": "358a1cd8540da41b1cd4265a9a4e72178965e82c",
+    "/assets/adapters/ipn/uiSchema.json": "1b2f6d3ab0d12dca199835a69778209fe55931fb",
     "/assets/data/rin-sample-01.xml": "ec7fc751bbde79156f7d527da2acd18d2a544f5b",
     "/assets/fake-data/you-tube-api.json": "dcd7d55169cd3e1ba3120e39d5be7f46040e431b",
     "/assets/forms/audioEditForm.yaml": "1151f0bf40f4286639b52b463ca6db0819da0078",
@@ -690,8 +690,8 @@
     "/assets/swagger/unsplash.json": "69eb1f6aea71b19b29578abc0956378c6efd0467",
     "/common.6abddd41e4369ce138ba.js": "1a3b52ad952c11b3724184e9f41108597d17e015",
     "/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "/index.html": "558da680675135b5670969655e9d73e439ada7c0",
-    "/main.0c5bf4acc3ade2a258be.js": "4035bd76c7e685935072f1fdaf361141df4d1ba7",
+    "/index.html": "64240195e76d3d0811c656529f9eed570b8ee557",
+    "/main.c7e35ee4994b77baddaa.js": "90937e92301af716a0da61b54b9684200b091456",
     "/polyfills.355f2b8ac73855af7d0f.js": "a88e760aec361c6873cd49104cfd3f5f551986fb",
     "/runtime.509cb5becde7e595b6a0.js": "68cab744a811b915364ec13ca7be3f950fe7bc17",
     "/scripts.286ee48665d1076626b8.js": "022498c91be63ae8caf4cbb2aba91bc537d176cc",
