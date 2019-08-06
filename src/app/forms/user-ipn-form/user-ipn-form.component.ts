@@ -31,7 +31,7 @@ export class UserIpnFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getJSONSchema('user','ipn');
+    this.getJSONSchema('user', 'ipn');
   }
 
   getJSONSchema(group: string, form: any) {

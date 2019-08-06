@@ -39,9 +39,9 @@
 		},
 		"listOfStrings": {
 			"type": "array",
-			"title": "My stuff list",
+			"title": "My Dates List",
 			"items": {
-				"type": "string",
+				"type": "datepicker",
 				"default": "Enter your new ID here"
 			}
 		}
