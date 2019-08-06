@@ -18,9 +18,14 @@ export class MyYoutubeComponent {
   form = new FormGroup({});
   model: any = {
     title: 'As it is in Hell',
-    description: '',
+    description: ' fghjfghj fghjfghj',
     videoId: 'BeW1e40mSGQ',
-    tags: ['this', 'is', 'tagging', 'in', 'action']
+    tags: ['this', 'is', 'tagging', 'in', 'action'],
+    listOfStrings: [
+      'Rosey',
+      'Farty Pants',
+      'Little Stinker'
+  ],
   };
 
   formConfig: any;
@@ -40,7 +45,8 @@ export class MyYoutubeComponent {
   ) {
 
     this.routePath = this.route.snapshot.routeConfig.path;
-    this.getJSONSchema(this.routePath);
+    // this.getJSONSchema(this.routePath);
+    this.getJSONSchema('arrays');
   // this.loadExample()
   }
 

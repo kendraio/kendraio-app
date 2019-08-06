@@ -11,7 +11,7 @@
 			"ui:type": "videoviewer"
   },
   "tags": {
-    "ui:type": "tags"
+    "ui:type": "countries"
 },
 "visibility": {
   "ui:type": "visibility"

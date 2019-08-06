@@ -38,13 +38,12 @@ export const config: ConfigOption = {
   ],
   types: [
     // { name: 'repeat', component: RepeatSectionComponent },
+    { name: 'array', component: types.ArrayTypeComponent },
     { name: 'videoviewer', component: types.FormlyFieldVideoViewer },
     { name: 'visibility', component: types.FieldInputVisibilityComponent },
     { name: 'playlist', component: types.FieldInputPlaylistComponent },
     { name: 'tags', component: types.SelectTagsComponent },
-    { name: 'countries', component: types.FieldCountriesComponent
-
-  },
+    { name: 'countries', component: types.FieldCountriesComponent},
     {
       name: 'money', component: types.FormlyFieldInputMoney,
       defaultOptions: {

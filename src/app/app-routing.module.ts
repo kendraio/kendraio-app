@@ -11,7 +11,7 @@ import { SettingsPageComponent } from './pages/settings-page/settings-page.compo
 import { UserPageComponent } from './pages/user-page/user-page.component';
 import { AuthCallbackComponent } from './pages/auth-callback/auth-callback.component';
 import { DropboxPageComponent } from './pages/dropbox-page/dropbox-page.component';
-import { SwaggerPageComponent } from './pages/swagger-page/swagger-page.component';
+// import { SwaggerPageComponent } from './pages/swagger-page/swagger-page.component';
 import {TestApiPageComponent} from './pages/test-api-page/test-api-page.component';
 import {DiagramPageComponent} from './pages/diagram-page/diagram-page.component';
 import { PeopleComponent } from './contacts/people/people.component';
@@ -201,13 +201,13 @@ const routes: Routes = [
     }
   },
 
-      {
-        path: 'api-client/:id',
-        component: SwaggerPageComponent,
-        data: {
-          breadcrumb: 'API'
-        }
-      },
+      // {
+      //   path: 'api-client/:id',
+      //   component: SwaggerPageComponent,
+      //   data: {
+      //     breadcrumb: 'API'
+      //   }
+      // },
       {
         path: 'test-api',
         component: TestApiPageComponent,

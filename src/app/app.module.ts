@@ -43,8 +43,8 @@ import { AudioInputControlComponent } from './form-controls/audio-input-control/
 import { TrackClipDirective } from './directives/track-clip.directive';
 import { EditClipDialogComponent } from './dialogs/edit-clip-dialog/edit-clip-dialog.component';
 import { DoughnutChartDirective } from './directives/doughnut-chart.directive';
-import { SwaggerPageComponent } from './pages/swagger-page/swagger-page.component';
-import { SwaggerUiDirective } from './directives/swagger-ui.directive';
+// import { SwaggerPageComponent } from './pages/swagger-page/swagger-page.component';
+// import { SwaggerUiDirective } from './directives/swagger-ui.directive';
 import { TestApiPageComponent } from './pages/test-api-page/test-api-page.component';
 import { TestImportDialogComponent } from './dialogs/test-import-dialog/test-import-dialog.component';
 import { AssetsPageComponent } from './pages/assets-page/assets-page.component';
@@ -105,6 +105,7 @@ import { YoutubeUploadComponent } from './components/youtube-upload/youtube-uplo
 import { DynamicFormRepoComponent } from './components/dynamic-form-repo/dynamic-form-repo.component';
 import { BloomenSearchPageComponent } from './pages/bloomen-search-page/bloomen-search-page.component';
 import { HttpErrorInterceptor } from './_shared/404.interceptor';
+import { FormlyModule } from '@ngx-formly/core';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -143,8 +144,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     TrackClipDirective,
     EditClipDialogComponent,
     DoughnutChartDirective,
-    SwaggerPageComponent,
-    SwaggerUiDirective,
+    // SwaggerPageComponent,
+    // SwaggerUiDirective,
     TestApiPageComponent,
     TestImportDialogComponent,
     AssetsPageComponent,
@@ -176,6 +177,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     // AgGridModule.withComponents([
     //   // MatInputComponent
     // ]),
+
+    FormlyModule.forRoot({
+    }),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

@@ -3,7 +3,7 @@ export const FORM_APIS = {
     youtube: {
         basic:
         {
-            jsonSchema: 'assets/YouTube/youtube-edit-video-basic.json',
+            jsonSchema: 'assets/YouTube/youtube-simple.json',
             uiSchema: 'assets/YouTube/youtube-edit-video-basic-ui.json',
         },
         advanced:     {

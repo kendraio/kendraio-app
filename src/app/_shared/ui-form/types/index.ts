@@ -5,3 +5,4 @@ export * from './visibility.component';
 export * from './playlists.component';
 export * from './countries.component';
 export * from './percentage.component';
+export * from './array.type';

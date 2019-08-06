@@ -24,7 +24,7 @@
       "description": "Press enter to add a tag"
 		},
 		"description": {
-			"type": "textarea",
+			"type": "string",
 			"title": "Bio",
 			"minLength": 2,
 			"maxLength": 5000

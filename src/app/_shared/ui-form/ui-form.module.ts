@@ -5,13 +5,10 @@ import { FormlyModule } from '@ngx-formly/core';
 import { TextMaskModule } from 'angular2-text-mask';
 // import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 
-
 import { PanelWrapperComponent,
 // ErrorWrapperComponent,
 // AnimationWrapperComponent
 } from './wrappers';
-
-
 
 // import { RepeatSectionComponent } from './types/repeat-section.component';
 import * as types from './types/';
@@ -39,6 +36,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
+import { FormlyMaterialModule } from '@ngx-formly/material';
 // import { ContentEditableFormDirective } from '../directives/editable-content';
 // import { KendraioFormComponent } from './kendraio-form/kendraio-form.component';
 
@@ -55,7 +53,7 @@ import { MatSliderModule } from '@angular/material/slider';
     NgSelectModule,
     // SharedModule
     // FormlyBootstrapModule,
-    // FormlyMaterialModule,
+    FormlyMaterialModule,
     MatButtonToggleModule,
     MatButtonModule,
     MatCheckboxModule,
@@ -102,7 +100,8 @@ import { MatSliderModule } from '@angular/material/slider';
     types.SelectTagsComponent,
     types.FieldInputVisibilityComponent,
     types.FieldInputPlaylistComponent,
-    types.FieldCountriesComponent
+    types.FieldCountriesComponent,
+    types.ArrayTypeComponent
     // ContentEditableFormDirective
     // KendraioFormComponent
 
