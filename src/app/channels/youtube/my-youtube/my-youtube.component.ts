@@ -22,9 +22,8 @@ export class MyYoutubeComponent {
     videoId: 'BeW1e40mSGQ',
     tags: ['this', 'is', 'tagging', 'in', 'action'],
     listOfStrings: [
-      'Rosey',
-      'Farty Pants',
-      'Little Stinker'
+      'Example 1',
+      'Example 2'
   ],
   };
 
@@ -45,8 +44,8 @@ export class MyYoutubeComponent {
   ) {
 
     this.routePath = this.route.snapshot.routeConfig.path;
-    // this.getJSONSchema(this.routePath);
-    this.getJSONSchema('arrays');
+   this.getJSONSchema(this.routePath);
+    // this.getJSONSchema('arrays');
   // this.loadExample()
   }
 
