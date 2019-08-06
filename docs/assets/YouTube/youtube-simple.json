@@ -1,0 +1,49 @@
+{
+	"title": "SIMPLE - Edit Video",
+	"description": "This form allows you to edit your video",
+	"type": "object",
+	"required": [
+		"title"
+	],
+	"properties": {
+    		"videoId": {
+			"title": "Video -SIMPL",
+			"description": "this is a video viewer",
+			"type": "string"
+		},
+		"title": {
+			"title": "Title",
+			"description": "",
+			"type": "string",
+			"minLength": 2,
+			"maxLength": 100
+		},
+		"tags": {
+			"type": "string",
+			"title": "Tags ",
+      "description": "Press enter to add a tag"
+		},
+		"description": {
+			"type": "string",
+			"title": "Bio",
+			"minLength": 2,
+			"maxLength": 5000
+		},
+		"visibility": {
+			"type": "object",
+			"title": "Visibility "
+		},
+		"playlist": {
+			"type": "object",
+			"title": "Playlists"
+		},
+		"listOfStrings": {
+			"type": "array",
+			"title": "My stuff list",
+			"items": {
+				"type": "string",
+				"default": "Enter your new ID here"
+			}
+		}
+	}
+}

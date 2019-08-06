@@ -24,8 +24,8 @@
       "description": "Press enter to add a tag"
 		},
 		"description": {
-			"type": "textarea",
-			"title": "Bio",
+			"type": "string",
+			"title": "Bioff",
 			"minLength": 2,
 			"maxLength": 5000
 		},
@@ -36,6 +36,14 @@
 		"playlist": {
 			"type": "object",
 			"title": "Playlists"
+		},
+		"listOfStrings": {
+			"type": "array",
+			"title": "My stuff list",
+			"items": {
+				"type": "string",
+				"default": "Enter your new ID here"
+			}
 		}
 	}
 }
