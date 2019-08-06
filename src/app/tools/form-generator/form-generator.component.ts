@@ -92,6 +92,7 @@ export class FormGeneratorComponent implements OnInit {
       let i = 0;
       i = this.uiTypeMapper(uiSchema, jsonSchema, i);
 
+      // TODO: This is duplicated code, also occurs in my-youtube component
       this.formConfig = this.formlyJsonschema.toFieldConfig(jsonSchema);
       this.fields = [this.formService.uiMapper(this.formConfig, jsonSchema, uiSchema)];
       this.formDescription = this.formConfig.templateOptions.description;
@@ -100,6 +101,7 @@ export class FormGeneratorComponent implements OnInit {
 
   }
 
+  // TODO: This is perhaps the same as the code moved to the service from my-youtube
   private uiTypeMapper(uiSchema: any, jsonSchema: any, i: number) {
     try {
       Object.keys(uiSchema).forEach(function (uiKey) {

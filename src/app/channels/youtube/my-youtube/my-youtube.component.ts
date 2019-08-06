@@ -67,7 +67,9 @@ export class MyYoutubeComponent {
   getJSONSchema(form: any) {
     this.formService.getFormData(form)
       .subscribe(([uiSchema, jsonSchema]) => {
-        this.uiTypeMapper(uiSchema, jsonSchema);
+        this.formService.uiTypeMapper(uiSchema, jsonSchema);
+        // TODO: This is duplicated code, also appears in form-generator component
+        // TODO: Possible refactor to move to service?
           this.formConfig = this.formlyJsonschema.toFieldConfig(jsonSchema);
           this.fields = [this.formService.uiMapper(this.formConfig, jsonSchema, uiSchema)];
           this.formDescription = this.formConfig.templateOptions.description;
@@ -76,22 +78,6 @@ export class MyYoutubeComponent {
       });
   }
 
-  private uiTypeMapper(uiSchema: any, jsonSchema: any) {
-    try {
-      Object.keys(uiSchema).forEach(function (uiKey) {
-        Object.keys(jsonSchema.properties).forEach(function (schemaKey) {
-          if ((uiKey === schemaKey) && uiSchema[uiKey]['ui:type']) {
-            jsonSchema.properties[schemaKey].type = uiSchema[uiKey]['ui:type'];
-          } else {
-            jsonSchema.properties[schemaKey].type = jsonSchema.properties[schemaKey].type;
-          }
-        });
-        // i++;
-      });
-    } catch (e) {
-    }
-   // return i;
-  }
 
   submit() {
     alert(JSON.stringify(this.model));

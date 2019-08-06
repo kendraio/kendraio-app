@@ -1,0 +1,10 @@
+{
+  "ipn": {
+    "ui:disabled": false,
+    "ui:placeholder": "eg 1234567890"
+  },
+  "location": {
+    "ui:placeholder": "Enter the Country",
+    "ui:type": "countries"
+  }
+}

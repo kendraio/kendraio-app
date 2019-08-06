@@ -32,6 +32,7 @@ export class SettingsPageComponent implements OnInit {
      this.showHelp = this.settings.getTmp('showHelp', true);
   }
 
+  // TODO: Remove any other data added to localStorage
   resetApp() {
     const dialogRef = this.dialog.open(ConfirmAppResetDialogComponent, {
       width: '300px'
