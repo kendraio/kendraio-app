@@ -31,11 +31,11 @@ export class UserIpnFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getJSONSchema('ipn');
+    this.getJSONSchema('user','ipn');
   }
 
-  getJSONSchema(form: any) {
-    this.formService.getFormData(form)
+  getJSONSchema(group: string, form: any) {
+    this.formService.getFormData(group, form)
       .subscribe(([uiSchema, jsonSchema]) => {
         this.formService.uiTypeMapper(uiSchema, jsonSchema);
         // TODO: I lifted this from my-youtube to test form service

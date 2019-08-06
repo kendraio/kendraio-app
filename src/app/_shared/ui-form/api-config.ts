@@ -20,4 +20,11 @@ export const FORM_APIS = {
         }
       },
 
+      user: {
+        ipn: {
+            jsonSchema: 'assets/adapters/ipn/jsonSchema.json',
+            uiSchema: 'assets/adapters/ipn/uiSchema.json'
+          }
+      }
+
   };

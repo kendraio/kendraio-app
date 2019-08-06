@@ -17,20 +17,20 @@ import { catchError } from 'rxjs/operators';
 export class KendraioFormService {
   constructor(private http: HttpClient) { }
 
-  getFormData(formId): Observable<any> {
-    return forkJoin([this.getUI(formId), this.getSchema(formId)]);
+  getFormData(groupId, formId): Observable<any> {
+    return forkJoin([this.getUI(groupId, formId), this.getSchema(groupId, formId)]);
   }
 
-  getUI(formId: string): Observable<any> {
+  getUI(groupId: string, formId: string): Observable<any> {
     // TODO: need to remove hard-coded reference to YouTube here
-    const url = FORM_APIS.youtube[formId].uiSchema;
+    const url = FORM_APIS[groupId][formId].uiSchema;
 
     return this.http.get(url)
       .pipe(catchError(this.errorHandler));
   }
 
-  getSchema(formId: string): Observable<any> {
-    const url = FORM_APIS.youtube[formId].jsonSchema;
+  getSchema(groupId: string, formId: string): Observable<any> {
+    const url = FORM_APIS[groupId][formId].jsonSchema;
     return this.http.get<FormlyFieldConfig[]>(url);
   }
 
