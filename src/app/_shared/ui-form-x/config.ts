@@ -14,11 +14,12 @@ import {
   import { FormlyFieldInputMoney } from './types/';
   import { FormlyFieldInputPercentage } from './types/percentage.component';
   import { ConfigOption } from '@ngx-formly/core';
-import { FormlyFieldTypeahead } from './types/typeahead.component';
+// import { FormlyFieldTypeahead } from './types/typeahead.component';
 
   export const config: ConfigOption = {
     validationMessages: [
       { name: 'required', message: 'err 12: This field is required' },
+      { name: 'pattern', message: 'err 13: This field is required' },
       { name: 'minlength', message: minlengthValidationMessage },
       { name: 'maxlength', message: maxlengthValidationMessage },
       { name: 'min', message: minValidationMessage },
