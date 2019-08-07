@@ -4,6 +4,7 @@ import { KendraioFormService } from '../../_shared/ui-form/services/kendraio.for
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { get } from 'lodash-es';
+import { FormSubmitHandlerService } from '../../services/form-submit-handler.service';
 
 @Component({
   selector: 'app-user-ipn-form',
@@ -28,6 +29,7 @@ export class UserIpnFormComponent implements OnInit {
     // Use of Formly should be hidden inside KendraioFormService
     private formlyJsonschema: FormlyJsonschema,
     private formService: KendraioFormService,
+    private formSubmitHandler: FormSubmitHandlerService
   ) { }
 
   ngOnInit() {
@@ -50,4 +52,11 @@ export class UserIpnFormComponent implements OnInit {
       });
   }
 
+  addIPN() {
+    this.formSubmitHandler.handle({
+      form: 'ipn',
+      action: 'addIPN',
+      payload: this.form.getRawValue()
+    });
+  }
 }
