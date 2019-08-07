@@ -44,7 +44,7 @@ export class MyYoutubeComponent {
   ) {
 
     this.routePath = this.route.snapshot.routeConfig.path;
-   this.getJSONSchema(this.routePath);
+   this.getJSONSchema('youtube', this.routePath);
     // this.getJSONSchema('arrays');
   // this.loadExample()
   }
@@ -63,8 +63,8 @@ export class MyYoutubeComponent {
 
 
 
-  getJSONSchema(form: any) {
-    this.formService.getFormData(form)
+  getJSONSchema(group: string, form: any) {
+    this.formService.getFormData(group, form)
       .subscribe(([uiSchema, jsonSchema]) => {
         this.formService.uiTypeMapper(uiSchema, jsonSchema);
         // TODO: This is duplicated code, also appears in form-generator component
