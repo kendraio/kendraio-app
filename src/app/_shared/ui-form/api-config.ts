@@ -37,11 +37,7 @@ export const FORM_APIS = {
         jsonSchema: 'https://kendraio.github.io/kendraio-adapter/extra/bloomen/schemas/musicalWork.json',
         uiSchema: 'https://kendraio.github.io/kendraio-adapter/extra/bloomen/schemas/musicalWork-ui.json'
 
-      },
-    soundRecording: {
-      jsonSchema: 'https://kendraio.github.io/kendraio-adapter/extra/bloomen/schemas/soundRecording.json',
-      uiSchema: 'https://kendraio.github.io/kendraio-adapter/extra/bloomen/schemas/soundRecording-ui.json'
-    }
+      }
   }
 
 

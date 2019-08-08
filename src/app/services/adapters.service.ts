@@ -12,6 +12,7 @@ export class AdaptersService {
   adapterKeys = [];
   adapters$ = new BehaviorSubject({});
   enabledAdapters = {};
+  _adapters;
 
   constructor(
     private readonly http: HttpClient
@@ -28,8 +29,13 @@ export class AdaptersService {
       )
       .subscribe(adapters => {
         // console.log(adapters);
+        this._adapters = adapters;
         this.adapters$.next(adapters);
       });
+  }
+
+  getAdapterSync(id) {
+    return this._adapters[id];
   }
 
   getAdapter(id) {

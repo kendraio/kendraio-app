@@ -11,7 +11,10 @@ import { FULLNAME, EMAIL, TYPEAHEAD } from '../schemas/form-elements';
 import { Observable, from, forkJoin, throwError } from 'rxjs';
 import { FORM_APIS } from '../api-config';
 import { catchError, map } from 'rxjs/operators';
-import { get } from 'lodash-es';
+import { get, has } from 'lodash-es';
+import { AdaptersService } from '../../../services/adapters.service';
+
+const ADAPTER_PREFIX = 'https://kendraio.github.io/kendraio-adapter/';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +23,8 @@ export class KendraioFormService {
 
   constructor(
     private http: HttpClient,
-    private formlyJsonschema: FormlyJsonschema
+    private formlyJsonschema: FormlyJsonschema,
+    private adapters: AdaptersService
   ) { }
 
   getFormData(groupId, formId): Observable<any> {
@@ -28,9 +32,12 @@ export class KendraioFormService {
   }
 
   getUI(groupId: string, formId: string): Observable<any> {
-    const url = FORM_APIS[groupId][formId].uiSchema;
-
+    console.log(this.adapters.getAdapterSync(groupId));
     // TODO: fetch remote form config if not found in FORM_APIS
+    // TODO: This working but is not very robust
+    const url = has(FORM_APIS, `${groupId}.${formId}.uiSchema`)
+      ? FORM_APIS[groupId][formId].uiSchema
+      : ADAPTER_PREFIX + this.adapters.getAdapterSync(groupId)['adapter']['forms'][formId].uiSchema;
 
     return this.http.get(url)
       .pipe(catchError(this.errorHandler));
@@ -52,7 +59,10 @@ export class KendraioFormService {
   }
 
   getSchema(groupId: string, formId: string): Observable<any> {
-    const url = FORM_APIS[groupId][formId].jsonSchema;
+    // TODO: This is not very robust
+    const url = has(FORM_APIS, `${groupId}.${formId}.uiSchema`)
+      ? FORM_APIS[groupId][formId].jsonSchema
+      : ADAPTER_PREFIX + this.adapters.getAdapterSync(groupId)['adapter']['forms'][formId].jsonSchema;
     return this.http.get<FormlyFieldConfig[]>(url);
   }
 
