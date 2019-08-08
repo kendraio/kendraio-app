@@ -19,7 +19,7 @@ export class MyYoutubeComponent {
     title: 'As it is in Hell',
     description: ' fghjfghj fghjfghj',
     videoId: 'BeW1e40mSGQ',
-    tags: ['this', 'is', 'tagging', 'in', 'action'],
+    // tags: ['this', 'is', 'tagging', 'in', 'action'],
     listOfStrings: [
       'Example 1',
       'Example 2'

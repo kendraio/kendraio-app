@@ -17,7 +17,7 @@ import { config } from './config';
 // import { FormlyMaterialModule } from '@ngx-formly/material';
 import { MatNativeDateModule } from '@angular/material/core';
 // import { AppMaterialModule } from './app/app-material/app-material.module';
-import { FormlyFieldTypeahead } from './types/typeahead.component';
+// import { FormlyFieldTypeahead } from './types/typeahead.component';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 // import { SharedModule } from '../shared.module';
@@ -95,13 +95,14 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
     // RepeatSectionComponent,
     types.FormlyFieldInputMoney,
     types.FormlyFieldInputPercentage,
-    FormlyFieldTypeahead,
+    // FormlyFieldTypeahead,
     types.FormlyFieldVideoViewer,
     types.SelectTagsComponent,
     types.FieldInputVisibilityComponent,
     types.FieldInputPlaylistComponent,
     types.FieldCountriesComponent,
-    types.ArrayTypeComponent
+    types.ArrayTypeComponent,
+    types.KendraFieldTypeahead
     // ContentEditableFormDirective
     // KendraioFormComponent
 

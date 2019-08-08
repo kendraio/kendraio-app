@@ -5,7 +5,8 @@ import {
   minValidationMessage,
   passwordMatchValidationMessage,
   maximumNumValidationMessage,
-  PasswordStrengthValidationMessage
+  PasswordStrengthValidationMessage,
+  patternMatchMessage
 } from './helpers/validations-messages';
 
 import { maximumNumValidation, passwordMatchValidation, PasswordStrengthValidation } from './helpers/validators';
@@ -17,12 +18,13 @@ import {
 // import { FormlyFieldInputMoney } from './types/money.component';
 import { FormlyFieldInputPercentage } from './types/percentage.component';
 import { ConfigOption } from '@ngx-formly/core';
-import { FormlyFieldTypeahead } from './types/typeahead.component';
+
 import * as types from './types';
 
 export const config: ConfigOption = {
   validationMessages: [
     { name: 'required', message: 'err 12: This field is required' },
+    { name: 'pattern', message: patternMatchMessage },
     { name: 'minlength', message: minlengthValidationMessage },
     { name: 'maxlength', message: maxlengthValidationMessage },
     { name: 'min', message: minValidationMessage },
@@ -66,8 +68,7 @@ export const config: ConfigOption = {
         },
       },
     },
-    // { name: 'percentage', component: FormlyFieldInputPercentage },
-    { name: 'typeahead', component: FormlyFieldTypeahead },
+    { name: 'typeahead', component: types.KendraFieldTypeahead },
     {
       name: 'number',
       extends: 'input',
