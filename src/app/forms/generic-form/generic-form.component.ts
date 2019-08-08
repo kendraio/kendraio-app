@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { KendraioFormService } from '../../_shared/ui-form/services/kendraio.form.service';
@@ -26,15 +26,20 @@ export class GenericFormComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit() {
+    this.updateForm();
+  }
+
+  ngOnChanges(changes): void {
+    console.log({ changes });
+    this.updateForm();
+  }
+
+  updateForm() {
     this.formService.getJSONSchemaForm(this.adapter, this.formId)
       .subscribe(({ formConfig, fields }) => {
         this.formConfig = formConfig;
         this.fields = fields;
       });
-  }
-
-  ngOnChanges(changes): void {
-    console.log({ changes });
   }
 
   onSubmit() {
