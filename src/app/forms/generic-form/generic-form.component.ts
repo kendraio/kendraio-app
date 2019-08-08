@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { KendraioFormService } from '../../_shared/ui-form/services/kendraio.form.service';
@@ -9,7 +9,7 @@ import { FormSubmitHandlerService } from '../../services/form-submit-handler.ser
   templateUrl: './generic-form.component.html',
   styleUrls: ['./generic-form.component.scss']
 })
-export class GenericFormComponent implements OnInit {
+export class GenericFormComponent implements OnInit, OnChanges {
 
   @Input() adapter: string;
   @Input() formId: string;
@@ -31,6 +31,10 @@ export class GenericFormComponent implements OnInit {
         this.formConfig = formConfig;
         this.fields = fields;
       });
+  }
+
+  ngOnChanges(changes): void {
+    console.log({ changes });
   }
 
   onSubmit() {

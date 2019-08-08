@@ -161,7 +161,7 @@ export const MENUITEMS: MenuItem[] = [
     path: '/settings',
     label: 'settings',
     icon: 'settings',
-    children:[
+    children: [
       {
         path: '/adapters',
         label: 'Adapters',
@@ -182,6 +182,11 @@ export const MENUITEMS: MenuItem[] = [
   {
     path: '/tools',
     label: 'Tools',
+    icon: 'build'
+  },
+  {
+    path: '/form-test',
+    label: 'Forms',
     icon: 'build'
   }
 ];

@@ -109,6 +109,7 @@ import { FormlyModule } from '@ngx-formly/core';
 import { UserIpnFormComponent } from './forms/user-ipn-form/user-ipn-form.component';
 import { ProfileDataFormComponent } from './forms/profile-data-form/profile-data-form.component';
 import { GenericFormComponent } from './forms/generic-form/generic-form.component';
+import { FormTestPageComponent } from './pages/form-test-page/form-test-page.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -171,7 +172,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     BloomenSearchPageComponent,
     UserIpnFormComponent,
     ProfileDataFormComponent,
-    GenericFormComponent
+    GenericFormComponent,
+    FormTestPageComponent
     // BreadcrumbComponent
     // ReportsComponent,
     // ContactsComponent

@@ -20,11 +20,30 @@ export const FORM_APIS = {
         }
       },
 
-      user: {
-        ipn: {
-            jsonSchema: 'assets/adapters/ipn/jsonSchema.json',
-            uiSchema: 'assets/adapters/ipn/uiSchema.json'
-          }
-      }
+  user: {
+    ipn: {
+      jsonSchema: 'assets/adapters/ipn/jsonSchema.json',
+      uiSchema: 'assets/adapters/ipn/uiSchema.json'
+    }
+  },
+  'ppl-ipn': {
+    ipn: {
+      jsonSchema: 'assets/adapters/ipn/jsonSchema.json',
+      uiSchema: 'assets/adapters/ipn/uiSchema.json'
+    }
+  },
+  bloomen: {
+      musicalWork: {
+        jsonSchema: 'https://kendraio.github.io/kendraio-adapter/extra/bloomen/schemas/musicalWork.json',
+        uiSchema: 'https://kendraio.github.io/kendraio-adapter/extra/bloomen/schemas/musicalWork-ui.json'
+
+      },
+    soundRecording: {
+      jsonSchema: 'https://kendraio.github.io/kendraio-adapter/extra/bloomen/schemas/soundRecording.json',
+      uiSchema: 'https://kendraio.github.io/kendraio-adapter/extra/bloomen/schemas/soundRecording-ui.json'
+    }
+  }
+
+
 
   };
