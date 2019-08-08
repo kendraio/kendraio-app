@@ -1,28 +1,57 @@
 {
+
 	"definitions": {
-		"largeEnum": {
-			"type": "string",
-			"enum": [
-				"Album",
-				"Alternative",
-				"Demo",
-				"Edit",
-				"Instrumental",
-				"Karaoke",
-				"Live",
-				"Radio edit",
-				"Remix",
-				"Session"
+		"address": {
+			"type": "object",
+			"properties": {
+				"street_address": {
+					"type": "string",
+					"title": "Street address"
+				},
+				"city": {
+					"type": "string",
+					"title": "City"
+				},
+				"state": {
+					"type": "string",
+					"title": "State"
+				}
+			},
+			"required": [
+				"street_address",
+				"city",
+				"state"
 			]
+		},
+		"node": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string",
+					"title": "Name"
+				},
+				"children": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/node"
+					}
+				}
+			}
 		}
 	},
-	"title": "PPL recording",
-	"description": "Register a recording with PPL.",
 	"type": "object",
 	"properties": {
-		"versionType": {
-			"title": "test drop",
-			"$ref": "#/definitions/largeEnum"
+		"billing_address": {
+			"title": "Billing address",
+			"$ref": "#/definitions/address"
+		},
+		"shipping_address": {
+			"title": "Shipping address",
+			"$ref": "#/definitions/address"
+		},
+		"tree": {
+			"title": "Recursive references",
+			"$ref": "#/definitions/node"
 		}
 	}
 }

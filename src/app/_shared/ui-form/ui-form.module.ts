@@ -102,7 +102,8 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
     types.FieldInputPlaylistComponent,
     types.FieldCountriesComponent,
     types.ArrayTypeComponent,
-    types.KendraFieldTypeahead
+    types.KendraFieldTypeahead,
+    types.ObjectTypeComponent
     // ContentEditableFormDirective
     // KendraioFormComponent
 
