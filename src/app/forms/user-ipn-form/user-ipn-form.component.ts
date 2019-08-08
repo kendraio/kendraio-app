@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormlyJsonschema } from '@ngx-formly/core/json-schema';
 import { KendraioFormService } from '../../_shared/ui-form/services/kendraio.form.service';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
@@ -25,9 +24,6 @@ export class UserIpnFormComponent implements OnInit {
   isFormLoaded = false;
 
   constructor(
-    // TODO: I would rather not have to inject both form services.
-    // Use of Formly should be hidden inside KendraioFormService
-    private formlyJsonschema: FormlyJsonschema,
     private formService: KendraioFormService,
     private formSubmitHandler: FormSubmitHandlerService
   ) { }
@@ -41,7 +37,7 @@ export class UserIpnFormComponent implements OnInit {
       .subscribe(([uiSchema, jsonSchema]) => {
         this.formService.uiTypeMapper(uiSchema, jsonSchema);
         // TODO: I lifted this from my-youtube to test form service
-        this.formConfig = this.formlyJsonschema.toFieldConfig(jsonSchema);
+        this.formConfig = this.formService.toFieldConfig(jsonSchema);
         this.fields = [this.formService.uiMapper(this.formConfig, jsonSchema, uiSchema)];
         console.log({ jsonSchema, uiSchema });
         this.isFormLoaded = true;

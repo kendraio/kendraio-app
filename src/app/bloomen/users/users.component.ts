@@ -4,7 +4,6 @@ import { KendraioFormService } from 'src/app/_shared/ui-form/services/kendraio.f
 import { FormGroup } from '@angular/forms';
 
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
-import { FormlyJsonschema } from '@ngx-formly/core/json-schema';
 
 @Component({
   selector: 'app-users',
@@ -22,7 +21,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
     password: 'noneed',
   };
   options: FormlyFormOptions = {};
-  fieldsJS: FormlyFieldConfig[] = [this.formlyJsonschema.toFieldConfig({
+  fieldsJS: FormlyFieldConfig[] = [this.formService.toFieldConfig({
     'title': 'A registration form',
     'description': 'A simple form example.',
     'type': 'object',
@@ -80,8 +79,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   constructor(
     private router: Router,
-    private formlyService: KendraioFormService,
-    private formlyJsonschema: FormlyJsonschema
+    private formService: KendraioFormService
   ) { }
 
   ngOnInit() {

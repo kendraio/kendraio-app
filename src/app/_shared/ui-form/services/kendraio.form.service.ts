@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { FormlyJsonschema } from '@ngx-formly/core/json-schema';
 // import { Field } from '../helpers/fields';
 // import { DEFAULT_FORM } from '../schemas/default.form';
 // import { LOGIN_FORM } from '../schemas/login.form';
@@ -15,15 +16,20 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class KendraioFormService {
-  constructor(private http: HttpClient) { }
+
+  constructor(
+    private http: HttpClient,
+    private formlyJsonschema: FormlyJsonschema
+  ) { }
 
   getFormData(groupId, formId): Observable<any> {
     return forkJoin([this.getUI(groupId, formId), this.getSchema(groupId, formId)]);
   }
 
   getUI(groupId: string, formId: string): Observable<any> {
-    // TODO: need to remove hard-coded reference to YouTube here
     const url = FORM_APIS[groupId][formId].uiSchema;
+
+    // TODO: fetch remote form config if not found in FORM_APIS
 
     return this.http.get(url)
       .pipe(catchError(this.errorHandler));
@@ -32,6 +38,10 @@ export class KendraioFormService {
   getSchema(groupId: string, formId: string): Observable<any> {
     const url = FORM_APIS[groupId][formId].jsonSchema;
     return this.http.get<FormlyFieldConfig[]>(url);
+  }
+
+  toFieldConfig(schema) {
+    return this.formlyJsonschema.toFieldConfig(schema);
   }
 
   uiMapper(formlyConfig, jsonSchema, uiSchema) {

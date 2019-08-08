@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
-import { FormlyJsonschema } from '@ngx-formly/core/json-schema';
 import { KendraioFormService } from 'src/app/_shared/ui-form/services/kendraio.form.service';
 import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs/operators';
@@ -37,7 +36,6 @@ export class MyYoutubeComponent {
   formLabel: string;
 
   constructor(
-    private formlyJsonschema: FormlyJsonschema,
     private formService: KendraioFormService,
     private route: ActivatedRoute,
     private http: HttpClient,
@@ -54,7 +52,7 @@ export class MyYoutubeComponent {
       tap(({ schema, model }) => {
         this.form = new FormGroup({});
         this.options = {};
-        this.fields = [this.formlyJsonschema.toFieldConfig(schema)];
+        this.fields = [this.formService.toFieldConfig(schema)];
         this.model = model;
       }),
     ).subscribe();
@@ -69,7 +67,7 @@ export class MyYoutubeComponent {
         this.formService.uiTypeMapper(uiSchema, jsonSchema);
         // TODO: This is duplicated code, also appears in form-generator component
         // TODO: Possible refactor to move to service?
-          this.formConfig = this.formlyJsonschema.toFieldConfig(jsonSchema);
+          this.formConfig = this.formService.toFieldConfig(jsonSchema);
           this.fields = [this.formService.uiMapper(this.formConfig, jsonSchema, uiSchema)];
           this.formDescription = this.formConfig.templateOptions.description;
           this.formLabel = this.formConfig.templateOptions.label;

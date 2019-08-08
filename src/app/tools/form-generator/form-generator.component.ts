@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { tap, distinctUntilChanged, debounce, debounceTime } from 'rxjs/operators';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
-import { FormlyJsonschema } from '@ngx-formly/core/json-schema';
 import { KendraioFormService } from 'src/app/_shared/ui-form/services/kendraio.form.service'
 
 @Component({
@@ -54,8 +53,7 @@ export class FormGeneratorComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private formService: KendraioFormService,
-    private formlyJsonschema: FormlyJsonschema,
+    private formService: KendraioFormService
   ) {
     this.createForm();
     this.formChanges$ = this.schemaform.valueChanges;
@@ -93,7 +91,7 @@ export class FormGeneratorComponent implements OnInit {
       i = this.uiTypeMapper(uiSchema, jsonSchema, i);
 
       // TODO: This is duplicated code, also occurs in my-youtube component
-      this.formConfig = this.formlyJsonschema.toFieldConfig(jsonSchema);
+      this.formConfig = this.formService.toFieldConfig(jsonSchema);
       this.fields = [this.formService.uiMapper(this.formConfig, jsonSchema, uiSchema)];
       this.formDescription = this.formConfig.templateOptions.description;
       this.formLabel = this.formConfig.templateOptions.label;
