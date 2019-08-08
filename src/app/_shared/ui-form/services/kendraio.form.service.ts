@@ -10,7 +10,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { FULLNAME, EMAIL, TYPEAHEAD } from '../schemas/form-elements';
 import { Observable, from, forkJoin, throwError } from 'rxjs';
 import { FORM_APIS } from '../api-config';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
+import { get } from 'lodash-es';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,21 @@ export class KendraioFormService {
 
     return this.http.get(url)
       .pipe(catchError(this.errorHandler));
+  }
+
+  getJSONSchemaForm(_adapter, _formId) {
+    return this.getFormData(_adapter, _formId).pipe(
+      map(
+        ([uiSchema, jsonSchema]) => {
+          this.uiTypeMapper(uiSchema, jsonSchema);
+          const formConfig = this.toFieldConfig(jsonSchema);
+          return {
+            formConfig,
+            fields: [this.uiMapper(formConfig, jsonSchema, uiSchema)]
+          };
+        }
+      )
+    );
   }
 
   getSchema(groupId: string, formId: string): Observable<any> {
