@@ -78,7 +78,7 @@ export class KendraioFormService {
         Object.keys(jsonSchema.properties).forEach(function (key) {
           Object.keys(uiSchema).forEach(function (uiKey) {
             if (uiKey === key) {
-              //  jsonSchema.properties.bandArtist.type = uiSchema.bandArtist['ui:type'];
+              //  jsonSchema.properties.bandArtist.type = uiSchema.bandArtist['ui:widget'];
               formlyConfig['fieldGroup'][i]['templateOptions']['disabled'] = uiSchema[key]['ui:disabled'];
               formlyConfig['fieldGroup'][i]['templateOptions']['placeholder'] = uiSchema[key]['ui:placeholder'];
               formlyConfig['fieldGroup'][i]['templateOptions']['required'] = uiSchema[key]['ui:required'];
@@ -100,8 +100,8 @@ export class KendraioFormService {
     try {
       Object.keys(uiSchema).forEach(function (uiKey) {
         Object.keys(jsonSchema.properties).forEach(function (schemaKey) {
-          if ((uiKey === schemaKey) && uiSchema[uiKey]['ui:type']) {
-            jsonSchema.properties[schemaKey].type = uiSchema[uiKey]['ui:type'];
+          if ((uiKey === schemaKey) && uiSchema[uiKey]['ui:widget']) {
+            jsonSchema.properties[schemaKey].type = uiSchema[uiKey]['ui:widget'];
           } else {
             // Variable is assigned to itself?
             jsonSchema.properties[schemaKey].type = jsonSchema.properties[schemaKey].type;
@@ -121,7 +121,7 @@ export class KendraioFormService {
       Object.keys(uiSchema).forEach(function (key) {
         Object.keys(jsonSchema.properties).forEach(function (uiKey) {
           if (uiKey === key) {
-            jsonSchema.properties[i].type = uiSchema.bandArtist['ui:type'];
+            jsonSchema.properties[i].type = uiSchema.bandArtist['ui:widget'];
 
           }
         });

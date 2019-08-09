@@ -11,15 +11,15 @@
 
   },
   "videoId": {
-    "ui:type": "videoviewer"
+    "ui:widget": "videoviewer"
   },
   "tags": {
-    "ui:type": "tags"
+    "ui:widget": "tags"
   },
   "visibility": {
-    "ui:type": "visibility"
+    "ui:widget": "visibility"
   },
   "playlist": {
-    "ui:type": "playlist"
+    "ui:widget": "playlist"
   }
 }

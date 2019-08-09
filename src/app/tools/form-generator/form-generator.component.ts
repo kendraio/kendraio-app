@@ -30,14 +30,14 @@ export class FormGeneratorComponent implements OnInit {
     "bandArtist": {
       "ui:disabled": false,
       "ui:placeholder": "Enter  Version Type",
-      "ui:type": "datepicker",
+      "ui:widget": "datepicker",
       "ui:required": true
     },
     "recordingTitle": {
-      "ui:type": "videoviewer"
+      "ui:widget": "videoviewer"
     },
     "pDate": {
-      "ui:type": "percentage"
+      "ui:widget": "percentage"
     }
   };
 
@@ -104,8 +104,8 @@ export class FormGeneratorComponent implements OnInit {
     try {
       Object.keys(uiSchema).forEach(function (uiKey) {
         Object.keys(jsonSchema.properties).forEach(function (schemaKey) {
-          if ((uiKey === schemaKey) && uiSchema[uiKey]['ui:type']) {
-            jsonSchema.properties[schemaKey].type = uiSchema[uiKey]['ui:type'];
+          if ((uiKey === schemaKey) && uiSchema[uiKey]['ui:widget']) {
+            jsonSchema.properties[schemaKey].type = uiSchema[uiKey]['ui:widget'];
           } else {
             jsonSchema.properties[schemaKey].type = jsonSchema.properties[schemaKey].type;
           }

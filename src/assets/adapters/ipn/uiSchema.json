@@ -5,6 +5,6 @@
   },
   "location": {
     "ui:placeholder": "Enter the Country",
-    "ui:type": "countries"
+    "ui:widget": "countries"
   }
 }
