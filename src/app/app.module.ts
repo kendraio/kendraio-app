@@ -110,6 +110,7 @@ import { UserIpnFormComponent } from './forms/user-ipn-form/user-ipn-form.compon
 import { ProfileDataFormComponent } from './forms/profile-data-form/profile-data-form.component';
 import { GenericFormComponent } from './forms/generic-form/generic-form.component';
 import { FormTestPageComponent } from './pages/form-test-page/form-test-page.component';
+import { OrderKeysPipe } from './pipes/order-keys.pipe';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -173,7 +174,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserIpnFormComponent,
     ProfileDataFormComponent,
     GenericFormComponent,
-    FormTestPageComponent
+    FormTestPageComponent,
+    OrderKeysPipe
     // BreadcrumbComponent
     // ReportsComponent,
     // ContactsComponent
