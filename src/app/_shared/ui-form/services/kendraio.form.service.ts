@@ -100,7 +100,7 @@ export class KendraioFormService {
    * type in jsonSchema to match the type provided in ui:widget
    *
    * Warning - not a pure function
-   * TODO: refactor to maintain reverential transparency
+   * TODO: refactor to maintain referential transparency
    *
    * @param uiSchema ui schema with widget config
    * @param jsonSchema schema to be updated
