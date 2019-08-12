@@ -22,7 +22,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(
             map((event: HttpEvent<any>) => {
                 if (event instanceof HttpResponse) {
-                    console.log('K-event--->>', event);
+                    // console.log('K-event--->>', event);
                 }
                 return event;
             }),
