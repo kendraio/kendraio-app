@@ -9,10 +9,11 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { FULLNAME, EMAIL, TYPEAHEAD } from '../schemas/form-elements';
 import { Observable, from, forkJoin, throwError } from 'rxjs';
-import { FORM_APIS } from '../api-config';
+import { FORM_APIS, REFDATA_APIS } from '../api-config';
 import { catchError, map } from 'rxjs/operators';
 import { get, has } from 'lodash-es';
 import { AdaptersService } from '../../../services/adapters.service';
+import { IfStmt } from '@angular/compiler';
 
 const ADAPTER_PREFIX = 'https://kendraio.github.io/kendraio-adapter/';
 
@@ -71,6 +72,8 @@ export class KendraioFormService {
   }
 
   uiMapper(formlyConfig, jsonSchema, uiSchema) {
+    let val;
+    const SELECT_CONFIG: Array<any> = [];
     // console.log(jsonSchema);
     let i = 0;
     try {
@@ -82,22 +85,35 @@ export class KendraioFormService {
               formlyConfig['fieldGroup'][i]['templateOptions']['disabled'] = uiSchema[key]['ui:disabled'];
               formlyConfig['fieldGroup'][i]['templateOptions']['placeholder'] = uiSchema[key]['ui:placeholder'];
               formlyConfig['fieldGroup'][i]['templateOptions']['required'] = uiSchema[key]['ui:required'];
+
               // formlyConfig.fieldGroup[i].templateOptions.options = this.getHttpRefData(uiSchema[key]['ui:refdataId']);
 
+              if (uiSchema[key]['ui:widget'] === 'typeahead' || uiSchema[key]['ui:widget'] === 'kselect') {
+                formlyConfig['fieldGroup'][i]['templateOptions']['labelProp'] = uiSchema[key]['ui:labelProp'];
+                formlyConfig['fieldGroup'][i]['templateOptions']['valueProp'] = uiSchema[key]['ui:valueProp'];
+                formlyConfig['fieldGroup'][i]['templateOptions']['isMultiSelect'] = uiSchema[key]['ui:isMultiSelect'];
 
-              //   this.getRefData()
-              //   .subscribe(newValue => {
-              //  formlyConfig.fieldGroup[i].templateOptions.options = newValue;
-              //   });
-
-
-
+                SELECT_CONFIG.push(
+                  { 'key': i, 'ref': uiSchema[key]['ui:ref'], 'refType': uiSchema[key]['ui:refType'] },
+                );
+              }
             }
           });
           i++;
         });
       }
+      if (SELECT_CONFIG.length) {
 
+        SELECT_CONFIG.forEach((item, index) => {
+          this.http.get(REFDATA_APIS[SELECT_CONFIG[index].ref][SELECT_CONFIG[index].refType])
+            .subscribe(newValue => {
+              formlyConfig.fieldGroup[item.key].templateOptions.options = newValue;
+            });
+        });
+
+      }
+
+      console.log(SELECT_CONFIG);
       return formlyConfig;
     } catch (e) {
 
@@ -183,12 +199,12 @@ export class KendraioFormService {
     return this.http.get('assets/fake-data/test-ref-data.json');
   }
 
-//   getHttpRefData(id: string) {
-//   this.getRefData()
-//   .subscribe(newValue => {
-//  formlyConfig.fieldGroup[i].templateOptions.options = this.getHttpRefData(uiSchema[key]['ui:refdataId']);
-//   });
-// }
+  //   getHttpRefData(id: string) {
+  //   this.getRefData()
+  //   .subscribe(newValue => {
+  //  formlyConfig.fieldGroup[i].templateOptions.options = this.getHttpRefData(uiSchema[key]['ui:refdataId']);
+  //   });
+  // }
 
 
   // getYoutubeFields() {

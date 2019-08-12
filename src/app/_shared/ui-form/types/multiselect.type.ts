@@ -7,14 +7,17 @@ import { FieldType } from '@ngx-formly/core';
     <ng-select [items]="to.options"
       [bindLabel]="labelProp"
       [bindValue]="valueProp"
-      [multiple]="to.multiple"
+      [multiple]="isMultiSelect"
       [placeholder]="to.placeholder"
       [formControl]="formControl">
     </ng-select>
+{{isMultiSelect}}
+
   `,
 })
 export class KendraFieldSelect extends FieldType {
-  get labelProp(): string { return this.to.labelProp || 'label'; }
-  get valueProp(): string { return this.to.valueProp || 'value'; }
+  get isMultiSelect(): boolean { return this.to.isMultiSelect || false; }
+  get labelProp(): string { return this.to.labelProp || 'name'; }
+  get valueProp(): string { return this.to.valueProp || 'id'; }
   get groupProp(): string { return this.to.groupProp || 'group'; }
 }

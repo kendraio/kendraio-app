@@ -24,3 +24,21 @@ export const FORM_APIS = {
   }
 
   };
+
+
+  export const REFDATA_APIS = {
+
+        testCountries:
+        {
+            json: 'assets/fake-data/test-ref-data.json',
+            http: 'https://api.com/countries',
+        },
+        testCMOs:
+        {
+            json: 'assets/fake-data/test-cmo-ref-data.json',
+            http: 'https://api.com/countries',
+        },
+
+
+
+  };

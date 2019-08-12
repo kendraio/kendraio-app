@@ -16,10 +16,20 @@
   "tags": {
     "ui:widget": "tags"
   },
-  "visibility": {
-    "ui:widget": "visibility"
+  "colorlist": {
+    "ui:widget": "kselect",
+    "ui:labelProp": "color",
+    "ui:valueProp": "hex",
+    "ui:isMultiSelect": true,
+    "ui:ref": "testCMOs",
+    "ui:refType": "json"
   },
   "playlist": {
-    "ui:widget": "playlist"
+    "ui:widget": "typeahead",
+    "ui:labelProp": "name",
+    "ui:valueProp": "alpha3",
+    "ui:isMultiSelect": false,
+    "ui:ref": "testCountries",
+    "ui:refType": "json"
   }
 }
