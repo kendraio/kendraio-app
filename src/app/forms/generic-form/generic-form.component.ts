@@ -30,7 +30,7 @@ export class GenericFormComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes): void {
-    console.log({ changes });
+    // console.log({ changes });
     this.updateForm();
   }
 

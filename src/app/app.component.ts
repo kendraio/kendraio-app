@@ -51,11 +51,11 @@ export class AppComponent {
     this.dataSource.data = MENUITEMS;
     this.pageTitle$ = this.title.pageTitle$;
     const browserLang = translate.getBrowserLang();
-    console.log(browserLang);
+    // console.log(browserLang);
     translate.addLangs(['en', 'fr', 'de', 'pt', 'it', 'ru', 'ja', 'es', 'el']);
     translate.setDefaultLang('fr');
 
-   
+
     translate.use(browserLang.match(/en|fr|de|pt|it|ru|ja|es|el/) ? browserLang : 'fr');
 
 
@@ -64,7 +64,7 @@ export class AppComponent {
      //   this.pageTitle.setTitle(value);
          titleService.setTitle(value);
         this.transViaService = value;
-        console.log(value);
+        // console.log(value);
       });
     });
 
@@ -89,7 +89,7 @@ export class AppComponent {
     //      console.log('navEnd');
     //     }
     //   }
-    
+
     // );
 
 
@@ -107,7 +107,7 @@ export class AppComponent {
 
   collapseAll(ev) {
     const level = this.dataSource.data.indexOf(ev)
-    
+
     if (level > -1) {
        for (let i = 0; i < this.dataSource.data.length; i++) {
           if (this.dataSource.data[i].label !== ev.label) {
