@@ -5,14 +5,14 @@ import { FieldType } from '@ngx-formly/core';
   selector: 'formly-field-input-percentage',
   template: `
   <mat-form-field appearance="standard">
-  <mat-label>  {{ to.label }} </mat-label> 
+  <mat-label>  {{ to.label }} </mat-label>
      <input matInput type="text"  [textMask]="{mask: limitToHundred}" [formControl]="formControl" [formlyAttributes]="field">
      <mat-error></mat-error>
      <mat-hint> {{ to.description }} </mat-hint>
    </mat-form-field>
  `
 })
-export class FormlyFieldInputPercentage extends FieldType {
+export class KendraFieldInputPercentage extends FieldType {
   public limitToHundred(rawValue) {
     const value = parseInt(rawValue, 10);
 

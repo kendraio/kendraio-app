@@ -37,6 +37,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { FormlyMaterialModule } from '@ngx-formly/material';
+
 // import { ContentEditableFormDirective } from '../directives/editable-content';
 // import { KendraioFormComponent } from './kendraio-form/kendraio-form.component';
 
@@ -94,7 +95,7 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
     // AnimationWrapperComponent,
     // RepeatSectionComponent,
     types.FormlyFieldInputMoney,
-    types.FormlyFieldInputPercentage,
+    types.KendraFieldInputPercentage,
     // FormlyFieldTypeahead,
     types.FormlyFieldVideoViewer,
     types.SelectTagsComponent,
@@ -103,7 +104,8 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
     types.FieldCountriesComponent,
     types.ArrayTypeComponent,
     types.KendraFieldTypeahead,
-    types.ObjectTypeComponent
+    types.ObjectTypeComponent,
+    types.KendraFieldSelect
     // ContentEditableFormDirective
     // KendraioFormComponent
 

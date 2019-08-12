@@ -11,7 +11,7 @@ import { takeUntil, startWith, filter, debounceTime, distinctUntilChanged, switc
     <label>{{to.label}}</label>
 
     {{to | json}}xxxxxxxxxxxxxxx
-        <ng-select [items]="countries"
+        <ng-select [items]="to.options"
                    bindLabel="Name"
                    [placeholder]="to.label"
                    [(ngModel)]="selectedCity"

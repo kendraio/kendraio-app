@@ -61,8 +61,8 @@
 			"title": "Visibility "
 		},
 		"playlist": {
-			"type": "object",
-			"title": "Playlists"
+			"type": "multiselect",
+			"title": "Playlists xxx"
 		},
 		"listOfStrings": {
 			"type": "array",

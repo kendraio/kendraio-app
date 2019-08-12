@@ -82,6 +82,16 @@ export class KendraioFormService {
               formlyConfig['fieldGroup'][i]['templateOptions']['disabled'] = uiSchema[key]['ui:disabled'];
               formlyConfig['fieldGroup'][i]['templateOptions']['placeholder'] = uiSchema[key]['ui:placeholder'];
               formlyConfig['fieldGroup'][i]['templateOptions']['required'] = uiSchema[key]['ui:required'];
+              // formlyConfig.fieldGroup[i].templateOptions.options = this.getHttpRefData(uiSchema[key]['ui:refdataId']);
+
+
+              //   this.getRefData()
+              //   .subscribe(newValue => {
+              //  formlyConfig.fieldGroup[i].templateOptions.options = newValue;
+              //   });
+
+
+
             }
           });
           i++;
@@ -162,9 +172,17 @@ export class KendraioFormService {
   //   return JSON.parse(JSON.stringify(clone));
   // }
 
-  // getYoutubeData() {
-  //   return this.http.get<FormlyFieldConfig[]>('assets/fake-data/you-tube-api.json');
-  // }
+  getRefData() {
+    return this.http.get('assets/fake-data/test-ref-data.json');
+  }
+
+//   getHttpRefData(id: string) {
+//   this.getRefData()
+//   .subscribe(newValue => {
+//  formlyConfig.fieldGroup[i].templateOptions.options = this.getHttpRefData(uiSchema[key]['ui:refdataId']);
+//   });
+// }
+
 
   // getYoutubeFields() {
 
