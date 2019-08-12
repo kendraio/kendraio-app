@@ -32,7 +32,7 @@ export class KendraioFormService {
   }
 
   getUI(groupId: string, formId: string): Observable<any> {
-    console.log(this.adapters.getAdapterSync(groupId));
+    // console.log(this.adapters.getAdapterSync(groupId));
     // TODO: fetch remote form config if not found in FORM_APIS
     // TODO: This working but is not very robust
     const url = has(FORM_APIS, `${groupId}.${formId}.uiSchema`)
@@ -71,7 +71,7 @@ export class KendraioFormService {
   }
 
   uiMapper(formlyConfig, jsonSchema, uiSchema) {
-    console.log(jsonSchema);
+    // console.log(jsonSchema);
     let i = 0;
     try {
       if (Object.keys(uiSchema).length) {
@@ -95,23 +95,30 @@ export class KendraioFormService {
 
   }
 
-  // Moved from my-youtube component
+  /**
+   * This adds support for UI Schema ui:widget specifications by updating the field
+   * type in jsonSchema to match the type provided in ui:widget
+   *
+   * Warning - not a pure function
+   * TODO: refactor to maintain reverential transparency
+   *
+   * @param uiSchema ui schema with widget config
+   * @param jsonSchema schema to be updated
+   */
   uiTypeMapper(uiSchema: any, jsonSchema: any) {
-    try {
-      Object.keys(uiSchema).forEach(function (uiKey) {
-        Object.keys(jsonSchema.properties).forEach(function (schemaKey) {
-          if ((uiKey === schemaKey) && uiSchema[uiKey]['ui:widget']) {
-            jsonSchema.properties[schemaKey].type = uiSchema[uiKey]['ui:widget'];
-          } else {
-            // Variable is assigned to itself?
-            jsonSchema.properties[schemaKey].type = jsonSchema.properties[schemaKey].type;
-          }
-        });
-        // i++;
+    Object.keys(uiSchema).forEach((uiKey) => {
+      Object.keys(jsonSchema.properties).forEach((schemaKey) => {
+        if ((uiKey === schemaKey) && uiSchema[uiKey]['ui:widget']) {
+          jsonSchema.properties[schemaKey].type = uiSchema[uiKey]['ui:widget'];
+        }
+        // Calls to widget type mapping when using $ref within schema fail here
+        // because the reference has not been de-referenced by the time this mapper is called
+        // TODO: FIX THIS!
+        // if ((uiKey === schemaKey) && get(jsonSchema, `properties.${schemaKey}.type`, '') === 'array') {
+        //   this.uiTypeMapper(uiSchema[uiKey].items, jsonSchema['properties'][schemaKey].items);
+        // }
       });
-    } catch (e) {
-    }
-    // return i;
+    });
   }
 
   jsonMapper(jsonSchema, uiSchema) {
