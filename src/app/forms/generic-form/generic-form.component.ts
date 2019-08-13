@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { KendraioFormService } from '../../_shared/ui-form/services/kendraio.form.service';
 import { FormSubmitHandlerService } from '../../services/form-submit-handler.service';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-generic-form',
@@ -18,7 +19,6 @@ export class GenericFormComponent implements OnInit, OnChanges {
   fields: FormlyFieldConfig[];
   options: FormlyFormOptions = {};
   model = {};
-  formConfig: any;
 
   constructor(
     private formService: KendraioFormService,
@@ -36,8 +36,9 @@ export class GenericFormComponent implements OnInit, OnChanges {
 
   updateForm() {
     this.formService.getJSONSchemaForm(this.adapter, this.formId)
-      .subscribe(({ formConfig, fields }) => {
-        this.formConfig = formConfig;
+      .pipe(tap(console.log))
+      .subscribe((fields) => {
+        console.log({ fields });
         this.fields = fields;
       });
   }

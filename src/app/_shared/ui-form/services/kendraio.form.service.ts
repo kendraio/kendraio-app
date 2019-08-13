@@ -10,8 +10,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { FULLNAME, EMAIL, TYPEAHEAD } from '../schemas/form-elements';
 import { Observable, from, forkJoin, throwError } from 'rxjs';
 import { FORM_APIS, REFDATA_APIS } from '../api-config';
-import { catchError, map } from 'rxjs/operators';
-import { get, has } from 'lodash-es';
+import { catchError, map, tap } from 'rxjs/operators';
+import { get, set, has, findIndex } from 'lodash-es';
 import { AdaptersService } from '../../../services/adapters.service';
 import { IfStmt } from '@angular/compiler';
 
@@ -46,17 +46,62 @@ export class KendraioFormService {
 
   getJSONSchemaForm(_adapter, _formId) {
     return this.getFormData(_adapter, _formId).pipe(
-      map(
-        ([uiSchema, jsonSchema]) => {
-          this.uiTypeMapper(uiSchema, jsonSchema);
-          const formConfig = this.toFieldConfig(jsonSchema);
-          return {
-            formConfig,
-            fields: [this.uiMapper(formConfig, jsonSchema, uiSchema)]
-          };
-        }
-      )
+      map(([uiSchema, jsonSchema]) => ({ uiSchema, jsonSchema })),
+      map(({ uiSchema, jsonSchema }) => this.jsonSchemaToFieldConfig({ uiSchema, jsonSchema })),
+      map(({ fields, uiSchema }) => this.uiWidgetTypeMapper({ fields, uiSchema })),
+      map((fields) => [fields])
     );
+  }
+
+  /**
+   * Private function used by getJSONSchemaForm to convert the configs fetched
+   * from Adapters into the format used by Formly for field config
+   *
+   * @param uiSchema UI config specific to this form
+   * @param jsonSchema JSON representation of data model
+   */
+  private jsonSchemaToFieldConfig({ uiSchema, jsonSchema }) {
+    const formConfig = this.toFieldConfig(jsonSchema);
+    const fields = this.uiMapper(formConfig, jsonSchema, uiSchema);
+    return { fields, uiSchema };
+  }
+
+  /**
+   * Private function used by getJSONSchemaForm to map the widget types
+   * for fields with custom widgets defined in UI Schema
+   *
+   * TODO: Refactor to ensure this is a pure function
+   *
+   * @param fields Formly Field Config
+   * @param uiSchema UI config specific to this form
+   */
+  private uiWidgetTypeMapper({ fields, uiSchema }) {
+    // Utility function to find the array index of field from a fieldGroup based on key
+    const getFieldIndexFromGroup = (obj, _key) => {
+      const fieldGroup = get(obj, 'fieldGroup', []);
+      const checkKey = ({ key }) => key === _key;
+      return findIndex(fieldGroup, checkKey);
+    };
+
+    return Object.keys(uiSchema).reduce((_fields, uiKey) => {
+      const fieldIndex = getFieldIndexFromGroup(_fields, uiKey);
+      if (fieldIndex !== -1) {
+        // Map simple top level widget types
+        if (has(uiSchema, `${uiKey}.ui:widget`)) {
+          const newWidgetType = get(uiSchema, `${uiKey}.ui:widget`, '');
+          set(_fields, `fieldGroup[${fieldIndex}].type`, newWidgetType);
+        }
+        // Recursively map arrays
+        if (has(uiSchema, `${uiKey}.items`)) {
+          const oldArray = get(_fields, `fieldGroup[${fieldIndex}].fieldArray`, {});
+          const subSchema = get(uiSchema, `${uiKey}.items`);
+          const newArray = this.uiWidgetTypeMapper({ fields: oldArray, uiSchema: subSchema});
+          set(_fields, `fieldGroup[${fieldIndex}]`,
+            { ...get(_fields, `fieldGroup[${fieldIndex}]`), fieldArray: newArray });
+        }
+      }
+      return _fields;
+    }, fields);
   }
 
   getSchema(groupId: string, formId: string): Observable<any> {
