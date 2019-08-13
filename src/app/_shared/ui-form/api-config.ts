@@ -31,7 +31,12 @@ export const FORM_APIS = {
         testCountries:
         {
             json: 'assets/fake-data/test-ref-data.json',
-            http: 'https://api.com/countries',
+            http: 'https://restcountries.eu/rest/v2/all',
+        },
+        testRegion:
+        {
+            json: 'assets/fake-data/test-ref-data.json',
+            http: 'https://restcountries.eu/rest/v2/region/africa',
         },
         testCMOs:
         {

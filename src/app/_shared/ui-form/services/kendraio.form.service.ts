@@ -7,7 +7,7 @@ import { FormlyJsonschema } from '@ngx-formly/core/json-schema';
 // import { FORMS_VALUES } from '../schemas';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
-import { FULLNAME, EMAIL, TYPEAHEAD } from '../schemas/form-elements';
+// import { FULLNAME, EMAIL, TYPEAHEAD } from '../schemas/form-elements';
 import { Observable, from, forkJoin, throwError } from 'rxjs';
 import { FORM_APIS, REFDATA_APIS } from '../api-config';
 import { catchError, map, tap } from 'rxjs/operators';

@@ -18,18 +18,18 @@
   },
   "colorlist": {
     "ui:widget": "kselect",
-    "ui:labelProp": "color",
-    "ui:valueProp": "hex",
+    "ui:labelProp": "name",
+    "ui:valueProp": "alpha3Code",
     "ui:isMultiSelect": true,
-    "ui:ref": "testCMOs",
-    "ui:refType": "json"
+    "ui:ref": "testRegion",
+    "ui:refType": "http"
   },
   "playlist": {
-    "ui:widget": "typeahead",
+    "ui:widget": "kselect",
     "ui:labelProp": "name",
-    "ui:valueProp": "alpha3",
+    "ui:valueProp": "alpha3Code",
     "ui:isMultiSelect": false,
     "ui:ref": "testCountries",
-    "ui:refType": "json"
+    "ui:refType": "http"
   }
 }

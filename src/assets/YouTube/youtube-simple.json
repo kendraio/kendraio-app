@@ -21,12 +21,12 @@
 
 		"playlist": {
 			"type": "string",
-			"title": "Playlists 11"
+			"title": "Regions"
 		},
 
 		"colorlist": {
 			"type": "string",
-			"title": "Colours"
+			"title": "Countries"
 		}
 
 	}
