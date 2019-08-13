@@ -4,14 +4,16 @@ import { FieldType } from '@ngx-formly/core';
 @Component({
   selector: 'app-field-ng-select',
   template: `
-    <ng-select [items]="to.options"
+
+    <ng-select  [items]="to.options"
       [bindLabel]="labelProp"
       [bindValue]="valueProp"
       [multiple]="isMultiSelect"
       [placeholder]="to.placeholder"
       [formControl]="formControl">
     </ng-select>
-{{isMultiSelect}}
+<mat-hint *ngIf="isMultiSelect">You may select more that one</mat-hint>
+
 
   `,
 })
