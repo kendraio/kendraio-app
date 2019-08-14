@@ -28,7 +28,7 @@ import {
     constructor(private elementRef: ElementRef, private renderer: Renderer2) { }
 
     @HostListener('input') onInput(): void {
-        console.log(this.elementRef.nativeElement.innerText)
+        // console.log(this.elementRef.nativeElement.innerText)
       this.onChange(this.elementRef.nativeElement.innerText);
     }
 

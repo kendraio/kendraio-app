@@ -158,7 +158,7 @@ export class KendraioFormService {
 
       }
 
-      console.log(SELECT_CONFIG);
+      // console.log(SELECT_CONFIG);
       return formlyConfig;
     } catch (e) {
 
