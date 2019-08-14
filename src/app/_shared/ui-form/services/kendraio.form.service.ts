@@ -141,12 +141,15 @@ export class KendraioFormService {
               // formlyConfig.fieldGroup[i].templateOptions.options = this.getHttpRefData(uiSchema[key]['ui:refdataId']);
 
               if (uiSchema[key]['ui:widget'] === 'typeahead' || uiSchema[key]['ui:widget'] === 'kselect') {
-                formlyConfig['fieldGroup'][i]['templateOptions']['labelProp'] = uiSchema[key]['ui:labelProp'];
-                formlyConfig['fieldGroup'][i]['templateOptions']['valueProp'] = uiSchema[key]['ui:valueProp'];
-                formlyConfig['fieldGroup'][i]['templateOptions']['isMultiSelect'] = uiSchema[key]['ui:isMultiSelect'];
+                formlyConfig['fieldGroup'][i]['templateOptions']['labelProp'] = get(uiSchema, `${key}.ui:labelProp`, 'label');
+                formlyConfig['fieldGroup'][i]['templateOptions']['valueProp'] = get(uiSchema, `${key}.ui:valueProp`, 'value');
+                formlyConfig['fieldGroup'][i]['templateOptions']['isMultiSelect'] = get(uiSchema, `${key}.ui:isMultiSelect`, false);
+
+                const ref = get(uiSchema, `${key}.ui:ref`, '');
+                const refType = get(uiSchema, `${key}.ui:refType`, 'json');
 
                 SELECT_CONFIG.push(
-                  { 'key': i, 'ref': uiSchema[key]['ui:ref'], 'refType': uiSchema[key]['ui:refType'] },
+                  { 'key': i, ref, refType },
                 );
               }
             }
@@ -157,10 +160,17 @@ export class KendraioFormService {
       if (SELECT_CONFIG.length) {
 
         SELECT_CONFIG.forEach((item, index) => {
-          this.http.get(REFDATA_APIS[SELECT_CONFIG[index].ref][SELECT_CONFIG[index].refType])
-            .subscribe(newValue => {
+          const refType = SELECT_CONFIG[index].refType;
+          if (refType === 'fetch' && SELECT_CONFIG[index].ref) {
+            this.http.get(SELECT_CONFIG[index].ref).subscribe(newValue => {
               formlyConfig.fieldGroup[item.key].templateOptions.options = newValue;
             });
+          } else {
+            this.http.get(REFDATA_APIS[SELECT_CONFIG[index].ref][SELECT_CONFIG[index].refType])
+              .subscribe(newValue => {
+                formlyConfig.fieldGroup[item.key].templateOptions.options = newValue;
+              });
+          }
         });
 
       }
