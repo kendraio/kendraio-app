@@ -112,6 +112,7 @@ import { GenericFormComponent } from './forms/generic-form/generic-form.componen
 import { FormTestPageComponent } from './pages/form-test-page/form-test-page.component';
 import { OrderKeysPipe } from './pipes/order-keys.pipe';
 import { ShowShareLinkDialogComponent } from './dialogs/show-share-link-dialog/show-share-link-dialog.component';
+import { FormlyImageInputComponent } from './form-controls/formly-image-input/formly-image-input.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -177,7 +178,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     GenericFormComponent,
     FormTestPageComponent,
     OrderKeysPipe,
-    ShowShareLinkDialogComponent
+    ShowShareLinkDialogComponent,
+    FormlyImageInputComponent
     // BreadcrumbComponent
     // ReportsComponent,
     // ContactsComponent

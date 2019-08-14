@@ -88,7 +88,9 @@ export class NgxTaggerComponent implements OnInit, AfterContentInit, TaggerInter
   }
 
   writeValue(obj: any): void {
-    this.tags = obj;
+    if (!!obj) {
+      this.tags = obj;
+    }
   }
 
 

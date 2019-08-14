@@ -20,6 +20,7 @@ import { KendraFieldInputPercentage } from './types/percentage.component';
 import { ConfigOption } from '@ngx-formly/core';
 
 import * as types from './types';
+import {FormlyImageInputComponent} from '../../form-controls/formly-image-input/formly-image-input.component';
 
 export const config: ConfigOption = {
   validationMessages: [
@@ -46,6 +47,7 @@ export const config: ConfigOption = {
     { name: 'playlist', component: types.FieldInputPlaylistComponent },
     { name: 'tags', component: types.SelectTagsComponent },
     { name: 'countries', component: types.FieldCountriesComponent },
+    { name: 'image', component: FormlyImageInputComponent },
     {
       name: 'money', component: types.FormlyFieldInputMoney,
       defaultOptions: {
