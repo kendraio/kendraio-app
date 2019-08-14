@@ -113,6 +113,7 @@ import { FormTestPageComponent } from './pages/form-test-page/form-test-page.com
 import { OrderKeysPipe } from './pipes/order-keys.pipe';
 import { ShowShareLinkDialogComponent } from './dialogs/show-share-link-dialog/show-share-link-dialog.component';
 import { FormlyImageInputComponent } from './form-controls/formly-image-input/formly-image-input.component';
+import { FormlyAudioInputComponent } from './form-controls/formly-audio-input/formly-audio-input.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -179,7 +180,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormTestPageComponent,
     OrderKeysPipe,
     ShowShareLinkDialogComponent,
-    FormlyImageInputComponent
+    FormlyImageInputComponent,
+    FormlyAudioInputComponent
     // BreadcrumbComponent
     // ReportsComponent,
     // ContactsComponent
