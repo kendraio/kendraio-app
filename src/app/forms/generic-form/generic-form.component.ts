@@ -36,9 +36,7 @@ export class GenericFormComponent implements OnInit, OnChanges {
 
   updateForm() {
     this.formService.getJSONSchemaForm(this.adapter, this.formId)
-      .pipe(tap(console.log))
       .subscribe((fields) => {
-        console.log({ fields });
         this.fields = fields;
       });
   }
