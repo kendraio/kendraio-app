@@ -56,6 +56,10 @@ export class KendraioFormService {
               formlyConfig['fieldGroup'][i]['templateOptions']['disabled'] = uiSchema[key]['ui:disabled'];
               formlyConfig['fieldGroup'][i]['templateOptions']['placeholder'] = uiSchema[key]['ui:placeholder'];
               formlyConfig['fieldGroup'][i]['templateOptions']['required'] = uiSchema[key]['ui:required'];
+              formlyConfig['fieldGroup'][i]['templateOptions']['readonly'] = uiSchema[key]['ui:readonly'];
+              formlyConfig['fieldGroup'][i].expressionProperties = {};
+              
+              
             }
           });
           i++;
