@@ -53,6 +53,13 @@ export class KendraioFormService {
     );
   }
 
+  schemasToFieldConfig(jsonSchema, uiSchema) {
+    const { fields } = this.jsonSchemaToFieldConfig({ uiSchema, jsonSchema });
+    return [
+      this.uiWidgetTypeMapper({ fields, uiSchema })
+    ];
+  }
+
   /**
    * Private function used by getJSONSchemaForm to convert the configs fetched
    * from Adapters into the format used by Formly for field config

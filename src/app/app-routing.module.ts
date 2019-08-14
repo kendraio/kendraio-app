@@ -20,6 +20,7 @@ import { DashboardPageComponent } from './pages';
 import {YoutubePageComponent} from './pages/youtube-page/youtube-page.component';
 import {BloomenSearchPageComponent} from './pages/bloomen-search-page/bloomen-search-page.component';
 import { FormTestPageComponent } from './pages/form-test-page/form-test-page.component';
+import {FormBuilderPageComponent} from './pages/form-builder-page/form-builder-page.component';
 
 
 // NB all routes must have a breadcrumb
@@ -284,6 +285,10 @@ const routes: Routes = [
   {
     path: 'form-test',
     component: FormTestPageComponent
+  },
+  {
+    path: 'form-builder',
+    component: FormBuilderPageComponent
   },
 
        { path: '', redirectTo: '/tasks', pathMatch: 'full' },

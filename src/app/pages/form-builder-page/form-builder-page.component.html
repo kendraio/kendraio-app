@@ -1,0 +1,21 @@
+
+<button type="button" mat-icon-button (click)="shareForm()">
+  <mat-icon>share</mat-icon>
+</button>
+
+<div class="editor-wrapper">
+
+  <div class="editor-panels editor-column">
+    <span class="editor-title">JSON Schema</span>
+    <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="JSONSchema" (ngModelChange)="jsonSchemaChange()"></ngx-monaco-editor>
+    <span class="editor-title">UI Schema</span>
+    <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="UISchema" (ngModelChange)="jsonSchemaChange()"></ngx-monaco-editor>
+    <span class="editor-title">Model</span>
+    <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="modelText"></ngx-monaco-editor>
+  </div>
+  <div class="form-output editor-column">
+    <formly-form [fields]="fields" [options]="options" [model]="model" [form]="form"></formly-form>
+    <button mat-flat-button color="primary" (click)="onSubmit()">Submit</button>
+  </div>
+
+</div>

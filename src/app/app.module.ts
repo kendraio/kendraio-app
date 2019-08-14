@@ -114,6 +114,8 @@ import { OrderKeysPipe } from './pipes/order-keys.pipe';
 import { ShowShareLinkDialogComponent } from './dialogs/show-share-link-dialog/show-share-link-dialog.component';
 import { FormlyImageInputComponent } from './form-controls/formly-image-input/formly-image-input.component';
 import { FormlyAudioInputComponent } from './form-controls/formly-audio-input/formly-audio-input.component';
+import {MonacoEditorModule} from 'ngx-monaco-editor';
+import { FormBuilderPageComponent } from './pages/form-builder-page/form-builder-page.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -181,7 +183,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     OrderKeysPipe,
     ShowShareLinkDialogComponent,
     FormlyImageInputComponent,
-    FormlyAudioInputComponent
+    FormlyAudioInputComponent,
+    FormBuilderPageComponent
     // BreadcrumbComponent
     // ReportsComponent,
     // ContactsComponent
@@ -223,7 +226,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AssetsModule,
     MessagesModule,
     TextMaskModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MonacoEditorModule.forRoot()
   ],
   entryComponents: [
     AddDocDialogComponent,
