@@ -1,5 +1,9 @@
 <div style="float: left; width:45%; margin-right: 28px">
 
+  <button type="button" mat-icon-button (click)="shareForm()">
+    <mat-icon>share</mat-icon>
+  </button>
+
   <form [formGroup]="schemaform" novalidate>
 
     <label for="">JSON Schema - (paste as plain-text!)</label>

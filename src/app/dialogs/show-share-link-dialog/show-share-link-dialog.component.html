@@ -1,0 +1,6 @@
+<p class="mat-typography">Share the following link:</p>
+<textarea #textBox readonly="readonly">
+{{ shareLink }}
+</textarea><br>
+<button mat-flat-button (click)="textBox.focus();textBox.select()">Select all</button>
+<button mat-flat-button (click)="copyText()">Copy link</button>

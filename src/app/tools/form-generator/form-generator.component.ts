@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { tap, distinctUntilChanged, debounce, debounceTime } from 'rxjs/operators';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
-import { KendraioFormService } from 'src/app/_shared/ui-form/services/kendraio.form.service'
+import { KendraioFormService } from 'src/app/_shared/ui-form/services/kendraio.form.service';
+import { ShareLinkGeneratorService } from '../../services/share-link-generator.service';
 
 @Component({
   selector: 'app-form-generator',
@@ -53,13 +54,20 @@ export class FormGeneratorComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private formService: KendraioFormService
+    private formService: KendraioFormService,
+    private shareLinks: ShareLinkGeneratorService
   ) {
     this.createForm();
     this.formChanges$ = this.schemaform.valueChanges;
   }
 
   ngOnInit() {
+
+    const urlData = this.shareLinks.getData();
+    if (urlData) {
+      this.schemaform.patchValue(urlData);
+      this.generateForm();
+    }
 
     this.subscription = this.formChanges$.pipe(
       distinctUntilChanged(),
@@ -74,6 +82,11 @@ export class FormGeneratorComponent implements OnInit {
         this.isLoading = false;
       });
 
+  }
+
+  shareForm() {
+    const { JSONSchema, UISchema } = this.schemaform.getRawValue();
+    this.shareLinks.shareLink('tools/form-generator', { JSONSchema, UISchema });
   }
 
   generateForm() {

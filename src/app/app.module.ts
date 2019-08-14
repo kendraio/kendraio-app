@@ -111,6 +111,7 @@ import { ProfileDataFormComponent } from './forms/profile-data-form/profile-data
 import { GenericFormComponent } from './forms/generic-form/generic-form.component';
 import { FormTestPageComponent } from './pages/form-test-page/form-test-page.component';
 import { OrderKeysPipe } from './pipes/order-keys.pipe';
+import { ShowShareLinkDialogComponent } from './dialogs/show-share-link-dialog/show-share-link-dialog.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -175,7 +176,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ProfileDataFormComponent,
     GenericFormComponent,
     FormTestPageComponent,
-    OrderKeysPipe
+    OrderKeysPipe,
+    ShowShareLinkDialogComponent
     // BreadcrumbComponent
     // ReportsComponent,
     // ContactsComponent
@@ -232,7 +234,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     DynamicImageInputControlComponent,
     DynamicReferenceInputControlComponent,
     DynamicRemoteImageControlComponent,
-    DynamicDebugControlComponent
+    DynamicDebugControlComponent,
+    ShowShareLinkDialogComponent
   ],
   providers: [
     // { provide: LOCALE_ID, useValue: 'de-DE' } ,
