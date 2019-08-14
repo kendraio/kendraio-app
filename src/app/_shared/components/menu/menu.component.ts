@@ -186,7 +186,12 @@ export const MENUITEMS: MenuItem[] = [
   },
   {
     path: '/form-test',
-    label: 'Forms',
+    label: 'Form test',
+    icon: 'build'
+  },
+  {
+    path: '/form-builder',
+    label: 'Form builder',
     icon: 'build'
   }
 ];
