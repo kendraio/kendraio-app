@@ -2219,6 +2219,9 @@ OTHER DEALINGS IN THE SOFTWARE.
 moment-mini
 MIT
 
+ngx-monaco-editor
+MIT
+
 ngx-tagger
 
 pouchdb
