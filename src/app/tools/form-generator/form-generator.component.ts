@@ -103,7 +103,7 @@ export class FormGeneratorComponent implements OnInit {
       let i = 0;
       i = this.uiTypeMapper(uiSchema, jsonSchema, i);
 
-      // TODO: This is duplicated code, also occurs in my-youtube component
+      // TODO: Refactor to use functionality in Kendraio Form Service
       this.formConfig = this.formService.toFieldConfig(jsonSchema);
       this.fields = [this.formService.uiMapper(this.formConfig, jsonSchema, uiSchema)];
       this.formDescription = this.formConfig.templateOptions.description;
@@ -112,7 +112,7 @@ export class FormGeneratorComponent implements OnInit {
 
   }
 
-  // TODO: This is perhaps the same as the code moved to the service from my-youtube
+  // TODO: Refactor to use functionality in Kendraio Form Service
   private uiTypeMapper(uiSchema: any, jsonSchema: any, i: number) {
     try {
       Object.keys(uiSchema).forEach(function (uiKey) {
