@@ -32,14 +32,13 @@ export class UserIpnFormComponent implements OnInit {
     this.getJSONSchema('user', 'ipn');
   }
 
+  // TODO: update to use functionality shared in Kendraio Form Service
   getJSONSchema(group: string, form: any) {
     this.formService.getFormData(group, form)
       .subscribe(([uiSchema, jsonSchema]) => {
         this.formService.uiTypeMapper(uiSchema, jsonSchema);
-        // TODO: I lifted this from my-youtube to test form service
         this.formConfig = this.formService.toFieldConfig(jsonSchema);
         this.fields = [this.formService.uiMapper(this.formConfig, jsonSchema, uiSchema)];
-        console.log({ jsonSchema, uiSchema });
         this.isFormLoaded = true;
         // TODO: Might be better to use title/desc from uiSchema rather than jsonSchema
         // as jsonSchema data model, but data model could be shared by multiple forms
