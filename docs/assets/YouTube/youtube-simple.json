@@ -1,29 +1,6 @@
 {
-	"definitions": {
-		"largeEnum": {
-		  "type": "typeahead",
-		  "enum": [
-			"Film & Animation",
-			"Cars & Vehicles",
-			"Music",
-			"Pets & Animals",
-			"Sport",
-			"Travel & Events",
-			"Gaming",
-			"People & Blogs",
-			"Comedy",
-			"Entertainment",
-			"News & Politics",
-			"How-to & Style",
-			"Education",
-			"Science & Technology",
-			"Nonprofits & Activism"
-		]
-		}
-	  },
 
-
-	"title": "SIMPLEs - Edit Video",
+	"title": "SIMPLEz - Edit Video",
 	"description": "This form allows you to edit your video",
 	"type": "object",
 	"required": [
@@ -33,11 +10,6 @@
 		"type": "string"
 	  },
 	"properties": {
-    		"videoId": {
-			"title": "Video -SIMPL",
-			"description": "this is a video viewer",
-			"type": "string"
-		},
 		"title": {
 			"title": "Title",
 			"description": "",
@@ -45,50 +17,17 @@
 			"minLength": 4,
 			"maxLength": 100,
 			"pattern": "^(\\([0-9]{3}\\))?[0-9]{3}-[0-9]{4}$"
+		},
 
-
-		},
-		"description": {
-			"type": "money",
-			"title": "Bio",
-			"minLength": 2,
-			"maxLength": 5000,
-			"default": 3451,
-			"bollock" : "bollock"
-		},
-		"visibility": {
-			"type": "object",
-			"title": "Visibility "
-		},
 		"playlist": {
-			"type": "object",
-			"title": "Playlists"
+			"type": "string",
+			"title": "Regions"
 		},
-		"listOfStrings": {
-			"type": "array",
-			"title": "My Dates List",
-			"items": {
-				"type": "datepicker",
-				"default": "Enter your new ID here"
-			}
-		},
-		"skills": {
-			"type": "array",
-			"items": {
-			  "type": "string",
-			  "minLength": 5
-			}
-		  }
 
-	},
-	"dependencies": {
-		"title": {
-			"properties": {
-				"tags": {
-					"type": "tags",
-					"title": "Now that you've entered a title you may add your Tags"
-				}
-			}
+		"colorlist": {
+			"type": "string",
+			"title": "Countries"
 		}
+
 	}
 }

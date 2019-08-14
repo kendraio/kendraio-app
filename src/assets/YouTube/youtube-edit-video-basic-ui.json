@@ -11,15 +11,25 @@
 
   },
   "videoId": {
-    "ui:type": "videoviewer"
+    "ui:widget": "videoviewer"
   },
   "tags": {
-    "ui:type": "tags"
+    "ui:widget": "tags"
   },
-  "visibility": {
-    "ui:type": "visibility"
+  "colorlist": {
+    "ui:widget": "kselect",
+    "ui:labelProp": "name",
+    "ui:valueProp": "alpha3Code",
+    "ui:isMultiSelect": true,
+    "ui:ref": "testRegion",
+    "ui:refType": "http"
   },
   "playlist": {
-    "ui:type": "playlist"
+    "ui:widget": "kselect",
+    "ui:labelProp": "name",
+    "ui:valueProp": "alpha3Code",
+    "ui:isMultiSelect": false,
+    "ui:ref": "testCountries",
+    "ui:refType": "http"
   }
 }

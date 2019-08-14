@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  urlPrefix: 'http://localhost:4200/',
   production: false,
   adapterConfig: 'https://kendraio.github.io/kendraio-adapter/config.json',
   auth0: {

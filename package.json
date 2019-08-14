@@ -52,6 +52,7 @@
     "interactjs": "^1.5.4",
     "js-yaml": "^3.13.1",
     "lodash-es": "^4.17.11",
+    "lz-string": "^1.4.4",
     "mermaid": "^8.2.3",
     "pouchdb": "^7.1.1",
     "pouchdb-find": "^7.1.1",

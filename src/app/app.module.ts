@@ -34,7 +34,7 @@ import { DocEditFormComponent } from './forms/doc-edit-form/doc-edit-form.compon
 import { ImageInputControlComponent } from './form-controls/image-input-control/image-input-control.component';
 import { TextInputFormControlComponent } from './form-controls/text-input-form-control/text-input-form-control.component';
 import { AppMaterialModule } from './app-material/app-material.module';
-// import { NgxTaggerModule } from 'ngx-ngxTagPreview';
+import { NgxTaggerModule } from 'ngx-tagger';
 import { SchemaRepositoryService } from './services/schema-repository.service';
 import { DocumentRepositoryService } from './services/document-repository.service';
 import { DropboxPageComponent } from './pages/dropbox-page/dropbox-page.component';
@@ -108,6 +108,12 @@ import { HttpErrorInterceptor } from './_shared/404.interceptor';
 import { FormlyModule } from '@ngx-formly/core';
 import { UserIpnFormComponent } from './forms/user-ipn-form/user-ipn-form.component';
 import { ProfileDataFormComponent } from './forms/profile-data-form/profile-data-form.component';
+import { GenericFormComponent } from './forms/generic-form/generic-form.component';
+import { FormTestPageComponent } from './pages/form-test-page/form-test-page.component';
+import { OrderKeysPipe } from './pipes/order-keys.pipe';
+import { ShowShareLinkDialogComponent } from './dialogs/show-share-link-dialog/show-share-link-dialog.component';
+import { FormlyImageInputComponent } from './form-controls/formly-image-input/formly-image-input.component';
+import { FormlyAudioInputComponent } from './form-controls/formly-audio-input/formly-audio-input.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -169,7 +175,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     DynamicFormRepoComponent,
     BloomenSearchPageComponent,
     UserIpnFormComponent,
-    ProfileDataFormComponent
+    ProfileDataFormComponent,
+    GenericFormComponent,
+    FormTestPageComponent,
+    OrderKeysPipe,
+    ShowShareLinkDialogComponent,
+    FormlyImageInputComponent,
+    FormlyAudioInputComponent
     // BreadcrumbComponent
     // ReportsComponent,
     // ContactsComponent
@@ -202,7 +214,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    // NgxTaggerModule,
+    NgxTaggerModule,
     DynamicFormsCoreModule,
     DynamicFormsMaterialUIModule,
     ContactsModule,
@@ -226,7 +238,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     DynamicImageInputControlComponent,
     DynamicReferenceInputControlComponent,
     DynamicRemoteImageControlComponent,
-    DynamicDebugControlComponent
+    DynamicDebugControlComponent,
+    ShowShareLinkDialogComponent
   ],
   providers: [
     // { provide: LOCALE_ID, useValue: 'de-DE' } ,

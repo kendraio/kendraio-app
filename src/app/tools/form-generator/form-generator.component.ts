@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { tap, distinctUntilChanged, debounce, debounceTime } from 'rxjs/operators';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
-import { KendraioFormService } from 'src/app/_shared/ui-form/services/kendraio.form.service'
+import { KendraioFormService } from 'src/app/_shared/ui-form/services/kendraio.form.service';
+import { ShareLinkGeneratorService } from '../../services/share-link-generator.service';
 
 @Component({
   selector: 'app-form-generator',
@@ -30,14 +31,14 @@ export class FormGeneratorComponent implements OnInit {
     "bandArtist": {
       "ui:disabled": false,
       "ui:placeholder": "Enter  Version Type",
-      "ui:type": "datepicker",
+      "ui:widget": "datepicker",
       "ui:required": true
     },
     "recordingTitle": {
-      "ui:type": "videoviewer"
+      "ui:widget": "videoviewer"
     },
     "pDate": {
-      "ui:type": "percentage"
+      "ui:widget": "percentage"
     }
   };
 
@@ -53,13 +54,20 @@ export class FormGeneratorComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private formService: KendraioFormService
+    private formService: KendraioFormService,
+    private shareLinks: ShareLinkGeneratorService
   ) {
     this.createForm();
     this.formChanges$ = this.schemaform.valueChanges;
   }
 
   ngOnInit() {
+
+    const urlData = this.shareLinks.getData();
+    if (urlData) {
+      this.schemaform.patchValue(urlData);
+      this.generateForm();
+    }
 
     this.subscription = this.formChanges$.pipe(
       distinctUntilChanged(),
@@ -76,6 +84,11 @@ export class FormGeneratorComponent implements OnInit {
 
   }
 
+  shareForm() {
+    const { JSONSchema, UISchema } = this.schemaform.getRawValue();
+    this.shareLinks.shareLink('tools/form-generator', { JSONSchema, UISchema });
+  }
+
   generateForm() {
     let uiSchema: any = {};
     let jsonSchema: any = {};
@@ -90,7 +103,7 @@ export class FormGeneratorComponent implements OnInit {
       let i = 0;
       i = this.uiTypeMapper(uiSchema, jsonSchema, i);
 
-      // TODO: This is duplicated code, also occurs in my-youtube component
+      // TODO: Refactor to use functionality in Kendraio Form Service
       this.formConfig = this.formService.toFieldConfig(jsonSchema);
       this.fields = [this.formService.uiMapper(this.formConfig, jsonSchema, uiSchema)];
       this.formDescription = this.formConfig.templateOptions.description;
@@ -99,13 +112,13 @@ export class FormGeneratorComponent implements OnInit {
 
   }
 
-  // TODO: This is perhaps the same as the code moved to the service from my-youtube
+  // TODO: Refactor to use functionality in Kendraio Form Service
   private uiTypeMapper(uiSchema: any, jsonSchema: any, i: number) {
     try {
       Object.keys(uiSchema).forEach(function (uiKey) {
         Object.keys(jsonSchema.properties).forEach(function (schemaKey) {
-          if ((uiKey === schemaKey) && uiSchema[uiKey]['ui:type']) {
-            jsonSchema.properties[schemaKey].type = uiSchema[uiKey]['ui:type'];
+          if ((uiKey === schemaKey) && uiSchema[uiKey]['ui:widget']) {
+            jsonSchema.properties[schemaKey].type = uiSchema[uiKey]['ui:widget'];
           } else {
             jsonSchema.properties[schemaKey].type = jsonSchema.properties[schemaKey].type;
           }

@@ -9,7 +9,7 @@ import {
   SimpleChanges
 } from '@angular/core';
 import * as interact_ from 'interactjs';
-const interact = interact_;
+const interact = interact_ as any;
 import { TagInterface } from './interfaces';
 import { NgxTaggerComponent } from './ngx-tagger.component';
 

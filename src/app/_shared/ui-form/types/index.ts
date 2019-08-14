@@ -8,3 +8,4 @@ export * from './percentage.component';
 export * from './array.type';
 export * from './typeahead.component';
 export * from './object.type';
+export * from './multiselect.type';

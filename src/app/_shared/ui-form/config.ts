@@ -16,10 +16,12 @@ import {
 } from './wrappers';
 // import { RepeatSectionComponent } from './types/repeat-section.component';
 // import { FormlyFieldInputMoney } from './types/money.component';
-import { FormlyFieldInputPercentage } from './types/percentage.component';
+import { KendraFieldInputPercentage } from './types/percentage.component';
 import { ConfigOption } from '@ngx-formly/core';
 
 import * as types from './types';
+import {FormlyImageInputComponent} from '../../form-controls/formly-image-input/formly-image-input.component';
+import {FormlyAudioInputComponent} from '../../form-controls/formly-audio-input/formly-audio-input.component';
 
 export const config: ConfigOption = {
   validationMessages: [
@@ -45,7 +47,9 @@ export const config: ConfigOption = {
     { name: 'visibility', component: types.FieldInputVisibilityComponent },
     { name: 'playlist', component: types.FieldInputPlaylistComponent },
     { name: 'tags', component: types.SelectTagsComponent },
-    { name: 'countries', component: types.FieldCountriesComponent},
+    { name: 'countries', component: types.FieldCountriesComponent },
+    { name: 'image', component: FormlyImageInputComponent },
+    { name: 'audio', component: FormlyAudioInputComponent },
     {
       name: 'money', component: types.FormlyFieldInputMoney,
       defaultOptions: {
@@ -58,7 +62,7 @@ export const config: ConfigOption = {
       },
     },
     {
-      name: 'percentage', component: FormlyFieldInputPercentage,
+      name: 'percentage', component: KendraFieldInputPercentage,
       defaultOptions: {
         expressionProperties: {},
         defaultValue: 0,
@@ -102,6 +106,28 @@ export const config: ConfigOption = {
     { name: 'boolean', extends: 'checkbox' },
     // { name: 'array', component: ArrayTypeComponent },
     { name: 'enum', extends: 'select' },
+    {
+      name: 'multiselect', component: types.KendraFieldSelect,
+      defaultOptions: {
+        templateOptions: {
+          multiple: true,
+          placeholder: 'Select Option',
+          options: [ ]
+        }
+      }
+
+    },
+    {
+      name: 'kselect', component: types.KendraFieldSelect,
+      defaultOptions: {
+        templateOptions: {
+          multiple: false,
+          placeholder: 'Select Option',
+          options: []
+        }
+      }
+
+    }
   ],
   validators: [
     { name: 'maximumNumValidation', validation: maximumNumValidation },
@@ -109,3 +135,9 @@ export const config: ConfigOption = {
     { name: 'PasswordStrengthValidation', validation: PasswordStrengthValidation }
   ]
 };
+
+
+
+
+
+

@@ -1,4 +1,4 @@
-import { Field } from '../../../ui-form-x/helpers/fields';
+import { Field } from '../../../ui-form/helpers/fields';
 
 export const COUNTRIES = (disabled) => ({
   ...Field.field(
