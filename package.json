@@ -51,6 +51,7 @@
     "hammerjs": "^2.0.8",
     "interactjs": "^1.5.4",
     "js-yaml": "^3.13.1",
+    "json-formatter-js": "^2.2.1",
     "lodash-es": "^4.17.11",
     "lz-string": "^1.4.4",
     "mermaid": "^8.2.3",
