@@ -9,7 +9,8 @@ import {debounceTime, takeUntil} from 'rxjs/operators';
 import JSONFormatter from 'json-formatter-js';
 import { JSON_SCHEMA } from './jsonschema';
 import { NgxEditorModel } from 'ngx-monaco-editor';
-import {config} from '../../_shared/ui-form/config';
+import {UI_SCHEMA} from './uischema';
+import {EDITOR_OPTIONS} from './editor-options';
 
 @Component({
   selector: 'app-form-builder-page',
@@ -18,32 +19,13 @@ import {config} from '../../_shared/ui-form/config';
 })
 export class FormBuilderPageComponent implements OnInit, OnDestroy {
 
-  editorOptions = {
-    baseUrl: 'form-builder',
-    theme: 'vs-dark',
-    language: 'json',
-    minimap: {
-      enabled: false
-    },
-    lineNumbers: 'off',
-    scrollBeyondLastLine: false
-  };
+  editorOptions = EDITOR_OPTIONS;
 
   JSONSchema = '{}';
-  jsonModel: NgxEditorModel = {
-    value: this.JSONSchema,
-    language: 'json',
-    uri: 'a:jsonModel.json'
-  };
+  jsonModel: NgxEditorModel;
 
   UISchema = '{}';
-  uiModel: NgxEditorModel = {
-    value: this.UISchema,
-    language: 'json',
-    uri: 'a:uiModel.json'
-  };
-
-  modelText = '{}';
+  uiModel: NgxEditorModel;
 
   form = new FormGroup({});
   fields: FormlyFieldConfig[];
@@ -76,24 +58,28 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
     const urlData = this.shareLinks.getData();
     if (urlData) {
       this.JSONSchema = JSON.stringify(urlData['JSONSchema'], null, 4);
-      this.jsonModel = {
-        value: this.JSONSchema,
-        language: 'json',
-        uri: 'a:jsonModel.json'
-      };
       this.UISchema = JSON.stringify(urlData['UISchema'], null, 4);
-      this.uiModel = {
-        value: this.UISchema,
-        language: 'json',
-        uri: 'a:uiModel.json'
-      };
     }
+    this.updateEditorModels();
     this.jsonSchemaChange();
   }
 
   ngOnDestroy(): void {
     this._destroy$.next();
     this._destroy$.complete();
+  }
+
+  updateEditorModels() {
+    this.jsonModel = {
+      value: this.JSONSchema,
+      language: 'json',
+      uri: 'a:jsonModel.json'
+    };
+    this.uiModel = {
+      value: this.UISchema,
+      language: 'json',
+      uri: 'a:uiModel.json'
+    };
   }
 
   initJson() {
@@ -106,47 +92,9 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
       }, {
         fileMatch: ['a:uiModel.json'],
         uri: 'https://app.kendra.io/v0/ui-schema',
-        schema: {
-          type: 'object',
-          additionalProperties: {
-            type: 'object',
-            properties: {
-              'ui:widget': {
-                'type': 'string',
-                'enum': [
-                  'datepicker',
-                  ...config.types.map(({ name }) => name)
-                ]
-              },
-              'ui:disabled': {
-                'type': 'boolean'
-              },
-              'ui:placeholder': {
-                'type': 'boolean'
-              },
-              'ui:labelProp': {
-                type: 'string'
-              },
-              'ui:valueProp': {
-                type: 'string'
-              },
-              'ui:isMultiSelect': {
-                type: 'boolean'
-              },
-              'ui:ref': {
-                type: 'string'
-              },
-              'ui:refType': {
-                enum: ['json', 'http', 'fetch']
-              }
-            }
-          }
-        }
+        schema: UI_SCHEMA
       }]
     });
-  }
-
-  initUi() {
   }
 
   jsonSchemaChange() {

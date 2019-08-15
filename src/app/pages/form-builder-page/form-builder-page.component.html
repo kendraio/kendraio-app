@@ -7,7 +7,7 @@
 
   <div class="editor-panels editor-column">
     <span class="editor-title">JSON Schema</span>
-    <ngx-monaco-editor [options]="editorOptions"
+    <ngx-monaco-editor class="json-code-editor" [options]="editorOptions"
                        [model]="jsonModel"
                        [(ngModel)]="JSONSchema"
                        (ngModelChange)="jsonSchemaChange()" (onInit)="initJson()"></ngx-monaco-editor>
@@ -15,7 +15,7 @@
     <ngx-monaco-editor [options]="editorOptions"
                        [model]="uiModel"
                        [(ngModel)]="UISchema"
-                       (ngModelChange)="jsonSchemaChange()" (onInit)="initUi()"></ngx-monaco-editor>
+                       (ngModelChange)="jsonSchemaChange()"></ngx-monaco-editor>
     <span class="editor-title">Model Output</span>
     <div class="model-output" #modelOutput></div>
   </div>
