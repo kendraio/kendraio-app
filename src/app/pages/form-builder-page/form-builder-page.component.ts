@@ -76,7 +76,17 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
     const urlData = this.shareLinks.getData();
     if (urlData) {
       this.JSONSchema = JSON.stringify(urlData['JSONSchema'], null, 4);
+      this.jsonModel = {
+        value: this.JSONSchema,
+        language: 'json',
+        uri: 'a:jsonModel.json'
+      };
       this.UISchema = JSON.stringify(urlData['UISchema'], null, 4);
+      this.uiModel = {
+        value: this.UISchema,
+        language: 'json',
+        uri: 'a:uiModel.json'
+      };
     }
     this.jsonSchemaChange();
   }
