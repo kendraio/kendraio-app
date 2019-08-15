@@ -12,6 +12,8 @@ import { NgxEditorModel } from 'ngx-monaco-editor';
 import {UI_SCHEMA} from './uischema';
 import {EDITOR_OPTIONS} from './editor-options';
 import {AdapterFormSelectService} from '../../services/adapter-form-select.service';
+import {FormDataService} from '../../services/form-data.service';
+import {get, has} from 'lodash-es';
 
 @Component({
   selector: 'app-form-builder-page',
@@ -42,7 +44,8 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
     private formService: KendraioFormService,
     private formSubmitHandler: FormSubmitHandlerService,
     private shareLinks: ShareLinkGeneratorService,
-    private formSelect: AdapterFormSelectService
+    private formSelect: AdapterFormSelectService,
+    private formData: FormDataService
   ) { }
 
   ngOnInit() {
@@ -138,5 +141,17 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
         this.updateEditorModels();
       }
     });
+  }
+
+  loadFromDatabase() {
+    const data = JSON.parse(this.JSONSchema);
+    if (data && has(data, 'name')) {
+      this.formData.loadData(get(data, 'name')).subscribe(values => {
+        // console.log({ values });
+        this.form.patchValue(values);
+      });
+    } else {
+      this.formData.noSchemaName();
+    }
   }
 }

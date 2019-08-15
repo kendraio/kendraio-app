@@ -1,0 +1,11 @@
+<p>Select data ({{ data?.schemaName }}):</p>
+
+<select [(ngModel)]="selectedID" *ngIf="data.docs && data.docs.length > 0">
+  <option class="row" *ngFor="let doc of data.docs" [value]="doc._id">
+    {{ doc._id }}
+  </option>
+</select>
+
+<br><br>
+<button mat-flat-button (click)="loadData()" color="primary">Load Form</button>
+<button mat-flat-button (click)="cancel()">Cancel</button>
