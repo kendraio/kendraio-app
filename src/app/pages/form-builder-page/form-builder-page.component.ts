@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {FormlyFieldConfig, FormlyFormOptions} from '@ngx-formly/core';
 import {KendraioFormService} from '../../_shared/ui-form/services/kendraio.form.service';
@@ -6,6 +6,7 @@ import {FormSubmitHandlerService} from '../../services/form-submit-handler.servi
 import {ShareLinkGeneratorService} from '../../services/share-link-generator.service';
 import {Subject} from 'rxjs';
 import {debounceTime, takeUntil} from 'rxjs/operators';
+import JSONFormatter from 'json-formatter-js'
 
 @Component({
   selector: 'app-form-builder-page',
@@ -34,6 +35,8 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
 
   _destroy$ = new Subject();
   _schemaChange$ = new Subject();
+
+  @ViewChild('modelOutput', { static: false }) modelOutput: ElementRef;
 
   constructor(
     private formService: KendraioFormService,
@@ -76,8 +79,17 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
     this.shareLinks.shareLink('form-builder', { JSONSchema, UISchema });
   }
 
+  onChange() {
+    // Replace #modelOutput DIV contents with formatted JSON
+    const formatter = new JSONFormatter(this.model, 1, { theme: 'dark' });
+    while (this.modelOutput.nativeElement.firstChild) {
+      this.modelOutput.nativeElement.removeChild(this.modelOutput.nativeElement.firstChild);
+    }
+    this.modelOutput.nativeElement.append(formatter.render());
+  }
+
   onSubmit() {
-    this.modelText = JSON.stringify(this.form.getRawValue(), null, 4);
+    // Send form submit event to the form handler service
     this.formSubmitHandler.handle({
       form: `formBuilderForm`,
       action: 'submit',
