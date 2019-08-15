@@ -25,6 +25,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTreeModule } from '@angular/material/tree';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import {MatTooltipModule} from '@angular/material';
 
 const MATERIAL = [
   MatButtonModule,
@@ -51,8 +52,8 @@ const MATERIAL = [
   MatExpansionModule,
   MatStepperModule,
   MatTreeModule,
-  MatBadgeModule
-
+  MatBadgeModule,
+  MatTooltipModule
 ];
 
 @NgModule({

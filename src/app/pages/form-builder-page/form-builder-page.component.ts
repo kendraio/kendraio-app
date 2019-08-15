@@ -11,6 +11,7 @@ import { JSON_SCHEMA } from './jsonschema';
 import { NgxEditorModel } from 'ngx-monaco-editor';
 import {UI_SCHEMA} from './uischema';
 import {EDITOR_OPTIONS} from './editor-options';
+import {AdapterFormSelectService} from '../../services/adapter-form-select.service';
 
 @Component({
   selector: 'app-form-builder-page',
@@ -40,7 +41,8 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
   constructor(
     private formService: KendraioFormService,
     private formSubmitHandler: FormSubmitHandlerService,
-    private shareLinks: ShareLinkGeneratorService
+    private shareLinks: ShareLinkGeneratorService,
+    private formSelect: AdapterFormSelectService
   ) { }
 
   ngOnInit() {
@@ -57,11 +59,15 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
 
     const urlData = this.shareLinks.getData();
     if (urlData) {
-      this.JSONSchema = JSON.stringify(urlData['JSONSchema'], null, 4);
-      this.UISchema = JSON.stringify(urlData['UISchema'], null, 4);
+      this.setSchemaValues(urlData);
     }
     this.updateEditorModels();
     this.jsonSchemaChange();
+  }
+
+  setSchemaValues({ JSONSchema, UISchema }) {
+    this.JSONSchema = JSON.stringify(JSONSchema, null, 4);
+    this.UISchema = JSON.stringify(UISchema, null, 4);
   }
 
   ngOnDestroy(): void {
@@ -122,6 +128,15 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
       form: `formBuilderForm`,
       action: 'submit',
       payload: this.form.getRawValue()
+    });
+  }
+
+  loadFromAdapter() {
+    this.formSelect.selectForm().subscribe(values => {
+      if (!!values) {
+        this.setSchemaValues(values);
+        this.updateEditorModels();
+      }
     });
   }
 }
