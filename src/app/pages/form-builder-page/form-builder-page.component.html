@@ -35,6 +35,9 @@
     </div>
   </div>
   <div class="form-output editor-column">
+    <mat-error *ngIf="hasError">
+      {{ errorMessage }}
+    </mat-error>
     <formly-form [fields]="fields" [options]="options" [model]="model" [form]="form" (modelChange)="onChange()"></formly-form>
     <button mat-flat-button color="primary" (click)="onSubmit()" *ngIf="form.touched && !isDbForm">Submit</button>
     <button mat-flat-button color="primary" (click)="onSave()" *ngIf="isDbForm">Save</button>

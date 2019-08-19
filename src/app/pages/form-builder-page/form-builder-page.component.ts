@@ -43,6 +43,9 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
 
   showFormConfig = false;
 
+  hasError = false;
+  errorMessage = '';
+
   @ViewChild('modelOutput', { static: false }) modelOutput: ElementRef;
 
   constructor(
@@ -59,12 +62,13 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
       debounceTime(500)
     ).subscribe(() => {
       try {
+        this.hasError = false;
         const JSONSchema = JSON.parse(this.JSONSchema);
         this.isDbForm = has(JSONSchema, 'name');
         this.fields = this.formService.schemasToFieldConfig(JSONSchema, JSON.parse(this.UISchema));
-      } catch (e) {
-        // TODO: error handling
-        console.log({ e });
+      } catch ({ message }) {
+        this.hasError = true;
+        this.errorMessage = message;
         this.fields = [];
       }
     });
