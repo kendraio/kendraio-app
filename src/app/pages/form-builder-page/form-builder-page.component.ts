@@ -41,7 +41,7 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
   isDbForm = false;
   originalDbValues = {};
 
-  showFormConfig = true;
+  showFormConfig = false;
 
   @ViewChild('modelOutput', { static: false }) modelOutput: ElementRef;
 
