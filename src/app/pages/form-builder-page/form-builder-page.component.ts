@@ -146,6 +146,7 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
       this.saveOriginalDbValues(this.model);
       this.formData.saveData(get(JSONSchema, 'name'), this.model)
         .subscribe(({ ok, rev }) => {
+          // TODO: This logic is specific to DB and should not be here
           if (ok) {
             this.model['_rev'] = rev;
           }
