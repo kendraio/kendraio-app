@@ -64,6 +64,8 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
         this.fields = this.formService.schemasToFieldConfig(JSONSchema, JSON.parse(this.UISchema));
       } catch (e) {
         // TODO: error handling
+        console.log({ e });
+        this.fields = [];
       }
     });
 

@@ -118,6 +118,7 @@ import {MonacoEditorModule} from 'ngx-monaco-editor';
 import { FormBuilderPageComponent } from './pages/form-builder-page/form-builder-page.component';
 import { FormSelectDialogComponent } from './dialogs/form-select-dialog/form-select-dialog.component';
 import { FormDataSelectDialogComponent } from './dialogs/form-data-select-dialog/form-data-select-dialog.component';
+import { FormlyRemoteImageInputComponent } from './form-controls/formly-remote-image-input/formly-remote-image-input.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -188,7 +189,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormlyAudioInputComponent,
     FormBuilderPageComponent,
     FormSelectDialogComponent,
-    FormDataSelectDialogComponent
+    FormDataSelectDialogComponent,
+    FormlyRemoteImageInputComponent
     // BreadcrumbComponent
     // ReportsComponent,
     // ContactsComponent
