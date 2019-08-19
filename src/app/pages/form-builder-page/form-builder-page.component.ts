@@ -41,6 +41,8 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
   isDbForm = false;
   originalDbValues = {};
 
+  showFormConfig = true;
+
   @ViewChild('modelOutput', { static: false }) modelOutput: ElementRef;
 
   constructor(
@@ -54,7 +56,7 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this._schemaChange$.pipe(
       takeUntil(this._destroy$),
-      debounceTime(1000)
+      debounceTime(500)
     ).subscribe(() => {
       try {
         const JSONSchema = JSON.parse(this.JSONSchema);
@@ -145,10 +147,12 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
       const JSONSchema = JSON.parse(this.JSONSchema);
       this.saveOriginalDbValues(this.model);
       this.formData.saveData(get(JSONSchema, 'name'), this.model)
-        .subscribe(({ ok, rev }) => {
+        .subscribe(({ ok, id, rev }) => {
           // TODO: This logic is specific to DB and should not be here
           if (ok) {
             this.model['_rev'] = rev;
+            this.model['_id'] = id;
+            this.onChange();
           }
         });
     }
@@ -173,9 +177,11 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
     const data = JSON.parse(this.JSONSchema);
     if (data && has(data, 'name')) {
       this.formData.loadData(get(data, 'name')).subscribe(values => {
-        this.saveOriginalDbValues(values);
-        this.model = values;
-        this.onChange();
+        if (!!values) {
+          this.saveOriginalDbValues(values);
+          this.model = values;
+          this.onChange();
+        }
       });
     } else {
       this.formData.noSchemaName();
@@ -189,5 +195,9 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
 
   resetForm() {
     this.form.reset(this.originalDbValues);
+  }
+
+  toggleFormConfig() {
+    this.showFormConfig = !this.showFormConfig;
   }
 }

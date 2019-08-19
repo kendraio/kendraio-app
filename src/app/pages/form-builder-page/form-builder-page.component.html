@@ -1,4 +1,7 @@
 <div class="toolbar">
+  <button type="button" mat-icon-button (click)="toggleFormConfig()" matTooltip="Configure form">
+    <mat-icon>settings</mat-icon>
+  </button>
   <button type="button" mat-icon-button (click)="shareForm()" matTooltip="Share Form">
     <mat-icon>share</mat-icon>
   </button>
@@ -15,7 +18,7 @@
 
 <div class="editor-wrapper">
 
-  <div class="editor-panels editor-column">
+  <div class="editor-panels editor-column" [hidden]="!showFormConfig">
     <span class="editor-title">JSON Schema</span>
     <ngx-monaco-editor class="json-code-editor" [options]="editorOptions"
                        [model]="jsonModel"
@@ -33,7 +36,7 @@
   </div>
   <div class="form-output editor-column">
     <formly-form [fields]="fields" [options]="options" [model]="model" [form]="form" (modelChange)="onChange()"></formly-form>
-    <button mat-flat-button color="primary" (click)="onSubmit()" *ngIf="!isDbForm">Submit</button>
+    <button mat-flat-button color="primary" (click)="onSubmit()" *ngIf="form.touched && !isDbForm">Submit</button>
     <button mat-flat-button color="primary" (click)="onSave()" *ngIf="isDbForm">Save</button>
     <button mat-flat-button (click)="resetForm()" *ngIf="isDbForm">Reset</button>
   </div>

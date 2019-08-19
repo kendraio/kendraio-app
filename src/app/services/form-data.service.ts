@@ -39,7 +39,7 @@ export class FormDataService {
   }
 
   saveData(schemaName, values) {
-    return this.database.putDoc(values)
+    return this.database.putDoc({ '@schema': schemaName, ... values})
       .pipe(tap(({ ok }) => {
         if (ok) {
           const message = 'Database update successful';
