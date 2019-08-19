@@ -185,11 +185,6 @@ export const MENUITEMS: MenuItem[] = [
     icon: 'build'
   },
   {
-    path: '/form-test',
-    label: 'Form test',
-    icon: 'build'
-  },
-  {
     path: '/form-builder',
     label: 'Form builder',
     icon: 'build'

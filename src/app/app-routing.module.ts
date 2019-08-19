@@ -283,6 +283,9 @@ const routes: Routes = [
         }
       },
   {
+    // Deprecated:
+    // This has been removed from the app menu
+    // and will be removed from router in subsequent version
     path: 'form-test',
     component: FormTestPageComponent
   },
