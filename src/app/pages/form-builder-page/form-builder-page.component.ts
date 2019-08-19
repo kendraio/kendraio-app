@@ -38,6 +38,9 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
   _destroy$ = new Subject();
   _schemaChange$ = new Subject();
 
+  isDbForm = false;
+  originalDbValues = {};
+
   @ViewChild('modelOutput', { static: false }) modelOutput: ElementRef;
 
   constructor(
@@ -54,7 +57,9 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
       debounceTime(1000)
     ).subscribe(() => {
       try {
-        this.fields = this.formService.schemasToFieldConfig(JSON.parse(this.JSONSchema), JSON.parse(this.UISchema));
+        const JSONSchema = JSON.parse(this.JSONSchema);
+        this.isDbForm = has(JSONSchema, 'name');
+        this.fields = this.formService.schemasToFieldConfig(JSONSchema, JSON.parse(this.UISchema));
       } catch (e) {
         // TODO: error handling
       }
@@ -134,24 +139,54 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
     });
   }
 
+  onSave() {
+    // Save changes to Form Model to database
+    if (this.isDbForm) {
+      const JSONSchema = JSON.parse(this.JSONSchema);
+      this.saveOriginalDbValues(this.model);
+      this.formData.saveData(get(JSONSchema, 'name'), this.model)
+        .subscribe(({ ok, rev }) => {
+          if (ok) {
+            this.model['_rev'] = rev;
+          }
+        });
+    }
+  }
+
   loadFromAdapter() {
     this.formSelect.selectForm().subscribe(values => {
       if (!!values) {
         this.setSchemaValues(values);
         this.updateEditorModels();
+        this.resetModelData();
       }
     });
+  }
+
+  saveOriginalDbValues(values) {
+    // TODO: Deep copy to save original values?
+    this.originalDbValues = { ...values };
   }
 
   loadFromDatabase() {
     const data = JSON.parse(this.JSONSchema);
     if (data && has(data, 'name')) {
       this.formData.loadData(get(data, 'name')).subscribe(values => {
-        // console.log({ values });
-        this.form.patchValue(values);
+        this.saveOriginalDbValues(values);
+        this.model = values;
+        this.onChange();
       });
     } else {
       this.formData.noSchemaName();
     }
+  }
+
+  resetModelData() {
+    this.model = {};
+    this.onChange();
+  }
+
+  resetForm() {
+    this.form.reset(this.originalDbValues);
   }
 }

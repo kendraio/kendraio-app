@@ -8,6 +8,9 @@
   <button type="button" mat-icon-button (click)="loadFromDatabase()" matTooltip="Load data">
     <mat-icon>folder</mat-icon>
   </button>
+  <button type="button" mat-icon-button (click)="resetModelData()" matTooltip="Reset model data">
+    <mat-icon>settings_backup_restore</mat-icon>
+  </button>
 </div>
 
 <div class="editor-wrapper">
@@ -23,12 +26,16 @@
                        [model]="uiModel"
                        [(ngModel)]="UISchema"
                        (ngModelChange)="jsonSchemaChange()"></ngx-monaco-editor>
-    <span class="editor-title">Model Output</span>
-    <div class="model-output" #modelOutput></div>
+    <div class="model-wrapper">
+      <span class="editor-title">Model Output</span>
+      <div class="model-output" #modelOutput></div>
+    </div>
   </div>
   <div class="form-output editor-column">
     <formly-form [fields]="fields" [options]="options" [model]="model" [form]="form" (modelChange)="onChange()"></formly-form>
-    <button mat-flat-button color="primary" (click)="onSubmit()">Submit</button>
+    <button mat-flat-button color="primary" (click)="onSubmit()" *ngIf="!isDbForm">Submit</button>
+    <button mat-flat-button color="primary" (click)="onSave()" *ngIf="isDbForm">Save</button>
+    <button mat-flat-button (click)="resetForm()" *ngIf="isDbForm">Reset</button>
   </div>
 
 </div>

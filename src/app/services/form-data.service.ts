@@ -3,7 +3,7 @@ import {of} from 'rxjs';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {FormDataSelectDialogComponent} from '../dialogs/form-data-select-dialog/form-data-select-dialog.component';
 import {DocumentRepositoryService} from './document-repository.service';
-import {map, switchMap} from 'rxjs/operators';
+import {map, switchMap, tap} from 'rxjs/operators';
 import {get, has} from 'lodash-es';
 
 @Injectable({
@@ -36,6 +36,19 @@ export class FormDataService {
         );
       })
     );
+  }
+
+  saveData(schemaName, values) {
+    return this.database.putDoc(values)
+      .pipe(tap(({ ok }) => {
+        if (ok) {
+          const message = 'Database update successful';
+          this.notify.open(message, 'OK', {
+            duration: 4000,
+            verticalPosition: 'top'
+          });
+        }
+      }));
   }
 
   noSchemaName() {
