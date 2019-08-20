@@ -55,6 +55,7 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
   initEditor() {
   }
 
+  // TODO: Debounce model changes, and switchMap HTTP requests
   onQueryModelChange() {
     this.hasError = false;
     try {
