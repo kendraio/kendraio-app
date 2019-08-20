@@ -5,6 +5,8 @@ import {FormDataSelectDialogComponent} from '../dialogs/form-data-select-dialog/
 import {DocumentRepositoryService} from './document-repository.service';
 import {map, switchMap, tap} from 'rxjs/operators';
 import {get, has} from 'lodash-es';
+import {ApiDataSelectDialogComponent} from '../dialogs/api-data-select-dialog/api-data-select-dialog.component';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +16,22 @@ export class FormDataService {
   constructor(
     private readonly dialog: MatDialog,
     private readonly notify: MatSnackBar,
-    private readonly database: DocumentRepositoryService
+    private readonly database: DocumentRepositoryService,
+    private readonly http: HttpClient
   ) { }
+
+  loadDataFromAPI() {
+    const dialogRef = this.dialog.open(ApiDataSelectDialogComponent);
+    return dialogRef.afterClosed().pipe(
+      map(data => {
+        if (!!data) {
+          const { endpoint, values } = data;
+          return { status: true, endpoint, values };
+        }
+        return { status: false, endpoint: '', values: {}};
+      })
+    );
+  }
 
   loadData(schemaName) {
     return this.database.listAllOfType(schemaName).pipe(
@@ -49,6 +65,20 @@ export class FormDataService {
           });
         }
       }));
+  }
+
+  saveAPIData(endpoint, data) {
+    return this.http.put(`${endpoint}/${data['id']}`, data).pipe(
+      tap((ok) => {
+        if (ok) {
+          const message = 'API update successful';
+          this.notify.open(message, 'OK', {
+            duration: 4000,
+            verticalPosition: 'top'
+          });
+        }
+      })
+    );
   }
 
   noSchemaName() {

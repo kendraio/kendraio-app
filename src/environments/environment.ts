@@ -5,6 +5,7 @@
 export const environment = {
   urlPrefix: 'http://localhost:4200/',
   production: false,
+  adapterBaseUrl: 'https://kendraio.github.io/kendraio-adapter/',
   adapterConfig: 'https://kendraio.github.io/kendraio-adapter/config.json',
   auth0: {
     clientID: 'BpSIsaDagBnDpAZyfJOVoAqG1r041Nj7',

@@ -119,6 +119,8 @@ import { FormBuilderPageComponent } from './pages/form-builder-page/form-builder
 import { FormSelectDialogComponent } from './dialogs/form-select-dialog/form-select-dialog.component';
 import { FormDataSelectDialogComponent } from './dialogs/form-data-select-dialog/form-data-select-dialog.component';
 import { FormlyRemoteImageInputComponent } from './form-controls/formly-remote-image-input/formly-remote-image-input.component';
+import { SwaggerFormSelectDialogComponent } from './dialogs/swagger-form-select-dialog/swagger-form-select-dialog.component';
+import { ApiDataSelectDialogComponent } from './dialogs/api-data-select-dialog/api-data-select-dialog.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -190,7 +192,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormBuilderPageComponent,
     FormSelectDialogComponent,
     FormDataSelectDialogComponent,
-    FormlyRemoteImageInputComponent
+    FormlyRemoteImageInputComponent,
+    SwaggerFormSelectDialogComponent,
+    ApiDataSelectDialogComponent
     // BreadcrumbComponent
     // ReportsComponent,
     // ContactsComponent
@@ -251,7 +255,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     DynamicDebugControlComponent,
     ShowShareLinkDialogComponent,
     FormSelectDialogComponent,
-    FormDataSelectDialogComponent
+    FormDataSelectDialogComponent,
+    SwaggerFormSelectDialogComponent,
+    ApiDataSelectDialogComponent
   ],
   providers: [
     // { provide: LOCALE_ID, useValue: 'de-DE' } ,

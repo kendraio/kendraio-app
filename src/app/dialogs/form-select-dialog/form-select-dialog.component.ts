@@ -1,6 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {AdaptersService} from '../../services/adapters.service';
 import { MatDialogRef} from '@angular/material';
+import {has, omitBy, pickBy} from 'lodash-es';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-form-select-dialog',
@@ -19,7 +21,10 @@ export class FormSelectDialogComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.adapters$ = this.adapters.adapters$;
+    this.adapters$ = this.adapters.adapters$
+      .pipe(map((adapters) => {
+        return pickBy(adapters, config => has(config, 'adapter.forms'));
+      }));
   }
 
   loadForm() {

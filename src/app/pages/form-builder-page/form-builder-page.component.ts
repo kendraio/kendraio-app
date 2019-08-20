@@ -7,8 +7,8 @@ import {ShareLinkGeneratorService} from '../../services/share-link-generator.ser
 import {Subject} from 'rxjs';
 import {debounceTime, takeUntil} from 'rxjs/operators';
 import JSONFormatter from 'json-formatter-js';
-import { JSON_SCHEMA } from './jsonschema';
-import { NgxEditorModel } from 'ngx-monaco-editor';
+import {JSON_SCHEMA} from './jsonschema';
+import {NgxEditorModel} from 'ngx-monaco-editor';
 import {UI_SCHEMA} from './uischema';
 import {EDITOR_OPTIONS} from './editor-options';
 import {AdapterFormSelectService} from '../../services/adapter-form-select.service';
@@ -46,7 +46,10 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
   hasError = false;
   errorMessage = '';
 
-  @ViewChild('modelOutput', { static: false }) modelOutput: ElementRef;
+  isAPIData = false;
+  endpoint = '';
+
+  @ViewChild('modelOutput', {static: false}) modelOutput: ElementRef;
 
   constructor(
     private formService: KendraioFormService,
@@ -54,7 +57,8 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
     private shareLinks: ShareLinkGeneratorService,
     private formSelect: AdapterFormSelectService,
     private formData: FormDataService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this._schemaChange$.pipe(
@@ -66,7 +70,7 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
         const JSONSchema = JSON.parse(this.JSONSchema);
         this.isDbForm = has(JSONSchema, 'name');
         this.fields = this.formService.schemasToFieldConfig(JSONSchema, JSON.parse(this.UISchema));
-      } catch ({ message }) {
+      } catch ({message}) {
         this.hasError = true;
         this.errorMessage = message;
         this.fields = [];
@@ -81,7 +85,7 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
     this.jsonSchemaChange();
   }
 
-  setSchemaValues({ JSONSchema, UISchema }) {
+  setSchemaValues({JSONSchema, UISchema}) {
     this.JSONSchema = JSON.stringify(JSONSchema, null, 4);
     this.UISchema = JSON.stringify(UISchema, null, 4);
   }
@@ -126,12 +130,12 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
   shareForm() {
     const JSONSchema = JSON.parse(this.JSONSchema);
     const UISchema = JSON.parse(this.UISchema);
-    this.shareLinks.shareLink('form-builder', { JSONSchema, UISchema });
+    this.shareLinks.shareLink('form-builder', {JSONSchema, UISchema});
   }
 
   onChange() {
     // Replace #modelOutput DIV contents with formatted JSON
-    const formatter = new JSONFormatter(this.model, Infinity, { theme: 'dark' });
+    const formatter = new JSONFormatter(this.model, Infinity, {theme: 'dark'});
     while (this.modelOutput.nativeElement.firstChild) {
       this.modelOutput.nativeElement.removeChild(this.modelOutput.nativeElement.firstChild);
     }
@@ -153,7 +157,7 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
       const JSONSchema = JSON.parse(this.JSONSchema);
       this.saveOriginalDbValues(this.model);
       this.formData.saveData(get(JSONSchema, 'name'), this.model)
-        .subscribe(({ ok, id, rev }) => {
+        .subscribe(({ok, id, rev}) => {
           // TODO: This logic is specific to DB and should not be here
           if (ok) {
             this.model['_rev'] = rev;
@@ -174,9 +178,19 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
     });
   }
 
+  loadFromSwagger() {
+    this.formSelect.selectSwagger().subscribe(values => {
+      if (!!values) {
+        this.setSchemaValues(values);
+        this.updateEditorModels();
+        this.resetModelData();
+      }
+    });
+  }
+
   saveOriginalDbValues(values) {
     // TODO: Deep copy to save original values?
-    this.originalDbValues = { ...values };
+    this.originalDbValues = {...values};
   }
 
   loadFromDatabase() {
@@ -184,6 +198,7 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
     if (data && has(data, 'name')) {
       this.formData.loadData(get(data, 'name')).subscribe(values => {
         if (!!values) {
+          this.isAPIData = false;
           this.saveOriginalDbValues(values);
           this.model = values;
           this.onChange();
@@ -206,4 +221,25 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
   toggleFormConfig() {
     this.showFormConfig = !this.showFormConfig;
   }
+
+  loadDataFromAPI() {
+    this.formData.loadDataFromAPI().subscribe(({ status, endpoint, values}) => {
+      if (!!status) {
+        // console.log({ values });
+        this.saveOriginalDbValues(values);
+        this.model = values;
+        this.onChange();
+        this.isAPIData = true;
+        this.endpoint = endpoint;
+      }
+    });
+  }
+
+  onSaveAPI() {
+    if (this.isAPIData) {
+      this.formData.saveAPIData(this.endpoint, this.model)
+        .subscribe(console.log);
+    }
+  }
 }
+

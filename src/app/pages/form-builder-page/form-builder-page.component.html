@@ -5,11 +5,17 @@
   <button type="button" mat-icon-button (click)="shareForm()" matTooltip="Share Form">
     <mat-icon>share</mat-icon>
   </button>
+  <button type="button" mat-icon-button (click)="loadFromSwagger()" matTooltip="Load Form from Swagger">
+    <mat-icon>cloud_download</mat-icon>
+  </button>
   <button type="button" mat-icon-button (click)="loadFromAdapter()" matTooltip="Load Form from Adapter">
     <mat-icon>open_in_browser</mat-icon>
   </button>
   <button type="button" mat-icon-button (click)="loadFromDatabase()" matTooltip="Load data">
     <mat-icon>folder</mat-icon>
+  </button>
+  <button type="button" mat-icon-button (click)="loadDataFromAPI()" matTooltip="Load data from API">
+    <mat-icon>mood</mat-icon>
   </button>
   <button type="button" mat-icon-button (click)="resetModelData()" matTooltip="Reset model data">
     <mat-icon>settings_backup_restore</mat-icon>
@@ -39,9 +45,12 @@
       {{ errorMessage }}
     </mat-error>
     <formly-form [fields]="fields" [options]="options" [model]="model" [form]="form" (modelChange)="onChange()"></formly-form>
-    <button mat-flat-button color="primary" (click)="onSubmit()" *ngIf="form.touched && !isDbForm">Submit</button>
-    <button mat-flat-button color="primary" (click)="onSave()" *ngIf="isDbForm">Save</button>
-    <button mat-flat-button (click)="resetForm()" *ngIf="isDbForm">Reset</button>
+    <div class="form-actions">
+      <button mat-flat-button color="primary" (click)="onSubmit()" *ngIf="!isDbForm && !isAPIData">Submit</button>
+      <button mat-flat-button color="primary" (click)="onSaveAPI()" *ngIf="isAPIData">Save (API)</button>
+      <button mat-flat-button color="primary" (click)="onSave()" *ngIf="isDbForm">Save (DB)</button>
+      <button mat-flat-button (click)="resetForm()" *ngIf="isDbForm">Reset</button>
+    </div>
   </div>
 
 </div>
