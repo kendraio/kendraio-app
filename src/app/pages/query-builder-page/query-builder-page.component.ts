@@ -102,7 +102,7 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
     }
   }
 
-  toggleFormConfig() {
+  toggleQueryConfig() {
     this.showFormConfig = !this.showFormConfig;
   }
 
