@@ -121,6 +121,9 @@ import { FormDataSelectDialogComponent } from './dialogs/form-data-select-dialog
 import { FormlyRemoteImageInputComponent } from './form-controls/formly-remote-image-input/formly-remote-image-input.component';
 import { SwaggerFormSelectDialogComponent } from './dialogs/swagger-form-select-dialog/swagger-form-select-dialog.component';
 import { ApiDataSelectDialogComponent } from './dialogs/api-data-select-dialog/api-data-select-dialog.component';
+import { QueryBuilderPageComponent } from './pages/query-builder-page/query-builder-page.component';
+import {AgGridModule} from 'ag-grid-angular';
+import { AdapterQuerySelectDialogComponent } from './dialogs/adapter-query-select-dialog/adapter-query-select-dialog.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -194,7 +197,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormDataSelectDialogComponent,
     FormlyRemoteImageInputComponent,
     SwaggerFormSelectDialogComponent,
-    ApiDataSelectDialogComponent
+    ApiDataSelectDialogComponent,
+    QueryBuilderPageComponent,
+    AdapterQuerySelectDialogComponent
     // BreadcrumbComponent
     // ReportsComponent,
     // ContactsComponent
@@ -237,7 +242,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MessagesModule,
     TextMaskModule,
     MatAutocompleteModule,
-    MonacoEditorModule.forRoot()
+    MonacoEditorModule.forRoot(),
+    AgGridModule.withComponents([])
   ],
   entryComponents: [
     AddDocDialogComponent,
@@ -257,7 +263,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormSelectDialogComponent,
     FormDataSelectDialogComponent,
     SwaggerFormSelectDialogComponent,
-    ApiDataSelectDialogComponent
+    ApiDataSelectDialogComponent,
+    AdapterQuerySelectDialogComponent
   ],
   providers: [
     // { provide: LOCALE_ID, useValue: 'de-DE' } ,

@@ -182,12 +182,19 @@ export const MENUITEMS: MenuItem[] = [
   {
     path: '/tools',
     label: 'Tools',
-    icon: 'build'
-  },
-  {
-    path: '/form-builder',
-    label: 'Form builder',
-    icon: 'build'
+    icon: 'build',
+    children: [
+      {
+        path: '/form-builder',
+        label: 'Form builder',
+        icon: 'build'
+      },
+      {
+        path: '/query-builder',
+        label: 'Query builder',
+        icon: 'build'
+      }
+    ]
   }
 ];
 
