@@ -10,8 +10,8 @@ import {MatDialogRef} from '@angular/material';
 export class ApiDataSelectDialogComponent implements OnInit {
 
   APIs = [
-    'http://localhost:3000/soundRecording',
-    'http://localhost:3000/musicalWork',
+    'https://fake-api.now32.now.sh/soundRecording',
+    'https://fake-api.now32.now.sh/musicalWork',
   ];
 
   dataList = [];

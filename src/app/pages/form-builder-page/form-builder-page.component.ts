@@ -238,7 +238,10 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
   onSaveAPI() {
     if (this.isAPIData) {
       this.formData.saveAPIData(this.endpoint, this.model)
-        .subscribe(console.log);
+        .subscribe((result) => {
+          // TODO: Data update success
+          // console.log({ result });
+        });
     }
   }
 }
