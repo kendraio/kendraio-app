@@ -36,6 +36,9 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
   columnDefs = [];
   outputMapping = '';
 
+  outputType = 'grid';
+  outputConfig;
+
   _rowData = new BehaviorSubject<Array<any>>([]);
   rowData = this._rowData.pipe(
     map(values => {
@@ -49,7 +52,7 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
           console.log('JMESPath Error', e.message);
         }
       }
-      this.showMappingResult = false;
+      setTimeout(() => this.showMappingResult = false, 0);
       return values;
     })
   );
@@ -98,7 +101,9 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
     try {
       // Parse and validate model
       const query = JSON.parse(this.queryModelText);
-      this.columnDefs = this.preprocessColumnDefinition(get(query, 'columnDefs', []));
+      this.outputConfig = get(query, 'output');
+      this.outputType = get(query, 'output.type', 'grid');
+      this.columnDefs = this.preprocessColumnDefinition(get(query, 'output.columnDefs', []));
       this.outputMapping = get(query, 'mapping', '');
       const { type, ...dataSource } = get(query, 'dataSource', { type: false });
       this.title = get(query, 'title', '');
@@ -162,7 +167,7 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
   }
 
   updateMappingResult(mappingResult) {
-    if (this.showMappingResult) {
+    if (!!this.mappingOutput && this.showMappingResult) {
       const formatter = new JSONFormatter(mappingResult, 0, {theme: 'dark'});
       while (this.mappingOutput.nativeElement.firstChild) {
         this.mappingOutput.nativeElement.removeChild(this.mappingOutput.nativeElement.firstChild);

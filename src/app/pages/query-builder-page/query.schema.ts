@@ -29,18 +29,24 @@ export const QUERY_SCHEMA = {
     mapping: {
       type: 'string'
     },
-    columnDefs: {
-      type: 'array',
-      items: {
-        type: 'object',
-        properties: {
-          headerName: { type: 'string' },
-          field: { type: 'string' },
-          sortable: { type: 'boolean' },
-          filter: {  type: 'boolean' },
-          pinned: { type: 'string', enum: ['left', 'right'] },
-          valueGetter: { type: 'string' },
-          resizable: { type: 'boolean' }
+    output: {
+      type: 'object',
+      properties: {
+        type: {type: 'string', enum: ['grid', 'chart']},
+        columnDefs: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              headerName: {type: 'string'},
+              field: {type: 'string'},
+              sortable: {type: 'boolean'},
+              filter: {type: 'boolean'},
+              pinned: {type: 'string', enum: ['left', 'right']},
+              valueGetter: {type: 'string'},
+              resizable: {type: 'boolean'}
+            }
+          }
         }
       }
     }

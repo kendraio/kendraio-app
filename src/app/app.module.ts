@@ -124,6 +124,7 @@ import { ApiDataSelectDialogComponent } from './dialogs/api-data-select-dialog/a
 import { QueryBuilderPageComponent } from './pages/query-builder-page/query-builder-page.component';
 import {AgGridModule} from 'ag-grid-angular';
 import { AdapterQuerySelectDialogComponent } from './dialogs/adapter-query-select-dialog/adapter-query-select-dialog.component';
+import { DataChartOutputComponent } from './components/data-chart-output/data-chart-output.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -199,7 +200,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     SwaggerFormSelectDialogComponent,
     ApiDataSelectDialogComponent,
     QueryBuilderPageComponent,
-    AdapterQuerySelectDialogComponent
+    AdapterQuerySelectDialogComponent,
+    DataChartOutputComponent
     // BreadcrumbComponent
     // ReportsComponent,
     // ContactsComponent
