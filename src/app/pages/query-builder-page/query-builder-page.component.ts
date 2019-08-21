@@ -10,6 +10,7 @@ import {ShareLinkGeneratorService} from '../../services/share-link-generator.ser
 import { search } from 'jmespath';
 import {DocumentRepositoryService} from '../../services/document-repository.service';
 import {QUERY_SCHEMA} from './query.schema';
+import {map, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-query-builder-page',
@@ -31,8 +32,21 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
   @ViewChild('modelOutput', {static: false}) modelOutput: ElementRef;
 
   columnDefs = [];
+  outputMapping = '';
 
-  rowData = new BehaviorSubject<Array<any>>([]);
+  _rowData = new BehaviorSubject<Array<any>>([]);
+  rowData = this._rowData.pipe(
+    map(values => {
+      if (!!this.outputMapping && this.outputMapping.length > 0) {
+        try {
+          return search(values, this.outputMapping);
+        } catch (e) {
+          console.log('JMESPath Error', e.message);
+        }
+      }
+      return values;
+    })
+  );
 
   hasError = false;
   errorMessage = '';
@@ -79,6 +93,7 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
       // Parse and validate model
       const query = JSON.parse(this.queryModelText);
       this.columnDefs = this.preprocessColumnDefinition(get(query, 'columnDefs', []));
+      this.outputMapping = get(query, 'mapping', '');
       const { type, ...dataSource } = get(query, 'dataSource', { type: false });
       this.title = get(query, 'title', '');
       this.description = get(query, 'description', '');
@@ -90,7 +105,7 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
             // console.log({ values });
             this.output = values;
             this.updateOutputDisplay();
-            this.rowData.next(values || []);
+            this._rowData.next(values || []);
           });
           break;
         case 'remote':
@@ -98,13 +113,13 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
           this.http.get<Array<any>>(endpoint).subscribe(values => {
             this.output = values;
             this.updateOutputDisplay();
-            this.rowData.next(values);
+            this._rowData.next(values);
           });
           break;
         default:
           this.hasError = true;
           this.errorMessage = 'Unknown data source type';
-          this.rowData.next([]);
+          this._rowData.next([]);
       }
 
       // Update display

@@ -26,6 +26,9 @@ export const QUERY_SCHEMA = {
         }
       }
     },
+    mapping: {
+      type: 'string'
+    },
     columnDefs: {
       type: 'array',
       items: {
