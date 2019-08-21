@@ -8,6 +8,9 @@
   <button type="button" mat-icon-button (click)="loadQueryFromAdapter()" matTooltip="Load Query from Adapter">
     <mat-icon>open_in_browser</mat-icon>
   </button>
+  <button type="button" mat-icon-button (click)="runQuery()" matTooltip="Run Query">
+    <mat-icon>directions_run</mat-icon>
+  </button>
 </div>
 
 <div class="editor-wrapper">
@@ -15,7 +18,7 @@
   <div class="editor-column" [hidden]="!showFormConfig">
     <span class="editor-title">Query Schema</span>
     <ngx-monaco-editor class="json-code-editor" [options]="editorOptions"
-                       [(ngModel)]="queryModelText" (ngModelChange)="onQueryModelChange()"
+                       [(ngModel)]="queryModelText"
                        (onInit)="initEditor()"></ngx-monaco-editor>
     <ng-container *ngIf="hasError">
       <br>

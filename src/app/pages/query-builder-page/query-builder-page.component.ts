@@ -1,12 +1,14 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { EDITOR_OPTIONS } from './editor-options';
 import JSONFormatter from 'json-formatter-js';
-import {get} from 'lodash-es';
+import {get, has} from 'lodash-es';
 import {BehaviorSubject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material';
 import {AdapterQuerySelectDialogComponent} from '../../dialogs/adapter-query-select-dialog/adapter-query-select-dialog.component';
 import {ShareLinkGeneratorService} from '../../services/share-link-generator.service';
+import { search } from 'jmespath';
+import {delay} from 'rxjs/operators';
 
 @Component({
   selector: 'app-query-builder-page',
@@ -45,7 +47,7 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
       const { Q } = urlData;
       this.queryModelText = JSON.stringify(Q, null, 4);
     }
-    this.onQueryModelChange();
+    this.runQuery();
   }
 
   ngAfterViewInit() {
@@ -55,13 +57,12 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
   initEditor() {
   }
 
-  // TODO: Debounce model changes, and switchMap HTTP requests
-  onQueryModelChange() {
+  runQuery() {
     this.hasError = false;
     try {
       // Parse and validate model
       const query = JSON.parse(this.queryModelText);
-      this.columnDefs = get(query, 'columnDefs', []);
+      this.columnDefs = this.preprocessColumnDefinition(get(query, 'columnDefs', []));
       const { type, ...dataSource } = get(query, 'dataSource', { type: false });
       this.title = get(query, 'title', '');
       this.description = get(query, 'description', '');
@@ -92,6 +93,20 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
     }
   }
 
+  preprocessColumnDefinition(def: Array<any>) {
+    return def.map(item => ({
+      ...item,
+      ...has(item, 'valueGetter') ? { valueGetter: ({ data }) => {
+        // console.log({ data, item });
+        try {
+          return search(data, item['valueGetter']);
+        } catch (e) {
+          return e.message;
+        }
+      }} : {}
+    }));
+  }
+
   updateOutputDisplay() {
     if (!!this.modelOutput) {
       // Replace #modelOutput DIV contents with formatted JSON
@@ -112,6 +127,7 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(data => {
       if (!!data) {
         this.queryModelText = JSON.stringify(data, null, 4);
+        this.runQuery();
       }
     });
   }
