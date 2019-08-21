@@ -18,6 +18,7 @@
   <div class="editor-column" [hidden]="!showFormConfig">
     <span class="editor-title">Query Schema</span>
     <ngx-monaco-editor class="json-code-editor" [options]="editorOptions"
+                       [model]="queryModel"
                        [(ngModel)]="queryModelText"
                        (onInit)="initEditor()"></ngx-monaco-editor>
     <ng-container *ngIf="hasError">

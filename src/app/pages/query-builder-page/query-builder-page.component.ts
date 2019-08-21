@@ -8,7 +8,8 @@ import {MatDialog} from '@angular/material';
 import {AdapterQuerySelectDialogComponent} from '../../dialogs/adapter-query-select-dialog/adapter-query-select-dialog.component';
 import {ShareLinkGeneratorService} from '../../services/share-link-generator.service';
 import { search } from 'jmespath';
-import {delay} from 'rxjs/operators';
+import {DocumentRepositoryService} from '../../services/document-repository.service';
+import {QUERY_SCHEMA} from './query.schema';
 
 @Component({
   selector: 'app-query-builder-page',
@@ -24,6 +25,7 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
   editorOptions = EDITOR_OPTIONS;
 
   queryModelText = JSON.stringify({}, null, 4);
+  queryModel;
 
   output;
   @ViewChild('modelOutput', {static: false}) modelOutput: ElementRef;
@@ -38,7 +40,8 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
   constructor(
     private readonly http: HttpClient,
     private shareLinks: ShareLinkGeneratorService,
-    private readonly dialog: MatDialog
+    private readonly dialog: MatDialog,
+    private readonly docRepo: DocumentRepositoryService
   ) { }
 
   ngOnInit() {
@@ -46,6 +49,11 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
     if (urlData) {
       const { Q } = urlData;
       this.queryModelText = JSON.stringify(Q, null, 4);
+      this.queryModel = {
+        value: this.queryModelText,
+        language: 'json',
+        uri: 'a:queryModel.json'
+      };
     }
     this.runQuery();
   }
@@ -55,6 +63,14 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
   }
 
   initEditor() {
+    monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
+      validate: true,
+      schemas: [{
+        fileMatch: ['a:queryModel.json'],
+        uri: 'https://app.kendra.io/v0/query-schema',
+        schema: QUERY_SCHEMA
+      }]
+    });
   }
 
   runQuery() {
@@ -69,7 +85,13 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
       // Run query
       switch (type) {
         case 'local':
-          this.rowData.next([]);
+          const { schema } = dataSource;
+          this.docRepo.listAllOfType(schema).subscribe(values => {
+            // console.log({ values });
+            this.output = values;
+            this.updateOutputDisplay();
+            this.rowData.next(values || []);
+          });
           break;
         case 'remote':
           const { endpoint } = dataSource;
@@ -127,6 +149,11 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(data => {
       if (!!data) {
         this.queryModelText = JSON.stringify(data, null, 4);
+        this.queryModel = {
+          value: this.queryModelText,
+          language: 'json',
+          uri: 'a:queryModel.json'
+        };
         this.runQuery();
       }
     });

@@ -19,6 +19,10 @@ export const QUERY_SCHEMA = {
         },
         endpoint: {
           type: 'string'
+        },
+        schema: {
+          description: 'Name of schema (used for local DB queries)',
+          type: 'string'
         }
       }
     },
