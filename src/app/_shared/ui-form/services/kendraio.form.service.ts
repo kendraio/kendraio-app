@@ -14,6 +14,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { get, set, has, findIndex } from 'lodash-es';
 import { AdaptersService } from '../../../services/adapters.service';
 import { IfStmt } from '@angular/compiler';
+import { ConfigOption } from '@ngx-formly/core';
 
 const ADAPTER_PREFIX = 'https://kendraio.github.io/kendraio-adapter/';
 
@@ -25,7 +26,8 @@ export class KendraioFormService {
   constructor(
     private http: HttpClient,
     private formlyJsonschema: FormlyJsonschema,
-    private adapters: AdaptersService
+    private adapters: AdaptersService,
+    // private config: ConfigOption
   ) { }
 
   getFormData(groupId, formId): Observable<any> {
@@ -124,6 +126,7 @@ export class KendraioFormService {
   }
 
   uiMapper(formlyConfig, jsonSchema, uiSchema) {
+  //  let test =  this.config;
     let val;
     const SELECT_CONFIG: Array<any> = [];
     // console.log(jsonSchema);
@@ -137,6 +140,8 @@ export class KendraioFormService {
               formlyConfig['fieldGroup'][i]['templateOptions']['disabled'] = uiSchema[key]['ui:disabled'];
               formlyConfig['fieldGroup'][i]['templateOptions']['placeholder'] = uiSchema[key]['ui:placeholder'];
               formlyConfig['fieldGroup'][i]['templateOptions']['required'] = uiSchema[key]['ui:required'];
+              formlyConfig['fieldGroup'][i]['templateOptions']['errMessage'] =  get(uiSchema, `${key}.ui:errMessage`, 'Error!!!');
+              formlyConfig['fieldGroup'][i]['templateOptions']['addTag'] =  get(uiSchema, `${key}.ui:addTag`, false);
 
               // formlyConfig.fieldGroup[i].templateOptions.options = this.getHttpRefData(uiSchema[key]['ui:refdataId']);
 
@@ -144,6 +149,8 @@ export class KendraioFormService {
                 formlyConfig['fieldGroup'][i]['templateOptions']['labelProp'] = get(uiSchema, `${key}.ui:labelProp`, 'label');
                 formlyConfig['fieldGroup'][i]['templateOptions']['valueProp'] = get(uiSchema, `${key}.ui:valueProp`, 'value');
                 formlyConfig['fieldGroup'][i]['templateOptions']['isMultiSelect'] = get(uiSchema, `${key}.ui:isMultiSelect`, false);
+
+              // const vm =  formlyConfig['fieldGroup'][i]['validators'];
 
                 const ref = get(uiSchema, `${key}.ui:ref`, '');
                 const refType = get(uiSchema, `${key}.ui:refType`, 'json');

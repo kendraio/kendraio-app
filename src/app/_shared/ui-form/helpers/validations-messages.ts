@@ -1,3 +1,5 @@
+import { FormlyFieldConfig } from '@ngx-formly/core';
+
 // all FE error msgs live here, at some point we'll integate ngx-translate
 
 
@@ -9,7 +11,7 @@ export function minlengthValidationMessage(err, field) {
     return `This value should be less than ${field.templateOptions.maxLength} characters`;
   }
 
-  export function patternMatchMessage(err, field) {
+  export function patternMatchMessage(err, field: FormlyFieldConfig) {
     return `This value needs to match the following pattern  ${field.templateOptions.pattern}`;
   }
 
