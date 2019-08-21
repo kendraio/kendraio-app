@@ -30,6 +30,8 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
 
   output;
   @ViewChild('modelOutput', {static: false}) modelOutput: ElementRef;
+  showMappingResult = false;
+  @ViewChild('mappingOutput', { static: false }) mappingOutput: ElementRef;
 
   columnDefs = [];
   outputMapping = '';
@@ -39,11 +41,15 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
     map(values => {
       if (!!this.outputMapping && this.outputMapping.length > 0) {
         try {
-          return search(values, this.outputMapping);
+          const mappingResult = search(values, this.outputMapping);
+          this.updateMappingResult(mappingResult);
+          setTimeout(() => this.showMappingResult = true, 0);
+          return mappingResult;
         } catch (e) {
           console.log('JMESPath Error', e.message);
         }
       }
+      this.showMappingResult = false;
       return values;
     })
   );
@@ -152,6 +158,16 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
         this.modelOutput.nativeElement.removeChild(this.modelOutput.nativeElement.firstChild);
       }
       this.modelOutput.nativeElement.append(formatter.render());
+    }
+  }
+
+  updateMappingResult(mappingResult) {
+    if (this.showMappingResult) {
+      const formatter = new JSONFormatter(mappingResult, 0, {theme: 'dark'});
+      while (this.mappingOutput.nativeElement.firstChild) {
+        this.mappingOutput.nativeElement.removeChild(this.mappingOutput.nativeElement.firstChild);
+      }
+      this.mappingOutput.nativeElement.append(formatter.render());
     }
   }
 

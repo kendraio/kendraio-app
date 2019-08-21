@@ -29,8 +29,13 @@
     </ng-container>
 
     <br>
-    <span class="editor-title">Output</span>
+    <span class="editor-title">Result output</span>
     <div class="model-output" #modelOutput></div>
+    <ng-container *ngIf="showMappingResult">
+      <br>
+      <span class="editor-title">Mapping output</span>
+      <div class="mapping-output" #mappingOutput></div>
+    </ng-container>
   </div>
   <div class="editor-column">
     <div class="mat-typography">
