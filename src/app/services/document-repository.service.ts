@@ -6,7 +6,7 @@ PouchDB.plugin(Find);
 import { v4 as UUIDv4 } from 'uuid';
 import { SchemaRepositoryService } from './schema-repository.service';
 import {map, switchMap} from 'rxjs/operators';
-import { at, omit } from 'lodash-es';
+import {at, get, has, omit} from 'lodash-es';
 
 declare const emit;
 
@@ -62,8 +62,7 @@ export class DocumentRepositoryService {
   }
 
   addNew(schemaName: string, initialValues = {}): Observable<PouchDB.Core.Response> {
-    const _id = `${schemaName}:${UUIDv4()}`;
-    return this.putDoc({ _id, '@schema': schemaName, ...initialValues });
+    return this.putDoc({ '@schema': schemaName, ...initialValues });
   }
 
   // When fetching document, also fetch attachments and add to doc as per schema
@@ -85,6 +84,7 @@ export class DocumentRepositoryService {
   putDoc(doc) {
     const { labelField, attachments } = this.schemaRepo.getSchema(doc['@schema']);
     return from(this.db.put({
+      _id: get(doc, '_id', `${doc['@schema']}:${UUIDv4()}`),
       ...omit(doc, attachments),
       '@label': doc[labelField]
     }).then((r) => {

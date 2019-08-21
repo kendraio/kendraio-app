@@ -117,6 +117,14 @@ import { FormlyAudioInputComponent } from './form-controls/formly-audio-input/fo
 import {MonacoEditorModule} from 'ngx-monaco-editor';
 import { FormBuilderPageComponent } from './pages/form-builder-page/form-builder-page.component';
 import { FormSelectDialogComponent } from './dialogs/form-select-dialog/form-select-dialog.component';
+import { FormDataSelectDialogComponent } from './dialogs/form-data-select-dialog/form-data-select-dialog.component';
+import { FormlyRemoteImageInputComponent } from './form-controls/formly-remote-image-input/formly-remote-image-input.component';
+import { SwaggerFormSelectDialogComponent } from './dialogs/swagger-form-select-dialog/swagger-form-select-dialog.component';
+import { ApiDataSelectDialogComponent } from './dialogs/api-data-select-dialog/api-data-select-dialog.component';
+import { QueryBuilderPageComponent } from './pages/query-builder-page/query-builder-page.component';
+import {AgGridModule} from 'ag-grid-angular';
+import { AdapterQuerySelectDialogComponent } from './dialogs/adapter-query-select-dialog/adapter-query-select-dialog.component';
+import { DataChartOutputComponent } from './components/data-chart-output/data-chart-output.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -186,7 +194,14 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormlyImageInputComponent,
     FormlyAudioInputComponent,
     FormBuilderPageComponent,
-    FormSelectDialogComponent
+    FormSelectDialogComponent,
+    FormDataSelectDialogComponent,
+    FormlyRemoteImageInputComponent,
+    SwaggerFormSelectDialogComponent,
+    ApiDataSelectDialogComponent,
+    QueryBuilderPageComponent,
+    AdapterQuerySelectDialogComponent,
+    DataChartOutputComponent
     // BreadcrumbComponent
     // ReportsComponent,
     // ContactsComponent
@@ -229,7 +244,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MessagesModule,
     TextMaskModule,
     MatAutocompleteModule,
-    MonacoEditorModule.forRoot()
+    MonacoEditorModule.forRoot(),
+    AgGridModule.withComponents([])
   ],
   entryComponents: [
     AddDocDialogComponent,
@@ -246,7 +262,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     DynamicRemoteImageControlComponent,
     DynamicDebugControlComponent,
     ShowShareLinkDialogComponent,
-    FormSelectDialogComponent
+    FormSelectDialogComponent,
+    FormDataSelectDialogComponent,
+    SwaggerFormSelectDialogComponent,
+    ApiDataSelectDialogComponent,
+    AdapterQuerySelectDialogComponent
   ],
   providers: [
     // { provide: LOCALE_ID, useValue: 'de-DE' } ,

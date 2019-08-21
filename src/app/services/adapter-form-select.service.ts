@@ -5,6 +5,7 @@ import {map, switchMap} from 'rxjs/operators';
 import {has} from 'lodash-es';
 import {Observable, of} from 'rxjs';
 import {KendraioFormService} from '../_shared/ui-form/services/kendraio.form.service';
+import {SwaggerFormSelectDialogComponent} from '../dialogs/swagger-form-select-dialog/swagger-form-select-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,18 @@ export class AdapterFormSelectService {
               map(([ UISchema, JSONSchema ]) => ({ UISchema, JSONSchema }))
             );
           }
+        }
+        return of(false);
+      })
+    );
+  }
+
+  selectSwagger(): Observable<any> {
+    const dialogRef = this.dialog.open(SwaggerFormSelectDialogComponent);
+    return dialogRef.afterClosed().pipe(
+      switchMap(data => {
+        if (!!data) {
+          return of({ UISchema: {}, JSONSchema: data });
         }
         return of(false);
       })

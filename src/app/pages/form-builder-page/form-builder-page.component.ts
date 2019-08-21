@@ -7,11 +7,13 @@ import {ShareLinkGeneratorService} from '../../services/share-link-generator.ser
 import {Subject} from 'rxjs';
 import {debounceTime, takeUntil} from 'rxjs/operators';
 import JSONFormatter from 'json-formatter-js';
-import { JSON_SCHEMA } from './jsonschema';
-import { NgxEditorModel } from 'ngx-monaco-editor';
+import {JSON_SCHEMA} from './jsonschema';
+import {NgxEditorModel} from 'ngx-monaco-editor';
 import {UI_SCHEMA} from './uischema';
 import {EDITOR_OPTIONS} from './editor-options';
 import {AdapterFormSelectService} from '../../services/adapter-form-select.service';
+import {FormDataService} from '../../services/form-data.service';
+import {get, has} from 'lodash-es';
 
 @Component({
   selector: 'app-form-builder-page',
@@ -36,24 +38,42 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
   _destroy$ = new Subject();
   _schemaChange$ = new Subject();
 
-  @ViewChild('modelOutput', { static: false }) modelOutput: ElementRef;
+  isDbForm = false;
+  originalDbValues = {};
+
+  showFormConfig = false;
+
+  hasError = false;
+  errorMessage = '';
+
+  isAPIData = false;
+  endpoint = '';
+
+  @ViewChild('modelOutput', {static: false}) modelOutput: ElementRef;
 
   constructor(
     private formService: KendraioFormService,
     private formSubmitHandler: FormSubmitHandlerService,
     private shareLinks: ShareLinkGeneratorService,
-    private formSelect: AdapterFormSelectService
-  ) { }
+    private formSelect: AdapterFormSelectService,
+    private formData: FormDataService
+  ) {
+  }
 
   ngOnInit() {
     this._schemaChange$.pipe(
       takeUntil(this._destroy$),
-      debounceTime(1000)
+      debounceTime(500)
     ).subscribe(() => {
       try {
-        this.fields = this.formService.schemasToFieldConfig(JSON.parse(this.JSONSchema), JSON.parse(this.UISchema));
-      } catch (e) {
-        // TODO: error handling
+        this.hasError = false;
+        const JSONSchema = JSON.parse(this.JSONSchema);
+        this.isDbForm = has(JSONSchema, 'name');
+        this.fields = this.formService.schemasToFieldConfig(JSONSchema, JSON.parse(this.UISchema));
+      } catch ({message}) {
+        this.hasError = true;
+        this.errorMessage = message;
+        this.fields = [];
       }
     });
 
@@ -65,7 +85,7 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
     this.jsonSchemaChange();
   }
 
-  setSchemaValues({ JSONSchema, UISchema }) {
+  setSchemaValues({JSONSchema, UISchema}) {
     this.JSONSchema = JSON.stringify(JSONSchema, null, 4);
     this.UISchema = JSON.stringify(UISchema, null, 4);
   }
@@ -110,12 +130,12 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
   shareForm() {
     const JSONSchema = JSON.parse(this.JSONSchema);
     const UISchema = JSON.parse(this.UISchema);
-    this.shareLinks.shareLink('form-builder', { JSONSchema, UISchema });
+    this.shareLinks.shareLink('form-builder', {JSONSchema, UISchema});
   }
 
   onChange() {
     // Replace #modelOutput DIV contents with formatted JSON
-    const formatter = new JSONFormatter(this.model, Infinity, { theme: 'dark' });
+    const formatter = new JSONFormatter(this.model, Infinity, {theme: 'dark'});
     while (this.modelOutput.nativeElement.firstChild) {
       this.modelOutput.nativeElement.removeChild(this.modelOutput.nativeElement.firstChild);
     }
@@ -131,12 +151,98 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
     });
   }
 
+  onSave() {
+    // Save changes to Form Model to database
+    if (this.isDbForm) {
+      const JSONSchema = JSON.parse(this.JSONSchema);
+      this.saveOriginalDbValues(this.model);
+      this.formData.saveData(get(JSONSchema, 'name'), this.model)
+        .subscribe(({ok, id, rev}) => {
+          // TODO: This logic is specific to DB and should not be here
+          if (ok) {
+            this.model['_rev'] = rev;
+            this.model['_id'] = id;
+            this.onChange();
+          }
+        });
+    }
+  }
+
   loadFromAdapter() {
     this.formSelect.selectForm().subscribe(values => {
       if (!!values) {
         this.setSchemaValues(values);
         this.updateEditorModels();
+        this.resetModelData();
       }
     });
   }
+
+  loadFromSwagger() {
+    this.formSelect.selectSwagger().subscribe(values => {
+      if (!!values) {
+        this.setSchemaValues(values);
+        this.updateEditorModels();
+        this.resetModelData();
+      }
+    });
+  }
+
+  saveOriginalDbValues(values) {
+    // TODO: Deep copy to save original values?
+    this.originalDbValues = {...values};
+  }
+
+  loadFromDatabase() {
+    const data = JSON.parse(this.JSONSchema);
+    if (data && has(data, 'name')) {
+      this.formData.loadData(get(data, 'name')).subscribe(values => {
+        if (!!values) {
+          this.isAPIData = false;
+          this.saveOriginalDbValues(values);
+          this.model = values;
+          this.onChange();
+        }
+      });
+    } else {
+      this.formData.noSchemaName();
+    }
+  }
+
+  resetModelData() {
+    this.model = {};
+    this.onChange();
+  }
+
+  resetForm() {
+    this.form.reset(this.originalDbValues);
+  }
+
+  toggleFormConfig() {
+    this.showFormConfig = !this.showFormConfig;
+  }
+
+  loadDataFromAPI() {
+    this.formData.loadDataFromAPI().subscribe(({ status, endpoint, values}) => {
+      if (!!status) {
+        // console.log({ values });
+        this.saveOriginalDbValues(values);
+        this.model = values;
+        this.onChange();
+        this.isAPIData = true;
+        this.endpoint = endpoint;
+      }
+    });
+  }
+
+  onSaveAPI() {
+    if (this.isAPIData) {
+      this.formData.saveAPIData(this.endpoint, this.model)
+        .subscribe((result) => {
+          // TODO: Data update success
+          // console.log({ result });
+        });
+    }
+  }
 }
+

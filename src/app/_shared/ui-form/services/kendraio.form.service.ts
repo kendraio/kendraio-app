@@ -11,7 +11,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, from, forkJoin, throwError } from 'rxjs';
 import { FORM_APIS, REFDATA_APIS } from '../api-config';
 import { catchError, map, tap } from 'rxjs/operators';
-import { get, set, has, findIndex } from 'lodash-es';
+import {get, set, has, findIndex, isObject} from 'lodash-es';
 import { AdaptersService } from '../../../services/adapters.service';
 import { IfStmt } from '@angular/compiler';
 import { ConfigOption } from '@ngx-formly/core';
@@ -107,6 +107,13 @@ export class KendraioFormService {
           const newArray = this.uiWidgetTypeMapper({ fields: oldArray, uiSchema: subSchema});
           set(_fields, `fieldGroup[${fieldIndex}]`,
             { ...get(_fields, `fieldGroup[${fieldIndex}]`), fieldArray: newArray });
+        }
+        // Nested objects
+        if (uiKey !== 'items' && isObject(get(uiSchema, uiKey))) {
+          const oldObj = get(_fields, `fieldGroup[${fieldIndex}]`, {});
+          const subSchema = get(uiSchema, `${uiKey}`);
+          const newObj = this.uiWidgetTypeMapper({ fields: oldObj, uiSchema: subSchema });
+          set(_fields, `fieldGroup[${fieldIndex}]`, { ...oldObj, ...newObj });
         }
       }
       return _fields;

@@ -1,0 +1,55 @@
+<div class="toolbar">
+  <button type="button" mat-icon-button (click)="toggleQueryConfig()" matTooltip="Configure query">
+    <mat-icon>settings</mat-icon>
+  </button>
+  <button type="button" mat-icon-button (click)="shareQuery()" matTooltip="Share Query">
+    <mat-icon>share</mat-icon>
+  </button>
+  <button type="button" mat-icon-button (click)="loadQueryFromAdapter()" matTooltip="Load Query from Adapter">
+    <mat-icon>open_in_browser</mat-icon>
+  </button>
+  <button type="button" mat-icon-button (click)="runQuery()" matTooltip="Run Query">
+    <mat-icon>directions_run</mat-icon>
+  </button>
+</div>
+
+<div class="editor-wrapper">
+
+  <div class="editor-column" [hidden]="!showFormConfig">
+    <span class="editor-title">Query Schema</span>
+    <ngx-monaco-editor class="json-code-editor" [options]="editorOptions"
+                       [model]="queryModel"
+                       [(ngModel)]="queryModelText"
+                       (onInit)="initEditor()"></ngx-monaco-editor>
+    <ng-container *ngIf="hasError">
+      <br>
+      <mat-error>
+        {{ errorMessage }}
+      </mat-error>
+    </ng-container>
+
+    <br>
+    <span class="editor-title">Result output</span>
+    <div class="model-output" #modelOutput></div>
+    <ng-container *ngIf="showMappingResult">
+      <br>
+      <span class="editor-title">Mapping output</span>
+      <div class="mapping-output" #mappingOutput></div>
+    </ng-container>
+  </div>
+  <div class="editor-column">
+    <div class="mat-typography">
+      <h3 *ngIf="!!title && title.length > 0">{{ title }}</h3>
+      <p *ngIf="!!description && description.length > 0">{{ description }}</p>
+    </div>
+    <ng-container [ngSwitch]="outputType">
+      <app-data-chart-output *ngSwitchCase="'chart'" [data]="rowData | async" [config]="outputConfig"></app-data-chart-output>
+      <ag-grid-angular *ngSwitchDefault style="width: 100%;"
+                       class="ag-theme-material"
+                       domLayout="autoHeight"
+                       [rowData]="rowData | async"
+                       [columnDefs]="columnDefs"></ag-grid-angular>
+    </ng-container>
+  </div>
+
+</div>

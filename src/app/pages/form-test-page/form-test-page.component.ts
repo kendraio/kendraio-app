@@ -1,3 +1,7 @@
+/**
+ * DEPRECATED
+ * All functionality has been moved to the form builder
+ */
 import { Component, OnInit } from '@angular/core';
 import { AdaptersService } from '../../services/adapters.service';
 

@@ -22,6 +22,7 @@ import { ConfigOption } from '@ngx-formly/core';
 import * as types from './types';
 import {FormlyImageInputComponent} from '../../form-controls/formly-image-input/formly-image-input.component';
 import {FormlyAudioInputComponent} from '../../form-controls/formly-audio-input/formly-audio-input.component';
+import {FormlyRemoteImageInputComponent} from '../../form-controls/formly-remote-image-input/formly-remote-image-input.component';
 
 export const config: ConfigOption = {
   validationMessages: [
@@ -50,6 +51,7 @@ export const config: ConfigOption = {
     { name: 'countries', component: types.FieldCountriesComponent },
     { name: 'image', component: FormlyImageInputComponent },
     { name: 'audio', component: FormlyAudioInputComponent },
+    { name: 'remote-image', component: FormlyRemoteImageInputComponent },
     {
       name: 'money', component: types.FormlyFieldInputMoney,
       defaultOptions: {

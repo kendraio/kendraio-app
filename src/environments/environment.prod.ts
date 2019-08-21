@@ -1,6 +1,7 @@
 export const environment = {
   urlPrefix: 'https://dev.app.kendra.io/',
   production: true,
+  adapterBaseUrl: 'https://kendraio.github.io/kendraio-adapter/',
   adapterConfig: 'https://kendraio.github.io/kendraio-adapter/config.json',
   auth0: {
     clientID: 'BpSIsaDagBnDpAZyfJOVoAqG1r041Nj7',
