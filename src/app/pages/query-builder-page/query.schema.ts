@@ -32,7 +32,8 @@ export const QUERY_SCHEMA = {
           sortable: { type: 'boolean' },
           filter: {  type: 'boolean' },
           pinned: { type: 'string', enum: ['left', 'right'] },
-          valueGetter: { type: 'string' }
+          valueGetter: { type: 'string' },
+          resizable: { type: 'boolean' }
         }
       }
     }
