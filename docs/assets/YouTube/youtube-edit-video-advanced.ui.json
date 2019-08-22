@@ -7,6 +7,7 @@
 
   "location": {
     "ui:placeholder": "Enter the Country",
-    "ui:widget": "countries"
+    "ui:widget": "countries",
+    "ui:errMessage": "There has been an error"
   }
 }

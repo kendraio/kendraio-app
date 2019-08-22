@@ -22,8 +22,7 @@
     "ui:valueProp": "alpha3Code",
     "ui:isMultiSelect": true,
     "ui:ref": "testRegion",
-    "ui:refType": "http",
-    "ui:addTag":true
+    "ui:refType": "http"
   },
   "playlist": {
     "ui:widget": "kselect",
@@ -31,7 +30,6 @@
     "ui:valueProp": "alpha3Code",
     "ui:isMultiSelect": false,
     "ui:ref": "testCountries",
-    "ui:refType": "http",
-    "ui:addTag":true
+    "ui:refType": "http"
   }
 }

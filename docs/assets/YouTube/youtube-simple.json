@@ -1,6 +1,6 @@
 {
 
-	"title": "SIMPLEz - Edit Video",
+	"title": "SIMPLE - Edit Video",
 	"description": "This form allows you to edit your video",
 	"type": "object",
 	"required": [
@@ -21,12 +21,16 @@
 
 		"playlist": {
 			"type": "string",
-			"title": "Regions"
+			"title": "Regions",
+			"minLength": 4,
+			"maxLength": 100
 		},
 
 		"colorlist": {
 			"type": "string",
-			"title": "Countries"
+			"title": "Countries",
+			"minLength": 4,
+			"maxLength": 100
 		}
 
 	}
