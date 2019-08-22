@@ -38,7 +38,7 @@ export const UI_SCHEMA = {
       },
       'ui:errMessage': {
         type: 'string'
-      },
+      }
     }
   }
 };
