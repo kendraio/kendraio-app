@@ -27,12 +27,18 @@ export const UI_SCHEMA = {
       'ui:isMultiSelect': {
         type: 'boolean'
       },
+      'ui:addTag': {
+        type: 'boolean'
+      },
       'ui:ref': {
         type: 'string'
       },
       'ui:refType': {
         enum: ['json', 'http', 'fetch']
-      }
+      },
+      'ui:errMessage': {
+        type: 'string'
+      },
     }
   }
 };
