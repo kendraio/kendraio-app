@@ -27,19 +27,11 @@ import { MatInput, ErrorStateMatcher } from '@angular/material';
     </textarea>
 
 
-    <mat-hint>Hints and tips appear here</mat-hint>
-    <mat-error *ngIf="formControl.hasError('email') && !formControl.hasError('required')">
-      Please enter a valid email address
-    </mat-error>
+    <mat-hint>{{description}}</mat-hint>
     <mat-error *ngIf="formControl.hasError('required')">
       This is <strong>required</strong>
     </mat-error>
-
-
     </mat-form-field>
-
-    =={{formControl.errors | json}}==
-
   `
 })
 
@@ -49,5 +41,6 @@ export class TextareaComponent extends FieldType {
   get cols(): number { return this.to.cols || 50; }
   get rows(): number { return this.to.rows || 8; }
   get placeholder(): string {return this.to.placeholder ||  this.to.label; }
+  get description(): string {return this.to.description; }
 
 }
