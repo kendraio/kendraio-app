@@ -15,6 +15,7 @@ import { FieldType } from '@ngx-formly/core';
     </ng-select>
 <mat-hint *ngIf="isMultiSelect">You may select more that one</mat-hint>
 
+{{valueProp}}
 
   `,
 })

@@ -38,6 +38,18 @@ export const UI_SCHEMA = {
       },
       'ui:errMessage': {
         type: 'string'
+      },
+      'ui:autosize': {
+        type: 'boolean'
+      },
+      'ui:cols': {
+        type: 'number'
+      },
+      'ui:rows': {
+        type: 'number'
+      },
+      'ui:required': {
+        type: 'boolean'
       }
     }
   }

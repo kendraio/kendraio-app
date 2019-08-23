@@ -15,7 +15,7 @@ import * as types from './types/';
 
 import { config } from './config';
 // import { FormlyMaterialModule } from '@ngx-formly/material';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 // import { AppMaterialModule } from './app/app-material/app-material.module';
 // import { FormlyFieldTypeahead } from './types/typeahead.component';
 
@@ -43,6 +43,9 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
 
 
 @NgModule({
+  providers: [
+    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -105,7 +108,8 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
     types.ArrayTypeComponent,
     types.KendraFieldTypeahead,
     types.ObjectTypeComponent,
-    types.KendraFieldSelect
+    types.KendraFieldSelect,
+    types.TextareaComponent
     // ContentEditableFormDirective
     // KendraioFormComponent
 

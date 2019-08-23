@@ -7,7 +7,7 @@ export const MESSAGE = (disabled) => ({
       label: 'Message',
       placeholder: 'Enter a message',
       rows: 5,
-      required: true,
+      required: false,
       disabled: disabled
     }
   )

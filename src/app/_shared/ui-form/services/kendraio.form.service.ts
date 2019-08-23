@@ -144,11 +144,15 @@ export class KendraioFormService {
           Object.keys(uiSchema).forEach(function (uiKey) {
             if (uiKey === key) {
               //  jsonSchema.properties.bandArtist.type = uiSchema.bandArtist['ui:widget'];
+              // TODO: maybe use Switch here
+
               formlyConfig['fieldGroup'][i]['templateOptions']['disabled'] = uiSchema[key]['ui:disabled'];
               formlyConfig['fieldGroup'][i]['templateOptions']['placeholder'] = uiSchema[key]['ui:placeholder'];
-              formlyConfig['fieldGroup'][i]['templateOptions']['required'] = uiSchema[key]['ui:required'];
+              formlyConfig['fieldGroup'][i]['templateOptions']['required'] = get(uiSchema, `${key}.ui:required`, false);
               formlyConfig['fieldGroup'][i]['templateOptions']['errMessage'] =  get(uiSchema, `${key}.ui:errMessage`, 'Error!!!');
               formlyConfig['fieldGroup'][i]['templateOptions']['addTag'] =  get(uiSchema, `${key}.ui:addTag`, false);
+
+              formlyConfig['fieldGroup'][i]['templateOptions']['autosize'] =  get(uiSchema, `${key}.ui:autosize`, false);
 
               // formlyConfig.fieldGroup[i].templateOptions.options = this.getHttpRefData(uiSchema[key]['ui:refdataId']);
 

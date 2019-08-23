@@ -106,8 +106,10 @@ export const config: ConfigOption = {
     // { name: 'object', extends: 'formly-group' },
     { name: 'object', component: types.ObjectTypeComponent },
     { name: 'boolean', extends: 'checkbox' },
+
     // { name: 'array', component: ArrayTypeComponent },
     { name: 'enum', extends: 'select' },
+    { name: 'k-textarea', component: types.TextareaComponent},
     {
       name: 'multiselect', component: types.KendraFieldSelect,
       defaultOptions: {
