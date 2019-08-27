@@ -12,6 +12,8 @@ export class ApiDataSelectDialogComponent implements OnInit {
   APIs = [
     'https://fake-api.now32.now.sh/soundRecording',
     'https://fake-api.now32.now.sh/musicalWork',
+    'https://bloomen.herokuapp.com/sound/music',
+    'https://bloomen.herokuapp.com/sound/recordings'
   ];
 
   dataList = [];
