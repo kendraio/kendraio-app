@@ -44,10 +44,11 @@
     </div>
     <ng-container [ngSwitch]="outputType">
       <app-data-chart-output *ngSwitchCase="'chart'" [data]="rowData | async" [config]="outputConfig"></app-data-chart-output>
-      <ag-grid-angular *ngSwitchDefault style="width: 100%;"
+      <ag-grid-angular #gridAngular *ngSwitchDefault style="width: 100%;"
                        class="ag-theme-material"
                        domLayout="autoHeight"
                        [rowData]="rowData | async"
+                       [defaultColDef]="defaultColDef"
                        [columnDefs]="columnDefs"></ag-grid-angular>
     </ng-container>
   </div>

@@ -11,6 +11,7 @@ import { search } from 'jmespath';
 import {DocumentRepositoryService} from '../../services/document-repository.service';
 import {QUERY_SCHEMA} from './query.schema';
 import {map, tap} from 'rxjs/operators';
+import {ContextDataService} from '../../services/context-data.service';
 
 @Component({
   selector: 'app-query-builder-page',
@@ -33,6 +34,11 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
   showMappingResult = false;
   @ViewChild('mappingOutput', { static: false }) mappingOutput: ElementRef;
 
+  @ViewChild('gridAngular', { static: false }) gridAngular;
+
+  defaultColDef = {
+    resizable: true
+  };
   columnDefs = [];
   outputMapping = '';
 
@@ -54,6 +60,11 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
       }
       setTimeout(() => this.showMappingResult = false, 0);
       return values;
+    }),
+    tap(() => {
+      if (!!this.gridAngular) {
+        this.gridAngular.api.sizeColumnsToFit();
+      }
     })
   );
 
@@ -64,7 +75,8 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
     private readonly http: HttpClient,
     private shareLinks: ShareLinkGeneratorService,
     private readonly dialog: MatDialog,
-    private readonly docRepo: DocumentRepositoryService
+    private readonly docRepo: DocumentRepositoryService,
+    private readonly contextData: ContextDataService
   ) { }
 
   ngOnInit() {
@@ -121,15 +133,16 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
           break;
         case 'remote':
           const { endpoint } = dataSource;
-          const headers = new HttpHeaders();
+          let headers = new HttpHeaders();
           if (has(dataSource, 'authentication.type')) {
             switch (get(dataSource, 'authentication.type')) {
               case 'basic-auth':
-                // TODO: GET CONTEXT
-                const context = {};
-                // TODO: Evaluate valueGetter to fetch values from context
-                const { username, password } = dataSource.authentication;
-                headers.append('Authorization', 'Basic ' + btoa(`${username}:${password}`));
+                const valueGetters = get(dataSource, 'authentication.valueGetters', {});
+                const context = { ...dataSource.authentication, ...this.contextData.getGlobalContext(valueGetters) };
+                if (has(context, 'username') && has(context, 'password')) {
+                  const { username, password } = context;
+                  headers = headers.append('Authorization', 'Basic ' + btoa(`${username}:${password}`));
+                }
                 break;
               case 'bearer':
                 break;

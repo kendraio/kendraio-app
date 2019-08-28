@@ -2,17 +2,34 @@
   "title": "Teosto Works",
   "dataSource": {
     "type": "remote",
-    "endpoint": "https://j9npnf2d9d.execute-api.eu-west-1.amazonaws.com/",
+    "endpoint": "https://teosto-cors-proxy-eilgg5e92.now.sh/dev/rest/work/perTitle/HEART?limit=4",
     "authentication": {
       "type": "basic-auth",
-      "username": "context.user.teosto.username",
-      "password": "context.user.teosto.password",
-      "valueGetter": "{username: context.user.teosto.username, password: context.user.teosto.password}"
+      "valueGetters": {
+        "username": "user.teosto.username",
+        "password": "user.teosto.password"
+      }
     }
   },
   "output": {
     "type": "grid",
     "columnDefs": [
+      {
+        "headerName": "Work key",
+        "field": "workkey"
+      },
+      {
+        "headerName": "Titles",
+        "valueGetter": "titles[].work_title"
+      },
+      {
+        "headerName": "Performers",
+        "valueGetter": "performers.name"
+      },
+      {
+        "headerName": "Rights owners",
+        "valueGetter": "right_owners[].name"
+      }
     ]
   }
 }
