@@ -1,0 +1,20 @@
+{
+  "title": "Teosto",
+  "description": "Enter your Teosto connection details",
+  "type": "object",
+  "properties": {
+    "username": {
+      "title": "Username",
+      "type": "string"
+    },
+    "password": {
+      "title": "Password",
+      "type": "string"
+    },
+    "endpoint": {
+      "title": "Endpoint",
+      "type": "string",
+      "format": "uri"
+    }
+  }
+}
