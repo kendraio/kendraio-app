@@ -102,6 +102,15 @@ export const config: ConfigOption = {
       //   },
       // },
     },
+    {
+      name: 'password',
+      extends: 'input',
+      defaultOptions: {
+        templateOptions: {
+          type: 'password',
+        },
+      },
+    },
     { name: 'string', extends: 'input' },
     // { name: 'object', extends: 'formly-group' },
     { name: 'object', component: types.ObjectTypeComponent },
