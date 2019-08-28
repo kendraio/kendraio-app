@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {TeostoProfileHandlerService} from '../handlers/teosto-profile-handler.service';
 import {search} from 'jmespath';
+import {has} from 'lodash-es';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,29 @@ export class ContextDataService {
       a[v] = search(context, valueGetters[v]);
       return a;
     }, {});
+  }
+
+  getFromContextWithModel(endpoint, model) {
+    // console.log({ endpoint, model });
+    const context = {
+      model,
+      user: {
+        profile: this.getUserContext(),
+        teosto: this.getTeostoContext()
+      },
+    };
+    // console.log({ context });
+    const valueGetters = has(endpoint, 'valueGetters')
+      ? Object.keys(endpoint.valueGetters).reduce((a, v) => {
+        try {
+          a[v] = search(context, endpoint.valueGetters[v]);
+        } catch (e) {
+
+        }
+        return a;
+        }, {})
+      : {};
+    return { ...endpoint, ...valueGetters };
   }
 
   getUserContext() {

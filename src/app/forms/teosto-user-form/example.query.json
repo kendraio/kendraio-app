@@ -2,7 +2,18 @@
   "title": "Teosto Works",
   "dataSource": {
     "type": "remote",
-    "endpoint": "https://teosto-cors-proxy-eilgg5e92.now.sh/dev/rest/work/perTitle/HEART?limit=4",
+    "endpoint": {
+      "protocol": "https:",
+      "host": "teosto-cors-proxy-eilgg5e92.now.sh",
+      "pathname": "/dev/rest/work/perTitle/HEART",
+      "query": {
+        "limit": 4
+      },
+      "valueGetters": {
+        "pathname": "join('', ['/dev/rest/work/perTitle/', 'HEART'])",
+        "query": "{limit: model.limit}"
+      }
+    },
     "authentication": {
       "type": "basic-auth",
       "valueGetters": {

@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { EDITOR_OPTIONS } from './editor-options';
 import JSONFormatter from 'json-formatter-js';
-import {get, has} from 'lodash-es';
+import {get, has, isString} from 'lodash-es';
 import {BehaviorSubject} from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {MatDialog} from '@angular/material';
@@ -108,6 +108,21 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
     });
   }
 
+  constructEndpointUrl(dataSource) {
+    if (isString(get(dataSource, 'endpoint', ''))) {
+      return dataSource.endpoint;
+    }
+    const demoModel = {};
+    const endpoint = this.contextData.getFromContextWithModel(dataSource.endpoint, demoModel);
+    // console.log({ endpoint });
+    const protocol = get(endpoint, 'protocol', 'https:');
+    const host = get(endpoint, 'host', '');
+    const pathname = get(endpoint, 'pathname', '/');
+    const query = get(endpoint, 'query', []);
+    const reduceQuery = _q => Object.keys(_q).map(key => `${key}=${_q[key]}`, []).join('&');
+    return `${protocol}//${host}${pathname}?${reduceQuery(query)}`;
+  }
+
   runQuery() {
     this.hasError = false;
     try {
@@ -132,7 +147,8 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
           });
           break;
         case 'remote':
-          const { endpoint } = dataSource;
+          const endpoint = this.constructEndpointUrl(dataSource);
+          // console.log({ endpoint });
           let headers = new HttpHeaders();
           if (has(dataSource, 'authentication.type')) {
             switch (get(dataSource, 'authentication.type')) {

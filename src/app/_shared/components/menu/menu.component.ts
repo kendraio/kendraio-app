@@ -193,7 +193,12 @@ export const MENUITEMS: MenuItem[] = [
         path: '/query-builder',
         label: 'Query builder',
         icon: 'build'
-      }
+      },
+      // {
+      //   path: '/blocks-builder',
+      //   label: 'Blocks builder',
+      //   icon: 'build'
+      // }
     ]
   }
 ];

@@ -126,6 +126,11 @@ import {AgGridModule} from 'ag-grid-angular';
 import { AdapterQuerySelectDialogComponent } from './dialogs/adapter-query-select-dialog/adapter-query-select-dialog.component';
 import { DataChartOutputComponent } from './components/data-chart-output/data-chart-output.component';
 import { TeostoUserFormComponent } from './forms/teosto-user-form/teosto-user-form.component';
+import { BlocksBuilderPageComponent } from './pages/blocks-builder-page/blocks-builder-page.component';
+import { FormBlockComponent } from './blocks/form-block/form-block.component';
+import { DebugBlockComponent } from './blocks/debug-block/debug-block.component';
+import { QueryBlockComponent } from './blocks/query-block/query-block.component';
+import { MappingBlockComponent } from './blocks/mapping-block/mapping-block.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -209,7 +214,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     // MatInputComponent
     // DialogDataExampleDialog
     // MusicRecordingsEditComponent
-    TeostoUserFormComponent
+    TeostoUserFormComponent,
+    BlocksBuilderPageComponent,
+    FormBlockComponent,
+    DebugBlockComponent,
+    QueryBlockComponent,
+    MappingBlockComponent
   ],
   imports: [
     // AgGridModule.withComponents([

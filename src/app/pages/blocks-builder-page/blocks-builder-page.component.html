@@ -1,0 +1,21 @@
+<ng-container *ngFor="let block of blocks; let i = index">
+  <ng-container [ngSwitch]="block.type">
+    <mat-card *ngSwitchCase="'form'">
+      <app-form-block [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-form-block>
+    </mat-card>
+    <mat-card *ngSwitchCase="'debug'">
+      <h3>Debug values</h3>
+      <app-debug-block [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-debug-block>
+    </mat-card>
+    <mat-card *ngSwitchCase="'query'">
+      <h3>Run query</h3>
+      <app-query-block [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-query-block>
+    </mat-card>
+    <mat-card *ngSwitchCase="'mapping'">
+      <h3>Mapping</h3>
+      <app-mapping-block [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-mapping-block>
+    </mat-card>
+  </ng-container>
+</ng-container>
+
+<!--<pre>{{ models | json }}</pre>-->

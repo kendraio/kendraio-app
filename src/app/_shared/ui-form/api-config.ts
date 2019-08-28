@@ -27,6 +27,12 @@ export const FORM_APIS = {
         jsonSchema: 'assets/adapters/teosto/schema.json',
         uiSchema: 'assets/adapters/teosto/ui.json'
       }
+  },
+  kendraio: {
+      'search-limit': {
+        jsonSchema: 'assets/adapters/kendraio/search-limit.schema.json',
+        uiSchema: 'assets/adapters/kendraio/search-limit.ui.json'
+      }
   }
 
   };

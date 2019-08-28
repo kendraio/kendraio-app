@@ -22,6 +22,7 @@ import {BloomenSearchPageComponent} from './pages/bloomen-search-page/bloomen-se
 import { FormTestPageComponent } from './pages/form-test-page/form-test-page.component';
 import {FormBuilderPageComponent} from './pages/form-builder-page/form-builder-page.component';
 import {QueryBuilderPageComponent} from './pages/query-builder-page/query-builder-page.component';
+import {BlocksBuilderPageComponent} from './pages/blocks-builder-page/blocks-builder-page.component';
 
 
 // NB all routes must have a breadcrumb
@@ -297,6 +298,10 @@ const routes: Routes = [
   {
     path: 'query-builder',
     component: QueryBuilderPageComponent
+  },
+  {
+    path: 'blocks-builder',
+    component: BlocksBuilderPageComponent
   },
 
        { path: '', redirectTo: '/tasks', pathMatch: 'full' },
