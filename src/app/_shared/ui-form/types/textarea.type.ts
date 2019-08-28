@@ -27,7 +27,7 @@ import { MatInput, ErrorStateMatcher } from '@angular/material';
     </textarea>
 
 
-    <mat-hint>{{description}}</mat-hint>
+    <mat-hint>{{description}}  rows={{rows}} cols={{cols}}</mat-hint>
     <mat-error *ngIf="formControl.hasError('required')">
       This is <strong>required</strong>
     </mat-error>

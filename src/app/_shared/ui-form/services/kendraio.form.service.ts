@@ -153,8 +153,8 @@ export class KendraioFormService {
               formlyConfig['fieldGroup'][i]['templateOptions']['addTag'] =  get(uiSchema, `${key}.ui:addTag`, false);
 
               formlyConfig['fieldGroup'][i]['templateOptions']['autosize'] =  get(uiSchema, `${key}.ui:autosize`, false);
-              formlyConfig['fieldGroup'][i]['templateOptions']['rows'] =  get(uiSchema, `${key}.ui:rows`, null);
-              formlyConfig['fieldGroup'][i]['templateOptions']['cols'] =  get(uiSchema, `${key}.ui:cols`, null);
+              formlyConfig['fieldGroup'][i]['templateOptions']['rows'] =  get(uiSchema, `${key}.ui:rows`, 52);
+              formlyConfig['fieldGroup'][i]['templateOptions']['cols'] =  get(uiSchema, `${key}.ui:cols`, 3);
 
               // formlyConfig.fieldGroup[i].templateOptions.options = this.getHttpRefData(uiSchema[key]['ui:refdataId']);
 
