@@ -3,7 +3,7 @@ import { EDITOR_OPTIONS } from './editor-options';
 import JSONFormatter from 'json-formatter-js';
 import {get, has} from 'lodash-es';
 import {BehaviorSubject} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {MatDialog} from '@angular/material';
 import {AdapterQuerySelectDialogComponent} from '../../dialogs/adapter-query-select-dialog/adapter-query-select-dialog.component';
 import {ShareLinkGeneratorService} from '../../services/share-link-generator.service';
@@ -121,7 +121,23 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
           break;
         case 'remote':
           const { endpoint } = dataSource;
-          this.http.get<Array<any>>(endpoint).subscribe(values => {
+          const headers = new HttpHeaders();
+          if (has(dataSource, 'authentication.type')) {
+            switch (get(dataSource, 'authentication.type')) {
+              case 'basic-auth':
+                // TODO: GET CONTEXT
+                const context = {};
+                // TODO: Evaluate valueGetter to fetch values from context
+                const { username, password } = dataSource.authentication;
+                headers.append('Authorization', 'Basic ' + btoa(`${username}:${password}`));
+                break;
+              case 'bearer':
+                break;
+              default:
+                console.log('Unknown authentication type');
+            }
+          }
+          this.http.get<Array<any>>(endpoint, { headers }).subscribe(values => {
             this.output = values;
             this.updateOutputDisplay();
             this._rowData.next(values);

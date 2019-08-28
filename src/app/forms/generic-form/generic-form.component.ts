@@ -14,11 +14,11 @@ export class GenericFormComponent implements OnInit, OnChanges {
 
   @Input() adapter: string;
   @Input() formId: string;
+  @Input() model: any = {};
 
   form = new FormGroup({});
   fields: FormlyFieldConfig[];
   options: FormlyFormOptions = {};
-  model = {};
 
   constructor(
     private formService: KendraioFormService,

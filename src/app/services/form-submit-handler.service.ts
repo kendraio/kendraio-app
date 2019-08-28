@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 export interface FormSubmitAction {
   form: string;
@@ -12,7 +12,7 @@ export interface FormSubmitAction {
 })
 export class FormSubmitHandlerService {
 
-  private _actions$ = new BehaviorSubject<FormSubmitAction>(null);
+  private _actions$ = new Subject<FormSubmitAction>();
   actions$ = this._actions$.asObservable();
 
   constructor() { }

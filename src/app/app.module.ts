@@ -125,6 +125,7 @@ import { QueryBuilderPageComponent } from './pages/query-builder-page/query-buil
 import {AgGridModule} from 'ag-grid-angular';
 import { AdapterQuerySelectDialogComponent } from './dialogs/adapter-query-select-dialog/adapter-query-select-dialog.component';
 import { DataChartOutputComponent } from './components/data-chart-output/data-chart-output.component';
+import { TeostoUserFormComponent } from './forms/teosto-user-form/teosto-user-form.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -201,13 +202,14 @@ export function HttpLoaderFactory(http: HttpClient) {
     ApiDataSelectDialogComponent,
     QueryBuilderPageComponent,
     AdapterQuerySelectDialogComponent,
-    DataChartOutputComponent
+    DataChartOutputComponent,
     // BreadcrumbComponent
     // ReportsComponent,
     // ContactsComponent
     // MatInputComponent
     // DialogDataExampleDialog
     // MusicRecordingsEditComponent
+    TeostoUserFormComponent
   ],
   imports: [
     // AgGridModule.withComponents([

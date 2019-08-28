@@ -21,6 +21,12 @@ export const FORM_APIS = {
       jsonSchema: 'assets/adapters/ipn/jsonSchema.json',
       uiSchema: 'assets/adapters/ipn/uiSchema.json'
     }
+  },
+  teosto: {
+      profile: {
+        jsonSchema: 'assets/adapters/teosto/schema.json',
+        uiSchema: 'assets/adapters/teosto/ui.json'
+      }
   }
 
   };

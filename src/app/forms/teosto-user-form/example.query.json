@@ -1,0 +1,18 @@
+{
+  "title": "Teosto Works",
+  "dataSource": {
+    "type": "remote",
+    "endpoint": "https://j9npnf2d9d.execute-api.eu-west-1.amazonaws.com/",
+    "authentication": {
+      "type": "basic-auth",
+      "username": "context.user.teosto.username",
+      "password": "context.user.teosto.password",
+      "valueGetter": "{username: context.user.teosto.username, password: context.user.teosto.password}"
+    }
+  },
+  "output": {
+    "type": "grid",
+    "columnDefs": [
+    ]
+  }
+}
