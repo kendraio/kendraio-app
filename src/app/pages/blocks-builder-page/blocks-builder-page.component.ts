@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {get} from 'lodash-es';
+import {moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-blocks-builder-page',
@@ -29,7 +30,7 @@ export class BlocksBuilderPageComponent implements OnInit {
             'limit': 4
           },
           'valueGetters': {
-            'pathname': "join('', ['/dev/rest/work/perTitle/', model.term])",
+            'pathname': 'join(\'\', [\'/dev/rest/work/perTitle/\', model.term])',
             'query': '{limit: model.limit}'
           }
         },
@@ -47,11 +48,32 @@ export class BlocksBuilderPageComponent implements OnInit {
     },
     {
       type: 'mapping',
-      mapping: '[].workkey'
+      mapping: 'result[].{ workkey: workkey, titles: titles[].work_title, performer: performers.name, right_owners: right_owners[].name }'
     },
     {
       type: 'debug'
     },
+    {
+      type: 'grid',
+      'columnDefs': [
+        {
+          'headerName': 'Work key',
+          'field': 'workkey'
+        },
+        {
+          'headerName': 'Titles',
+          'valueGetter': 'titles'
+        },
+        {
+          'headerName': 'Performer',
+          'valueGetter': 'performer'
+        },
+        {
+          'headerName': 'Rights owners',
+          'valueGetter': 'right_owners'
+        }
+      ]
+    }
   ];
 
   models = [];
@@ -68,6 +90,26 @@ export class BlocksBuilderPageComponent implements OnInit {
     this.models = [...this.models.slice(0, modelNumber), value, ...this.models.slice(modelNumber + 1)];
     // Force change
     this.blocks = [...this.blocks];
+  }
+
+  drop(event) {
+    moveItemInArray(this.blocks, event.previousIndex, event.currentIndex);
+  }
+
+  delete(i) {
+    this.blocks.splice(i, 1);
+  }
+
+  edit(i) {
+
+  }
+
+  shareConfig() {
+
+  }
+
+  loadFromAdapter() {
+
   }
 
 }

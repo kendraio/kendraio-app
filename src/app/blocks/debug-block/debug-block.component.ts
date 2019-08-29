@@ -18,7 +18,7 @@ export class DebugBlockComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit() {
-    this.updateOutputDisplay();
+    // this.updateOutputDisplay();
   }
 
   ngOnChanges(changes) {

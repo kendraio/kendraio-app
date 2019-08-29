@@ -131,6 +131,10 @@ import { FormBlockComponent } from './blocks/form-block/form-block.component';
 import { DebugBlockComponent } from './blocks/debug-block/debug-block.component';
 import { QueryBlockComponent } from './blocks/query-block/query-block.component';
 import { MappingBlockComponent } from './blocks/mapping-block/mapping-block.component';
+import { GridBlockComponent } from './blocks/grid-block/grid-block.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import { EditorLayoutComponent } from './components/editor-layout/editor-layout.component';
+import { BlockBuilderBoxComponent } from './components/block-builder-box/block-builder-box.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -219,7 +223,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormBlockComponent,
     DebugBlockComponent,
     QueryBlockComponent,
-    MappingBlockComponent
+    MappingBlockComponent,
+    GridBlockComponent,
+    EditorLayoutComponent,
+    BlockBuilderBoxComponent
   ],
   imports: [
     // AgGridModule.withComponents([
@@ -257,7 +264,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     TextMaskModule,
     MatAutocompleteModule,
     MonacoEditorModule.forRoot(),
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
+    DragDropModule
   ],
   entryComponents: [
     AddDocDialogComponent,

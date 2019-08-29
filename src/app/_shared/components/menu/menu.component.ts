@@ -194,11 +194,11 @@ export const MENUITEMS: MenuItem[] = [
         label: 'Query builder',
         icon: 'build'
       },
-      // {
-      //   path: '/blocks-builder',
-      //   label: 'Blocks builder',
-      //   icon: 'build'
-      // }
+      {
+        path: '/blocks-builder',
+        label: 'Blocks builder',
+        icon: 'build'
+      }
     ]
   }
 ];

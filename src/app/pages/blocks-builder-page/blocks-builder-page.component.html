@@ -1,21 +1,53 @@
-<ng-container *ngFor="let block of blocks; let i = index">
-  <ng-container [ngSwitch]="block.type">
-    <mat-card *ngSwitchCase="'form'">
-      <app-form-block [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-form-block>
-    </mat-card>
-    <mat-card *ngSwitchCase="'debug'">
-      <h3>Debug values</h3>
-      <app-debug-block [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-debug-block>
-    </mat-card>
-    <mat-card *ngSwitchCase="'query'">
-      <h3>Run query</h3>
-      <app-query-block [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-query-block>
-    </mat-card>
-    <mat-card *ngSwitchCase="'mapping'">
-      <h3>Mapping</h3>
-      <app-mapping-block [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-mapping-block>
-    </mat-card>
-  </ng-container>
-</ng-container>
+<app-editor-layout>
 
-<!--<pre>{{ models | json }}</pre>-->
+  <ng-container class="toolbar">
+    <button type="button" mat-icon-button (click)="shareConfig()" matTooltip="Share">
+      <mat-icon>share</mat-icon>
+    </button>
+    <button type="button" mat-icon-button (click)="loadFromAdapter()" matTooltip="Load from Adapter">
+      <mat-icon>open_in_browser</mat-icon>
+    </button>
+  </ng-container>
+
+  <ng-container class="editor-config">
+    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let block of blocks; let i = index" cdkDrag>
+
+        <mat-icon class="drag-handle" cdkDragHandle>reorder</mat-icon>
+
+        <button mat-icon-button (click)="edit(i)">
+          <mat-icon>settings</mat-icon>
+        </button>
+
+        <span class="block-type-title">{{ block.type }}</span>
+
+        <button mat-icon-button color="warn" (click)="delete(i)">
+          <mat-icon>remove</mat-icon>
+        </button>
+
+      </div>
+    </div>
+
+    <br>
+    <button mat-flat-button color="primary">
+      <mat-icon>add</mat-icon>
+      <span class="button-label">Add block</span>
+    </button>
+    <br>
+<!--    <pre>{{ blocks | json }}</pre>-->
+  </ng-container>
+
+  <ng-container class="editor-output">
+    <ng-container *ngFor="let block of blocks; let i = index">
+      <ng-container [ngSwitch]="block.type">
+        <app-form-block class="block-wrapper" *ngSwitchCase="'form'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-form-block>
+        <app-debug-block class="block-wrapper" *ngSwitchCase="'debug'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-debug-block>
+        <app-query-block class="block-wrapper" *ngSwitchCase="'query'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-query-block>
+        <app-mapping-block class="block-wrapper" *ngSwitchCase="'mapping'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-mapping-block>
+        <app-grid-block class="block-wrapper" *ngSwitchCase="'grid'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-grid-block>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</app-editor-layout>
+
+

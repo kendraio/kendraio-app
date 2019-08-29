@@ -1,1 +1,2 @@
-<formly-form [fields]="fields" [options]="options" [model]="model" [form]="form" (modelChange)="sendOutput()"></formly-form>
+<formly-form [fields]="fields" [options]="options" [model]="model" [form]="form" (modelChange)="onModelChange()"></formly-form>
+<button type="button" mat-flat-button color="primary" (click)="onSubmit()">Submit</button>

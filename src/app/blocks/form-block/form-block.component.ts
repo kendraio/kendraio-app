@@ -50,6 +50,17 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
       });
   }
 
+  onModelChange() {
+    // TODO: Add option to block config to enable/disable live form updates
+    // Send via the observable to debounce form changes
+    // sendOutput()
+  }
+
+  onSubmit() {
+    // Send directly (skip the debounce)
+    this.output.emit({ ...this.model });
+  }
+
   sendOutput() {
     this._output.next({ ...this.model });
   }

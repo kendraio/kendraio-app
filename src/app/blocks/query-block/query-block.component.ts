@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {get, has, isString} from 'lodash-es';
 import {DocumentRepositoryService} from '../../services/document-repository.service';
 import {ContextDataService} from '../../services/context-data.service';
+import {search} from 'jmespath';
 
 @Component({
   selector: 'app-query-block',
@@ -55,7 +56,7 @@ export class QueryBlockComponent implements OnInit, OnChanges {
         const { schema } = dataSource;
         this.docRepo.listAllOfType(schema).subscribe(values => {
           // console.log({ values });
-          this.output.emit(values || []);
+          this.sendOutput(values || []);
         });
         break;
       case 'remote':
@@ -79,16 +80,18 @@ export class QueryBlockComponent implements OnInit, OnChanges {
           }
         }
         this.http.get<Array<any>>(endpoint, { headers }).subscribe(values => {
-          this.output.emit(values);
+          this.sendOutput(values);
         });
         break;
       default:
         this.hasError = true;
         this.errorMessage = 'Unknown data source type';
-        this.output.emit([]);
+        this.sendOutput([]);
     }
+  }
 
-
+  sendOutput(result) {
+    this.output.emit({ ...this.model, result });
   }
 
 }
