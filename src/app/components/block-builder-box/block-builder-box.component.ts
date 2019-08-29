@@ -23,6 +23,10 @@ export class BlockBuilderBoxComponent implements OnInit {
   }
 
   _updateBlock() {
-    this.updateBlock.emit(JSON.parse(this.blockModel));
+    this.updateBlock.emit(this.getUpdatedModel());
+  }
+
+  getUpdatedModel() {
+    return JSON.parse(this.blockModel);
   }
 }

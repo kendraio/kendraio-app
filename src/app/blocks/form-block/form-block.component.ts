@@ -4,6 +4,7 @@ import {FormGroup} from '@angular/forms';
 import {FormlyFieldConfig, FormlyFormOptions} from '@ngx-formly/core';
 import {Subject} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
+import {has} from 'lodash-es';
 
 @Component({
   selector: 'app-form-block',
@@ -44,10 +45,17 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   updateForm() {
-    this.formService.getJSONSchemaForm(this.config.adapter, this.config.formId)
-      .subscribe((fields) => {
-        this.fields = fields;
-      });
+    if (has(this.config, 'adapter') && has(this.config, 'formId')) {
+      this.formService.getJSONSchemaForm(this.config.adapter, this.config.formId)
+        .subscribe((fields) => {
+          this.fields = fields;
+        });
+    } else if (has(this.config, 'jsonSchema') && has(this.config, 'uiSchema')) {
+      const { jsonSchema, uiSchema } = this.config;
+      this.fields = this.formService.schemasToFieldConfig(jsonSchema, uiSchema);
+    } else {
+      this.fields = [];
+    }
   }
 
   onModelChange() {

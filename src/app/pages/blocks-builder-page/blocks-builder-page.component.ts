@@ -43,9 +43,8 @@ export class BlocksBuilderPageComponent implements OnInit {
     this.blocks.splice(i, 1);
   }
 
-  onUpdateBlock(i, event) {
-    console.log(`Update block ${i}`, event);
-    this.blocks = [...this.blocks.slice(0, i), event, ...this.blocks.slice(i + 1)];
+  onUpdateBlock(i, c) {
+    this.blocks = [...this.blocks.slice(0, i), c.getUpdatedModel(), ...this.blocks.slice(i + 1)];
   }
 
   shareConfig() {

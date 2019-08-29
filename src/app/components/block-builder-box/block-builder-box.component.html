@@ -1,11 +1,2 @@
 <ngx-monaco-editor [options]="editorOptions"
                    [(ngModel)]="blockModel"></ngx-monaco-editor>
-
-<button mat-flat-button color="primary" (click)="_updateBlock()">
-  <mat-icon>save</mat-icon>
-  <span class="button-label">Update</span>
-</button>
-<button style="margin-left: 1em" mat-flat-button color="warn" (click)="deleteBlock.emit()">
-  <mat-icon>delete</mat-icon>
-  <span class="button-label">Delete</span>
-</button>

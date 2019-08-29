@@ -1,6 +1,6 @@
 export const EDITOR_OPTIONS = {
   baseUrl: 'blocks-builder',
-  theme: 'vs-dark',
+  theme: 'vs',
   language: 'json',
   minimap: {
     enabled: false
