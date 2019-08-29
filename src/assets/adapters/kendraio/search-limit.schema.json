@@ -4,11 +4,13 @@
   "properties": {
     "limit": {
       "title": "Limit",
-      "type": "integer"
+      "type": "integer",
+      "default": 2
     },
     "term": {
       "title": "Search term",
-      "type": "string"
+      "type": "string",
+      "default": "HEART"
     }
   }
 }

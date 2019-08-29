@@ -10,26 +10,20 @@
   </ng-container>
 
   <ng-container class="editor-config">
-    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-      <div class="example-box" *ngFor="let block of blocks; let i = index" cdkDrag>
+    <mat-accordion cdkDropList (cdkDropListDropped)="drop($event)">
+      <mat-expansion-panel *ngFor="let block of blocks; let i = index" cdkDrag>
+        <mat-expansion-panel-header>
+          <mat-icon class="drag-handle" cdkDragHandle>reorder</mat-icon>
+          <span class="block-type-title">{{ block.type }}</span>
+        </mat-expansion-panel-header>
 
-        <mat-icon class="drag-handle" cdkDragHandle>reorder</mat-icon>
+        <app-block-builder-box [block]="block" (deleteBlock)="onDeleteBlock(i)" (updateBlock)="onUpdateBlock(i, $event)"></app-block-builder-box>
 
-        <button mat-icon-button (click)="edit(i)">
-          <mat-icon>settings</mat-icon>
-        </button>
-
-        <span class="block-type-title">{{ block.type }}</span>
-
-        <button mat-icon-button color="warn" (click)="delete(i)">
-          <mat-icon>remove</mat-icon>
-        </button>
-
-      </div>
-    </div>
+      </mat-expansion-panel>
+    </mat-accordion>
 
     <br>
-    <button mat-flat-button color="primary">
+    <button mat-flat-button color="primary" (click)="addBlock()">
       <mat-icon>add</mat-icon>
       <span class="button-label">Add block</span>
     </button>

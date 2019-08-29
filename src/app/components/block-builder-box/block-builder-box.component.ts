@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {EDITOR_OPTIONS} from './editor-options';
 
 @Component({
   selector: 'app-block-builder-box',
@@ -7,20 +8,21 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class BlockBuilderBoxComponent implements OnInit {
 
+  editorOptions = EDITOR_OPTIONS;
+
   @Input() block;
-  showEditor = false;
+  blockModel = '';
+
+  @Output() updateBlock = new EventEmitter();
   @Output() deleteBlock = new EventEmitter();
 
   constructor() { }
 
   ngOnInit() {
+    this.blockModel = JSON.stringify(this.block, null, 4);
   }
 
-  toggleEdit() {
-    this.showEditor = !this.showEditor;
-  }
-
-  onDelete() {
-    this.deleteBlock.emit();
+  _updateBlock() {
+    this.updateBlock.emit(JSON.parse(this.blockModel));
   }
 }

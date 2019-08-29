@@ -1,15 +1,11 @@
-<div class="block-builder-box">
+<ngx-monaco-editor [options]="editorOptions"
+                   [(ngModel)]="blockModel"></ngx-monaco-editor>
 
-  <mat-icon class="drag-handle" cdkDragHandle>reorder</mat-icon>
-
-  <button mat-icon-button (click)="toggleEdit()">
-    <mat-icon>settings</mat-icon>
-  </button>
-
-  <span class="block-type-title">{{ block.type }}</span>
-
-  <button mat-icon-button color="warn" (click)="onDelete()">
-    <mat-icon>remove</mat-icon>
-  </button>
-
-</div>
+<button mat-flat-button color="primary" (click)="_updateBlock()">
+  <mat-icon>save</mat-icon>
+  <span class="button-label">Update</span>
+</button>
+<button style="margin-left: 1em" mat-flat-button color="warn" (click)="deleteBlock.emit()">
+  <mat-icon>delete</mat-icon>
+  <span class="button-label">Delete</span>
+</button>
