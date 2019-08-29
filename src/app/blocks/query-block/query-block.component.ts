@@ -4,6 +4,8 @@ import {get, has, isString} from 'lodash-es';
 import {DocumentRepositoryService} from '../../services/document-repository.service';
 import {ContextDataService} from '../../services/context-data.service';
 import {search} from 'jmespath';
+import {catchError, tap} from 'rxjs/operators';
+import {of} from 'rxjs';
 
 @Component({
   selector: 'app-query-block',
@@ -50,6 +52,7 @@ export class QueryBlockComponent implements OnInit, OnChanges {
   }
 
   updateQuery() {
+    this.hasError = false;
     const { type, ...dataSource } = get(this.config, 'dataSource', { type: false });
     switch (type) {
       case 'local':
@@ -79,9 +82,17 @@ export class QueryBlockComponent implements OnInit, OnChanges {
               console.log('Unknown authentication type');
           }
         }
-        this.http.get<Array<any>>(endpoint, { headers }).subscribe(values => {
-          this.sendOutput(values);
-        });
+        this.http.get<Array<any>>(endpoint, { headers })
+          .pipe(
+            catchError(error => {
+              this.hasError = true;
+              this.errorMessage = error.message;
+              return of([]);
+            })
+          )
+          .subscribe(values => {
+            this.sendOutput(values);
+          });
         break;
       default:
         this.hasError = true;
