@@ -1,0 +1,15 @@
+<div class="block-builder-box">
+
+  <mat-icon class="drag-handle" cdkDragHandle>reorder</mat-icon>
+
+  <button mat-icon-button (click)="toggleEdit()">
+    <mat-icon>settings</mat-icon>
+  </button>
+
+  <span class="block-type-title">{{ block.type }}</span>
+
+  <button mat-icon-button color="warn" (click)="onDelete()">
+    <mat-icon>remove</mat-icon>
+  </button>
+
+</div>

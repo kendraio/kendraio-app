@@ -1,0 +1,17 @@
+
+.editor-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.editor-column {
+  flex: 1;
+}
+.editor-config-column {
+  margin-right: 1em;
+}
+.editor-output-column {
+  width: 60%;
+}
