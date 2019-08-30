@@ -90,6 +90,7 @@ export class QueryBlockComponent implements OnInit, OnChanges {
             catchError(error => {
               this.hasError = true;
               this.errorMessage = error.message;
+              // TODO: need to prevent errors for triggering subsequent blocks
               return of([]);
             })
           )
