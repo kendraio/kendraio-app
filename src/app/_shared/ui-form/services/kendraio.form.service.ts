@@ -8,7 +8,7 @@ import { FormlyJsonschema } from '@ngx-formly/core/json-schema';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 // import { FULLNAME, EMAIL, TYPEAHEAD } from '../schemas/form-elements';
-import { Observable, from, forkJoin, throwError } from 'rxjs';
+import {Observable, from, forkJoin, throwError, of} from 'rxjs';
 import { FORM_APIS, REFDATA_APIS } from '../api-config';
 import { catchError, map, tap } from 'rxjs/operators';
 import {get, set, has, findIndex, isObject} from 'lodash-es';
@@ -38,12 +38,12 @@ export class KendraioFormService {
     // console.log(this.adapters.getAdapterSync(groupId));
     // TODO: fetch remote form config if not found in FORM_APIS
     // TODO: This working but is not very robust
+    // TODO: FETCH FORM CONFIG NEEDS TO BE ASYNC
     const url = has(FORM_APIS, `${groupId}.${formId}.uiSchema`)
       ? FORM_APIS[groupId][formId].uiSchema
-      : ADAPTER_PREFIX + this.adapters.getAdapterSync(groupId)['adapter']['forms'][formId].uiSchema;
+      : ADAPTER_PREFIX + get(this.adapters.getAdapterSync(groupId), `adapter.forms.${formId}.uiSchema`, '');
 
-    return this.http.get(url)
-      .pipe(catchError(this.errorHandler));
+    return this.http.get(url).pipe(catchError(() => of({})));
   }
 
   getJSONSchemaForm(_adapter, _formId) {
@@ -122,10 +122,12 @@ export class KendraioFormService {
 
   getSchema(groupId: string, formId: string): Observable<any> {
     // TODO: This is not very robust
+    // TODO: FETCH FORM CONFIG NEEDS TO BE ASYNC
     const url = has(FORM_APIS, `${groupId}.${formId}.uiSchema`)
       ? FORM_APIS[groupId][formId].jsonSchema
-      : ADAPTER_PREFIX + this.adapters.getAdapterSync(groupId)['adapter']['forms'][formId].jsonSchema;
-    return this.http.get<FormlyFieldConfig[]>(url);
+      : ADAPTER_PREFIX + get(this.adapters.getAdapterSync(groupId), `adapter.forms.${formId}.jsonSchema`, '');
+
+    return this.http.get<FormlyFieldConfig[]>(url).pipe(catchError(() => of({})));
   }
 
   toFieldConfig(schema) {

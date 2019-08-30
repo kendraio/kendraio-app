@@ -135,6 +135,7 @@ import { GridBlockComponent } from './blocks/grid-block/grid-block.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { EditorLayoutComponent } from './components/editor-layout/editor-layout.component';
 import { BlockBuilderBoxComponent } from './components/block-builder-box/block-builder-box.component';
+import { HttpBlockComponent } from './blocks/http-block/http-block.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -226,7 +227,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MappingBlockComponent,
     GridBlockComponent,
     EditorLayoutComponent,
-    BlockBuilderBoxComponent
+    BlockBuilderBoxComponent,
+    HttpBlockComponent
   ],
   imports: [
     // AgGridModule.withComponents([

@@ -27,6 +27,20 @@ export class ContextDataService {
     }, {});
   }
 
+  /*
+  Interpreting error codes from JMESPath requires these type codes:
+    0: 'number',
+    1: 'any',
+    2: 'string',
+    3: 'array',
+    4: 'object',
+    5: 'boolean',
+    6: 'expression',
+    7: 'null',
+    8: 'Array<number>',
+    9: 'Array<string>'
+   */
+
   getFromContextWithModel(endpoint, model) {
     // console.log({ endpoint, model });
     const context = {
@@ -36,13 +50,13 @@ export class ContextDataService {
         teosto: this.getTeostoContext()
       },
     };
-    // console.log({ context });
+    console.log({ context });
     const valueGetters = has(endpoint, 'valueGetters')
       ? Object.keys(endpoint.valueGetters).reduce((a, v) => {
         try {
           a[v] = search(context, endpoint.valueGetters[v]);
         } catch (e) {
-
+          console.log(e.message);
         }
         return a;
         }, {})

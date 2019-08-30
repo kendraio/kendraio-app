@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {get, isArray} from 'lodash-es';
 import {moveItemInArray} from '@angular/cdk/drag-drop';
 import {ShareLinkGeneratorService} from '../../services/share-link-generator.service';
+import {AdaptersService} from '../../services/adapters.service';
+import {filter, take} from 'rxjs/operators';
 
 @Component({
   selector: 'app-blocks-builder-page',
@@ -15,10 +17,18 @@ export class BlocksBuilderPageComponent implements OnInit {
   models = [];
 
   constructor(
-    private shareLinks: ShareLinkGeneratorService
+    private readonly shareLinks: ShareLinkGeneratorService,
+    private readonly adapters: AdaptersService
   ) { }
 
   ngOnInit() {
+    this.adapters.adaptersReady$.pipe(
+      filter(Boolean),
+      take(1)
+    ).subscribe(() => this.initBlocks());
+  }
+
+  initBlocks() {
     const urlData = this.shareLinks.getData();
     if (urlData && isArray(urlData)) {
       this.blocks = urlData;

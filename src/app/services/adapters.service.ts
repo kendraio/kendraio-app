@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { tap } from 'rxjs/operators';
+import {get} from 'lodash-es';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,8 @@ export class AdaptersService {
   adapters$ = new BehaviorSubject({});
   enabledAdapters = {};
   _adapters;
+
+  adaptersReady$ = new BehaviorSubject(false);
 
   constructor(
     private readonly http: HttpClient
@@ -31,11 +34,12 @@ export class AdaptersService {
         // console.log(adapters);
         this._adapters = adapters;
         this.adapters$.next(adapters);
+        this.adaptersReady$.next(true);
       });
   }
 
   getAdapterSync(id) {
-    return this._adapters[id];
+    return get(this._adapters, id, {});
   }
 
   getAdapter(id) {

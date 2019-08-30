@@ -34,6 +34,9 @@ export class QueryBlockComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes): void {
     // console.log({ changes });
+    if (get(changes, 'model.firstChange', false)) {
+      return;
+    }
     this.updateQuery();
   }
 
