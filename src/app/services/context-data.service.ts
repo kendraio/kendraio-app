@@ -50,7 +50,7 @@ export class ContextDataService {
         teosto: this.getTeostoContext()
       },
     };
-    console.log({ context });
+    // console.log({ context });
     const valueGetters = has(endpoint, 'valueGetters')
       ? Object.keys(endpoint.valueGetters).reduce((a, v) => {
         try {

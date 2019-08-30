@@ -28,7 +28,6 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes) {
-    console.log({ changes });
     if (get(changes, 'model.firstChange', false)) {
       return;
     }
@@ -49,8 +48,9 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       return;
     }
     const url = this.constructEndpointUrl(this.config);
-    console.log(get(this.config, 'endpoint'));
-    console.log({ url });
+
+    // TODO: error handling - display error message
+    // TODO: decide what to do with response when error condition
     switch (toUpper(method)) {
       case 'GET':
         this.http.get(url);
@@ -60,8 +60,9 @@ export class HttpBlockComponent implements OnInit, OnChanges {
         const sub = (toUpper(method) === 'PUT')
           ? this.http.put(url, this.model)
           : this.http.post(url, this.model);
-        sub.subscribe(v => {
-          console.log({ v });
+        sub.subscribe(response => {
+          // TODO: Create a convention for passing on input values
+          this.output.emit({ payload: { ...this.model }, response });
           const message = 'API update successful';
           this.notify.open(message, 'OK', {
             duration: 4000,
@@ -73,12 +74,12 @@ export class HttpBlockComponent implements OnInit, OnChanges {
 
   }
 
+  // TODO: Refactor to remove duplicate code - move this to service
   constructEndpointUrl(config) {
     if (isString(get(config, 'endpoint', ''))) {
       return config.endpoint;
     }
     const endpoint = this.contextData.getFromContextWithModel(config.endpoint, this.model);
-    console.log({ endpoint });
     const protocol = get(endpoint, 'protocol', 'https:');
     const host = get(endpoint, 'host', '');
     const pathname = get(endpoint, 'pathname', '/');
