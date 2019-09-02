@@ -23,7 +23,7 @@ myvideo.mp4
 
 
 </mat-card-content>
-</mat-card>
+</mat-card><br>
 
  `,
 })
