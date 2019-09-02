@@ -43,7 +43,7 @@ export class ThumbnailViewerComponent extends FieldType implements OnInit {
 
   selectThumb(i: number) {
     this.thumbs.forEach(t => {
-t.isDefault = false;
+      t.isDefault = false;
    });
    this.thumbs[i].isDefault = true;
   }
