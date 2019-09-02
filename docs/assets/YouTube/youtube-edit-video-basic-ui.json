@@ -1,14 +1,16 @@
 {
   "title": {
     "ui:disabled": false,
-    "ui:placeholder": "Enter the Video Title-1"
-
+    "ui:placeholder": "Enter the Video Title",
+    "ui:widget": "textarea",
+    "ui:rows": 8
   },
   "description": {
     "ui:disabled": false,
-    "ui:placeholder": "Enter your First Name",
-    "ui:autofocus": true
-
+    "ui:placeholder": "Enter the Video Description",
+    "ui:autofocus": true,
+    "ui:widget": "textarea",
+    "ui:rows": 8
   },
   "videoId": {
     "ui:widget": "videoviewer"
@@ -16,21 +18,10 @@
   "tags": {
     "ui:widget": "tags"
   },
-  "colorlist": {
-    "ui:widget": "kselect",
-    "ui:labelProp": "name",
-    "ui:valueProp": "alpha3Code",
-    "ui:isMultiSelect": true,
-    "ui:ref": "testRegion",
-    "ui:refType": "http"
+  "visibility": {
+    "ui:widget": "visibility"
   },
   "playlist": {
-    "ui:widget": "kselect",
-    "ui:labelProp": "name",
-    "ui:valueProp": "alpha3Code",
-    "ui:isMultiSelect": false,
-    "ui:ref": "testCountries",
-    "ui:refType": "http"
+    "ui:widget": "playlist"
   }
 }
-

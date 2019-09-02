@@ -16,8 +16,8 @@ import { HttpClient } from '@angular/common/http';
 export class MyYoutubeComponent {
   form = new FormGroup({});
   model: any = {
-    title: 'As it is in Hell',
-    description: ' fghjfghj fghjfghj',
+    title: 'SkyReel presents... preview of A Yorkshire Village',
+    description: 'Beautiful Yorkshire Village filmed in April 2019.',
     videoId: 'x2IylqmRUuA',
     // tags: ['this', 'is', 'tagging', 'in', 'action'],
     listOfStrings: [
