@@ -19,11 +19,40 @@ export class MyYoutubeComponent {
     title: 'SkyReel presents... preview of A Yorkshire Village',
     description: 'Beautiful Yorkshire Village filmed in April 2019.',
     videoId: 'x2IylqmRUuA',
-    // tags: ['this', 'is', 'tagging', 'in', 'action'],
-    listOfStrings: [
-      'Example 1',
-      'Example 2'
-  ],
+    tags: [
+      'drone',
+      'yorkshire',
+     'drone footage',
+      'England',
+     'north yorkshire moors',
+      'videography'
+    ],
+    thumbnails: [
+      {
+        'url': 'https://i9.ytimg.com/vi/x2IylqmRUuA/mq1.jpg?sqp=CJzJs-sF&rs=AOn4CLDi1XQplTcu-j_mdx5FpNW7DDpvJA',
+        'width': 320,
+        'height': 180,
+        'isDefault': false
+      },
+      {
+        'url': 'https://i9.ytimg.com/vi/x2IylqmRUuA/mq2.jpg?sqp=CJzJs-sF&rs=AOn4CLCPWUtAd4IKvnISDllZq8VLp2x8YQ',
+        'width': 320,
+        'height': 180,
+        'isDefault': false
+      },
+      {
+        'url': 'https://i9.ytimg.com/vi/x2IylqmRUuA/mq3.jpg?sqp=CJzJs-sF&rs=AOn4CLAOLszF7ht2iA62rCUmxqUaiso-VA',
+        'width': 320,
+        'height': 180,
+        'isDefault': true
+      },
+    ],
+
+
+
+
+
+
   };
 
   formConfig: any;

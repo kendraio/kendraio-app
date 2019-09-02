@@ -45,6 +45,7 @@ export const config: ConfigOption = {
     // { name: 'repeat', component: RepeatSectionComponent },
     { name: 'array', component: types.ArrayTypeComponent },
     { name: 'videoviewer', component: types.FormlyFieldVideoViewer },
+     { name: 'thumbnailviewer', component: types.ThumbnailViewerComponent },
     { name: 'visibility', component: types.FieldInputVisibilityComponent },
     { name: 'playlist', component: types.FieldInputPlaylistComponent },
     { name: 'tags', component: types.SelectTagsComponent },

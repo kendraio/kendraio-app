@@ -7,7 +7,7 @@
 	],
 	"properties": {
 		"videoId": {
-			"title": "Video",
+			"title": "",
 			"description": "",
 			"type": "string"
 		},
@@ -23,6 +23,10 @@
 			"title": "Description",
 			"minLength": 2,
 			"maxLength": 5000
+		},
+		"thumbnails": {
+			"type": "array",
+			"title": "Thumbnail "
 		},
 		"tags": {
 			"type": "string",

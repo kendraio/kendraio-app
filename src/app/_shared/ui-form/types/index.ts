@@ -10,3 +10,4 @@ export * from './typeahead.component';
 export * from './object.type';
 export * from './multiselect.type';
 export * from './textarea.type';
+export * from './thumbnail-viewer.component';

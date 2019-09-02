@@ -15,6 +15,10 @@
   "videoId": {
     "ui:widget": "videoviewer"
   },
+  "thumbnails": {
+    "ui:widget": "thumbnailviewer"
+  },
+
   "tags": {
     "ui:widget": "tags"
   },

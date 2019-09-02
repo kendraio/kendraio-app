@@ -109,7 +109,8 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
     types.KendraFieldTypeahead,
     types.ObjectTypeComponent,
     types.KendraFieldSelect,
-    types.TextareaComponent
+    types.TextareaComponent,
+    types.ThumbnailViewerComponent
     // ContentEditableFormDirective
     // KendraioFormComponent
 
