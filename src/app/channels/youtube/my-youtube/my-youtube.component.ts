@@ -18,7 +18,7 @@ export class MyYoutubeComponent {
   model: any = {
     title: 'As it is in Hell',
     description: ' fghjfghj fghjfghj',
-    videoId: 'BeW1e40mSGQ',
+    videoId: 'x2IylqmRUuA',
     // tags: ['this', 'is', 'tagging', 'in', 'action'],
     listOfStrings: [
       'Example 1',

@@ -1,13 +1,12 @@
 {
-	
 	"title": "Edit Video",
-	"description": "This form allows you to edit your video",
+	"description": "This form allows you to edit your video.",
 	"type": "object",
 	"required": [
 		"title"
 	],
 	"properties": {
-    		"videoId": {
+		"videoId": {
 			"title": "Video",
 			"description": "",
 			"type": "string"
@@ -19,16 +18,16 @@
 			"minLength": 2,
 			"maxLength": 100
 		},
+		"description": {
+			"type": "string",
+			"title": "Description",
+			"minLength": 2,
+			"maxLength": 5000
+		},
 		"tags": {
 			"type": "string",
 			"title": "Tags ",
-      "description": "Press enter to add a tag"
-		},
-		"description": {
-			"type": "string",
-			"title": "Bioff",
-			"minLength": 2,
-			"maxLength": 5000
+			"description": "Press enter to add a tag"
 		},
 		"visibility": {
 			"type": "object",
@@ -37,14 +36,6 @@
 		"playlist": {
 			"type": "object",
 			"title": "Playlists"
-		},
-		"listOfStrings": {
-			"type": "array",
-			"title": "My stuff list",
-			"items": {
-				"type": "string",
-				"default": "Enter your new ID here"
-			}
 		}
 	}
 }

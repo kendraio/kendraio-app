@@ -1,22 +1,15 @@
+<!-- <h3>11{{formLabel}}</h3>
+11{{formDescription}} -->
 
-
-<h3>{{formLabel}}</h3>
-{{formDescription}}
-
-<form [formGroup]="form"  (ngSubmit)="submit()">
-
-<formly-form [fields]="fields" [options]="options" [model]="model" [form]="form"></formly-form>
-
-
-
-<button type="submit" mat-raised-button color="primary" [disabled]="form.invalid">Submit</button>
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <formly-form [fields]="fields" [options]="options" [model]="model" [form]="form"></formly-form>
+  <button type="submit" mat-raised-button color="primary" [disabled]="form.invalid">Submit</button>
 </form>
 
-{{form.value | json}}
 
+
+<!-- {{form.value | json}}/ -->
 <!-- {{fields | json}} -->
-
-
 <!-- <app-kendraio-form
 [formGroup]="form"
 [model]="model"
@@ -25,5 +18,3 @@
 [form]="form"
 >
 </app-kendraio-form> -->
-
-
