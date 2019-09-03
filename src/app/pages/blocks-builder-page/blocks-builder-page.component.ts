@@ -6,6 +6,7 @@ import {AdaptersService} from '../../services/adapters.service';
 import {filter, take} from 'rxjs/operators';
 import {MatDialog} from '@angular/material';
 import {AdapterBlocksConfigSelectDialogComponent} from '../../dialogs/adapter-blocks-config-select-dialog/adapter-blocks-config-select-dialog.component';
+import {ExportConfigDialogComponent} from '../../dialogs/export-config-dialog/export-config-dialog.component';
 
 @Component({
   selector: 'app-blocks-builder-page',
@@ -75,6 +76,8 @@ export class BlocksBuilderPageComponent implements OnInit {
         const { title, blocks } = values;
         this.title = title;
         this.blocks = blocks;
+        this.models = this.blocks.map(blockDef => get(blockDef, 'defaultValue', {}));
+        this.models.push({});
       }
     });
   }
@@ -83,4 +86,11 @@ export class BlocksBuilderPageComponent implements OnInit {
     this.blocks.push({ type: 'debug' });
   }
 
+  exportConfig() {
+    const dialogRef = this.dialog.open(ExportConfigDialogComponent, {
+      data: {
+        configText: JSON.stringify({ title: 'Exported config', blocks: this.blocks })
+      }
+    });
+  }
 }

@@ -137,6 +137,7 @@ import { EditorLayoutComponent } from './components/editor-layout/editor-layout.
 import { BlockBuilderBoxComponent } from './components/block-builder-box/block-builder-box.component';
 import { HttpBlockComponent } from './blocks/http-block/http-block.component';
 import { AdapterBlocksConfigSelectDialogComponent } from './dialogs/adapter-blocks-config-select-dialog/adapter-blocks-config-select-dialog.component';
+import { ExportConfigDialogComponent } from './dialogs/export-config-dialog/export-config-dialog.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -230,7 +231,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     EditorLayoutComponent,
     BlockBuilderBoxComponent,
     HttpBlockComponent,
-    AdapterBlocksConfigSelectDialogComponent
+    AdapterBlocksConfigSelectDialogComponent,
+    ExportConfigDialogComponent
   ],
   imports: [
     // AgGridModule.withComponents([
@@ -291,7 +293,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     SwaggerFormSelectDialogComponent,
     ApiDataSelectDialogComponent,
     AdapterQuerySelectDialogComponent,
-    AdapterBlocksConfigSelectDialogComponent
+    AdapterBlocksConfigSelectDialogComponent,
+    ExportConfigDialogComponent
   ],
   providers: [
     // { provide: LOCALE_ID, useValue: 'de-DE' } ,
