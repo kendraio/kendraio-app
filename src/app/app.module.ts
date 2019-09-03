@@ -136,6 +136,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import { EditorLayoutComponent } from './components/editor-layout/editor-layout.component';
 import { BlockBuilderBoxComponent } from './components/block-builder-box/block-builder-box.component';
 import { HttpBlockComponent } from './blocks/http-block/http-block.component';
+import { AdapterBlocksConfigSelectDialogComponent } from './dialogs/adapter-blocks-config-select-dialog/adapter-blocks-config-select-dialog.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -228,7 +229,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     GridBlockComponent,
     EditorLayoutComponent,
     BlockBuilderBoxComponent,
-    HttpBlockComponent
+    HttpBlockComponent,
+    AdapterBlocksConfigSelectDialogComponent
   ],
   imports: [
     // AgGridModule.withComponents([
@@ -288,7 +290,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormDataSelectDialogComponent,
     SwaggerFormSelectDialogComponent,
     ApiDataSelectDialogComponent,
-    AdapterQuerySelectDialogComponent
+    AdapterQuerySelectDialogComponent,
+    AdapterBlocksConfigSelectDialogComponent
   ],
   providers: [
     // { provide: LOCALE_ID, useValue: 'de-DE' } ,

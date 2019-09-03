@@ -4,6 +4,8 @@ import {moveItemInArray} from '@angular/cdk/drag-drop';
 import {ShareLinkGeneratorService} from '../../services/share-link-generator.service';
 import {AdaptersService} from '../../services/adapters.service';
 import {filter, take} from 'rxjs/operators';
+import {MatDialog} from '@angular/material';
+import {AdapterBlocksConfigSelectDialogComponent} from '../../dialogs/adapter-blocks-config-select-dialog/adapter-blocks-config-select-dialog.component';
 
 @Component({
   selector: 'app-blocks-builder-page',
@@ -12,13 +14,15 @@ import {filter, take} from 'rxjs/operators';
 })
 export class BlocksBuilderPageComponent implements OnInit {
 
+  title = '';
   blocks = [];
 
   models = [];
 
   constructor(
     private readonly shareLinks: ShareLinkGeneratorService,
-    private readonly adapters: AdaptersService
+    private readonly adapters: AdaptersService,
+    private readonly dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -62,7 +66,17 @@ export class BlocksBuilderPageComponent implements OnInit {
   }
 
   loadFromAdapter() {
-
+    const dialogRef = this.dialog.open(AdapterBlocksConfigSelectDialogComponent, {
+      data: {}
+    });
+    dialogRef.afterClosed().subscribe(values => {
+      // console.log({ values });
+      if (!!values) {
+        const { title, blocks } = values;
+        this.title = title;
+        this.blocks = blocks;
+      }
+    });
   }
 
   addBlock() {
