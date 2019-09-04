@@ -189,11 +189,11 @@ export const MENUITEMS: MenuItem[] = [
         label: 'Form builder',
         icon: 'build'
       },
-      {
-        path: '/query-builder',
-        label: 'Query builder',
-        icon: 'build'
-      },
+      // {
+      //   path: '/query-builder',
+      //   label: 'Query builder',
+      //   icon: 'build'
+      // },
       {
         path: '/blocks-builder',
         label: 'Blocks builder',
