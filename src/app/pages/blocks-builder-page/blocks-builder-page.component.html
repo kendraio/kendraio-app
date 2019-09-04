@@ -53,6 +53,7 @@
         <app-mapping-block class="block-wrapper" *ngSwitchCase="'mapping'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-mapping-block>
         <app-grid-block class="block-wrapper" *ngSwitchCase="'grid'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-grid-block>
         <app-http-block class="block-wrapper" *ngSwitchCase="'http'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-http-block>
+        <app-chart-block class="block-wrapper" *ngSwitchCase="'chart'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-chart-block>
       </ng-container>
     </ng-container>
   </ng-container>
