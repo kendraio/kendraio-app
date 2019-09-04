@@ -22,6 +22,7 @@ export class GridBlockComponent implements OnInit, OnChanges {
   };
   columnDefs = [];
   rowData = [];
+  rowSelection = '';
 
   constructor(
     private readonly zone: NgZone
@@ -32,11 +33,12 @@ export class GridBlockComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes) {
     this.updateOutputDisplay();
-    this.output.emit(isArray(this.model) ? [ ...this.model ] : isObject(this.model) ? { ...this.model } : this.model);
+    // this.output.emit(isArray(this.model) ? [ ...this.model ] : isObject(this.model) ? { ...this.model } : this.model);
   }
 
   updateOutputDisplay() {
     this.columnDefs = this.preprocessColumnDefinition(get(this.config, 'columnDefs', []));
+    this.rowSelection = get(this.config, 'rowSelection', '');
     this.rowData = isArray(this.model) ? this.model : get(this.model, 'result', []);
     if (!!this.gridAngular) {
       setTimeout(() => {
@@ -59,6 +61,13 @@ export class GridBlockComponent implements OnInit, OnChanges {
           }
         }} : {}
     }));
+  }
+
+  onSelectionChanged(e) {
+    // console.log({ e });
+    const selectedRows = e.api.getSelectedRows();
+    // console.log({ selectedRows });
+    this.output.emit(isArray(selectedRows) ? [ ...selectedRows ] : isObject(selectedRows) ? { ...selectedRows } : selectedRows);
   }
 
 }
