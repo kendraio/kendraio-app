@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
 import {get, has, isArray, isObject} from 'lodash-es';
 import {search} from 'jmespath';
 
@@ -23,7 +23,9 @@ export class GridBlockComponent implements OnInit, OnChanges {
   columnDefs = [];
   rowData = [];
 
-  constructor() { }
+  constructor(
+    private readonly zone: NgZone
+  ) { }
 
   ngOnInit() {
   }
@@ -37,7 +39,11 @@ export class GridBlockComponent implements OnInit, OnChanges {
     this.columnDefs = this.preprocessColumnDefinition(get(this.config, 'columnDefs', []));
     this.rowData = isArray(this.model) ? this.model : get(this.model, 'result', []);
     if (!!this.gridAngular) {
-      this.gridAngular.api.sizeColumnsToFit();
+      setTimeout(() => {
+        this.zone.run(() => {
+          this.gridAngular.api.sizeColumnsToFit();
+        });
+      }, 40);
     }
   }
 
