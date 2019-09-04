@@ -138,6 +138,7 @@ import { BlockBuilderBoxComponent } from './components/block-builder-box/block-b
 import { HttpBlockComponent } from './blocks/http-block/http-block.component';
 import { AdapterBlocksConfigSelectDialogComponent } from './dialogs/adapter-blocks-config-select-dialog/adapter-blocks-config-select-dialog.component';
 import { ExportConfigDialogComponent } from './dialogs/export-config-dialog/export-config-dialog.component';
+import { ChartBlockComponent } from './blocks/chart-block/chart-block.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -232,7 +233,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     BlockBuilderBoxComponent,
     HttpBlockComponent,
     AdapterBlocksConfigSelectDialogComponent,
-    ExportConfigDialogComponent
+    ExportConfigDialogComponent,
+    ChartBlockComponent
   ],
   imports: [
     // AgGridModule.withComponents([
