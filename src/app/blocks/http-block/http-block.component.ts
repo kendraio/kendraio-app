@@ -18,6 +18,8 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   hasError = false;
   errorMessage = '';
 
+  isLoading = false;
+
   constructor(
     private readonly contextData: ContextDataService,
     private readonly notify: MatSnackBar,
@@ -36,15 +38,18 @@ export class HttpBlockComponent implements OnInit, OnChanges {
 
   makeRequest() {
     this.hasError = false;
+    this.isLoading = true;
     const method = get(this.config, 'method');
     if (!method) {
       this.errorMessage = 'No HTTP method provided';
       this.hasError = true;
+      this.isLoading = false;
       return;
     }
     if (!includes(['GET', 'POST', 'PUT'], toUpper(method))) {
       this.errorMessage = 'HTTP method not supported';
       this.hasError = true;
+      this.isLoading = false;
       return;
     }
     const url = this.constructEndpointUrl(this.config);
@@ -53,6 +58,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     // TODO: decide what to do with response when error condition
     switch (toUpper(method)) {
       case 'GET':
+        // TODO: Subscription for this request
         this.http.get(url);
         break;
       case 'PUT':
@@ -61,6 +67,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           ? this.http.put(url, this.model)
           : this.http.post(url, this.model);
         sub.subscribe(response => {
+          this.isLoading = false;
           // TODO: Create a convention for passing on input values
           this.output.emit({ payload: { ...this.model }, response });
           const message = 'API update successful';

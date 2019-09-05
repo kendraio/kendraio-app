@@ -22,6 +22,7 @@ export class QueryBlockComponent implements OnInit, OnChanges {
   errorMessage = '';
 
   debug = '';
+  isLoading = false;
 
   constructor(
     private readonly http: HttpClient,
@@ -56,6 +57,7 @@ export class QueryBlockComponent implements OnInit, OnChanges {
 
   updateQuery() {
     this.hasError = false;
+    this.isLoading = true;
     const { type, ...dataSource } = get(this.config, 'dataSource', { type: false });
     switch (type) {
       case 'local':
@@ -106,6 +108,7 @@ export class QueryBlockComponent implements OnInit, OnChanges {
   }
 
   sendOutput(result) {
+    this.isLoading = false;
     this.output.emit({ ...this.model, result });
   }
 
