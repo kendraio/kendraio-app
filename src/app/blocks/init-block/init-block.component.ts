@@ -10,7 +10,6 @@ export class InitBlockComponent implements OnInit, OnChanges {
 
   @Input() config;
   @Input() model: any = {};
-  @ViewChild('modelOutput', {static: false}) modelOutput: ElementRef;
 
   @Output() output = new EventEmitter();
 
