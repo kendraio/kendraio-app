@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
 import {isArray, isObject} from 'lodash-es';
 
 @Component({
@@ -13,13 +13,19 @@ export class InitBlockComponent implements OnInit, OnChanges {
 
   @Output() output = new EventEmitter();
 
-  constructor() { }
+  constructor(
+    private readonly zone: NgZone
+  ) { }
 
   ngOnInit() {
     // this.updateOutputDisplay();
   }
 
   ngOnChanges(changes) {
-    this.output.emit(isArray(this.model) ? [ ...this.model ] : isObject(this.model) ? { ...this.model } : this.model);
+    setTimeout(() => {
+      this.zone.run(() => {
+        this.output.emit(isArray(this.model) ? [ ...this.model ] : isObject(this.model) ? { ...this.model } : this.model);
+      });
+    }, 400);
   }
 }
