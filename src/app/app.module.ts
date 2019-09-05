@@ -141,6 +141,7 @@ import { ExportConfigDialogComponent } from './dialogs/export-config-dialog/expo
 import { ChartBlockComponent } from './blocks/chart-block/chart-block.component';
 import { InitBlockComponent } from './blocks/init-block/init-block.component';
 import { MessageBlockComponent } from './blocks/message-block/message-block.component';
+import { TemplateBlockComponent } from './blocks/template-block/template-block.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -238,7 +239,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ExportConfigDialogComponent,
     ChartBlockComponent,
     InitBlockComponent,
-    MessageBlockComponent
+    MessageBlockComponent,
+    TemplateBlockComponent
   ],
   imports: [
     // AgGridModule.withComponents([

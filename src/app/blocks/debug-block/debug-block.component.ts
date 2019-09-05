@@ -29,7 +29,7 @@ export class DebugBlockComponent implements OnInit, OnChanges {
   updateOutputDisplay() {
     if (!!this.modelOutput) {
       // Replace #modelOutput DIV contents with formatted JSON
-      const formatter = new JSONFormatter(this.model, 0);
+      const formatter = new JSONFormatter(this.model, 1);
       while (this.modelOutput.nativeElement.firstChild) {
         this.modelOutput.nativeElement.removeChild(this.modelOutput.nativeElement.firstChild);
       }

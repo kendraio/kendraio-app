@@ -56,6 +56,7 @@
         <app-chart-block class="block-wrapper" *ngSwitchCase="'chart'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-chart-block>
         <app-init-block class="block-wrapper" *ngSwitchCase="'init'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-init-block>
         <app-message-block class="block-wrapper" *ngSwitchCase="'message'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-message-block>
+        <app-template-block class="block-wrapper" *ngSwitchCase="'template'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-template-block>
       </ng-container>
     </ng-container>
   </ng-container>
