@@ -1,5 +1,5 @@
 import {Component, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
-import {get, has, isArray, isObject} from 'lodash-es';
+import {clone, get, has, isArray, isObject} from 'lodash-es';
 import {search} from 'jmespath';
 
 @Component({
@@ -40,7 +40,7 @@ export class GridBlockComponent implements OnInit, OnChanges {
   updateOutputDisplay() {
     this.columnDefs = this.preprocessColumnDefinition(get(this.config, 'columnDefs', []));
     this.rowSelection = get(this.config, 'rowSelection', '');
-    this.gridOptions = get(this.config, 'gridOptions', {});
+    this.gridOptions = clone(get(this.config, 'gridOptions', {}));
     this.rowData = isArray(this.model) ? this.model : get(this.model, 'result', []);
     if (!!this.gridAngular) {
       setTimeout(() => {

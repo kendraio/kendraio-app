@@ -5,9 +5,11 @@ import {ShareLinkGeneratorService} from '../../services/share-link-generator.ser
 import {AdaptersService} from '../../services/adapters.service';
 import {filter, take} from 'rxjs/operators';
 import {MatDialog} from '@angular/material';
-import {AdapterBlocksConfigSelectDialogComponent} from '../../dialogs/adapter-blocks-config-select-dialog/adapter-blocks-config-select-dialog.component';
+import {AdapterBlocksConfigSelectDialogComponent} from
+    '../../dialogs/adapter-blocks-config-select-dialog/adapter-blocks-config-select-dialog.component';
 import {ExportConfigDialogComponent} from '../../dialogs/export-config-dialog/export-config-dialog.component';
 import {PasteConfigDialogComponent} from '../../dialogs/paste-config-dialog/paste-config-dialog.component';
+import * as stringify from 'json-stringify-safe';
 
 @Component({
   selector: 'app-blocks-builder-page',
@@ -84,7 +86,7 @@ export class BlocksBuilderPageComponent implements OnInit {
   copyConfig() {
     const dialogRef = this.dialog.open(ExportConfigDialogComponent, {
       data: {
-        configText: JSON.stringify({ title: this.title, blocks: this.blocks })
+        configText: stringify({ title: this.title, blocks: this.blocks })
       }
     });
   }

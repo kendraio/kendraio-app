@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, NgZone, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {get} from 'lodash-es';
 
@@ -14,7 +14,8 @@ export class BlocksDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<BlocksDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data
+    @Inject(MAT_DIALOG_DATA) public data,
+    private readonly zone: NgZone
   ) { }
 
   ngOnInit() {
@@ -24,6 +25,10 @@ export class BlocksDialogComponent implements OnInit {
 
   onWorkflowComplete(value) {
     // console.log('workflow complete', { value });
-    this.dialogRef.close(value);
+    setTimeout(() => {
+      this.zone.run(() => {
+        this.dialogRef.close(value);
+      });
+    }, 0);
   }
 }
