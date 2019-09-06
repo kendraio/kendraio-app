@@ -4,7 +4,7 @@ import {FormGroup} from '@angular/forms';
 import {FormlyFieldConfig, FormlyFormOptions} from '@ngx-formly/core';
 import {Subject} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
-import {has} from 'lodash-es';
+import {get, has} from 'lodash-es';
 
 @Component({
   selector: 'app-form-block',
@@ -22,6 +22,9 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
   form = new FormGroup({});
   fields: FormlyFieldConfig[];
   options: FormlyFormOptions = {};
+
+  // TODO: Consider how to support multiple actions?
+  label = 'Submit';
 
   constructor(
     private readonly formService: KendraioFormService
@@ -41,6 +44,7 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnChanges(changes): void {
     // console.log({ changes });
+    this.label = get(this.config, 'label', 'Submit');
     this.updateForm();
   }
 
