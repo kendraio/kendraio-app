@@ -174,6 +174,11 @@ export class KendraioFormService {
                   { 'key': i, ref, refType },
                 );
               }
+
+              if (get(uiSchema, `${key}.ui:widget`, '') === 'blocks') {
+                const blocksConfig = get(uiSchema, `${key}.ui:blocksConfig`, []);
+                set(formlyConfig, `fieldGroup[${i}].templateOptions.blocksConfig`, blocksConfig);
+              }
             }
           });
           i++;

@@ -23,6 +23,7 @@ import * as types from './types';
 import {FormlyImageInputComponent} from '../../form-controls/formly-image-input/formly-image-input.component';
 import {FormlyAudioInputComponent} from '../../form-controls/formly-audio-input/formly-audio-input.component';
 import {FormlyRemoteImageInputComponent} from '../../form-controls/formly-remote-image-input/formly-remote-image-input.component';
+import {FormlyBlocksInputComponent} from '../../form-controls/formly-blocks-input/formly-blocks-input.component';
 
 export const config: ConfigOption = {
   validationMessages: [
@@ -53,6 +54,7 @@ export const config: ConfigOption = {
     { name: 'image', component: FormlyImageInputComponent },
     { name: 'audio', component: FormlyAudioInputComponent },
     { name: 'remote-image', component: FormlyRemoteImageInputComponent },
+    { name: 'blocks', component: FormlyBlocksInputComponent },
     {
       name: 'money', component: types.FormlyFieldInputMoney,
       defaultOptions: {
