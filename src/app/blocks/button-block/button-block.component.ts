@@ -27,7 +27,6 @@ export class ButtonBlockComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes) {
     this.label = get(this.config, 'label', 'Submit');
-    console.log(this.config);
   }
 
   onSubmit() {
