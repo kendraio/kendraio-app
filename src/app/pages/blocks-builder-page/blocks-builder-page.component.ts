@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {get, isArray} from 'lodash-es';
+import {get, has, isArray} from 'lodash-es';
 import {moveItemInArray} from '@angular/cdk/drag-drop';
 import {ShareLinkGeneratorService} from '../../services/share-link-generator.service';
 import {AdaptersService} from '../../services/adapters.service';
@@ -7,6 +7,7 @@ import {filter, take} from 'rxjs/operators';
 import {MatDialog} from '@angular/material';
 import {AdapterBlocksConfigSelectDialogComponent} from '../../dialogs/adapter-blocks-config-select-dialog/adapter-blocks-config-select-dialog.component';
 import {ExportConfigDialogComponent} from '../../dialogs/export-config-dialog/export-config-dialog.component';
+import {PasteConfigDialogComponent} from '../../dialogs/paste-config-dialog/paste-config-dialog.component';
 
 @Component({
   selector: 'app-blocks-builder-page',
@@ -15,7 +16,7 @@ import {ExportConfigDialogComponent} from '../../dialogs/export-config-dialog/ex
 })
 export class BlocksBuilderPageComponent implements OnInit {
 
-  title = '';
+  title = 'Block builder config';
   blocks = [];
 
   models = [];
@@ -74,6 +75,7 @@ export class BlocksBuilderPageComponent implements OnInit {
       // console.log({ values });
       if (!!values) {
         const { title, blocks } = values;
+        // TODO: refactor (a)
         this.title = title;
         this.blocks = blocks;
         this.models = this.blocks.map(blockDef => get(blockDef, 'defaultValue', {}));
@@ -86,10 +88,30 @@ export class BlocksBuilderPageComponent implements OnInit {
     this.blocks.push({ type: 'debug' });
   }
 
-  exportConfig() {
+  copyConfig() {
     const dialogRef = this.dialog.open(ExportConfigDialogComponent, {
       data: {
-        configText: JSON.stringify({ title: 'Exported config', blocks: this.blocks })
+        configText: JSON.stringify({ title: this.title, blocks: this.blocks })
+      }
+    });
+  }
+
+  pasteConfig() {
+    const dialogRef = this.dialog.open(PasteConfigDialogComponent, {});
+    dialogRef.afterClosed().subscribe(value => {
+      if (!!value) {
+        try {
+          const config = JSON.parse(value);
+          if (has(config, 'blocks')) {
+            // TODO: refactor (b)
+            this.title = get(config, 'title', 'Imported config');
+            this.blocks = get(config, 'blocks', []);
+            this.models = this.blocks.map(blockDef => get(blockDef, 'defaultValue', {}));
+            this.models.push({});
+          }
+        } catch (e) {
+          console.log('Error importing config', e);
+        }
       }
     });
   }

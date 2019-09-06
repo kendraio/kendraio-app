@@ -1,6 +1,6 @@
 <p class="mat-typography">Config export:</p>
-<textarea #textBox readonly="readonly">
+<textarea #textBox readonly="readonly" class="config-text-box">
 {{ configText }}
 </textarea><br>
 <button mat-flat-button (click)="textBox.focus();textBox.select()">Select all</button>
-<button mat-flat-button (click)="copyText()">Copy config</button>
+<button mat-flat-button color="primary" (click)="copyText()">Copy config</button>

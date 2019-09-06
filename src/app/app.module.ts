@@ -142,6 +142,10 @@ import { ChartBlockComponent } from './blocks/chart-block/chart-block.component'
 import { InitBlockComponent } from './blocks/init-block/init-block.component';
 import { MessageBlockComponent } from './blocks/message-block/message-block.component';
 import { TemplateBlockComponent } from './blocks/template-block/template-block.component';
+import { ButtonBlockComponent } from './blocks/button-block/button-block.component';
+import { BlocksDialogComponent } from './dialogs/blocks-dialog/blocks-dialog.component';
+import { PasteConfigDialogComponent } from './dialogs/paste-config-dialog/paste-config-dialog.component';
+import { BlocksWorkflowComponent } from './components/blocks-workflow/blocks-workflow.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -240,7 +244,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     ChartBlockComponent,
     InitBlockComponent,
     MessageBlockComponent,
-    TemplateBlockComponent
+    TemplateBlockComponent,
+    ButtonBlockComponent,
+    BlocksDialogComponent,
+    PasteConfigDialogComponent,
+    BlocksWorkflowComponent
   ],
   imports: [
     // AgGridModule.withComponents([
@@ -302,7 +310,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     ApiDataSelectDialogComponent,
     AdapterQuerySelectDialogComponent,
     AdapterBlocksConfigSelectDialogComponent,
-    ExportConfigDialogComponent
+    ExportConfigDialogComponent,
+    BlocksDialogComponent,
+    PasteConfigDialogComponent
   ],
   providers: [
     // { provide: LOCALE_ID, useValue: 'de-DE' } ,

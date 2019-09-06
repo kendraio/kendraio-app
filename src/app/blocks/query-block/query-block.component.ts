@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, NgZone, OnChanges, OnInit, Output} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {get, has, isString} from 'lodash-es';
 import {DocumentRepositoryService} from '../../services/document-repository.service';
@@ -27,7 +27,8 @@ export class QueryBlockComponent implements OnInit, OnChanges {
   constructor(
     private readonly http: HttpClient,
     private readonly docRepo: DocumentRepositoryService,
-    private readonly contextData: ContextDataService
+    private readonly contextData: ContextDataService,
+    private readonly zone: NgZone
   ) { }
 
   ngOnInit() {

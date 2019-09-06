@@ -7,8 +7,11 @@
     <button type="button" mat-icon-button (click)="loadFromAdapter()" matTooltip="Load from Adapter">
       <mat-icon>open_in_browser</mat-icon>
     </button>
-    <button type="button" mat-icon-button (click)="exportConfig()" matTooltip="Export config">
-      <mat-icon>import_export</mat-icon>
+    <button type="button" mat-icon-button (click)="copyConfig()" matTooltip="Copy config">
+      <mat-icon>content_copy</mat-icon>
+    </button>
+    <button type="button" mat-icon-button (click)="pasteConfig()" matTooltip="Paste config">
+      <mat-icon>content_paste</mat-icon>
     </button>
   </ng-container>
 
@@ -57,6 +60,7 @@
         <app-init-block class="block-wrapper" *ngSwitchCase="'init'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-init-block>
         <app-message-block class="block-wrapper" *ngSwitchCase="'message'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-message-block>
         <app-template-block class="block-wrapper" *ngSwitchCase="'template'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-template-block>
+        <app-button-block class="block-wrapper" *ngSwitchCase="'button'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-button-block>
       </ng-container>
     </ng-container>
   </ng-container>
