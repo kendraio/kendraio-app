@@ -22,8 +22,8 @@ export class BlocksDialogComponent implements OnInit {
     this.models = [get(this.data, 'model', {})];
   }
 
-  terminatingBlockUpdate(value) {
+  onWorkflowComplete(value) {
+    console.log('workflow complete', { value });
     this.dialogRef.close(value);
   }
-
 }

@@ -10,6 +10,8 @@ import {BlocksDialogComponent} from '../../dialogs/blocks-dialog/blocks-dialog.c
 })
 export class ButtonBlockComponent implements OnInit, OnChanges {
 
+  // TODO: button block should allow multiple actions (array of buttons)
+
   @Input() config;
   @Input() model: any = {};
 
