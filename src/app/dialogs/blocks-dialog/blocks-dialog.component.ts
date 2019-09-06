@@ -23,7 +23,7 @@ export class BlocksDialogComponent implements OnInit {
   }
 
   onWorkflowComplete(value) {
-    console.log('workflow complete', { value });
+    // console.log('workflow complete', { value });
     this.dialogRef.close(value);
   }
 }

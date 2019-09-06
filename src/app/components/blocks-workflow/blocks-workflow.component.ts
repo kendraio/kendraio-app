@@ -18,8 +18,8 @@ export class BlocksWorkflowComponent implements OnInit {
   }
 
   updateModel(modelNumber, value) {
-    console.log({ modelNumber, value });
-    console.log(this.models);
+    // console.log({ modelNumber, value });
+    // console.log(this.models);
     this.models = [...this.models.slice(0, modelNumber), value, ...this.models.slice(modelNumber + 1)];
     // Force change
     this.blocks = [...this.blocks];
