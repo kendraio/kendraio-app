@@ -36,11 +36,11 @@ export class BlocksInputControlComponent implements OnInit, ControlValueAccessor
   }
 
   writeValue(obj: any): void {
-    console.log('write value', { obj });
+    // console.log('write value', { obj });
   }
 
   onWorkflowComplete(value) {
-    console.log('formly blocks workflow complete', { value });
+    // console.log('formly blocks workflow complete', { value });
     if (!!value) {
       this._onValueChanged(value);
     }
