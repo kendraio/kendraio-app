@@ -27,13 +27,14 @@ export class ButtonBlockComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes) {
     this.label = get(this.config, 'label', 'Submit');
+    console.log(this.config);
   }
 
   onSubmit() {
     const dialogRef = this.dialog.open(BlocksDialogComponent, {
       // TODO: Add other dialog options to config
       data: {
-        config: get(this.config, 'blocks', []),
+        blocks: get(this.config, 'blocks', []),
         model: this.model
       }
     });

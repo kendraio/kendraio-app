@@ -48,20 +48,6 @@
   </ng-container>
 
   <ng-container class="editor-output">
-    <ng-container *ngFor="let block of blocks; let i = index">
-      <ng-container [ngSwitch]="block.type">
-        <app-form-block class="block-wrapper" *ngSwitchCase="'form'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-form-block>
-        <app-debug-block class="block-wrapper" *ngSwitchCase="'debug'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-debug-block>
-        <app-query-block class="block-wrapper" *ngSwitchCase="'query'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-query-block>
-        <app-mapping-block class="block-wrapper" *ngSwitchCase="'mapping'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-mapping-block>
-        <app-grid-block class="block-wrapper" *ngSwitchCase="'grid'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-grid-block>
-        <app-http-block class="block-wrapper" *ngSwitchCase="'http'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-http-block>
-        <app-chart-block class="block-wrapper" *ngSwitchCase="'chart'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-chart-block>
-        <app-init-block class="block-wrapper" *ngSwitchCase="'init'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-init-block>
-        <app-message-block class="block-wrapper" *ngSwitchCase="'message'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-message-block>
-        <app-template-block class="block-wrapper" *ngSwitchCase="'template'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-template-block>
-        <app-button-block class="block-wrapper" *ngSwitchCase="'button'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-button-block>
-      </ng-container>
-    </ng-container>
+    <app-blocks-workflow [blocks]="blocks" [models]="models"></app-blocks-workflow>
   </ng-container>
 </app-editor-layout>

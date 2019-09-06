@@ -44,13 +44,6 @@ export class BlocksBuilderPageComponent implements OnInit {
     this.models.push({});
   }
 
-  updateModel(modelNumber, value) {
-    // console.log({ modelNumber, value });
-    this.models = [...this.models.slice(0, modelNumber), value, ...this.models.slice(modelNumber + 1)];
-    // Force change
-    this.blocks = [...this.blocks];
-  }
-
   drop(event) {
     moveItemInArray(this.blocks, event.previousIndex, event.currentIndex);
   }
