@@ -11,5 +11,7 @@
     <app-message-block class="block-wrapper" *ngSwitchCase="'message'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-message-block>
     <app-template-block class="block-wrapper" *ngSwitchCase="'template'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-template-block>
     <app-button-block class="block-wrapper" *ngSwitchCase="'button'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-button-block>
+    <app-dialog-block class="block-wrapper" *ngSwitchCase="'dialog'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-dialog-block>
+    <app-actions-block class="block-wrapper" *ngSwitchCase="'actions'" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-actions-block>
   </ng-container>
 </ng-container>

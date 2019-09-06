@@ -34,6 +34,8 @@ export class DebugBlockComponent implements OnInit, OnChanges {
         this.modelOutput.nativeElement.removeChild(this.modelOutput.nativeElement.firstChild);
       }
       this.modelOutput.nativeElement.append(formatter.render());
+    } else {
+      console.log('Debug output DIV not available', this.model);
     }
   }
 }

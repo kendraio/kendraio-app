@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {clone} from 'lodash-es';
 
 @Component({
   selector: 'app-blocks-workflow',
@@ -26,6 +27,12 @@ export class BlocksWorkflowComponent implements OnInit {
     // Output as complete workflow if final block is causing the updating
     if (modelNumber >= this.blocks.length) {
       this.workflowComplete.emit(value);
+    }
+  }
+
+  runWorkflow() {
+    if (this.models.length > 0) {
+      this.models[0] = clone(this.models[0]);
     }
   }
 }

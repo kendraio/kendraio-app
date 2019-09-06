@@ -22,7 +22,6 @@ export class GridBlockComponent implements OnInit, OnChanges {
   };
   columnDefs = [];
   rowData = [];
-  rowSelection = '';
   gridOptions = {};
 
   constructor(
@@ -39,7 +38,6 @@ export class GridBlockComponent implements OnInit, OnChanges {
 
   updateOutputDisplay() {
     this.columnDefs = this.preprocessColumnDefinition(get(this.config, 'columnDefs', []));
-    this.rowSelection = get(this.config, 'rowSelection', '');
     this.gridOptions = clone(get(this.config, 'gridOptions', {}));
     this.rowData = isArray(this.model) ? this.model : get(this.model, 'result', []);
     if (!!this.gridAngular) {

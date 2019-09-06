@@ -148,6 +148,8 @@ import { PasteConfigDialogComponent } from './dialogs/paste-config-dialog/paste-
 import { BlocksWorkflowComponent } from './components/blocks-workflow/blocks-workflow.component';
 import { FormlyBlocksInputComponent } from './form-controls/formly-blocks-input/formly-blocks-input.component';
 import { BlocksInputControlComponent } from './form-controls/blocks-input-control/blocks-input-control.component';
+import { DialogBlockComponent } from './blocks/dialog-block/dialog-block.component';
+import { ActionsBlockComponent } from './blocks/actions-block/actions-block.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -252,7 +254,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     PasteConfigDialogComponent,
     BlocksWorkflowComponent,
     FormlyBlocksInputComponent,
-    BlocksInputControlComponent
+    BlocksInputControlComponent,
+    DialogBlockComponent,
+    ActionsBlockComponent
   ],
   imports: [
     // AgGridModule.withComponents([
