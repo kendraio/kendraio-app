@@ -1,8 +1,10 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-import {get, includes, isString, toLower, toUpper} from 'lodash-es';
+import {get, has, includes, isString, toLower, toUpper} from 'lodash-es';
 import {ContextDataService} from '../../services/context-data.service';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {MatSnackBar} from '@angular/material';
+import {catchError} from 'rxjs/operators';
+import {of} from 'rxjs';
 
 @Component({
   selector: 'app-http-block',
@@ -24,7 +26,8 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     private readonly contextData: ContextDataService,
     private readonly notify: MatSnackBar,
     private readonly http: HttpClient
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
   }
@@ -54,28 +57,70 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     }
     const url = this.constructEndpointUrl(this.config);
 
+    let headers = new HttpHeaders();
+    if (has(this.config, 'authentication.type')) {
+      const valueGetters = get(this.config, 'authentication.valueGetters', {});
+      const context = {...this.config.authentication, ...this.contextData.getGlobalContext(valueGetters)};
+      switch (get(this.config, 'authentication.type')) {
+        case 'basic-auth':
+          if (has(context, 'username') && has(context, 'password')) {
+            const {username, password} = context;
+            headers = headers.append('Authorization', 'Basic ' + btoa(`${username}:${password}`));
+          }
+          break;
+        case 'bearer':
+          if (has(context, 'jwt')) {
+            const {jwt} = context;
+            headers = headers.append('Authorization', `Bearer ${jwt}`);
+          }
+          break;
+        default:
+          console.log('Unknown authentication type');
+      }
+    }
+
     // TODO: error handling - display error message
     // TODO: decide what to do with response when error condition
     switch (toUpper(method)) {
       case 'GET':
-        // TODO: Subscription for this request
-        this.http.get(url);
+        this.http.get(url, {headers})
+          .pipe(
+            catchError(error => {
+              this.hasError = true;
+              this.errorMessage = error.message;
+              // TODO: need to prevent errors for triggering subsequent blocks
+              return of([]);
+            })
+          )
+          .subscribe(response => {
+            this.isLoading = false;
+            this.output.emit({payload: {...this.model}, response});
+          });
         break;
       case 'PUT':
       case 'POST':
         const sub = (toUpper(method) === 'PUT')
-          ? this.http.put(url, this.model)
-          : this.http.post(url, this.model);
-        sub.subscribe(response => {
-          this.isLoading = false;
-          // TODO: Create a convention for passing on input values
-          this.output.emit({ payload: { ...this.model }, response });
-          const message = 'API update successful';
-          this.notify.open(message, 'OK', {
-            duration: 4000,
-            verticalPosition: 'top'
+          ? this.http.put(url, this.model, {headers})
+          : this.http.post(url, this.model, {headers});
+        sub
+          .pipe(
+            catchError(error => {
+              this.hasError = true;
+              this.errorMessage = error.message;
+              // TODO: need to prevent errors for triggering subsequent blocks
+              return of([]);
+            })
+          )
+          .subscribe(response => {
+            this.isLoading = false;
+            // TODO: Create a convention for passing on input values
+            this.output.emit({payload: {...this.model}, response});
+            const message = 'API update successful';
+            this.notify.open(message, 'OK', {
+              duration: 4000,
+              verticalPosition: 'top'
+            });
           });
-        });
         break;
     }
 

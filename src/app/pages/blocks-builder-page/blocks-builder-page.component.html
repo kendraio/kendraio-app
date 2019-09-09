@@ -1,6 +1,9 @@
 <app-editor-layout>
 
   <ng-container class="toolbar">
+    <button type="button" mat-icon-button (click)="clearBlocks()" matTooltip="Share">
+      <mat-icon>delete_forever</mat-icon>
+    </button>
     <button type="button" mat-icon-button (click)="shareConfig()" matTooltip="Share">
       <mat-icon>share</mat-icon>
     </button>

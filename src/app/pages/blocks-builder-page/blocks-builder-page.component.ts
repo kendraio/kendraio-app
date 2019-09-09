@@ -53,6 +53,11 @@ export class BlocksBuilderPageComponent implements OnInit {
     moveItemInArray(this.blocks, event.previousIndex, event.currentIndex);
   }
 
+  clearBlocks() {
+    this.blocks = [];
+    this.models = [{}];
+  }
+
   onDeleteBlock(i) {
     this.blocks.splice(i, 1);
   }
