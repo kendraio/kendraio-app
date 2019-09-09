@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
 import JSONFormatter from 'json-formatter-js';
 import {isArray, isObject} from 'lodash-es';
 
@@ -15,7 +15,9 @@ export class DebugBlockComponent implements OnInit, OnChanges {
 
   @Output() output = new EventEmitter();
 
-  constructor() { }
+  constructor(
+    private readonly zone: NgZone
+  ) { }
 
   ngOnInit() {
     // this.updateOutputDisplay();
@@ -27,15 +29,19 @@ export class DebugBlockComponent implements OnInit, OnChanges {
   }
 
   updateOutputDisplay() {
-    if (!!this.modelOutput) {
-      // Replace #modelOutput DIV contents with formatted JSON
-      const formatter = new JSONFormatter(this.model, 1);
-      while (this.modelOutput.nativeElement.firstChild) {
-        this.modelOutput.nativeElement.removeChild(this.modelOutput.nativeElement.firstChild);
-      }
-      this.modelOutput.nativeElement.append(formatter.render());
-    } else {
-      console.log('Debug output DIV not available', this.model);
-    }
+    setTimeout(() => {
+      this.zone.run(() => {
+        if (!!this.modelOutput) {
+          // Replace #modelOutput DIV contents with formatted JSON
+          const formatter = new JSONFormatter(this.model, 1);
+          while (this.modelOutput.nativeElement.firstChild) {
+            this.modelOutput.nativeElement.removeChild(this.modelOutput.nativeElement.firstChild);
+          }
+          this.modelOutput.nativeElement.append(formatter.render());
+        } else {
+          console.log('Debug output DIV not available', this.model);
+        }
+      });
+    }, 40);
   }
 }
