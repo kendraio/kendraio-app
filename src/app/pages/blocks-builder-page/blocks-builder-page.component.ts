@@ -10,6 +10,7 @@ import {AdapterBlocksConfigSelectDialogComponent} from
 import {ExportConfigDialogComponent} from '../../dialogs/export-config-dialog/export-config-dialog.component';
 import {PasteConfigDialogComponent} from '../../dialogs/paste-config-dialog/paste-config-dialog.component';
 import * as stringify from 'json-stringify-safe';
+import {PageTitleService} from '../../services/page-title.service';
 
 @Component({
   selector: 'app-blocks-builder-page',
@@ -26,10 +27,12 @@ export class BlocksBuilderPageComponent implements OnInit {
   constructor(
     private readonly shareLinks: ShareLinkGeneratorService,
     private readonly adapters: AdaptersService,
-    private readonly dialog: MatDialog
+    private readonly dialog: MatDialog,
+    private readonly pageTitle: PageTitleService
   ) { }
 
   ngOnInit() {
+    this.pageTitle.setTitle('Workflow');
     this.adapters.adaptersReady$.pipe(
       filter(Boolean),
       take(1)
