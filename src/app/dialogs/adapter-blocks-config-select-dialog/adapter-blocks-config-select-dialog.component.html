@@ -1,0 +1,20 @@
+<p class="mat-typography">Load config from Adapter:</p>
+<ng-container *ngIf="adapters$ | async as adapters">
+
+  <select [(ngModel)]="selectedAdapter" (ngModelChange)="adapterChange()">
+    <option class="row" *ngFor="let adapter of adapters | objectKeys | orderKeys" [value]="adapter">
+      <ng-container *ngIf="adapters[adapter] as config">{{ config?.adapter?.name }}</ng-container>
+    </option>
+  </select>
+
+  <select *ngIf="configs.length > 0" [(ngModel)]="selectedConfig">
+    <option *ngFor="let q of configs; let i = index" [value]="i">
+      {{ q?.title || 'Untitled' }}
+    </option>
+  </select>
+
+</ng-container>
+
+<br><br>
+<button mat-flat-button (click)="loadConfig()" color="primary">Load Config</button>
+<button mat-flat-button (click)="cancel()">Cancel</button>

@@ -21,6 +21,7 @@ export class ContextDataService {
         teosto: this.getTeostoContext()
       },
     };
+    // console.log({ valueGetters, context });
     return Object.keys(valueGetters).reduce((a, v) => {
       a[v] = search(context, valueGetters[v]);
       return a;

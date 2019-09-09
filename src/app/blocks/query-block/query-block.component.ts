@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, NgZone, OnChanges, OnInit, Output} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {get, has, isString} from 'lodash-es';
 import {DocumentRepositoryService} from '../../services/document-repository.service';
@@ -22,11 +22,13 @@ export class QueryBlockComponent implements OnInit, OnChanges {
   errorMessage = '';
 
   debug = '';
+  isLoading = false;
 
   constructor(
     private readonly http: HttpClient,
     private readonly docRepo: DocumentRepositoryService,
-    private readonly contextData: ContextDataService
+    private readonly contextData: ContextDataService,
+    private readonly zone: NgZone
   ) { }
 
   ngOnInit() {
@@ -56,6 +58,7 @@ export class QueryBlockComponent implements OnInit, OnChanges {
 
   updateQuery() {
     this.hasError = false;
+    this.isLoading = true;
     const { type, ...dataSource } = get(this.config, 'dataSource', { type: false });
     switch (type) {
       case 'local':
@@ -106,6 +109,7 @@ export class QueryBlockComponent implements OnInit, OnChanges {
   }
 
   sendOutput(result) {
+    this.isLoading = false;
     this.output.emit({ ...this.model, result });
   }
 

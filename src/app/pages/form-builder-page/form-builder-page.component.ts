@@ -14,6 +14,7 @@ import {EDITOR_OPTIONS} from './editor-options';
 import {AdapterFormSelectService} from '../../services/adapter-form-select.service';
 import {FormDataService} from '../../services/form-data.service';
 import {get, has} from 'lodash-es';
+import {PageTitleService} from '../../services/page-title.service';
 
 @Component({
   selector: 'app-form-builder-page',
@@ -56,11 +57,13 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
     private formSubmitHandler: FormSubmitHandlerService,
     private shareLinks: ShareLinkGeneratorService,
     private formSelect: AdapterFormSelectService,
-    private formData: FormDataService
+    private formData: FormDataService,
+    private readonly pageTitle: PageTitleService
   ) {
   }
 
   ngOnInit() {
+    this.pageTitle.setTitle('Form builder');
     this._schemaChange$.pipe(
       takeUntil(this._destroy$),
       debounceTime(500)

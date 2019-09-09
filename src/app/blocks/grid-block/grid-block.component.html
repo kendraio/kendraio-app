@@ -3,4 +3,6 @@
                  domLayout="autoHeight"
                  [rowData]="rowData"
                  [defaultColDef]="defaultColDef"
+                 [gridOptions]="gridOptions"
+                 (selectionChanged)="onSelectionChanged($event)"
                  [columnDefs]="columnDefs"></ag-grid-angular>

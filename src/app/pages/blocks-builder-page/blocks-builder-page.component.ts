@@ -1,9 +1,16 @@
 import {Component, OnInit} from '@angular/core';
-import {get, isArray} from 'lodash-es';
+import {get, has, isArray} from 'lodash-es';
 import {moveItemInArray} from '@angular/cdk/drag-drop';
 import {ShareLinkGeneratorService} from '../../services/share-link-generator.service';
 import {AdaptersService} from '../../services/adapters.service';
 import {filter, take} from 'rxjs/operators';
+import {MatDialog} from '@angular/material';
+import {AdapterBlocksConfigSelectDialogComponent} from
+    '../../dialogs/adapter-blocks-config-select-dialog/adapter-blocks-config-select-dialog.component';
+import {ExportConfigDialogComponent} from '../../dialogs/export-config-dialog/export-config-dialog.component';
+import {PasteConfigDialogComponent} from '../../dialogs/paste-config-dialog/paste-config-dialog.component';
+import * as stringify from 'json-stringify-safe';
+import {PageTitleService} from '../../services/page-title.service';
 
 @Component({
   selector: 'app-blocks-builder-page',
@@ -12,16 +19,20 @@ import {filter, take} from 'rxjs/operators';
 })
 export class BlocksBuilderPageComponent implements OnInit {
 
+  title = 'Block builder config';
   blocks = [];
 
   models = [];
 
   constructor(
     private readonly shareLinks: ShareLinkGeneratorService,
-    private readonly adapters: AdaptersService
+    private readonly adapters: AdaptersService,
+    private readonly dialog: MatDialog,
+    private readonly pageTitle: PageTitleService
   ) { }
 
   ngOnInit() {
+    this.pageTitle.setTitle('Workflow');
     this.adapters.adaptersReady$.pipe(
       filter(Boolean),
       take(1)
@@ -38,15 +49,13 @@ export class BlocksBuilderPageComponent implements OnInit {
     this.models.push({});
   }
 
-  updateModel(modelNumber, value) {
-    // console.log({ modelNumber, value });
-    this.models = [...this.models.slice(0, modelNumber), value, ...this.models.slice(modelNumber + 1)];
-    // Force change
-    this.blocks = [...this.blocks];
-  }
-
   drop(event) {
     moveItemInArray(this.blocks, event.previousIndex, event.currentIndex);
+  }
+
+  clearBlocks() {
+    this.blocks = [];
+    this.models = [{}];
   }
 
   onDeleteBlock(i) {
@@ -62,11 +71,51 @@ export class BlocksBuilderPageComponent implements OnInit {
   }
 
   loadFromAdapter() {
-
+    const dialogRef = this.dialog.open(AdapterBlocksConfigSelectDialogComponent, {
+      data: {}
+    });
+    dialogRef.afterClosed().subscribe(values => {
+      // console.log({ values });
+      if (!!values) {
+        const { title, blocks } = values;
+        // TODO: refactor (a)
+        this.title = title;
+        this.blocks = blocks;
+        this.models = this.blocks.map(blockDef => get(blockDef, 'defaultValue', {}));
+        this.models.push({});
+      }
+    });
   }
 
   addBlock() {
     this.blocks.push({ type: 'debug' });
   }
 
+  copyConfig() {
+    const dialogRef = this.dialog.open(ExportConfigDialogComponent, {
+      data: {
+        configText: stringify({ title: this.title, blocks: this.blocks })
+      }
+    });
+  }
+
+  pasteConfig() {
+    const dialogRef = this.dialog.open(PasteConfigDialogComponent, {});
+    dialogRef.afterClosed().subscribe(value => {
+      if (!!value) {
+        try {
+          const config = JSON.parse(value);
+          if (has(config, 'blocks')) {
+            // TODO: refactor (b)
+            this.title = get(config, 'title', 'Imported config');
+            this.blocks = get(config, 'blocks', []);
+            this.models = this.blocks.map(blockDef => get(blockDef, 'defaultValue', {}));
+            this.models.push({});
+          }
+        } catch (e) {
+          console.log('Error importing config', e);
+        }
+      }
+    });
+  }
 }

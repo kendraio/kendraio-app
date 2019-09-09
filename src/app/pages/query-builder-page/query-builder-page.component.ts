@@ -1,3 +1,7 @@
+/**
+ * DEPRECATED
+ * All functionality has been moved to the blocks builder
+ */
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { EDITOR_OPTIONS } from './editor-options';
 import JSONFormatter from 'json-formatter-js';

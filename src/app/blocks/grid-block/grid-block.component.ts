@@ -1,5 +1,5 @@
-import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
-import {get, has, isArray, isObject} from 'lodash-es';
+import {Component, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
+import {clone, get, has, isArray, isObject} from 'lodash-es';
 import {search} from 'jmespath';
 
 @Component({
@@ -22,22 +22,30 @@ export class GridBlockComponent implements OnInit, OnChanges {
   };
   columnDefs = [];
   rowData = [];
+  gridOptions = {};
 
-  constructor() { }
+  constructor(
+    private readonly zone: NgZone
+  ) { }
 
   ngOnInit() {
   }
 
   ngOnChanges(changes) {
     this.updateOutputDisplay();
-    this.output.emit(isArray(this.model) ? [ ...this.model ] : isObject(this.model) ? { ...this.model } : this.model);
+    // this.output.emit(isArray(this.model) ? [ ...this.model ] : isObject(this.model) ? { ...this.model } : this.model);
   }
 
   updateOutputDisplay() {
     this.columnDefs = this.preprocessColumnDefinition(get(this.config, 'columnDefs', []));
+    this.gridOptions = clone(get(this.config, 'gridOptions', {}));
     this.rowData = isArray(this.model) ? this.model : get(this.model, 'result', []);
     if (!!this.gridAngular) {
-      this.gridAngular.api.sizeColumnsToFit();
+      setTimeout(() => {
+        this.zone.run(() => {
+          this.gridAngular.api.sizeColumnsToFit();
+        });
+      }, 40);
     }
   }
 
@@ -53,6 +61,13 @@ export class GridBlockComponent implements OnInit, OnChanges {
           }
         }} : {}
     }));
+  }
+
+  onSelectionChanged(e) {
+    // console.log({ e });
+    const selectedRows = e.api.getSelectedRows();
+    // console.log({ selectedRows });
+    this.output.emit(isArray(selectedRows) ? [ ...selectedRows ] : isObject(selectedRows) ? { ...selectedRows } : selectedRows);
   }
 
 }

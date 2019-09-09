@@ -136,6 +136,20 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import { EditorLayoutComponent } from './components/editor-layout/editor-layout.component';
 import { BlockBuilderBoxComponent } from './components/block-builder-box/block-builder-box.component';
 import { HttpBlockComponent } from './blocks/http-block/http-block.component';
+import { AdapterBlocksConfigSelectDialogComponent } from './dialogs/adapter-blocks-config-select-dialog/adapter-blocks-config-select-dialog.component';
+import { ExportConfigDialogComponent } from './dialogs/export-config-dialog/export-config-dialog.component';
+import { ChartBlockComponent } from './blocks/chart-block/chart-block.component';
+import { InitBlockComponent } from './blocks/init-block/init-block.component';
+import { MessageBlockComponent } from './blocks/message-block/message-block.component';
+import { TemplateBlockComponent } from './blocks/template-block/template-block.component';
+import { ButtonBlockComponent } from './blocks/button-block/button-block.component';
+import { BlocksDialogComponent } from './dialogs/blocks-dialog/blocks-dialog.component';
+import { PasteConfigDialogComponent } from './dialogs/paste-config-dialog/paste-config-dialog.component';
+import { BlocksWorkflowComponent } from './components/blocks-workflow/blocks-workflow.component';
+import { FormlyBlocksInputComponent } from './form-controls/formly-blocks-input/formly-blocks-input.component';
+import { BlocksInputControlComponent } from './form-controls/blocks-input-control/blocks-input-control.component';
+import { DialogBlockComponent } from './blocks/dialog-block/dialog-block.component';
+import { ActionsBlockComponent } from './blocks/actions-block/actions-block.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -228,7 +242,21 @@ export function HttpLoaderFactory(http: HttpClient) {
     GridBlockComponent,
     EditorLayoutComponent,
     BlockBuilderBoxComponent,
-    HttpBlockComponent
+    HttpBlockComponent,
+    AdapterBlocksConfigSelectDialogComponent,
+    ExportConfigDialogComponent,
+    ChartBlockComponent,
+    InitBlockComponent,
+    MessageBlockComponent,
+    TemplateBlockComponent,
+    ButtonBlockComponent,
+    BlocksDialogComponent,
+    PasteConfigDialogComponent,
+    BlocksWorkflowComponent,
+    FormlyBlocksInputComponent,
+    BlocksInputControlComponent,
+    DialogBlockComponent,
+    ActionsBlockComponent
   ],
   imports: [
     // AgGridModule.withComponents([
@@ -288,7 +316,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormDataSelectDialogComponent,
     SwaggerFormSelectDialogComponent,
     ApiDataSelectDialogComponent,
-    AdapterQuerySelectDialogComponent
+    AdapterQuerySelectDialogComponent,
+    AdapterBlocksConfigSelectDialogComponent,
+    ExportConfigDialogComponent,
+    BlocksDialogComponent,
+    PasteConfigDialogComponent
   ],
   providers: [
     // { provide: LOCALE_ID, useValue: 'de-DE' } ,

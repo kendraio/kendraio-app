@@ -304,8 +304,8 @@ const routes: Routes = [
     component: BlocksBuilderPageComponent
   },
 
-       { path: '', redirectTo: '/tasks', pathMatch: 'full' },
-       { path: '**', redirectTo: '/tasks', pathMatch: 'full' },
+       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+       { path: '**', redirectTo: '/dashboard', pathMatch: 'full' },
   //  ]
  // }
 ];
