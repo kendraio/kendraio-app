@@ -1,0 +1,39 @@
+{
+  "title": {
+    "ui:disabled": false,
+    "ui:placeholder": "Enter the Video Title",
+    "ui:errMessage": {
+      "required": "Hey Missing",
+      "minLength": "Hey Shorty"
+    }
+  },
+  "description": {
+    "ui:disabled": false,
+    "ui:placeholder": "Enter the Video Description",
+    "ui:autofocus": true,
+    "ui:widget": "k-textarea",
+    "ui:rows": 8,
+    "ui:cols": 3,
+    "ui:errMessage":{
+      "required": "Hey We have a missing person!",
+      "minLength": "Hey Tight Arse! You havent entered enough stuff",
+      "maxLength": "There are way too many characters dude",
+      "pattern": "no it should be 555-555-555"
+    }
+  },
+  "videoId": {
+    "ui:widget": "videoviewer"
+  },
+  "thumbnails": {
+    "ui:widget": "thumbnailviewer"
+  },
+  "tags": {
+    "ui:widget": "tags"
+  },
+  "visibility": {
+    "ui:widget": "visibility"
+  },
+  "playlist": {
+    "ui:widget": "playlist"
+  }
+}

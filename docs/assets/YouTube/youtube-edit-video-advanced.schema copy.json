@@ -1,0 +1,74 @@
+{
+	"title": "A registration form",
+	"description": "A simple form example.",
+	"type": "object",
+	"required": [
+		"firstName",
+		"isdn",
+		"claim"
+	],
+	"properties": {
+
+		"artist": {
+			"title": "Artist",
+			"description": "Please select your Artist",
+			"type": "string",
+			"enum": ["David Boxie",
+				"The Clash",
+				"Sex Pistols",
+				"The Fall"
+			]
+		},
+		"firstName": {
+			"type": "string",
+			"title": "Record Label"
+		},
+		"isdn": {
+			"type": "string",
+			"title": "ISDN"
+		},
+		"country": {
+			"type": "number",
+			"title": "Region"
+		},
+		"age": {
+			"type": "number",
+			"title": "View Count"
+		},
+		"simpleDate": {
+			"title": "Release Date",
+			"type": "string"
+		},
+		"bio": {
+			"type": "string",
+			"title": "Bio"
+		},
+		"password": {
+			"type": "string",
+			"title": "Password",
+			"minLength": 3
+		},
+		"telephone": {
+			"type": "radio",
+			"title": "Genre",
+			"enum": [
+				"Punk",
+				"Reggea",
+				"Soul",
+				"Jazz"
+			]
+		},
+		"pay": {
+			"type": "number",
+			"title": "Income",
+			"minLength": 10,
+			"description": "(Less is more)"
+		},
+		"claim": {
+			"type": "string",
+			"title": "Claim Share"
+		}
+
+
+	}
+}
