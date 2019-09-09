@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { FieldType } from '@ngx-formly/material';
 import { MatInput, ErrorStateMatcher } from '@angular/material';
 
@@ -15,7 +15,8 @@ import { MatInput, ErrorStateMatcher } from '@angular/material';
 
 @Component({
   template: `
-  <mat-form-field>
+  <mat-form-field  appearance="outline">
+
     <textarea matInput
               [id]="id"
               [formControl]="formControl"
@@ -27,20 +28,54 @@ import { MatInput, ErrorStateMatcher } from '@angular/material';
     </textarea>
 
 
-    <mat-hint>{{description}}  rows={{rows}} cols={{cols}}</mat-hint>
+
+    <mat-hint>{{description}}</mat-hint>
+    
+    <!--
     <mat-error *ngIf="formControl.hasError('required')">
       This is <strong>required</strong>
     </mat-error>
+    -->
+
+    <mat-error>
+    <formly-validation-message [field]="field"></formly-validation-message>
+  </mat-error>
+
+<mat-hint align="end">
+{{formControl.value.length}}
+/
+{{to.maxLength}}
+</mat-hint>
+
     </mat-form-field>
   `
 })
 
-export class TextareaComponent extends FieldType {
+export class TextareaComponent extends FieldType implements OnInit {
+
+
+  defaultOptions = {
+    defaultValue: {},
+};
+
+constructor() {  super();
+  // this.to.minLength = 3;
+}
+ngOnInit() {
+  // this.field.hideExpression = 1 === 2;
+  // this.field.templateOptions.minLength = 2;
+}
+
+
+
+
+
 //   @ViewChild(MatInput) formFieldControl: MatInput;
   get autosize(): boolean { return this.to.autosize || false; }
   get cols(): number { return this.to.cols || 50; }
   get rows(): number { return this.to.rows || 8; }
   get placeholder(): string {return this.to.placeholder ||  this.to.label; }
   get description(): string {return this.to.description; }
+  get test(): string {return this.formControl.getError('maxLength'); }
 
 }
