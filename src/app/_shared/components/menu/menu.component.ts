@@ -180,26 +180,14 @@ export const MENUITEMS: MenuItem[] = [
     icon: 'person'
   },
   {
-    path: '/tools',
-    label: 'Tools',
-    icon: 'build',
-    children: [
-      {
-        path: '/form-builder',
-        label: 'Form builder',
-        icon: 'build'
-      },
-      // {
-      //   path: '/query-builder',
-      //   label: 'Query builder',
-      //   icon: 'build'
-      // },
-      {
-        path: '/blocks-builder',
-        label: 'Blocks builder',
-        icon: 'build'
-      }
-    ]
+    path: '/blocks-builder',
+    label: 'Workflow builder',
+    icon: 'build'
+  },
+  {
+    path: '/form-builder',
+    label: 'Form builder',
+    icon: 'build'
   }
 ];
 
