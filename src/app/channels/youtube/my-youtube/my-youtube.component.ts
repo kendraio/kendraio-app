@@ -24,19 +24,19 @@ export class MyYoutubeComponent {
     ],
     thumbnails: [
       {
-        'url': 'https://i9.ytimg.com/vi/9pg35huY01M/mq1.jpg?sqp=CKS4tesF&rs=AOn4CLC3fphTSfhZEMV4obYQOzIPy7DDiQ',
+        'url': 'https://i9.ytimg.com/vi/9pg35huY01M/mq1.jpg?sqp=CLjSuOsF&rs=AOn4CLDHRb7NU5gElRZ8uhUeAyik4Am5Nw',
         'width': 320,
         'height': 180,
         'isDefault': false
       },
       {
-        'url': 'https://i9.ytimg.com/vi/9pg35huY01M/mq2.jpg?sqp=CKS4tesF&rs=AOn4CLBgM1R2WNtUo2Gtop1tH6jL5W1tkw',
+        'url': 'https://i9.ytimg.com/vi/9pg35huY01M/mq2.jpg?sqp=CLjSuOsF&rs=AOn4CLA5ZVgKeptJQoXnrI7Epb5i8I-N3A',
         'width': 320,
         'height': 180,
         'isDefault': false
       },
       {
-        'url': 'https://i9.ytimg.com/vi/9pg35huY01M/mq3.jpg?sqp=CKS4tesF&rs=AOn4CLDGa8renK99Owp2CuqKn4QOAs4qZg',
+        'url': 'https://i9.ytimg.com/vi/9pg35huY01M/3.jpg?sqp=CLjSuOsF&rs=AOn4CLCC8Xt_RmhEZlnlE4UbCCA7GqaqIQ',
         'width': 320,
         'height': 180,
         'isDefault': true

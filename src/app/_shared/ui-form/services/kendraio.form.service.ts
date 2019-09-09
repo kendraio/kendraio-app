@@ -150,8 +150,18 @@ export class KendraioFormService {
 
               formlyConfig['fieldGroup'][i]['templateOptions']['disabled'] = uiSchema[key]['ui:disabled'];
               formlyConfig['fieldGroup'][i]['templateOptions']['placeholder'] = uiSchema[key]['ui:placeholder'];
-              formlyConfig['fieldGroup'][i]['templateOptions']['required'] = get(uiSchema, `${key}.ui:required`, false);
-              formlyConfig['fieldGroup'][i]['templateOptions']['errMessage'] =  get(uiSchema, `${key}.ui:errMessage`, 'Error!!!');
+
+
+              formlyConfig['fieldGroup'][i]['templateOptions']['minLength'] =  get(jsonSchema.properties, `${key}.minLength`, null);
+              formlyConfig['fieldGroup'][i]['templateOptions']['maxLength'] =  get(jsonSchema.properties, `${key}.maxLength`, null);
+
+
+              // formlyConfig['fieldGroup'][i]['templateOptions']['required'] = get(uiSchema, `${key}.ui:required`, false);
+              formlyConfig['fieldGroup'][i]['templateOptions']['errMessage'] =  get(uiSchema, `${key}.ui:errMessage`, null);
+              formlyConfig['fieldGroup'][i]['templateOptions']['patternErrMessage'] =  get(uiSchema, `${key}.ui:patternErrMessage`, null);
+
+              // formlyConfig['fieldGroup'][i]['validation']['messages']['pattern'] = 'oooppppx';
+
               formlyConfig['fieldGroup'][i]['templateOptions']['addTag'] =  get(uiSchema, `${key}.ui:addTag`, false);
 
               formlyConfig['fieldGroup'][i]['templateOptions']['autosize'] =  get(uiSchema, `${key}.ui:autosize`, false);
@@ -160,7 +170,7 @@ export class KendraioFormService {
 
               // formlyConfig.fieldGroup[i].templateOptions.options = this.getHttpRefData(uiSchema[key]['ui:refdataId']);
 
-              if (uiSchema[key]['ui:widget'] === 'typeahead' || uiSchema[key]['ui:widget'] === 'kselect') {
+              if (uiSchema[key]['ui:widget'] === 'typeahead' || uiSchema[key]['ui:widget'] === 'k-select') {
                 formlyConfig['fieldGroup'][i]['templateOptions']['labelProp'] = get(uiSchema, `${key}.ui:labelProp`, 'label');
                 formlyConfig['fieldGroup'][i]['templateOptions']['valueProp'] = get(uiSchema, `${key}.ui:valueProp`, 'value');
                 formlyConfig['fieldGroup'][i]['templateOptions']['isMultiSelect'] = get(uiSchema, `${key}.ui:isMultiSelect`, false);

@@ -1,4 +1,5 @@
 import {
+  requiredValidationMessage,
   maxlengthValidationMessage,
   maxValidationMessage,
   minlengthValidationMessage,
@@ -17,7 +18,7 @@ import {
 // import { RepeatSectionComponent } from './types/repeat-section.component';
 // import { FormlyFieldInputMoney } from './types/money.component';
 import { KendraFieldInputPercentage } from './types/percentage.component';
-import { ConfigOption } from '@ngx-formly/core';
+import { ConfigOption, FormlyFieldConfig } from '@ngx-formly/core';
 
 import * as types from './types';
 import {FormlyImageInputComponent} from '../../form-controls/formly-image-input/formly-image-input.component';
@@ -26,7 +27,7 @@ import {FormlyRemoteImageInputComponent} from '../../form-controls/formly-remote
 
 export const config: ConfigOption = {
   validationMessages: [
-    { name: 'required', message: 'err 12: This field is required' },
+    { name: 'required', message: requiredValidationMessage},
     { name: 'pattern', message: patternMatchMessage },
     { name: 'minlength', message: minlengthValidationMessage },
     { name: 'maxlength', message: maxlengthValidationMessage },
@@ -132,8 +133,9 @@ export const config: ConfigOption = {
 
     },
     {
-      name: 'kselect', component: types.KendraFieldSelect,
+      name: 'k-select', component: types.KendraFieldSelect,
       defaultOptions: {
+        wrappers: ['panel'],
         templateOptions: {
           multiple: false,
           placeholder: 'Select Option',
