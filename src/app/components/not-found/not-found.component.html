@@ -1,0 +1,10 @@
+<ng-container *ngIf="hasBlocks; else routeNotFound">
+  <app-blocks-workflow [blocks]="blocks" [models]="models"></app-blocks-workflow>
+</ng-container>
+
+<ng-template #routeNotFound>
+  <div class="mat-typography" *ngIf="!isLoading">
+    <h2>Error: Unknown Route</h2>
+    <p>No enabled routes or workflows have been found that match this request. Do you have the required adapter enabled?</p>
+  </div>
+</ng-template>

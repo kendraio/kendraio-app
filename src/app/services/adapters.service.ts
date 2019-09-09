@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { tap } from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 import {get} from 'lodash-es';
 
 @Injectable({
@@ -44,6 +44,7 @@ export class AdaptersService {
 
   getAdapter(id) {
     return this.adapters$.pipe(
+      map(allAdapters => get(allAdapters, `${id}.adapter`)),
       // tap(console.log)
     );
   }
