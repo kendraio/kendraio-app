@@ -5,7 +5,7 @@
 
 
 
-       
+
 
 
         <mat-list-item (click)="gotoPage('/assets', sidenav)"  >
@@ -16,7 +16,7 @@
               <button mat-menu-item (click)="gotoPage('/assets/recordings', sidenav)" >Recordings</button>
               <button mat-menu-item (click)="gotoPage('/assets/releases', sidenav)">Releases</button>
               <button mat-menu-item (click)="gotoPage('/assets/works', sidenav)" >Works</button>
-            </mat-menu>      
+            </mat-menu>
           </mat-list-item>
 
 
@@ -36,10 +36,15 @@
         <mat-icon>menu</mat-icon>
       </button>
 
-      <span>{{ pageTitle$ | async }}</span>
+      <span *ngIf="pageTitle$ | async as pageTitleData">
+        {{ pageTitleData.title }}
+        <button *ngIf="pageTitleData.isWorkflow" mat-icon-button (click)="onRefresh()">
+          <mat-icon>refresh</mat-icon>
+        </button>
+      </span>
       <span class="spacer"></span>
 
- 
+
 
 
       <button mat-icon-button (click)="gotoPage('/user', sidenav)">
@@ -47,7 +52,7 @@
       </button>
     </mat-toolbar>
 
-  
+
 
     <div class="page-content">
         <app-breadcrumb></app-breadcrumb>

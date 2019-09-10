@@ -1,0 +1,48 @@
+{
+  "title": "List works (Bloomen API)",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "http",
+      "method": "get",
+      "endpoint": {
+        "protocol": "https:",
+        "host": "bloomen.herokuapp.com",
+        "pathname": "/sound/music"
+      },
+      "authentication": {
+        "type": "bearer",
+        "valueGetters": {
+          "jwt": "user.profile.bloomenAuth"
+        }
+      }
+    },
+    {
+      "type": "mapping",
+      "mapping": "response[]"
+    },
+    {
+      "type": "grid",
+      "columnDefs": [
+        {
+          "headerName": "ISWC",
+          "field": "ISWC"
+        },
+        {
+          "headerName": "Title",
+          "valueGetter": "originalTitle"
+        },
+        {
+          "headerName": "Creators",
+          "valueGetter": "creators[].name"
+        },
+        {
+          "headerName": "Alternative titles",
+          "valueGetter": "alternativeTitles"
+        }
+      ]
+    }
+  ]
+}

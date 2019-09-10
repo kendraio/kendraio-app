@@ -1,2 +1,4 @@
 <formly-form [fields]="fields" [options]="options" [model]="model" [form]="form" (modelChange)="onModelChange()"></formly-form>
-<button type="button" mat-flat-button color="primary" (click)="onSubmit()">{{ label }}</button>
+<div class="button-row">
+  <button type="button" mat-flat-button color="primary" (click)="onSubmit()">{{ label }}</button>
+</div>

@@ -54,9 +54,11 @@
         <mat-icon>menu</mat-icon>
       </button>
 
-      <span>
-        {{ pageTitle$ | async }}
-
+      <span *ngIf="pageTitle$ | async as pageTitleData">
+        {{ pageTitleData.title }}
+        <button *ngIf="pageTitleData.isWorkflow" mat-icon-button (click)="onRefresh()">
+          <mat-icon>refresh</mat-icon>
+        </button>
       </span>
       <span class="spacer"></span>
       <div>

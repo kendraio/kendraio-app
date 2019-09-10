@@ -12,6 +12,7 @@ export class ChartBlockComponent implements OnInit, OnChanges {
   outputConfig = {};
 
   @Input() config;
+  @Input() context;
   @Input() model: any = {};
   @Output() output = new EventEmitter();
 

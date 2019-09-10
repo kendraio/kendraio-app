@@ -14,6 +14,7 @@ import {get, has} from 'lodash-es';
 export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() config;
+  @Input() context;
   @Input() model: any = {};
 
   _output = new Subject();

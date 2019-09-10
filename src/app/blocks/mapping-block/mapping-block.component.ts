@@ -10,6 +10,7 @@ import {get, isArray, isObject, isString} from 'lodash-es';
 export class MappingBlockComponent implements OnInit, OnChanges {
 
   @Input() config;
+  @Input() context;
   @Input() model: any = {};
   @Output() output = new EventEmitter();
 

@@ -10,6 +10,7 @@ import {search} from 'jmespath';
 export class GridBlockComponent implements OnInit, OnChanges {
 
   @Input() config;
+  @Input() context;
   @Input() model: any = {};
   @ViewChild('modelOutput', {static: false}) modelOutput: ElementRef;
 

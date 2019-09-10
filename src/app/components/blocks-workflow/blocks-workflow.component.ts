@@ -10,6 +10,7 @@ export class BlocksWorkflowComponent implements OnInit {
 
   @Input() blocks = [];
   @Input() models = [];
+  @Input() context = {};
 
   @Output() workflowComplete = new EventEmitter();
 

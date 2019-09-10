@@ -29,7 +29,7 @@ import { Animations } from './_shared/animations';
 export class AppComponent {
   isOpen = true;
   menuItems: MenuItem[];
-  pageTitle$: Observable<string>;
+  pageTitle$: Observable<{ title: string, isWorkflow: boolean }>;
   treeControl = new NestedTreeControl<MenuItem>(node => node.children);
   dataSource = new MatTreeNestedDataSource<MenuItem>();
   sub: Subscription;
@@ -68,7 +68,6 @@ export class AppComponent {
       });
     });
 
-
     // this.router.events.pipe(
     //   filter(event => event instanceof NavigationEnd),
     //   distinctUntilChanged(),
@@ -93,6 +92,10 @@ export class AppComponent {
     // );
 
 
+  }
+
+  onRefresh() {
+    this.title.onRefresh();
   }
 
   // onLangChange;.subscribe((event: LangChangeEvent) => {

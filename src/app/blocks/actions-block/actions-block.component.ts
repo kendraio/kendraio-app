@@ -10,6 +10,7 @@ import {BlocksWorkflowComponent} from '../../components/blocks-workflow/blocks-w
 export class ActionsBlockComponent implements OnInit, OnChanges {
 
   @Input() config;
+  @Input() context;
   @Input() model: any = {};
 
   @Output() output = new EventEmitter();

@@ -23,6 +23,7 @@ import { FormTestPageComponent } from './pages/form-test-page/form-test-page.com
 import {FormBuilderPageComponent} from './pages/form-builder-page/form-builder-page.component';
 import {QueryBuilderPageComponent} from './pages/query-builder-page/query-builder-page.component';
 import {BlocksBuilderPageComponent} from './pages/blocks-builder-page/blocks-builder-page.component';
+import {NotFoundComponent} from './components/not-found/not-found.component';
 
 
 // NB all routes must have a breadcrumb
@@ -305,7 +306,7 @@ const routes: Routes = [
   },
 
        { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-       { path: '**', redirectTo: '/dashboard', pathMatch: 'full' },
+       { path: '**', component: NotFoundComponent },
   //  ]
  // }
 ];

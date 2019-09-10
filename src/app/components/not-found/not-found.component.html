@@ -1,0 +1,6 @@
+<ng-container *ngIf="isLoaded; else loadingState">
+  <app-blocks-workflow [blocks]="blocks" [models]="models" [context]="context"></app-blocks-workflow>
+</ng-container>
+<ng-template #loadingState>
+  <mat-spinner></mat-spinner>
+</ng-template>

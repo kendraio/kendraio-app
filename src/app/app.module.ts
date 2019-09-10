@@ -150,6 +150,11 @@ import { FormlyBlocksInputComponent } from './form-controls/formly-blocks-input/
 import { BlocksInputControlComponent } from './form-controls/blocks-input-control/blocks-input-control.component';
 import { DialogBlockComponent } from './blocks/dialog-block/dialog-block.component';
 import { ActionsBlockComponent } from './blocks/actions-block/actions-block.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { SwitchBlockComponent } from './blocks/switch-block/switch-block.component';
+import { BatchBlockComponent } from './blocks/batch-block/batch-block.component';
+import { VariableGetComponent } from './blocks/variable-get/variable-get.component';
+import { VariableSetComponent } from './blocks/variable-set/variable-set.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -256,7 +261,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormlyBlocksInputComponent,
     BlocksInputControlComponent,
     DialogBlockComponent,
-    ActionsBlockComponent
+    ActionsBlockComponent,
+    NotFoundComponent,
+    SwitchBlockComponent,
+    BatchBlockComponent,
+    VariableGetComponent,
+    VariableSetComponent
   ],
   imports: [
     // AgGridModule.withComponents([

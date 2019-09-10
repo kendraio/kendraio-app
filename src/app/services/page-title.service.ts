@@ -7,15 +7,20 @@ import { Title } from '@angular/platform-browser';
 })
 export class PageTitleService {
 
-  pageTitle$ = new BehaviorSubject('Kendraio App');
+  pageTitle$ = new BehaviorSubject({ title: 'Kendraio App', isWorkflow: false });
+  refresh$ = new BehaviorSubject({});
 
   constructor(
     private titleService: Title
   ) { }
 
-  setTitle(newTitle: string) {
-    this.pageTitle$.next(newTitle);
+  setTitle(newTitle: string, isWorkflow = false) {
+    this.pageTitle$.next({ title: newTitle, isWorkflow });
     this.titleService.setTitle('Kendraio ' +  newTitle );
+  }
+
+  onRefresh() {
+    this.refresh$.next({});
   }
 }
 

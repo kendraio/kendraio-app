@@ -7,6 +7,8 @@ import {search} from 'jmespath';
 import {catchError, tap} from 'rxjs/operators';
 import {of} from 'rxjs';
 
+// TODO: deprecate this in favour of separate http and local db blocks
+
 @Component({
   selector: 'app-query-block',
   templateUrl: './query-block.component.html',
@@ -15,6 +17,7 @@ import {of} from 'rxjs';
 export class QueryBlockComponent implements OnInit, OnChanges {
 
   @Input() config;
+  @Input() context;
   @Input() model: any = {};
   @Output() output = new EventEmitter();
 

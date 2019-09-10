@@ -1,6 +1,8 @@
 import {Component, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
 import {isArray, isObject} from 'lodash-es';
 
+// TODO: deprecate init block and replace with option on the workflow
+
 @Component({
   selector: 'app-init-block',
   templateUrl: './init-block.component.html',
@@ -9,6 +11,7 @@ import {isArray, isObject} from 'lodash-es';
 export class InitBlockComponent implements OnInit, OnChanges {
 
   @Input() config;
+  @Input() context;
   @Input() model: any = {};
 
   @Output() output = new EventEmitter();

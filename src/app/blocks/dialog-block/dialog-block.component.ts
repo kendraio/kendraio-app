@@ -11,6 +11,7 @@ import {BlocksDialogComponent} from '../../dialogs/blocks-dialog/blocks-dialog.c
 export class DialogBlockComponent implements OnInit, OnChanges {
 
   @Input() config;
+  @Input() context;
   @Input() model: any = {};
 
   @Output() output = new EventEmitter();
