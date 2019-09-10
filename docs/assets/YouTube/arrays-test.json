@@ -1,0 +1,45 @@
+{
+
+
+    "definitions": {
+      "largeEnum": {
+        "type": "string",
+        "enum": [
+          "Album",
+          "Alternative",
+          "Demo",
+          "Edit",
+          "Instrumental",
+          "Karaoke",
+          "Live",
+          "Radio edit",
+          "Remix",
+          "Session"
+        ]
+      }
+    },
+
+        "title": "A registration form",
+        "description": "A simple form example.",
+        "type": "object",
+        "required": [
+            "firstName",
+            "lastName"
+        ],
+        "properties": {
+            "firstName": {
+                "title": "Version Type 1",
+                       "$ref": "#/definitions/largeEnum"
+            },
+            "lastName": {
+                "$ref": "#/definitions/largeEnum",
+                "title": "Version Type 2"
+            },
+
+            "bio": {
+                "type": "string",
+                "title": "Bio"
+            }
+
+        }
+    }

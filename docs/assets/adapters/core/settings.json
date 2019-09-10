@@ -1,0 +1,44 @@
+{
+  "title": "Settings",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "variable-get",
+      "name": "settings"
+    },
+    {
+      "type": "form",
+      "label": "Save",
+      "jsonSchema": {
+        "type": "object",
+        "properties": {
+          "adapterRepoUrl": {
+            "title": "Adapter repository base URL",
+            "description": "Enter the location of the adapter repository, including the final trailing slash",
+            "type": "string",
+            "default": "https://kendraio.github.io/kendraio-adapter/"
+          },
+          "showHelp": {
+            "title": "Show help?",
+            "type": "boolean",
+            "default": false
+          },
+          "debugMode": {
+            "title": "Debug mode",
+            "type": "boolean",
+            "default": false
+          }
+        }
+      },
+      "uiSchema": {
+
+      }
+    },
+    {
+      "type": "variable-set",
+      "name": "settings"
+    }
+  ]
+}

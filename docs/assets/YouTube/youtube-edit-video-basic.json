@@ -1,0 +1,46 @@
+{
+	"title": "Edit Video",
+	"description": "This form allows you to edit the basic details of your video.",
+	"type": "object",
+	"required": [
+		"title",
+		"description"
+	],
+	"properties": {
+		"videoId": {
+			"title": "",
+			"description": "",
+			"type": "string"
+		},
+		"title": {
+			"title": "Title",
+			"description": "",
+			"type": "password",
+			"minLength": 4,
+			"maxLength": 10
+		},
+		"description": {
+			"type": "string",
+			"title": "Description",
+			"minLength": 2,
+			"maxLength": 203
+		},
+		"thumbnails": {
+			"type": "string",
+			"title": "Thumbnail "
+		},
+		"tags": {
+			"type": "string",
+			"title": "Tags ",
+			"description": "Press enter to add a tag"
+		},
+		"visibility": {
+			"type": "object",
+			"title": "Visibility "
+		},
+		"playlist": {
+			"type": "object",
+			"title": "Playlists"
+		}
+	}
+}
