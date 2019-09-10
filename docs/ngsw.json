@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1568109955701,
+  "timestamp": 1568110451622,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -464,7 +464,7 @@
     "/assets/YouTube/youtube-edit-video-advanced.schema.json": "28f28fc0a1b2de5adc6b1216d815eb3f03e62978",
     "/assets/YouTube/youtube-edit-video-advanced.ui.json": "d11572d9b7325fafbae5d113b25ef8438e433537",
     "/assets/YouTube/youtube-edit-video-basic-ui.json": "d6de6a27b2309e09673c4ea29a94bbf111b844ef",
-    "/assets/YouTube/youtube-edit-video-basic.json": "fe080d1f863b6f41c3274ca780ba671226f4ab6b",
+    "/assets/YouTube/youtube-edit-video-basic.json": "c5c2ab702809a7db1148c0c628b57a2c9c48ca6c",
     "/assets/YouTube/youtube-simple.json": "18daee1d8d6b73485e25ccede6632cbf580b51d2",
     "/assets/YouTube/youtube-ui.json": "74820c19f86ee35e8853a528bf6302a47b74cff8",
     "/assets/adapters/core/example.json": "cdc5f17b6281bb6ee9ffdc32fa5731eea786531d",
