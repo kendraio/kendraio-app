@@ -15,7 +15,7 @@
 		"title": {
 			"title": "Title",
 			"description": "",
-			"type": "password",
+			"type": "string",
 			"minLength": 4,
 			"maxLength": 10
 		},
