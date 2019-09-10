@@ -54,12 +54,14 @@
         <mat-icon>menu</mat-icon>
       </button>
 
-      <span *ngIf="pageTitle$ | async as pageTitleData">
-        {{ pageTitleData.title }}
+      <ng-container *ngIf="pageTitle$ | async as pageTitleData">
+        <span>
+          {{ pageTitleData.title }}
+        </span>
         <button *ngIf="pageTitleData.isWorkflow" mat-icon-button (click)="onRefresh()">
           <mat-icon>refresh</mat-icon>
         </button>
-      </span>
+      </ng-container>
       <span class="spacer"></span>
       <div>
           <select #langSelect (change)="translate.use(langSelect.value)">
