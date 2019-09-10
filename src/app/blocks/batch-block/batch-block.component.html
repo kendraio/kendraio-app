@@ -1,1 +1,3 @@
-<p>batch-block works!</p>
+<div class="batch-wrapper" *ngFor="let batch of batches; let i = index">
+  <app-blocks-workflow [blocks]="batch.blocks" [models]="modelStacks[i]" [context]="context"></app-blocks-workflow>
+</div>

@@ -11,7 +11,7 @@ export class AppSettingsService {
 
   init() {
     return new Promise((resolve, _) => {
-      const settings = localStorage.getItem('kendraio-app-settings');
+      const settings = localStorage.getItem('core.variables.settings');
       if (settings) {
         this.settings = JSON.parse(settings);
       }
@@ -20,6 +20,12 @@ export class AppSettingsService {
   }
 
   get(name, defaultValue = null) {
+    // TODO: Variable get/set from workflows needs to be cache aware, else this needs
+    //  to re-cache data on every access as may have changed in a workflow
+    const settings = localStorage.getItem('core.variables.settings');
+    if (settings) {
+      this.settings = JSON.parse(settings);
+    }
     if (!this.settings[name]) {
       return defaultValue;
     }
@@ -36,6 +42,6 @@ export class AppSettingsService {
 
   set(name, value) {
     this.settings[name] = value;
-    localStorage.setItem('kendraio-app-settings', JSON.stringify(this.settings));
+    localStorage.setItem('core.variables.settings', JSON.stringify(this.settings));
   }
 }

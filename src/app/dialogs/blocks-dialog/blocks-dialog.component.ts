@@ -11,6 +11,7 @@ export class BlocksDialogComponent implements OnInit {
 
   blocks = [];
   models = [];
+  context = {};
 
   constructor(
     public dialogRef: MatDialogRef<BlocksDialogComponent>,
@@ -21,6 +22,7 @@ export class BlocksDialogComponent implements OnInit {
   ngOnInit() {
     this.blocks = get(this.data, 'blocks', []);
     this.models = [get(this.data, 'model', {})];
+    this.context = get(this.data, 'context', {});
   }
 
   onWorkflowComplete(value) {

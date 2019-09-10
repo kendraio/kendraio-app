@@ -158,7 +158,7 @@ export const MENUITEMS: MenuItem[] = [
   // },
 
   {
-    path: '/settings',
+    path: '/core/settings',
     label: 'settings',
     icon: 'settings',
     children: [

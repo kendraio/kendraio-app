@@ -28,7 +28,7 @@ export class SettingsPageComponent implements OnInit {
 
   ngOnInit() {
     this.pageTitle.setTitle('App settings');
-    this.isDebug = this.settings.get('debug-mode', false);
+    this.isDebug = this.settings.get('debugMode', false);
      this.showHelp = this.settings.getTmp('showHelp', true);
   }
 
@@ -48,7 +48,7 @@ export class SettingsPageComponent implements OnInit {
 
   toggleDebugMode() {
     this.isDebug = !this.isDebug;
-    this.settings.set('debug-mode', this.isDebug);
+    this.settings.set('debugMode', this.isDebug);
   }
 
   toggleShowHelp() {

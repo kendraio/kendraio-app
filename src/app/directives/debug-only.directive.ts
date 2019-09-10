@@ -12,7 +12,7 @@ export class DebugOnlyDirective {
   constructor(
     private readonly settings: AppSettingsService
   ) {
-    this.isHidden = !this.settings.get('debug-mode', false);
+    this.isHidden = !this.settings.get('debugMode', false);
   }
 
 }

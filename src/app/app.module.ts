@@ -155,6 +155,7 @@ import { SwitchBlockComponent } from './blocks/switch-block/switch-block.compone
 import { BatchBlockComponent } from './blocks/batch-block/batch-block.component';
 import { VariableGetComponent } from './blocks/variable-get/variable-get.component';
 import { VariableSetComponent } from './blocks/variable-set/variable-set.component';
+import { EventDispatchBlockComponent } from './blocks/event-dispatch-block/event-dispatch-block.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -266,7 +267,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     SwitchBlockComponent,
     BatchBlockComponent,
     VariableGetComponent,
-    VariableSetComponent
+    VariableSetComponent,
+    EventDispatchBlockComponent
   ],
   imports: [
     // AgGridModule.withComponents([

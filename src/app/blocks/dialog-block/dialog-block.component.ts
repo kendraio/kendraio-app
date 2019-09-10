@@ -31,7 +31,8 @@ export class DialogBlockComponent implements OnInit, OnChanges {
       // TODO: Add other dialog options to config
       data: {
         blocks: get(this.config, 'blocks', []),
-        model: this.model
+        model: this.model,
+        context: this.context
       }
     });
     dialogRef.afterClosed().subscribe(value => {

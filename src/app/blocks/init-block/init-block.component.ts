@@ -29,6 +29,6 @@ export class InitBlockComponent implements OnInit, OnChanges {
       this.zone.run(() => {
         this.output.emit(isArray(this.model) ? [ ...this.model ] : isObject(this.model) ? { ...this.model } : this.model);
       });
-    }, 400);
+    }, 0);
   }
 }

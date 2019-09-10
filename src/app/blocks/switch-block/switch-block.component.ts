@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-switch-block',
@@ -6,6 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./switch-block.component.scss']
 })
 export class SwitchBlockComponent implements OnInit {
+
+  @Input() config;
+  @Input() context;
+  @Input() model: any = {};
+
+  @Output() output = new EventEmitter();
 
   constructor() { }
 

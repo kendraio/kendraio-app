@@ -14,6 +14,7 @@ import { LOCALE_ID } from '@angular/core';
 import { LangChangeEvent, TranslateService, TranslationChangeEvent } from '@ngx-translate/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Animations } from './_shared/animations';
+import {CoreEventHandlersService} from './services/core-event-handlers.service';
 
 @Component({
   animations: [Animations.kendraAnimations],
@@ -37,6 +38,7 @@ export class AppComponent {
   transViaService = '';
 
   constructor(
+    private readonly coreEventHandlers: CoreEventHandlersService,
     public auth: AuthService,
     private readonly router: Router,
     private readonly route: ActivatedRoute,

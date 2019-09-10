@@ -48,8 +48,13 @@ export class ActionsBlockComponent implements OnInit, OnChanges {
   }
 
   finishAction(value) {
-    this.blocks = [];
-    console.log('finished action', { value });
+    // console.log('finished action', { value });
+    setTimeout(() => {
+      this.blocks = [];
+      this.zone.run(() => {
+        this.output.emit(clone(value));
+      });
+    }, 0);
   }
 
 }
