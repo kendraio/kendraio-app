@@ -21,6 +21,8 @@ export class EventDispatchBlockComponent implements OnInit, OnChanges {
   ngOnInit() {
   }
 
+  // TODO: Event dispatch safety check
+  // Adapters must not be able to spoof events from other adapters
   ngOnChanges(changes) {
     if (get(changes, 'model.firstChange', false)) {
       return;
