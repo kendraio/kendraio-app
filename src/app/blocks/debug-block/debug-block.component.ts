@@ -34,7 +34,7 @@ export class DebugBlockComponent implements OnInit, OnChanges {
       this.zone.run(() => {
         if (!!this.modelOutput) {
           // Replace #modelOutput DIV contents with formatted JSON
-          const formatter = new JSONFormatter(this.model, 1);
+          const formatter = new JSONFormatter({ data: this.model, context: this.context }, 2);
           while (this.modelOutput.nativeElement.firstChild) {
             this.modelOutput.nativeElement.removeChild(this.modelOutput.nativeElement.firstChild);
           }

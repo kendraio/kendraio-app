@@ -31,7 +31,8 @@ export class WorkflowRepoService {
                   // the app key is for internal use only and workflows should be prevented from updating this
                   app: {
                     adapterName,
-                    workflowId
+                    workflowId,
+                    adapters: this.adapters.getAdaptersInfo()
                   }
                 };
                 return { ...config, context };

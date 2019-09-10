@@ -38,6 +38,10 @@ export class AdaptersService {
       });
   }
 
+  getAdaptersInfo() {
+    return this._adapters;
+  }
+
   getAdapterSync(id) {
     return get(this._adapters, id, {});
   }

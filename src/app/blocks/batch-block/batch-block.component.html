@@ -1,3 +1,6 @@
-<div class="batch-wrapper" *ngFor="let batch of batches; let i = index">
-  <app-blocks-workflow [blocks]="batch.blocks" [models]="modelStacks[i]" [context]="context"></app-blocks-workflow>
+<div class="multi-wrapper" *ngFor="let item of model; let i = index">
+  <app-blocks-workflow [blocks]="blocks" [models]="[item]" [context]="context"></app-blocks-workflow>
 </div>
+<mat-error *ngIf="hasError">
+  {{ errorMessage }}
+</mat-error>

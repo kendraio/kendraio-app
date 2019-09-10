@@ -1,0 +1,22 @@
+{
+  "title": "Adapters",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "mapping",
+      "mapping": "sort_by(context.app.adapters.*.adapter , &name)"
+    },
+    {
+      "type": "batch",
+      "blocks": [
+        {
+          "type": "message",
+          "title": "{{name}}",
+          "message": "{{description}}"
+        }
+      ]
+    }
+  ]
+}

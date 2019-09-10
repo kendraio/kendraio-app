@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-import {get} from 'lodash-es';
+import {get, isArray} from 'lodash-es';
 
 @Component({
   selector: 'app-batch-block',
@@ -14,8 +14,11 @@ export class BatchBlockComponent implements OnInit, OnChanges {
 
   @Output() output = new EventEmitter();
 
-  batches = [];
-  modelStacks = [];
+  blocks = [];
+  modelList = [];
+
+  hasError = false;
+  errorMessage = '';
 
   constructor() { }
 
@@ -23,13 +26,14 @@ export class BatchBlockComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes) {
-    this.batches = get(this.config, 'batches', []);
-    this.modelStacks = this.batches.map(batch => {
-      const batchBlocks = get(batch, 'blocks', []);
-      const batchModels = batchBlocks.map(blockDef => get(blockDef, 'defaultValue', {}));
-      batchModels.push({});
-      return batchModels;
-    });
+    if (!isArray(this.model)) {
+      this.errorMessage = 'Batch block expects an array';
+      this.modelList = [];
+      this.hasError = true;
+      return;
+    }
+    this.blocks = get(this.config, 'blocks', []);
+    this.modelList = this.model;
   }
 
   // TODO: emit output when all blocks in batch have emitted

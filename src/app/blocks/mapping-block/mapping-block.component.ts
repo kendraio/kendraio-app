@@ -29,7 +29,7 @@ export class MappingBlockComponent implements OnInit, OnChanges {
 
   getMappingResult(mapping) {
     if (isString(mapping)) {
-      return search(this.model, mapping);
+      return search({ data: this.model, context: this.context }, mapping);
     }
     if (isArray(mapping)) {
       return mapping.map(v => this.getMappingResult(v));

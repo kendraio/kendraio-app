@@ -27,6 +27,7 @@
     "@angular/pwa": "^0.802",
     "@angular/router": "^8.2.0",
     "@angular/service-worker": "^8.2.0",
+    "@fortawesome/fontawesome-free": "^5.10.2",
     "@ng-dynamic-forms/core": "^8.1.0",
     "@ng-dynamic-forms/ui-material": "^8.1.0",
     "@ng-select/ng-select": "^3.0.5",
