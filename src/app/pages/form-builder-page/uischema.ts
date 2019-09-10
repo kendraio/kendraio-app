@@ -37,7 +37,7 @@ export const UI_SCHEMA = {
         enum: ['json', 'http', 'fetch']
       },
       'ui:errMessage': {
-        type: 'string'
+        type: 'object'
       },
       'ui:autosize': {
         type: 'boolean'

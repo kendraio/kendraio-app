@@ -30,7 +30,7 @@ import { MatInput, ErrorStateMatcher } from '@angular/material';
 
 
     <mat-hint>{{description}}</mat-hint>
-    
+
     <!--
     <mat-error *ngIf="formControl.hasError('required')">
       This is <strong>required</strong>
@@ -47,6 +47,8 @@ import { MatInput, ErrorStateMatcher } from '@angular/material';
 {{to.maxLength}}
 </mat-hint>
 
+<pre>{{field | json}}</pre>
+
     </mat-form-field>
   `
 })
@@ -56,6 +58,9 @@ export class TextareaComponent extends FieldType implements OnInit {
 
   defaultOptions = {
     defaultValue: {},
+    validators: {
+      validation: ['PasswordStrengthValidation'],
+    },
 };
 
 constructor() {  super();

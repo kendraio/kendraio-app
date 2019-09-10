@@ -156,6 +156,10 @@ export class KendraioFormService {
               formlyConfig['fieldGroup'][i]['templateOptions']['maxLength'] =  get(jsonSchema.properties, `${key}.maxLength`, null);
 
 
+
+            //  formlyConfig['fieldGroup'][1].validators.validation =  ['PasswordStrengthValidation'];
+
+
               // formlyConfig['fieldGroup'][i]['templateOptions']['required'] = get(uiSchema, `${key}.ui:required`, false);
               formlyConfig['fieldGroup'][i]['templateOptions']['errMessage'] =  get(uiSchema, `${key}.ui:errMessage`, null);
               formlyConfig['fieldGroup'][i]['templateOptions']['patternErrMessage'] =  get(uiSchema, `${key}.ui:patternErrMessage`, null);
