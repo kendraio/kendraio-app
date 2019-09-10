@@ -10,6 +10,7 @@ import { compile } from 'handlebars';
 export class MessageBlockComponent implements OnInit, OnChanges {
 
   @Input() config;
+  @Input() context;
   @Input() model: any = {};
 
   @Output() output = new EventEmitter();

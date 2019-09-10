@@ -13,6 +13,7 @@ export class ButtonBlockComponent implements OnInit, OnChanges {
   // TODO: button block should allow multiple actions (array of buttons)
 
   @Input() config;
+  @Input() context;
   @Input() model: any = {};
 
   @Output() output = new EventEmitter();

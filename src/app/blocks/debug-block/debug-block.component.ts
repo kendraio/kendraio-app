@@ -10,6 +10,7 @@ import {isArray, isObject} from 'lodash-es';
 export class DebugBlockComponent implements OnInit, OnChanges {
 
   @Input() config;
+  @Input() context;
   @Input() model: any = {};
   @ViewChild('modelOutput', {static: false}) modelOutput: ElementRef;
 

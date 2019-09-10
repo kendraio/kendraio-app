@@ -14,6 +14,7 @@ import {of} from 'rxjs';
 export class HttpBlockComponent implements OnInit, OnChanges {
 
   @Input() config;
+  @Input() context;
   @Input() model: any = {};
   @Output() output = new EventEmitter();
 
