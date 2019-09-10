@@ -2,7 +2,7 @@
   "title": "Settings",
   "blocks": [
     {
-      "type": "batch",
+      "type": "multi",
       "batches": [
         {
           "blocks": [
