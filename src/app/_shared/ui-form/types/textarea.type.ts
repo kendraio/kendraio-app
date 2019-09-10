@@ -47,7 +47,7 @@ import { MatInput, ErrorStateMatcher } from '@angular/material';
 {{to.maxLength}}
 </mat-hint>
 
-<pre>{{field | json}}</pre>
+
 
     </mat-form-field>
   `
