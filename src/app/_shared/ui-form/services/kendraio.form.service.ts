@@ -141,15 +141,17 @@ export class KendraioFormService {
     // console.log(jsonSchema);
     let i = 0;
     try {
+      // TODO:  refactor
       if (Object.keys(uiSchema).length) {
         Object.keys(jsonSchema.properties).forEach(function (key) {
           Object.keys(uiSchema).forEach(function (uiKey) {
+            const TO = formlyConfig['fieldGroup'][i]['templateOptions'];
             if (uiKey === key) {
               //  jsonSchema.properties.bandArtist.type = uiSchema.bandArtist['ui:widget'];
               // TODO: maybe use Switch here
 
-              formlyConfig['fieldGroup'][i]['templateOptions']['disabled'] = uiSchema[key]['ui:disabled'];
-              formlyConfig['fieldGroup'][i]['templateOptions']['placeholder'] = uiSchema[key]['ui:placeholder'];
+              TO['disabled'] = uiSchema[key]['ui:disabled'];
+              TO['placeholder'] = uiSchema[key]['ui:placeholder'];
 
 
               formlyConfig['fieldGroup'][i]['templateOptions']['minLength'] =  get(jsonSchema.properties, `${key}.minLength`, null);

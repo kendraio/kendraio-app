@@ -107,11 +107,14 @@ export const config: ConfigOption = {
       // },
     },
     {
-      name: 'password',
+      name: 'k-password',
       extends: 'input',
       defaultOptions: {
         templateOptions: {
           type: 'password',
+        },
+        validators: {
+          validation: ['PasswordStrengthValidation'],
         },
       },
     },
@@ -123,6 +126,7 @@ export const config: ConfigOption = {
     // { name: 'array', component: ArrayTypeComponent },
     { name: 'enum', extends: 'select' },
     { name: 'k-textarea', component: types.TextareaComponent},
+
     {
       name: 'multiselect', component: types.KendraFieldSelect,
       defaultOptions: {

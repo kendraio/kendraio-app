@@ -56,12 +56,12 @@ import { MatInput, ErrorStateMatcher } from '@angular/material';
 export class TextareaComponent extends FieldType implements OnInit {
 
 
-  defaultOptions = {
-    defaultValue: {},
-    validators: {
-      validation: ['PasswordStrengthValidation'],
-    },
-};
+//   defaultOptions = {
+//    // defaultValue: {},
+//     // validators: {
+//     //   validation: ['PasswordStrengthValidation'],
+//     // },
+// };
 
 constructor() {  super();
   // this.to.minLength = 3;

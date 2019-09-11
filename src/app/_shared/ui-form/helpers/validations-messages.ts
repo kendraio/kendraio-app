@@ -9,7 +9,7 @@ export function requiredValidationMessage(err, field) {
 }
 
 export function minlengthValidationMessage(err, field) {
-  // field.templateOptions.maxLength = 7; // we can def TO here!
+  // field.templateOptions.maxLength = 7; // we can def TO. here!
   if (has(field, 'templateOptions.errMessage.minLength')) {
     return `${field.templateOptions.errMessage.minLength}`;
   } else {
