@@ -1,6 +1,8 @@
-<div class="multi-wrapper" *ngFor="let item of model; let i = index">
-  <app-blocks-workflow [blocks]="blocks" [models]="[item]" [context]="context"></app-blocks-workflow>
-</div>
+<ng-container *ngIf="!!model && model.length">
+  <div class="multi-wrapper" *ngFor="let item of model; let i = index">
+    <app-blocks-workflow [blocks]="blocks" [models]="[item]" [context]="context"></app-blocks-workflow>
+  </div>
+</ng-container>
 <mat-error *ngIf="hasError">
   {{ errorMessage }}
 </mat-error>

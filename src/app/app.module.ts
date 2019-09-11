@@ -157,6 +157,8 @@ import { VariableGetComponent } from './blocks/variable-get/variable-get.compone
 import { VariableSetComponent } from './blocks/variable-set/variable-set.component';
 import { EventDispatchBlockComponent } from './blocks/event-dispatch-block/event-dispatch-block.component';
 import { MultiBlockComponent } from './blocks/multi-block/multi-block.component';
+import { AddBlockDialogComponent } from './dialogs/add-block-dialog/add-block-dialog.component';
+import { KendraioIconComponent } from './components/kendraio-icon/kendraio-icon.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -270,7 +272,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     VariableGetComponent,
     VariableSetComponent,
     EventDispatchBlockComponent,
-    MultiBlockComponent
+    MultiBlockComponent,
+    AddBlockDialogComponent,
+    KendraioIconComponent
   ],
   imports: [
     // AgGridModule.withComponents([
@@ -334,7 +338,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AdapterBlocksConfigSelectDialogComponent,
     ExportConfigDialogComponent,
     BlocksDialogComponent,
-    PasteConfigDialogComponent
+    PasteConfigDialogComponent,
+    AddBlockDialogComponent
   ],
   providers: [
     // { provide: LOCALE_ID, useValue: 'de-DE' } ,

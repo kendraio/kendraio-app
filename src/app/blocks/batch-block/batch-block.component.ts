@@ -10,7 +10,7 @@ export class BatchBlockComponent implements OnInit, OnChanges {
 
   @Input() config;
   @Input() context;
-  @Input() model: any = {};
+  @Input() model: any = [];
 
   @Output() output = new EventEmitter();
 

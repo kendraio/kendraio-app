@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {get, has, isArray} from 'lodash-es';
+import {clone, get, has, isArray} from 'lodash-es';
 import {moveItemInArray} from '@angular/cdk/drag-drop';
 import {ShareLinkGeneratorService} from '../../services/share-link-generator.service';
 import {AdaptersService} from '../../services/adapters.service';
@@ -11,6 +11,7 @@ import {ExportConfigDialogComponent} from '../../dialogs/export-config-dialog/ex
 import {PasteConfigDialogComponent} from '../../dialogs/paste-config-dialog/paste-config-dialog.component';
 import * as stringify from 'json-stringify-safe';
 import {PageTitleService} from '../../services/page-title.service';
+import {AddBlockDialogComponent} from '../../dialogs/add-block-dialog/add-block-dialog.component';
 
 @Component({
   selector: 'app-blocks-builder-page',
@@ -51,6 +52,7 @@ export class BlocksBuilderPageComponent implements OnInit {
 
   drop(event) {
     moveItemInArray(this.blocks, event.previousIndex, event.currentIndex);
+    this.blocks = clone(this.blocks);
   }
 
   clearBlocks() {
@@ -88,7 +90,15 @@ export class BlocksBuilderPageComponent implements OnInit {
   }
 
   addBlock() {
-    this.blocks.push({ type: 'debug' });
+    const dialogRef = this.dialog.open(AddBlockDialogComponent, {
+      width: '460px'
+    });
+    dialogRef.afterClosed().subscribe(newBlock => {
+      if (!!newBlock) {
+        // TODO: use immutable data for efficiency/structural sharing
+        this.blocks = [...this.blocks, newBlock];
+      }
+    });
   }
 
   copyConfig() {
