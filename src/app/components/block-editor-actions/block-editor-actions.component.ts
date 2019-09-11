@@ -31,4 +31,14 @@ export class BlockEditorActionsComponent implements OnInit {
     set(this.block, `buttons[${i}].blocks`, value);
     this.blockUpdated.emit(clone(this.block));
   }
+
+  removeButton(i) {
+    this.block.buttons.splice(i, 1);
+    this.blockUpdated.emit(clone(this.block));
+  }
+
+  colorChange(i, value) {
+    set(this.block, `buttons[${i}].color`, value);
+    this.blockUpdated.emit(clone(this.block));
+  }
 }

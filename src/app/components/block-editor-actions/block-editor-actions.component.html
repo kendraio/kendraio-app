@@ -1,7 +1,18 @@
 <mat-card *ngFor="let b of block.buttons; let i = index">
   <mat-form-field>
     <input matInput placeholder="Button label" [value]="b.label" (change)="labelChanged(i, $event.target.value)">
+    <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="removeButton(i)">
+      <mat-icon color="warn">delete</mat-icon>
+    </button>
   </mat-form-field>
+  <div class="color-edit-row">
+    <mat-radio-group aria-label="Button colour" [value]="b.color" (change)="colorChange(i, $event.value)">
+      <mat-radio-button value="default">Default</mat-radio-button>
+      <mat-radio-button value="primary">Primary</mat-radio-button>
+      <mat-radio-button value="warn">Warning</mat-radio-button>
+      <mat-radio-button value="accent">Accent</mat-radio-button>
+    </mat-radio-group>
+  </div>
   <app-blocks-editor [blocks]="b.blocks" (blockUpdate)="onBlockUpdate(i, $event)"></app-blocks-editor>
 </mat-card>
 
