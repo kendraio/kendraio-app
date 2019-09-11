@@ -118,6 +118,10 @@ export const config: ConfigOption = {
         },
       },
     },
+    {
+      name: 'k-hidden',
+      component: types.FieldHiddenComponent
+    },
     { name: 'string', extends: 'input' },
     // { name: 'object', extends: 'formly-group' },
     { name: 'object', component: types.ObjectTypeComponent },

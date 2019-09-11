@@ -11,3 +11,4 @@ export * from './object.type';
 export * from './multiselect.type';
 export * from './textarea.type';
 export * from './thumbnail-viewer.component';
+export * from './hidden.type';

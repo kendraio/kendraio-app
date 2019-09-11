@@ -38,14 +38,21 @@ import { MatInput, ErrorStateMatcher } from '@angular/material';
                   </mat-error>
 
               <mat-hint align="end">
-              {{formControl.value.length}}/{{to.maxLength}}
+              {{formControl?.value?.length}}/{{to.maxLength}}
               </mat-hint>
-              
+
     </mat-form-field>
   `
 })
 
 export class TextareaComponent extends FieldType {
+//   defaultOptions = {
+//     hideExpression: () => true,
+//     // defaultValue: {},
+//      // validators: {
+//      //   validation: ['PasswordStrengthValidation'],
+//      // },
+//  };
 
 //   @ViewChild(MatInput) formFieldControl: MatInput;
   get autosize(): boolean { return this.to.autosize || false; }
