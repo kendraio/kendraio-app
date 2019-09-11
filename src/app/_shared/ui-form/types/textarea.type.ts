@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FieldType } from '@ngx-formly/material';
 import { MatInput, ErrorStateMatcher } from '@angular/material';
 
@@ -42,38 +42,13 @@ import { MatInput, ErrorStateMatcher } from '@angular/material';
   </mat-error>
 
 <mat-hint align="end">
-{{formControl.value.length}}
-/
-{{to.maxLength}}
+{{formControl.value.length}}/{{to.maxLength}}
 </mat-hint>
-
-
-
     </mat-form-field>
   `
 })
 
-export class TextareaComponent extends FieldType implements OnInit {
-
-
-//   defaultOptions = {
-//    // defaultValue: {},
-//     // validators: {
-//     //   validation: ['PasswordStrengthValidation'],
-//     // },
-// };
-
-constructor() {  super();
-  // this.to.minLength = 3;
-}
-ngOnInit() {
-  // this.field.hideExpression = 1 === 2;
-  // this.field.templateOptions.minLength = 2;
-}
-
-
-
-
+export class TextareaComponent extends FieldType {
 
 //   @ViewChild(MatInput) formFieldControl: MatInput;
   get autosize(): boolean { return this.to.autosize || false; }
