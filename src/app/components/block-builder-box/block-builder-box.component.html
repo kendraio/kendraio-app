@@ -1,2 +1,2 @@
-<ngx-monaco-editor [options]="editorOptions"
+<ngx-monaco-editor *ngIf="hasEditor" [options]="editorOptions"
                    [(ngModel)]="blockModel"></ngx-monaco-editor>
