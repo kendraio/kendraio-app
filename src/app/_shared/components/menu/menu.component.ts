@@ -180,7 +180,7 @@ export const MENUITEMS: MenuItem[] = [
     icon: 'person'
   },
   {
-    path: '/blocks-builder',
+    path: '/workflow-builder',
     label: 'Workflow builder',
     icon: 'build'
   },

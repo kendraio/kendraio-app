@@ -302,6 +302,10 @@ const routes: Routes = [
   },
   {
     path: 'blocks-builder',
+    redirectTo: 'workflow-builder'
+  },
+  {
+    path: 'workflow-builder',
     component: BlocksBuilderPageComponent
   },
 

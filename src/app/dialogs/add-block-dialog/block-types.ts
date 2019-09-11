@@ -156,7 +156,7 @@ export const BLOCK_TYPES = [
     defaultConfig: {
       type: 'switch',
       eval: 'data',
-      branches: {}
+      branches: []
     }
   },
   {

@@ -70,7 +70,7 @@ export class BlocksBuilderPageComponent implements OnInit {
   }
 
   shareConfig() {
-    this.shareLinks.shareLink('blocks-builder', this.blocks);
+    this.shareLinks.shareLink('workflow-builder', this.blocks);
   }
 
   loadFromAdapter() {
