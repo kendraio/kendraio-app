@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {EDITOR_OPTIONS} from './editor-options';
+import {BLOCK_TYPES} from '../../dialogs/add-block-dialog/block-types';
+import { find, get } from 'lodash-es';
 
 @Component({
   selector: 'app-block-builder-box',
@@ -9,6 +11,11 @@ import {EDITOR_OPTIONS} from './editor-options';
 export class BlockBuilderBoxComponent implements OnInit {
 
   editorOptions = EDITOR_OPTIONS;
+
+  blockTypes = BLOCK_TYPES;
+
+  blockTypeConfig;
+  hasEditor = false;
 
   @Input() block;
   blockModel = '';
@@ -20,6 +27,8 @@ export class BlockBuilderBoxComponent implements OnInit {
 
   ngOnInit() {
     this.blockModel = JSON.stringify(this.block, null, 4);
+    this.blockTypeConfig = find(BLOCK_TYPES, ({ type }) => this.block.type === type);
+    this.hasEditor = get(this.blockTypeConfig, 'hasEditor', false);
   }
 
   _updateBlock() {

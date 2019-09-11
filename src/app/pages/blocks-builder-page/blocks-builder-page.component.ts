@@ -50,9 +50,8 @@ export class BlocksBuilderPageComponent implements OnInit {
     this.models.push({});
   }
 
-  drop(event) {
-    moveItemInArray(this.blocks, event.previousIndex, event.currentIndex);
-    this.blocks = clone(this.blocks);
+  onBlocksUpdate(newBlocks) {
+    this.blocks = newBlocks;
   }
 
   clearBlocks() {
@@ -60,14 +59,6 @@ export class BlocksBuilderPageComponent implements OnInit {
     this.models = [{}];
   }
 
-  onDeleteBlock(i) {
-    this.blocks.splice(i, 1);
-    this.blocks = [...this.blocks];
-  }
-
-  onUpdateBlock(i, c) {
-    this.blocks = [...this.blocks.slice(0, i), c.getUpdatedModel(), ...this.blocks.slice(i + 1)];
-  }
 
   shareConfig() {
     this.shareLinks.shareLink('workflow-builder', this.blocks);
@@ -90,17 +81,6 @@ export class BlocksBuilderPageComponent implements OnInit {
     });
   }
 
-  addBlock() {
-    const dialogRef = this.dialog.open(AddBlockDialogComponent, {
-      width: '460px'
-    });
-    dialogRef.afterClosed().subscribe(newBlock => {
-      if (!!newBlock) {
-        // TODO: use immutable data for efficiency/structural sharing
-        this.blocks = [...this.blocks, newBlock];
-      }
-    });
-  }
 
   copyConfig() {
     const dialogRef = this.dialog.open(ExportConfigDialogComponent, {
