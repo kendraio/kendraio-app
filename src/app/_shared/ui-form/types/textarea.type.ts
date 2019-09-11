@@ -17,33 +17,30 @@ import { MatInput, ErrorStateMatcher } from '@angular/material';
   template: `
   <mat-form-field  appearance="outline">
 
-    <textarea matInput
-              [id]="id"
-              [formControl]="formControl"
-              [cols]="cols"
-              [rows]="rows"
-              [placeholder]="placeholder"
-              [matTextareaAutosize]="autosize"
-    >
-    </textarea>
+                  <textarea matInput
+                            [id]="id"
+                            [formControl]="formControl"
+                            [cols]="cols"
+                            [rows]="rows"
+                            [placeholder]="placeholder"
+                            [matTextareaAutosize]="autosize"
+                  >
+                  </textarea>
+                  <mat-hint>{{description}}</mat-hint>
+                  <!--
+                  <mat-error *ngIf="formControl.hasError('required')">
+                    This is <strong>required</strong>
+                  </mat-error>
+                  -->
 
+                  <mat-error>
+                    <formly-validation-message [field]="field"></formly-validation-message>
+                  </mat-error>
 
-
-    <mat-hint>{{description}}</mat-hint>
-
-    <!--
-    <mat-error *ngIf="formControl.hasError('required')">
-      This is <strong>required</strong>
-    </mat-error>
-    -->
-
-    <mat-error>
-    <formly-validation-message [field]="field"></formly-validation-message>
-  </mat-error>
-
-<mat-hint align="end">
-{{formControl.value.length}}/{{to.maxLength}}
-</mat-hint>
+              <mat-hint align="end">
+              {{formControl.value.length}}/{{to.maxLength}}
+              </mat-hint>
+              
     </mat-form-field>
   `
 })
