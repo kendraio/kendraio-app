@@ -1,0 +1,13 @@
+<mat-card *ngFor="let b of block.buttons; let i = index">
+  <mat-form-field>
+    <input matInput placeholder="Button label" [value]="b.label" (change)="labelChanged(i, $event.target.value)">
+  </mat-form-field>
+  <app-blocks-editor [blocks]="b.blocks" (blockUpdate)="onBlockUpdate(i, $event)"></app-blocks-editor>
+</mat-card>
+
+<div class="editor-button-row">
+  <button mat-flat-button (click)="addButton()">
+    <mat-icon>add</mat-icon>
+    <span class="button-label">Add button</span>
+  </button>
+</div>

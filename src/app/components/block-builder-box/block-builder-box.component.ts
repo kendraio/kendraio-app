@@ -38,4 +38,9 @@ export class BlockBuilderBoxComponent implements OnInit {
   getUpdatedModel() {
     return JSON.parse(this.blockModel);
   }
+
+  onBlockUpdated(newBlock) {
+    this.block = newBlock;
+    this.blockModel = JSON.stringify(this.block, null, 4);
+  }
 }

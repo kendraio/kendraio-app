@@ -1,2 +1,15 @@
-<ngx-monaco-editor *ngIf="hasEditor" [options]="editorOptions"
-                   [(ngModel)]="blockModel"></ngx-monaco-editor>
+
+
+<ng-container *ngIf="blockTypeConfig">
+  <ng-container [ngSwitch]="blockTypeConfig.type">
+
+    <ng-container *ngSwitchCase="'actions'">
+      <app-block-editor-actions [block]="block" (blockUpdated)="onBlockUpdated($event)"></app-block-editor-actions>
+    </ng-container>
+
+    <ng-container *ngSwitchDefault>
+      <ngx-monaco-editor *ngIf="hasEditor" [options]="editorOptions"
+                         [(ngModel)]="blockModel"></ngx-monaco-editor>
+    </ng-container>
+  </ng-container>
+</ng-container>
