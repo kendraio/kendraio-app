@@ -10,6 +10,7 @@ export const BLOCK_TYPES = [
       buttons: [
         {
           label: 'Action',
+          color: 'default',
           blocks: []
         }
       ]

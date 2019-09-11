@@ -160,6 +160,8 @@ import { MultiBlockComponent } from './blocks/multi-block/multi-block.component'
 import { AddBlockDialogComponent } from './dialogs/add-block-dialog/add-block-dialog.component';
 import { KendraioIconComponent } from './components/kendraio-icon/kendraio-icon.component';
 import { BlocksEditorComponent } from './components/blocks-editor/blocks-editor.component';
+import { BlockEditorActionsComponent } from './components/block-editor-actions/block-editor-actions.component';
+import { BlockEditorMappingComponent } from './components/block-editor-mapping/block-editor-mapping.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -276,7 +278,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     MultiBlockComponent,
     AddBlockDialogComponent,
     KendraioIconComponent,
-    BlocksEditorComponent
+    BlocksEditorComponent,
+    BlockEditorActionsComponent,
+    BlockEditorMappingComponent
   ],
   imports: [
     // AgGridModule.withComponents([

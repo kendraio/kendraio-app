@@ -6,7 +6,7 @@
       <span class="block-type-title">{{ block.type }}</span>
     </mat-expansion-panel-header>
 
-    <app-block-builder-box [block]="block" #value></app-block-builder-box>
+    <app-block-builder-box [block]="block" #value (updateBlock)="onUpdateBlock(i, value)"></app-block-builder-box>
 
     <mat-action-row>
       <button mat-flat-button color="primary" (click)="onUpdateBlock(i, value)">
@@ -22,7 +22,7 @@
 </mat-accordion>
 
 <br>
-<button mat-flat-button color="primary" (click)="addBlock()">
+<button mat-flat-button (click)="addBlock()">
   <mat-icon>add</mat-icon>
   <span class="button-label">Add Task</span>
 </button>
