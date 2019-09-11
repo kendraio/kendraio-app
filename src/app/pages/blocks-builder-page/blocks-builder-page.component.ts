@@ -62,6 +62,7 @@ export class BlocksBuilderPageComponent implements OnInit {
 
   onDeleteBlock(i) {
     this.blocks.splice(i, 1);
+    this.blocks = [...this.blocks];
   }
 
   onUpdateBlock(i, c) {
