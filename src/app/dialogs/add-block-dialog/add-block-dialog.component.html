@@ -4,7 +4,10 @@
 <div mat-dialog-content>
   <div class="button-selections">
     <ng-container *ngFor="let b of blockTypes">
-      <button mat-flat-button [color]="(selectedBlockType && selectedBlockType.type == b.type) ? 'primary' : undefined" (click)="setBlockType(b)">
+      <button mat-flat-button
+              [matTooltip]="b.label"
+              [color]="(selectedBlockType && selectedBlockType.type == b.type) ? 'primary' : undefined"
+              (click)="setBlockType(b)">
         <app-kendraio-icon [icon]="b.icon"></app-kendraio-icon>
       </button>
     </ng-container>
