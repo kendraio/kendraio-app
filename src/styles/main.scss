@@ -209,3 +209,9 @@ formly-field {
     }
   }
 }
+
+
+.mat-form-field-type-boolean .mat-form-field-wrapper {
+  padding-bottom: 0!important;
+  height: 44px;
+}

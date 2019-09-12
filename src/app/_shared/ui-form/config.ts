@@ -13,6 +13,8 @@ import {
 import { maximumNumValidation, passwordMatchValidation, PasswordStrengthValidation } from './helpers/validators';
 import {
   PanelWrapperComponent,
+  CheckBoxWrapperComponent
+
   // AnimationWrapperComponent, ErrorWrapperComponent
 } from './wrappers';
 // import { RepeatSectionComponent } from './types/repeat-section.component';
@@ -40,6 +42,7 @@ export const config: ConfigOption = {
   ],
   wrappers: [
     { name: 'panel', component: PanelWrapperComponent },
+    { name: 'checkbox', component: CheckBoxWrapperComponent },
     // { name: 'error-on-top', component: ErrorWrapperComponent },
     // { name: 'slideInOut', component: AnimationWrapperComponent }
   ],
@@ -108,7 +111,7 @@ export const config: ConfigOption = {
     },
     {
       name: 'k-password',
-      extends: 'input',
+      component: types.FieldInputPasswordComponent,
       defaultOptions: {
         templateOptions: {
           type: 'password',
@@ -125,7 +128,12 @@ export const config: ConfigOption = {
     { name: 'string', extends: 'input' },
     // { name: 'object', extends: 'formly-group' },
     { name: 'object', component: types.ObjectTypeComponent },
-    { name: 'boolean', extends: 'checkbox' },
+
+    { name: 'boolean', extends: 'checkbox',
+    defaultOptions: {
+      wrappers: ['checkbox']
+    }
+  },
 
     // { name: 'array', component: ArrayTypeComponent },
     { name: 'enum', extends: 'select' },

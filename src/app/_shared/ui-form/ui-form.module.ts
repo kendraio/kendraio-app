@@ -5,7 +5,7 @@ import { FormlyModule } from '@ngx-formly/core';
 import { TextMaskModule } from 'angular2-text-mask';
 // import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 
-import { PanelWrapperComponent,
+import { PanelWrapperComponent, CheckBoxWrapperComponent,
 // ErrorWrapperComponent,
 // AnimationWrapperComponent
 } from './wrappers';
@@ -94,6 +94,7 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
   ],
   declarations: [
     PanelWrapperComponent,
+    CheckBoxWrapperComponent,
     // ErrorWrapperComponent,
     // AnimationWrapperComponent,
     // RepeatSectionComponent,
@@ -111,7 +112,8 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
     types.KendraFieldSelect,
     types.TextareaComponent,
     types.ThumbnailViewerComponent,
-    types.FieldHiddenComponent
+    types.FieldHiddenComponent,
+    types.FieldInputPasswordComponent
     // ContentEditableFormDirective
     // KendraioFormComponent
 
