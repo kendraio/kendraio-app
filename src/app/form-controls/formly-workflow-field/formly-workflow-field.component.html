@@ -1,0 +1,42 @@
+
+<mat-accordion cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="field.fieldGroup.length > 0">
+  <mat-expansion-panel *ngFor="let currentField of field.fieldGroup; let i = index;" cdkDrag>
+    <mat-expansion-panel-header>
+      <mat-icon class="drag-handle" cdkDragHandle>reorder</mat-icon>
+      <span class="block-type-title">{{ currentField.formControl.get('type').value }}</span>
+    </mat-expansion-panel-header>
+
+    <mat-tab-group>
+      <mat-tab label="Form">
+        <ng-template matTabContent>
+          <div style="padding: 1em; margin-right: 15px;">
+            <formly-field [field]="currentField"></formly-field>
+          </div>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="JSON">
+        <ng-template matTabContent>
+          <div style="height: 200px; overflow: hidden;">
+            <ngx-monaco-editor [options]="editorOptions"
+                               [ngModel]="formControl.at(i).value | json"></ngx-monaco-editor>
+          </div>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+
+    <mat-action-row>
+      <button mat-flat-button color="warn" (click)="remove(i)">
+        <mat-icon>delete</mat-icon>
+        <span class="button-label">Delete</span>
+      </button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+
+
+<br>
+<button mat-flat-button (click)="addTask()">
+  <mat-icon>add</mat-icon>
+  <span class="button-label">Add Task</span>
+</button>
+<br>

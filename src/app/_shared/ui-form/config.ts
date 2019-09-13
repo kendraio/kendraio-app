@@ -27,6 +27,8 @@ import {FormlyImageInputComponent} from '../../form-controls/formly-image-input/
 import {FormlyAudioInputComponent} from '../../form-controls/formly-audio-input/formly-audio-input.component';
 import {FormlyRemoteImageInputComponent} from '../../form-controls/formly-remote-image-input/formly-remote-image-input.component';
 import {FormlyBlocksInputComponent} from '../../form-controls/formly-blocks-input/formly-blocks-input.component';
+import {FormlyWorkflowFieldComponent} from '../../form-controls/formly-workflow-field/formly-workflow-field.component';
+import {FormlyCardListComponent} from '../../form-controls/formly-card-list/formly-card-list.component';
 
 export const config: ConfigOption = {
   validationMessages: [
@@ -59,6 +61,8 @@ export const config: ConfigOption = {
     { name: 'audio', component: FormlyAudioInputComponent },
     { name: 'remote-image', component: FormlyRemoteImageInputComponent },
     { name: 'blocks', component: FormlyBlocksInputComponent },
+    { name: 'workflow', component: FormlyWorkflowFieldComponent },
+    { name: 'cards', component: FormlyCardListComponent },
     {
       name: 'money', component: types.FormlyFieldInputMoney,
       defaultOptions: {
