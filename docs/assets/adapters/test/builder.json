@@ -1,0 +1,89 @@
+{
+  "title": "Workflow builder (test)",
+  "blocks": [
+    {
+      "type": "form",
+      "label": "Test",
+      "jsonSchema": {
+        "type": "object",
+        "definitions": {
+          "taskBlock": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "title": "Task type",
+                "type": "string",
+                "enum": [
+                  "actions",
+                  "batch",
+                  "chart",
+                  "debug",
+                  "dialog",
+                  "dispatch",
+                  "form",
+                  "grid",
+                  "http",
+                  "init",
+                  "mapping",
+                  "message",
+                  "multi",
+                  "query",
+                  "switch",
+                  "template",
+                  "variable-get",
+                  "variable-set"
+                ]
+              },
+              "buttons":  {
+                "title": "Buttons",
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "title": "Label",
+                      "type": "string"
+                    },
+                    "blocks": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/taskBlock"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "properties": {
+          "blocks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/taskBlock"
+            }
+          }
+        }
+      },
+      "uiSchema": {
+        "blocks": {
+          "ui:widget": "workflow",
+          "items": {
+            "buttons": {
+              "ui:widget": "cards",
+              "ui:cardItemLabel": "button",
+              "items": {
+                "blocks": {
+                  "ui:widget": "workflow"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "debug"
+    }
+  ]
+}
