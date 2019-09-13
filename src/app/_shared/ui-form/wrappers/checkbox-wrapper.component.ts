@@ -5,7 +5,6 @@ import { FieldWrapper } from '@ngx-formly/core';
   selector: 'app-checkbox-wrapper-panel',
   template: `
   <section class="checkbox-section">
-
         <ng-container #fieldComponent></ng-container>
   <section>
   `
