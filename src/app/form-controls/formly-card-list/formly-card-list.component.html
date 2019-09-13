@@ -1,0 +1,14 @@
+
+<ng-container *ngIf="field.fieldGroup.length > 0">
+  <mat-card *ngFor="let currentField of field.fieldGroup; let i = index;">
+    <formly-field [field]="currentField"></formly-field>
+  </mat-card>
+</ng-container>
+
+<br>
+<button mat-flat-button (click)="add(null, {})">
+  <mat-icon>add</mat-icon>
+  <span class="button-label">Add</span>
+</button>
+<br>
+<pre>{{ field.templateOptions | json }}</pre>

@@ -162,6 +162,8 @@ import { KendraioIconComponent } from './components/kendraio-icon/kendraio-icon.
 import { BlocksEditorComponent } from './components/blocks-editor/blocks-editor.component';
 import { BlockEditorActionsComponent } from './components/block-editor-actions/block-editor-actions.component';
 import { BlockEditorMappingComponent } from './components/block-editor-mapping/block-editor-mapping.component';
+import { FormlyWorkflowFieldComponent } from './form-controls/formly-workflow-field/formly-workflow-field.component';
+import { FormlyCardListComponent } from './form-controls/formly-card-list/formly-card-list.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -280,7 +282,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     KendraioIconComponent,
     BlocksEditorComponent,
     BlockEditorActionsComponent,
-    BlockEditorMappingComponent
+    BlockEditorMappingComponent,
+    FormlyWorkflowFieldComponent,
+    FormlyCardListComponent
   ],
   imports: [
     // AgGridModule.withComponents([

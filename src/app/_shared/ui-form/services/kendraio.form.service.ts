@@ -105,6 +105,10 @@ export class KendraioFormService {
           const oldArray = get(_fields, `fieldGroup[${fieldIndex}].fieldArray`, {});
           const subSchema = get(uiSchema, `${uiKey}.items`);
           const newArray = this.uiWidgetTypeMapper({ fields: oldArray, uiSchema: subSchema});
+          if (has(subSchema, 'ui:widget')) {
+            set(newArray, 'type', get(subSchema, 'ui:widget'));
+          }
+          console.log({ oldArray, subSchema, newArray });
           set(_fields, `fieldGroup[${fieldIndex}]`,
             { ...get(_fields, `fieldGroup[${fieldIndex}]`), fieldArray: newArray });
         }
