@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-import {get, isArray} from 'lodash-es';
+import {clone, every, get, isArray} from 'lodash-es';
 
 @Component({
   selector: 'app-batch-block',
@@ -16,6 +16,9 @@ export class BatchBlockComponent implements OnInit, OnChanges {
 
   blocks = [];
   modelList = [];
+
+  results = [];
+  completed = [];
 
   hasError = false;
   errorMessage = '';
@@ -34,8 +37,16 @@ export class BatchBlockComponent implements OnInit, OnChanges {
     }
     this.blocks = get(this.config, 'blocks', []);
     this.modelList = this.model;
+    this.completed = this.model.map(i => false);
+    this.results = this.model.map(_ => ({}));
   }
 
-  // TODO: emit output when all blocks in batch have emitted
+  onWorkflowComplete(i, event) {
+    this.completed[i] = true;
+    this.results[i] = event;
+    if (every(this.completed)) {
+      this.output.emit(clone(this.results));
+    }
+  }
 
 }
