@@ -1,18 +1,6 @@
 
 
 <ng-container *ngIf="blockTypeConfig">
-  <ng-container [ngSwitch]="blockTypeConfig.type">
-
-    <ng-container *ngSwitchCase="'actions'">
-      <app-block-editor-actions [block]="block" (blockUpdated)="onBlockUpdated($event)"></app-block-editor-actions>
-    </ng-container>
-    <ng-container *ngSwitchCase="'mapping'">
-      <app-block-editor-mapping [block]="block" (blockUpdated)="onBlockUpdated($event)"></app-block-editor-mapping>
-    </ng-container>
-
-    <ng-container *ngSwitchDefault>
-      <ngx-monaco-editor *ngIf="hasEditor" [options]="editorOptions"
-                         [(ngModel)]="blockModel"></ngx-monaco-editor>
-    </ng-container>
-  </ng-container>
+  <ngx-monaco-editor *ngIf="hasEditor" [options]="editorOptions"
+                     [(ngModel)]="blockModel"></ngx-monaco-editor>
 </ng-container>

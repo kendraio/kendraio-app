@@ -1,6 +1,10 @@
 
 <ng-container *ngIf="field.fieldGroup.length > 0">
   <mat-card *ngFor="let currentField of field.fieldGroup; let i = index;">
+    <button mat-flat-button (click)="remove(i)">
+      <mat-icon>delete</mat-icon>
+      <span class="button-label">Remove {{ field.templateOptions?.uiSchema["ui:cardItemLabel"] }}</span>
+    </button>
     <formly-field [field]="currentField"></formly-field>
   </mat-card>
 </ng-container>
@@ -8,7 +12,7 @@
 <br>
 <button mat-flat-button (click)="add(null, {})">
   <mat-icon>add</mat-icon>
-  <span class="button-label">Add</span>
+  <span class="button-label">Add {{ field.templateOptions?.uiSchema["ui:cardItemLabel"] }}</span>
 </button>
 <br>
-<pre>{{ field.templateOptions | json }}</pre>
+<!--<pre>{{ field.templateOptions | json }}</pre>-->

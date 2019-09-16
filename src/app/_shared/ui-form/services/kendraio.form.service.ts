@@ -99,6 +99,9 @@ export class KendraioFormService {
         if (has(uiSchema, `${uiKey}.ui:widget`)) {
           const newWidgetType = get(uiSchema, `${uiKey}.ui:widget`, '');
           set(_fields, `fieldGroup[${fieldIndex}].type`, newWidgetType);
+          // TODO: Don't do this here!!!!!!
+          const { items, ...subSchema} = get(uiSchema, uiKey);
+          set(_fields, 'templateOptions.uiSchema', subSchema);
         }
         // Recursively map arrays
         if (has(uiSchema, `${uiKey}.items`)) {
@@ -107,8 +110,10 @@ export class KendraioFormService {
           const newArray = this.uiWidgetTypeMapper({ fields: oldArray, uiSchema: subSchema});
           if (has(subSchema, 'ui:widget')) {
             set(newArray, 'type', get(subSchema, 'ui:widget'));
+            // TODO: Don't do this here!!!!!!
+            const { items, ...newSubSchema } = subSchema;
+            set(newArray, 'templateOptions.uiSchema', newSubSchema);
           }
-          console.log({ oldArray, subSchema, newArray });
           set(_fields, `fieldGroup[${fieldIndex}]`,
             { ...get(_fields, `fieldGroup[${fieldIndex}]`), fieldArray: newArray });
         }
@@ -117,6 +122,9 @@ export class KendraioFormService {
           const oldObj = get(_fields, `fieldGroup[${fieldIndex}]`, {});
           const subSchema = get(uiSchema, `${uiKey}`);
           const newObj = this.uiWidgetTypeMapper({ fields: oldObj, uiSchema: subSchema });
+          // TODO: Don't do this here!!!!!!
+          const { items, ...newSubSchema } = subSchema;
+          set(newObj, 'templateOptions.uiSchema', newSubSchema);
           set(_fields, `fieldGroup[${fieldIndex}]`, { ...oldObj, ...newObj });
         }
       }
@@ -150,6 +158,7 @@ export class KendraioFormService {
         Object.keys(jsonSchema.properties).forEach(function (key) {
           Object.keys(uiSchema).forEach(function (uiKey) {
             const TO = formlyConfig['fieldGroup'][i]['templateOptions'];
+            console.log(uiKey, key, formlyConfig['fieldGroup'][i]['templateOptions'], get(uiSchema, uiKey));
             if (uiKey === key) {
               //  jsonSchema.properties.bandArtist.type = uiSchema.bandArtist['ui:widget'];
               // TODO: maybe use Switch here

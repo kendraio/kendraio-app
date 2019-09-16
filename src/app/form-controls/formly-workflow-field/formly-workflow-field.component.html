@@ -6,7 +6,7 @@
       <span class="block-type-title">{{ currentField.formControl.get('type').value }}</span>
     </mat-expansion-panel-header>
 
-    <mat-tab-group>
+    <mat-tab-group *ngIf="!!field.templateOptions?.uiSchema['editJSON']">
       <mat-tab label="Form">
         <ng-template matTabContent>
           <div style="padding: 1em; margin-right: 15px;">
@@ -24,6 +24,8 @@
       </mat-tab>
     </mat-tab-group>
 
+    <formly-field [field]="currentField" *ngIf="!field.templateOptions?.uiSchema['editJSON']"></formly-field>
+
     <mat-action-row>
       <button mat-flat-button color="warn" (click)="remove(i)">
         <mat-icon>delete</mat-icon>
@@ -40,3 +42,5 @@
   <span class="button-label">Add Task</span>
 </button>
 <br>
+
+<!--<pre>{{ field.templateOptions | json }}</pre>-->
