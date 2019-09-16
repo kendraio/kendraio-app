@@ -37,7 +37,7 @@ export class BatchBlockComponent implements OnInit, OnChanges {
     }
     this.blocks = get(this.config, 'blocks', []);
     this.modelList = this.model;
-    this.completed = this.model.map(i => false);
+    this.completed = this.model.map(_ => false);
     this.results = this.model.map(_ => ({}));
   }
 

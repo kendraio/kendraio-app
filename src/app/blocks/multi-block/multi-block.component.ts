@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-import {get} from 'lodash-es';
+import {clone, every, get} from 'lodash-es';
 
 @Component({
   selector: 'app-multi-block',
@@ -17,6 +17,9 @@ export class MultiBlockComponent implements OnInit, OnChanges {
   batches = [];
   modelStacks = [];
 
+  results = [];
+  completed = [];
+
   constructor() { }
 
   ngOnInit() {
@@ -30,8 +33,16 @@ export class MultiBlockComponent implements OnInit, OnChanges {
       batchModels.push({});
       return batchModels;
     });
+    this.results = this.modelStacks.map(_ => ({}));
+    this.completed = this.modelStacks.map(_ => false);
   }
 
-  // TODO: emit output when all blocks in batch have emitted
+  onWorkflowComplete(i, event) {
+    this.completed[i] = true;
+    this.results[i] = event;
+    if (every(this.completed)) {
+      this.output.emit(clone(this.results));
+    }
+  }
 
 }
