@@ -1,6 +1,6 @@
 import {Component, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
 import JSONFormatter from 'json-formatter-js';
-import {isArray, isObject} from 'lodash-es';
+import { clone, isArray, isObject } from 'lodash-es';
 
 @Component({
   selector: 'app-debug-block',
@@ -26,7 +26,7 @@ export class DebugBlockComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes) {
     this.updateOutputDisplay();
-    this.output.emit(isArray(this.model) ? [ ...this.model ] : isObject(this.model) ? { ...this.model } : this.model);
+    this.output.emit(clone(this.model));
   }
 
   updateOutputDisplay() {

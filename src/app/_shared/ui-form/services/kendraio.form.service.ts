@@ -158,7 +158,7 @@ export class KendraioFormService {
         Object.keys(jsonSchema.properties).forEach(function (key) {
           Object.keys(uiSchema).forEach(function (uiKey) {
             const TO = formlyConfig['fieldGroup'][i]['templateOptions'];
-            console.log(uiKey, key, formlyConfig['fieldGroup'][i]['templateOptions'], get(uiSchema, uiKey));
+            // console.log(uiKey, key, formlyConfig['fieldGroup'][i]['templateOptions'], get(uiSchema, uiKey));
             if (uiKey === key) {
               //  jsonSchema.properties.bandArtist.type = uiSchema.bandArtist['ui:widget'];
               // TODO: maybe use Switch here

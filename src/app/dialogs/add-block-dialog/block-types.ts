@@ -37,6 +37,18 @@ export const BLOCK_TYPES = [
     }
   },
   {
+    type: 'csv-import',
+    label: 'CSV Import',
+    description: 'Import data from a CSV file',
+    icon: 'cloud_upload',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'csv-import',
+      header: true,
+      skipEmptyLines: true
+    }
+  },
+  {
     type: 'debug',
     label: 'Debug',
     description: 'Output the current data model values and list available contextual values.',

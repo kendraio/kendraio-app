@@ -164,6 +164,7 @@ import { BlockEditorActionsComponent } from './components/block-editor-actions/b
 import { BlockEditorMappingComponent } from './components/block-editor-mapping/block-editor-mapping.component';
 import { FormlyWorkflowFieldComponent } from './form-controls/formly-workflow-field/formly-workflow-field.component';
 import { FormlyCardListComponent } from './form-controls/formly-card-list/formly-card-list.component';
+import { CsvImportBlockComponent } from './blocks/csv-import-block/csv-import-block.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -284,7 +285,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     BlockEditorActionsComponent,
     BlockEditorMappingComponent,
     FormlyWorkflowFieldComponent,
-    FormlyCardListComponent
+    FormlyCardListComponent,
+    CsvImportBlockComponent
   ],
   imports: [
     // AgGridModule.withComponents([

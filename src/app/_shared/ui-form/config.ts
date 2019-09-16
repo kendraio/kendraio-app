@@ -121,7 +121,18 @@ export const config: ConfigOption = {
           type: 'password',
         },
         validators: {
-          validation: ['PasswordStrengthValidation'],
+          // validation: ['PasswordStrengthValidation'],
+        },
+      },
+    },
+    {
+      name: 'password',
+      extends: 'input',
+      defaultOptions: {
+        templateOptions: {
+          type: 'password',
+        },
+        validators: {
         },
       },
     },

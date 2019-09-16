@@ -19,6 +19,7 @@
     <app-batch-block class="block-wrapper" *ngSwitchCase="'batch'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-batch-block>
     <app-multi-block class="block-wrapper" *ngSwitchCase="'multi'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-multi-block>
     <app-event-dispatch-block class="block-wrapper" *ngSwitchCase="'dispatch'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-event-dispatch-block>
+    <app-csv-import-block class="block-wrapper" *ngSwitchCase="'csv-import'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-csv-import-block>
   </ng-container>
 </ng-container>
 <!--<pre>{{ blocks | json }}</pre>-->
