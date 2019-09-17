@@ -30,7 +30,8 @@
         },
         {
           "headerName": "Enabled",
-          "field": "enabled"
+          "field": "enabled",
+          "cellRenderer": "agGroupCellRenderer"
         },
         {
           "headerName": "Operations",

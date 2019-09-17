@@ -20,19 +20,19 @@ export class WorkflowCellRendererComponent implements OnInit, ICellRendererAngul
   }
 
   agInit(params: ICellRendererParams): void {
-    console.log('agInit', { params });
+    // console.log('agInit', { params });
     this.blocks = get(params, 'colDef.blocks', []);
     this.context = get(params, 'colDef.context', {});
     this.data = get(params, 'data');
   }
 
   refresh(params: any): boolean {
-    console.log('refresh', { params });
+    // console.log('refresh', { params });
     return false;
   }
 
   onWorkflowComplete(event) {
-    console.log('workflow complete', { event });
+    // console.log('workflow complete', { event });
   }
 
 }
