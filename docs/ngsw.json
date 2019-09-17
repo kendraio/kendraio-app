@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1568706094737,
+  "timestamp": 1568709879452,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -27,7 +27,7 @@
         "/common.602314adf9958f44c434.js",
         "/favicon.ico",
         "/index.html",
-        "/main.e50a1466aae27947dac0.js",
+        "/main.ff33b282efd11f015479.js",
         "/polyfills-es5.e0ee82d98ecf8fb22889.js",
         "/polyfills.227e6a35c69a6bcea3d2.js",
         "/runtime.f7653deda820fefe2210.js",
@@ -469,7 +469,7 @@
     "/assets/YouTube/youtube-edit-video-basic.json": "2b07d55a206ca1004d57d63aa4639f5bb406a2b7",
     "/assets/YouTube/youtube-simple.json": "5a6a2c717ecdd9bfdf45b6af93c383737b554c87",
     "/assets/YouTube/youtube-ui.json": "b5577917cac5638b050dced20a3ade9955372286",
-    "/assets/adapters/core/adapters.json": "ee08153134e50796bac080df24fcf16ce6c51a03",
+    "/assets/adapters/core/adapters.json": "3e6167274666bc808be18fc6fdb86ab880355d99",
     "/assets/adapters/core/example.json": "8559bc1dd41388fa74b331bae9a221343726a1dd",
     "/assets/adapters/core/settings.json": "e4fd18891c1aabd6aa36946883a02384f2b8a9fb",
     "/assets/adapters/ipn/jsonSchema.json": "358a1cd8540da41b1cd4265a9a4e72178965e82c",
@@ -857,8 +857,8 @@
     "/assets/swagger/unsplash.json": "69eb1f6aea71b19b29578abc0956378c6efd0467",
     "/common.602314adf9958f44c434.js": "4869e210094c45079d1a01d167d586011c0c3c8b",
     "/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "/index.html": "feaea5c66d835a5f1f74ce121547716d3edc4a3f",
-    "/main.e50a1466aae27947dac0.js": "faadffaa789efe8638b7263753d4d1b6e4c4e9b5",
+    "/index.html": "3f96695b7ac2e1d12d37557ac568cc83aedf9886",
+    "/main.ff33b282efd11f015479.js": "6e3d603bdfdebb78aa56b09425078b896e7ef2ab",
     "/polyfills-es5.e0ee82d98ecf8fb22889.js": "23c2aa4ebfd4e58ac0d35b309bc727deacdabb35",
     "/polyfills.227e6a35c69a6bcea3d2.js": "debd49f4166f2fa7c3dbcee7b13a9a8131b683b3",
     "/runtime.f7653deda820fefe2210.js": "4eb9e75809e3b0ab56dae96e402596a5e1073da7",
