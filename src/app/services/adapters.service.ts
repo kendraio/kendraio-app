@@ -39,7 +39,11 @@ export class AdaptersService {
   }
 
   getAdaptersInfo() {
-    return this._adapters;
+    return Object.keys(this._adapters).reduce((a, key) => {
+      a[key] = this._adapters[key];
+      a[key]['enabled'] = get(this.enabledAdapters, key, false);
+      return a;
+    }, {});
   }
 
   getAdapterSync(id) {

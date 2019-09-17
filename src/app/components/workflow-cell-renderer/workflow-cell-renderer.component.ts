@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ICellRendererAngularComp} from 'ag-grid-angular';
 import {ICellRendererParams} from 'ag-grid-community';
+import {get} from 'lodash-es';
 
 @Component({
   selector: 'app-workflow-cell-renderer',
@@ -9,6 +10,10 @@ import {ICellRendererParams} from 'ag-grid-community';
 })
 export class WorkflowCellRendererComponent implements OnInit, ICellRendererAngularComp {
 
+  blocks = [];
+  data;
+  context = {};
+
   constructor() { }
 
   ngOnInit() {
@@ -16,6 +21,9 @@ export class WorkflowCellRendererComponent implements OnInit, ICellRendererAngul
 
   agInit(params: ICellRendererParams): void {
     console.log('agInit', { params });
+    this.blocks = get(params, 'colDef.blocks', []);
+    this.context = get(params, 'colDef.context', {});
+    this.data = get(params, 'data');
   }
 
   refresh(params: any): boolean {
@@ -23,5 +31,8 @@ export class WorkflowCellRendererComponent implements OnInit, ICellRendererAngul
     return false;
   }
 
+  onWorkflowComplete(event) {
+    console.log('workflow complete', { event });
+  }
 
 }

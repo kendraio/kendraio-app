@@ -1,6 +1,7 @@
 import {Component, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
 import {clone, get, has, isArray, isObject} from 'lodash-es';
 import {search} from 'jmespath';
+import {WorkflowCellRendererComponent} from '../../components/workflow-cell-renderer/workflow-cell-renderer.component';
 
 @Component({
   selector: 'app-grid-block',
@@ -25,6 +26,10 @@ export class GridBlockComponent implements OnInit, OnChanges {
   rowData = [];
   gridOptions = {};
 
+  frameworkComponents = {
+    workflowRenderer: WorkflowCellRendererComponent
+  };
+
   constructor(
     private readonly zone: NgZone
   ) { }
@@ -41,7 +46,7 @@ export class GridBlockComponent implements OnInit, OnChanges {
     this.columnDefs = this.preprocessColumnDefinition(get(this.config, 'columnDefs', []));
     this.gridOptions = clone(get(this.config, 'gridOptions', {}));
     this.rowData = isArray(this.model) ? this.model : get(this.model, 'result', []);
-    if (!!this.gridAngular) {
+    if (!!this.gridAngular && get(this.config, 'sizeColumnsToFit', true)) {
       setTimeout(() => {
         this.zone.run(() => {
           this.gridAngular.api.sizeColumnsToFit();

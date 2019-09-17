@@ -69,3 +69,7 @@ z-index: 9;
 .editor-config-column .mat-expansion-panel-body {
   padding: 0;
 }
+
+app-workflow-cell-renderer app-actions-block.block-wrapper {
+  margin: 0;
+}
