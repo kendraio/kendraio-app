@@ -43,7 +43,10 @@ export class GridBlockComponent implements OnInit, OnChanges {
   }
 
   updateOutputDisplay() {
-    this.columnDefs = this.preprocessColumnDefinition(get(this.config, 'columnDefs', []));
+    const defaultCols = isArray(this.model) && this.model.length > 0
+      ? Object.keys(this.model[0]).map(key => ({ headerName: key, field: key }))
+      : [];
+    this.columnDefs = this.preprocessColumnDefinition(get(this.config, 'columnDefs', defaultCols));
     this.gridOptions = clone(get(this.config, 'gridOptions', {}));
     this.rowData = isArray(this.model) ? this.model : get(this.model, 'result', []);
     if (!!this.gridAngular && get(this.config, 'sizeColumnsToFit', true)) {

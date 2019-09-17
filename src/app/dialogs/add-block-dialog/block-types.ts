@@ -111,8 +111,7 @@ export const BLOCK_TYPES = [
     hasEditor: true,
     defaultConfig: {
       type: 'grid',
-      gridOptions: {},
-      columnDefs: []
+      gridOptions: {}
     }
   },
   {
