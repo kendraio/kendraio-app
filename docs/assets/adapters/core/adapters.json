@@ -6,17 +6,51 @@
     },
     {
       "type": "mapping",
-      "mapping": "sort_by(context.app.adapters.*.adapter , &name)"
+      "mapping": "context.app.adapters.* | sort_by(@, &adapter.name)"
     },
     {
-      "type": "batch",
-      "blocks": [
+      "type": "grid",
+      "sizeColumnsToFit": true,
+      "gridOptions": {
+        "rowSelection": "multiple"
+      },
+      "columnDefs": [
         {
-          "type": "message",
-          "title": "{{name}}",
-          "message": "{{description}}"
+          "width": 50,
+          "checkboxSelection": true,
+          "suppressSizeToFit": true
+        },
+        {
+          "headerName": "Title",
+          "field": "adapter.title"
+        },
+        {
+          "headerName": "Description",
+          "field": "adapter.description"
+        },
+        {
+          "headerName": "Enabled",
+          "field": "enabled"
+        },
+        {
+          "headerName": "Operations",
+          "cellRenderer": "workflowRenderer",
+          "blocks": [
+            {
+              "type": "actions",
+              "buttons": [
+                {
+                  "label": "Enable",
+                  "blocks": []
+                }
+              ]
+            }
+          ]
         }
       ]
+    },
+    {
+      "type": "debug"
     }
   ]
 }
