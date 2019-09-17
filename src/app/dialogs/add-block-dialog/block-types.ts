@@ -37,6 +37,18 @@ export const BLOCK_TYPES = [
     }
   },
   {
+    type: 'csv-export',
+    label: 'CSV Export',
+    description: 'Export data to a CSV file',
+    icon: 'cloud_download',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'csv-export',
+      header: true,
+      skipEmptyLines: true
+    }
+  },
+  {
     type: 'csv-import',
     label: 'CSV Import',
     description: 'Import data from a CSV file',
