@@ -113,7 +113,7 @@ export class QueryBlockComponent implements OnInit, OnChanges {
 
   sendOutput(result) {
     this.isLoading = false;
-    this.output.emit({ ...this.model, result });
+    this.output.emit(result);
   }
 
 }
