@@ -11,8 +11,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { LayoutComponent } from './components/layout/layout.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
-import { ImportPageComponent } from './pages/import-page/import-page.component';
+import { DashboardPageComponent } from './pages';
+import { ImportPageComponent } from './pages';
 import { UploadPageComponent } from './pages/upload-page/upload-page.component';
 import { VisualisePageComponent } from './pages/visualise-page/visualise-page.component';
 import { AdaptersPageComponent } from './pages/adapters-page/adapters-page.component';
@@ -47,7 +47,7 @@ import { DoughnutChartDirective } from './directives/doughnut-chart.directive';
 // import { SwaggerUiDirective } from './directives/swagger-ui.directive';
 import { TestApiPageComponent } from './pages/test-api-page/test-api-page.component';
 import { TestImportDialogComponent } from './dialogs/test-import-dialog/test-import-dialog.component';
-import { AssetsPageComponent } from './pages/assets-page/assets-page.component';
+import { AssetsPageComponent } from './pages';
 
 // import {MusicRecordingsEditComponent} from './music-recordings/index';
 
@@ -60,15 +60,17 @@ import {
 } from '@ng-dynamic-forms/core';
 import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
 import { DiagramPageComponent } from './pages/diagram-page/diagram-page.component';
-import { DynamicAudioInputControlComponent } from
-    './form-controls/dynamic-audio-input-control/dynamic-audio-input-control.component';
+import {
+  DynamicAudioInputControlComponent
+} from './form-controls/dynamic-audio-input-control/dynamic-audio-input-control.component';
 import {AUDIO_FILE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/audio-form-model';
 import {CustomFormService} from './form-controls/custom-form-service';
 import { DynamicImageInputControlComponent } from './form-controls/dynamic-image-input-control/dynamic-image-input-control.component';
 import {IMAGE_FILE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/image-form-model';
 import { ReferenceInputControlComponent } from './form-controls/reference-input-control/reference-input-control.component';
-import { DynamicReferenceInputControlComponent } from
-    './form-controls/dynamic-reference-input-control/dynamic-reference-input-control.component';
+import {
+  DynamicReferenceInputControlComponent
+} from './form-controls/dynamic-reference-input-control/dynamic-reference-input-control.component';
 import {REFERENCE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/reference-form-model';
 
 // import { ContactsComponent } from './pages';
@@ -91,7 +93,6 @@ import {AppSettingsService} from './services/app-settings.service';
 import { DebugOnlyDirective } from './directives/debug-only.directive';
 import {TextMaskModule} from 'angular2-text-mask';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { LOCALE_ID  } from '@angular/core';
 
 import { YoutubePageComponent } from './pages/youtube-page/youtube-page.component';
 // import { BreadcrumbComponent } from './_shared/components/breadcrumb/breadcrumb.component';
@@ -136,7 +137,9 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import { EditorLayoutComponent } from './components/editor-layout/editor-layout.component';
 import { BlockBuilderBoxComponent } from './components/block-builder-box/block-builder-box.component';
 import { HttpBlockComponent } from './blocks/http-block/http-block.component';
-import { AdapterBlocksConfigSelectDialogComponent } from './dialogs/adapter-blocks-config-select-dialog/adapter-blocks-config-select-dialog.component';
+import {
+  AdapterBlocksConfigSelectDialogComponent
+} from './dialogs/adapter-blocks-config-select-dialog/adapter-blocks-config-select-dialog.component';
 import { ExportConfigDialogComponent } from './dialogs/export-config-dialog/export-config-dialog.component';
 import { ChartBlockComponent } from './blocks/chart-block/chart-block.component';
 import { InitBlockComponent } from './blocks/init-block/init-block.component';
@@ -165,6 +168,7 @@ import { BlockEditorMappingComponent } from './components/block-editor-mapping/b
 import { FormlyWorkflowFieldComponent } from './form-controls/formly-workflow-field/formly-workflow-field.component';
 import { FormlyCardListComponent } from './form-controls/formly-card-list/formly-card-list.component';
 import { CsvImportBlockComponent } from './blocks/csv-import-block/csv-import-block.component';
+import { WorkflowCellRendererComponent } from './components/workflow-cell-renderer/workflow-cell-renderer.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -286,7 +290,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     BlockEditorMappingComponent,
     FormlyWorkflowFieldComponent,
     FormlyCardListComponent,
-    CsvImportBlockComponent
+    CsvImportBlockComponent,
+    WorkflowCellRendererComponent
   ],
   imports: [
     // AgGridModule.withComponents([
@@ -324,7 +329,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     TextMaskModule,
     MatAutocompleteModule,
     MonacoEditorModule.forRoot(),
-    AgGridModule.withComponents([]),
+    AgGridModule.withComponents([
+      WorkflowCellRendererComponent
+    ]),
     DragDropModule
   ],
   entryComponents: [

@@ -95,7 +95,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           )
           .subscribe(response => {
             this.isLoading = false;
-            this.output.emit({payload: {...this.model}, response});
+            this.outputResult(response);
           });
         break;
       case 'PUT':
@@ -114,8 +114,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           )
           .subscribe(response => {
             this.isLoading = false;
-            // TODO: Create a convention for passing on input values
-            this.output.emit({payload: {...this.model}, response});
+            this.outputResult(response);
             const message = 'API update successful';
             this.notify.open(message, 'OK', {
               duration: 4000,
@@ -125,6 +124,10 @@ export class HttpBlockComponent implements OnInit, OnChanges {
         break;
     }
 
+  }
+
+  outputResult(data) {
+    this.output.emit(data);
   }
 
   // TODO: Refactor to remove duplicate code - move this to service

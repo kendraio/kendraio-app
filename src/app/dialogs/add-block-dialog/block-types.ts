@@ -110,13 +110,15 @@ export const BLOCK_TYPES = [
     icon: 'cloud',
     hasEditor: true,
     defaultConfig: {
-      type: 'http',
-      method: 'get',
-      endpoint: {
-        protocol: 'https',
-        host: '',
-        pathname: '',
-        query: []
+      'type': 'http',
+      'method': 'get',
+      'endpoint': {
+        'protocol': 'https:',
+        'host': 'jsonplaceholder.typicode.com',
+        'pathname': '/posts',
+        'query': {
+          userId: 1
+        }
       }
     }
   },

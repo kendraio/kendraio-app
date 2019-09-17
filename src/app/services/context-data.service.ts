@@ -45,7 +45,9 @@ export class ContextDataService {
   getFromContextWithModel(endpoint, model) {
     // console.log({ endpoint, model });
     const context = {
+      // TODO: Deprecate passing data as model
       model,
+      data: model,
       user: {
         profile: this.getUserContext(),
         teosto: this.getTeostoContext()
