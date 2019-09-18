@@ -28,6 +28,17 @@ export const BLOCK_TYPES = [
     }
   },
   {
+    type: 'card',
+    label: 'Card',
+    description: 'Wrap a workflow with card styling.',
+    icon: 'fa-square',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'card',
+      blocks: []
+    }
+  },
+  {
     type: 'chart',
     label: 'Chart',
     description: 'Display values in a configurable chart.',
