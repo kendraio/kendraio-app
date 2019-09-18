@@ -73,3 +73,9 @@ z-index: 9;
 app-workflow-cell-renderer app-actions-block.block-wrapper {
   margin: 0;
 }
+
+.batch-block-flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}

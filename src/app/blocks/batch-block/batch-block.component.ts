@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, HostBinding, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {clone, every, get, isArray, isEmpty, isObject} from 'lodash-es';
 
 @Component({
@@ -23,6 +23,8 @@ export class BatchBlockComponent implements OnInit, OnChanges {
   hasError = false;
   errorMessage = '';
 
+  @HostBinding('class.batch-block-flex') flex: false;
+
   constructor() { }
 
   ngOnInit() {
@@ -30,6 +32,7 @@ export class BatchBlockComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes) {
     this.hasError = false;
+    this.flex = get(this.config, 'flex', false);
     this.blocks = get(this.config, 'blocks', []);
     // FORCE the model to be an array
     this.modelList = isArray(this.model) ? this.model : isObject(this.model) ? Object.keys(this.model) : [];

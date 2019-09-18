@@ -32,6 +32,7 @@
     },
     {
       "type": "batch",
+      "flex": true,
       "blocks": [
         {
           "type": "card",
