@@ -104,6 +104,17 @@ export const BLOCK_TYPES = [
     }
   },
   {
+    type: 'faker',
+    label: 'Faker',
+    description: 'Generate fake data that conforms to a schema',
+    icon: 'fa-seedling',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'faker',
+      jsonSchema: {}
+    }
+  },
+  {
     type: 'form',
     label: 'Form',
     description: 'Display a form for data entry or editing.',

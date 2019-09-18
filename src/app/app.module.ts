@@ -171,6 +171,7 @@ import { CsvImportBlockComponent } from './blocks/csv-import-block/csv-import-bl
 import { WorkflowCellRendererComponent } from './components/workflow-cell-renderer/workflow-cell-renderer.component';
 import { CsvExportBlockComponent } from './blocks/csv-export-block/csv-export-block.component';
 import { CardBlockComponent } from './blocks/card-block/card-block.component';
+import { FakerBlockComponent } from './blocks/faker-block/faker-block.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -295,7 +296,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     CsvImportBlockComponent,
     WorkflowCellRendererComponent,
     CsvExportBlockComponent,
-    CardBlockComponent
+    CardBlockComponent,
+    FakerBlockComponent
   ],
   imports: [
     // AgGridModule.withComponents([
