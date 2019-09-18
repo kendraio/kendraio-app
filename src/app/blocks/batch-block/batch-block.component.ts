@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-import {clone, every, get, isArray} from 'lodash-es';
+import {clone, every, get, isArray, isEmpty, isObject} from 'lodash-es';
 
 @Component({
   selector: 'app-batch-block',
@@ -29,16 +29,12 @@ export class BatchBlockComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes) {
-    if (!isArray(this.model)) {
-      this.errorMessage = 'Batch block expects an array';
-      this.modelList = [];
-      this.hasError = true;
-      return;
-    }
+    this.hasError = false;
     this.blocks = get(this.config, 'blocks', []);
-    this.modelList = this.model;
-    this.completed = this.model.map(_ => false);
-    this.results = this.model.map(_ => ({}));
+    // FORCE the model to be an array
+    this.modelList = isArray(this.model) ? this.model : isObject(this.model) ? Object.keys(this.model) : [];
+    this.completed = this.modelList.map(_ => false);
+    this.results = this.modelList.map(_ => ({}));
   }
 
   onWorkflowComplete(i, event) {

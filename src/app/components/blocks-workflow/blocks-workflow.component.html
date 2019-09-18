@@ -21,6 +21,7 @@
     <app-event-dispatch-block class="block-wrapper" *ngSwitchCase="'dispatch'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-event-dispatch-block>
     <app-csv-import-block class="block-wrapper" *ngSwitchCase="'csv-import'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-csv-import-block>
     <app-csv-export-block class="block-wrapper" *ngSwitchCase="'csv-export'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-csv-export-block>
+    <app-card-block class="block-wrapper" *ngSwitchCase="'card'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-card-block>
   </ng-container>
 </ng-container>
 <!--<pre>{{ blocks | json }}</pre>-->
