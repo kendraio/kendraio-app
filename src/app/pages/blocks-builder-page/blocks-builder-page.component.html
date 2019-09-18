@@ -10,19 +10,19 @@
     <button type="button" mat-icon-button (click)="loadFromAdapter()" matTooltip="Load from Adapter">
       <mat-icon>open_in_browser</mat-icon>
     </button>
-    <button type="button" mat-icon-button (click)="copyConfig()" matTooltip="Copy config">
+    <button type="button" mat-icon-button (click)="workflow.copyConfig()" matTooltip="Copy config">
       <mat-icon>content_copy</mat-icon>
     </button>
-    <button type="button" mat-icon-button (click)="pasteConfig()" matTooltip="Paste config">
+    <button type="button" mat-icon-button (click)="workflow.pasteConfig()" matTooltip="Paste config">
       <mat-icon>content_paste</mat-icon>
     </button>
   </ng-container>
 
   <ng-container class="editor-config">
-    <app-blocks-editor [blocks]="blocks" (blockUpdate)="onBlocksUpdate($event)"></app-blocks-editor>
+    <app-blocks-editor [blocks]="workflow.blocks" (blockUpdate)="onBlocksUpdate($event)"></app-blocks-editor>
   </ng-container>
 
   <ng-container class="editor-output">
-    <app-blocks-workflow [blocks]="blocks" [models]="models"></app-blocks-workflow>
+    <app-blocks-workflow [blocks]="workflow.blocks" [models]="workflow.models"></app-blocks-workflow>
   </ng-container>
 </app-editor-layout>

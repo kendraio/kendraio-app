@@ -1,0 +1,13 @@
+<div class="toolbar">
+  <button type="button" mat-icon-button (click)="workflow.clearBlocks()" matTooltip="Clear">
+    <mat-icon>delete_forever</mat-icon>
+  </button>
+  <button type="button" mat-icon-button (click)="workflow.copyConfig()" matTooltip="Copy config">
+    <mat-icon>content_copy</mat-icon>
+  </button>
+  <button type="button" mat-icon-button (click)="workflow.pasteConfig()" matTooltip="Paste config">
+    <mat-icon>content_paste</mat-icon>
+  </button>
+</div>
+
+<app-blocks-editor [blocks]="workflow.blocks" (blockUpdate)="workflow.onBlocksUpdate($event)"></app-blocks-editor>

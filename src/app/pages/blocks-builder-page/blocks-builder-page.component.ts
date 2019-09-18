@@ -12,6 +12,7 @@ import {PasteConfigDialogComponent} from '../../dialogs/paste-config-dialog/past
 import * as stringify from 'json-stringify-safe';
 import {PageTitleService} from '../../services/page-title.service';
 import {AddBlockDialogComponent} from '../../dialogs/add-block-dialog/add-block-dialog.component';
+import {WorkflowService} from '../../services/workflow.service';
 
 @Component({
   selector: 'app-blocks-builder-page',
@@ -20,12 +21,8 @@ import {AddBlockDialogComponent} from '../../dialogs/add-block-dialog/add-block-
 })
 export class BlocksBuilderPageComponent implements OnInit {
 
-  title = 'Block builder config';
-  blocks = [];
-
-  models = [];
-
   constructor(
+    public readonly workflow: WorkflowService,
     private readonly shareLinks: ShareLinkGeneratorService,
     private readonly adapters: AdaptersService,
     private readonly dialog: MatDialog,
@@ -43,25 +40,25 @@ export class BlocksBuilderPageComponent implements OnInit {
   initBlocks() {
     const urlData = this.shareLinks.getData();
     if (urlData && isArray(urlData)) {
-      this.blocks = urlData;
+      this.workflow.blocks = urlData;
     }
 
-    this.models = this.blocks.map(blockDef => get(blockDef, 'defaultValue', {}));
-    this.models.push({});
+    this.workflow.models = this.workflow.blocks.map(blockDef => get(blockDef, 'defaultValue', {}));
+    this.workflow.models.push({});
   }
 
   onBlocksUpdate(newBlocks) {
-    this.blocks = newBlocks;
+    this.workflow.blocks = newBlocks;
   }
 
   clearBlocks() {
-    this.blocks = [];
-    this.models = [{}];
+    this.workflow.blocks = [];
+    this.workflow.models = [{}];
   }
 
 
   shareConfig() {
-    this.shareLinks.shareLink('workflow-builder', this.blocks);
+    this.shareLinks.shareLink('workflow-builder', this.workflow.blocks);
   }
 
   loadFromAdapter() {
@@ -73,40 +70,12 @@ export class BlocksBuilderPageComponent implements OnInit {
       if (!!values) {
         const { title, blocks } = values;
         // TODO: refactor (a)
-        this.title = title;
-        this.blocks = blocks;
-        this.models = this.blocks.map(blockDef => get(blockDef, 'defaultValue', {}));
-        this.models.push({});
+        this.workflow.title = title;
+        this.workflow.blocks = blocks;
+        this.workflow.models = this.workflow.blocks.map(blockDef => get(blockDef, 'defaultValue', {}));
+        this.workflow.models.push({});
       }
     });
   }
 
-
-  copyConfig() {
-    const dialogRef = this.dialog.open(ExportConfigDialogComponent, {
-      data: {
-        configText: stringify({ title: this.title, blocks: this.blocks })
-      }
-    });
-  }
-
-  pasteConfig() {
-    const dialogRef = this.dialog.open(PasteConfigDialogComponent, {});
-    dialogRef.afterClosed().subscribe(value => {
-      if (!!value) {
-        try {
-          const config = JSON.parse(value);
-          if (has(config, 'blocks')) {
-            // TODO: refactor (b)
-            this.title = get(config, 'title', 'Imported config');
-            this.blocks = get(config, 'blocks', []);
-            this.models = this.blocks.map(blockDef => get(blockDef, 'defaultValue', {}));
-            this.models.push({});
-          }
-        } catch (e) {
-          console.log('Error importing config', e);
-        }
-      }
-    });
-  }
 }
