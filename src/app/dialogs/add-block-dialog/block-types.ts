@@ -43,6 +43,7 @@ export const BLOCK_TYPES = [
     label: 'Chart',
     description: 'Display values in a configurable chart.',
     icon: 'fa-chart-pie',
+    hasEditor: true,
     defaultConfig: {
       type: 'chart'
     }
