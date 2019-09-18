@@ -11,15 +11,7 @@
     {
       "type": "grid",
       "sizeColumnsToFit": true,
-      "gridOptions": {
-        "rowSelection": "multiple"
-      },
       "columnDefs": [
-        {
-          "width": 50,
-          "checkboxSelection": true,
-          "suppressSizeToFit": true
-        },
         {
           "headerName": "Title",
           "field": "adapter.title"
@@ -39,21 +31,53 @@
           "cellRendererParams": {
             "blocks": [
               {
-                "type": "actions",
-                "buttons": [
+                "type": "switch",
+                "valueGetter": "data.enabled",
+                "cases": [
                   {
-                    "label": "Enable",
-                    "blocks": []
+                    "value": true,
+                    "blocks": [
+                      {
+                        "type": "actions",
+                        "buttons": [
+                          {
+                            "label": "Disable",
+                            "blocks": [
+                              {
+                                "type": "dispatch",
+                                "action": "disableAdapter"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
                   }
-                ]
+                ],
+                "default": {
+                  "blocks": [
+                    {
+                      "type": "actions",
+                      "buttons": [
+                        {
+                          "label": "Enable",
+                          "color": "primary",
+                          "blocks": [
+                            {
+                              "type": "dispatch",
+                              "action": "enableAdapter"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
               }
             ]
           }
         }
       ]
-    },
-    {
-      "type": "debug"
     }
   ]
 }
