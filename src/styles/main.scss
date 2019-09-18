@@ -219,3 +219,14 @@ formly-field {
 formly-object-type  formly-object-type > formly-field {
 margin-left: 40px
 }
+formly-object-type  legend {
+  margin-left: 20px
+  }
+
+  formly-object-type {
+background-color: blue;
+    }
+
+    formly-array-type > .ng-star-inserted {
+      background-color: red;
+    }
