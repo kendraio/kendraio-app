@@ -16,7 +16,7 @@ export class DebugBlockComponent implements OnInit, OnChanges {
 
   @Output() output = new EventEmitter();
 
-  open = 2;
+  open = 1;
   showContext = false;
 
   constructor(
@@ -28,7 +28,7 @@ export class DebugBlockComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes) {
-    this.open = get(this.config, 'open', 2);
+    this.open = get(this.config, 'open', 1);
     this.showContext = get(this.config, 'showContext', false);
     this.updateOutputDisplay();
     this.output.emit(clone(this.model));

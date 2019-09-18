@@ -4,7 +4,7 @@ import {filter} from 'rxjs/operators';
 import {ExportConfigDialogComponent} from '../dialogs/export-config-dialog/export-config-dialog.component';
 import * as stringify from 'json-stringify-safe';
 import {PasteConfigDialogComponent} from '../dialogs/paste-config-dialog/paste-config-dialog.component';
-import {get, has} from 'lodash-es';
+import {clone, get, has} from 'lodash-es';
 import {MatDialog} from '@angular/material';
 import {PageTitleService} from './page-title.service';
 
@@ -28,6 +28,10 @@ export class WorkflowService {
         filter((e): e is NavigationEnd => e instanceof NavigationEnd),
       )
       .subscribe(_ => this.blocks = []);
+  }
+
+  refresh() {
+    this.pageTitle.onRefresh();
   }
 
   onBlocksUpdate(newBlocks) {
@@ -70,7 +74,7 @@ export class WorkflowService {
     this.pageTitle.setTitle(title, true);
     this.title = title;
     this.blocks = blocks;
-    this.context = { ...context };
+    this.context = clone(context);
     this.models = this.blocks.map(blockDef => get(blockDef, 'defaultValue', {}));
     this.models.push({});
   }
