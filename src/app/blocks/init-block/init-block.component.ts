@@ -1,5 +1,5 @@
 import {Component, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
-import {isArray, isObject} from 'lodash-es';
+import {clone, isArray, isObject} from 'lodash-es';
 
 // TODO: deprecate init block and replace with option on the workflow
 
@@ -27,7 +27,8 @@ export class InitBlockComponent implements OnInit, OnChanges {
   ngOnChanges(changes) {
     setTimeout(() => {
       this.zone.run(() => {
-        this.output.emit(isArray(this.model) ? [ ...this.model ] : isObject(this.model) ? { ...this.model } : this.model);
+        console.log('init block emitting');
+        this.output.emit(clone(this.model));
       });
     }, 0);
   }

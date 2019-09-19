@@ -35,9 +35,13 @@ export class GridBlockComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit() {
+    // console.log('init');
   }
 
   ngOnChanges(changes) {
+    // console.log({ changes });
+    // console.log(get(changes, 'model.previousValue', []).map(({ enabled }) => enabled));
+    // console.log(get(changes, 'model.currentValue', []).map(({ enabled }) => enabled));
     this.updateOutputDisplay();
     // this.output.emit(isArray(this.model) ? [ ...this.model ] : isObject(this.model) ? { ...this.model } : this.model);
   }

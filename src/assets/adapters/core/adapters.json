@@ -2,15 +2,12 @@
   "title": "Adapters",
   "blocks": [
     {
-      "type": "init"
-    },
-    {
       "type": "mapping",
       "mapping": "context.app.adapters.* | sort_by(@, &adapter.name)"
     },
     {
       "type": "grid",
-      "sizeColumnsToFit": true,
+      "sizeColumnsToFit": false,
       "columnDefs": [
         {
           "headerName": "Title",
