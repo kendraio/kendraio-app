@@ -1,0 +1,59 @@
+{
+  "title": "Adapters",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "mapping",
+      "mapping": "context.app.adapters.* | sort_by(@, &adapter.name)"
+    },
+    {
+      "type": "grid",
+      "sizeColumnsToFit": true,
+      "gridOptions": {
+        "rowSelection": "multiple"
+      },
+      "columnDefs": [
+        {
+          "width": 50,
+          "checkboxSelection": true,
+          "suppressSizeToFit": true
+        },
+        {
+          "headerName": "Title",
+          "field": "adapter.title"
+        },
+        {
+          "headerName": "Description",
+          "field": "adapter.description"
+        },
+        {
+          "headerName": "Enabled",
+          "field": "enabled",
+          "cellRenderer": "agGroupCellRenderer"
+        },
+        {
+          "headerName": "Operations",
+          "cellRenderer": "workflowRenderer",
+          "cellRendererParams": {
+            "blocks": [
+              {
+                "type": "actions",
+                "buttons": [
+                  {
+                    "label": "Enable",
+                    "blocks": []
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "debug"
+    }
+  ]
+}

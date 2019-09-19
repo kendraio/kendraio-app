@@ -1,0 +1,30 @@
+ {
+      "definitions": {
+          "Thing": {
+              "type": "object",
+              "properties": {
+                  "name": {
+                      "type": "string",
+                      "default": "Default name"
+                  }
+              }
+          }
+      },
+      "type": "object",
+      "properties": {
+          "listOfStrings": {
+              "type": "array",
+              "title": "My stuff list",
+              "items": {
+                  "type": "string",
+                  "default": "Enter your new ID here"
+              }
+          },
+          "description": {
+			"type": "string",
+			"title": "Bio",
+			"minLength": 2,
+			"maxLength": 5000
+		}
+      }
+  }

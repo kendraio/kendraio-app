@@ -1,0 +1,21 @@
+{
+  "title": "IPN",
+  "description": "Add and verify your International Performer Number (IPN)",
+  "type": "object",
+  "required": [
+    "ipn"
+  ],
+  "properties": {
+    "ipn": {
+      "title": "IPN",
+      "description": "",
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 20
+    },
+    "location": {
+      "type": "string",
+      "title": "Location"
+    }
+  }
+}
