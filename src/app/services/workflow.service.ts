@@ -4,9 +4,10 @@ import {filter} from 'rxjs/operators';
 import {ExportConfigDialogComponent} from '../dialogs/export-config-dialog/export-config-dialog.component';
 import * as stringify from 'json-stringify-safe';
 import {PasteConfigDialogComponent} from '../dialogs/paste-config-dialog/paste-config-dialog.component';
-import {clone, get, has} from 'lodash-es';
+import {clone, get, has, set} from 'lodash-es';
 import {MatDialog} from '@angular/material';
 import {PageTitleService} from './page-title.service';
+import {AdaptersService} from './adapters.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,8 @@ export class WorkflowService {
   constructor(
     private readonly router: Router,
     private readonly dialog: MatDialog,
-    private readonly pageTitle: PageTitleService
+    private readonly pageTitle: PageTitleService,
+    private readonly adapters: AdaptersService
   ) {
     this.router.events
       .pipe(
@@ -31,7 +33,13 @@ export class WorkflowService {
   }
 
   refresh() {
-    this.pageTitle.onRefresh();
+    // TODO: disabled this as was triggering a full workflow re-load
+    // this.pageTitle.onRefresh();
+    // ... when this refresh call should just re-init the running workflow
+    this.models = this.blocks.map(blockDef => get(blockDef, 'defaultValue', {}));
+    this.models.push({});
+    // TODO: this is a partial refresh of context data, but needs refactoring
+    set(this.context, 'adapters', this.adapters.getAdaptersInfo());
   }
 
   onBlocksUpdate(newBlocks) {
