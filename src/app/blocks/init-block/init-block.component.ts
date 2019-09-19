@@ -27,7 +27,7 @@ export class InitBlockComponent implements OnInit, OnChanges {
   ngOnChanges(changes) {
     setTimeout(() => {
       this.zone.run(() => {
-        console.log('init block emitting');
+        // console.log('init block emitting');
         this.output.emit(clone(this.model));
       });
     }, 0);
