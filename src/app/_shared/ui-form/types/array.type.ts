@@ -29,7 +29,6 @@ import { FieldArrayType } from '@ngx-formly/core';
       </div>
     <mat-card-actions>
 <!-- // mat-card: wont accept closing tag??? -->
-
   `,
 })
 export class ArrayTypeComponent extends FieldArrayType {}

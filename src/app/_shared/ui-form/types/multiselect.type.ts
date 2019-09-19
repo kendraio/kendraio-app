@@ -29,13 +29,9 @@ export class KendraFieldSelect extends FieldType {
   get valueProp(): string { return this.to.valueProp || 'id'; }
   get groupProp(): string { return this.to.groupProp || 'group'; }
 
-
-
 // TODO:
 // add grouping
 // add custom header/footer
 // better Mat formatting
-
-
 
 }
