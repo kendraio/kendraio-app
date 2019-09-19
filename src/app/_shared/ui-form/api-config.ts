@@ -15,6 +15,14 @@ export const FORM_APIS = {
             uiSchema: 'assets/YouTube/youtube-edit-video-advanced.ui.json',
         }
       },
+      
+      demo: {
+        custom:
+        {
+            jsonSchema: 'assets/form-examples/custom-elements.json',
+            uiSchema: 'assets/form-examples/custom-elements-ui.json',
+        }
+      },
 
   user: {
     ipn: {

@@ -11,9 +11,8 @@ import { FieldType } from '@ngx-formly/core';
     <div class="error matstuff" role="alert" *ngIf="showError">
       <formly-validation-message [field]="field"></formly-validation-message>
     </div>
-
-
     <formly-field *ngFor="let f of field.fieldGroup" [field]="f"></formly-field>
+
   `,
 })
 export class ObjectTypeComponent extends FieldType {

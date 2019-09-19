@@ -169,6 +169,10 @@ dynamic-material-form-control:not(:last-child) {
   position: relative;
   padding: 16px;
   border-radius: 4px;
+  &:hover {
+    box-shadow: 0;
+    background-color: #f3f3f3;
+  }
 }
 
 
@@ -200,10 +204,12 @@ formly-field {
   img {
     margin-right: 5px;
     opacity: .5;
-    &:hover{
+
+    &:hover {
       opacity: 1;
     }
-    &.default-thumb{
+
+    &.default-thumb {
       opacity: 1;
       border: 2px solid black;
     }
@@ -212,21 +218,33 @@ formly-field {
 
 
 .mat-form-field-type-boolean .mat-form-field-wrapper {
-  padding-bottom: 0!important;
+  padding-bottom: 0 !important;
   height: 44px;
 }
 
-formly-object-type  formly-object-type > formly-field {
-margin-left: 40px
+formly-object-type formly-object-type>formly-field {
+  margin-left: 40px
 }
-formly-object-type  legend {
+
+formly-object-type legend {
   margin-left: 20px
+}
+
+formly-object-type {
+  // background-color: blue;
+}
+
+formly-array-type {
+  mat-card-header {
+    font-size: 1.5rem;
   }
 
-  formly-object-type {
-background-color: blue;
-    }
+  mat-card {
+    margin-bottom: 16px
+  }
 
-    formly-array-type > .ng-star-inserted {
-      background-color: red;
-    }
+}
+
+.mat-form-field{
+  margin-bottom: 1rem;
+}

@@ -2,7 +2,6 @@
   "title": {
     "ui:disabled": false,
     "ui:placeholder": "Enter the Video Title",
-    "ui:widget": "k-password",
     "ui:errMessage": {
       "required": "This is my Required Field error message.",
       "minLength": "This a custom Min length error message."

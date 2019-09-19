@@ -6,7 +6,7 @@ import { MatInput, ErrorStateMatcher } from '@angular/material';
  * this is an attempt to allow custom error msgs
  *
 */
-// export class errorStateMatcher implements ErrorStateMatcher {
+// export class errorStateMatcher implements ErrorStateMatcher {  // do not remove maybe use later!
 //     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
 //       const isSubmitted = form && form.submitted;
 //       return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
@@ -38,7 +38,7 @@ import { MatInput, ErrorStateMatcher } from '@angular/material';
                   </mat-error>
 
               <mat-hint align="end">
-              {{formControl?.value?.length}}/{{to.maxLength}}
+              {{formControl?.value?.length}}/{{maxLength}}
               </mat-hint>
 
     </mat-form-field>
@@ -58,6 +58,7 @@ export class TextareaComponent extends FieldType {
   get autosize(): boolean { return this.to.autosize || false; }
   get cols(): number { return this.to.cols || 50; }
   get rows(): number { return this.to.rows || 8; }
+  get maxLength(): number { return this.to.maxLength || 15000; }
   get placeholder(): string {return this.to.placeholder ||  this.to.label; }
   get description(): string {return this.to.description; }
   get test(): string {return this.formControl.getError('maxLength'); }

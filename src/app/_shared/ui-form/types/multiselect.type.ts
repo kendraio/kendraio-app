@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { FieldType } from '@ngx-formly/core';
+import {NgSelectModule, NgOption} from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-field-ng-select',
   template: `
-
-    <ng-select  [items]="to.options"
+  <mat-form-field appearance="outline">
+  <mat-label>{{to.label}}</mat-label>
+    <ng-select ngSelectMat [items]="to.options"
       [bindLabel]="labelProp"
       [bindValue]="valueProp"
       [multiple]="isMultiSelect"
@@ -13,9 +15,9 @@ import { FieldType } from '@ngx-formly/core';
       [addTag]="addTag"
       [formControl]="formControl">
     </ng-select>
-<mat-hint *ngIf="isMultiSelect">You may select more that one</mat-hint>
+<mat-hint *ngIf="isMultiSelect">You may select more that one option</mat-hint>
+</mat-form-field>
 
-{{valueProp}}
 
   `,
 })
@@ -26,4 +28,14 @@ export class KendraFieldSelect extends FieldType {
   get labelProp(): string { return this.to.labelProp || 'name'; }
   get valueProp(): string { return this.to.valueProp || 'id'; }
   get groupProp(): string { return this.to.groupProp || 'group'; }
+
+
+
+// TODO:
+// add grouping
+// add custom header/footer
+// better Mat formatting
+
+
+
 }

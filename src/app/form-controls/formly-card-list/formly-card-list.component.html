@@ -12,7 +12,7 @@
 <br>
 <button mat-flat-button (click)="add(null, {})">
   <mat-icon>add</mat-icon>
-  <span class="button-label">Add {{ field.templateOptions?.uiSchema["ui:cardItemLabel"] }}</span>
+  <span class="button-label">Add {{ field | json}}</span>
 </button>
 <br>
-<!--<pre>{{ field.templateOptions | json }}</pre>-->
+<pre>{{ field.templateOptions | json }}</pre>
