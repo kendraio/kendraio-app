@@ -8,6 +8,8 @@ import { parse } from 'papaparse';
   styleUrls: ['./csv-import-block.component.scss']
 })
 export class CsvImportBlockComponent implements OnInit, OnChanges {
+  name: string;
+  theFile: File; // hold our file
 
   @Input() config;
   @Input() context;
@@ -23,8 +25,25 @@ export class CsvImportBlockComponent implements OnInit, OnChanges {
 
   }
 
-  onFileChange(event) {
-    const file = event.target.files[0];
+
+
+  openInput() {
+    // your can use ElementRef for this later
+    document.getElementById('fileInput').click();
+  }
+
+  fileChange(files: File[]) {
+    if (files.length > 0) {
+      this.theFile = files[0];
+    }
+  }
+
+  upload() {
+    console.log('sending this to server', this.theFile);
+  }
+
+  onFileChange(files: File[]) {
+    // const file = event.target.files[0];
 
     const fileReader = new FileReader();
     fileReader.onload = (_) => {
@@ -32,11 +51,12 @@ export class CsvImportBlockComponent implements OnInit, OnChanges {
       const parsedData = parse(fileReader.result as any, config);
       if (!!parsedData.data) {
         this.output.emit(parsedData.data);
+        console.log(parsedData.data);
       } else {
         console.log(parsedData.errors);
       }
     };
-    fileReader.readAsText(file);
+    fileReader.readAsText(files[0]);
   }
 
 

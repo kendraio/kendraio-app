@@ -1,10 +1,13 @@
 
 
-  <mat-form-field class="example-full-width">
-    <input matInput type="file" (change)="onFileChange($event)" accept="text/csv">
-  </mat-form-field>
+<section style="margin:1rem">
+  <button mat-raised-button (click)="openInput()">
+    Select CSV File to Import
+</button>
 
-
+<input id="fileInput" hidden type="file" (change)="onFileChange($event.target.files)"  accept="text/csv">
+<br/>
+</section>
 
 
 

@@ -9,6 +9,8 @@ import { unparse } from 'papaparse';
 })
 export class CsvExportBlockComponent implements OnInit {
 
+
+
   @Input() config;
   @Input() context;
   @Input() model: any = {};
@@ -22,6 +24,8 @@ export class CsvExportBlockComponent implements OnInit {
 
   ngOnInit() {
   }
+
+
 
   exportData() {
     const { type, ...config } = this.config;
