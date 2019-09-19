@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angula
 import {get, isArray, isObject} from 'lodash-es';
 import {MatDialog} from '@angular/material';
 import {BlocksDialogComponent} from '../../dialogs/blocks-dialog/blocks-dialog.component';
+import { RepositionScrollStrategy } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-dialog-block',
@@ -28,6 +29,7 @@ export class DialogBlockComponent implements OnInit, OnChanges {
       return;
     }
     const dialogRef = this.dialog.open(BlocksDialogComponent, {
+      maxHeight: '90vh',
       // TODO: Add other dialog options to config
       data: {
         blocks: get(this.config, 'blocks', []),

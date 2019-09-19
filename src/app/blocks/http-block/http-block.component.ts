@@ -115,11 +115,14 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           .subscribe(response => {
             this.isLoading = false;
             this.outputResult(response);
-            const message = 'API update successful';
-            this.notify.open(message, 'OK', {
-              duration: 4000,
-              verticalPosition: 'top'
-            });
+            const notify = get(this.config, 'notify', true);
+            if (notify) {
+              const message = 'API update successful';
+              this.notify.open(message, 'OK', {
+                duration: 4000,
+                verticalPosition: 'top'
+              });
+            }
           });
         break;
     }

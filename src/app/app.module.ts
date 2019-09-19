@@ -169,6 +169,10 @@ import { FormlyWorkflowFieldComponent } from './form-controls/formly-workflow-fi
 import { FormlyCardListComponent } from './form-controls/formly-card-list/formly-card-list.component';
 import { CsvImportBlockComponent } from './blocks/csv-import-block/csv-import-block.component';
 import { WorkflowCellRendererComponent } from './components/workflow-cell-renderer/workflow-cell-renderer.component';
+import { CsvExportBlockComponent } from './blocks/csv-export-block/csv-export-block.component';
+import { CardBlockComponent } from './blocks/card-block/card-block.component';
+import { FakerBlockComponent } from './blocks/faker-block/faker-block.component';
+import { WorkflowSidenavComponent } from './components/workflow-sidenav/workflow-sidenav.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -291,7 +295,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormlyWorkflowFieldComponent,
     FormlyCardListComponent,
     CsvImportBlockComponent,
-    WorkflowCellRendererComponent
+    WorkflowCellRendererComponent,
+    CsvExportBlockComponent,
+    CardBlockComponent,
+    FakerBlockComponent,
+    WorkflowSidenavComponent
   ],
   imports: [
     // AgGridModule.withComponents([

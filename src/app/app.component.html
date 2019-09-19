@@ -63,15 +63,15 @@
         </button>
       </ng-container>
       <span class="spacer"></span>
-      <div>
+      <div style="padding-right: 1em">
           <select #langSelect (change)="translate.use(langSelect.value)">
             <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
           </select>
       </div>
 
       <button mat-icon-button><mat-icon>person</mat-icon> </button>
-      <button mat-icon-button><mat-icon matBadge="2" class="example-icon" aria-hidden="false" aria-label="Example heart icon">notifications</mat-icon></button>
-      <button mat-icon-button><mat-icon [routerLink]="['settings']" routerLinkActive="router-link-active"  class="example-icon" aria-hidden="false" aria-label="Example heart icon">settings</mat-icon></button>
+      <button mat-icon-button><mat-icon [matBadge]="notificationCount">notifications</mat-icon></button>
+      <button mat-icon-button (click)="blocksSidePane.toggle()"><mat-icon>settings</mat-icon></button>
 
     </mat-toolbar>
 
@@ -93,6 +93,9 @@
 
 
 
+  <mat-sidenav #blocksSidePane position="end">
+    <app-workflow-sidenav></app-workflow-sidenav>
+  </mat-sidenav>
 
 
 

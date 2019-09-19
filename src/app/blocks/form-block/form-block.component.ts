@@ -3,7 +3,7 @@ import {KendraioFormService} from '../../_shared/ui-form/services/kendraio.form.
 import {FormGroup} from '@angular/forms';
 import {FormlyFieldConfig, FormlyFormOptions} from '@ngx-formly/core';
 import {Subject} from 'rxjs';
-import {debounceTime} from 'rxjs/operators';
+import {debounceTime, distinctUntilChanged, filter} from 'rxjs/operators';
 import { clone, get, has } from 'lodash-es';
 
 @Component({
@@ -17,35 +17,43 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
   @Input() context;
   @Input() model: any = {};
 
-  _output = new Subject();
   @Output() output = new EventEmitter();
+  _changes = new Subject();
 
   form = new FormGroup({});
   fields: FormlyFieldConfig[];
   options: FormlyFormOptions = {};
 
-  // TODO: Consider how to support multiple actions?
   label = 'Submit';
+  hasSubmit = true;
 
   constructor(
     private readonly formService: KendraioFormService
   ) { }
 
   ngOnInit() {
-    this._output
+    this.setupChangesOutput();
+  }
+
+  setupChangesOutput() {
+    this._changes
       .pipe(
-        debounceTime(500)
+        filter(_ => !this.hasSubmit),
+        debounceTime(get(this.config, 'debounceTime', 400)),
+        distinctUntilChanged()
       )
-      .subscribe(value => this.output.emit(value));
+      .subscribe(value => {
+        this.output.emit(value);
+      });
   }
 
   ngOnDestroy() {
-    this._output.complete();
+    this._changes.complete();
   }
 
   ngOnChanges(changes): void {
-    // console.log({ changes });
     this.label = get(this.config, 'label', 'Submit');
+    this.hasSubmit = get(this.config, 'hasSubmit', true);
     this.updateForm();
   }
 
@@ -64,17 +72,11 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onModelChange() {
-    // TODO: Add option to block config to enable/disable live form updates
-    // Send via the observable to debounce form changes
-    // sendOutput()
+    this._changes.next(clone(this.model));
   }
 
   onSubmit() {
     // Send directly (skip the debounce)
     this.output.emit(clone(this.model));
-  }
-
-  sendOutput() {
-    this._output.next({ ...this.model });
   }
 }

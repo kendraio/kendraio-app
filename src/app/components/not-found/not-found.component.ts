@@ -5,6 +5,7 @@ import {WorkflowRepoService} from '../../services/workflow-repo.service';
 import {catchError, filter, map, switchMap, switchMapTo, takeUntil, tap} from 'rxjs/operators';
 import {get, isArray} from 'lodash-es';
 import {BehaviorSubject, combineLatest, of, Subject} from 'rxjs';
+import {WorkflowService} from '../../services/workflow.service';
 
 @Component({
   selector: 'app-not-found',
@@ -15,14 +16,11 @@ export class NotFoundComponent implements OnInit, OnDestroy {
 
   isLoaded = false;
 
-  blocks = [];
-  models = [];
-  context = {};
-
   destroy$ = new Subject();
   refresh$;
 
   constructor(
+    public readonly workflow: WorkflowService,
     private readonly pageTitle: PageTitleService,
     private readonly route: ActivatedRoute,
     private readonly workflowRepo: WorkflowRepoService
@@ -52,12 +50,7 @@ export class NotFoundComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe(({ blocks, title, context }) => {
-        this.pageTitle.setTitle(title, true);
-        // TODO: refactor (e) where default model comes from
-        this.blocks = blocks;
-        this.context = { ...context };
-        this.models = this.blocks.map(blockDef => get(blockDef, 'defaultValue', {}));
-        this.models.push({});
+        this.workflow.initWorkflow({ title, blocks, context });
         this.isLoaded = true;
       });
   }

@@ -46,6 +46,12 @@ export class KendraioFormService {
     return this.http.get(url).pipe(catchError(() => of({})));
   }
 
+  getJSONSchema(_adapter, _formId) {
+    return this.getFormData(_adapter, _formId).pipe(
+      map(([uiSchema, jsonSchema]) => ({ uiSchema, jsonSchema })),
+    );
+  }
+
   getJSONSchemaForm(_adapter, _formId) {
     return this.getFormData(_adapter, _formId).pipe(
       map(([uiSchema, jsonSchema]) => ({ uiSchema, jsonSchema })),

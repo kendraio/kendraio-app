@@ -28,12 +28,36 @@ export const BLOCK_TYPES = [
     }
   },
   {
+    type: 'card',
+    label: 'Card',
+    description: 'Wrap a workflow with card styling.',
+    icon: 'fa-square',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'card',
+      blocks: []
+    }
+  },
+  {
     type: 'chart',
     label: 'Chart',
     description: 'Display values in a configurable chart.',
     icon: 'fa-chart-pie',
+    hasEditor: true,
     defaultConfig: {
       type: 'chart'
+    }
+  },
+  {
+    type: 'csv-export',
+    label: 'CSV Export',
+    description: 'Export data to a CSV file',
+    icon: 'cloud_download',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'csv-export',
+      header: true,
+      skipEmptyLines: true
     }
   },
   {
@@ -80,6 +104,17 @@ export const BLOCK_TYPES = [
     }
   },
   {
+    type: 'faker',
+    label: 'Faker',
+    description: 'Generate fake data that conforms to a schema',
+    icon: 'fa-seedling',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'faker',
+      jsonSchema: {}
+    }
+  },
+  {
     type: 'form',
     label: 'Form',
     description: 'Display a form for data entry or editing.',
@@ -99,8 +134,7 @@ export const BLOCK_TYPES = [
     hasEditor: true,
     defaultConfig: {
       type: 'grid',
-      gridOptions: {},
-      columnDefs: []
+      gridOptions: {}
     }
   },
   {

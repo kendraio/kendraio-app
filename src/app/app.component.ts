@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { MenuItem } from './_models/classes/common';
 import {MENUITEMS } from './_shared/components/menu/menu.component';
@@ -36,6 +36,8 @@ export class AppComponent {
   sub: Subscription;
   today = Date.now();
   transViaService = '';
+
+  notificationCount = '';
 
   constructor(
     private readonly coreEventHandlers: CoreEventHandlersService,

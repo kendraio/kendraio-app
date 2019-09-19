@@ -94,10 +94,6 @@ const routes: Routes = [
         }
       },
       {
-          path: 'bloomen/search',
-          component: BloomenSearchPageComponent
-      },
-      {
         path: 'notifications',
         loadChildren: './notifications/notifications.module#NotificationsModule',
         data: {

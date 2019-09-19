@@ -1,6 +1,10 @@
 {
   "configVersion": 1,
+<<<<<<< HEAD
   "timestamp": 1568898439179,
+=======
+  "timestamp": 1568881598531,
+>>>>>>> b6955edfc2ebae451759831e2c88e0434a642934
   "index": "/index.html",
   "assetGroups": [
     {
@@ -27,12 +31,21 @@
         "/common.d7f1d4a7a8403e6541fb.js",
         "/favicon.ico",
         "/index.html",
+<<<<<<< HEAD
         "/main.20baea2c9ef44790d38a.js",
         "/polyfills-es5.e0ee82d98ecf8fb22889.js",
         "/polyfills.e09249ecf240d1c8a78a.js",
         "/runtime.45965bf26c8d1a2b43a2.js",
         "/scripts.204105cd67ce4bd484f3.js",
         "/styles.5425d9ccbe6fa0897fed.css"
+=======
+        "/main.418b548e974fc1047418.js",
+        "/polyfills-es5.e0ee82d98ecf8fb22889.js",
+        "/polyfills.60ee090c6cd1f0156534.js",
+        "/runtime.f7653deda820fefe2210.js",
+        "/scripts.24d526a0b7c1a3250889.js",
+        "/styles.ce75a72c80b1d250a2e2.css"
+>>>>>>> b6955edfc2ebae451759831e2c88e0434a642934
       ],
       "patterns": []
     },
@@ -51,6 +64,7 @@
         "/assets/YouTube/youtube-edit-video-basic.json",
         "/assets/YouTube/youtube-simple.json",
         "/assets/YouTube/youtube-ui.json",
+        "/assets/adapters/bloomen/search.json",
         "/assets/adapters/core/adapters.json",
         "/assets/adapters/core/example.json",
         "/assets/adapters/core/settings.json",
@@ -458,6 +472,7 @@
     "/20.1e13979cfd4a08f2e8ee.js": "73c46efad6a3395cd7deace997a4e14f41ecb76b",
     "/21.05c9c15e5f8c55819aa4.js": "18738f16d4ee23f51e9cb45c399a7def8edded73",
     "/6.349491fd4604c70aacab.js": "bdcaf4f51285fad0b101b11a18d752525ab3f9fc",
+<<<<<<< HEAD
     "/7.ca6d46109c326a9ce4bb.js": "232630c1d1e82fa85c6598efe23b8beecfdcc182",
     "/8.4181f738992bcf641c73.js": "a7c4cb2b05d4684339f469271adaaa0595cefe93",
     "/9.afe11bb1b2facf422c96.js": "84c688b57a7eebbee2ebc109fb89b60eaa12b977",
@@ -481,6 +496,32 @@
     "/assets/adapters/teosto/schema.json": "ee44462e3201f74b38346772163a4f72ff7f822a",
     "/assets/adapters/teosto/ui.json": "d5ddccaf8ee3c7f41bea515d9d5f49277a952f3c",
     "/assets/adapters/test/builder.json": "4f7d6b45a3562779e001ed315ae6a42d13e4ee3f",
+=======
+    "/7.dcc88e725b66e40110f4.js": "232630c1d1e82fa85c6598efe23b8beecfdcc182",
+    "/8.b805e8b8eae0371051d1.js": "a7c4cb2b05d4684339f469271adaaa0595cefe93",
+    "/9.91aeb3558fd8c299cdaa.js": "84c688b57a7eebbee2ebc109fb89b60eaa12b977",
+    "/assets/YouTube/arrays-test.json": "2f44f1a5d79578d3b0ea55d448712e0992b3860f",
+    "/assets/YouTube/arrays.json": "69620ae4726271946c717ae81cbff83ce41252c1",
+    "/assets/YouTube/test.json": "96f10d84ecbcdd802ab11ba2d119e573103d2061",
+    "/assets/YouTube/youtube-edit-video-advanced.schema copy.json": "04a9dc1f00c947008b0a3d0328a29108f17bf948",
+    "/assets/YouTube/youtube-edit-video-advanced.schema.json": "df0fb370f0cacdb242e3e79b83fa68b6b113b546",
+    "/assets/YouTube/youtube-edit-video-advanced.ui.json": "1a0569195628ea7fd15a2e61198e737cda6a3b97",
+    "/assets/YouTube/youtube-edit-video-basic-ui.json": "d544294e1463bc7020a7d5a4bd7bcbcf724e65ac",
+    "/assets/YouTube/youtube-edit-video-basic.json": "2b07d55a206ca1004d57d63aa4639f5bb406a2b7",
+    "/assets/YouTube/youtube-simple.json": "5a6a2c717ecdd9bfdf45b6af93c383737b554c87",
+    "/assets/YouTube/youtube-ui.json": "b5577917cac5638b050dced20a3ade9955372286",
+    "/assets/adapters/bloomen/search.json": "da31ea49bdd39783f6446bcb8341fa02addc6292",
+    "/assets/adapters/core/adapters.json": "b6c3d41c178b33d37d8da739af1eafcdb6bf58a2",
+    "/assets/adapters/core/example.json": "8559bc1dd41388fa74b331bae9a221343726a1dd",
+    "/assets/adapters/core/settings.json": "e4fd18891c1aabd6aa36946883a02384f2b8a9fb",
+    "/assets/adapters/ipn/jsonSchema.json": "358a1cd8540da41b1cd4265a9a4e72178965e82c",
+    "/assets/adapters/ipn/uiSchema.json": "0d83e78f8c129d9fc1045c1f296f2458228a2580",
+    "/assets/adapters/kendraio/search-limit.schema.json": "a8ccb7ca32731835d4ed285e72bd93c901a64d8f",
+    "/assets/adapters/kendraio/search-limit.ui.json": "00f550e11183e2bb70f8bf12699c3866e5c8fcb3",
+    "/assets/adapters/teosto/schema.json": "88d708c167222e13a439c032828269b555ada272",
+    "/assets/adapters/teosto/ui.json": "c418dc4eb7e6d6a951f6c0fede17e373f1f655b4",
+    "/assets/adapters/test/builder.json": "d02ebb360216db8ad21eefd85e5919f5100aae91",
+>>>>>>> b6955edfc2ebae451759831e2c88e0434a642934
     "/assets/data/rin-sample-01.xml": "ec7fc751bbde79156f7d527da2acd18d2a544f5b",
     "/assets/fake-data/test-cmo-ref-data.json": "153cfd338e81a8ac1fdd4a3bee03fc2238d69b0d",
     "/assets/fake-data/test-ref-data.json": "42cb4bfd18f5402bd3b9d98f9975e521ce665bca",
@@ -861,6 +902,7 @@
     "/assets/swagger/unsplash.json": "279da348e0f5573c80411a3dc41147fb1bd4b45d",
     "/common.d7f1d4a7a8403e6541fb.js": "4869e210094c45079d1a01d167d586011c0c3c8b",
     "/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
+<<<<<<< HEAD
     "/index.html": "d4032d7eeca2557d561aa28ff562f03767cda17d",
     "/main.20baea2c9ef44790d38a.js": "a3b865c35c07e55fc68a4ae73635661644fc8989",
     "/polyfills-es5.e0ee82d98ecf8fb22889.js": "23c2aa4ebfd4e58ac0d35b309bc727deacdabb35",
@@ -868,6 +910,15 @@
     "/runtime.45965bf26c8d1a2b43a2.js": "eb67d7ce825a82d9850027d781555f0e6ed760b8",
     "/scripts.204105cd67ce4bd484f3.js": "9eca7207cd012b97b459970239da539a87f88553",
     "/styles.5425d9ccbe6fa0897fed.css": "687978bd9aa65981348182768daaf28411e39a14"
+=======
+    "/index.html": "7589f1249e0e063bfab1df3af180c835e4283e9f",
+    "/main.418b548e974fc1047418.js": "ed9fe59157887ff1e799c19449d48f0c59b611a1",
+    "/polyfills-es5.e0ee82d98ecf8fb22889.js": "23c2aa4ebfd4e58ac0d35b309bc727deacdabb35",
+    "/polyfills.60ee090c6cd1f0156534.js": "dd8784a79fb38569251831fbf4681cd7d95f77c8",
+    "/runtime.f7653deda820fefe2210.js": "4eb9e75809e3b0ab56dae96e402596a5e1073da7",
+    "/scripts.24d526a0b7c1a3250889.js": "7eae450080edcf82a6ed5c884d0c102be953dca2",
+    "/styles.ce75a72c80b1d250a2e2.css": "e70602de2991f0536bd1003eaa8e4026dd6e726b"
+>>>>>>> b6955edfc2ebae451759831e2c88e0434a642934
   },
   "navigationUrls": [
     {

@@ -35,15 +35,22 @@ export class GridBlockComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit() {
+    // console.log('init');
   }
 
   ngOnChanges(changes) {
+    // console.log({ changes });
+    // console.log(get(changes, 'model.previousValue', []).map(({ enabled }) => enabled));
+    // console.log(get(changes, 'model.currentValue', []).map(({ enabled }) => enabled));
     this.updateOutputDisplay();
     // this.output.emit(isArray(this.model) ? [ ...this.model ] : isObject(this.model) ? { ...this.model } : this.model);
   }
 
   updateOutputDisplay() {
-    this.columnDefs = this.preprocessColumnDefinition(get(this.config, 'columnDefs', []));
+    const defaultCols = isArray(this.model) && this.model.length > 0
+      ? Object.keys(this.model[0]).map(key => ({ headerName: key, field: key }))
+      : [];
+    this.columnDefs = this.preprocessColumnDefinition(get(this.config, 'columnDefs', defaultCols));
     this.gridOptions = clone(get(this.config, 'gridOptions', {}));
     this.rowData = isArray(this.model) ? this.model : get(this.model, 'result', []);
     if (!!this.gridAngular && get(this.config, 'sizeColumnsToFit', true)) {
@@ -65,7 +72,10 @@ export class GridBlockComponent implements OnInit, OnChanges {
           } catch (e) {
             return e.message;
           }
-        }} : {}
+        }} : {},
+      ...has(item, 'cellRendererParams')
+        ? { cellRendererParams: { ...item.cellRendererParams, context: this.context }}
+        : {}
     }));
   }
 
