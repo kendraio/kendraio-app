@@ -23,7 +23,7 @@
         {
           "headerName": "Enabled",
           "field": "enabled",
-          "cellRenderer": "agGroupCellRenderer"
+          "valueFormatter": "x ? '✓' : ''"
         },
         {
           "headerName": "Operations",
