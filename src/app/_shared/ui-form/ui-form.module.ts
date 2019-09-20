@@ -39,6 +39,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { FormlyMaterialModule } from '@ngx-formly/material';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 // import { ContentEditableFormDirective } from '../directives/editable-content';
 // import { KendraioFormComponent } from './kendraio-form/kendraio-form.component';
@@ -72,7 +73,8 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
     MatCardModule,
     MatSliderModule,
     // MatNativeDateModule,
-    FormlyMatDatepickerModule
+    FormlyMatDatepickerModule,
+    NgxMaterialTimepickerModule
   ],
   exports: [
     FormsModule,
@@ -92,7 +94,8 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
     NgSelectModule,
     MatCardModule,
     MatNativeDateModule,
-    FormlyMatDatepickerModule
+    FormlyMatDatepickerModule,
+    NgxMaterialTimepickerModule
   ],
   declarations: [
     PanelWrapperComponent,
@@ -115,7 +118,8 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
     types.TextareaComponent,
     types.ThumbnailViewerComponent,
     types.FieldHiddenComponent,
-    types.FieldInputPasswordComponent
+    types.FieldInputPasswordComponent,
+    types.TimePickerComponent
     // ContentEditableFormDirective
     // KendraioFormComponent
 
