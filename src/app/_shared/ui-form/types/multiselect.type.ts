@@ -5,8 +5,8 @@ import {NgSelectModule, NgOption} from '@ng-select/ng-select';
 @Component({
   selector: 'app-field-ng-select',
   template: `
-  <mat-form-field appearance="outline">
-  <mat-label>{{to.label}}</mat-label>
+
+ 
     <ng-select ngSelectMat [items]="to.options"
       [bindLabel]="labelProp"
       [bindValue]="valueProp"
@@ -16,7 +16,7 @@ import {NgSelectModule, NgOption} from '@ng-select/ng-select';
       [formControl]="formControl">
     </ng-select>
 <mat-hint *ngIf="isMultiSelect">You may select more that one option</mat-hint>
-</mat-form-field>
+
 
 
   `,
@@ -35,3 +35,5 @@ export class KendraFieldSelect extends FieldType {
 // better Mat formatting
 
 }
+
+

@@ -34,12 +34,12 @@
 		},
 
 		"selectMulti": {
-			"title": "Custom Select with Multiselect",
+			"title": "Custom Select with Multiselect and Autocomplete",
 			"description": "",
 			"type": "string"
 		},
 		"selectautocomplete": {
-			"title": "Custom Select with Autocomplete",
+			"title": "Custom Select with Autocomplete (JSon, Local data)",
 			"description": "",
 			"type": "string"
 		},
