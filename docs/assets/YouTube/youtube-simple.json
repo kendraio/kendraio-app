@@ -1,0 +1,37 @@
+{
+
+	"title": "SIMPLE - Edit Video",
+	"description": "This form allows you to edit your video",
+	"type": "object",
+	"required": [
+		"title"
+	],
+	"additionalProperties": {
+		"type": "string"
+	  },
+	"properties": {
+		"title": {
+			"title": "Title",
+			"description": "",
+			"type": "string",
+			"minLength": 4,
+			"maxLength": 100,
+			"pattern": "^(\\([0-9]{3}\\))?[0-9]{3}-[0-9]{4}$"
+		},
+
+		"playlist": {
+			"type": "string",
+			"title": "Regions",
+			"minLength": 4,
+			"maxLength": 100
+		},
+
+		"colorlist": {
+			"type": "string",
+			"title": "Countries",
+			"minLength": 4,
+			"maxLength": 100
+		}
+
+	}
+}

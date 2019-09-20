@@ -1,0 +1,9 @@
+- type: INPUT
+  id: name
+  label: Project title
+  placeholder: Project title
+- type: REFERENCE
+  id: owner
+  label: Owner
+  placeholder: Owner
+  listType: schema_Person

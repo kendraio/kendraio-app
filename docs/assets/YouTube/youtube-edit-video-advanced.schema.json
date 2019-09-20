@@ -1,0 +1,131 @@
+{
+
+    "definitions": {
+		"largeEnum": {
+		  "type": "string",
+		  "enum": [
+			"Film & Animation",
+			"Cars & Vehicles",
+			"Music",
+			"Pets & Animals",
+			"Sport",
+			"Travel & Events",
+			"Gaming",
+			"People & Blogs",
+			"Comedy",
+			"Entertainment",
+			"News & Politics",
+			"How-to & Style",
+			"Education",
+			"Science & Technology",
+			"Nonprofits & Activism"
+		]
+		}
+	  },
+
+
+	"title": "Edit Video Advanced",
+	"description": "YouTube Advanced Form",
+	"type": "object",
+	"properties": {
+
+		"recordingDate": {
+			"title": "Recording Date",
+			"type": "string"
+		},
+		"Licencerightsownership": {
+			"type": "string",
+			"title": "Licence and rights ownership",
+			"enum": [
+				"Standard YouTube Licence",
+				"Creative Commons – Attribution"
+			]
+		},
+
+		"location": {
+			"type": "string",
+			"title": "Video Locaton"
+		},
+		"syndication": {
+			"title": "Syndication",
+			"type": "string"
+		},
+
+		"category": {
+			"type": "string",
+			"title": "Category",
+		    "$ref": "#/definitions/largeEnum"
+
+		},
+		"category2": {
+			"type": "string",
+			"title": "Category 2",
+		    "$ref": "#/definitions/largeEnum"
+
+		},
+		"language": {
+			"type": "string",
+			"title": "Video Language",
+			"enum": [
+				"United Kingdom",
+				"United States",
+				"Germany",
+				"..needs finishing.."
+			],
+			"decription": "To manage other languages, go to transcriptions"
+
+		},
+		"subtitles": {
+			"type": "number",
+			"title": "Original video language, subtitles and CC"
+		},
+		"allowComments": {
+			"type": "boolean",
+			"title": "Allow comments"
+		},
+		"commentOptions": {
+			"type": "string",
+			"title": "Comment Options",
+			"enum": [
+				"Allow all Comments",
+				"Hold all Comments for review",
+				"Hold potentially inappropriate comments for review"
+			]
+		},
+		"commentSort": {
+			"type": "string",
+			"title": "Sort Comments",
+			"enum": [
+				"Top",
+				"Newest"
+			]
+		},
+
+		"canViewRatings": {
+			"type": "boolean",
+			"title": "Users can view ratings for this video"
+		},
+		"ageRestriction": {
+			"type": "boolean",
+			"title": "Enable age restriction"
+		},
+		"publishToSubs": {
+			"type": "boolean",
+			"title": "Publish to the Subscriptions feed and allow notifications to subscribers"
+		},
+		"containsPromo": {
+			"type": "boolean",
+			"title": "This video contains paid promotion such as paid product placement, sponsorships or endorsement"
+		},
+		"helpInform": {
+			"type": "boolean",
+			"title": "Help me to inform viewers of paid promotion by adding a disclosure to this video. Additional disclosures for this video may be required under applicable laws"
+		},
+		"allowEmbed": {
+			"type": "boolean",
+			"title": "Allow embedding"
+		}
+
+
+	}
+}
