@@ -1,0 +1,13 @@
+{
+    "recordingDate": {
+      "ui:placeholder": "Enter the Video Title",
+      "ui:widget": "datepicker"
+    },
+
+
+  "location": {
+    "ui:placeholder": "Enter the Country",
+    "ui:widget": "countries",
+    "ui:errMessage": "There has been an error"
+  }
+}
