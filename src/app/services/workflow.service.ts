@@ -134,6 +134,7 @@ export class WorkflowService {
     dialogRef.afterClosed().subscribe(values => {
       if (!!values) {
         this.initWorkflow({ ...values, context: {} });
+        set(this.context, 'adapterName', get(values, 'adapterName', this.getAdapterName()));
       }
     });
   }

@@ -71,7 +71,9 @@
 
       <button mat-icon-button><mat-icon>person</mat-icon> </button>
       <button mat-icon-button><mat-icon [matBadge]="notificationCount">notifications</mat-icon></button>
-      <button mat-icon-button (click)="blocksSidePane.toggle()"><mat-icon>settings</mat-icon></button>
+      <ng-container *ngIf="pageTitle$ | async as pageTitleData">
+        <button mat-icon-button (click)="blocksSidePane.toggle()" [disabled]="!pageTitleData.isWorkflow"><mat-icon>settings</mat-icon></button>
+      </ng-container>
 
     </mat-toolbar>
 
