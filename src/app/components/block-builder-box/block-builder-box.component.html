@@ -1,6 +1,6 @@
 
 
 <ng-container *ngIf="blockTypeConfig">
-  <ngx-monaco-editor *ngIf="hasEditor" [options]="editorOptions"
+  <ngx-monaco-editor *ngIf="hasEditor" [model]="jsonModel" [options]="editorOptions"
                      [(ngModel)]="blockModel"></ngx-monaco-editor>
 </ng-container>

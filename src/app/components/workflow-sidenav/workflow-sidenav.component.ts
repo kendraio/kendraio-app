@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, HostBinding, OnInit, Output} from '@angular/core';
 import {WorkflowService} from '../../services/workflow.service';
 
 @Component({
@@ -8,6 +8,13 @@ import {WorkflowService} from '../../services/workflow.service';
 })
 export class WorkflowSidenavComponent implements OnInit {
 
+  @Output() closeSidenav = new EventEmitter();
+
+  @HostBinding('style.width.px')
+  width = 500;
+
+  isExpanded = false;
+
   constructor(
     public readonly workflow: WorkflowService
   ) { }
@@ -15,5 +22,9 @@ export class WorkflowSidenavComponent implements OnInit {
   ngOnInit() {
   }
 
+  toggleExpand() {
+    this.isExpanded = !this.isExpanded;
+    this.width = this.isExpanded ? 800 : 500;
+  }
 
 }

@@ -94,7 +94,7 @@
 
 
   <mat-sidenav #blocksSidePane position="end">
-    <app-workflow-sidenav></app-workflow-sidenav>
+    <app-workflow-sidenav (closeSidenav)="blocksSidePane.close()"></app-workflow-sidenav>
   </mat-sidenav>
 
 
