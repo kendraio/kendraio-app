@@ -23,10 +23,17 @@ export class BlockBuilderBoxComponent implements OnInit {
   @Output() updateBlock = new EventEmitter();
   @Output() deleteBlock = new EventEmitter();
 
+  jsonMode;
+
   constructor() { }
 
   ngOnInit() {
     this.blockModel = JSON.stringify(this.block, null, 4);
+    this.jsonMode = {
+      value: this.blockModel,
+      language: 'json',
+      uri: 'a:blockModel.json'
+    };
     this.blockTypeConfig = find(BLOCK_TYPES, ({ type }) => this.block.type === type);
     this.hasEditor = get(this.blockTypeConfig, 'hasEditor', false);
   }
@@ -42,5 +49,10 @@ export class BlockBuilderBoxComponent implements OnInit {
   onBlockUpdated(newBlock) {
     this.block = newBlock;
     this.blockModel = JSON.stringify(this.block, null, 4);
+    this.jsonMode = {
+      value: this.blockModel,
+      language: 'json',
+      uri: 'a:blockModel.json'
+    };
   }
 }

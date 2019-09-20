@@ -44,7 +44,7 @@ export class AdapterBlocksConfigSelectDialogComponent implements OnInit {
   }
 
   loadConfig() {
-    this.dialogRef.close(this.configs[this.selectedConfig]);
+    this.dialogRef.close({ adapterName: this.selectedAdapter, ...this.configs[this.selectedConfig] });
   }
 
   cancel() {
