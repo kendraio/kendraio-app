@@ -43,7 +43,8 @@ export class SaveWorkflowDialogComponent implements OnInit {
   onSave() {
     this.isLoading = true;
     const URL = `${environment.workflowStoreUrl}`;
-    this.http.put(URL, this.data).subscribe(response => {
+    const headers = new HttpHeaders().append('authorization', `Bearer ${this.idToken}`);
+    this.http.put(URL, this.data, { headers }).subscribe(response => {
       this.isLoading = false;
       if (has(response, 'id')) {
         this.dialogRef.close(response);
