@@ -2,11 +2,7 @@
   "password": {
     "ui:disabled": false,
     "ui:placeholder": "This is a custom Password field",
-    "ui:widget": "k-password",
-    "ui:errMessage": {
-      "required": "This is my Required Field error message.",
-      "minLength": "This a custom Min length error message."
-    }
+    "ui:widget": "k-password"
   },
 
   "money": {
@@ -56,9 +52,9 @@
     "ui:widget": "k-select",
     "ui:labelProp": "name",
     "ui:valueProp": "alpha3Code",
-    "ui:isMultiSelect": true,
+    "ui:isMultiSelect": false,
     "ui:ref": "testCountries",
-    "ui:refType": "http"
+    "ui:refType": "json"
   },
   "selectremotedata": {
     "ui:widget": "k-select",
@@ -66,7 +62,7 @@
     "ui:valueProp": "alpha3Code",
     "ui:isMultiSelect": false,
     "ui:ref": "testRegion",
-    "ui:refType": "json"
+    "ui:refType": "http"
   },
   "selectaddnew": {
     "ui:widget": "k-select",

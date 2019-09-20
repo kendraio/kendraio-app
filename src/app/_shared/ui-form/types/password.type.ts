@@ -24,8 +24,6 @@ import { FieldType } from '@ngx-formly/core';
     {{hint}}
     </mat-hint>
 
-
-
     <mat-error>
     <formly-validation-message [field]="field"></formly-validation-message>
   </mat-error>

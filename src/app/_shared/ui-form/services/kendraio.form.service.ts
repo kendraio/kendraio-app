@@ -172,10 +172,13 @@ export class KendraioFormService {
               TO['disabled'] = uiSchema[key]['ui:disabled'];
               TO['placeholder'] = uiSchema[key]['ui:placeholder'];
 
-
+if (key['minLength']) {
               formlyConfig['fieldGroup'][i]['templateOptions']['minLength'] =  get(jsonSchema.properties, `${key}.minLength`, null);
-              formlyConfig['fieldGroup'][i]['templateOptions']['maxLength'] =  get(jsonSchema.properties, `${key}.maxLength`, null);
+            }
 
+            if (key['maxLength']) {
+              formlyConfig['fieldGroup'][i]['templateOptions']['maxLength'] =  get(jsonSchema.properties, `${key}.maxLength`, null);
+            }
 
 
             //  formlyConfig['fieldGroup'][1].validators.validation =  ['PasswordStrengthValidation'];
