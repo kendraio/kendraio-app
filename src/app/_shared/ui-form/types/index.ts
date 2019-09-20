@@ -13,3 +13,4 @@ export * from './textarea.type';
 export * from './thumbnail-viewer.component';
 export * from './hidden.type';
 export * from './password.type';
+export * from './timepicker.type';

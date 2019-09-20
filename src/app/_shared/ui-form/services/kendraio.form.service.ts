@@ -8,10 +8,10 @@ import { FormlyJsonschema } from '@ngx-formly/core/json-schema';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 // import { FULLNAME, EMAIL, TYPEAHEAD } from '../schemas/form-elements';
-import {Observable, from, forkJoin, throwError, of} from 'rxjs';
+import { Observable, from, forkJoin, throwError, of } from 'rxjs';
 import { FORM_APIS, REFDATA_APIS } from '../api-config';
 import { catchError, map, tap } from 'rxjs/operators';
-import {get, set, has, findIndex, isObject} from 'lodash-es';
+import { get, set, has, findIndex, isObject } from 'lodash-es';
 import { AdaptersService } from '../../../services/adapters.service';
 import { IfStmt } from '@angular/compiler';
 import { ConfigOption } from '@ngx-formly/core';
@@ -106,14 +106,14 @@ export class KendraioFormService {
           const newWidgetType = get(uiSchema, `${uiKey}.ui:widget`, '');
           set(_fields, `fieldGroup[${fieldIndex}].type`, newWidgetType);
           // TODO: Don't do this here!!!!!!
-          const { items, ...subSchema} = get(uiSchema, uiKey);
+          const { items, ...subSchema } = get(uiSchema, uiKey);
           set(_fields, 'templateOptions.uiSchema', subSchema);
         }
         // Recursively map arrays
         if (has(uiSchema, `${uiKey}.items`)) {
           const oldArray = get(_fields, `fieldGroup[${fieldIndex}].fieldArray`, {});
           const subSchema = get(uiSchema, `${uiKey}.items`);
-          const newArray = this.uiWidgetTypeMapper({ fields: oldArray, uiSchema: subSchema});
+          const newArray = this.uiWidgetTypeMapper({ fields: oldArray, uiSchema: subSchema });
           if (has(subSchema, 'ui:widget')) {
             set(newArray, 'type', get(subSchema, 'ui:widget'));
             // TODO: Don't do this here!!!!!!
@@ -153,7 +153,7 @@ export class KendraioFormService {
   }
 
   uiMapper(formlyConfig, jsonSchema, uiSchema) {
-  //  let test =  this.config;
+    //  let test =  this.config;
     let val;
     const SELECT_CONFIG: Array<any> = [];
     // console.log(jsonSchema);
@@ -172,38 +172,44 @@ export class KendraioFormService {
               TO['disabled'] = uiSchema[key]['ui:disabled'];
               TO['placeholder'] = uiSchema[key]['ui:placeholder'];
 
-if (key['minLength']) {
-              formlyConfig['fieldGroup'][i]['templateOptions']['minLength'] =  get(jsonSchema.properties, `${key}.minLength`, null);
-            }
+              if (key['minLength']) {
+                formlyConfig['fieldGroup'][i]['templateOptions']['minLength'] = get(jsonSchema.properties, `${key}.minLength`, null);
+              }
 
-            if (key['maxLength']) {
-              formlyConfig['fieldGroup'][i]['templateOptions']['maxLength'] =  get(jsonSchema.properties, `${key}.maxLength`, null);
-            }
-
-
-            //  formlyConfig['fieldGroup'][1].validators.validation =  ['PasswordStrengthValidation'];
+              if (key['maxLength']) {
+                formlyConfig['fieldGroup'][i]['templateOptions']['maxLength'] = get(jsonSchema.properties, `${key}.maxLength`, null);
+              }
 
 
+              //  formlyConfig['fieldGroup'][1].validators.validation =  ['PasswordStrengthValidation'];
+              // formlyConfig.fieldGroup[i].templateOptions.options = this.getHttpRefData(uiSchema[key]['ui:refdataId']);
               // formlyConfig['fieldGroup'][i]['templateOptions']['required'] = get(uiSchema, `${key}.ui:required`, false);
-              formlyConfig['fieldGroup'][i]['templateOptions']['errMessage'] =  get(uiSchema, `${key}.ui:errMessage`, null);
-              formlyConfig['fieldGroup'][i]['templateOptions']['patternErrMessage'] =  get(uiSchema, `${key}.ui:patternErrMessage`, null);
+
+              formlyConfig['fieldGroup'][i]['templateOptions']['errMessage'] = get(uiSchema, `${key}.ui:errMessage`, null);
+              formlyConfig['fieldGroup'][i]['templateOptions']['patternErrMessage'] = get(uiSchema, `${key}.ui:patternErrMessage`, null);
 
               // formlyConfig['fieldGroup'][i]['validation']['messages']['pattern'] = 'oooppppx';
 
-              formlyConfig['fieldGroup'][i]['templateOptions']['addTag'] =  get(uiSchema, `${key}.ui:addTag`, false);
+              formlyConfig['fieldGroup'][i]['templateOptions']['addTag'] = get(uiSchema, `${key}.ui:addTag`, false);
 
-              formlyConfig['fieldGroup'][i]['templateOptions']['autosize'] =  get(uiSchema, `${key}.ui:autosize`, false);
-              formlyConfig['fieldGroup'][i]['templateOptions']['rows'] =  get(uiSchema, `${key}.ui:rows`, 20);
-              formlyConfig['fieldGroup'][i]['templateOptions']['cols'] =  get(uiSchema, `${key}.ui:cols`, 30);
+              if (uiSchema[key]['ui:widget'] === 'k-textarea') {
+                formlyConfig['fieldGroup'][i]['templateOptions']['autosize'] = get(uiSchema, `${key}.ui:autosize`, false);
+                formlyConfig['fieldGroup'][i]['templateOptions']['rows'] = get(uiSchema, `${key}.ui:rows`, 20);
+                formlyConfig['fieldGroup'][i]['templateOptions']['cols'] = get(uiSchema, `${key}.ui:cols`, 30);
+              }
 
-              // formlyConfig.fieldGroup[i].templateOptions.options = this.getHttpRefData(uiSchema[key]['ui:refdataId']);
+              if (uiSchema[key]['ui:widget'] === 'k-timepicker') {
+                formlyConfig['fieldGroup'][i]['templateOptions']['hideClock'] = get(uiSchema, `${key}.ui:hideClock`, false);
+                formlyConfig['fieldGroup'][i]['templateOptions']['timeFormat'] = get(uiSchema, `${key}.ui:timeFormat`, false);
+              }
+
+
 
               if (uiSchema[key]['ui:widget'] === 'typeahead' || uiSchema[key]['ui:widget'] === 'k-select') {
                 formlyConfig['fieldGroup'][i]['templateOptions']['labelProp'] = get(uiSchema, `${key}.ui:labelProp`, 'label');
                 formlyConfig['fieldGroup'][i]['templateOptions']['valueProp'] = get(uiSchema, `${key}.ui:valueProp`, 'value');
                 formlyConfig['fieldGroup'][i]['templateOptions']['isMultiSelect'] = get(uiSchema, `${key}.ui:isMultiSelect`, false);
 
-              // const vm =  formlyConfig['fieldGroup'][i]['validators'];
 
                 const ref = get(uiSchema, `${key}.ui:ref`, '');
                 const refType = get(uiSchema, `${key}.ui:refType`, 'json');

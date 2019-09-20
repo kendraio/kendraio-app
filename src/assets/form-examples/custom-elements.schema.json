@@ -1,0 +1,98 @@
+{
+	"title": "Custom Elements Demo",
+	"description": "This is a demo of all the Custom Element currently available Kendraio App",
+	"type": "object",
+	"required": [
+		"title",
+		"description"
+	],
+	"properties": {
+		"videoViewer": {
+			"title": "The Video Viewer",
+			"description": "Embeds a YouTube Video on a form",
+			"type": "string"
+		},
+		"password": {
+			"title": "Password",
+			"description": "",
+			"type": "string"
+		},
+		"money": {
+			"title": "Money",
+			"description": "Uses a mask to aid correct entry of an amount of money",
+			"type": "string"
+		},
+		"percentage": {
+			"title": "Pecentage",
+			"description": "Uses a mask to aid correct entry of a Percentage",
+			"type": "string"
+		},
+		"datepicker": {
+			"title": "Date Picker",
+			"description": "This is a Date Picker",
+			"type": "string"
+		},
+		"time12": {
+			"title": "Time 12hr",
+			"description": "Uses a mask to aid correct entry of a Percentage",
+			"type": "string"
+		},
+		"time24": {
+			"title": "Time Picker 24hrs with Clock Dialog",
+			"description": "Time Picker 24hr format with pop-up clock",
+			"type": "string"
+		},
+		"countries": {
+			"title": "Country List",
+			"description": "Presents a list of Countries(hard coded) and flags ",
+			"type": "string"
+		},
+
+		"selectMulti": {
+			"title": "Custom Select with Multiselect and Autocomplete",
+			"description": "",
+			"type": "string"
+		},
+		"selectautocomplete": {
+			"title": "Custom Select with Autocomplete (JSon, Local data)",
+			"description": "",
+			"type": "string"
+		},
+		"selectremotedata": {
+			"title": "Custom Select with Autocomplete from remote API",
+			"description": "Data is from https://restcountries.eu/rest/",
+			"type": "string"
+		},
+		"selectaddnew": {
+			"title": "Custom Select allowing new item to be added",
+			"description": "Data is from https://restcountries.eu/rest/",
+			"type": "string"
+		},
+
+		"textarea": {
+			"type": "string",
+			"title": "Smart Textarea",
+			"minLength": 2,
+			"maxLength": 203,
+			"description": "This is a custom Textarea with additional user feedback"
+		},
+		"thumbnails": {
+			"type": "string",
+			"title": "Thumbnail Viewer",
+			"description": "Allows the display of Thumbnails"
+		},
+		"tags": {
+			"type": "string",
+			"title": "Tags ",
+			"description": "Press enter to add a tag"
+		},
+		"visibility": {
+			"type": "object",
+			"title": "Visibility "
+		},
+		"playlist": {
+			"type": "object",
+			"title": "Playlists"
+		}
+	}
+}

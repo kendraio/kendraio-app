@@ -176,6 +176,9 @@ export const config: ConfigOption = {
         }
       }
 
+    },
+    {
+      name: 'k-timepicker', component: types.TimePickerComponent
     }
   ],
   validators: [
