@@ -1,0 +1,16 @@
+<form [formGroup]="form">
+  <mat-form-field>
+    <input matInput placeholder="Title" formControlName="title" name="title">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Adapter name" formControlName="adapterName" name="adapterName">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Workflow ID" formControlName="id" name="id">
+  </mat-form-field>
+</form>
+
+<br>
+<button mat-flat-button color="primary" (click)="onSave()" style="margin-right: 1em;">Save</button>
+<button mat-flat-button (click)="onCancel()">Cancel</button>
+<br>

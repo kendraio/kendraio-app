@@ -28,4 +28,16 @@
   </button>
 </div>
 
+<mat-card class="adapter-metadata">
+  <div class="metadata-edit">
+    <button type="button" mat-icon-button (click)="workflow.editMetadata()" matTooltip="Edit metadata">
+      <mat-icon>edit</mat-icon>
+    </button>
+  </div>
+  <p>
+    Title: {{ workflow.title }}<br>
+    Adapter: {{ workflow.getAdapterName() }}<br>
+    Workflow ID: {{ workflow.id }}
+  </p>
+</mat-card>
 <app-blocks-editor [blocks]="workflow.blocks" (blockUpdate)="workflow.onBlocksUpdate($event)"></app-blocks-editor>

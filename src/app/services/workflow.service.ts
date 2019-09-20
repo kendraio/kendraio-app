@@ -10,6 +10,9 @@ import {PageTitleService} from './page-title.service';
 import {AdaptersService} from './adapters.service';
 import {AdapterBlocksConfigSelectDialogComponent} from '../dialogs/adapter-blocks-config-select-dialog/adapter-blocks-config-select-dialog.component';
 import {ShareLinkGeneratorService} from './share-link-generator.service';
+import {LoadWorkflowDialogComponent} from '../dialogs/load-workflow-dialog/load-workflow-dialog.component';
+import {SaveWorkflowDialogComponent} from '../dialogs/save-workflow-dialog/save-workflow-dialog.component';
+import {EditWorkflowMetadataDialogComponent} from '../dialogs/edit-workflow-metadata-dialog/edit-workflow-metadata-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +20,7 @@ import {ShareLinkGeneratorService} from './share-link-generator.service';
 export class WorkflowService {
 
   title = '';
+  id;
   blocks = [];
   models = [];
   context = {};
@@ -49,11 +53,12 @@ export class WorkflowService {
     const blocks = get(state, 'blocks', []);
     const context = get(state, 'context', {});
     this.initWorkflow({ title, blocks, context });
+    this.id = get(state, 'id', false);
   }
 
   saveState() {
-    const { title, blocks, context } = this;
-    localStorage.setItem('kendraio-workflow-state', JSON.stringify({ title, blocks, context }));
+    const { title, blocks, context, id } = this;
+    localStorage.setItem('kendraio-workflow-state', JSON.stringify({ title, blocks, context, id }));
   }
 
   refresh() {
@@ -68,7 +73,7 @@ export class WorkflowService {
 
   onBlocksUpdate(newBlocks) {
     this.blocks = newBlocks;
-    this.models = [{}];
+    // this.models = [{}];
     this.saveState();
   }
 
@@ -107,6 +112,7 @@ export class WorkflowService {
 
   initWorkflow({ title, blocks, context }, isBuilder = false) {
     this.pageTitle.setTitle(title, true);
+    this.id = undefined;
     this.title = title;
     this.blocks = blocks;
     this.context = clone(context);
@@ -133,10 +139,51 @@ export class WorkflowService {
   }
 
   upload() {
-
+    const { title, blocks, id } = this;
+    const dialogRef = this.dialog.open(SaveWorkflowDialogComponent, {
+      disableClose: true,
+      data: { title, blocks, id }
+    });
+    dialogRef.afterClosed().subscribe(values => {
+      if (!!values) {
+        // console.log(values);
+        this.id = get(values, 'id', this.id);
+        this.saveState();
+      }
+    });
   }
 
   download() {
+    const dialogRef = this.dialog.open(LoadWorkflowDialogComponent);
+    dialogRef.afterClosed().subscribe(values => {
+      if (!!values) {
+        // console.log(values);
+        const blocks = get(values, 'blocks', []);
+        const title = get(values, 'title', 'Workflow');
+        this.initWorkflow({ title, blocks, context: {} });
+        this.id = get(values, 'id');
+        this.saveState();
+      }
+    });
+  }
 
+  editMetadata() {
+    const { title, id } = this;
+    const dialogRef = this.dialog.open(EditWorkflowMetadataDialogComponent, {
+      disableClose: true,
+      data: { title, id, adapterName: this.getAdapterName() }
+    });
+    dialogRef.afterClosed().subscribe(values => {
+      if (!!values) {
+        this.title = get(values, 'title', 'Workflow');
+        this.id = get(values, 'id');
+        set(this.context, 'adapterName', get(values, 'adapterName', this.getAdapterName()));
+        this.saveState();
+      }
+    });
+  }
+
+  getAdapterName() {
+    return get(this.context, 'adapterName', 'UNKNOWN');
   }
 }

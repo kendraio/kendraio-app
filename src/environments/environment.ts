@@ -14,7 +14,8 @@ export const environment = {
     audience: 'https://kendraio.eu.auth0.com/api/v2/',
     redirectUri: 'http://localhost:4200/callback',
     scope: 'openid profile'
-  }
+  },
+  workflowStoreUrl: 'https://us-central1-kendraioworkflowstorage.cloudfunctions.net/widgets'
 };
 
 /*

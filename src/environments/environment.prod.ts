@@ -10,5 +10,6 @@ export const environment = {
     redirectUri: 'https://kendraio-project.firebaseapp.com/callback',
     audience: 'https://kendraio.eu.auth0.com/api/v2/',
     scope: 'openid profile'
-  }
+  },
+  workflowStoreUrl: 'https://us-central1-kendraioworkflowstorage.cloudfunctions.net/widgets'
 };

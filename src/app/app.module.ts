@@ -173,6 +173,9 @@ import { CsvExportBlockComponent } from './blocks/csv-export-block/csv-export-bl
 import { CardBlockComponent } from './blocks/card-block/card-block.component';
 import { FakerBlockComponent } from './blocks/faker-block/faker-block.component';
 import { WorkflowSidenavComponent } from './components/workflow-sidenav/workflow-sidenav.component';
+import { LoadWorkflowDialogComponent } from './dialogs/load-workflow-dialog/load-workflow-dialog.component';
+import { SaveWorkflowDialogComponent } from './dialogs/save-workflow-dialog/save-workflow-dialog.component';
+import { EditWorkflowMetadataDialogComponent } from './dialogs/edit-workflow-metadata-dialog/edit-workflow-metadata-dialog.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -299,7 +302,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     CsvExportBlockComponent,
     CardBlockComponent,
     FakerBlockComponent,
-    WorkflowSidenavComponent
+    WorkflowSidenavComponent,
+    LoadWorkflowDialogComponent,
+    SaveWorkflowDialogComponent,
+    EditWorkflowMetadataDialogComponent
   ],
   imports: [
     // AgGridModule.withComponents([
@@ -366,7 +372,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     ExportConfigDialogComponent,
     BlocksDialogComponent,
     PasteConfigDialogComponent,
-    AddBlockDialogComponent
+    AddBlockDialogComponent,
+    LoadWorkflowDialogComponent,
+    SaveWorkflowDialogComponent,
+    EditWorkflowMetadataDialogComponent
   ],
   providers: [
     // { provide: LOCALE_ID, useValue: 'de-DE' } ,

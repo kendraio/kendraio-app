@@ -23,12 +23,6 @@ export class BlockBuilderBoxComponent implements OnInit {
   @Output() updateBlock = new EventEmitter();
   @Output() deleteBlock = new EventEmitter();
 
-  jsonModel = {
-    value: this.blockModel,
-    language: 'json',
-    uri: 'a:blockModel.json'
-  };
-
   constructor() { }
 
   ngOnInit() {
