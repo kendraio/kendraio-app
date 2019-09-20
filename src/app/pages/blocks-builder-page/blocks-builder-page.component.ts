@@ -30,52 +30,12 @@ export class BlocksBuilderPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.pageTitle.setTitle('Workflow');
+    this.pageTitle.setTitle('Workflow', true);
     this.adapters.adaptersReady$.pipe(
       filter(Boolean),
       take(1)
-    ).subscribe(() => this.initBlocks());
+    ).subscribe(() => this.workflow.initBlocks({ isBuilder: true }));
   }
 
-  initBlocks() {
-    const urlData = this.shareLinks.getData();
-    if (urlData && isArray(urlData)) {
-      this.workflow.blocks = urlData;
-    }
-
-    this.workflow.models = this.workflow.blocks.map(blockDef => get(blockDef, 'defaultValue', {}));
-    this.workflow.models.push({});
-  }
-
-  onBlocksUpdate(newBlocks) {
-    this.workflow.blocks = newBlocks;
-  }
-
-  clearBlocks() {
-    this.workflow.blocks = [];
-    this.workflow.models = [{}];
-  }
-
-
-  shareConfig() {
-    this.shareLinks.shareLink('workflow-builder', this.workflow.blocks);
-  }
-
-  loadFromAdapter() {
-    const dialogRef = this.dialog.open(AdapterBlocksConfigSelectDialogComponent, {
-      data: {}
-    });
-    dialogRef.afterClosed().subscribe(values => {
-      // console.log({ values });
-      if (!!values) {
-        const { title, blocks } = values;
-        // TODO: refactor (a)
-        this.workflow.title = title;
-        this.workflow.blocks = blocks;
-        this.workflow.models = this.workflow.blocks.map(blockDef => get(blockDef, 'defaultValue', {}));
-        this.workflow.models.push({});
-      }
-    });
-  }
 
 }
