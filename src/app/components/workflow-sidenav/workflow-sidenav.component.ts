@@ -1,5 +1,6 @@
 import {Component, EventEmitter, HostBinding, OnInit, Output} from '@angular/core';
 import {WorkflowService} from '../../services/workflow.service';
+import {PageTitleService} from '../../services/page-title.service';
 
 @Component({
   selector: 'app-workflow-sidenav',
