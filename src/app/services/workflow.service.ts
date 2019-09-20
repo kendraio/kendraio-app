@@ -142,7 +142,7 @@ export class WorkflowService {
     const { title, blocks, id } = this;
     const dialogRef = this.dialog.open(SaveWorkflowDialogComponent, {
       disableClose: true,
-      data: { title, blocks, id }
+      data: { title, blocks, id, adapterName: this.getAdapterName() }
     });
     dialogRef.afterClosed().subscribe(values => {
       if (!!values) {
@@ -162,6 +162,7 @@ export class WorkflowService {
         const title = get(values, 'title', 'Workflow');
         this.initWorkflow({ title, blocks, context: {} });
         this.id = get(values, 'id');
+        set(this.context, 'adapterName', get(values, 'adapterName', this.getAdapterName()));
         this.saveState();
       }
     });

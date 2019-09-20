@@ -15,7 +15,7 @@ export const environment = {
     redirectUri: 'http://localhost:4200/callback',
     scope: 'openid profile'
   },
-  workflowStoreUrl: 'https://us-central1-kendraioworkflowstorage.cloudfunctions.net/widgets'
+  workflowStoreUrl: 'https://us-central1-kendraioworkflowstorage.cloudfunctions.net/api'
 };
 
 /*
