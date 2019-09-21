@@ -27,7 +27,7 @@ export function maxlengthValidationMessage(err, field) {
 }
 
 export function patternMatchMessage(err, field) {
-  if (field.templateOptions.errMessage.pattern) {
+  if (has(field, 'templateOptions.errMessage.maxLength'))  {
     return `${field.templateOptions.errMessage.pattern}`;
   } else {
     return `This value needs to match the following pattern  ${field.templateOptions.pattern}`;
