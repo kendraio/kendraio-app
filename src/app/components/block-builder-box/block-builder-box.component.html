@@ -2,5 +2,5 @@
 
 <ng-container *ngIf="blockTypeConfig">
   <ngx-monaco-editor *ngIf="hasEditor" [options]="editorOptions"
-                     [(ngModel)]="blockModel"></ngx-monaco-editor>
+                     [(ngModel)]="blockModel" (onInit)="initEditor()"></ngx-monaco-editor>
 </ng-container>

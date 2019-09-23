@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {search} from 'jmespath';
-import {get, isArray, isObject, isString} from 'lodash-es';
+import {clone, get, isArray, isObject, isString} from 'lodash-es';
 
 @Component({
   selector: 'app-mapping-block',
@@ -16,15 +16,24 @@ export class MappingBlockComponent implements OnInit, OnChanges {
 
   mapping = '';
 
+  hasError = false;
+  errorMessage = '';
+
   constructor() { }
 
   ngOnInit() {
   }
 
   ngOnChanges(changes): void {
+    this.hasError = false;
     this.mapping = get(this.config, 'mapping', '');
-    const mappingResult = this.getMappingResult(this.mapping);
-    this.output.emit(isArray(mappingResult) ? [ ...mappingResult ] : isObject(mappingResult) ? { ...mappingResult } : mappingResult);
+    try {
+      const mappingResult = this.getMappingResult(this.mapping);
+      this.output.emit(clone(mappingResult));
+    } catch (e) {
+      this.hasError = true;
+      this.errorMessage = e.message;
+    }
   }
 
   getMappingResult(mapping) {

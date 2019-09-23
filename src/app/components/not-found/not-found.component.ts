@@ -3,7 +3,7 @@ import {PageTitleService} from '../../services/page-title.service';
 import {ActivatedRoute} from '@angular/router';
 import {WorkflowRepoService} from '../../services/workflow-repo.service';
 import {catchError, filter, map, switchMap, switchMapTo, takeUntil, tap} from 'rxjs/operators';
-import {get, isArray} from 'lodash-es';
+import {get, isArray, set} from 'lodash-es';
 import {BehaviorSubject, combineLatest, of, Subject} from 'rxjs';
 import {WorkflowService} from '../../services/workflow.service';
 

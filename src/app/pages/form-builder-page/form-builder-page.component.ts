@@ -13,7 +13,7 @@ import {UI_SCHEMA} from './uischema';
 import {EDITOR_OPTIONS} from './editor-options';
 import {AdapterFormSelectService} from '../../services/adapter-form-select.service';
 import {FormDataService} from '../../services/form-data.service';
-import {get, has} from 'lodash-es';
+import {clone, get, has} from 'lodash-es';
 import {PageTitleService} from '../../services/page-title.service';
 
 @Component({
@@ -138,7 +138,7 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
 
   onChange() {
     // Replace #modelOutput DIV contents with formatted JSON
-    const formatter = new JSONFormatter(this.model, Infinity, {theme: 'dark'});
+    const formatter = new JSONFormatter(this.model, Infinity);
     while (this.modelOutput.nativeElement.firstChild) {
       this.modelOutput.nativeElement.removeChild(this.modelOutput.nativeElement.firstChild);
     }

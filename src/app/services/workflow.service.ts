@@ -112,10 +112,10 @@ export class WorkflowService {
 
   initWorkflow({ title, blocks, context }, isBuilder = false) {
     this.pageTitle.setTitle(title, true);
-    this.id = undefined;
     this.title = title;
     this.blocks = blocks;
     this.context = clone(context);
+    this.id = this.getWorkflowId();
     this.models = this.blocks.map(blockDef => get(blockDef, 'defaultValue', {}));
     this.models.push({});
     if (isBuilder) {
@@ -134,7 +134,7 @@ export class WorkflowService {
     dialogRef.afterClosed().subscribe(values => {
       if (!!values) {
         this.initWorkflow({ ...values, context: {} });
-        set(this.context, 'adapterName', get(values, 'adapterName', this.getAdapterName()));
+        set(this.context, 'app.adapterName', get(values, 'adapterName', this.getAdapterName()));
       }
     });
   }
@@ -163,7 +163,7 @@ export class WorkflowService {
         const title = get(values, 'title', 'Workflow');
         this.initWorkflow({ title, blocks, context: {} });
         this.id = get(values, 'id');
-        set(this.context, 'adapterName', get(values, 'adapterName', this.getAdapterName()));
+        set(this.context, 'app.adapterName', get(values, 'adapterName', this.getAdapterName()));
         this.saveState();
       }
     });
@@ -179,13 +179,17 @@ export class WorkflowService {
       if (!!values) {
         this.title = get(values, 'title', 'Workflow');
         this.id = get(values, 'id');
-        set(this.context, 'adapterName', get(values, 'adapterName', this.getAdapterName()));
+        set(this.context, 'app.adapterName', get(values, 'adapterName', this.getAdapterName()));
         this.saveState();
       }
     });
   }
 
   getAdapterName() {
-    return get(this.context, 'adapterName', 'UNKNOWN');
+    return get(this.context, 'app.adapterName', 'UNKNOWN');
+  }
+
+  getWorkflowId() {
+    return get(this.context, 'app.workflowId');
   }
 }

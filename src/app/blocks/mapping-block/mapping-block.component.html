@@ -1,1 +1,6 @@
 <!--<pre>{{ mapping | json }}</pre>-->
+<div style="margin-bottom: 1em;">
+  <mat-error *ngIf="hasError">
+    Mapping error: {{ errorMessage }}
+  </mat-error>
+</div>

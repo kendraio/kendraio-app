@@ -77,8 +77,11 @@ export const BLOCK_TYPES = [
     label: 'Debug',
     description: 'Output the current data model values and list available contextual values.',
     icon: 'fa-bug',
+    hasEditor: true,
     defaultConfig: {
-      type: 'debug'
+      type: 'debug',
+      open: 1,
+      showContext: false
     }
   },
   {
