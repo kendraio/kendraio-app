@@ -1,6 +1,6 @@
 {
-  "name": "kendraio-app",
-  "short_name": "kendraio-app",
+  "name": "Kendraio",
+  "short_name": "kendraio",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
