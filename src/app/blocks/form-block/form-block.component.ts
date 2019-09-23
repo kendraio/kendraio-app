@@ -26,6 +26,7 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
 
   label = 'Submit';
   hasSubmit = true;
+  emitOnInit = false;
 
   constructor(
     private readonly formService: KendraioFormService
@@ -54,7 +55,11 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
   ngOnChanges(changes): void {
     this.label = get(this.config, 'label', 'Submit');
     this.hasSubmit = get(this.config, 'hasSubmit', true);
+    this.emitOnInit = get(this.config, 'emitOnInit', false);
     this.updateForm();
+    if (this.emitOnInit) {
+      this.onModelChange();
+    }
   }
 
   updateForm() {
