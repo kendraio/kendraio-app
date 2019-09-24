@@ -39,6 +39,7 @@ export class CsvImportBlockComponent implements OnInit, OnChanges {
   }
 
   upload() {
+    // Why is this here? This file is never sent to the server!?
     console.log('sending this to server', this.theFile);
   }
 

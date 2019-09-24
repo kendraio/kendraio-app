@@ -79,6 +79,9 @@ export class WorkflowService {
 
   clearBlocks() {
     this.blocks = [];
+    this.id = '';
+    this.title = 'Workflow';
+    set(this.context, 'app.adapterName', undefined);
     this.saveState();
   }
 
