@@ -1,0 +1,10 @@
+{
+  "title": "Register",
+  "blocks": [
+    {
+      "type": "form",
+      "adapter": "bloomen",
+      "formId": "user"
+    }
+  ]
+}
