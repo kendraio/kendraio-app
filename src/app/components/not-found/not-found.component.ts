@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PageTitleService} from '../../services/page-title.service';
 import {ActivatedRoute} from '@angular/router';
 import {WorkflowRepoService} from '../../services/workflow-repo.service';
-import {catchError, filter, map, switchMap, switchMapTo, takeUntil, tap} from 'rxjs/operators';
+import {catchError, filter, map, switchMap, switchMapTo, takeUntil, tap, withLatestFrom} from 'rxjs/operators';
 import {get, isArray, set} from 'lodash-es';
 import {BehaviorSubject, combineLatest, of, Subject} from 'rxjs';
 import {WorkflowService} from '../../services/workflow.service';
@@ -34,7 +34,11 @@ export class NotFoundComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$),
         map(([x]) => x),
         filter(v => isArray(v) && v.length >= 2),
-        switchMap(([adapterName, workflowId]) => this.workflowRepo.getBlocks(adapterName.path, workflowId.path)),
+        withLatestFrom(this.route.queryParams),
+        switchMap(([[adapterName, workflowId], queryParams]) => this.workflowRepo.getBlocks(adapterName.path, workflowId.path)
+          .pipe(
+            map(blocks => ({ ...blocks, queryParams }))
+          )),
         catchError(err => {
           return of({
             blocks: [
@@ -49,8 +53,8 @@ export class NotFoundComponent implements OnInit, OnDestroy {
           });
         })
       )
-      .subscribe(({ blocks, title, context }) => {
-        this.workflow.initWorkflow({ title, blocks, context });
+      .subscribe(({ blocks, title, context, queryParams }) => {
+        this.workflow.initWorkflow({ title, blocks, context: { ...context, queryParams }});
         this.isLoaded = true;
       });
   }

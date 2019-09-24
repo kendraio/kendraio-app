@@ -176,6 +176,14 @@ import { WorkflowSidenavComponent } from './components/workflow-sidenav/workflow
 import { LoadWorkflowDialogComponent } from './dialogs/load-workflow-dialog/load-workflow-dialog.component';
 import { SaveWorkflowDialogComponent } from './dialogs/save-workflow-dialog/save-workflow-dialog.component';
 import { EditWorkflowMetadataDialogComponent } from './dialogs/edit-workflow-metadata-dialog/edit-workflow-metadata-dialog.component';
+import { DataImportBlockComponent } from './blocks/data-import-block/data-import-block.component';
+import { DataExportBlockComponent } from './blocks/data-export-block/data-export-block.component';
+import { BaseBlockComponent } from './blocks/base-block/base-block.component';
+import { FileInputBlockComponent } from './blocks/file-input-block/file-input-block.component';
+import { ParseDataBlockComponent } from './blocks/parse-data-block/parse-data-block.component';
+import { FileExportBlockComponent } from './blocks/file-export-block/file-export-block.component';
+import { SerializeDataBlockComponent } from './blocks/serialize-data-block/serialize-data-block.component';
+import { LaunchBlockComponent } from './blocks/launch-block/launch-block.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -305,7 +313,15 @@ export function HttpLoaderFactory(http: HttpClient) {
     WorkflowSidenavComponent,
     LoadWorkflowDialogComponent,
     SaveWorkflowDialogComponent,
-    EditWorkflowMetadataDialogComponent
+    EditWorkflowMetadataDialogComponent,
+    DataImportBlockComponent,
+    DataExportBlockComponent,
+    BaseBlockComponent,
+    FileInputBlockComponent,
+    ParseDataBlockComponent,
+    FileExportBlockComponent,
+    SerializeDataBlockComponent,
+    LaunchBlockComponent
   ],
   imports: [
     // AgGridModule.withComponents([

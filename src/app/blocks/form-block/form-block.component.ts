@@ -3,7 +3,7 @@ import {KendraioFormService} from '../../_shared/ui-form/services/kendraio.form.
 import {FormGroup} from '@angular/forms';
 import {FormlyFieldConfig, FormlyFormOptions} from '@ngx-formly/core';
 import {Subject} from 'rxjs';
-import {debounceTime, distinctUntilChanged, filter} from 'rxjs/operators';
+import {debounceTime, distinctUntilChanged, filter, tap} from 'rxjs/operators';
 import { clone, get, has } from 'lodash-es';
 
 @Component({
@@ -41,10 +41,10 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
       .pipe(
         filter(_ => !this.hasSubmit),
         debounceTime(get(this.config, 'debounceTime', 400)),
-        distinctUntilChanged()
+        filter(_ => this.form.valid)
       )
       .subscribe(value => {
-        this.output.emit(value);
+        this.output.emit(clone(this.form.getRawValue()));
       });
   }
 
@@ -55,10 +55,10 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
   ngOnChanges(changes): void {
     this.label = get(this.config, 'label', 'Submit');
     this.hasSubmit = get(this.config, 'hasSubmit', true);
-    this.emitOnInit = get(this.config, 'emitOnInit', false);
+    this.emitOnInit = get(this.config, 'emitOnInit', false) as boolean;
     this.updateForm();
     if (this.emitOnInit) {
-      this.onModelChange();
+      this.onModelChange(this.model);
     }
   }
 
@@ -76,8 +76,8 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  onModelChange() {
-    this._changes.next(clone(this.model));
+  onModelChange(model) {
+    this._changes.next(this.model);
   }
 
   onSubmit() {

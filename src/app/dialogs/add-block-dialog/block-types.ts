@@ -118,6 +118,30 @@ export const BLOCK_TYPES = [
     }
   },
   {
+    type: 'file-export',
+    label: 'File Export',
+    description: 'Export to a local data file.',
+    icon: 'cloud_download',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'file-export',
+      label: 'Export',
+      fileName: 'exported'
+    }
+  },
+  {
+    type: 'file-input',
+    label: 'File Input',
+    description: 'Select and read a local data file.',
+    icon: 'attach_file',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'file-input',
+      label: 'Import',
+      accept: ['csv', 'json', 'xml']
+    }
+  },
+  {
     type: 'form',
     label: 'Form',
     description: 'Display a form for data entry or editing.',
@@ -202,6 +226,23 @@ export const BLOCK_TYPES = [
     }
   },
   {
+    type: 'parse-data',
+    label: 'Parse Data',
+    description: 'Parse data from incoming content',
+    icon: 'fa-map-signs',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'parse-data',
+      csvOptions: {
+        header: true,
+        skipEmptyLines: true
+      },
+      xmlOptions: {
+
+      }
+    }
+  },
+  {
     type: 'query',
     label: 'Query',
     description: 'Run a configurable query against a data source.',
@@ -209,6 +250,29 @@ export const BLOCK_TYPES = [
     hasEditor: true,
     defaultConfig: {
       type: 'query'
+    }
+  },
+  {
+    type: 'serialize',
+    label: 'Serialize Data',
+    description: 'Parse data from incoming content',
+    icon: 'fa-map-signs',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'serialize',
+      hasFormatSelection: true,
+      formats: [
+        'json',
+        'csv',
+        'xml'
+      ],
+      csvOptions: {
+        header: true,
+        skipEmptyLines: true
+      },
+      xmlOptions: {
+
+      }
     }
   },
   {

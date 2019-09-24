@@ -53,7 +53,7 @@ export const MENUITEMS: MenuItem[] = [
     path: '/services',
     children: [
       {
-        path: '/bloomen',
+        path: '/bloomen/users',
         label: 'Bloomen',
         icon: 'brightness_5',
         children: [
@@ -61,6 +61,26 @@ export const MENUITEMS: MenuItem[] = [
             label: 'Search',
             icon: 'search',
             path: 'bloomen/search'
+          },
+          {
+            label: 'Import File',
+            icon: 'file_copy',
+            path: 'bloomen/importFromFile'
+          },
+          {
+            label: 'Export',
+            icon: 'cloud_download',
+            path: 'bloomen/exportWorks'
+          },
+          {
+            label: 'Import Works',
+            icon: 'cloud_upload',
+            path: 'bloomen/importWorks'
+          },
+          {
+            label: 'Musical Works',
+            icon: 'music_note',
+            path: 'bloomen/listWorks'
           },
           {
             label: 'Users',
@@ -71,7 +91,7 @@ export const MENUITEMS: MenuItem[] = [
             {
               label: 'register',
               icon: 'people',
-              path: 'bloomen/users/register',
+              path: 'bloomen/register',
             }
           ]
         }

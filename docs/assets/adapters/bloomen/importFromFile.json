@@ -1,0 +1,75 @@
+{
+  "title": "Import works",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "message",
+      "title": "Import items",
+      "message": "Select file to import items into Bloomen API."
+    },
+    {
+      "type": "file-input",
+      "label": "Load file",
+      "accept": ["json"]
+    },
+    {
+      "type": "parse-data"
+    },
+    {
+      "type": "grid",
+      "gridOptions": {
+        "rowSelection": "multiple"
+      },
+      "columnDefs": [
+        {
+          "checkboxSelection": true,
+          "width": 70,
+          "suppressSizeToFit": true
+        },
+        {
+          "headerName": "Title",
+          "field": "originalTitle"
+        },
+        {
+          "headerName": "ISWC",
+          "field": "ISWC"
+        }
+      ]
+    },
+    {
+      "type": "actions",
+      "buttons": [
+        {
+          "label": "Import",
+          "color": "primary",
+          "blocks": [
+            {
+              "type": "batch",
+              "blocks": [
+                {
+                  "type": "http",
+                  "skipInit": false,
+                  "method": "post",
+                  "endpoint": {
+                    "protocol": "https:",
+                    "host": "bloomen.herokuapp.com",
+                    "pathname": "/sound/music"
+                  },
+                  "authentication": {
+                    "type": "bearer",
+                    "valueGetters": {
+                      "jwt": "user.profile.bloomenAuth"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "id": "importWorks"
+}
