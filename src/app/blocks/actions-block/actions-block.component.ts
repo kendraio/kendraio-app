@@ -38,11 +38,9 @@ export class ActionsBlockComponent implements OnInit, OnChanges {
     this.blocks = get(button, 'blocks', []);
     this.models = this.blocks.map(blockDef => get(blockDef, 'defaultValue', {}));
     this.models.push({});
-    // console.log(this.workflow);
     setTimeout(() => {
       this.zone.run(() => {
-        // this.workflow.runWorkflow();
-        this.models[0] = clone(this.model);
+        this.models = [clone(this.model)];
       });
     }, 0);
   }

@@ -34,7 +34,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes) {
-    if (get(changes, 'model.firstChange', false)) {
+    if (get(this.config, 'skipInit', true) && get(changes, 'model.firstChange', false)) {
       return;
     }
     this.makeRequest();
@@ -50,7 +50,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       this.isLoading = false;
       return;
     }
-    if (!includes(['GET', 'POST', 'PUT'], toUpper(method))) {
+    if (!includes(['GET', 'POST', 'PUT', 'DELETE'], toUpper(method))) {
       this.errorMessage = 'HTTP method not supported';
       this.hasError = true;
       this.isLoading = false;
@@ -85,6 +85,21 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     switch (toUpper(method)) {
       case 'GET':
         this.http.get(url, {headers})
+          .pipe(
+            catchError(error => {
+              this.hasError = true;
+              this.errorMessage = error.message;
+              // TODO: need to prevent errors for triggering subsequent blocks
+              return of([]);
+            })
+          )
+          .subscribe(response => {
+            this.isLoading = false;
+            this.outputResult(response);
+          });
+        break;
+      case 'DELETE':
+        this.http.delete(url, {headers})
           .pipe(
             catchError(error => {
               this.hasError = true;
@@ -138,7 +153,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     if (isString(get(config, 'endpoint', ''))) {
       return config.endpoint;
     }
-    const endpoint = this.contextData.getFromContextWithModel(config.endpoint, this.model);
+    const endpoint = this.contextData.getFromContextWithModel(config.endpoint, this.model, this.context);
     const protocol = get(endpoint, 'protocol', 'https:');
     const host = get(endpoint, 'host', '');
     const pathname = get(endpoint, 'pathname', '/');

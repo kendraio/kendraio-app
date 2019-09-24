@@ -42,9 +42,11 @@ export class ContextDataService {
     9: 'Array<string>'
    */
 
-  getFromContextWithModel(endpoint, model) {
+  getFromContextWithModel(endpoint, model, context = {}) {
     // console.log({ endpoint, model });
-    const context = {
+    const _context = {
+      context,
+      ...context,
       // TODO: Deprecate passing data as model
       model,
       data: model,
@@ -57,7 +59,7 @@ export class ContextDataService {
     const valueGetters = has(endpoint, 'valueGetters')
       ? Object.keys(endpoint.valueGetters).reduce((a, v) => {
         try {
-          a[v] = search(context, endpoint.valueGetters[v]);
+          a[v] = search(_context, endpoint.valueGetters[v]);
         } catch (e) {
           console.log(e.message);
         }

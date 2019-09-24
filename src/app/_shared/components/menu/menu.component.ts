@@ -63,6 +63,16 @@ export const MENUITEMS: MenuItem[] = [
             path: 'bloomen/search'
           },
           {
+            label: 'Import Works',
+            icon: 'cloud_upload',
+            path: 'bloomen/importWorks'
+          },
+          {
+            label: 'Musical Works',
+            icon: 'music_note',
+            path: 'bloomen/listWorks'
+          },
+          {
             label: 'Users',
             icon: 'people',
             path: 'bloomen/users',

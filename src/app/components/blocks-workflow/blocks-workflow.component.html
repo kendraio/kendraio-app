@@ -29,6 +29,7 @@
     <app-parse-data-block class="block-wrapper" *ngSwitchCase="'parse-data'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-parse-data-block>
     <app-file-export-block class="block-wrapper" *ngSwitchCase="'file-export'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-file-export-block>
     <app-serialize-data-block class="block-wrapper" *ngSwitchCase="'serialize'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-serialize-data-block>
+    <app-launch-block class="block-wrapper" *ngSwitchCase="'launch'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-launch-block>
   </ng-container>
 </ng-container>
 <!--<pre>{{ blocks | json }}</pre>-->
