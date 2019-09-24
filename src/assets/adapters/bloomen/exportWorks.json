@@ -1,0 +1,35 @@
+{
+  "title": "Export works",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "http",
+      "method": "get",
+      "notify": false,
+      "endpoint": "https://fake-api.now32.now.sh/musicalWork"
+    },
+    {
+      "type": "grid",
+      "gridOptions": {
+        "rowSelection": "multiple"
+      },
+      "columnDefs": [
+        {
+          "checkboxSelection": true,
+          "width": 70,
+          "suppressSizeToFit": true
+        },
+        {
+          "headerName": "Title",
+          "field": "originalTitle"
+        },
+        {
+          "headerName": "ISWC",
+          "field": "ISWC"
+        }
+      ]
+    }
+  ]
+}
