@@ -88,7 +88,7 @@ export class WorkflowService {
   copyConfig() {
     const dialogRef = this.dialog.open(ExportConfigDialogComponent, {
       data: {
-        configText: stringify({ title: this.title, blocks: this.blocks })
+        configText: stringify({ title: this.title, blocks: this.blocks, id: this.id })
       }
     });
   }
@@ -105,6 +105,8 @@ export class WorkflowService {
               blocks: get(config, 'blocks', []),
               context: {}
             });
+            this.id = get(config, 'id');
+            this.saveState();
           }
         } catch (e) {
           console.log('Error importing config', e);

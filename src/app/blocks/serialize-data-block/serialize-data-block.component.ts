@@ -3,7 +3,7 @@ import {BaseBlockComponent} from '../base-block/base-block.component';
 import * as serialize from 'json-stringify-safe';
 import * as X2JS from 'x2js';
 import {unparse} from 'papaparse';
-import {get, isArray, isObject} from 'lodash-es';
+import {get, isArray, isNull, isObject} from 'lodash-es';
 
 @Component({
   selector: 'app-serialize-data-block',
@@ -12,6 +12,7 @@ import {get, isArray, isObject} from 'lodash-es';
 })
 export class SerializeDataBlockComponent extends BaseBlockComponent {
 
+  showRecordCount = true;
   hasFormatSelection = false;
   outputFormats = ['json'];
   selectedFormat = 'json';
@@ -22,6 +23,7 @@ export class SerializeDataBlockComponent extends BaseBlockComponent {
   xmlOptions = {};
 
   onConfigUpdate(config) {
+    this.showRecordCount = get(config, 'showRecordCount', true) as boolean;
     this.hasFormatSelection = get(config, 'hasFormatSelection', false) as boolean;
     this.outputFormats = get(config, 'formats', ['json']);
     if (!this.hasFormatSelection) {
@@ -32,6 +34,9 @@ export class SerializeDataBlockComponent extends BaseBlockComponent {
   }
 
   get numberOfRows() {
+    if (isNull(this.model)) {
+      return 0;
+    }
     const objectHasKeys = obj => isObject(obj) && Object.keys(obj).length > 0;
     return isArray(this.model) ? this.model.length : objectHasKeys(this.model) ? 1 : 0;
   }
@@ -46,21 +51,26 @@ export class SerializeDataBlockComponent extends BaseBlockComponent {
     }
     this.hasError = false;
     let data = '';
-    switch (this.selectedFormat) {
-      case 'json':
-        data = serialize(this.model);
-        break;
-      case 'xml':
-        const x2js = new X2JS();
-        data = x2js.js2xml(isArray(this.model) ? { rows: { row: this.model }} : this.model);
-        break;
-      case 'csv':
-        data = unparse(this.model, this.csvOptions);
-        break;
+    try {
+      switch (this.selectedFormat) {
+        case 'json':
+          data = serialize(this.model);
+          break;
+        case 'xml':
+          const x2js = new X2JS();
+          data = x2js.js2xml(isArray(this.model) ? { rows: { row: this.model }} : this.model);
+          break;
+        case 'csv':
+          data = unparse(this.model, this.csvOptions);
+          break;
+      }
+      this.output.emit({
+        format: this.selectedFormat,
+        data
+      });
+    } catch (e) {
+      this.hasError = true;
+      this.errorMessage = e.message;
     }
-    this.output.emit({
-      format: this.selectedFormat,
-      data
-    });
   }
 }
