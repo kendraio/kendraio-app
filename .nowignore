@@ -1,7 +1,6 @@
 .idea
 dist
 e2e
-src
 .editorconfig
 .firebaserc
 firebase.json
