@@ -167,12 +167,12 @@ dynamic-material-form-control:not(:last-child) {
   transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
   display: block;
   position: relative;
-  padding: 16px;
-  border-radius: 4px;
-  &:hover {
-    box-shadow: 0;
-    background-color: #f3f3f3;
-  }
+  padding: 1em;
+  //border-radius: 4px;
+  //&:hover {
+  //  box-shadow: 0;
+  //  background-color: #f3f3f3;
+  //}
 }
 
 
@@ -223,11 +223,11 @@ formly-field {
 }
 
 formly-object-type formly-object-type>formly-field {
-  margin-left: 40px
+  //margin-left: 40px
 }
 
 formly-object-type legend {
-  margin-left: 20px
+  //margin-left: 20px
 }
 
 formly-object-type {
