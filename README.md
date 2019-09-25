@@ -10,7 +10,6 @@ https://www.kendra.io/kendraio-app
 
 - checkout from git
 - `npm install`
-- build tagger component: `ng build ngx-tagger`
 - run dev server: `npm run start:dev`
 
 

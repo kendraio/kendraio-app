@@ -6,11 +6,10 @@
   },
   "scripts": {
     "start:dev": "ng serve",
-    "build:tagger": "ng build ngx-tagger",
     "build:local": "ng build",
     "build:dev": "ng build --configuration=dev",
     "build:prod": "ng build --prod",
-    "now-build": "ng build ngx-tagger && ng build --configuration=dev"
+    "now-build": "ng build --configuration=dev"
   },
   "private": true,
   "dependencies": {
