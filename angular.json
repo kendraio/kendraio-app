@@ -59,7 +59,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "aot": true,
-            "outputPath": "dist/kendraio-app",
+            "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -86,23 +86,6 @@
             ]
           },
           "configurations": {
-
-            "de": {
-              "aot": true,
-              "outputPath": "dist/kendraio-app-de/",
-              "baseHref": "/de/",
-              "i18nFile": "src/locale/messages.de.xlf",
-              "i18nFormat": "xlf",
-              "i18nLocale": "de"
-            },
-            "fr": {
-              "aot": true,
-              "i18nLocale": "fr"
-            },
-
-
-
-
             "production": {
               "fileReplacements": [
                 {
