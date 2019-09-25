@@ -3,9 +3,6 @@
   "alias": [
     "dev.app.kendra.io"
   ],
-  "engines": {
-    "node": "10.x"
-  },
   "github": {
     "enabled": true
   },

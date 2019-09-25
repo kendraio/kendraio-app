@@ -1,6 +1,9 @@
 {
   "name": "kendraio-app",
   "version": "0.2.0",
+  "engines": {
+    "node": "10.x"
+  },
   "scripts": {
     "start:dev": "ng serve",
     "build:tagger": "ng build ngx-tagger",
