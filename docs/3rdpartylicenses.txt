@@ -277,6 +277,9 @@ MIT
 @ngrx/store
 MIT
 
+@ngrx/store-devtools
+MIT
+
 @ngx-formly/core
 MIT
 
