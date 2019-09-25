@@ -2,15 +2,11 @@
   "name": "kendraio-app",
   "version": "0.2.0",
   "scripts": {
-    "ng": "ng",
     "start:dev": "ng serve",
-    "build": "ng build",
+    "build:local": "ng build",
     "build:dev": "ng build --configuration=dev",
     "build:prod": "ng build --prod",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e",
-    "start": "serve docs/ --single"
+    "now-build": "ng build --configuration=dev"
   },
   "private": true,
   "dependencies": {
