@@ -18,47 +18,47 @@
   "routes": [
     {
       "src": "^/3rdpartylicense.txt",
-      "dest": "/docs/3rdpartylicense.txt"
+      "dest": "/dist/kendraio-app/3rdpartylicense.txt"
     },
     {
       "src": "^/favicon.ico",
-      "dest": "/docs/favicon.ico"
+      "dest": "/dist/kendraio-app/favicon.ico"
     },
     {
       "src": "^/main(.*)",
-      "dest": "/docs/main$1"
+      "dest": "/dist/kendraio-app/main$1"
     },
     {
       "src": "^/polyfills(.*)",
-      "dest": "/docs/polyfills$1"
+      "dest": "/dist/kendraio-app/polyfills$1"
     },
     {
       "src": "^/styles(.*)",
-      "dest": "/docs/styles$1"
+      "dest": "/dist/kendraio-app/styles$1"
     },
     {
       "src": "^/runtime(.*)",
-      "dest": "/docs/runtime$1"
+      "dest": "/dist/kendraio-app/runtime$1"
     },
     {
       "src": "^/(.*).js$",
-      "dest": "/docs/$1.js"
+      "dest": "/dist/kendraio-app/$1.js"
     },
     {
       "src": "^/(.*).json$",
-      "dest": "/docs/$1.json"
+      "dest": "/dist/kendraio-app/$1.json"
     },
     {
       "src": "^/(.*).yaml$",
-      "dest": "/docs/$1.yaml"
+      "dest": "/dist/kendraio-app/$1.yaml"
     },
     {
       "src": "^/assets/(.*)",
-      "dest": "/docs/assets/$1"
+      "dest": "/dist/kendraio-app/assets/$1"
     },
     {
       "src": "^/(.*)",
-      "dest": "/docs/index.html"
+      "dest": "/dist/kendraio-app/index.html"
     }
   ]
 }
