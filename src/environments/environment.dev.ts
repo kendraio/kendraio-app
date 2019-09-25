@@ -1,12 +1,14 @@
 /**
- * This is the main environment configuration
- * It is use for the Firebase hosted site at
- * https://app.kendra.io
- * This version is built from the master branch.
+ * This is the dev environment configuration
+ * It is use for the now.sh hosted site at
+ * https://dev.app.kendra.io
+ * This version is built from the develop branch
+ * Track progress on GitHub here:
+ * https://github.com/kendraio/kendraio-app/pull/25
  */
 export const environment = {
-  urlPrefix: 'https://app.kendra.io/',
-  production: true,
+  urlPrefix: 'https://dev.app.kendra.io/',
+  production: false,
   adapterBaseUrl: 'https://kendraio.github.io/kendraio-adapter/',
   adapterConfig: 'https://kendraio.github.io/kendraio-adapter/config.json',
   auth0: {
