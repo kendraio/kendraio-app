@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/kendraio-app",
+    "public": "dist",
     "ignore": [
       "firebase.json",
       "**/.*",
