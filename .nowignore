@@ -3,9 +3,5 @@ dist
 e2e
 src
 .editorconfig
-README.md
-angular.json
-package.json
-tsconfig.json
-tslint.json
-yarn.lock
+.firebaserc
+firebase.json
