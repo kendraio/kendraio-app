@@ -4,7 +4,7 @@
  * https://dev.app.kendra.io
  * This version is built from the develop branch
  * Track progress on GitHub here:
- * https://github.com/kendraio/kendraio-app/pull/25
+ * https://github.com/kendraio/kendraio-app/pull/17
  */
 export const environment = {
   urlPrefix: 'https://dev.app.kendra.io/',
