@@ -19,7 +19,10 @@ export class ParseDataBlockComponent extends BaseBlockComponent {
 
   onConfigUpdate(config) {
     this.csvOptions = get(config, 'csvOptions', {});
-    this.xmlOptions = get(config, 'xmlOptions', {});
+    this.xmlOptions = {
+      enableToStringFunc: false,
+      ...get(config, 'xmlOptions', {})
+    };
   }
 
   onData(data) {

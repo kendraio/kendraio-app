@@ -28,10 +28,11 @@ export class MultiBlockComponent implements OnInit, OnChanges {
   ngOnChanges(changes) {
     this.batches = get(this.config, 'batches', []);
     this.modelStacks = this.batches.map(batch => {
-      const batchBlocks = get(batch, 'blocks', []);
-      const batchModels = batchBlocks.map(blockDef => get(blockDef, 'defaultValue', {}));
-      batchModels.push({});
-      return batchModels;
+      // const batchBlocks = get(batch, 'blocks', []);
+      // const batchModels = batchBlocks.map(blockDef => get(blockDef, 'defaultValue', {}));
+      // batchModels.push({});
+      // return batchModels;
+      return [clone(this.model)];
     });
     this.results = this.modelStacks.map(_ => ({}));
     this.completed = this.modelStacks.map(_ => false);
