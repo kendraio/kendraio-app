@@ -21,6 +21,7 @@ project = 'Kendraio App'
 copyright = '2019, Kendraio Developers'
 author = 'Kendraio Developers'
 
+master_doc = 'index'
 
 # -- General configuration ---------------------------------------------------
 
