@@ -1,5 +1,5 @@
 Actions
--------
+=======
 
 Use the actions block to add a row of buttons for one or more sub-tasks.
 
