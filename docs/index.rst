@@ -1,6 +1,53 @@
-.. include:: ../README.rst
+Kendraio App
+============
+
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Overview
+
+   getting_started
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Form Builder
+
+   forms/intro
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Workflow Builder
+
+   workflow/intro
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Workflow Blocks Reference
+
+   workflow/blocks/actions
+   workflow/blocks/batch
+   workflow/blocks/card
+   workflow/blocks/chart
+   workflow/blocks/csv_export
+   workflow/blocks/csv_import
+   workflow/blocks/debug
+   workflow/blocks/dialog
+   workflow/blocks/dispatch
+   workflow/blocks/faker
+   workflow/blocks/file_export
+   workflow/blocks/file_input
+   workflow/blocks/form
+   workflow/blocks/grid
+   workflow/blocks/http
+   workflow/blocks/init
+   workflow/blocks/mapping
+   workflow/blocks/message
+   workflow/blocks/multi
+   workflow/blocks/parse_data
+   workflow/blocks/query
+   workflow/blocks/serialize
+   workflow/blocks/switch
+   workflow/blocks/template
+   workflow/blocks/variable_get
+   workflow/blocks/variable_set
 
