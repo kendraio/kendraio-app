@@ -1,0 +1,22 @@
+<mat-card>
+  <div class="mat-typography">
+    <h2 *ngIf="to.label">{{ to.label }}</h2>
+    <p *ngIf="to.description">{{ to.description }}</p>
+  </div>
+
+  <div class="alert alert-danger" role="alert" *ngIf="showError">
+    <formly-validation-message [field]="field"></formly-validation-message>
+  </div>
+
+  <mat-card *ngFor="let field of field.fieldGroup;let i = index;">
+    <formly-field [field]="field"></formly-field>
+    <div>
+      <button mat-raised-button color="warn" type="button" (click)="remove(i)">Remove</button>
+    </div>
+  </mat-card>
+
+  <button mat-raised-button color="primary" type="button" (click)="add()">
+    <mat-icon>add</mat-icon>
+    Add Item to {{ to.label }}
+  </button>
+</mat-card>
