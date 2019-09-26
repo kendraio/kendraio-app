@@ -27,7 +27,7 @@ $kendraio-app-theme: mat-light-theme($kendraio-app-primary, $kendraio-app-accent
 @include angular-material-theme($kendraio-app-theme);
 
 
-html, body { height: 100%; }
+html, body { height: 100%; overflow: hidden; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .mb-1 {
