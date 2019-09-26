@@ -11,3 +11,11 @@ and associated rights.
 
 [![Documentation Status](https://readthedocs.org/projects/kendraio-app/badge/?version=latest)](https://kendraio-app.readthedocs.io/en/latest/?badge=latest)
 
+
+Contribute
+----------
+
+- Read the documentation: https://kendraio-app.readthedocs.io
+- For help and support, join the conversation on Slack: https://kendraio.slack.com/
+- To report bugs, suggest improvements, or request features, use the issue tracker: https://github.com/kendraio/kendraio-app/issues
+- To download the source code, visit the repo: https://github.com/kendraio/kendraio-app
