@@ -6,5 +6,8 @@ enabling users to manage and track their digital media assets, collaborations
 and associated rights.
 
 - Online demo: https://app.kendra.io
-- Read the Docs:
+- Read the Docs: https://kendraio-app.readthedocs.io
 - More information: https://www.kendra.io/kendraio-app
+
+[![Documentation Status](https://readthedocs.org/projects/kendraio-app/badge/?version=latest)](https://kendraio-app.readthedocs.io/en/latest/?badge=latest)
+
