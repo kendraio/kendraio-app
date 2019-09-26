@@ -85,6 +85,11 @@ export class WorkflowService {
     this.saveState();
   }
 
+  clearWorkflowData() {
+    this.models = this.blocks.map(blockDef => get(blockDef, 'defaultValue', {}));
+    this.models.push({});
+  }
+
   copyConfig() {
     const dialogRef = this.dialog.open(ExportConfigDialogComponent, {
       data: {
