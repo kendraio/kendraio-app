@@ -1,12 +1,14 @@
 Kendraio App
 ============
 
+.. include:: intro.rst
 
 .. toctree::
    :maxdepth: 2
    :caption: Overview
 
    getting_started
+   documentation
 
 .. toctree::
    :maxdepth: 2
@@ -19,6 +21,8 @@ Kendraio App
    :caption: Workflow Builder
 
    workflow/intro
+   workflow/sharing
+   workflow/cloud
 
 .. toctree::
    :maxdepth: 1

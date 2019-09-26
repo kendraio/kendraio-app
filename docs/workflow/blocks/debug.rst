@@ -19,4 +19,5 @@ Supported properties
 --------------------
 
 - open (number) (default = 1): how many levels of debug output to show by default.
-- showContext (default = false): This defaults to false, in which case only output the input data into the debug block is shown. Set this to true to enable debugging of context values too.
+- showContext (default = false): This defaults to false, in which case only output the input data into the debug
+  block is shown. Set this to true to enable debugging of context values too.

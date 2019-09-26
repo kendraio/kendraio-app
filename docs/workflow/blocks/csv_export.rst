@@ -23,12 +23,12 @@ Default config
 Supported properties
 --------------------
 
-quotes: false, //or array of booleans
-quoteChar: '"',
-escapeChar: '"'
-delimiter: ","
-header: true
-newline: "\r\n"
-skipEmptyLines: false, //or 'greedy'
-columns: null //or array of strings
+- quotes: false (or array of booleans)
+- quoteChar: '"'
+- escapeChar: '"'
+- delimiter: ","
+- header: true
+- newline: "\r\n"
+- skipEmptyLines: false (or 'greedy')
+- columns: null (or array of strings)
 
