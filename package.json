@@ -9,7 +9,8 @@
     "build:local": "ng build",
     "build:dev": "ng build --configuration=dev",
     "build:prod": "ng build --prod",
-    "now-build": "ng build --configuration=dev"
+    "now-build": "ng build --configuration=dev",
+    "docs:autobuild": "sphinx-autobuild docs/ docs/_build/html"
   },
   "private": true,
   "dependencies": {

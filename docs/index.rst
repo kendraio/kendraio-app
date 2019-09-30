@@ -12,6 +12,14 @@ Kendraio App
 
 .. toctree::
    :maxdepth: 2
+   :caption: Adapters
+
+   adapters/intro
+   adapters/installing
+   adapters/creating
+
+.. toctree::
+   :maxdepth: 2
    :caption: Form Builder
 
    forms/intro
