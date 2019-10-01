@@ -54,11 +54,13 @@ export class WorkflowService {
     const context = get(state, 'context', {});
     this.initWorkflow({ title, blocks, context });
     this.id = get(state, 'id', false);
+    set(this.context, 'app.adapterName', get(state, 'adapterName', this.getAdapterName()));
   }
 
   saveState() {
     const { title, blocks, context, id } = this;
-    localStorage.setItem('kendraio-workflow-state', JSON.stringify({ title, blocks, context, id }));
+    const adapterName = this.getAdapterName();
+    localStorage.setItem('kendraio-workflow-state', JSON.stringify({ title, blocks, context, id, adapterName }));
   }
 
   refresh() {

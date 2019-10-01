@@ -1,3 +1,7 @@
-<button *ngFor="let b of buttons; let i = index" type="button" class="actions-button"
-        mat-flat-button [color]="b.color" (click)="onSubmit(b)">{{ b?.label }}</button>
+<ng-container *ngFor="let b of buttons; let i = index">
+  <button type="button" class="actions-button" *ngIf="!b.color || b.color !== 'link'"
+          mat-flat-button [color]="b.color" (click)="onSubmit(b)">{{ b?.label }}</button>
+  <a class="actions-button" *ngIf="b.color && b.color === 'link'"
+     mat-button color="link" (click)="onSubmit(b)">{{ b?.label }}</a>
+</ng-container>
 <app-blocks-workflow [blocks]="blocks" [models]="models" [context]="context" (workflowComplete)="finishAction($event)"></app-blocks-workflow>

@@ -2,6 +2,22 @@
   "title": "Adapters",
   "blocks": [
     {
+      "type": "actions",
+      "buttons": [
+        {
+          "label": "Adapter Repositories",
+          "color": "link",
+          "blocks": [
+            {
+              "type": "launch",
+              "adapter": "core",
+              "workflowId": "adapterRepos"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "type": "mapping",
       "mapping": "context.app.adapters.* | sort_by(@, &adapter.name)"
     },

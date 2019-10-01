@@ -1,0 +1,34 @@
+{
+  "title": "Adapter Repositories",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "variable-get",
+      "name": "adapterRepos"
+    },
+    {
+      "type": "form",
+      "label": "Save",
+      "jsonSchema": {
+        "type": "object",
+        "properties": {
+          "repos": {
+            "title": "Repositories",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "uiSchema": {}
+    },
+    {
+      "type": "variable-set",
+      "name": "adapterRepos"
+    }
+  ],
+  "id": "adapterRepos"
+}
