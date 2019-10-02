@@ -33,7 +33,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                     reason: error && error.error && error.error.reason ? error.error.reason : '',
                     status: error.status
                 };
-                console.log(error.statusText);
+                // console.log(error.statusText);
                 return throwError(error);
             })
             );
