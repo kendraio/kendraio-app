@@ -183,7 +183,7 @@ export const MENUITEMS: MenuItem[] = [
     icon: 'settings',
     children: [
       {
-        path: '/adapters',
+        path: '/core/adapters',
         label: 'Adapters',
         icon: 'extension'
       },
