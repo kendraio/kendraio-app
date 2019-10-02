@@ -51,12 +51,12 @@ export class Animations {
                 height: '0px',
                 opacity: 0.5,
             })),
-            transition('open => closed', [
-                animate('1s 500ms ease-out')
-            ]),
-            transition('closed => open', [
-                animate('500ms  ease-out')
-            ]),
+            // transition('open => closed', [
+            //     animate('0.1s 100ms ease-out')
+            // ]),
+            // transition('closed => open', [
+            //     animate('100ms  ease-out')
+            // ]),
         ]),
 
 
