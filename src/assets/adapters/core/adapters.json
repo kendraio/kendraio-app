@@ -5,13 +5,24 @@
       "type": "actions",
       "buttons": [
         {
-          "label": "Adapter Repositories",
+          "label": "Manage Repositories",
           "color": "link",
           "blocks": [
             {
               "type": "launch",
               "adapter": "core",
               "workflowId": "adapterRepos"
+            }
+          ]
+        },
+        {
+          "label": "Refresh Adapters",
+          "color": "link",
+          "blocks": [
+            {
+              "type": "launch",
+              "adapter": "core",
+              "workflowId": "updateAdapterList"
             }
           ]
         }

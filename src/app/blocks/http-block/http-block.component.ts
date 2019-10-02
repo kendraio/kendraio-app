@@ -57,6 +57,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       return;
     }
     const url = this.constructEndpointUrl(this.config);
+    // console.log({ url });
 
     let headers = new HttpHeaders();
     if (has(this.config, 'authentication.type')) {
@@ -154,6 +155,9 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       return config.endpoint;
     }
     const endpoint = this.contextData.getFromContextWithModel(config.endpoint, this.model, this.context);
+    if (isString(endpoint)) {
+      return endpoint;
+    }
     const protocol = get(endpoint, 'protocol', 'https:');
     const host = get(endpoint, 'host', '');
     const pathname = get(endpoint, 'pathname', '/');

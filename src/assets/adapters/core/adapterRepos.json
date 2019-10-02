@@ -28,6 +28,11 @@
     {
       "type": "variable-set",
       "name": "adapterRepos"
+    },
+    {
+      "type": "launch",
+      "adapter": "core",
+      "workflowId": "adapters"
     }
   ],
   "id": "adapterRepos"

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
-import {filter} from 'rxjs/operators';
+import {filter, tap} from 'rxjs/operators';
 import {ExportConfigDialogComponent} from '../dialogs/export-config-dialog/export-config-dialog.component';
 import * as stringify from 'json-stringify-safe';
 import {PasteConfigDialogComponent} from '../dialogs/paste-config-dialog/paste-config-dialog.component';
@@ -35,6 +35,7 @@ export class WorkflowService {
     this.router.events
       .pipe(
         filter((e): e is NavigationEnd => e instanceof NavigationEnd),
+        filter(({ url }) => url === '/workflow-builder')
       )
       .subscribe(_ => this.loadState());
   }
