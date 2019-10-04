@@ -29,6 +29,17 @@
       ]
     },
     {
+      "type": "init"
+    },
+    {
+      "type": "variable-get",
+      "name": "adapterList"
+    },
+    {
+      "type": "debug",
+      "showContext": true
+    },
+    {
       "type": "mapping",
       "mapping": "context.app.adapters.* | sort_by(@, &adapter.name)"
     },

@@ -27,6 +27,9 @@
       "mapping": "data.repos"
     },
     {
+      "type": "debug"
+    },
+    {
       "type": "batch",
       "blocks": [
         {
@@ -51,11 +54,6 @@
     {
       "type": "variable-set",
       "name": "adapterList"
-    },
-    {
-      "type": "launch",
-      "adapter": "core",
-      "workflowId": "adapters"
     }
   ]
 }

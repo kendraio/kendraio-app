@@ -41,6 +41,9 @@ export class CoreEventHandlersService {
               this.workflow.refresh();
             }
             break;
+          case 'refreshWorkflow':
+            this.workflow.refresh();
+            break;
           case 'debug':
             console.log('Debug action', payload);
             break;
