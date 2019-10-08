@@ -243,13 +243,16 @@ export const BLOCK_TYPES = [
     }
   },
   {
-    type: 'query',
-    label: 'Query',
-    description: 'Run a configurable query against a data source.',
+    type: 'db',
+    label: 'Local DB',
+    description: 'Retrieve and update information in the local data store',
     icon: 'fa-database',
     hasEditor: true,
     defaultConfig: {
-      type: 'query'
+      type: 'db',
+      operation: 'put',
+      adapterName: 'UNKNOWN',
+      schema: 'none'
     }
   },
   {

@@ -20,6 +20,7 @@ export class BaseBlockComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes) {
+    // console.log({ changes });
     this.onConfigUpdate(this.config);
     this.onData(this.model, get(changes, 'model.firstChange', false));
   }

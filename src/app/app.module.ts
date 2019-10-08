@@ -181,6 +181,7 @@ import { ParseDataBlockComponent } from './blocks/parse-data-block/parse-data-bl
 import { FileExportBlockComponent } from './blocks/file-export-block/file-export-block.component';
 import { SerializeDataBlockComponent } from './blocks/serialize-data-block/serialize-data-block.component';
 import { LaunchBlockComponent } from './blocks/launch-block/launch-block.component';
+import { DbBlockComponent } from './blocks/db-block/db-block.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -318,7 +319,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ParseDataBlockComponent,
     FileExportBlockComponent,
     SerializeDataBlockComponent,
-    LaunchBlockComponent
+    LaunchBlockComponent,
+    DbBlockComponent
   ],
   imports: [
     // AgGridModule.withComponents([
