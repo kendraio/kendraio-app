@@ -98,6 +98,23 @@ export const MENUITEMS: MenuItem[] = [
         ]
       },
       {
+        path: 'ddexErn4/listSoundRecordings',
+        label: 'DDEX',
+        icon: 'brightness_5',
+        children: [
+          {
+            path: 'ddexErn4/importDdexErn4',
+            label: 'Import ERN4',
+            icon: 'cloud_upload'
+          },
+          {
+            path: 'ddexErn4/listSoundRecordings',
+            label: 'Sound Recordings',
+            icon: 'file_copy'
+          }
+        ]
+      },
+      {
           path: '/services/youtube',
           label: 'YouTube',
           icon: 'attach_money'

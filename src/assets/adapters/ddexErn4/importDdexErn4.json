@@ -1,0 +1,50 @@
+{
+  "title": "DDEX Electronic Release Notification Import",
+  "blocks": [
+    {
+      "type": "file-input",
+      "label": "Load ERN",
+      "accept": [
+        "xml"
+      ]
+    },
+    {
+      "type": "parse-data",
+      "csvOptions": {
+        "header": true,
+        "skipEmptyLines": true
+      },
+      "xmlOptions": {
+        "arrayAccessFormPaths": [
+          "NewReleaseMessage.ResourceList.SoundRecording"
+        ]
+      }
+    },
+    {
+      "type": "mapping",
+      "mapping": "data.NewReleaseMessage"
+    },
+    {
+      "type": "mapping",
+      "mapping": "data.ResourceList.SoundRecording"
+    },
+    {
+      "type": "debug"
+    },
+    {
+      "type": "batch",
+      "blocks": [
+        {
+          "type": "db",
+          "operation": "add",
+          "adapterName": "ddexErn4",
+          "schema": "soundRecordings",
+          "skipFirst": false
+        }
+      ]
+    },
+    {
+      "type": "debug"
+    }
+  ]
+}

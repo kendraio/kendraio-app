@@ -25,4 +25,12 @@ export class LocalDatabaseService extends Dexie {
       .toArray()
       .then(items => items.map(({uuid, data}) => ({uuid, ...data})));
   }
+
+  fetch({ uuid }) {
+    console.log('fetch', { uuid });
+    return this['metadata']
+      .where({ uuid })
+      .toArray()
+      .then(items => items.map(({ data }) => ({ uuid, ...data })));
+  }
 }

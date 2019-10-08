@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
-import {get} from 'lodash-es';
+import {get, isString} from 'lodash-es';
 import {LocalDatabaseService} from '../../services/local-database.service';
+import {search} from 'jmespath';
 
 @Component({
   selector: 'app-db-block',
@@ -18,6 +19,8 @@ export class DbBlockComponent extends BaseBlockComponent {
   adapterName = 'UNKNOWN';
   schema = 'none';
   idField = 'uuid';
+  skipFirst = true;
+  uuidGetter;
 
   constructor(
     private readonly localDatabase: LocalDatabaseService
@@ -31,14 +34,28 @@ export class DbBlockComponent extends BaseBlockComponent {
     this.schema = get(config, 'schema', 'none');
     this.operation = get(config, 'operation', 'none');
     this.idField = get(config, 'idField', 'uuid');
+    this.skipFirst = get(config, 'skipFirst', true);
+    this.uuidGetter = get(config, 'uuidGetter');
   }
 
   onData(data: any, firstChange: boolean) {
-    if (firstChange) {
+    if (firstChange && this.skipFirst) {
       return;
     }
 
     switch (this.operation) {
+      case 'fetch': {
+        console.log(this.uuidGetter);
+        if (isString(this.uuidGetter)) {
+          const uuid = search({ data: this.model, context: this.context }, this.uuidGetter);
+          console.log({ uuid });
+          if (isString(uuid)) {
+            this.localDatabase.fetch({ uuid }).then(result => this.output.emit(result));
+          }
+        }
+        // TODO: Error
+        return;
+      }
       case 'add': {
         this.localDatabase.add({
           adapterName: this.adapterName,

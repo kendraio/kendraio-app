@@ -1,0 +1,88 @@
+{
+  "title": "List Sound Recordings",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "db",
+      "operation": "get",
+      "adapterName": "ddexErn4",
+      "schema": "soundRecordings"
+    },
+    {
+      "type": "grid",
+      "columnDefs": [
+        {
+          "headerName": "Reference",
+          "field": "ResourceReference"
+        },
+        {
+          "headerName": "Title",
+          "field": "DisplayTitleText"
+        },
+        {
+          "headerName": "Duration",
+          "field": "Duration"
+        },
+        {
+          "headerName": "Language",
+          "field": "LanguageOfPerformance"
+        },
+        {
+          "headerName": "Operations",
+          "cellRenderer": "workflowRenderer",
+          "cellRendererParams": {
+            "blocks": [
+              {
+                "type": "actions",
+                "buttons": [
+                  {
+                    "label": "View",
+                    "blocks": [
+                      {
+                        "type": "dialog",
+                        "blocks": [
+                          {
+                            "type": "debug"
+                          },
+                          {
+                            "type": "actions",
+                            "buttons": [
+                              {
+                                "label": "OK",
+                                "blocks": [
+                                  {
+                                    "type": "init"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Edit",
+                    "blocks": [
+                      {
+                        "type": "launch",
+                        "adapter": "ddexErn4",
+                        "workflowId": "editSoundRecording",
+                        "context": {
+                          "uuid": "data.uuid"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "id": ""
+}
