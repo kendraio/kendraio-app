@@ -45,12 +45,20 @@ export class DbBlockComponent extends BaseBlockComponent {
 
     switch (this.operation) {
       case 'fetch': {
-        console.log(this.uuidGetter);
         if (isString(this.uuidGetter)) {
           const uuid = search({ data: this.model, context: this.context }, this.uuidGetter);
-          console.log({ uuid });
           if (isString(uuid)) {
             this.localDatabase.fetch({ uuid }).then(result => this.output.emit(result));
+          }
+        }
+        // TODO: Error
+        return;
+      }
+      case  'delete': {
+        if (isString(this.uuidGetter)) {
+          const uuid = search({ data: this.model, context: this.context }, this.uuidGetter);
+          if (isString(uuid)) {
+            this.localDatabase.deleteItem({ uuid }).then(result => this.output.emit(result));
           }
         }
         // TODO: Error

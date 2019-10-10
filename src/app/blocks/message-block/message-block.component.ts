@@ -27,8 +27,8 @@ export class MessageBlockComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes) {
     this.type = get(this.config, 'type', '');
-    this.title = compile(get(this.config, 'title', ''))( this.model);
-    this.message = compile(get(this.config, 'message', ''))(this.model);
+    this.title = compile(get(this.config, 'title', ''))({ context: this.context || {}, ...this.model || {} });
+    this.message = compile(get(this.config, 'message', ''))({ context: this.context || {}, ...this.model || {} });
     this.output.emit(isArray(this.model) ? [ ...this.model ] : isObject(this.model) ? { ...this.model } : this.model);
   }
 }

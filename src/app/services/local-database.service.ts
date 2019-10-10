@@ -27,10 +27,13 @@ export class LocalDatabaseService extends Dexie {
   }
 
   fetch({ uuid }) {
-    console.log('fetch', { uuid });
     return this['metadata']
       .where({ uuid })
       .toArray()
       .then(items => items.map(({ data }) => ({ uuid, ...data })));
+  }
+
+  deleteItem({ uuid }) {
+    return this['metadata'].delete(uuid);
   }
 }

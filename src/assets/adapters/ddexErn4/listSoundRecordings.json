@@ -75,6 +75,19 @@
                         }
                       }
                     ]
+                  },
+                  {
+                    "label": "Delete",
+                    "blocks": [
+                      {
+                        "type": "launch",
+                        "adapter": "ddexErn4",
+                        "workflowId": "deleteSoundRecording",
+                        "context": {
+                          "uuid": "data.uuid"
+                        }
+                      }
+                    ]
                   }
                 ]
               }
