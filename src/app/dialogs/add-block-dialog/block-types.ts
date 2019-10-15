@@ -256,6 +256,16 @@ export const BLOCK_TYPES = [
     }
   },
   {
+    type: 'reference',
+    label: 'Reference Widget',
+    description: 'Select an item to use as a reference',
+    icon: 'fa-retweet',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'reference'
+    }
+  },
+  {
     type: 'serialize',
     label: 'Serialize Data',
     description: 'Parse data from incoming content',

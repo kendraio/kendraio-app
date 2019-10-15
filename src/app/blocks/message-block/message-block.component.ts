@@ -31,4 +31,5 @@ export class MessageBlockComponent implements OnInit, OnChanges {
     this.message = compile(get(this.config, 'message', ''))({ context: this.context || {}, ...this.model || {} });
     this.output.emit(isArray(this.model) ? [ ...this.model ] : isObject(this.model) ? { ...this.model } : this.model);
   }
+
 }

@@ -96,7 +96,7 @@ export class WorkflowService {
   copyConfig() {
     const dialogRef = this.dialog.open(ExportConfigDialogComponent, {
       data: {
-        configText: stringify({ title: this.title, blocks: this.blocks, id: this.id })
+        configText: stringify({ title: this.title, blocks: this.blocks, id: this.id }, null, 2)
       }
     });
   }

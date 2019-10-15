@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import Dexie from 'dexie';
 import {v4} from 'uuid';
+import { get as _get } from 'lodash-es';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class LocalDatabaseService extends Dexie {
   }
 
   add({adapterName, schema, data}) {
-    const uuid = v4();
+    const uuid =  _get(data, 'uuid', v4());
     return this['metadata'].add({uuid, adapterName, schema, data});
   }
 

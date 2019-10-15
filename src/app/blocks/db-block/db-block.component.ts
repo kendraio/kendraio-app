@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
-import {get, isString} from 'lodash-es';
+import {get, isString, isUndefined} from 'lodash-es';
 import {LocalDatabaseService} from '../../services/local-database.service';
 import {search} from 'jmespath';
 
@@ -40,6 +40,10 @@ export class DbBlockComponent extends BaseBlockComponent {
 
   onData(data: any, firstChange: boolean) {
     if (firstChange && this.skipFirst) {
+      return;
+    }
+
+    if (isUndefined(data)) {
       return;
     }
 

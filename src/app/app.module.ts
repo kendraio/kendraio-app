@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {APP_INITIALIZER, NgModule, Type} from '@angular/core';
+import {APP_INITIALIZER, ErrorHandler, NgModule, Type} from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -182,6 +182,8 @@ import { FileExportBlockComponent } from './blocks/file-export-block/file-export
 import { SerializeDataBlockComponent } from './blocks/serialize-data-block/serialize-data-block.component';
 import { LaunchBlockComponent } from './blocks/launch-block/launch-block.component';
 import { DbBlockComponent } from './blocks/db-block/db-block.component';
+import { ReferenceBlockComponent } from './blocks/reference-block/reference-block.component';
+import {GlobalErrorHandlerService} from './services/global-error-handler.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -320,7 +322,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     FileExportBlockComponent,
     SerializeDataBlockComponent,
     LaunchBlockComponent,
-    DbBlockComponent
+    DbBlockComponent,
+    ReferenceBlockComponent
   ],
   imports: [
     // AgGridModule.withComponents([
@@ -434,6 +437,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     {
       provide: DynamicFormService,
       useClass: CustomFormService
+    },
+    {
+      provide: ErrorHandler,
+      useClass: GlobalErrorHandlerService
     }
   ],
   exports: [
