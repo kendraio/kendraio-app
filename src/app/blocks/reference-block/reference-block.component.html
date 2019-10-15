@@ -1,0 +1,8 @@
+<mat-form-field>
+  <mat-label *ngIf="label">{{ label }}</mat-label>
+  <mat-select (valueChange)="onValueChange($event)">
+    <mat-option *ngFor="let v of values" [value]="v">
+      {{ v[labelField] }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
