@@ -22,7 +22,7 @@ export class GlobalErrorHandlerService implements ErrorHandler {
   }
 
   handleError(error: any): void {
-    console.log(error);
+    console.error(error);
     this.error$.next(error);
   }
 }
