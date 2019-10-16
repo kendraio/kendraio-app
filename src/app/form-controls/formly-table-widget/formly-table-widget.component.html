@@ -12,6 +12,7 @@
   <thead>
   <tr>
     <th *ngFor="let h of colHeadings">{{ h }}</th>
+    <th *ngIf="hasBlocks"></th>
     <th></th>
   </tr>
   </thead>
@@ -29,18 +30,22 @@
       </td>
     </ng-template>
 
-    <td>
-      <button mat-flat-button (click)="remove(i)">
-        <mat-icon>delete</mat-icon>
-      </button>
+    <td *ngIf="hasBlocks">
+      <app-blocks-workflow
+        [blocks]="blocksConfig"
+        [models]="[formControl.at(i).value]"></app-blocks-workflow>
+    </td>
 
-      <app-blocks-workflow *ngIf="hasBlocks"
-                           [blocks]="blocksConfig"
-                           [models]="[formControl.at(i).value]"></app-blocks-workflow>
+    <td>
+      <div style="margin-top: 1em;">
+        <button mat-flat-button (click)="remove(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
     </td>
   </tr>
   <tr>
-    <td [colSpan]="colHeadings.length + 1">
+    <td [colSpan]="colHeadings.length + 2">
       <button mat-flat-button (click)="add(null, {})">
         <mat-icon>add</mat-icon>
       </button>
