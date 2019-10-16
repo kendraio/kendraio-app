@@ -60,6 +60,9 @@
         }
       },
       "uiSchema": {
+        "uuid": {
+          "ui:disabled": true
+        },
         "owners": {
           "ui:widget": "table",
           "colHeadings": ["Owner", "Split"],

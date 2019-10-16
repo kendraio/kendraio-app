@@ -49,6 +49,9 @@
         }
       },
       "uiSchema": {
+        "uuid": {
+          "ui:disabled": true
+        },
         "owners": {
           "items": {
             "uuid": {
