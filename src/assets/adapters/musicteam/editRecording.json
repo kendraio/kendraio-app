@@ -48,6 +48,14 @@
                 }
               }
             }
+          },
+          "related_works": {
+            "title": "Related works",
+            "type": "array",
+            "items": {
+              "title": "Related work",
+              "type": "string"
+            }
           }
         }
       },
@@ -77,6 +85,32 @@
                   }
                 ]
               }
+            }
+          }
+        },
+        "related_works": {
+          "ui:widget": "table",
+          "colHeadings": [ "Related work" ],
+          "items": {
+            "ui:widget": "blocks",
+            "blocksConfig": {
+              "blocks": [
+                {
+                  "type": "init"
+                },
+                {
+                  "type": "db",
+                  "operation": "get",
+                  "adapterName": "MusicTeam",
+                  "schema": "works"
+                },
+                {
+                  "type": "reference",
+                  "fieldLabel": "Work",
+                  "labelField": "title",
+                  "valueField": "uuid"
+                }
+              ]
             }
           }
         }

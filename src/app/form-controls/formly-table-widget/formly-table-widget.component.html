@@ -17,9 +17,18 @@
   </thead>
   <tbody>
   <tr *ngFor="let currentField of field.fieldGroup; let i = index;">
-    <td *ngFor="let c of currentField.fieldGroup; let j = index">
-      <formly-field [field]="c"></formly-field>
-    </td>
+
+    <ng-container *ngIf="currentField.fieldGroup && currentField.fieldGroup.length > 0; else singleField">
+      <td *ngFor="let c of currentField.fieldGroup; let j = index">
+        <formly-field [field]="c"></formly-field>
+      </td>
+    </ng-container>
+    <ng-template #singleField>
+      <td>
+        <formly-field [field]="currentField"></formly-field>
+      </td>
+    </ng-template>
+
     <td>
       <button mat-flat-button (click)="remove(i)">
         <mat-icon>delete</mat-icon>
@@ -35,4 +44,3 @@
   </tr>
   </tbody>
 </table>
-

@@ -46,7 +46,7 @@
           "blocks": [
             {
               "type": "mapping",
-              "mapping": "data.recording.merge(@, { owners: owners[].{ uuid: uuid, split: split } })"
+              "mapping": "merge(data.recording.merge(@, { owners: owners[].{ uuid: uuid, split: split } }), { related_works: [ data.work.uuid ] })"
             },
             {
               "type": "db",
