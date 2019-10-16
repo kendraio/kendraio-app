@@ -25,4 +25,11 @@ export class FormlyBlocksInputComponent extends FieldType implements OnInit {
     this.context = { ...this.context, defaultValue: this.formControl.value };
   }
 
+  onWorkflowComplete(value) {
+    // console.log('formly blocks workflow complete', { value });
+    if (!!value) {
+      // this._onValueChanged(value);
+      this.formControl.setValue(value);
+    }
+  }
 }
