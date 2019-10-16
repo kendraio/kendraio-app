@@ -12,13 +12,17 @@ export class FormlyBlocksInputComponent extends FieldType implements OnInit {
 
   blocks = [];
   models = [];
+  context = {};
 
   ngOnInit() {
     // TODO: refactor (c)
+    // TODO: does this need to run OnChange
     this.blocks = get(this.field, 'templateOptions.uiSchema.blocksConfig.blocks', []);
     // console.log(this.field, this.blocks);
-    this.models = this.blocks.map(blockDef => get(blockDef, 'defaultValue', {}));
-    this.models.push({});
+    // console.log('form block value', this.formControl.value);
+    // this.models = this.blocks.map(blockDef => get(blockDef, 'defaultValue', {}));
+    this.models.push(this.formControl.value);
+    this.context = { ...this.context, defaultValue: this.formControl.value };
   }
 
 }

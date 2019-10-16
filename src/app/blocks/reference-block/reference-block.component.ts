@@ -9,8 +9,11 @@ import {get, isArray} from 'lodash-es';
 })
 export class ReferenceBlockComponent extends BaseBlockComponent {
 
-  label;
+  fieldLabel;
   labelField = 'label';
+  valueField = 'uuid';
+  defaultValue;
+  required = false;
 
   values;
 
@@ -19,14 +22,17 @@ export class ReferenceBlockComponent extends BaseBlockComponent {
   }
 
   onConfigUpdate(config: any) {
-    this.label = get(config, 'label');
+    this.fieldLabel = get(config, 'fieldLabel');
     this.labelField = get(config, 'labelField', 'label');
+    this.valueField = get(config, 'valueField', 'uuid');
+    this.required = get(config, 'required', false);
   }
 
   onData(data: any, firstChange: boolean) {
     if (isArray(data)) {
       this.values = data;
     }
+    this.defaultValue = get(this.context, 'defaultValue');
   }
 
   onValueChange(value) {

@@ -17,6 +17,7 @@ export class BlocksInputControlComponent implements OnInit, ControlValueAccessor
 
   @Input() blocks = [];
   @Input() models = [];
+  @Input() context = {};
 
   constructor() { }
 

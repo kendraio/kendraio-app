@@ -52,5 +52,15 @@ export class CoreEventHandlersService {
             break;
         }
       });
+    this.formSubmit.actions$
+      .pipe(
+      )
+      .subscribe(({ action }) => {
+        console.log(`process action ${action}`);
+        if (action === 'refreshWorkflow') {
+          this.workflow.refresh();
+          return;
+        }
+      });
   }
 }

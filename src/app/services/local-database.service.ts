@@ -26,6 +26,9 @@ export class LocalDatabaseService extends Dexie {
       .toArray()
       .then(items => items.map(({uuid, data}) => ({uuid, ...data})));
   }
+  update({data, uuid}) {
+    return this['metadata'].update(uuid, { data });
+  }
 
   fetch({ uuid }) {
     return this['metadata']

@@ -17,6 +17,6 @@
 
   <button mat-raised-button color="primary" type="button" (click)="add()">
     <mat-icon>add</mat-icon>
-    Add Item to {{ to.label }}
+    {{ to.label ? to.label : 'item' }}
   </button>
 </mat-card>

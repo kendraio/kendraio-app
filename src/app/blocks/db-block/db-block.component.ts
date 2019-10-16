@@ -47,12 +47,17 @@ export class DbBlockComponent extends BaseBlockComponent {
       return;
     }
 
+    this.isLoading = true;
+
     switch (this.operation) {
       case 'fetch': {
         if (isString(this.uuidGetter)) {
           const uuid = search({ data: this.model, context: this.context }, this.uuidGetter);
           if (isString(uuid)) {
-            this.localDatabase.fetch({ uuid }).then(result => this.output.emit(result));
+            this.localDatabase.fetch({ uuid }).then(result => {
+              this.isLoading = false;
+              this.output.emit(result);
+            });
           }
         }
         // TODO: Error
@@ -62,10 +67,24 @@ export class DbBlockComponent extends BaseBlockComponent {
         if (isString(this.uuidGetter)) {
           const uuid = search({ data: this.model, context: this.context }, this.uuidGetter);
           if (isString(uuid)) {
-            this.localDatabase.deleteItem({ uuid }).then(result => this.output.emit(result));
+            this.localDatabase.deleteItem({ uuid }).then(result => {
+              this.isLoading = false;
+              this.output.emit(result);
+            });
           }
         }
         // TODO: Error
+        return;
+      }
+      case 'update': {
+        // TODO: To update value must have a UUID
+        this.localDatabase.update({
+          uuid: data.uuid,
+          data
+        }).then(result => {
+          this.isLoading = false;
+          this.output.emit(result);
+        });
         return;
       }
       case 'add': {
@@ -73,7 +92,10 @@ export class DbBlockComponent extends BaseBlockComponent {
           adapterName: this.adapterName,
           schema: this.schema,
           data
-        }).then(result => this.output.emit(result));
+        }).then(result => {
+          this.isLoading = false;
+          this.output.emit(result);
+        });
         return;
       }
       case 'get': {
@@ -81,10 +103,14 @@ export class DbBlockComponent extends BaseBlockComponent {
           adapterName: this.adapterName,
           schema: this.schema,
           idField: this.idField,
-        }).then(result => this.output.emit(result));
+        }).then(result => {
+          this.isLoading = false;
+          this.output.emit(result);
+        });
         return;
       }
       default:
+        this.isLoading = false;
         console.log(`Unknown or unsupported database operation ${this.operation}`);
     }
   }

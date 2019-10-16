@@ -1,8 +1,10 @@
 <mat-form-field>
-  <mat-label *ngIf="label">{{ label }}</mat-label>
-  <mat-select (valueChange)="onValueChange($event)">
-    <mat-option *ngFor="let v of values" [value]="v">
+  <mat-label *ngIf="fieldLabel">{{ fieldLabel }}</mat-label>
+  <mat-select [value]="defaultValue" (valueChange)="onValueChange($event)">
+    <mat-option *ngIf="!required"></mat-option>
+    <mat-option *ngFor="let v of values" [value]="v[valueField]">
       {{ v[labelField] }}
     </mat-option>
   </mat-select>
 </mat-form-field>
+<!--{{ defaultValue }}-->

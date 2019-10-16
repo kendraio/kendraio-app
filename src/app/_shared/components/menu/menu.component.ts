@@ -115,6 +115,33 @@ export const MENUITEMS: MenuItem[] = [
         ]
       },
       {
+        path: 'musicteam/dashboard',
+        label: 'MusicTeam',
+        icon: 'brightness_5',
+        children: [
+          {
+            path: 'musicteam/contributors',
+            label: 'Contributors',
+            icon: 'file_copy'
+          },
+          {
+            path: 'musicteam/recordings',
+            label: 'Recordings',
+            icon: 'file_copy'
+          },
+          {
+            path: 'musicteam/works',
+            label: 'Works',
+            icon: 'file_copy'
+          },
+          {
+            path: 'musicteam/import',
+            label: 'Import',
+            icon: 'cloud_upload'
+          }
+        ]
+      },
+      {
           path: '/services/youtube',
           label: 'YouTube',
           icon: 'attach_money'
