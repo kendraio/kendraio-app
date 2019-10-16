@@ -18,7 +18,7 @@ export class FormSubmitHandlerService {
   constructor() { }
 
   handle(action: FormSubmitAction) {
-    console.log('Handle Form Action', { action });
+    // console.log('Handle Form Action', { action });
     this._actions$.next(action);
   }
 

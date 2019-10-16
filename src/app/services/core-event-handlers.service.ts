@@ -56,7 +56,7 @@ export class CoreEventHandlersService {
       .pipe(
       )
       .subscribe(({ action }) => {
-        console.log(`process action ${action}`);
+        // console.log(`process action ${action}`);
         if (action === 'refreshWorkflow') {
           this.workflow.refresh();
           return;

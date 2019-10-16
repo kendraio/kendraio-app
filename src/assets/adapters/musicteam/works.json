@@ -118,6 +118,30 @@
           }
         }
       ]
+    },
+    {
+      "type": "actions",
+      "buttons": [
+        {
+          "label": "Add work",
+          "blocks": [
+            {
+              "type": "mapping",
+              "mapping": "{ uuid: uuid(), title: 'New work' }"
+            },
+            {
+              "type": "db",
+              "operation": "add",
+              "adapterName": "MusicTeam",
+              "schema": "works"
+            },
+            {
+              "type": "dispatch",
+              "action": "refreshWorkflow"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

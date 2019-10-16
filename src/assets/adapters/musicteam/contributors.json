@@ -118,6 +118,30 @@
           }
         }
       ]
+    },
+    {
+      "type": "actions",
+      "buttons": [
+        {
+          "label": "Add contributor",
+          "blocks": [
+            {
+              "type": "mapping",
+              "mapping": "{ uuid: uuid(), title: 'New contributor' }"
+            },
+            {
+              "type": "db",
+              "operation": "add",
+              "adapterName": "MusicTeam",
+              "schema": "contributors"
+            },
+            {
+              "type": "dispatch",
+              "action": "refreshWorkflow"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -118,6 +118,30 @@
           }
         }
       ]
+    },
+    {
+      "type": "actions",
+      "buttons": [
+        {
+          "label": "Add recording",
+          "blocks": [
+            {
+              "type": "mapping",
+              "mapping": "{ uuid: uuid(), title: 'New recording' }"
+            },
+            {
+              "type": "db",
+              "operation": "add",
+              "adapterName": "MusicTeam",
+              "schema": "recordings"
+            },
+            {
+              "type": "dispatch",
+              "action": "refreshWorkflow"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
