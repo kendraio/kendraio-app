@@ -33,6 +33,10 @@
       <button mat-flat-button (click)="remove(i)">
         <mat-icon>delete</mat-icon>
       </button>
+
+      <app-blocks-workflow *ngIf="hasBlocks"
+                           [blocks]="blocksConfig"
+                           [models]="[formControl.at(i).value]"></app-blocks-workflow>
     </td>
   </tr>
   <tr>

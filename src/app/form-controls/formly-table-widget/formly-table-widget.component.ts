@@ -13,6 +13,14 @@ export class FormlyTableWidgetComponent extends FieldArrayType<FormlyFieldConfig
     return get(this.field, 'templateOptions.uiSchema.colHeadings', []);
   }
 
+  get blocksConfig() {
+    return get(this.field, 'templateOptions.uiSchema.blocks', []) as Array<any>;
+  }
+
+  get hasBlocks() {
+    return this.blocksConfig.length > 0;
+  }
+
   // TODO: replace the HTML table with ag-grid
 
   constructor(

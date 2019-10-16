@@ -66,6 +66,26 @@
         "owners": {
           "ui:widget": "table",
           "colHeadings": ["Owner", "Split"],
+          "blocks": [
+            {
+              "type": "actions",
+              "buttons": [
+                {
+                  "label": "Edit",
+                  "blocks": [
+                    {
+                      "type": "launch",
+                      "adapter": "musicteam",
+                      "workflowId": "editContributor",
+                      "context": {
+                        "uuid": "data.uuid"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "items": {
             "uuid": {
               "ui:widget": "blocks",
@@ -94,6 +114,26 @@
         "related_works": {
           "ui:widget": "table",
           "colHeadings": [ "Related work" ],
+          "blocks": [
+            {
+              "type": "actions",
+              "buttons": [
+                {
+                  "label": "Edit",
+                  "blocks": [
+                    {
+                      "type": "launch",
+                      "adapter": "musicteam",
+                      "workflowId": "editWork",
+                      "context": {
+                        "uuid": "data"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "items": {
             "ui:widget": "blocks",
             "blocksConfig": {
