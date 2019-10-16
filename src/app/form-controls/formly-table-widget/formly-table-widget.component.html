@@ -1,0 +1,50 @@
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th *ngFor="let h of colHeadings">{{ h }}</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let currentField of field.fieldGroup; let i = index;">
+    <td *ngFor="let c of currentField.fieldGroup; let j = index">
+      <formly-field [field]="c"></formly-field>
+    </td>
+    <td>
+      <button mat-flat-button (click)="remove(i)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </tr>
+  <tr>
+    <td [colSpan]="colHeadings.length + 1">
+      <button mat-flat-button (click)="add(null, {})">
+        <mat-icon>add</mat-icon>
+      </button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<!--<ng-container *ngIf="field.fieldGroup.length > 0">-->
+<!--  <ul>-->
+<!--    <li *ngFor="let currentField of field.fieldGroup; let i = index;">-->
+
+<!--      <ul>-->
+<!--        <li>-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--&lt;!&ndash;  <mat-card>&ndash;&gt;-->
+<!--&lt;!&ndash;    <formly-field [field]="currentField"></formly-field>&ndash;&gt;-->
+<!--&lt;!&ndash;  </mat-card>&ndash;&gt;-->
+<!--</ng-container>-->
+
+<!--<br>-->
+<!--<button mat-flat-button (click)="add(null, {})">-->
+<!--  <mat-icon>add</mat-icon>-->
+<!--  <span class="button-label">Add {{ field | json}}</span>-->
+<!--</button>-->
+<!--<br>-->
+<!--<pre>{{ field.templateOptions | json }}</pre>-->

@@ -53,6 +53,8 @@
       },
       "uiSchema": {
         "owners": {
+          "ui:widget": "table",
+          "colHeadings": ["Owner", "Split"],
           "items": {
             "uuid": {
               "ui:widget": "blocks",

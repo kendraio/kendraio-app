@@ -29,6 +29,7 @@ import {FormlyRemoteImageInputComponent} from '../../form-controls/formly-remote
 import {FormlyBlocksInputComponent} from '../../form-controls/formly-blocks-input/formly-blocks-input.component';
 import {FormlyWorkflowFieldComponent} from '../../form-controls/formly-workflow-field/formly-workflow-field.component';
 import {FormlyCardListComponent} from '../../form-controls/formly-card-list/formly-card-list.component';
+import {FormlyTableWidgetComponent} from '../../form-controls/formly-table-widget/formly-table-widget.component';
 
 export const config: ConfigOption = {
   validationMessages: [
@@ -63,6 +64,7 @@ export const config: ConfigOption = {
     { name: 'blocks', component: FormlyBlocksInputComponent },
     { name: 'workflow', component: FormlyWorkflowFieldComponent },
     { name: 'cards', component: FormlyCardListComponent },
+    { name: 'table', component: FormlyTableWidgetComponent },
     {
       name: 'money', component: types.FormlyFieldInputMoney,
       defaultOptions: {

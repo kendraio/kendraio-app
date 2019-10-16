@@ -184,6 +184,8 @@ import { LaunchBlockComponent } from './blocks/launch-block/launch-block.compone
 import { DbBlockComponent } from './blocks/db-block/db-block.component';
 import { ReferenceBlockComponent } from './blocks/reference-block/reference-block.component';
 import {GlobalErrorHandlerService} from './services/global-error-handler.service';
+import { FormlyTableWidgetComponent } from './form-controls/formly-table-widget/formly-table-widget.component';
+import { FormlyFormDialogComponent } from './dialogs/formly-form-dialog/formly-form-dialog.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -323,7 +325,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     SerializeDataBlockComponent,
     LaunchBlockComponent,
     DbBlockComponent,
-    ReferenceBlockComponent
+    ReferenceBlockComponent,
+    FormlyTableWidgetComponent,
+    FormlyFormDialogComponent
   ],
   imports: [
     // AgGridModule.withComponents([
@@ -390,7 +394,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AddBlockDialogComponent,
     LoadWorkflowDialogComponent,
     SaveWorkflowDialogComponent,
-    EditWorkflowMetadataDialogComponent
+    EditWorkflowMetadataDialogComponent,
+    FormlyFormDialogComponent
   ],
   providers: [
     // { provide: LOCALE_ID, useValue: 'de-DE' } ,
