@@ -9,11 +9,11 @@ import {get} from 'lodash-es';
 })
 export class FormlyTableWidgetComponent extends FieldArrayType<FormlyFieldConfig> implements OnInit {
 
-  // colHeadings = ['Owner', 'Split'];
-
   get colHeadings() {
     return get(this.field, 'templateOptions.uiSchema.colHeadings', []);
   }
+
+  // TODO: replace the HTML table with ag-grid
 
   constructor(
   ) {
