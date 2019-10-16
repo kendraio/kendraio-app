@@ -64,7 +64,7 @@
     "papaparse": "^5.0.2",
     "reflect-metadata": "^0.1.12",
     "rxjs": "~6.5.2",
-    "swagger-ui": "^3.23.11",
+    "swagger-ui": ">=3.23.11",
     "text-mask-addons": "^3.8.0",
     "uuid": "^3.3.2",
     "wavesurfer.js": "^3.0.0",
