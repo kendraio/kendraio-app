@@ -64,6 +64,10 @@ export class MappingBlockComponent implements OnInit, OnChanges {
             _func: ([o, a]) => omit(o, ...a),
             _signature: [{types: [TYPE_OBJECT]}, {types: [TYPE_ARRAY_STRING]}]
           },
+          split: {
+            _func: ([o, s]) => o.split(s),
+            _signature: [{types: [TYPE_STRING]}, {types: [TYPE_STRING]}]
+          }
         }
       });
     }
