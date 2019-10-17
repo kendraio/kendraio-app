@@ -1,5 +1,5 @@
 {
-  "title": "Delete sound recording",
+  "title": "Delete resource",
   "blocks": [
     {
       "type": "init"
@@ -19,7 +19,7 @@
     },
     {
       "type": "message",
-      "message": "Are you sure you want to delete {{ DisplayTitleText }} with UUID: {{ context.queryParams.uuid }}?"
+      "message": "Are you sure you want to delete {{Type}} {{ DisplayTitleText }} with UUID: {{ context.queryParams.uuid }}?"
     },
     {
       "type": "actions",
@@ -48,7 +48,7 @@
     {
       "type": "launch",
       "adapter": "ddexErn4",
-      "workflowId": "listSoundRecordings"
+      "workflowId": "resourceList"
     }
   ]
 }

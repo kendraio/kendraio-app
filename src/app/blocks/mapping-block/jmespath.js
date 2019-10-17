@@ -1202,6 +1202,10 @@
         _func: this._functionNotNull,
         _signature: [{types: [TYPE_ANY], variadic: true}]
       },
+      _: {
+        _func: this._functionUnderscore,
+        _signature: [{types: [TYPE_EXPREF]}]
+      },
       ...(options.functionTable || {})
     };
   }
@@ -1393,6 +1397,12 @@
       }
       return mapped;
     },
+
+
+    _functionUnderscore: function(resolvedArgs) {
+      return this._interpreter.search(resolvedArgs[0], this._rootData);
+    },
+
 
     _functionMerge: function(resolvedArgs) {
       var merged = {};
@@ -1662,6 +1672,7 @@
     var runtime = new Runtime(options);
     var interpreter = new TreeInterpreter(runtime);
     runtime._interpreter = interpreter;
+    runtime._rootData = data;
     var node = parser.parse(expression);
     return interpreter.search(node, data);
   }

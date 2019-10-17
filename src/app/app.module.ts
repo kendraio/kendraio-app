@@ -186,6 +186,7 @@ import { ReferenceBlockComponent } from './blocks/reference-block/reference-bloc
 import {GlobalErrorHandlerService} from './services/global-error-handler.service';
 import { FormlyTableWidgetComponent } from './form-controls/formly-table-widget/formly-table-widget.component';
 import { FormlyFormDialogComponent } from './dialogs/formly-form-dialog/formly-form-dialog.component';
+import { MappingPipe } from './pipes/mapping.pipe';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -327,7 +328,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     DbBlockComponent,
     ReferenceBlockComponent,
     FormlyTableWidgetComponent,
-    FormlyFormDialogComponent
+    FormlyFormDialogComponent,
+    MappingPipe
   ],
   imports: [
     // AgGridModule.withComponents([

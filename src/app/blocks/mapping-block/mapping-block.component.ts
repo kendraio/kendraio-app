@@ -1,19 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-import { search } from './jmespath';
-import {clone, get, isArray, isObject, isString, omit } from 'lodash-es';
-import uuid from 'uuid';
+import {clone, find, get, isArray, isObject, isString, omit, pick, pickBy} from 'lodash-es';
+import {mappingUtility} from './mapping-util';
 
-// Type constants used to define functions.
-const TYPE_NUMBER = 0;
-const TYPE_ANY = 1;
-const TYPE_STRING = 2;
-const TYPE_ARRAY = 3;
-const TYPE_OBJECT = 4;
-const TYPE_BOOLEAN = 5;
-const TYPE_EXPREF = 6;
-const TYPE_NULL = 7;
-const TYPE_ARRAY_NUMBER = 8;
-const TYPE_ARRAY_STRING = 9;
 
 @Component({
   selector: 'app-mapping-block',
@@ -28,6 +16,7 @@ export class MappingBlockComponent implements OnInit, OnChanges {
   @Output() output = new EventEmitter();
 
   mapping = '';
+  debugMapping = false;
 
   hasError = false;
   errorMessage = '';
@@ -38,11 +27,12 @@ export class MappingBlockComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes): void {
+    this.mapping = this.parseMapping(get(this.config, 'mapping'));
+    this.debugMapping = get(this.config, 'debug', false);
     if (get(changes, 'model.firstChange', false)) {
       return;
     }
     this.hasError = false;
-    this.mapping = get(this.config, 'mapping', '');
     try {
       const mappingResult = this.getMappingResult(this.mapping);
       this.output.emit(clone(mappingResult));
@@ -52,24 +42,41 @@ export class MappingBlockComponent implements OnInit, OnChanges {
     }
   }
 
+  parseMapping(mapping) {
+    if (isString(mapping)) {
+      return mapping;
+    }
+    if (isArray(mapping)) {
+      return mapping.map(m => this.parseMapping(m)).join('');
+    }
+    if (isObject(mapping)) {
+      const keys = Object.keys(mapping);
+      if (keys.length === 1) {
+        if (keys[0] === '.' || keys[0] === '|') {
+          return `${keys[0]}${this.parseMapping(mapping[keys[0]])}`;
+        }
+        if (keys[0] === '[') {
+          return '[' + mapping[keys[0]].map(m => this.parseMapping(m)).join(', ') + ']';
+        }
+        if (keys[0] === '(') {
+          const [funcName, ...args] = mapping[keys[0]];
+          return `${funcName}(${args.map(a => this.parseMapping(a)).join(', ')})`;
+        }
+        if (keys[0] === '{') {
+          const obj = mapping[keys[0]];
+          const keys2 = Object.keys(obj);
+          return `{ ` + keys2.map(k => `${k}: ${this.parseMapping(obj[k])}`).join(', ') + ` }`;
+        }
+        return keys.map(k => `${k}${this.parseMapping(mapping[k])}`).join(', ');
+      }
+      return `{ ` + keys.map(k => `${k}: ${this.parseMapping(mapping[k])}`).join(', ') + ` }`;
+    }
+    return '';
+  }
+
   getMappingResult(mapping) {
     if (isString(mapping)) {
-      return search({ data: this.model, context: this.context }, mapping, {
-        functionTable: {
-          uuid: {
-            _func: uuid.v4,
-            _signature: []
-          },
-          omit: {
-            _func: ([o, a]) => omit(o, ...a),
-            _signature: [{types: [TYPE_OBJECT]}, {types: [TYPE_ARRAY_STRING]}]
-          },
-          split: {
-            _func: ([o, s]) => o.split(s),
-            _signature: [{types: [TYPE_STRING]}, {types: [TYPE_STRING]}]
-          }
-        }
-      });
+      return mappingUtility({ data: this.model, context: this.context }, mapping);
     }
     if (isArray(mapping)) {
       return mapping.map(v => this.getMappingResult(v));

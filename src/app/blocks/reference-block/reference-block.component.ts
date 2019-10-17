@@ -11,6 +11,7 @@ export class ReferenceBlockComponent extends BaseBlockComponent {
 
   fieldLabel;
   labelField = 'label';
+  labelGetter;
   valueField = 'uuid';
   defaultValue;
   required = false;
@@ -24,6 +25,7 @@ export class ReferenceBlockComponent extends BaseBlockComponent {
   onConfigUpdate(config: any) {
     this.fieldLabel = get(config, 'fieldLabel');
     this.labelField = get(config, 'labelField', 'label');
+    this.labelGetter = get(config, 'labelGetter');
     this.valueField = get(config, 'valueField', 'uuid');
     this.required = get(config, 'required', false);
   }

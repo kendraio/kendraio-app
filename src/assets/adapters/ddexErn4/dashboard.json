@@ -1,5 +1,5 @@
 {
-  "title": "MusicTeam dashboard",
+  "title": "DDEX dashboard",
   "blocks": [
     {
       "type": "init"
@@ -12,8 +12,8 @@
             {
               "type": "db",
               "operation": "get",
-              "adapterName": "MusicTeam",
-              "schema": "contributors"
+              "adapterName": "ddexErn4",
+              "schema": "resource"
             }
           ]
         },
@@ -22,8 +22,8 @@
             {
               "type": "db",
               "operation": "get",
-              "adapterName": "MusicTeam",
-              "schema": "recordings"
+              "adapterName": "ddexErn4",
+              "schema": "party"
             }
           ]
         },
@@ -32,8 +32,8 @@
             {
               "type": "db",
               "operation": "get",
-              "adapterName": "MusicTeam",
-              "schema": "works"
+              "adapterName": "ddexErn4",
+              "schema": "release"
             }
           ]
         }
@@ -45,15 +45,15 @@
       "mapping": {
         "[": [
           {
-            "label": "'Contributors'",
-            "value": "length(data[0])"
-          },
-          {
-            "label": "'Recordings'",
+            "label": "'Party (contributor) records'",
             "value": "length(data[1])"
           },
           {
-            "label": "'Works'",
+            "label": "'Resources'",
+            "value": "length(data[0])"
+          },
+          {
+            "label": "'Releases (including tracks)'",
             "value": "length(data[2])"
           }
         ]

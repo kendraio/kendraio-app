@@ -1,0 +1,73 @@
+{
+  "title": "Edit party",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "db",
+      "operation": "fetch",
+      "uuidGetter": "context.queryParams.uuid"
+    },
+    {
+      "type": "mapping",
+      "mapping": "data[0]"
+    },
+    {
+      "type": "form",
+      "label": "Save",
+      "jsonSchema": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "title": "uuid",
+            "type": "string"
+          },
+          "PartyReference": {
+            "title": "PartyReference",
+            "type": "string"
+          },
+          "PartyName": {
+            "title": "PartyName",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "FullName": {
+                  "title": "FullName",
+                  "type": "string"
+                },
+                "FullNameIndexed": {
+                  "title": "FullNameIndexed",
+                  "type": "string"
+                },
+                "_LanguageAndScriptCode": {
+                  "title": "_LanguageAndScriptCode",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "uiSchema": {
+        "uuid": {
+          "ui:disabled": true
+        },
+        "PartyName": {
+          "ui:widget": "table",
+          "colHeadings": [
+            "FullName",
+            "FullNameIndexed",
+            "Language"
+          ]
+        }
+      }
+    },
+    {
+      "type": "launch",
+      "adapter": "ddexErn4",
+      "workflowId": "partyList"
+    }
+  ]
+}

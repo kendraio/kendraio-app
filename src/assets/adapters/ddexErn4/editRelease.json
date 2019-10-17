@@ -1,0 +1,260 @@
+{
+  "title": "Edit release",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "db",
+      "operation": "fetch",
+      "uuidGetter": "context.queryParams.uuid"
+    },
+    {
+      "type": "mapping",
+      "mapping": "data[0]"
+    },
+    {
+      "type": "form",
+      "label": "Save",
+      "jsonSchema": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "title": "uuid",
+            "type": "string"
+          },
+          "ReleaseType": {
+            "title": "ReleaseType",
+            "type": "string"
+          },
+          "DisplayTitleText": {
+            "title": "DisplayTitleText",
+            "type": "string"
+          },
+          "ReleaseId": {
+            "title": "Release ID",
+            "type": "object",
+            "properties": {
+              "ProprietaryId": {
+                "type": "object",
+                "properties": {
+                  "_Namespace": {
+                    "title": "_Namespace",
+                    "type": "string"
+                  },
+                  "__text": {
+                    "title": "__text",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "ReleaseLabelReference": {
+            "title": "ReleaseLabelReference",
+            "type": "object",
+            "properties": {
+              "_ApplicableTerritoryCode": {
+                "title": "_ApplicableTerritoryCode",
+                "type": "string"
+              },
+              "__text": {
+                "title": "__text",
+                "type": "string"
+              }
+            }
+          },
+          "Genre": {
+            "title": "Genre",
+            "type": "object",
+            "properties": {
+              "_ApplicableTerritoryCode": {
+                "title": "_ApplicableTerritoryCode",
+                "type": "string"
+              },
+              "GenreText": {
+                "title": "__text",
+                "type": "string"
+              }
+            }
+          },
+          "resource_uuid": {
+            "title": "resource_uuid",
+            "type": "string"
+          },
+          "ResourceGroup": {
+            "title": "ResourceGroup",
+            "type": "array",
+            "items": {
+              "//title": "Resource",
+              "type": "object",
+              "properties": {
+                "linked_resource_uuid": {
+                  "title": "Linked resource",
+                  "type": "string"
+                },
+                "AdditionalTitle": {
+                  "type": "object",
+                  "properties": {
+                    "TitleText": {
+                      "title": "Additional title",
+                      "type": "string"
+                    }
+                  }
+                },
+                "ResourceGroupContentItem": {
+                  "title": "Resources",
+                  "type": "array",
+                  "items": {
+                    "title": "ResourceGroupContentItem",
+                    "type": "object",
+                    "properties": {
+                      "resource_uuid": {
+                        "title": "Resource",
+                        "type": "string"
+                      },
+                      "SequenceNumber": {
+                        "title": "SequenceNumber",
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "uiSchema": {
+        "uuid": {
+          "ui:disabled": true
+        },
+        "resource_uuid": {
+          "ui:widget": "blocks",
+          "blocksConfig": {
+            "blocks": [
+              {
+                "type": "init"
+              },
+              {
+                "type": "db",
+                "operation": "get",
+                "adapterName": "ddexErn4",
+                "schema": "resource"
+              },
+              {
+                "type": "reference",
+                "fieldLabel": "Resource",
+                "labelField": "DisplayTitleText",
+                "valueField": "uuid"
+              }
+            ]
+          }
+        },
+        "ResourceGroup": {
+          "//ui:widget": "table",
+          "//colHeadings": ["Linked resource", "Additional title", "Resources"],
+          "//blocks": [
+            {
+              "type": "actions",
+              "buttons": [
+                {
+                  "label": "Edit",
+                  "blocks": [
+                    {
+                      "type": "launch",
+                      "adapter": "ddexErn4",
+                      "workflowId": "editResource",
+                      "context": {
+                        "uuid": "data.linked_resource_uuid"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "items": {
+            "linked_resource_uuid": {
+              "ui:widget": "blocks",
+              "blocksConfig": {
+                "blocks": [
+                  {
+                    "type": "init"
+                  },
+                  {
+                    "type": "db",
+                    "operation": "get",
+                    "adapterName": "ddexErn4",
+                    "schema": "resource"
+                  },
+                  {
+                    "type": "reference",
+                    "fieldLabel": "Linked resource",
+                    "//labelField": "DisplayTitleText",
+                    "labelGetter": "DisplayTitleText || join(`: `, [Type, uuid])",
+                    "valueField": "uuid"
+                  }
+                ]
+              }
+            },
+            "ResourceGroupContentItem": {
+              "ui:widget": "table",
+              "colHeadings": ["Resource", "Sequence number"],
+              "blocks": [
+                {
+                  "type": "actions",
+                  "buttons": [
+                    {
+                      "label": "Edit",
+                      "blocks": [
+                        {
+                          "type": "launch",
+                          "adapter": "ddexErn4",
+                          "workflowId": "editResource",
+                          "context": {
+                            "uuid": "data.resource_uuid"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "items": {
+                "resource_uuid": {
+                  "ui:widget": "blocks",
+                  "blocksConfig": {
+                    "blocks": [
+                      {
+                        "type": "init"
+                      },
+                      {
+                        "type": "db",
+                        "operation": "get",
+                        "adapterName": "ddexErn4",
+                        "schema": "resource"
+                      },
+                      {
+                        "type": "reference",
+                        "fieldLabel": "Linked resource",
+                        "//labelField": "DisplayTitleText",
+                        "labelGetter": "DisplayTitleText || join(`: `, [Type, uuid])",
+                        "valueField": "uuid"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "launch",
+      "adapter": "ddexErn4",
+      "workflowId": "releaseList"
+    }
+  ]
+}

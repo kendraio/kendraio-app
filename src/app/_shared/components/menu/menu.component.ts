@@ -98,7 +98,7 @@ export const MENUITEMS: MenuItem[] = [
         ]
       },
       {
-        path: 'ddexErn4/listSoundRecordings',
+        path: 'ddexErn4/dashboard',
         label: 'DDEX',
         icon: 'brightness_5',
         children: [
@@ -108,8 +108,18 @@ export const MENUITEMS: MenuItem[] = [
             icon: 'cloud_upload'
           },
           {
-            path: 'ddexErn4/listSoundRecordings',
-            label: 'Sound Recordings',
+            path: 'ddexErn4/resourceList',
+            label: 'Resources',
+            icon: 'file_copy'
+          },
+          {
+            path: 'ddexErn4/partyList',
+            label: 'PartyList',
+            icon: 'file_copy'
+          },
+          {
+            path: 'ddexErn4/releaseList',
+            label: 'Releases',
             icon: 'file_copy'
           }
         ]

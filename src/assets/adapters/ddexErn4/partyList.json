@@ -1,5 +1,5 @@
 {
-  "title": "List Sound Recordings",
+  "title": "DDEX PartyList",
   "blocks": [
     {
       "type": "init"
@@ -8,15 +8,11 @@
       "type": "db",
       "operation": "get",
       "adapterName": "ddexErn4",
-      "schema": "soundRecordings"
+      "schema": "party"
     },
     {
       "type": "grid",
-      "columnDefs": [
-        {
-          "headerName": "Reference",
-          "field": "ResourceReference"
-        },
+      "//columnDefs": [
         {
           "headerName": "Title",
           "field": "DisplayTitleText"
@@ -69,7 +65,7 @@
                       {
                         "type": "launch",
                         "adapter": "ddexErn4",
-                        "workflowId": "editSoundRecording",
+                        "workflowId": "editParty",
                         "context": {
                           "uuid": "data.uuid"
                         }
@@ -82,7 +78,7 @@
                       {
                         "type": "launch",
                         "adapter": "ddexErn4",
-                        "workflowId": "deleteSoundRecording",
+                        "workflowId": "deleteParty",
                         "context": {
                           "uuid": "data.uuid"
                         }
