@@ -12,18 +12,25 @@
     },
     {
       "type": "grid",
-      "//columnDefs": [
+      "gridOptions": {
+        "pagination": true,
+        "paginationPageSize": 15,
+        "rowSelection": "multiple"
+      },
+      "columnDefs": [
         {
-          "headerName": "Title",
-          "field": "DisplayTitleText"
+          "width": 50,
+          "resizable": false,
+          "checkboxSelection": true,
+          "headerCheckboxSelection": true
         },
         {
-          "headerName": "Duration",
-          "field": "Duration"
+          "headerName": "PartyReference",
+          "field": "PartyReference"
         },
         {
-          "headerName": "Language",
-          "field": "LanguageOfPerformance"
+          "headerName": "PartyName",
+          "valueGetter": "PartyName[].FullName"
         },
         {
           "headerName": "Operations",

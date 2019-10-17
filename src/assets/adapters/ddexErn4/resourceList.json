@@ -21,7 +21,8 @@
         {
           "width": 50,
           "resizable": false,
-          "checkboxSelection": true
+          "checkboxSelection": true,
+          "headerCheckboxSelection": true
         },
         {
           "headerName": "Title",
