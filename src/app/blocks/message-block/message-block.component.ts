@@ -1,5 +1,5 @@
 import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
-import {get, isArray, isObject} from 'lodash-es';
+import {clone, get, isArray, isObject} from 'lodash-es';
 import { compile } from 'handlebars';
 
 @Component({
@@ -27,9 +27,9 @@ export class MessageBlockComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes) {
     this.type = get(this.config, 'type', '');
-    this.title = compile(get(this.config, 'title', ''))({ context: this.context || {}, ...this.model || {} });
-    this.message = compile(get(this.config, 'message', ''))({ context: this.context || {}, ...this.model || {} });
-    this.output.emit(isArray(this.model) ? [ ...this.model ] : isObject(this.model) ? { ...this.model } : this.model);
+    this.title = compile(get(this.config, 'title', ''))({ context: this.context || {}, data: this.model, ...this.model || {} });
+    this.message = compile(get(this.config, 'message', ''))({ context: this.context || {}, data: this.model, ...this.model || {} });
+    this.output.emit(clone(this.model));
   }
 
 }
