@@ -1,0 +1,32 @@
+{
+  "title": "Test API - view imported data",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "http",
+      "method": "get",
+      "endpoint": "https://google-sheets-api-proxy.now.sh"
+    },
+    {
+      "type": "mapping",
+      "mapping": "data[].{ label: @, value: @ }"
+    },
+    {
+      "type": "reference",
+      "fieldLabel": "Select entity type",
+      "labelField": "label",
+      "valueField": "value"
+    },
+    {
+      "type": "db",
+      "operation": "get",
+      "adapterName": "testApi",
+      "schemaGetter": "data"
+    },
+    {
+      "type": "grid"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
-import {get, isString, isUndefined} from 'lodash-es';
+import {get, isNull, isString, isUndefined} from 'lodash-es';
 import {LocalDatabaseService} from '../../services/local-database.service';
 import {search} from 'jmespath';
 
@@ -18,6 +18,7 @@ export class DbBlockComponent extends BaseBlockComponent {
   operation = 'none';
   adapterName = 'UNKNOWN';
   schema = 'none';
+  schemaGetter;
   idField = 'uuid';
   skipFirst = true;
   uuidGetter;
@@ -32,6 +33,7 @@ export class DbBlockComponent extends BaseBlockComponent {
   onConfigUpdate(config: any) {
     this.adapterName = get(config, 'adapterName', 'UNKNOWN');
     this.schema = get(config, 'schema', 'none');
+    this.schemaGetter = get(config, 'schemaGetter');
     this.operation = get(config, 'operation', 'none');
     this.idField = get(config, 'idField', 'uuid');
     this.skipFirst = get(config, 'skipFirst', true);
@@ -52,6 +54,7 @@ export class DbBlockComponent extends BaseBlockComponent {
     switch (this.operation) {
       case 'fetch': {
         if (isString(this.uuidGetter)) {
+          // TODO: use the custom JMESPath function
           const uuid = search({ data: this.model, context: this.context }, this.uuidGetter);
           if (isString(uuid)) {
             this.localDatabase.fetch({ uuid }).then(result => {
@@ -88,20 +91,31 @@ export class DbBlockComponent extends BaseBlockComponent {
         return;
       }
       case 'add': {
-        this.localDatabase.add({
-          adapterName: this.adapterName,
-          schema: this.schema,
-          data
-        }).then(result => {
-          this.isLoading = false;
-          this.output.emit(result);
-        });
+        // TODO: use the custom JMESPath function
+        const schema = this.schemaGetter
+          ? search({ data: this.model, context: this.context }, this.schemaGetter)
+          : this.schema;
+        // TODO: temporary hack to prevent saving null data
+        if (!isUndefined(data) && !isNull(data)) {
+          this.localDatabase.add({
+            adapterName: this.adapterName,
+            schema,
+            data
+          }).then(result => {
+            this.isLoading = false;
+            this.output.emit(result);
+          });
+        }
         return;
       }
       case 'get': {
+        // TODO: use the custom JMESPath function
+        const schema = this.schemaGetter
+          ? search({ data: this.model, context: this.context }, this.schemaGetter)
+          : this.schema;
         this.localDatabase.get({
           adapterName: this.adapterName,
-          schema: this.schema,
+          schema,
           idField: this.idField,
         }).then(result => {
           this.isLoading = false;

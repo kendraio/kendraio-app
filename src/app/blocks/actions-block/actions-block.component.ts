@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, NgZone, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
 import {clone, get} from 'lodash-es';
 import {BlocksWorkflowComponent} from '../../components/blocks-workflow/blocks-workflow.component';
+import {mappingUtility} from '../mapping-block/mapping-util';
 
 @Component({
   selector: 'app-actions-block',
@@ -24,6 +25,12 @@ export class ActionsBlockComponent implements OnInit, OnChanges {
   constructor(
     private readonly zone: NgZone
   ) { }
+
+  getLabel(button) {
+    return button.labelGetter
+      ? mappingUtility({ data: this.model, context: this.context }, button.labelGetter)
+      : (button.label || 'Submit');
+  }
 
   ngOnInit() {
   }

@@ -2,7 +2,6 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angula
 import {clone, find, get, isArray, isObject, isString, omit, pick, pickBy} from 'lodash-es';
 import {mappingUtility} from './mapping-util';
 
-
 @Component({
   selector: 'app-mapping-block',
   templateUrl: './mapping-block.component.html',
@@ -17,6 +16,7 @@ export class MappingBlockComponent implements OnInit, OnChanges {
 
   mapping = '';
   debugMapping = false;
+  skipFirst = false;
 
   hasError = false;
   errorMessage = '';
@@ -29,7 +29,8 @@ export class MappingBlockComponent implements OnInit, OnChanges {
   ngOnChanges(changes): void {
     this.mapping = this.parseMapping(get(this.config, 'mapping'));
     this.debugMapping = get(this.config, 'debug', false);
-    if (get(changes, 'model.firstChange', false)) {
+    this.skipFirst = get(this.config, 'skipFirst', false);
+    if (this.skipFirst && get(changes, 'model.firstChange', false)) {
       return;
     }
     this.hasError = false;

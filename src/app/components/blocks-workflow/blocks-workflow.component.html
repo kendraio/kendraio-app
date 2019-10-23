@@ -32,6 +32,7 @@
     <app-launch-block class="block-wrapper" *ngSwitchCase="'launch'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-launch-block>
     <app-db-block class="block-wrapper" *ngSwitchCase="'db'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-db-block>
     <app-reference-block class="block-wrapper" *ngSwitchCase="'reference'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-reference-block>
+    <app-context-block class="block-wrapper" *ngSwitchCase="'context'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-context-block>
   </ng-container>
 </ng-container>
 <!--<pre>{{ blocks | json }}</pre>-->

@@ -211,7 +211,7 @@ export const MENUITEMS: MenuItem[] = [
       {
         label: 'Test API',
         icon: 'import_export',
-        path: 'test-api',
+        path: 'example/test-api',
       },
       {
         label: 'Bloomen API',
@@ -244,7 +244,7 @@ export const MENUITEMS: MenuItem[] = [
     ]
   },
   {
-    path: '/docs',
+    path: '/example/view-imported-data',
     label: 'Database',
     icon: 'storage'
   },
