@@ -10,8 +10,12 @@ import { FieldType } from '@ngx-formly/core';
     <p *ngIf="to.description">{{ to.description }}</p>
     <div class="error matstuff" role="alert" *ngIf="showError">
       <formly-validation-message [field]="field"></formly-validation-message>
-    </div>
+     </div>  
+
+   
     <formly-field *ngFor="let f of field.fieldGroup" [field]="f"></formly-field>
+   
+   
 
   `,
 })

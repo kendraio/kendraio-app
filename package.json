@@ -32,7 +32,7 @@
     "@ng-dynamic-forms/core": "^9.0.1",
     "@ng-dynamic-forms/ui-material": "^9.0.1",
     "@ng-select/ng-select": "^3.0.5",
-    "@ngx-formly/core": "^5.3.0",
+    "@ngx-formly/core": "^5.5.1",
     "@ngx-formly/material": "^5.3.0",
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",

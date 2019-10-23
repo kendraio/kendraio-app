@@ -15,12 +15,3 @@ import { FieldWrapper } from '@ngx-formly/core';
 export class PanelWrapperComponent extends FieldWrapper {
   @ViewChild('fieldComponent', { read: ViewContainerRef, static: true }) fieldComponent: ViewContainerRef;
 }
-
-
-
-// <div class="card-body">
-// <h4>Results</h4>
-// </div>
-// <ul class="list-group list-group-flush">
-// <li class="list-group-item">{{ model | json }}</li>
-// </ul>

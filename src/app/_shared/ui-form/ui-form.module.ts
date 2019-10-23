@@ -40,6 +40,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 // import { ContentEditableFormDirective } from '../directives/editable-content';
 // import { KendraioFormComponent } from './kendraio-form/kendraio-form.component';
@@ -55,6 +56,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     ReactiveFormsModule,
     FormlyModule.forRoot(config),
     TextMaskModule,
+    FlexLayoutModule, 
 
     // AppMaterialModule,
     NgSelectModule,
@@ -114,12 +116,14 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     types.ArrayTypeComponent,
     types.KendraFieldTypeahead,
     types.ObjectTypeComponent,
+    types.FormGroupTypeComponent,
     types.KendraFieldSelect,
     types.TextareaComponent,
     types.ThumbnailViewerComponent,
     types.FieldHiddenComponent,
     types.FieldInputPasswordComponent,
-    types.TimePickerComponent
+    types.TimePickerComponent,
+    // types.NullTypeComponent
     // ContentEditableFormDirective
     // KendraioFormComponent
 

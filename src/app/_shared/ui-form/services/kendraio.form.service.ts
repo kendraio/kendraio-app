@@ -153,10 +153,8 @@ export class KendraioFormService {
   }
 
   uiMapper(formlyConfig, jsonSchema, uiSchema) {
-    //  let test =  this.config;
     let val;
     const SELECT_CONFIG: Array<any> = [];
-    // console.log(jsonSchema);
     let i = 0;
     try {
       // TODO:  refactor
@@ -164,60 +162,66 @@ export class KendraioFormService {
         Object.keys(jsonSchema.properties).forEach(function (key) {
           Object.keys(uiSchema).forEach(function (uiKey) {
             const TO = formlyConfig['fieldGroup'][i]['templateOptions'];
-            // console.log(uiKey, key, formlyConfig['fieldGroup'][i]['templateOptions'], get(uiSchema, uiKey));
+
+
+if (key.toLowerCase() === 'formgroup') {
+  const f = jsonSchema.properties[key];
+  set(f, 'type', 'formgroup');
+}
+
             if (uiKey === key) {
-              //  jsonSchema.properties.bandArtist.type = uiSchema.bandArtist['ui:widget'];
-              // TODO: maybe use Switch here
 
-              TO['disabled'] = uiSchema[key]['ui:disabled'];
-              TO['placeholder'] = uiSchema[key]['ui:placeholder'];
+              switch (uiSchema[key]['ui:widget']) {
 
-              if (key['minLength']) {
-                formlyConfig['fieldGroup'][i]['templateOptions']['minLength'] = get(jsonSchema.properties, `${key}.minLength`, null);
-              }
+                // k-password money, datepicker, k-timepicker, videoviewer, thumbnailviewer, tags, visibility, playlist
 
-              if (key['maxLength']) {
-                formlyConfig['fieldGroup'][i]['templateOptions']['maxLength'] = get(jsonSchema.properties, `${key}.maxLength`, null);
-              }
+                case 'k-textarea':
+                  mapTextArea(TO, uiSchema, key);
+                  break;
 
+                case 'k-timepicker':
+                  mapTimepicker(TO, uiSchema, key);
+                  break;
 
-              //  formlyConfig['fieldGroup'][1].validators.validation =  ['PasswordStrengthValidation'];
-              // formlyConfig.fieldGroup[i].templateOptions.options = this.getHttpRefData(uiSchema[key]['ui:refdataId']);
-              // formlyConfig['fieldGroup'][i]['templateOptions']['required'] = get(uiSchema, `${key}.ui:required`, false);
+                case 'k-select' || 'typeahead':
+                  mapKSelect(TO, uiSchema, key);
+                  const ref = get(uiSchema, `${key}.ui:ref`, '');
+                  const refType = get(uiSchema, `${key}.ui:refType`, 'json');
+                  SELECT_CONFIG.push(
+                    { 'key': i, ref, refType },
+                  );
+                  break;
 
-              formlyConfig['fieldGroup'][i]['templateOptions']['errMessage'] = get(uiSchema, `${key}.ui:errMessage`, null);
-              formlyConfig['fieldGroup'][i]['templateOptions']['patternErrMessage'] = get(uiSchema, `${key}.ui:patternErrMessage`, null);
-
-              // formlyConfig['fieldGroup'][i]['validation']['messages']['pattern'] = 'oooppppx';
-
-              formlyConfig['fieldGroup'][i]['templateOptions']['addTag'] = get(uiSchema, `${key}.ui:addTag`, false);
-
-              if (uiSchema[key]['ui:widget'] === 'k-textarea') {
-                formlyConfig['fieldGroup'][i]['templateOptions']['autosize'] = get(uiSchema, `${key}.ui:autosize`, false);
-                formlyConfig['fieldGroup'][i]['templateOptions']['rows'] = get(uiSchema, `${key}.ui:rows`, 20);
-                formlyConfig['fieldGroup'][i]['templateOptions']['cols'] = get(uiSchema, `${key}.ui:cols`, 30);
-              }
-
-              if (uiSchema[key]['ui:widget'] === 'k-timepicker') {
-                formlyConfig['fieldGroup'][i]['templateOptions']['hideClock'] = get(uiSchema, `${key}.ui:hideClock`, false);
-                formlyConfig['fieldGroup'][i]['templateOptions']['timeFormat'] = get(uiSchema, `${key}.ui:timeFormat`, false);
+                default:
+                  break;
               }
 
 
+              switch (jsonSchema.properties[key].type) {
+                case 'null': {
+                  break;
+                }
+                case 'number':
+                  break;
+                case 'integer':
+                  break;
+                  case 'string':
+                      ['minLength', 'maxLength', 'pattern'].forEach(prop => {
+                        if (jsonSchema.properties[key].hasOwnProperty(prop)) {
+                          TO[prop] = jsonSchema.properties[key][prop];
+                        }
+                      });
+                      break;
 
-              if (uiSchema[key]['ui:widget'] === 'typeahead' || uiSchema[key]['ui:widget'] === 'k-select') {
-                formlyConfig['fieldGroup'][i]['templateOptions']['labelProp'] = get(uiSchema, `${key}.ui:labelProp`, 'label');
-                formlyConfig['fieldGroup'][i]['templateOptions']['valueProp'] = get(uiSchema, `${key}.ui:valueProp`, 'value');
-                formlyConfig['fieldGroup'][i]['templateOptions']['isMultiSelect'] = get(uiSchema, `${key}.ui:isMultiSelect`, false);
-
-
-                const ref = get(uiSchema, `${key}.ui:ref`, '');
-                const refType = get(uiSchema, `${key}.ui:refType`, 'json');
-
-                SELECT_CONFIG.push(
-                  { 'key': i, ref, refType },
-                );
+                default:
+                  break;
               }
+
+              set(TO, 'disabled', get(uiSchema, `${key}.ui:disabled`, false));
+              set(TO, 'placeholder', get(uiSchema, `${key}.ui:placeholder`, null));
+
+              TO['errMessage'] = get(uiSchema, `${key}.ui:errMessage`, null);
+              TO['patternErrMessage'] = get(uiSchema, `${key}.ui:patternErrMessage`, null);
 
               if (get(uiSchema, `${key}.ui:widget`, '') === 'blocks') {
                 const blocksConfig = get(uiSchema, `${key}.ui:blocksConfig`, []);
@@ -246,13 +250,13 @@ export class KendraioFormService {
 
       }
 
-      // console.log(SELECT_CONFIG);
       return formlyConfig;
     } catch (e) {
 
     }
 
   }
+
 
   /**
    * This adds support for UI Schema ui:widget specifications by updating the field
@@ -313,67 +317,30 @@ export class KendraioFormService {
 
   }
 
-  // public getFormById(id: string, disabled = false, data?: object) {
-  //   const ob = FORMS_VALUES(disabled, data)[id];
-  //   console.log(ob)
-  //   return ob;
-  // }
 
-  // public getJSONFormById(id: string, disabled = false, data: any = {}) {
-  //   const frm = this.generateCleanJsonConfiguration(FORMS_VALUES(disabled, data)[id]);
-  //   return  frm;
-  // }
-
-  // private generateCleanJsonConfiguration(clone: object[]) {  // use this to create JSON config ??? maybe??
-  //   return JSON.parse(JSON.stringify(clone));
-  // }
 
   getRefData() {
     return this.http.get('assets/fake-data/test-ref-data.json');
   }
 
-  //   getHttpRefData(id: string) {
-  //   this.getRefData()
-  //   .subscribe(newValue => {
-  //  formlyConfig.fieldGroup[i].templateOptions.options = this.getHttpRefData(uiSchema[key]['ui:refdataId']);
-  //   });
-  // }
-
-
-  // getYoutubeFields() {
-
-  //   const mappedFields = [
-  //     { 'field': 'FULLNAME', 'enabled': false },
-  //     { 'field': 'EMAIL', 'enabled': false },
-  //   ];
-
-  //   const myFields = [
-  //     // FULLNAME(false, data['fullname']),
-  //     // EMAIL(false, data['email']),
-  //   ];
-
-  //   mappedFields.forEach(v => {
-  //     const fname = v.field;
-
-
-  //     //  myFields.push(
-
-  //         console.log(v[fname](false, {
-  //           'id': 'YOUTUBE',
-  //           'fullname': 'Bernie Winters',
-  //           'email': 'bernie@heaven.com'
-  //       }));
-
-  //       //  [fname](false, data['fullname'])
-
-
-  //    //   );
-
-
-  //   });
-
-  // }
-
-
-
 }
+
+
+function mapTextArea(TO: any, uiSchema: any, key: string) {
+  set(TO, 'autosize', get(uiSchema, `${key}.ui:autosize`, false));
+  TO['rows'] = get(uiSchema, `${key}.ui:rows`, 420);
+  TO['cols'] = get(uiSchema, `${key}.ui:cols`, 30);
+}
+
+function mapTimepicker(TO: any, uiSchema: any, key: string) {
+  TO['hideClock'] = get(uiSchema, `${key}.ui:hideClock`, false);
+  TO['timeFormat'] = get(uiSchema, `${key}.ui:timeFormat`, false);
+}
+
+function mapKSelect(TO: any, uiSchema: any, key: string) {
+ set(TO, 'labelProp',  get(uiSchema, `${key}.ui:labelProp`, 'label'));
+ set(TO, 'valueProp',  get(uiSchema, `${key}.ui:valueProp`, 'value'));
+ set(TO, 'isMultiSelect',  get(uiSchema, `${key}.ui:isMultiSelect`, false));
+ set(TO, 'addTag',  get(uiSchema, `${key}.ui:addTag`, false));
+}
+
