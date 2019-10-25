@@ -47,25 +47,28 @@ export class KendraioFormService {
   }
 
   getJSONSchema(_adapter, _formId) {
-    return this.getFormData(_adapter, _formId).pipe(
+    const ob = this.getFormData(_adapter, _formId).pipe(
       map(([uiSchema, jsonSchema]) => ({ uiSchema, jsonSchema })),
     );
+    return ob;
   }
 
   getJSONSchemaForm(_adapter, _formId) {
-    return this.getFormData(_adapter, _formId).pipe(
+    const ob = this.getFormData(_adapter, _formId).pipe(
       map(([uiSchema, jsonSchema]) => ({ uiSchema, jsonSchema })),
       map(({ uiSchema, jsonSchema }) => this.jsonSchemaToFieldConfig({ uiSchema, jsonSchema })),
       map(({ fields, uiSchema }) => this.uiWidgetTypeMapper({ fields, uiSchema })),
       map((fields) => [fields])
     );
+    return ob;
   }
 
   schemasToFieldConfig(jsonSchema, uiSchema) {
     const { fields } = this.jsonSchemaToFieldConfig({ uiSchema, jsonSchema });
-    return [
+    const ob = [
       this.uiWidgetTypeMapper({ fields, uiSchema })
     ];
+    return ob;
   }
 
   /**
@@ -95,7 +98,8 @@ export class KendraioFormService {
     const getFieldIndexFromGroup = (obj, _key) => {
       const fieldGroup = get(obj, 'fieldGroup', []);
       const checkKey = ({ key }) => key === _key;
-      return findIndex(fieldGroup, checkKey);
+    const i =  findIndex(fieldGroup, checkKey);
+       return i;
     };
 
     return Object.keys(uiSchema).reduce((_fields, uiKey) => {
@@ -149,25 +153,45 @@ export class KendraioFormService {
   }
 
   toFieldConfig(schema) {
-    return this.formlyJsonschema.toFieldConfig(schema);
+    const ob = this.formlyJsonschema.toFieldConfig(schema);
+   // console.log(ob);
+    return ob;
   }
 
   uiMapper(formlyConfig, jsonSchema, uiSchema) {
+    formlyConfig.fieldGroup[0].type = 'datepicker';
+    formlyConfig.fieldGroup[1].type = 'datepicker';
+
+    // console.log('fc= ');
+// console.log(formlyConfig);
+
     let val;
     const SELECT_CONFIG: Array<any> = [];
     let i = 0;
     try {
       // TODO:  refactor
       if (Object.keys(uiSchema).length) {
+ //       jsonSchema = jsonSchema.properties.items;
+
+
         Object.keys(jsonSchema.properties).forEach(function (key) {
+          // Object.keys(jsonSchema.properties['items'].properties).forEach(function (key) {
           Object.keys(uiSchema).forEach(function (uiKey) {
             const TO = formlyConfig['fieldGroup'][i]['templateOptions'];
 
+            if (key.toLowerCase() === 'formgroup') {
+              const f = jsonSchema.properties[key];
+              set(f, 'type', 'formgroup');
+            }
 
-if (key.toLowerCase() === 'formgroup') {
-  const f = jsonSchema.properties[key];
-  set(f, 'type', 'formgroup');
-}
+// if (Object.keys(jsonSchema.properties[key]).length) {
+// console.log(jsonSchema.properties[key].type);
+// }
+
+// if (jsonSchema.properties[key].type === 'object') {
+//   console.log(jsonSchema.properties[key].properties);
+// //  this.uiMapper(formlyConfig, jsonSchema.properties[key], uiSchema);
+//   }
 
             if (uiKey === key) {
 

@@ -31,7 +31,7 @@
                        [(ngModel)]="JSONSchema"
                        (ngModelChange)="jsonSchemaChange()" (onInit)="initJson()"></ngx-monaco-editor>
     <span class="editor-title">UI Schema</span>
-    <ngx-monaco-editor [options]="editorOptions"
+    <ngx-monaco-editor [options]="editorOptions" class="uischema-editor"
                        [model]="uiModel"
                        [(ngModel)]="UISchema"
                        (ngModelChange)="jsonSchemaChange()"></ngx-monaco-editor>
@@ -51,6 +51,11 @@
       <button mat-flat-button color="primary" (click)="onSave()" *ngIf="isDbForm">Save (DB)</button>
       <button mat-flat-button (click)="resetForm()" *ngIf="isDbForm">Reset</button>
     </div>
+
+<pre>
+<!-- {{fields | json}} -->
+</pre>
+
   </div>
 
 </div>

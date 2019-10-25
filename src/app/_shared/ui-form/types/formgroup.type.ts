@@ -13,18 +13,16 @@ import { FieldType } from '@ngx-formly/core';
      </div>  
   
     <div
-    class="content" 
+    class="formgroup" 
     fxLayout.sm="column"
     fxLayout.xs="column"
     fxLayout="row" 
      fxLayoutGap="30px"
     fxLayoutAlign="space-between center"
-  >
+                                        >
     <formly-field *ngFor="let f of field.fieldGroup" fxFlexFill [field]="f" fxFlex="100"  fxFlex.sm="100"></formly-field>
 
     </div>
-
-
   `,
 })
 export class FormGroupTypeComponent extends FieldType {

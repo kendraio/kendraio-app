@@ -23,13 +23,17 @@
 }
 .model-output {
   color: #1e1e1e;
-  background-color: #whitesmoke;
+  background-color: whitesmoke;
   padding: 0.0rem 0.5rem 0.5rem;
   overflow-y: auto;
 }
 .json-code-editor {
-  height: 300px;
+  height: 600px;
 }
 .form-actions {
   margin-top: 1em;
 }
+.uischema-editor {
+  height: 500px;
+}
+
