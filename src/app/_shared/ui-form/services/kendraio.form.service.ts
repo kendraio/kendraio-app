@@ -159,8 +159,8 @@ export class KendraioFormService {
   }
 
   uiMapper(formlyConfig, jsonSchema, uiSchema) {
-    formlyConfig.fieldGroup[0].type = 'datepicker';
-    formlyConfig.fieldGroup[1].type = 'datepicker';
+    // formlyConfig.fieldGroup[0].type = 'datepicker';
+    // formlyConfig.fieldGroup[1].type = 'datepicker';
 
     // console.log('fc= ');
 // console.log(formlyConfig);
