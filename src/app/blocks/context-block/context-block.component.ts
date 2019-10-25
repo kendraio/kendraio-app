@@ -1,4 +1,4 @@
-import {Component, NgZone, OnInit} from '@angular/core';
+import {Component, NgZone} from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
 import {clone, get, set} from 'lodash-es';
 
@@ -26,7 +26,6 @@ export class ContextBlockComponent extends BaseBlockComponent {
 
   onConfigUpdate(config: any) {
     this.blocks = get(config, 'blocks', []);
-    // TODO: for security make sure this doesn't allow override app context!
     this.contextPath = get(config, 'contextPath', 'temp');
     this.contextBlocks = get(config, 'contextBlocks', []);
     this.models = this.blocks.map(blockDef => get(blockDef, 'defaultValue', {}));
@@ -42,6 +41,7 @@ export class ContextBlockComponent extends BaseBlockComponent {
       }, 0);
     }
     this.newContext = clone(this.context);
+    // TODO: for security make sure this doesn't allow override app context!
     set(this.newContext, this.contextPath, this.contextOutput);
   }
 

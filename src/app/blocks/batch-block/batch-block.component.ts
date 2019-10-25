@@ -1,5 +1,5 @@
 import {Component, EventEmitter, HostBinding, Input, OnChanges, OnInit, Output} from '@angular/core';
-import {clone, every, get, isArray, isEmpty, isObject} from 'lodash-es';
+import {clone, every, get, isArray, isObject} from 'lodash-es';
 
 @Component({
   selector: 'app-batch-block',

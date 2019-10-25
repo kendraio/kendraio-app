@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-import {get, isArray, isObject} from 'lodash-es';
+import {clone, get, isArray, isObject} from 'lodash-es';
 import {MatDialog} from '@angular/material';
 import {BlocksDialogComponent} from '../../dialogs/blocks-dialog/blocks-dialog.component';
 
@@ -10,7 +10,7 @@ import {BlocksDialogComponent} from '../../dialogs/blocks-dialog/blocks-dialog.c
 })
 export class ButtonBlockComponent implements OnInit, OnChanges {
 
-  // TODO: button block should allow multiple actions (array of buttons)
+  // TODO: deprecate in favour of actions block
 
   @Input() config;
   @Input() context;
@@ -41,8 +41,7 @@ export class ButtonBlockComponent implements OnInit, OnChanges {
       }
     });
     dialogRef.afterClosed().subscribe(value => {
-      // TODO: replace this shallow copy code with _.clone() or similar
-      this.output.emit(isArray(value) ? [ ...value ] : isObject(value) ? { ...value } : value);
+      this.output.emit(clone(value));
     });
   }
 }

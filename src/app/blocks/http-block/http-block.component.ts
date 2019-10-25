@@ -81,7 +81,6 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       }
     }
 
-    // TODO: error handling - display error message
     // TODO: decide what to do with response when error condition
     switch (toUpper(method)) {
       case 'GET':
@@ -149,7 +148,6 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     this.output.emit(data);
   }
 
-  // TODO: Refactor to remove duplicate code - move this to service
   constructEndpointUrl(config) {
     if (isString(get(config, 'endpoint', ''))) {
       return config.endpoint;

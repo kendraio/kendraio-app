@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
 import {get, isNull, isString, isUndefined} from 'lodash-es';
 import {LocalDatabaseService} from '../../services/local-database.service';
-import {search} from 'jmespath';
+import {mappingUtility} from '../mapping-block/mapping-util';
 
 @Component({
   selector: 'app-db-block',
@@ -54,8 +54,7 @@ export class DbBlockComponent extends BaseBlockComponent {
     switch (this.operation) {
       case 'fetch': {
         if (isString(this.uuidGetter)) {
-          // TODO: use the custom JMESPath function
-          const uuid = search({ data: this.model, context: this.context }, this.uuidGetter);
+          const uuid = mappingUtility({ data: this.model, context: this.context }, this.uuidGetter);
           if (isString(uuid)) {
             this.localDatabase.fetch({ uuid }).then(result => {
               this.isLoading = false;
@@ -68,7 +67,7 @@ export class DbBlockComponent extends BaseBlockComponent {
       }
       case  'delete': {
         if (isString(this.uuidGetter)) {
-          const uuid = search({ data: this.model, context: this.context }, this.uuidGetter);
+          const uuid = mappingUtility({ data: this.model, context: this.context }, this.uuidGetter);
           if (isString(uuid)) {
             this.localDatabase.deleteItem({ uuid }).then(result => {
               this.isLoading = false;
@@ -91,9 +90,8 @@ export class DbBlockComponent extends BaseBlockComponent {
         return;
       }
       case 'add': {
-        // TODO: use the custom JMESPath function
         const schema = this.schemaGetter
-          ? search({ data: this.model, context: this.context }, this.schemaGetter)
+          ? mappingUtility({ data: this.model, context: this.context }, this.schemaGetter)
           : this.schema;
         // TODO: temporary hack to prevent saving null data
         if (!isUndefined(data) && !isNull(data)) {
@@ -109,9 +107,8 @@ export class DbBlockComponent extends BaseBlockComponent {
         return;
       }
       case 'get': {
-        // TODO: use the custom JMESPath function
         const schema = this.schemaGetter
-          ? search({ data: this.model, context: this.context }, this.schemaGetter)
+          ? mappingUtility({ data: this.model, context: this.context }, this.schemaGetter)
           : this.schema;
         this.localDatabase.get({
           adapterName: this.adapterName,

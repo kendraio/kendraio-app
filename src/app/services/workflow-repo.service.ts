@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {AdaptersService} from './adapters.service';
-import {map, mergeMap, switchMap, tap} from 'rxjs/operators';
+import {map, switchMap} from 'rxjs/operators';
 import {get} from 'lodash-es';
-import {BehaviorSubject, of} from 'rxjs';
+import {of} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable({
