@@ -25,6 +25,12 @@
       ],
       "ngx-tagger/*": [
         "dist/ngx-tagger/*"
+      ],
+      "ngx-image-tagger": [
+        "dist/ngx-image-tagger"
+      ],
+      "ngx-image-tagger/*": [
+        "dist/ngx-image-tagger/*"
       ]
     }
   }

@@ -24,6 +24,7 @@ import {FormBuilderPageComponent} from './pages/form-builder-page/form-builder-p
 import {QueryBuilderPageComponent} from './pages/query-builder-page/query-builder-page.component';
 import {BlocksBuilderPageComponent} from './pages/blocks-builder-page/blocks-builder-page.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
+import {ImageTaggerTestPageComponent} from './pages/image-tagger-test-page/image-tagger-test-page.component';
 
 
 // NB all routes must have a breadcrumb
@@ -303,6 +304,10 @@ const routes: Routes = [
   {
     path: 'workflow-builder',
     component: BlocksBuilderPageComponent
+  },
+  {
+    path: 'image-tagger',
+    component: ImageTaggerTestPageComponent
   },
 
        { path: '', redirectTo: '/dashboard', pathMatch: 'full' },

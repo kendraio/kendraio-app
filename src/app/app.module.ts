@@ -188,6 +188,8 @@ import { FormlyTableWidgetComponent } from './form-controls/formly-table-widget/
 import { FormlyFormDialogComponent } from './dialogs/formly-form-dialog/formly-form-dialog.component';
 import { MappingPipe } from './pipes/mapping.pipe';
 import { ContextBlockComponent } from './blocks/context-block/context-block.component';
+import { NgxImageTaggerModule } from 'ngx-image-tagger';
+import { ImageTaggerTestPageComponent } from './pages/image-tagger-test-page/image-tagger-test-page.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -331,7 +333,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormlyTableWidgetComponent,
     FormlyFormDialogComponent,
     MappingPipe,
-    ContextBlockComponent
+    ContextBlockComponent,
+    ImageTaggerTestPageComponent
   ],
   imports: [
     // AgGridModule.withComponents([
@@ -369,7 +372,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AgGridModule.withComponents([
       WorkflowCellRendererComponent
     ]),
-    DragDropModule
+    DragDropModule,
+    NgxImageTaggerModule
   ],
   entryComponents: [
     AddDocDialogComponent,

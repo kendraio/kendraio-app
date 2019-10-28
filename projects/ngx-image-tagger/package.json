@@ -1,0 +1,9 @@
+{
+  "name": "@kendraio/ngx-image-tagger",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^8.2.0",
+    "@angular/core": "^8.2.0",
+    "interactjs": "^1.5.4"
+  }
+}

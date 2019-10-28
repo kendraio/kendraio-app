@@ -9,8 +9,9 @@
     "build:local": "ng build",
     "build:dev": "ng build --configuration=dev",
     "build:prod": "ng build --prod",
-    "now-build": "ng build --configuration=dev",
-    "docs:autobuild": "sphinx-autobuild docs/ docs/_build/html"
+    "now-build": "ng build ngx-image-tagger && ng build --configuration=dev",
+    "docs:autobuild": "sphinx-autobuild docs/ docs/_build/html",
+    "watch:tagger": "ng build ngx-image-tagger --watch"
   },
   "private": true,
   "dependencies": {
@@ -67,6 +68,7 @@
     "rxjs": "~6.5.2",
     "swagger-ui": "^3.24.0",
     "text-mask-addons": "^3.8.0",
+    "tslib": "^1.10.0",
     "uuid": "^3.3.2",
     "wavesurfer.js": "^3.0.0",
     "x2js": "^3.2.3",

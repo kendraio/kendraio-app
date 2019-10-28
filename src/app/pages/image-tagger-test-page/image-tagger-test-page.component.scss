@@ -1,0 +1,6 @@
+.image-test-container {
+  width: 100%;
+  & > ngx-image-tagger {
+    max-width: 100%;
+  }
+}
