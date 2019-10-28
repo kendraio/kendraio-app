@@ -1,6 +1,7 @@
 {
   "name": "@kendraio/ngx-image-tagger",
-  "version": "0.0.2",
+  "description": "Angular image tagging component",
+  "version": "0.0.3",
   "peerDependencies": {
     "@angular/common": "^8.2.0",
     "@angular/core": "^8.2.0",
