@@ -1,7 +1,11 @@
 {
   "name": "@kendraio/ngx-image-tagger",
   "description": "Angular image tagging component",
-  "version": "0.0.3",
+  "license": "MIT",
+  "repository": {
+    "type": "https://github.com/kendraio/kendraio-app"
+  },
+  "version": "0.1.0",
   "peerDependencies": {
     "@angular/common": "^8.2.0",
     "@angular/core": "^8.2.0",
