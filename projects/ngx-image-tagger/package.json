@@ -3,9 +3,9 @@
   "description": "Angular image tagging component",
   "license": "MIT",
   "repository": {
-    "type": "https://github.com/kendraio/kendraio-app"
+    "url": "https://github.com/kendraio/kendraio-app"
   },
-  "version": "0.1.0",
+  "version": "0.1.1",
   "peerDependencies": {
     "@angular/common": "^8.2.0",
     "@angular/core": "^8.2.0",
