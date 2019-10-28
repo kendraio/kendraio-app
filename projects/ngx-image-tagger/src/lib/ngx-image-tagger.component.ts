@@ -11,7 +11,7 @@ import {takeUntil} from 'rxjs/operators';
       <ngx-tagger class="image-preview-outer mt-1" *ngIf="src" [formControl]="tagControl">
           <img class="image-preview" ngxTagBase [src]="src" [alt]="alt">
       </ngx-tagger>
-      <pre>{{ tags | json }}</pre>
+<!--      <pre>{{ tags | json }}</pre>-->
   `,
   styles: [`
       img {
@@ -33,6 +33,7 @@ export class NgxImageTaggerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.tagControl.patchValue(this.tags);
     this.tagControl.valueChanges.pipe(
       takeUntil(this.destroy$)
     ).subscribe(value => this.tagsChanged.emit(value));

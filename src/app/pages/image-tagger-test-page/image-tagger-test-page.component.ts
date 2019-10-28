@@ -7,12 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ImageTaggerTestPageComponent implements OnInit {
 
+  tags = [];
+
   constructor() { }
 
   ngOnInit() {
   }
 
-  onTagsChange(event) {
-    console.log({ event });
+  onTagsChange(tags) {
+    this.tags = tags;
   }
 }
