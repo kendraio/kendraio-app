@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {TeostoProfileHandlerService} from '../handlers/teosto-profile-handler.service';
-import {search} from 'jmespath';
 import {get, has, isString} from 'lodash-es';
+import {mappingUtility} from '../blocks/mapping-block/mapping-util';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +24,7 @@ export class ContextDataService {
     };
     // console.log({ valueGetters, context });
     return Object.keys(valueGetters).reduce((a, v) => {
-      a[v] = search(context, valueGetters[v]);
+      a[v] = mappingUtility(context, valueGetters[v]);
       return a;
     }, {});
   }
@@ -59,12 +59,12 @@ export class ContextDataService {
     // console.log({ context });
     const valueGetter = get(endpoint, 'valueGetter');
     if (isString(valueGetter)) {
-      return search(_context, valueGetter);
+      return mappingUtility(_context, valueGetter);
     }
     const valueGetters = has(endpoint, 'valueGetters')
       ? Object.keys(endpoint.valueGetters).reduce((a, v) => {
         try {
-          a[v] = search(_context, endpoint.valueGetters[v]);
+          a[v] = mappingUtility(_context, endpoint.valueGetters[v]);
         } catch (e) {
           console.log(e.message);
         }
