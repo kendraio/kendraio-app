@@ -5,7 +5,7 @@
     "node": "10.x"
   },
   "scripts": {
-    "start:dev": "npm-run-all build:tagger serve:dev",
+    "start:dev": "npm-run-all serve:dev",
     "serve:dev": "ng serve",
     "build:local": "ng build",
     "build:tagger": "ng build ngx-image-tagger",
