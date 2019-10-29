@@ -5,22 +5,34 @@
       "type": "init"
     },
     {
-      "type": "http",
-      "method": "get",
-      "notify": false,
-      "endpoint": {
-        "protocol": "https:",
-        "host": "bloomen.herokuapp.com",
-        "valueGetters": {
-          "pathname": "join('', ['/users/', context.queryParams.hash, '/kyc'])"
+      "type": "context",
+      "contextPath": "jwt",
+      "contextBlocks": [
+        {
+          "type": "variable-get",
+          "name": "bloomen-jwt"
         }
-      },
-      "authentication": {
-        "type": "bearer",
-        "valueGetters": {
-          "jwt": "user.profile.bloomenAuth"
+      ],
+      "blocks": [
+        {
+          "type": "http",
+          "method": "get",
+          "notify": false,
+          "endpoint": {
+            "protocol": "https:",
+            "host": "bloomen.herokuapp.com",
+            "valueGetters": {
+              "pathname": "join('', ['/users/', context.queryParams.hash, '/kyc'])"
+            }
+          },
+          "authentication": {
+            "type": "bearer",
+            "valueGetters": {
+              "jwt": "context.jwt"
+            }
+          }
         }
-      }
+      ]
     },
     {
       "type": "form",
@@ -29,22 +41,38 @@
       "formId": "user"
     },
     {
-      "type": "http",
-      "method": "put",
-      "notify": true,
-      "endpoint": {
-        "protocol": "https:",
-        "host": "bloomen.herokuapp.com",
-        "valueGetters": {
-          "pathname": "join('', ['/users/', context.queryParams.hash, '/kyc'])"
+      "type": "mapping",
+      "mapping": "data.omit(@, ['_id', '__v'])"
+    },
+    {
+      "type": "context",
+      "contextPath": "jwt",
+      "contextBlocks": [
+        {
+          "type": "variable-get",
+          "name": "bloomen-jwt"
         }
-      },
-      "authentication": {
-        "type": "bearer",
-        "valueGetters": {
-          "jwt": "user.profile.bloomenAuth"
+      ],
+      "blocks": [
+        {
+          "type": "http",
+          "method": "put",
+          "notify": true,
+          "endpoint": {
+            "protocol": "https:",
+            "host": "bloomen.herokuapp.com",
+            "valueGetters": {
+              "pathname": "join('', ['/users/', context.queryParams.hash])"
+            }
+          },
+          "authentication": {
+            "type": "bearer",
+            "valueGetters": {
+              "jwt": "context.jwt"
+            }
+          }
         }
-      }
+      ]
     },
     {
       "type": "launch",

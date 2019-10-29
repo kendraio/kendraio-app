@@ -9,19 +9,31 @@
       "type": "init"
     },
     {
-      "type": "http",
-      "method": "get",
-      "endpoint": {
-        "protocol": "https:",
-        "host": "bloomen.herokuapp.com",
-        "pathname": "/users/kyc"
-      },
-      "authentication": {
-        "type": "bearer",
-        "valueGetters": {
-          "jwt": "user.profile.bloomenAuth"
+      "type": "context",
+      "contextPath": "jwt",
+      "contextBlocks": [
+        {
+          "type": "variable-get",
+          "name": "bloomen-jwt"
         }
-      }
+      ],
+      "blocks": [
+        {
+          "type": "http",
+          "method": "get",
+          "endpoint": {
+            "protocol": "https:",
+            "host": "bloomen.herokuapp.com",
+            "pathname": "/users/kyc"
+          },
+          "authentication": {
+            "type": "bearer",
+            "valueGetters": {
+              "jwt": "context.jwt"
+            }
+          }
+        }
+      ]
     },
     {
       "type": "grid",
