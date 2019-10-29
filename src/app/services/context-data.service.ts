@@ -14,8 +14,9 @@ export class ContextDataService {
   }
 
   // TODO: Generic handling of profile data from all adapters
-  getGlobalContext(valueGetters) {
+  getGlobalContext(valueGetters, blocksContext) {
     const context = {
+      context: blocksContext,
       user: {
         profile: this.getUserContext(),
         teosto: this.getTeostoContext()

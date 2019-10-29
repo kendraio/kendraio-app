@@ -1,0 +1,66 @@
+{
+  "title": "Bloomen API Login",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "message"
+    },
+    {
+      "type": "actions",
+      "buttons": [
+        {
+          "label": "Publisher",
+          "blocks": [
+            {
+              "type": "http",
+              "method": "get",
+              "endpoint": "https://cors-anywhere.herokuapp.com/https://bloomen.herokuapp.com/api-docs.json"
+            },
+            {
+              "type": "mapping",
+              "skipFirst": true,
+              "mapping": "data.securityDefinitions.JWT.description | split(@, '\n')[].split(@, ' ') | [1][1]"
+            }
+          ]
+        },
+        {
+          "label": "Admin",
+          "blocks": [
+            {
+              "type": "http",
+              "method": "get",
+              "endpoint": "https://cors-anywhere.herokuapp.com/https://bloomen.herokuapp.com/api-docs.json"
+            },
+            {
+              "type": "mapping",
+              "skipFirst": true,
+              "mapping": "data.securityDefinitions.JWT.description | split(@, '\n')[].split(@, ' ') | [1][1]"
+            }
+          ]
+        },
+        {
+          "label": "Photographer",
+          "blocks": [
+            {
+              "type": "http",
+              "method": "get",
+              "endpoint": "https://cors-anywhere.herokuapp.com/https://bloomen.herokuapp.com/api-docs.json"
+            },
+            {
+              "type": "mapping",
+              "skipFirst": true,
+              "mapping": "data.securityDefinitions.JWT.description | split(@, '\n')[].split(@, ' ') | [3][1]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "variable-set",
+      "name": "bloomen-jwt"
+    }
+  ],
+  "id": "bloomenLogin"
+}

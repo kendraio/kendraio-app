@@ -58,6 +58,11 @@ export const MENUITEMS: MenuItem[] = [
         icon: 'brightness_5',
         children: [
           {
+            label: 'Login',
+            icon: 'person',
+            path: 'bloomen/login'
+          },
+          {
             label: 'Search',
             icon: 'search',
             path: 'bloomen/search'

@@ -42,7 +42,9 @@ export class ContextBlockComponent extends BaseBlockComponent {
     }
     this.newContext = clone(this.context);
     // TODO: for security make sure this doesn't allow override app context!
-    set(this.newContext, this.contextPath, this.contextOutput);
+    if (!this.contextPath.startsWith('app')) {
+      set(this.newContext, this.contextPath, this.contextOutput);
+    }
   }
 
   onContextComplete(value) {

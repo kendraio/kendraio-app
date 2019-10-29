@@ -15,20 +15,32 @@
       "uiSchema": {}
     },
     {
-      "type": "http",
-      "method": "post",
-      "notify": false,
-      "endpoint": {
-        "protocol": "https:",
-        "host": "bloomen.herokuapp.com",
-        "pathname": "/photos/search"
-      },
-      "authentication": {
-        "type": "bearer",
-        "valueGetters": {
-          "jwt": "user.profile.bloomenAuth"
+      "type": "context",
+      "contextPath": "jwt",
+      "contextBlocks": [
+        {
+          "type": "variable-get",
+          "name": "bloomen-jwt"
         }
-      }
+      ],
+      "blocks": [
+        {
+          "type": "http",
+          "method": "post",
+          "notify": false,
+          "endpoint": {
+            "protocol": "https:",
+            "host": "bloomen.herokuapp.com",
+            "pathname": "/photos/search"
+          },
+          "authentication": {
+            "type": "bearer",
+            "valueGetters": {
+              "jwt": "context.jwt"
+            }
+          }
+        }
+      ]
     },
     {
       "type": "batch",
