@@ -20,12 +20,6 @@
     ],
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "ngx-tagger": [
-        "dist/ngx-tagger"
-      ],
-      "ngx-tagger/*": [
-        "dist/ngx-tagger/*"
-      ],
       "ngx-image-tagger": [
         "dist/ngx-image-tagger"
       ],
