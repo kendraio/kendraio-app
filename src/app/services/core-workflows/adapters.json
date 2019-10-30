@@ -1,0 +1,118 @@
+{
+  "title": "Adapters",
+  "blocks": [
+    {
+      "type": "actions",
+      "buttons": [
+        {
+          "label": "Manage Repositories",
+          "color": "link",
+          "blocks": [
+            {
+              "type": "launch",
+              "adapter": "core",
+              "workflowId": "adapterRepos"
+            }
+          ]
+        },
+        {
+          "label": "Refresh Adapters",
+          "color": "link",
+          "blocks": [
+            {
+              "type": "launch",
+              "adapter": "core",
+              "workflowId": "updateAdapterList"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "init"
+    },
+    {
+      "type": "variable-get",
+      "name": "adapterList"
+    },
+    {
+      "type": "debug",
+      "showContext": true
+    },
+    {
+      "type": "mapping",
+      "mapping": "context.app.adapters.* | sort_by(@, &adapter.name)"
+    },
+    {
+      "type": "grid",
+      "sizeColumnsToFit": false,
+      "columnDefs": [
+        {
+          "headerName": "Title",
+          "field": "adapter.title"
+        },
+        {
+          "headerName": "Description",
+          "field": "adapter.description"
+        },
+        {
+          "headerName": "Enabled",
+          "field": "enabled",
+          "valueFormatter": "x ? '✓' : ''"
+        },
+        {
+          "headerName": "Operations",
+          "cellRenderer": "workflowRenderer",
+          "cellRendererParams": {
+            "blocks": [
+              {
+                "type": "switch",
+                "valueGetter": "data.enabled",
+                "cases": [
+                  {
+                    "value": true,
+                    "blocks": [
+                      {
+                        "type": "actions",
+                        "buttons": [
+                          {
+                            "label": "Disable",
+                            "blocks": [
+                              {
+                                "type": "dispatch",
+                                "action": "disableAdapter"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "default": {
+                  "blocks": [
+                    {
+                      "type": "actions",
+                      "buttons": [
+                        {
+                          "label": "Enable",
+                          "color": "primary",
+                          "blocks": [
+                            {
+                              "type": "dispatch",
+                              "action": "enableAdapter"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

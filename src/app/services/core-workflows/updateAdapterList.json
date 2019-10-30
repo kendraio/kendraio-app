@@ -1,0 +1,59 @@
+{
+  "title": "Update Adapters",
+  "blocks": [
+    {
+      "type": "actions",
+      "buttons": [
+        {
+          "label": "Update adapter list",
+          "color": "primary",
+          "blocks": [
+            {
+              "type": "init"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "variable-get",
+      "name": "adapterRepos"
+    },
+    {
+      "type": "debug"
+    },
+    {
+      "type": "mapping",
+      "mapping": "data.repos"
+    },
+    {
+      "type": "debug"
+    },
+    {
+      "type": "batch",
+      "blocks": [
+        {
+          "type": "init"
+        },
+        {
+          "type": "http",
+          "method": "get",
+          "endpoint": {
+            "valueGetter": "join('', [data, 'index.json'])"
+          }
+        }
+      ]
+    },
+    {
+      "type": "mapping",
+      "mapping": "data[].adapters[]"
+    },
+    {
+      "type": "debug"
+    },
+    {
+      "type": "variable-set",
+      "name": "adapterList"
+    }
+  ]
+}
