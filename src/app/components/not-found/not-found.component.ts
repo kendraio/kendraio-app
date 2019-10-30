@@ -40,6 +40,7 @@ export class NotFoundComponent implements OnInit, OnDestroy {
             map(blocks => ({ ...blocks, queryParams }))
           )),
         catchError(err => {
+          console.error(err);
           return of({
             blocks: [
               {

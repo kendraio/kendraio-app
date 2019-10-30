@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import Dexie from 'dexie';
 import {v4} from 'uuid';
 import { get as _get } from 'lodash-es';
+import {installCoreWorkflows} from './core-workflows/install-core';
 
 @Injectable({
   providedIn: 'root'
@@ -11,18 +12,25 @@ export class LocalDatabaseService extends Dexie {
   constructor() {
     super('kendraio-db');
     this.version(1).stores({
-      metadata: '&uuid, schema, adapterName, [adapterName+schema]',
+      metadata: 'uuid, schemaName, adapterName, [adapterName+schemaName]',
+      adapters: 'adapterName',
+      schemas: '++, schemaName, adapterName, [adapterName+schemaName]',
+      workflows: '++, workflowId, adapterName, [adapterName+workflowId]'
+    });
+    this.on('populate', () => {
+      console.log('Populate database');
+      installCoreWorkflows(this);
     });
   }
 
-  add({adapterName, schema, data}) {
+  add({adapterName, schema: schemaName, data}) {
     const uuid =  _get(data, 'uuid', v4());
-    return this['metadata'].add({uuid, adapterName, schema, data});
+    return this['metadata'].add({uuid, adapterName, schemaName, data});
   }
 
-  get({adapterName, schema, idField}) {
+  get({adapterName, schema: schemaName, idField}) {
     return this['metadata']
-      .where({adapterName, schema})
+      .where({adapterName, schemaName})
       .toArray()
       .then(items => items.map(({uuid, data}) => ({uuid, ...data})));
   }
