@@ -96,15 +96,14 @@ export class KendraioFormService {
   private uiWidgetTypeMapper({ fields, uiSchema }) {
     // Utility function to find the array index of field from a fieldGroup based on key
     const getFieldIndexFromGroup = (obj, _key) => {
-      const fieldGroup = get(obj, 'fieldGroup', []);
-      const checkKey = ({ key }) => key === _key;
-      const i =  findIndex(fieldGroup, checkKey);
-      return i;
+      return findIndex(get(obj, 'fieldGroup', []), ({ key }) => key === _key);
     };
+
+    const fieldIndexExists = fieldIndex => fieldIndex !== -1;
 
     return Object.keys(uiSchema).reduce((_fields, uiKey) => {
       const fieldIndex = getFieldIndexFromGroup(_fields, uiKey);
-      if (fieldIndex !== -1) {
+      if (fieldIndexExists(fieldIndex)) {
         // Map simple top level widget types
         if (has(uiSchema, `${uiKey}.ui:widget`)) {
           const newWidgetType = get(uiSchema, `${uiKey}.ui:widget`, '');
