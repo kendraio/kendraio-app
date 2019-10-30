@@ -79,7 +79,7 @@ export class QueryBlockComponent implements OnInit, OnChanges {
           switch (get(dataSource, 'authentication.type')) {
             case 'basic-auth':
               const valueGetters = get(dataSource, 'authentication.valueGetters', {});
-              const context = { ...dataSource.authentication, ...this.contextData.getGlobalContext(valueGetters) };
+              const context = { ...dataSource.authentication, ...this.contextData.getGlobalContext(valueGetters, this.context) };
               if (has(context, 'username') && has(context, 'password')) {
                 const { username, password } = context;
                 headers = headers.append('Authorization', 'Basic ' + btoa(`${username}:${password}`));
