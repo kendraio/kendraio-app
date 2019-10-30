@@ -98,8 +98,8 @@ export class KendraioFormService {
     const getFieldIndexFromGroup = (obj, _key) => {
       const fieldGroup = get(obj, 'fieldGroup', []);
       const checkKey = ({ key }) => key === _key;
-    const i =  findIndex(fieldGroup, checkKey);
-       return i;
+      const i =  findIndex(fieldGroup, checkKey);
+      return i;
     };
 
     return Object.keys(uiSchema).reduce((_fields, uiKey) => {
