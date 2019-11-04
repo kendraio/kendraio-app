@@ -10,7 +10,7 @@ import {get} from 'lodash-es';
 })
 export class AddBlockDialogComponent implements OnInit {
 
-  blockTypes = BLOCK_TYPES;
+  blockTypes = BLOCK_TYPES.filter(def => !(def.deprecated));
 
   selectedBlockType;
 

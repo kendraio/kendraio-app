@@ -15,6 +15,7 @@ export class LocalDatabaseService extends Dexie {
       metadata: 'uuid, schemaName, adapterName, [adapterName+schemaName]',
       adapters: 'adapterName',
       schemas: '++, schemaName, adapterName, [adapterName+schemaName]',
+      forms: '++, formId, adapterName, [adapterName+formId]',
       workflows: '++, workflowId, adapterName, [adapterName+workflowId]'
     });
     this.on('populate', () => {

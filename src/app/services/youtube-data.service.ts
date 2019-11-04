@@ -22,7 +22,7 @@ export class YoutubeDataService {
     private readonly http: HttpClient
   ) { }
 
-  getProfileData() {
+  getProfileData(provider = 'google-oauth2') {
     return new Promise((resolve, reject) => {
       this.auth.getProfile((err, profile) => {
         if (err) {
@@ -31,14 +31,14 @@ export class YoutubeDataService {
         }
         // console.log({ profile });
         const ytProfile = (profile['identities'] || [])
-          .find(item => item['provider'] === 'google-oauth2');
+          .find(item => item['provider'] === provider);
         resolve(ytProfile);
       });
     });
   }
 
   getAccessToken() {
-    return from(this.getProfileData()).pipe(
+    return from(this.getProfileData('google-oauth2')).pipe(
       catchError(err => {
         this._error.next(err.message);
         return of({});

@@ -1,0 +1,7 @@
+<mat-error *ngIf="error$ | async as error">
+  {{ error | json }}
+</mat-error>
+<mat-error *ngIf="hasError">
+  {{ errorMessage }}
+</mat-error>
+<mat-spinner *ngIf="isLoading" diameter="50"></mat-spinner>

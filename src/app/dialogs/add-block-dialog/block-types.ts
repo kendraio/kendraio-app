@@ -332,5 +332,15 @@ export const BLOCK_TYPES = [
       type: 'variable-set',
       name: '[VARIABLE_NAME]'
     }
+  },
+  {
+    type: 'auth0',
+    deprecated: true,
+    hasEditor: true
+  },
+  {
+    type: 'query',
+    deprecated: true,
+    hasEditor: true
   }
 ];

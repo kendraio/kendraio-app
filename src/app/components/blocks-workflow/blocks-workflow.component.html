@@ -33,6 +33,7 @@
     <app-db-block class="block-wrapper" *ngSwitchCase="'db'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-db-block>
     <app-reference-block class="block-wrapper" *ngSwitchCase="'reference'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-reference-block>
     <app-context-block class="block-wrapper" *ngSwitchCase="'context'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-context-block>
+    <app-auth0-profile-data-block class="block-wrapper" *ngSwitchCase="'auth0'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-auth0-profile-data-block>
   </ng-container>
 </ng-container>
 <!--<pre>{{ blocks | json }}</pre>-->
