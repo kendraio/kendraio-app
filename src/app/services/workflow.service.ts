@@ -114,6 +114,7 @@ export class WorkflowService {
               context: {}
             });
             this.id = get(config, 'id');
+            set(this.context, 'app.adapterName', get(config, 'adapterName', 'UNKNOWN'));
             this.saveState();
           }
         } catch (e) {
