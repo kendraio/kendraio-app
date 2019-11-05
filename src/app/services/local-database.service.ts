@@ -11,6 +11,14 @@ export class LocalDatabaseService extends Dexie {
 
   constructor() {
     super('kendraio-db');
+    this.initDatabase();
+    this.on('populate', () => {
+      console.log('Populate database');
+      installCoreWorkflows(this);
+    });
+  }
+
+  initDatabase() {
     this.version(1).stores({
       metadata: 'uuid, schemaName, adapterName, [adapterName+schemaName]',
       adapters: 'adapterName',
@@ -18,9 +26,13 @@ export class LocalDatabaseService extends Dexie {
       forms: '++, formId, adapterName, [adapterName+formId]',
       workflows: '++, workflowId, adapterName, [adapterName+workflowId]'
     });
-    this.on('populate', () => {
-      console.log('Populate database');
-      installCoreWorkflows(this);
+  }
+
+  resetApp() {
+    // Delete, initialise, then re-open database
+    this.delete().then(_ => {
+      this.initDatabase();
+      this.open();
     });
   }
 

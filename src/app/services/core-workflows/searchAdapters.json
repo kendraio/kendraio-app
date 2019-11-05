@@ -1,0 +1,70 @@
+{
+  "title": "Workflow",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "context",
+      "contextPath": "adapterList",
+      "contextBlocks": [
+        {
+          "type": "variable-get",
+          "name": "adapterList"
+        }
+      ],
+      "blocks": [
+        {
+          "type": "form",
+          "hasSubmit": false,
+          "emitOnInit": true,
+          "jsonSchema": {
+            "type": "object",
+            "properties": {
+              "term": {
+                "type": "string",
+                "title": "Search term",
+                "default": "music"
+              }
+            }
+          },
+          "uiSchema": {}
+        },
+        {
+          "type": "mapping",
+          "mapping": "(length(data.term) == `0` && context.adapterList) || context.adapterList[?contains(tags, _(&data.term)) || contains(name, _(&data.term))]"
+        }
+      ]
+    },
+    {
+      "type": "batch",
+      "blocks": [
+        {
+          "type": "card",
+          "blocks": [
+            {
+              "type": "template",
+              "template": "<h3>{{ label }}</h3><div class='tag-list'><span class='tag version-tag'>v{{ version }}</span>{{#each tags}}<span class='tag'>{{ this }}</span>{{/each}}</div><p>{{ description }}</p>"
+            },
+            {
+              "type": "actions",
+              "buttons": [
+                {
+                  "label": "Install",
+                  "color": "primary",
+                  "blocks": [
+                    {
+
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "id": "adapterSearch",
+  "adapterName": "core"
+}

@@ -334,6 +334,19 @@ export const BLOCK_TYPES = [
     }
   },
   {
+    type: 'context',
+    label: 'Context',
+    description: 'Load a value into context',
+    icon: 'fa-stamp',
+    defaultConfig: {
+      type: 'context',
+      contextPath: 'newValue',
+      contextBlocks: [],
+      blocks: []
+    },
+    hasEditor: true
+  },
+  {
     type: 'auth0',
     deprecated: true,
     hasEditor: true

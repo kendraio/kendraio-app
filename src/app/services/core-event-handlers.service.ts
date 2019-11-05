@@ -5,6 +5,7 @@ import {AdaptersService} from './adapters.service';
 import {DocumentRepositoryService} from './document-repository.service';
 import {get, has} from 'lodash-es';
 import {WorkflowService} from './workflow.service';
+import {LocalDatabaseService} from './local-database.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,8 @@ export class CoreEventHandlersService {
     private readonly formSubmit: FormSubmitHandlerService,
     private readonly adapters: AdaptersService,
     private readonly database: DocumentRepositoryService,
-    private readonly workflow: WorkflowService
+    private readonly workflow: WorkflowService,
+    private readonly localData: LocalDatabaseService
   ) {
     this.formSubmit.actions$
       .pipe(
@@ -28,6 +30,7 @@ export class CoreEventHandlersService {
             // TODO: uninstall all adapters (uninstall hooks delete to delete data)
             this.adapters.resetApp();
             this.database.resetApp();
+            this.localData.resetApp();
             break;
           case 'enableAdapter':
             if (has(payload, 'adapter.name')) {
