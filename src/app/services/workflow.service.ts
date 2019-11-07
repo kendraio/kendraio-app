@@ -8,7 +8,8 @@ import {clone, get, has, isArray, set} from 'lodash-es';
 import {MatDialog} from '@angular/material';
 import {PageTitleService} from './page-title.service';
 import {AdaptersService} from './adapters.service';
-import {AdapterBlocksConfigSelectDialogComponent} from '../dialogs/adapter-blocks-config-select-dialog/adapter-blocks-config-select-dialog.component';
+import {AdapterBlocksConfigSelectDialogComponent} from
+    '../dialogs/adapter-blocks-config-select-dialog/adapter-blocks-config-select-dialog.component';
 import {ShareLinkGeneratorService} from './share-link-generator.service';
 import {LoadWorkflowDialogComponent} from '../dialogs/load-workflow-dialog/load-workflow-dialog.component';
 import {SaveWorkflowDialogComponent} from '../dialogs/save-workflow-dialog/save-workflow-dialog.component';

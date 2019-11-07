@@ -54,7 +54,18 @@
                   "color": "primary",
                   "blocks": [
                     {
-
+                      "type": "dispatch",
+                      "action": "installAdapter"
+                    }
+                  ]
+                },
+                {
+                  "label": "Uninstall",
+                  "color": "danger",
+                  "blocks": [
+                    {
+                      "type": "dispatch",
+                      "action": "uninstallAdapter"
                     }
                   ]
                 }

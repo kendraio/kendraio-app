@@ -11,7 +11,13 @@
             },
             {
               "type": "variable-get",
-              "name": "settings"
+              "name": "settings",
+              "default": {
+                "adapterRepoUrl": "https://kendraio.github.io/kendraio-adapter/",
+                "showHelp": true,
+                "debugMode": false,
+                "disablePreview": false
+              }
             },
             {
               "type": "form",
@@ -36,12 +42,20 @@
                     "title": "Debug mode",
                     "type": "boolean",
                     "default": false
+                  },
+                  "disablePreview": {
+                    "title": "Disable prototypes and features under development",
+                    "type": "boolean",
+                    "default": false
                   }
                 }
               },
               "uiSchema": {
 
               }
+            },
+            {
+              "type": "debug"
             },
             {
               "type": "actions",

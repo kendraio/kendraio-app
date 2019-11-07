@@ -69,8 +69,8 @@
           </select>
       </div>
 
-      <button mat-icon-button><mat-icon>person</mat-icon> </button>
-      <button mat-icon-button><mat-icon [matBadge]="notificationCount">notifications</mat-icon></button>
+      <button mat-icon-button routerLink="/user"><mat-icon>person</mat-icon> </button>
+      <button mat-icon-button routerLink="/notifications"><mat-icon [matBadge]="notificationCount">notifications</mat-icon></button>
       <ng-container *ngIf="pageTitle$ | async as pageTitleData">
         <button mat-icon-button (click)="blocksSidePane.toggle()" [disabled]="!pageTitleData.isWorkflow"><mat-icon>settings</mat-icon></button>
       </ng-container>

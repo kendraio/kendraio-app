@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {has} from 'lodash-es';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,7 @@ export class AppSettingsService {
     if (settings) {
       this.settings = JSON.parse(settings);
     }
-    if (!this.settings[name]) {
+    if (!has(this.settings, name)) {
       return defaultValue;
     }
     return this.settings[name];

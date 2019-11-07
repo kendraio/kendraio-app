@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { MenuItem } from './_models/classes/common';
-import {MENUITEMS } from './_shared/components/menu/menu.component';
+import {MENUITEMS as PROTOTYPE_MENU } from './_shared/components/menu/menu.component';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { PageTitleService } from './services/page-title.service';
 import { Title } from '@angular/platform-browser';
@@ -15,6 +15,7 @@ import { LangChangeEvent, TranslateService, TranslationChangeEvent } from '@ngx-
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Animations } from './_shared/animations';
 import {CoreEventHandlersService} from './services/core-event-handlers.service';
+import {MenuBuilderService} from './services/menu-builder.service';
 
 @Component({
   animations: [Animations.kendraAnimations],
@@ -48,11 +49,13 @@ export class AppComponent {
     private readonly help: HelpTextService,
     private titleService: Title,
     @Inject(LOCALE_ID) public locale: string,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private readonly menuBuilder: MenuBuilderService
     ) {
     auth.handleAuthentication();
-    this.menuItems = MENUITEMS;
-    this.dataSource.data = MENUITEMS;
+    const MENU_ITEMS = menuBuilder.getMenu();
+    this.menuItems = MENU_ITEMS;
+    this.dataSource.data = MENU_ITEMS;
     this.pageTitle$ = this.title.pageTitle$;
     const browserLang = translate.getBrowserLang();
     // console.log(browserLang);

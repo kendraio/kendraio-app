@@ -22,9 +22,12 @@ export class LocalDatabaseService extends Dexie {
     this.version(1).stores({
       metadata: 'uuid, schemaName, adapterName, [adapterName+schemaName]',
       adapters: 'adapterName',
-      schemas: '++, schemaName, adapterName, [adapterName+schemaName]',
-      forms: '++, formId, adapterName, [adapterName+formId]',
-      workflows: '++, workflowId, adapterName, [adapterName+workflowId]'
+      dashboards: 'adapterName',
+      services: 'adapterName',
+      schemas: '++, *adapterName, [adapterName+schemaName]',
+      forms: '++, *adapterName, [adapterName+formId]',
+      workflows: '++, *adapterName, [adapterName+workflowId]',
+      apis: '++, *adapterName, [adapterName+apiPath]'
     });
   }
 

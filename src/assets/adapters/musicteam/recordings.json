@@ -140,6 +140,16 @@
               "action": "refreshWorkflow"
             }
           ]
+        },
+        {
+          "label": "ADD2",
+          "blocks": [
+            {
+              "type": "launch",
+              "adapter": "musicteam",
+              "workflowId": "addRecording"
+            }
+          ]
         }
       ]
     }

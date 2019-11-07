@@ -1,5 +1,7 @@
 {
   "title": "Update Adapters",
+  "adapterName": "core",
+  "id": "updateAdapterList",
   "blocks": [
     {
       "type": "actions",
@@ -33,20 +35,40 @@
       "type": "batch",
       "blocks": [
         {
-          "type": "init"
-        },
-        {
-          "type": "http",
-          "method": "get",
-          "endpoint": {
-            "valueGetter": "join('', [data, 'index.json'])"
-          }
+          "type": "context",
+          "contextPath": "repoUrl",
+          "contextBlocks": [
+            {
+              "type": "mapping",
+              "mapping": "data"
+            }
+          ],
+          "blocks": [
+            {
+              "type": "init"
+            },
+            {
+              "type": "http",
+              "method": "get",
+              "endpoint": {
+                "valueGetter": "join('', [data, 'index.json'])"
+              }
+            },
+            {
+              "type": "mapping",
+              "mapping": "data.adapters[].merge(@, { repoUrl: _(&context.repoUrl) })"
+            }
+          ]
         }
       ]
     },
     {
+      "type": "debug",
+      "showContext": true
+    },
+    {
       "type": "mapping",
-      "mapping": "data[].adapters[]"
+      "mapping": "data[][]"
     },
     {
       "type": "debug"
