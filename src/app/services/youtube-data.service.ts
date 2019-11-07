@@ -22,6 +22,19 @@ export class YoutubeDataService {
     private readonly http: HttpClient
   ) { }
 
+  getAllProfileData() {
+    return new Promise((resolve, reject) => {
+      this.auth.getProfile((err, profile) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        // console.log({ profile });
+        resolve(profile);
+      });
+    });
+  }
+
   getProfileData(provider = 'google-oauth2') {
     return new Promise((resolve, reject) => {
       this.auth.getProfile((err, profile) => {

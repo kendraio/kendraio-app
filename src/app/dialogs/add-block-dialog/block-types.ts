@@ -347,6 +347,27 @@ export const BLOCK_TYPES = [
     hasEditor: true
   },
   {
+    type: 'adapter-list',
+    label: 'Adapter list',
+    description: 'Get a list of all installed adapters',
+    icon: 'extension',
+    defaultConfig: {
+      type: 'adapter-list'
+    },
+    hasEditor: true
+  },
+  {
+    type: 'adapter-info',
+    label: 'Adapter info',
+    description: 'Get metadata for a specific adapter',
+    icon: 'extension',
+    defaultConfig: {
+      type: 'adapter-info',
+      adapterName: '[UNKNOWN]',
+    },
+    hasEditor: true
+  },
+  {
     type: 'auth0',
     deprecated: true,
     hasEditor: true

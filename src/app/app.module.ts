@@ -189,6 +189,8 @@ import { FormlyFormDialogComponent } from './dialogs/formly-form-dialog/formly-f
 import { MappingPipe } from './pipes/mapping.pipe';
 import { ContextBlockComponent } from './blocks/context-block/context-block.component';
 import { Auth0ProfileDataBlockComponent } from './blocks/auth0-profile-data-block/auth0-profile-data-block.component';
+import { AdapterListBlockComponent } from './blocks/adapter-list-block/adapter-list-block.component';
+import { AdapterInfoBlockComponent } from './blocks/adapter-info-block/adapter-info-block.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -333,7 +335,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormlyFormDialogComponent,
     MappingPipe,
     ContextBlockComponent,
-    Auth0ProfileDataBlockComponent
+    Auth0ProfileDataBlockComponent,
+    AdapterListBlockComponent,
+    AdapterInfoBlockComponent
   ],
   imports: [
     // AgGridModule.withComponents([

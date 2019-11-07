@@ -16,6 +16,7 @@ export class Auth0ProfileDataBlockComponent extends BaseBlockComponent {
   isLoading = false;
   hasError = false;
   errorMessage = '';
+  fetchAll = false;
 
   constructor(
     private readonly yt: YoutubeDataService
@@ -26,6 +27,7 @@ export class Auth0ProfileDataBlockComponent extends BaseBlockComponent {
   onConfigUpdate(config: any) {
     this.skipFirst = get(config, 'skipFirst', false);
     this.provider = get(config, 'provider', 'google-oauth2');
+    this.fetchAll = get(config, 'fetchAll', false);
   }
 
   onData(data: any, firstChange: boolean) {
@@ -35,7 +37,8 @@ export class Auth0ProfileDataBlockComponent extends BaseBlockComponent {
 
     this.hasError = false;
     this.isLoading = true;
-    this.yt.getProfileData(this.provider).then(value => {
+    const profilePromise = this.fetchAll ? this.yt.getAllProfileData() : this.yt.getProfileData(this.provider);
+    profilePromise.then(value => {
       this.isLoading = false;
       this.output.emit(value);
     }).catch(err => {
