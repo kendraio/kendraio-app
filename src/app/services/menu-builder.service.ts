@@ -15,7 +15,13 @@ export class MenuBuilderService {
   constructor(
     private readonly settings: AppSettingsService,
     private readonly db: LocalDatabaseService
-  ) { }
+  ) {
+    this._menu.next(this.getMenu());
+    this.settings.settingsUpdated$.subscribe(() => {
+      console.log('update menu');
+      this._menu.next(this.getMenu());
+    });
+  }
 
   getMenu() {
     const services = [];

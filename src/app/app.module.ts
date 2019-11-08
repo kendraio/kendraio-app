@@ -80,7 +80,6 @@ import { RemoteImageControlComponent } from './form-controls/remote-image-contro
 import { DynamicRemoteImageControlComponent } from './form-controls/dynamic-remote-image-control/dynamic-remote-image-control.component';
 import {REMOTE_IMAGE_DYNAMIC_FORM_CONTROL_TYPE} from './form-controls/remote-image-model';
 import { AssetsModule } from './assets/assets.module';
-import { MainMenuComponent } from './_shared/components/main-menu/main-menu.component';
 import { MenuItemComponent } from './_shared/components/menu/menu-item.component';
 import { Menu2ItemComponent } from './_shared/components/menu/menu-2-item.component';
 import { MessagesModule } from './messages/messages.module';
@@ -191,6 +190,7 @@ import { ContextBlockComponent } from './blocks/context-block/context-block.comp
 import { Auth0ProfileDataBlockComponent } from './blocks/auth0-profile-data-block/auth0-profile-data-block.component';
 import { AdapterListBlockComponent } from './blocks/adapter-list-block/adapter-list-block.component';
 import { AdapterInfoBlockComponent } from './blocks/adapter-info-block/adapter-info-block.component';
+import { MainMenuComponent } from './components/main-menu/main-menu.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -340,10 +340,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     AdapterInfoBlockComponent
   ],
   imports: [
-    // AgGridModule.withComponents([
-    //   // MatInputComponent
-    // ]),
-
     FormlyModule.forRoot({
     }),
     BrowserModule,

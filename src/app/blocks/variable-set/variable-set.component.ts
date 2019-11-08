@@ -2,6 +2,7 @@ import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, V
 import {clone, get, isArray, isObject} from 'lodash-es';
 import * as stringify from 'json-stringify-safe';
 import {MatSnackBar} from '@angular/material';
+import { AppSettingsService } from '../../services/app-settings.service';
 
 @Component({
   selector: 'app-variable-set',
@@ -16,7 +17,8 @@ export class VariableSetComponent implements OnInit, OnChanges {
   @Output() output = new EventEmitter();
 
   constructor(
-    private readonly notify: MatSnackBar
+    private readonly notify: MatSnackBar,
+    private readonly settings: AppSettingsService
   ) { }
 
   ngOnInit() {
@@ -36,6 +38,10 @@ export class VariableSetComponent implements OnInit, OnChanges {
       verticalPosition: 'top'
     });
     this.output.emit(clone(this.model));
+
+    if (get(this.context, 'app.adapterName') === 'core') {
+      this.settings.settingsUpdated$.next();
+    }
   }
 
 }
