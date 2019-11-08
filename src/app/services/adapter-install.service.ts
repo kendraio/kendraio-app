@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {LocalDatabaseService} from './local-database.service';
 import {get, has} from 'lodash-es';
+import {AppSettingsService} from './app-settings.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ export class AdapterInstallService {
 
   constructor(
     private readonly http: HttpClient,
-    private readonly localData: LocalDatabaseService
+    private readonly localData: LocalDatabaseService,
+    private readonly settings: AppSettingsService
   ) { }
 
   install({ repoUrl, name }) {
@@ -43,7 +45,7 @@ export class AdapterInstallService {
         // Load in database schemas
         const schemas = get(adapterConfig, 'database', []);
         schemas.forEach(({ name: schemaName, schema }) => {
-          const schemaConfig = get(adapterConfig, `attachments.${schema}`, {});
+          const schemaConfig = get(attachments, schema, {});
           this.localData['schemas']
             .add({ ...schemaConfig, schemaName, adapterName })
             .catch(errorReporter({ schema }));
@@ -52,7 +54,7 @@ export class AdapterInstallService {
         // Load in workflow configs
         const workflows = get(adapterConfig, 'workflow', []);
         workflows.forEach(({ title, workflowId, config }) => {
-          const workflowConfig = get(adapterConfig, `attachments.${config}`, {});
+          const workflowConfig = get(attachments, config, {});
           this.localData['workflows']
             .add({ ...workflowConfig, title, workflowId, adapterName })
             .catch(errorReporter({ workflowId }));
@@ -61,8 +63,8 @@ export class AdapterInstallService {
         // Load in form configs
         const forms = get(adapterConfig, 'forms', []);
         forms.forEach(({ formId, title, jsonSchema, uiSchema }) => {
-          const jsonSchemaConfig = get(adapterConfig,  `attachments.${jsonSchema}`, {});
-          const uiSchemaConfig = get(adapterConfig,  `attachments.${uiSchema}`, {});
+          const jsonSchemaConfig = get(attachments,  jsonSchema, {});
+          const uiSchemaConfig = get(attachments, uiSchema, {});
           this.localData['forms']
             .add({ formId, title, jsonSchema: jsonSchemaConfig, uiSchema: uiSchemaConfig, adapterName })
             .catch(errorReporter({ formId }));
@@ -71,11 +73,13 @@ export class AdapterInstallService {
         // Load in API configs
         const apis = get(adapterConfig, 'apis', []);
         apis.forEach((apiPath) => {
-          const apiConfig = get(adapterConfig, `attachments.${apiPath}`, {});
+          const apiConfig = get(attachments, apiPath, {});
           this.localData['apis']
             .add({ adapterName, apiPath, apiConfig })
             .catch(errorReporter({ apiPath }));
         });
+
+        setTimeout(() => this.settings.settingsUpdated$.next(), 400);
       });
   }
 

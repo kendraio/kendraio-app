@@ -11,6 +11,7 @@
     {
       "type": "form",
       "hasSubmit": false,
+      "emitOnInit": true,
       "jsonSchema": {
         "type": "object",
         "properties": {

@@ -3,6 +3,7 @@ import {MENUITEMS as PROTOTYPE_MENU} from '../_shared/components/menu/menu.compo
 import {AppSettingsService} from './app-settings.service';
 import {BehaviorSubject} from 'rxjs';
 import {LocalDatabaseService} from './local-database.service';
+import {find, get} from 'lodash-es';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +16,39 @@ export class MenuBuilderService {
   constructor(
     private readonly settings: AppSettingsService,
     private readonly db: LocalDatabaseService
-  ) { }
+  ) {
+    this.updateServicesMenu();
+    this.settings.settingsUpdated$.subscribe(() => {
+      this.updateServicesMenu();
+    });
+  }
 
-  getMenu() {
-    const services = [];
+  async updateServicesMenu() {
+    const dashboards = await this.db['dashboards'].toArray();
+    const services = await this.db['services'].toArray();
+    const menuItems = dashboards.map(item => {
+      const adapterName = get(item, 'adapterName', 'UNKNOWN');
+      const label = get(item, 'label', adapterName);
+      const icon = get(item, 'icon', 'brightness_5');
+      const workflowId = get(item, 'workflowId', 'dashboard');
+      const childrenServices = find(services, service => service.adapterName === adapterName);
+      return {
+        path: `${adapterName}/${workflowId}`,
+        label,
+        icon,
+        children: get(childrenServices, 'services', []).map(s => {
+          return {
+            path: `${adapterName}/${s.workflowId}`,
+            label: s.label || s.workflowId,
+            icon: s.icon || 'file_copy'
+          };
+        })
+      };
+    });
+    this._menu.next(this.getMenu(menuItems));
+  }
 
+  getMenu(services = []) {
     return [
       {
         path: '/dashboard',

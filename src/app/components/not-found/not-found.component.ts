@@ -35,10 +35,12 @@ export class NotFoundComponent implements OnInit, OnDestroy {
         map(([x]) => x),
         filter(v => isArray(v) && v.length >= 2),
         withLatestFrom(this.route.queryParams),
+        tap(console.log),
         switchMap(([[adapterName, workflowId], queryParams]) => this.workflowRepo.getBlocks(adapterName.path, workflowId.path)
           .pipe(
             map(blocks => ({ ...blocks, queryParams }))
           )),
+        tap(console.log),
         catchError(err => {
           console.error(err);
           return of({
@@ -52,7 +54,8 @@ export class NotFoundComponent implements OnInit, OnDestroy {
             title: 'Not found',
             context: {}
           });
-        })
+        }),
+        tap(console.log),
       )
       .subscribe(({ blocks, title, context, queryParams }) => {
         this.workflow.initWorkflow({ title, blocks, context: { ...context, queryParams }});

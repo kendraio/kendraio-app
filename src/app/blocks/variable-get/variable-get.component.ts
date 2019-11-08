@@ -15,6 +15,7 @@ export class VariableGetComponent implements OnInit, OnChanges {
 
   hasError = false;
   errorMessage = '';
+  skipFirst = true;
 
   constructor() { }
 
@@ -22,7 +23,8 @@ export class VariableGetComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes): void {
-    if (get(changes, 'model.firstChange', false)) {
+    this.skipFirst = get(this.config, 'skipFirst', true);
+    if (this.skipFirst && get(changes, 'model.firstChange', false)) {
       return;
     }
     const adapterName = get(this.context, 'app.adapterName', 'UNKNOWN');

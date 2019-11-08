@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {has} from 'lodash-es';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,7 @@ import {has} from 'lodash-es';
 export class AppSettingsService {
 
   settings = {};
+  settingsUpdated$ = new Subject();
 
   constructor() { }
 
@@ -44,5 +46,6 @@ export class AppSettingsService {
   set(name, value) {
     this.settings[name] = value;
     localStorage.setItem('core.variables.settings', JSON.stringify(this.settings));
+    this.settingsUpdated$.next();
   }
 }

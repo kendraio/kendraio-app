@@ -1,0 +1,16 @@
+{
+  "name": "core",
+  "label": "Core",
+  "description": "Core app workflows.",
+  "version": "0.1.0",
+  "infoUrl": "https://app.kendra.io",
+  "maintainer": "Kendraio",
+  "supportUrl": "http://kendra.io",
+  "database": [],
+  "workflow": [],
+  "forms": [],
+  "tags": [
+    "core"
+  ],
+  "attachments": {}
+}
