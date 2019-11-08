@@ -15,7 +15,15 @@ export class LocalDatabaseService extends Dexie {
     this.on('populate', () => {
       console.log('Populate database');
       installCoreWorkflows(this);
+      this.configureDefaultSettings();
     });
+  }
+
+  configureDefaultSettings() {
+    localStorage.setItem('core.variables.adapterRepos', JSON.stringify({ repos: [
+      '/assets/adapters',
+      'https://kendraio-adapter.kendraio.now.sh/'
+    ]}));
   }
 
   initDatabase() {

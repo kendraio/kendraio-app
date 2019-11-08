@@ -1,0 +1,6 @@
+{
+  "name": "Main Kendraio Adapter Repository",
+  "adapters": [
+    "core"
+  ]
+}

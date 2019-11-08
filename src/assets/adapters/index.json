@@ -1,0 +1,15 @@
+{
+  "name": "Internal",
+  "adapters": [
+    {
+      "name": "core",
+      "version": "0.1.0",
+      "label": "Core",
+      "description": "Core app workflows.",
+      "location": "core",
+      "tags": [
+        "core"
+      ]
+    }
+  ]
+}
