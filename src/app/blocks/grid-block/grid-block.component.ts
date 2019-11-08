@@ -36,6 +36,9 @@ export class GridBlockComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     // console.log('init');
+   // if (isObject(this.config.gridOptions.defaultColDef)) {
+    // this.defaultColDef = isObject(this.config.gridOptions.defaultColDef) ? this.config.gridOptions.defaultColDef : {resizable: true};
+  // }
   }
 
   ngOnChanges(changes) {
@@ -52,6 +55,12 @@ export class GridBlockComponent implements OnInit, OnChanges {
       : [];
     this.columnDefs = this.preprocessColumnDefinition(get(this.config, 'columnDefs', defaultCols));
     this.gridOptions = clone(get(this.config, 'gridOptions', {}));
+
+has(this.gridOptions, 'defaultColDef')
+
+    // this.defaultColDef =  isObject(this.config.gridOptions.defaultColDef) ? this.config.gridOptions.defaultColDef : {resizable: true};
+    this.defaultColDef = has(this.gridOptions, 'defaultColDef') ? this.config.gridOptions.defaultColDef : this.defaultColDef;
+
     this.rowData = isArray(this.model) ? this.model : get(this.model, 'result', []);
     if (!!this.gridAngular && get(this.config, 'sizeColumnsToFit', true)) {
       setTimeout(() => {
@@ -60,6 +69,7 @@ export class GridBlockComponent implements OnInit, OnChanges {
         });
       }, 40);
     }
+
   }
 
   preprocessColumnDefinition(def: Array<any>) {
@@ -82,7 +92,7 @@ export class GridBlockComponent implements OnInit, OnChanges {
   onSelectionChanged(e) {
     // console.log({ e });
     const selectedRows = e.api.getSelectedRows();
-    // console.log({ selectedRows });
+     console.log({ selectedRows });
     this.output.emit(isArray(selectedRows) ? [ ...selectedRows ] : isObject(selectedRows) ? { ...selectedRows } : selectedRows);
   }
 

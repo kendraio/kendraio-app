@@ -1,0 +1,154 @@
+{
+  "title": "My YouTube Videos",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "db",
+      "operation": "get",
+      "adapterName": "YouTube",
+      "schema": "my-videolist"
+    },
+    {
+      "type": "grid",
+      "gridOptions": {},
+      "columnDefs": [
+        {
+          "headerName": "Title",
+          "field": "title"
+        },
+        {
+            "headerName": "Video ID",
+            "field": "videoId"
+          },
+        {
+          "headerName": "Description",
+          "field": "description"
+        },
+        {
+          "headerName": "Operations",
+          "cellRenderer": "workflowRenderer",
+          "cellRendererParams": {
+            "blocks": [
+              {
+                "type": "actions",
+                "buttons": [
+                  {
+                    "label": "View",
+                    "blocks": [
+                      {
+                        "type": "dialog",
+                        "blocks": [
+                          {
+                            "type": "debug"
+                          },
+                          {
+                            "type": "actions",
+                            "buttons": [
+                              {
+                                "label": "OK",
+                                "blocks": [
+                                  {
+                                    "type": "init"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Edit",
+                    "blocks": [
+                      {
+                        "type": "launch",
+                        "adapter": "youtube",
+                        "workflowId": "editVideo",
+                        "context": {
+                          "uuid": "data.uuid"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Delete",
+                    "blocks": [
+                      {
+                        "type": "dialog",
+                        "blocks": [
+                          {
+                            "type": "message",
+                            "title": "Are you sure you want to delete {{title}}?",
+                            "message": "This action cannot be undone."
+                          },
+                          {
+                            "type": "actions",
+                            "buttons": [
+                              {
+                                "label": "Delete",
+                                "color": "warn",
+                                "blocks": [
+                                  {
+                                    "type": "db",
+                                    "operation": "delete",
+                                    "uuidGetter": "data.uuid"
+                                  },
+                                  {
+                                    "type": "dispatch",
+                                    "action": "refreshWorkflow"
+                                  }
+                                ]
+                              },
+                              {
+                                "label": "Cancel",
+                                "blocks": [
+                                  {
+                                    "type": "init"
+                                  }
+                                ]
+                              },
+                              {
+                                "label": "S"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "actions",
+      "buttons": [
+        {
+          "label": "Add Video",
+          "blocks": [
+            {
+              "type": "mapping",
+              "mapping": "{ uuid: uuid(), title: 'New Video Title', videoId: '4B_R5PazXa4' }"
+            },
+            {
+              "type": "db",
+              "operation": "add",
+              "adapterName": "YouTube",
+              "schema": "my-videolist"
+            },
+            {
+              "type": "dispatch",
+              "action": "refreshWorkflow"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

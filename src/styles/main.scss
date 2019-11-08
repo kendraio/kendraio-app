@@ -235,6 +235,15 @@ formly-object-type {
 }
 
 formly-array-type {
+  >.mat-card {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-around ;
+    align-items: flex-end;
+    .mat-card {
+      margin-right: 16px;
+    }
+  }
   mat-card-header {
     font-size: 1.5rem;
   }
@@ -248,3 +257,6 @@ formly-array-type {
 .mat-form-field{
   margin-bottom: 1rem;
 }
+
+
+// Kendraio3ca31f6bcb87c68721363847192dbd57

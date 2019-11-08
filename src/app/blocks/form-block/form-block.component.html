@@ -1,4 +1,9 @@
 <formly-form [fields]="fields" [options]="options" [model]="model" [form]="form" (modelChange)="onModelChange($event)"></formly-form>
 <div class="button-row" *ngIf="hasSubmit">
   <button type="button" mat-flat-button color="primary" (click)="onSubmit()">{{ label }}</button>
+
+
+<!-- xxxx{{form | json}}xxxx -->
+
+
 </div>

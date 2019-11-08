@@ -1,0 +1,150 @@
+{
+  "title": "YouTube edit Video",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "db",
+      "operation": "fetch",
+      "uuidGetter": "context.queryParams.uuid"
+    },
+    {
+      "type": "mapping",
+      "mapping": "data[0]"
+    },
+    {
+      "type": "form",
+      "hasSubmit": false,
+      "emitOnInit": true,
+      "jsonSchema": {
+        "title": "Edit Video",
+        "description": "This form allows you to edit the basic details of your video.",
+        "type": "object",
+        "required": [
+            "title",
+            "description"
+        ],
+        "properties": {
+            "uuid": {
+                "type": "string"
+            },
+            "videoId": {
+                "title": "",
+                "description": "",
+                "type": "string"
+            },
+            "title": {
+                "title": "Title",
+                "description": "",
+                "type": "string",
+                "minLength": 2,
+                "maxLength": 150
+            },
+            "description": {
+                "type": "string",
+                "title": "Description",
+                "minLength": 2,
+                "maxLength": 1000
+            },
+            "thumbnails": {
+                "type": "string",
+                "title": "Thumbnail "
+            },
+            "tags": {
+                "type": "string",
+                "title": "Tags ",
+                "description": "Press enter to add a tag"
+            },
+            "visibility": {
+                "type": "object",
+                "title": "Visibility "
+            },
+            "playlist": {
+                "type": "object",
+                "title": "Playlists"
+            }
+            ,
+            "isReadyForSync": {
+                "type": "boolean",
+                "title": "Ready for sync?",
+                "default": false
+            }
+        }
+    },
+      "uiSchema": {
+        "uuid": {
+            "ui:widget": "k-hidden"
+        },
+        "title": {
+          "ui:disabled": false,
+          "ui:placeholder": "Enter the Video Title",
+          "ui:errMessage": {
+            "required": "This is my Required Field error message.",
+            "minLength": "This a custom Min length error message."
+          }
+        },
+        "description": {
+          "ui:disabled": false,
+          "ui:placeholder": "Enter the Video Description",
+          "ui:autofocus": true,
+          "ui:widget": "k-textarea",
+          "ui:rows": 8,
+          "ui:cols": 3,
+          "ui:errMessage":{
+            "required": "Excuse me, this field is required!!",
+            "minLength": "Please enter more Characters",
+            "maxLength": "This field cannot except that many Characters. ",
+            "pattern": "Incorrect format! Should be 555-555-555"
+          }
+        },
+        "videoId": {
+          "ui:widget": "videoviewer"
+        },
+        "thumbnails": {
+          "ui:widget": "thumbnailviewer"
+        },
+        "tags": {
+          "ui:widget": "tags"
+        },
+        "visibility": {
+          "ui:widget": "visibility"
+        },
+        "playlist": {
+          "ui:widget": "playlist"
+        }
+    
+      }
+    },
+    {
+      "type": "debug",
+      "adapter": "YouTube",
+      "workflowId": "editVideo"
+    },
+    {
+      "type": "actions",
+      "buttons": [
+        {
+          "label": "Save Changes",
+          "color": "primary",
+          "blocks": [
+            {
+              "type": "db",
+              "operation": "update",
+              "uuidGetter": "uuid"
+            }
+          ]
+        },
+        {
+          "label": "Cancel",
+          "blocks": [
+            {
+              "type": "init"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "id": "editVideo"
+}

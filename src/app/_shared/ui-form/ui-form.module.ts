@@ -123,7 +123,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     types.FieldHiddenComponent,
     types.FieldInputPasswordComponent,
     types.TimePickerComponent,
-    // types.NullTypeComponent
+    types.ImageViewerComponent,
+    types.NullTypeComponent
     // ContentEditableFormDirective
     // KendraioFormComponent
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FieldType } from '@ngx-formly/core';
 import { MatRadioChange } from '@angular/material/radio';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -12,6 +12,11 @@ import { Animations } from '../../animations';
 })
 // tslint:disable-next-line: component-class-suffiximplements OnInit
 export class FieldInputPlaylistComponent extends FieldType implements OnInit {
+
+  // @Input()
+  // formControl;
+
+
   showNewPlaylist  = false;
   mySelectedPlaylists = [];
   myPlaylists: {
@@ -35,7 +40,7 @@ export class FieldInputPlaylistComponent extends FieldType implements OnInit {
   val: string;
   showSchedulue: boolean;
   newPlaylistForm = new FormGroup({});
-  formx = new FormGroup({});
+  myform = new FormGroup({});
   valueChanges$: Observable<any>;
   playListValueChanges$: Observable<any>;
   subscription: Subscription;
@@ -53,7 +58,7 @@ export class FieldInputPlaylistComponent extends FieldType implements OnInit {
       playlistTitle: ''
     });
 
-    this.formx = this.fb.group({
+    this.myform = this.fb.group({
       myPlaylistCtrl: ''
     });
 
@@ -90,7 +95,10 @@ export class FieldInputPlaylistComponent extends FieldType implements OnInit {
         });
       });
     setTimeout(() => {
-      this.formx.get('myPlaylistCtrl').setValue(this.mySelectedPlaylists);
+      this.myform.get('myPlaylistCtrl').setValue(this.mySelectedPlaylists);
+
+// this.formControl.setValue(this.formx.value);
+
     }, 500);
   }
 
@@ -108,7 +116,11 @@ export class FieldInputPlaylistComponent extends FieldType implements OnInit {
 
   onListControlChanged(list, event) {
     // this.selectedOptionsx = list.options.map(item => item.value);
-    this.formControl.patchValue(this.videoPlaylist);
+   this.formControl.patchValue(this.videoPlaylist);
+    // this.formControl.setValue('this.videoPlaylist');
+   // console.log(this.formControl);
+    // console.log(this.videoPlaylist);
+  console.log(this.myform.value);
   }
 
   createPlayList(event) {
