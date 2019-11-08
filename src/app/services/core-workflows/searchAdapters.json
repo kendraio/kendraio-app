@@ -15,6 +15,75 @@
       ],
       "blocks": [
         {
+          "type": "actions",
+          "buttons": [
+            {
+              "label": "All",
+              "color": "primary",
+              "blocks": [
+                {
+                  "type": "mapping",
+                  "mapping": "{ term: '' }"
+                }
+              ]
+            },
+            {
+              "label": "Demo",
+              "blocks": [
+                {
+                  "type": "mapping",
+                  "mapping": "{ term: 'demo' }"
+                }
+              ]
+            },
+            {
+              "label": "Music",
+              "blocks": [
+                {
+                  "type": "mapping",
+                  "mapping": "{ term: 'music' }"
+                }
+              ]
+            },
+            {
+              "label": "Photo",
+              "blocks": [
+                {
+                  "type": "mapping",
+                  "mapping": "{ term: 'photos' }"
+                }
+              ]
+            },
+            {
+              "label": "B2B",
+              "blocks": [
+                {
+                  "type": "mapping",
+                  "mapping": "{ term: 'b2b' }"
+                }
+              ]
+            },
+            {
+              "label": "Retail",
+              "blocks": [
+                {
+                  "type": "mapping",
+                  "mapping": "{ term: 'retail' }"
+                }
+              ]
+            },
+            {
+              "label": "Streaming",
+              "blocks": [
+                {
+                  "type": "mapping",
+                  "mapping": "{ term: 'streaming' }"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "type": "form",
           "hasSubmit": false,
           "emitOnInit": true,
@@ -24,7 +93,7 @@
               "term": {
                 "type": "string",
                 "title": "Search term",
-                "default": "music"
+                "default": ""
               }
             }
           },
@@ -35,6 +104,10 @@
           "mapping": "(length(data.term) == `0` && context.adapterList) || context.adapterList[?contains(tags, _(&data.term)) || contains(name, _(&data.term))]"
         }
       ]
+    },
+    {
+      "type": "message",
+      "message": "{{#unless data.length}}The adapter cache is empty. Please try refreshing adapter repository data.{{/unless}}"
     },
     {
       "type": "batch",

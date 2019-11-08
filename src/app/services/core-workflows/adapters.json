@@ -25,6 +25,28 @@
               "workflowId": "updateAdapterList"
             }
           ]
+        },
+        {
+          "label": "Install Adapter",
+          "color": "link",
+          "blocks": [
+            {
+              "type": "launch",
+              "adapter": "core",
+              "workflowId": "searchAdapters"
+            }
+          ]
+        },
+        {
+          "label": "New Adapter",
+          "color": "link",
+          "blocks": [
+            {
+              "type": "launch",
+              "adapter": "core",
+              "workflowId": "newAdapter"
+            }
+          ]
         }
       ]
     },

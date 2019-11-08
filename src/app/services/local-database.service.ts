@@ -21,7 +21,6 @@ export class LocalDatabaseService extends Dexie {
 
   configureDefaultSettings() {
     localStorage.setItem('core.variables.adapterRepos', JSON.stringify({ repos: [
-      '/assets/adapters',
       'https://kendraio-adapter.kendraio.now.sh/'
     ]}));
   }

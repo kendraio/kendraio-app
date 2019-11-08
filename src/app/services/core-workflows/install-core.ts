@@ -4,6 +4,7 @@ import example from './example.json';
 import settings from './settings.json';
 import updateAdapterList from './updateAdapterList.json';
 import searchAdapters from './searchAdapters.json';
+import newAdapter from './newAdapter.json';
 
 export function installCoreWorkflows(db) {
 
@@ -13,7 +14,8 @@ export function installCoreWorkflows(db) {
     example,
     settings,
     updateAdapterList,
-    searchAdapters
+    searchAdapters,
+    newAdapter
   };
 
   Object.keys(coreWorkflowConfigs).forEach(workflowId => {
