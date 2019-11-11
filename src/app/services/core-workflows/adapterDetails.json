@@ -1,0 +1,155 @@
+{
+  "title": "Adapter Details",
+  "blocks": [
+    {
+      "type": "adapter-info",
+      "adapterNameGetter": "context.queryParams.adapterName"
+    },
+    {
+      "type": "message",
+      "title": "{{label}} Adapter",
+      "message": "{{description}}"
+    },
+    {
+      "type": "debug",
+      "open": 0,
+      "showContext": true
+    },
+    {
+      "type": "multi",
+      "batches": [
+        {
+          "blocks": [
+            {
+              "type": "message",
+              "title": "Database schemas"
+            },
+            {
+              "type": "mapping",
+              "mapping": "data.database"
+            },
+            {
+              "type": "grid",
+              "columnDefs": [
+                {
+                  "headerName": "Schema name",
+                  "field": "name"
+                },
+                {
+                  "headerName": "Operations",
+                  "cellRenderer": "workflowRenderer",
+                  "cellRendererParams": {
+                    "blocks": [
+                      {
+                        "type": "actions",
+                        "buttons": [
+                          {
+                            "label": "View",
+                            "color": "primary",
+                            "blocks": [
+                              {
+                                "type": "launch",
+                                "adapter": "core",
+                                "workflowId": "databaseSchema",
+                                "context": {
+                                  "adapterName": "context.queryParams.adapterName",
+                                  "schemaName": "data.name"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "blocks": [
+            {
+              "type": "message",
+              "title": "Workflows"
+            },
+            {
+              "type": "mapping",
+              "mapping": "data.workflow"
+            },
+            {
+              "type": "grid",
+              "columnDefs": [
+                {
+                  "headerName": "Workflow title",
+                  "field": "title"
+                },
+                {
+                  "headerName": "ID",
+                  "field": "workflowId"
+                },
+                {
+                  "headerName": "Operations",
+                  "cellRenderer": "workflowRenderer",
+                  "cellRendererParams": {
+                    "blocks": [
+                      {
+                        "type": "actions",
+                        "buttons": [
+                          {
+                            "label": "View",
+                            "color": "primary",
+                            "blocks": [
+                              {
+                                "type": "launch",
+                                "valueGetters": {
+                                  "adapter": "context.queryParams.adapterName",
+                                  "workflowId": "data.workflowId"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "blocks": [
+            {
+              "type": "message",
+              "title": "Forms"
+            },
+            {
+              "type": "mapping",
+              "mapping": "data.forms"
+            },
+            {
+              "type": "grid"
+            }
+          ]
+        },
+        {
+          "blocks": [
+            {
+              "type": "message",
+              "title": "APIs"
+            },
+            {
+              "type": "mapping",
+              "mapping": "data.apis[].{ config: @ }"
+            },
+            {
+              "type": "grid"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "id": "adapterDetails"
+}

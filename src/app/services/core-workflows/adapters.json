@@ -75,7 +75,31 @@
                 "buttons": [
                   {
                     "label": "View",
-                    "blocks": []
+                    "color": "primary",
+                    "blocks": [
+                      {
+                        "type": "launch",
+                        "adapter": "core",
+                        "workflowId": "adapterDetails",
+                        "context": {
+                          "adapterName": "data.adapterName"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Uninstall",
+                    "color": "warn",
+                    "blocks": [
+                      {
+                        "type": "dispatch",
+                        "action": "uninstallAdapter"
+                      },
+                      {
+                        "type": "dispatch",
+                        "action": "refreshWorkflow"
+                      }
+                    ]
                   }
                 ]
               }

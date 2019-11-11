@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {LocalDatabaseService} from '../../services/local-database.service';
 import {BaseBlockComponent} from '../base-block/base-block.component';
 import {get} from 'lodash-es';
+import {mappingUtility} from '../mapping-block/mapping-util';
 
 @Component({
   selector: 'app-adapter-info-block',
@@ -15,6 +16,7 @@ export class AdapterInfoBlockComponent extends BaseBlockComponent {
   isLoading = false;
 
   adapterName;
+  adapterNameGetter;
 
   constructor(
     private readonly localData: LocalDatabaseService
@@ -24,9 +26,13 @@ export class AdapterInfoBlockComponent extends BaseBlockComponent {
 
   onConfigUpdate(config: any) {
     this.adapterName = get(config, 'adapterName');
+    this.adapterNameGetter = get(config, 'adapterNameGetter');
   }
 
   onData(data: any, firstChange: boolean) {
+    if (this.adapterNameGetter) {
+      this.adapterName = mappingUtility({ data: this.model, context: this.context }, this.adapterNameGetter);
+    }
     if (!this.adapterName) {
       this.hasError = true;
       this.errorMessage = 'No adapterName provided in adapter info block';
