@@ -51,36 +51,19 @@
       ]
     },
     {
-      "type": "init"
-    },
-    {
-      "type": "variable-get",
-      "name": "adapterList"
-    },
-    {
-      "type": "debug",
-      "showContext": true
-    },
-    {
-      "type": "mapping",
-      "mapping": "context.app.adapters.* | sort_by(@, &adapter.name)"
+      "type": "adapter-list"
     },
     {
       "type": "grid",
-      "sizeColumnsToFit": false,
+      "gridOptions": {},
       "columnDefs": [
         {
-          "headerName": "Title",
-          "field": "adapter.title"
+          "headerName": "Adapter",
+          "field": "label"
         },
         {
-          "headerName": "Description",
-          "field": "adapter.description"
-        },
-        {
-          "headerName": "Enabled",
-          "field": "enabled",
-          "valueFormatter": "x ? '✓' : ''"
+          "headerName": "Version",
+          "field": "version"
         },
         {
           "headerName": "Operations",
@@ -88,48 +71,37 @@
           "cellRendererParams": {
             "blocks": [
               {
-                "type": "switch",
-                "valueGetter": "data.enabled",
-                "cases": [
+                "type": "actions",
+                "buttons": [
                   {
-                    "value": true,
+                    "label": "View",
+                    "color": "primary",
                     "blocks": [
                       {
-                        "type": "actions",
-                        "buttons": [
-                          {
-                            "label": "Disable",
-                            "blocks": [
-                              {
-                                "type": "dispatch",
-                                "action": "disableAdapter"
-                              }
-                            ]
-                          }
-                        ]
+                        "type": "launch",
+                        "adapter": "core",
+                        "workflowId": "adapterDetails",
+                        "context": {
+                          "adapterName": "data.adapterName"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Uninstall",
+                    "color": "warn",
+                    "blocks": [
+                      {
+                        "type": "dispatch",
+                        "action": "uninstallAdapter"
+                      },
+                      {
+                        "type": "dispatch",
+                        "action": "refreshWorkflow"
                       }
                     ]
                   }
-                ],
-                "default": {
-                  "blocks": [
-                    {
-                      "type": "actions",
-                      "buttons": [
-                        {
-                          "label": "Enable",
-                          "color": "primary",
-                          "blocks": [
-                            {
-                              "type": "dispatch",
-                              "action": "enableAdapter"
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                }
+                ]
               }
             ]
           }
