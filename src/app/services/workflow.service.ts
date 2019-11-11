@@ -126,7 +126,7 @@ export class WorkflowService {
   }
 
   initWorkflow({ title, blocks, context }, isBuilder = false) {
-    console.log('init workflow', { title, blocks, context });
+    // console.log('init workflow', { title, blocks, context });
     this.pageTitle.setTitle(title, true);
     this.title = title;
     this.blocks = blocks;
