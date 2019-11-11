@@ -235,15 +235,15 @@ formly-object-type {
 }
 
 formly-array-type {
-  >.mat-card {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: space-around ;
-    align-items: flex-end;
+  // >.mat-card {
+  //   display: flex;
+  //   flex-wrap: wrap;
+  //   align-content: space-around ;
+  //   align-items: flex-end;
     .mat-card {
       margin-right: 16px;
     }
-  }
+  // }
   mat-card-header {
     font-size: 1.5rem;
   }
