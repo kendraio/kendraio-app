@@ -43,7 +43,6 @@ export class WorkflowRepoService {
 
         const URL = `${environment.workflowStoreUrl}/${adapterName}/${workflowId}`;
         return this.http.get(URL).pipe(
-          tap(console.log),
           map(config => ({
             ...config,
             context: {
