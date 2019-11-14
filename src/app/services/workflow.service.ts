@@ -90,6 +90,7 @@ export class WorkflowService {
     this.title = 'Workflow';
     set(this.context, 'app.adapterName', undefined);
     this.saveState();
+    this.router.navigate(['/workflow-builder']);
   }
 
   clearWorkflowData() {
