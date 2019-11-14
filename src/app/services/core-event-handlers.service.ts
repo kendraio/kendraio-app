@@ -42,6 +42,12 @@ export class CoreEventHandlersService {
             // console.log('uninstall', { payload });
             this.adapterInstall.uninstall(payload);
             break;
+          case 'addNewAdapter':
+            this.adapterInstall.addNewAdapter(payload);
+            break;
+          case 'addNewWorkflow':
+            this.adapterInstall.addNewWorkflow(payload);
+            break;
           case 'enableAdapter':
             if (has(payload, 'adapter.name')) {
               this.adapters.enableAdapter(get(payload, 'adapter.name'));

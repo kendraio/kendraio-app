@@ -78,45 +78,76 @@
               "mapping": "data.workflow"
             },
             {
-              "type": "grid",
-              "columnDefs": [
+              "type": "multi",
+              "batches": [
                 {
-                  "headerName": "Workflow title",
-                  "field": "title"
+                  "blocks": [
+                    {
+                      "type": "actions",
+                      "buttons": [
+                        {
+                          "label": "New workflow",
+                          "blocks": [
+                            {
+                              "type": "launch",
+                              "adapter": "core",
+                              "workflowId": "newWorkflow",
+                              "context": {
+                                "adapterName": "context.queryParams.adapterName"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
                 },
                 {
-                  "headerName": "ID",
-                  "field": "workflowId"
-                },
-                {
-                  "headerName": "Modified",
-                  "valueGetter": "modified && 'yes' || 'no'"
-                },
-                {
-                  "headerName": "Operations",
-                  "cellRenderer": "workflowRenderer",
-                  "cellRendererParams": {
-                    "blocks": [
-                      {
-                        "type": "actions",
-                        "buttons": [
-                          {
-                            "label": "View",
-                            "color": "primary",
+                  "blocks": [
+                    {
+                      "type": "grid",
+                      "columnDefs": [
+                        {
+                          "headerName": "Workflow title",
+                          "field": "title"
+                        },
+                        {
+                          "headerName": "ID",
+                          "field": "workflowId"
+                        },
+                        {
+                          "headerName": "Modified",
+                          "valueGetter": "modified && 'yes' || 'no'"
+                        },
+                        {
+                          "headerName": "Operations",
+                          "cellRenderer": "workflowRenderer",
+                          "cellRendererParams": {
                             "blocks": [
                               {
-                                "type": "launch",
-                                "valueGetters": {
-                                  "adapter": "context.queryParams.adapterName",
-                                  "workflowId": "data.workflowId"
-                                }
+                                "type": "actions",
+                                "buttons": [
+                                  {
+                                    "label": "View",
+                                    "color": "primary",
+                                    "blocks": [
+                                      {
+                                        "type": "launch",
+                                        "valueGetters": {
+                                          "adapter": "context.queryParams.adapterName",
+                                          "workflowId": "data.workflowId"
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
                               }
                             ]
                           }
-                        ]
-                      }
-                    ]
-                  }
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             }

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {LocalDatabaseService} from './local-database.service';
-import {get, has} from 'lodash-es';
+import {findIndex, get, has} from 'lodash-es';
 import {AppSettingsService} from './app-settings.service';
+import {MatSnackBar} from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,39 @@ export class AdapterInstallService {
   constructor(
     private readonly http: HttpClient,
     private readonly localData: LocalDatabaseService,
-    private readonly settings: AppSettingsService
+    private readonly settings: AppSettingsService,
+    private readonly notify: MatSnackBar
   ) { }
+
+  addNewAdapter(adapter) {
+    const errorReporter = params => err => console.error('db error', err.message, params);
+    // console.log({ adapter });
+    this.localData['adapters']
+      .add({ ...adapter, name: get(adapter, 'adapterName'), modified: false })
+      .then(() => {
+        this.notify.open('Saved adapter', 'OK', { verticalPosition: 'top', horizontalPosition: 'center', duration: 2000 });
+      })
+      .catch(errorReporter(adapter));
+  }
+
+  addNewWorkflow(workflow) {
+    const { adapterName, workflowId, title } = workflow;
+    const errorReporter = params => err => console.error('db error', err.message, params);
+    // console.log({ workflow });
+
+    this.localData['workflows']
+      .add({ ...workflow, adapterName, workflowId, title, blocks: [] })
+      .catch(errorReporter(workflow))
+      .then(() => {
+        this.localData['adapters'].get(adapterName).then(adapter => {
+          const workflowMeta = get(adapter, 'workflow', []);
+          workflowMeta.push({ ...workflow, modified: false });
+          this.localData['adapters'].update(adapterName, { ...adapter, workflow: workflowMeta, modified: true }).then(() => {
+            this.notify.open('Saved workflow', 'OK', { verticalPosition: 'top', horizontalPosition: 'center', duration: 2000 });
+          });
+        });
+      });
+  }
 
   install({ repoUrl, name }) {
     // console.log(`Installing ${name} from ${repoUrl}`);

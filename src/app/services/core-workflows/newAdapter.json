@@ -1,8 +1,85 @@
 {
   "title": "New Adapter",
   "adapterName": "core",
-  "id": "newAdapter",
   "blocks": [
-
-  ]
+    {
+      "type": "init"
+    },
+    {
+      "type": "form",
+      "hasSubmit": false,
+      "emitOnInit": true,
+      "jsonSchema": {
+        "type": "object",
+        "properties": {
+          "adapterName": {
+            "type": "string",
+            "title": "Adapter name",
+            "default": "my-adapter",
+            "description": "URL safe, lowercase and '-' only, no spaces"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label",
+            "default": "My Adapter",
+            "description": "Human-friendly title"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "infoUrl": {
+            "type": "string",
+            "title": "Information URL"
+          },
+          "supportUrl": {
+            "type": "string",
+            "title": "Support URL"
+          },
+          "maintainer": {
+            "type": "string",
+            "title": "Maintainer"
+          },
+          "tags": {
+            "type": "array",
+            "title": "Tags",
+            "items": {
+              "type": "string"
+            }
+          },
+          "version": {
+            "type": "string",
+            "title": "Version",
+            "default": "0.0.0"
+          }
+        }
+      },
+      "uiSchema": {}
+    },
+    {
+      "type": "actions",
+      "buttons": [
+        {
+          "label": "New adapter",
+          "color": "primary",
+          "blocks": [
+            {
+              "type": "dispatch",
+              "action": "addNewAdapter"
+            },
+            {
+              "type": "launch",
+              "adapter": "core",
+              "workflowId": "adapters"
+            },
+            {
+              "type": "dispatch",
+              "action": "refreshWorkflow"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "id": "newAdapter"
 }

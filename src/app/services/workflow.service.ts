@@ -100,7 +100,7 @@ export class WorkflowService {
   copyConfig() {
     const dialogRef = this.dialog.open(ExportConfigDialogComponent, {
       data: {
-        configText: stringify({ title: this.title, blocks: this.blocks, id: this.id }, null, 2)
+        configText: stringify({ title: this.title, blocks: this.blocks, id: this.id, adapterName: this.getAdapterName() }, null, 2)
       }
     });
   }
@@ -169,7 +169,7 @@ export class WorkflowService {
           const workflowIndex = findIndex(workflow, ({ workflowId }) => workflowId === this.id);
           workflow[workflowIndex] = { ...workflow[workflowIndex], modified: true };
           this.localData['adapters'].update(this.getAdapterName(), { ...adapter, workflow, modified: true }).then(() => {
-            this.notify.open('Saved workflow', 'OK', { verticalPosition: 'top', horizontalPosition: 'center' });
+            this.notify.open('Saved workflow', 'OK', { verticalPosition: 'top', horizontalPosition: 'center', duration: 2000 });
           });
         });
       })
