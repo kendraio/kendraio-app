@@ -36,7 +36,9 @@ export class MappingBlockComponent implements OnInit, OnChanges {
     this.hasError = false;
     try {
       const mappingResult = this.getMappingResult(this.mapping);
-      this.output.emit(clone(mappingResult));
+      setTimeout(() => {
+        this.output.emit(clone(mappingResult));
+      }, 0);
     } catch (e) {
       this.hasError = true;
       this.errorMessage = e.message;

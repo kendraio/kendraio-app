@@ -14,6 +14,7 @@ import {ShareLinkGeneratorService} from './share-link-generator.service';
 import {LoadWorkflowDialogComponent} from '../dialogs/load-workflow-dialog/load-workflow-dialog.component';
 import {SaveWorkflowDialogComponent} from '../dialogs/save-workflow-dialog/save-workflow-dialog.component';
 import {EditWorkflowMetadataDialogComponent} from '../dialogs/edit-workflow-metadata-dialog/edit-workflow-metadata-dialog.component';
+import {LocalDatabaseService} from './local-database.service';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +32,8 @@ export class WorkflowService {
     private readonly dialog: MatDialog,
     private readonly pageTitle: PageTitleService,
     private readonly adapters: AdaptersService,
-    private readonly shareLinks: ShareLinkGeneratorService
+    private readonly shareLinks: ShareLinkGeneratorService,
+    private readonly localData: LocalDatabaseService
   ) {
     this.router.events
       .pipe(
@@ -153,6 +155,18 @@ export class WorkflowService {
         set(this.context, 'app.adapterName', get(values, 'adapterName', this.getAdapterName()));
       }
     });
+  }
+
+  saveToAdapter() {
+    this.localData['workflow']
+      .where('[adapterName+workflowId]')
+      .equals([this.getAdapterName() || 'UNKNOWN', this.id])
+      .modify({ blocks: this.blocks, title: this.title, workflowId: this.id, modified: true })
+      .then(_ => {
+        // TODO: add notify from notification service
+        console.log('Saved');
+      })
+      .catch(error => console.log({ error }));
   }
 
   upload() {

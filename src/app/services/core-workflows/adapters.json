@@ -2,109 +2,257 @@
   "title": "Adapters",
   "blocks": [
     {
-      "type": "actions",
-      "buttons": [
+      "type": "multi",
+      "batches": [
         {
-          "label": "Manage Repositories",
-          "color": "link",
           "blocks": [
             {
-              "type": "launch",
-              "adapter": "core",
-              "workflowId": "adapterRepos"
-            }
-          ]
-        },
-        {
-          "label": "Refresh Adapters",
-          "color": "link",
-          "blocks": [
+              "type": "actions",
+              "buttons": [
+                {
+                  "label": "Manage Repositories",
+                  "color": "link",
+                  "blocks": [
+                    {
+                      "type": "launch",
+                      "adapter": "core",
+                      "workflowId": "adapterRepos"
+                    }
+                  ]
+                },
+                {
+                  "label": "Refresh Adapters",
+                  "color": "link",
+                  "blocks": [
+                    {
+                      "type": "launch",
+                      "adapter": "core",
+                      "workflowId": "updateAdapterList"
+                    }
+                  ]
+                },
+                {
+                  "label": "New Adapter",
+                  "color": "link",
+                  "blocks": [
+                    {
+                      "type": "launch",
+                      "adapter": "core",
+                      "workflowId": "newAdapter"
+                    }
+                  ]
+                }
+              ]
+            },
             {
-              "type": "launch",
-              "adapter": "core",
-              "workflowId": "updateAdapterList"
-            }
-          ]
-        },
-        {
-          "label": "Install Adapter",
-          "color": "link",
-          "blocks": [
+              "type": "adapter-list"
+            },
             {
-              "type": "launch",
-              "adapter": "core",
-              "workflowId": "searchAdapters"
-            }
-          ]
-        },
-        {
-          "label": "New Adapter",
-          "color": "link",
-          "blocks": [
-            {
-              "type": "launch",
-              "adapter": "core",
-              "workflowId": "newAdapter"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "adapter-list"
-    },
-    {
-      "type": "grid",
-      "gridOptions": {},
-      "columnDefs": [
-        {
-          "headerName": "Adapter",
-          "field": "label"
-        },
-        {
-          "headerName": "Version",
-          "field": "version"
-        },
-        {
-          "headerName": "Operations",
-          "cellRenderer": "workflowRenderer",
-          "cellRendererParams": {
-            "blocks": [
-              {
-                "type": "actions",
-                "buttons": [
-                  {
-                    "label": "View",
-                    "color": "primary",
+              "type": "grid",
+              "gridOptions": {},
+              "columnDefs": [
+                {
+                  "headerName": "Adapter",
+                  "field": "label"
+                },
+                {
+                  "headerName": "Version",
+                  "field": "version"
+                },
+                {
+                  "headerName": "Modified",
+                  "field": "modified"
+                },
+                {
+                  "headerName": "Operations",
+                  "cellRenderer": "workflowRenderer",
+                  "cellRendererParams": {
                     "blocks": [
                       {
-                        "type": "launch",
-                        "adapter": "core",
-                        "workflowId": "adapterDetails",
-                        "context": {
-                          "adapterName": "data.adapterName"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "label": "Uninstall",
-                    "color": "warn",
-                    "blocks": [
-                      {
-                        "type": "dispatch",
-                        "action": "uninstallAdapter"
-                      },
-                      {
-                        "type": "dispatch",
-                        "action": "refreshWorkflow"
+                        "type": "actions",
+                        "buttons": [
+                          {
+                            "label": "View",
+                            "color": "primary",
+                            "blocks": [
+                              {
+                                "type": "launch",
+                                "adapter": "core",
+                                "workflowId": "adapterDetails",
+                                "context": {
+                                  "adapterName": "data.adapterName"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "label": "Uninstall",
+                            "color": "warn",
+                            "blocks": [
+                              {
+                                "type": "dispatch",
+                                "action": "uninstallAdapter"
+                              },
+                              {
+                                "type": "dispatch",
+                                "action": "refreshWorkflow"
+                              }
+                            ]
+                          }
+                        ]
                       }
                     ]
                   }
-                ]
-              }
-            ]
-          }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "blocks": [
+            {
+              "type": "init"
+            },
+            {
+              "type": "context",
+              "contextPath": "adapterList",
+              "contextBlocks": [
+                {
+                  "type": "variable-get",
+                  "name": "adapterList"
+                }
+              ],
+              "blocks": [
+                {
+                  "type": "actions",
+                  "buttons": [
+                    {
+                      "label": "All",
+                      "color": "primary",
+                      "blocks": [
+                        {
+                          "type": "mapping",
+                          "mapping": "{ term: '' }"
+                        }
+                      ]
+                    },
+                    {
+                      "label": "Demo",
+                      "blocks": [
+                        {
+                          "type": "mapping",
+                          "mapping": "{ term: 'demo' }"
+                        }
+                      ]
+                    },
+                    {
+                      "label": "Music",
+                      "blocks": [
+                        {
+                          "type": "mapping",
+                          "mapping": "{ term: 'music' }"
+                        }
+                      ]
+                    },
+                    {
+                      "label": "Photo",
+                      "blocks": [
+                        {
+                          "type": "mapping",
+                          "mapping": "{ term: 'photos' }"
+                        }
+                      ]
+                    },
+                    {
+                      "label": "B2B",
+                      "blocks": [
+                        {
+                          "type": "mapping",
+                          "mapping": "{ term: 'b2b' }"
+                        }
+                      ]
+                    },
+                    {
+                      "label": "Retail",
+                      "blocks": [
+                        {
+                          "type": "mapping",
+                          "mapping": "{ term: 'retail' }"
+                        }
+                      ]
+                    },
+                    {
+                      "label": "Streaming",
+                      "blocks": [
+                        {
+                          "type": "mapping",
+                          "mapping": "{ term: 'streaming' }"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "form",
+                  "hasSubmit": false,
+                  "emitOnInit": true,
+                  "jsonSchema": {
+                    "type": "object",
+                    "properties": {
+                      "term": {
+                        "type": "string",
+                        "title": "Search term",
+                        "default": ""
+                      }
+                    }
+                  },
+                  "uiSchema": {}
+                },
+                {
+                  "type": "mapping",
+                  "mapping": "data && (length(data.term) == `0` && context.adapterList) || context.adapterList[?contains(tags, _(&data.term)) || contains(name, _(&data.term))]"
+                }
+              ]
+            },
+            {
+              "type": "message",
+              "message": "{{#unless data.length}}The adapter cache is empty. Please try refreshing adapter repository data.{{/unless}}"
+            },
+            {
+              "type": "batch",
+              "blocks": [
+                {
+                  "type": "card",
+                  "blocks": [
+                    {
+                      "type": "template",
+                      "template": "<h3>{{ label }}</h3><div class='tag-list'><span class='tag version-tag'>v{{ version }}</span>{{#each tags}}<span class='tag'>{{ this }}</span>{{/each}}</div><p>{{ description }}</p>"
+                    },
+                    {
+                      "type": "actions",
+                      "buttons": [
+                        {
+                          "label": "Install",
+                          "color": "primary",
+                          "blocks": [
+                            {
+                              "type": "dispatch",
+                              "action": "installAdapter"
+                            },
+                            {
+                              "type": "launch",
+                              "adapter": "core",
+                              "workflowId": "adapters"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     }

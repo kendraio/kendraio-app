@@ -1,6 +1,6 @@
 
 
 <ng-container *ngIf="blockTypeConfig">
-  <ngx-monaco-editor *ngIf="hasEditor" [options]="editorOptions"
+  <ngx-monaco-editor *ngIf="hasEditor" [options]="editorOptions" style="height: 460px;"
                      [(ngModel)]="blockModel" (onInit)="initEditor()"></ngx-monaco-editor>
 </ng-container>

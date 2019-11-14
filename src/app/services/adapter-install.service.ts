@@ -56,7 +56,7 @@ export class AdapterInstallService {
         workflows.forEach(({ title, workflowId, config }) => {
           const workflowConfig = get(attachments, config, {});
           this.localData['workflows']
-            .add({ ...workflowConfig, title, workflowId, adapterName })
+            .add({ ...workflowConfig, title, workflowId, adapterName, modified: false })
             .catch(errorReporter({ workflowId }));
         });
 

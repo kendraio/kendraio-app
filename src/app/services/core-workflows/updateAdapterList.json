@@ -22,14 +22,16 @@
       "name": "adapterRepos"
     },
     {
-      "type": "debug"
+      "type": "debug",
+      "open": 0
     },
     {
       "type": "mapping",
       "mapping": "data.repos"
     },
     {
-      "type": "debug"
+      "type": "debug",
+      "open": 0
     },
     {
       "type": "batch",
@@ -64,18 +66,25 @@
     },
     {
       "type": "debug",
-      "showContext": true
+      "showContext": true,
+      "open": 0
     },
     {
       "type": "mapping",
       "mapping": "data[][]"
     },
     {
-      "type": "debug"
+      "type": "debug",
+      "open": 0
     },
     {
       "type": "variable-set",
       "name": "adapterList"
+    },
+    {
+      "type": "launch",
+      "adapter": "core",
+      "workflowId": "adapters"
     }
   ]
 }
