@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
 import {Router} from '@angular/router';
 import {get, isArray, isObject, isString} from 'lodash-es';
-import {search} from 'jmespath';
 import {mappingUtility} from '../mapping-block/mapping-util';
 
 @Component({
