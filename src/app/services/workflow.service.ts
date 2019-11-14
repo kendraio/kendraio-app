@@ -165,6 +165,9 @@ export class WorkflowService {
       .then(_ => {
         // TODO: add notify from notification service
         console.log('Saved');
+        this.localData['workflow'].update(this.getAdapterName(), { modified: true }).then(_ => {
+          console.log('Set adapter modified flag');
+        });
       })
       .catch(error => console.log({ error }));
   }

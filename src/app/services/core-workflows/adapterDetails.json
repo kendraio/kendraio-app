@@ -89,6 +89,10 @@
                   "field": "workflowId"
                 },
                 {
+                  "headerName": "Modified",
+                  "valueGetter": "data.modified && 'yes' || 'no'"
+                },
+                {
                   "headerName": "Operations",
                   "cellRenderer": "workflowRenderer",
                   "cellRendererParams": {

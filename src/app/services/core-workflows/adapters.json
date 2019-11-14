@@ -61,7 +61,7 @@
                 },
                 {
                   "headerName": "Modified",
-                  "field": "modified"
+                  "valueGetter": "data.modified && 'yes' || 'no'"
                 },
                 {
                   "headerName": "Operations",
@@ -240,9 +240,8 @@
                               "action": "installAdapter"
                             },
                             {
-                              "type": "launch",
-                              "adapter": "core",
-                              "workflowId": "adapters"
+                              "type": "dispatch",
+                              "action": "refreshWorkflow"
                             }
                           ]
                         }

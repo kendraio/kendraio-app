@@ -27,7 +27,7 @@ export class AdapterInstallService {
 
         // Load in main adapter metadata
         this.localData['adapters']
-          .add({ ...adapterConfig, adapterName })
+          .add({ ...adapterConfig, adapterName, modified: false })
           .catch(errorReporter({ adapterName }));
 
         // Load in adapter dashboard route location
