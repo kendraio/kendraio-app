@@ -4,8 +4,8 @@ import {filter, tap} from 'rxjs/operators';
 import {ExportConfigDialogComponent} from '../dialogs/export-config-dialog/export-config-dialog.component';
 import * as stringify from 'json-stringify-safe';
 import {PasteConfigDialogComponent} from '../dialogs/paste-config-dialog/paste-config-dialog.component';
-import {clone, get, has, isArray, set} from 'lodash-es';
-import {MatDialog} from '@angular/material';
+import {clone, findIndex, get, has, isArray, set} from 'lodash-es';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import {PageTitleService} from './page-title.service';
 import {AdaptersService} from './adapters.service';
 import {AdapterBlocksConfigSelectDialogComponent} from
@@ -33,7 +33,8 @@ export class WorkflowService {
     private readonly pageTitle: PageTitleService,
     private readonly adapters: AdaptersService,
     private readonly shareLinks: ShareLinkGeneratorService,
-    private readonly localData: LocalDatabaseService
+    private readonly localData: LocalDatabaseService,
+    private readonly notify: MatSnackBar
   ) {
     this.router.events
       .pipe(
@@ -158,15 +159,18 @@ export class WorkflowService {
   }
 
   saveToAdapter() {
-    this.localData['workflow']
+    this.localData['workflows']
       .where('[adapterName+workflowId]')
       .equals([this.getAdapterName() || 'UNKNOWN', this.id])
       .modify({ blocks: this.blocks, title: this.title, workflowId: this.id, modified: true })
-      .then(_ => {
-        // TODO: add notify from notification service
-        console.log('Saved');
-        this.localData['workflow'].update(this.getAdapterName(), { modified: true }).then(_ => {
-          console.log('Set adapter modified flag');
+      .then(() => {
+        this.localData['adapters'].get(this.getAdapterName()).then(adapter => {
+          const workflow = get(adapter, 'workflow', []);
+          const workflowIndex = findIndex(workflow, ({ workflowId }) => workflowId === this.id);
+          workflow[workflowIndex] = { ...workflow[workflowIndex], modified: true };
+          this.localData['adapters'].update(this.getAdapterName(), { ...adapter, workflow, modified: true }).then(() => {
+            this.notify.open('Saved workflow', 'OK', { verticalPosition: 'top', horizontalPosition: 'center' });
+          });
         });
       })
       .catch(error => console.log({ error }));

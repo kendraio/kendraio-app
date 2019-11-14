@@ -61,7 +61,7 @@
                 },
                 {
                   "headerName": "Modified",
-                  "valueGetter": "data.modified && 'yes' || 'no'"
+                  "valueGetter": "modified && 'yes' || 'no'"
                 },
                 {
                   "headerName": "Operations",
