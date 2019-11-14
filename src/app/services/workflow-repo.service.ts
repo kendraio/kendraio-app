@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import {AdaptersService} from './adapters.service';
-import {map, switchMap, tap} from 'rxjs/operators';
+import {catchError, map, switchMap, tap} from 'rxjs/operators';
 import {get} from 'lodash-es';
 import {from, of} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {LocalDatabaseService} from './local-database.service';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -39,8 +40,24 @@ export class WorkflowRepoService {
           const { title, blocks } = data;
           return of({ title, blocks, adapterName, workflowId, context });
         }
-        console.log(`Workflow ${workflowId} loaded with previous loader`);
-        return this.prevGetBlocks(adapterName, workflowId, context);
+
+        const URL = `${environment.workflowStoreUrl}/${adapterName}/${workflowId}`;
+        return this.http.get(URL).pipe(
+          tap(console.log),
+          map(config => ({
+            ...config,
+            context: {
+              app: {
+                adapterName,
+                workflowId
+              }
+            }
+          })),
+          catchError(err => {
+            console.log(`Workflow ${workflowId} loaded with previous loader`);
+            return this.prevGetBlocks(adapterName, workflowId, context);
+          })
+        );
       })
     );
   }

@@ -73,6 +73,11 @@ export class MenuBuilderService {
         icon: 'extension'
       },
       {
+        path: '/workflowCloud/listWorkflows',
+        label: 'Workflow cloud',
+        icon: 'cloud'
+      },
+      {
         path: '/workflow-builder',
         label: 'Workflow builder',
         icon: 'build'
