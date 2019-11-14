@@ -45,6 +45,10 @@
               ]
             },
             {
+              "type": "message",
+              "title": "Installed adapters"
+            },
+            {
               "type": "adapter-list"
             },
             {
@@ -110,6 +114,10 @@
         },
         {
           "blocks": [
+            {
+              "type": "message",
+              "title": "Search available adapters"
+            },
             {
               "type": "init"
             },
@@ -219,35 +227,50 @@
               "message": "{{#unless data.length}}The adapter cache is empty. Please try refreshing adapter repository data.{{/unless}}"
             },
             {
-              "type": "batch",
-              "blocks": [
+              "type": "grid",
+              "columnDefs": [
                 {
-                  "type": "card",
-                  "blocks": [
-                    {
-                      "type": "template",
-                      "template": "<h3>{{ label }}</h3><div class='tag-list'><span class='tag version-tag'>v{{ version }}</span>{{#each tags}}<span class='tag'>{{ this }}</span>{{/each}}</div><p>{{ description }}</p>"
-                    },
-                    {
-                      "type": "actions",
-                      "buttons": [
-                        {
-                          "label": "Install",
-                          "color": "primary",
-                          "blocks": [
-                            {
-                              "type": "dispatch",
-                              "action": "installAdapter"
-                            },
-                            {
-                              "type": "dispatch",
-                              "action": "refreshWorkflow"
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
+                  "headerName": "Adapter",
+                  "field": "label"
+                },
+                {
+                  "headerName": "Version",
+                  "field": "version"
+                },
+                {
+                  "headerName": "Tags",
+                  "field": "tags"
+                },
+                {
+                  "headerName": "Description",
+                  "field": "description"
+                },
+                {
+                  "headerName": "Operations",
+                  "cellRenderer": "workflowRenderer",
+                  "cellRendererParams": {
+                    "blocks": [
+                      {
+                        "type": "actions",
+                        "buttons": [
+                          {
+                            "label": "Install",
+                            "color": "primary",
+                            "blocks": [
+                              {
+                                "type": "dispatch",
+                                "action": "installAdapter"
+                              },
+                              {
+                                "type": "dispatch",
+                                "action": "refreshWorkflow"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
                 }
               ]
             }
@@ -255,5 +278,7 @@
         }
       ]
     }
-  ]
+  ],
+  "id": "adapters",
+  "adapterName": "core"
 }
