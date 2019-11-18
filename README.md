@@ -22,6 +22,6 @@ Contribute
 ----------
 
 - Read the documentation: https://kendraio-app.readthedocs.io
-- For help and support, join the conversation on Slack: https://kendraio.slack.com/
+- For help and support, join the conversation on Slack: http://slack.kendra.io
 - To report bugs, suggest improvements, or request features, use the issue tracker: https://github.com/kendraio/kendraio-app/issues
 - To download the source code, visit the repo: https://github.com/kendraio/kendraio-app
