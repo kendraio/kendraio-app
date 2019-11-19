@@ -23,6 +23,29 @@ export class MessageBlockComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     // this.updateOutputDisplay();
+  // use for later
+  //   Handlebars.registerHelper('formatDate', function(dateString) {
+  //     return new Handlebars.SafeString(
+  //         moment(dateString).format('MMM D').toUpperCase()
+  //     );
+  // });
+  // Deprecated since version 0.8.0 
+// Handlebars.registerHelper("formatDate", function(datetime, format) {
+
+//   // Use UI.registerHelper..
+//   UI.registerHelper("formatDate", function(datetime, format) {
+//     if (moment) {
+//       // can use other formats like 'lll' too
+//       format = DateFormats[format] || format;
+//       return moment(datetime).format(format);
+//     }
+//     else {
+//       return datetime;
+//     }
+//   });
+  // usage in template {{formatDate date}}  {{formatDate datetime  'short'}} 
+
+
   }
 
   ngOnChanges(changes) {
