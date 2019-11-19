@@ -1,6 +1,7 @@
 import { search } from './jmespath';
 import uuid from 'uuid';
 import {find, omit, pick, pickBy} from 'lodash-es';
+import {DateTime} from 'luxon';
 
 // Type constants used to define functions.
 const TYPE_NUMBER = 0;
@@ -20,6 +21,10 @@ export function mappingUtility(value, expr) {
       uuid: {
         _func: uuid.v4,
         _signature: []
+      },
+      formatDate: {
+        _func: ([dateString, formatString]) => DateTime.fromISO(dateString).toFormat(formatString),
+        _signature: [{types: [TYPE_STRING]}, {types: [TYPE_STRING]}]
       },
       omit: {
         _func: ([o, a]) => omit(o, ...a),
