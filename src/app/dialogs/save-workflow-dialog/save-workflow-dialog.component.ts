@@ -38,6 +38,11 @@ export class SaveWorkflowDialogComponent implements OnInit {
       this.isLoggedIn = true;
       this.idToken = JSON.parse(idToken2);
     }
+    const idToken3 = localStorage.getItem('workflowCloud.variables.idToken');
+    if (idToken3) {
+      this.isLoggedIn = true;
+      this.idToken = JSON.parse(idToken3);
+    }
   }
 
   onSave() {

@@ -2,6 +2,7 @@ import {Component, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnInit, O
 import {clone, get, has, isArray, isObject} from 'lodash-es';
 import {search} from 'jmespath';
 import {WorkflowCellRendererComponent} from '../../components/workflow-cell-renderer/workflow-cell-renderer.component';
+import {mappingUtility} from '../mapping-block/mapping-util';
 
 @Component({
   selector: 'app-grid-block',
@@ -56,8 +57,6 @@ export class GridBlockComponent implements OnInit, OnChanges {
     this.columnDefs = this.preprocessColumnDefinition(get(this.config, 'columnDefs', defaultCols));
     this.gridOptions = clone(get(this.config, 'gridOptions', {}));
 
-has(this.gridOptions, 'defaultColDef')
-
     // this.defaultColDef =  isObject(this.config.gridOptions.defaultColDef) ? this.config.gridOptions.defaultColDef : {resizable: true};
     this.defaultColDef = has(this.gridOptions, 'defaultColDef') ? this.config.gridOptions.defaultColDef : this.defaultColDef;
 
@@ -78,7 +77,15 @@ has(this.gridOptions, 'defaultColDef')
       ...has(item, 'valueGetter') ? { valueGetter: ({ data }) => {
           // console.log({ data, item });
           try {
-            return search(data, item['valueGetter']);
+            return mappingUtility(data, item['valueGetter']);
+          } catch (e) {
+            return e.message;
+          }
+        }} : {},
+      ...has(item, 'valueFormatter') ? { valueFormatter: (params) => {
+        // console.log(params);
+          try {
+            return mappingUtility(params, item['valueFormatter']);
           } catch (e) {
             return e.message;
           }
@@ -92,8 +99,8 @@ has(this.gridOptions, 'defaultColDef')
   onSelectionChanged(e) {
     // console.log({ e });
     const selectedRows = e.api.getSelectedRows();
-     console.log({ selectedRows });
-    this.output.emit(isArray(selectedRows) ? [ ...selectedRows ] : isObject(selectedRows) ? { ...selectedRows } : selectedRows);
+     // console.log({ selectedRows });
+    this.output.emit(clone(selectedRows));
   }
 
 }

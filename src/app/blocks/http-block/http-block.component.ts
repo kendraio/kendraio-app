@@ -62,8 +62,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     let headers = new HttpHeaders();
     if (has(this.config, 'authentication.type')) {
       const valueGetters = get(this.config, 'authentication.valueGetters', {});
-      // TODO: refactor this to correctly use block context
-      const context = {...this.config.authentication, ...this.contextData.getGlobalContext(valueGetters, this.context)};
+      const context = {...this.config.authentication, ...this.contextData.getGlobalContext(valueGetters, this.context, this.model)};
       switch (get(this.config, 'authentication.type')) {
         case 'basic-auth':
           if (has(context, 'username') && has(context, 'password')) {
