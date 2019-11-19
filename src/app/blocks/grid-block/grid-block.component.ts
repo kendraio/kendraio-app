@@ -82,6 +82,14 @@ export class GridBlockComponent implements OnInit, OnChanges {
             return e.message;
           }
         }} : {},
+      ...has(item, 'valueFormatter') ? { valueFormatter: (params) => {
+        // console.log(params);
+          try {
+            return mappingUtility(params, item['valueFormatter']);
+          } catch (e) {
+            return e.message;
+          }
+        }} : {},
       ...has(item, 'cellRendererParams')
         ? { cellRendererParams: { ...item.cellRendererParams, context: this.context }}
         : {}
