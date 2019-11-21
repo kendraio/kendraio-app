@@ -98,6 +98,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           )
           .subscribe(response => {
             this.isLoading = false;
+            this.hasError = false;
             this.outputResult(response);
           });
         break;
@@ -113,6 +114,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           )
           .subscribe(response => {
             this.isLoading = false;
+            this.hasError = false;
             this.outputResult(response);
           });
         break;
@@ -132,6 +134,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           )
           .subscribe(response => {
             this.isLoading = false;
+            this.hasError = false;
             this.outputResult(response);
             const notify = get(this.config, 'notify', true);
             if (notify) {

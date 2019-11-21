@@ -156,6 +156,7 @@ export const config: ConfigOption = {
     // { name: 'array', component: ArrayTypeComponent },
     { name: 'enum', extends: 'select' },
     { name: 'k-textarea', component: types.TextareaComponent},
+    { name: 'kendraio-textarea', component: types.TextareaComponent},
     { name: 'k-image', component: types.ImageViewerComponent},
     { name: 'null', component: types.NullTypeComponent},
 
