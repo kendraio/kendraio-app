@@ -49,7 +49,7 @@ export class AdapterInstallService {
   }
 
   async exportAdapter(adapterConfig) {
-    console.log({adapterConfig});
+    // console.log({adapterConfig});
     const {adapterName} = adapterConfig;
     // const compressed = LZS.compressToEncodedURIComponent(JSON.stringify(adapterConfig));
     const database = get(adapterConfig, 'database', [])
