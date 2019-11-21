@@ -46,6 +46,14 @@ export class UserPageComponent implements OnInit {
     this.auth.login();
   }
 
+  loginGoogle() {
+    this.auth.login({
+      connection: 'google-oauth2',
+      accessType: 'offline',
+      approvalPrompt: 'force'
+    });
+  }
+
   onLogout() {
     this.auth.logout();
   }

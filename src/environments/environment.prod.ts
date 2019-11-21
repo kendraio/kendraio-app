@@ -17,5 +17,7 @@ export const environment = {
     audience: 'https://kendraio.eu.auth0.com/api/v2/',
     scope: 'openid profile'
   },
-  workflowStoreUrl: 'https://us-central1-kendraioworkflowstorage.cloudfunctions.net/api'
+  workflowStoreUrl: 'https://us-central1-kendraioworkflowstorage.cloudfunctions.net/api',
+  // authProxyUrl: 'https://kendraio-auth0-proxy-qq0te0iza.now.sh/',
+  authProxyUrl: 'https://kendraio-auth0-proxy.now.sh/'
 };

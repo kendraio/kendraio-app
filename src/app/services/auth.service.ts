@@ -26,8 +26,9 @@ export class AuthService {
     this.auth0 = new auth0.WebAuth(authConfig);
   }
 
-  public login(): void {
-    this.auth0.authorize();
+  public login(params = {}): void {
+    console.log('auth-after-url', this.router.getCurrentNavigation());
+    this.auth0.authorize(params);
   }
 
   public linkAccount() {
@@ -77,6 +78,7 @@ export class AuthService {
   private setSession(authResult): void {
     // Set the time that the Access Token will expire at
     const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+    // console.log({ authResult });
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
@@ -115,7 +117,7 @@ export class AuthService {
       if (profile) {
         const { sub } = profile;
         // const idToken = localStorage.getItem('id_token');
-        const url = 'https://kendraio-auth0-proxy-qq0te0iza.now.sh/';
+        const url = `${environment.authProxyUrl}`;
         const body = {
           userId: sub
         };
@@ -125,7 +127,17 @@ export class AuthService {
         this.http.post(url, body, { headers }).subscribe(userProfile => {
           this.userProfile = userProfile;
           cb(null, userProfile);
-        });
+        }, httpErr => cb(httpErr));
+      } else if (err) {
+        const retried = localStorage.getItem('retry-auth');
+        if (!retried) {
+          localStorage.setItem('retry-auth', 'RETRY-1');
+          this.login({ prompt: 'none' });
+          return;
+        }
+        localStorage.removeItem('retry-auth');
+        // console.log(err);
+        cb(err.original);
       }
     });
   }
