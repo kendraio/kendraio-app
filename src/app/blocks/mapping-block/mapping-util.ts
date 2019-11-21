@@ -1,6 +1,6 @@
 import { search } from './jmespath';
 import uuid from 'uuid';
-import {find, omit, pick, pickBy} from 'lodash-es';
+import {find, omit, pick, pickBy, zip} from 'lodash-es';
 import {DateTime} from 'luxon';
 import {parse as parseQueryString, stringify as asQueryString} from 'qs';
 
@@ -54,6 +54,10 @@ export function mappingUtility(value, expr) {
       parseQs: {
         _func: ([s]) => parseQueryString(s),
         _signature: [{types: [TYPE_STRING]}]
+      },
+      zip: {
+        _func: ([a1, a2]) => zip(a1, a2),
+        _signature: [{types: [TYPE_ARRAY]}, {types: [TYPE_ARRAY]}]
       }
     }
   });
