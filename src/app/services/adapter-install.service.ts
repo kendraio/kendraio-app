@@ -52,19 +52,30 @@ export class AdapterInstallService {
     console.log({adapterConfig});
     const {adapterName} = adapterConfig;
     // const compressed = LZS.compressToEncodedURIComponent(JSON.stringify(adapterConfig));
-    // const database = get(adapterConfig, 'database', []);
-    const workflow = get(adapterConfig, 'workflow', []).map(item => ({ ...item, config: `configs/${item.workflowId}.json`}));
-    // const forms = get(adapterConfig, 'forms', []);
-    // const apis = get(adapterConfig, 'apis', []);
+    const database = get(adapterConfig, 'database', [])
+      .map(item => ({ ...item, schema: `schemas/${item.schemaName}.json`}));
+    const workflow = get(adapterConfig, 'workflow', [])
+      .map(item => ({ ...item, config: `configs/${item.workflowId}.json`}));
+    const forms = get(adapterConfig, 'forms', [])
+      .map(item => ({ ...item, jsonSchema: `jsonSchema/${item.formId}.json`, uiSchema: `uiSchema/${item.formId}.json`}));
 
     const attachments = {};
-    const workflowConfigs = await this.localData['workflows'].where({adapterName}).toArray();
 
+    const databaseConfigs = await this.localData['schemas'].where({adapterName}).toArray();
+    databaseConfigs.forEach(item => {
+      attachments[`schemas/${item.schemaName}.json`] = item;
+    });
+    const workflowConfigs = await this.localData['workflows'].where({adapterName}).toArray();
     workflowConfigs.forEach(item => {
       attachments[`configs/${item.workflowId}.json`] = item;
     });
+    const formConfigs = await this.localData['forms'].where({adapterName}).toArray();
+    formConfigs.forEach(item => {
+      attachments[`jsonSchema/${item.formId}.json`] = item.jsonSchema;
+      attachments[`uiSchema/${item.formId}.json`] = item.uiSchema;
+    });
 
-    const exportData = {...adapterConfig, workflow, attachments};
+    const exportData = {...adapterConfig, workflow, database, forms, attachments};
     this.downloadData(exportData, adapterName);
   }
 
