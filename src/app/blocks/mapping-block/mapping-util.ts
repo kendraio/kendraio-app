@@ -2,6 +2,7 @@ import { search } from './jmespath';
 import uuid from 'uuid';
 import {find, omit, pick, pickBy} from 'lodash-es';
 import {DateTime} from 'luxon';
+import {parse as parseQueryString, stringify as asQueryString} from 'qs';
 
 // Type constants used to define functions.
 const TYPE_NUMBER = 0;
@@ -45,6 +46,14 @@ export function mappingUtility(value, expr) {
       compact: {
         _func: ([o]) => pickBy(o),
         _signature: [{types: [TYPE_OBJECT]}]
+      },
+      qs: {
+        _func: ([o]) => asQueryString(o),
+        _signature: [{types: [TYPE_OBJECT]}]
+      },
+      parseQs: {
+        _func: ([s]) => parseQueryString(s),
+        _signature: [{types: [TYPE_STRING]}]
       }
     }
   });

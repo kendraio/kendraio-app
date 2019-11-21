@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
-import {filter, tap} from 'rxjs/operators';
+import {filter, take, tap, withLatestFrom} from 'rxjs/operators';
 import {ExportConfigDialogComponent} from '../dialogs/export-config-dialog/export-config-dialog.component';
 import * as stringify from 'json-stringify-safe';
 import {PasteConfigDialogComponent} from '../dialogs/paste-config-dialog/paste-config-dialog.component';
@@ -113,14 +113,19 @@ export class WorkflowService {
         try {
           const config = JSON.parse(value);
           if (has(config, 'blocks')) {
-            this.initWorkflow({
-              title: get(config, 'title', 'Imported config'),
-              blocks: get(config, 'blocks', []),
-              context: {}
+            this.router.routerState.root.queryParams.pipe(
+              take(1),
+              withLatestFrom(this.router.routerState.root.fragment)
+            ).subscribe(([queryParams, fragment]) => {
+              this.initWorkflow({
+                title: get(config, 'title', 'Imported config'),
+                blocks: get(config, 'blocks', []),
+                context: {queryParams, fragment}
+              });
+              this.id = get(config, 'id');
+              set(this.context, 'app.adapterName', get(config, 'adapterName', 'UNKNOWN'));
+              this.saveState();
             });
-            this.id = get(config, 'id');
-            set(this.context, 'app.adapterName', get(config, 'adapterName', 'UNKNOWN'));
-            this.saveState();
           }
         } catch (e) {
           console.log('Error importing config', e);
@@ -168,7 +173,9 @@ export class WorkflowService {
         this.localData['adapters'].get(this.getAdapterName()).then(adapter => {
           const workflow = get(adapter, 'workflow', []);
           const workflowIndex = findIndex(workflow, ({ workflowId }) => workflowId === this.id);
-          workflow[workflowIndex] = { ...workflow[workflowIndex], modified: true };
+          if (workflowIndex !== -1) {
+            workflow[workflowIndex] = { ...workflow[workflowIndex], title: this.title, modified: true };
+          }
           this.localData['adapters'].update(this.getAdapterName(), { ...adapter, workflow, modified: true }).then(() => {
             this.notify.open('Saved workflow', 'OK', { verticalPosition: 'top', horizontalPosition: 'center', duration: 2000 });
           });

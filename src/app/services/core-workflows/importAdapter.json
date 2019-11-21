@@ -1,0 +1,31 @@
+{
+  "title": "Import Adapter",
+  "blocks": [
+    {
+      "type": "file-input",
+      "label": "Import",
+      "accept": [
+        "json"
+      ]
+    },
+    {
+      "type": "parse-data",
+      "csvOptions": {
+        "header": true,
+        "skipEmptyLines": true
+      },
+      "xmlOptions": {}
+    },
+    {
+      "type": "debug",
+      "open": 1,
+      "showContext": false
+    },
+    {
+      "type": "dispatch",
+      "action": "importAdapter"
+    }
+  ],
+  "id": "importAdapter",
+  "adapterName": "core"
+}

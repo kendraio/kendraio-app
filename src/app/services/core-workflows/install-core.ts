@@ -7,6 +7,7 @@ import searchAdapters from './searchAdapters.json';
 import newAdapter from './newAdapter.json';
 import adapterDetails from './adapterDetails.json';
 import newWorkflow from './newWorkflow.json';
+import importAdapter from './importAdapter.json';
 
 export function installCoreWorkflows(db) {
 
@@ -19,7 +20,8 @@ export function installCoreWorkflows(db) {
     searchAdapters,
     newAdapter,
     adapterDetails,
-    newWorkflow
+    newWorkflow,
+    importAdapter
   };
 
   Object.keys(coreWorkflowConfigs).forEach(workflowId => {

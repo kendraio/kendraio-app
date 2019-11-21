@@ -37,7 +37,8 @@ export class NotFoundComponent implements OnInit, OnDestroy {
         withLatestFrom(this.route.queryParams),
         switchMap(([[adapterName, workflowId], queryParams]) => this.workflowRepo.getBlocks(adapterName.path, workflowId.path)
           .pipe(
-            map(blocks => ({ ...blocks, queryParams }))
+            withLatestFrom(this.route.fragment),
+            map(([blocks, fragment]) => ({ ...blocks, queryParams, fragment }))
           )),
         catchError(err => {
           console.error(err);
@@ -54,8 +55,8 @@ export class NotFoundComponent implements OnInit, OnDestroy {
           });
         }),
       )
-      .subscribe(({ blocks, title, context, queryParams }) => {
-        this.workflow.initWorkflow({ title, blocks, context: { ...context, queryParams }});
+      .subscribe(({ blocks, title, context, queryParams, fragment }) => {
+        this.workflow.initWorkflow({ title, blocks, context: { ...context, queryParams, fragment }});
         this.isLoaded = true;
       });
   }

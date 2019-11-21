@@ -33,13 +33,13 @@ export class ContextBlockComponent extends BaseBlockComponent {
   }
 
   onData(data: any, firstChange: boolean) {
-    if (firstChange) {
+    // if (firstChange) {
       setTimeout(() => {
         this.zone.run(() => {
           this.models = [clone(this.model)];
         });
       }, 0);
-    }
+    // }
     this.newContext = clone(this.context);
     // TODO: for security make sure this doesn't allow override app context!
     if (!this.contextPath.startsWith('app')) {
