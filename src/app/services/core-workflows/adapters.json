@@ -41,6 +41,17 @@
                       "workflowId": "newAdapter"
                     }
                   ]
+                },
+                {
+                  "label": "Import Adapter",
+                  "color": "link",
+                  "blocks": [
+                    {
+                      "type": "launch",
+                      "adapter": "core",
+                      "workflowId": "importAdapter"
+                    }
+                  ]
                 }
               ]
             },
