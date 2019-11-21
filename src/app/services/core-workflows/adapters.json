@@ -101,6 +101,15 @@
                             ]
                           },
                           {
+                            "label": "Export",
+                            "blocks": [
+                              {
+                                "type": "dispatch",
+                                "action": "exportAdapter"
+                              }
+                            ]
+                          },
+                          {
                             "label": "Uninstall",
                             "color": "warn",
                             "blocks": [
