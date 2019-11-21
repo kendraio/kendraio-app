@@ -48,6 +48,12 @@ export class CoreEventHandlersService {
           case 'addNewWorkflow':
             this.adapterInstall.addNewWorkflow(payload);
             break;
+          case 'exportAdapter':
+            this.adapterInstall.exportAdapter(payload);
+            break;
+          case 'importAdapter':
+            this.adapterInstall.importAdapter(payload);
+            break;
           case 'enableAdapter':
             if (has(payload, 'adapter.name')) {
               this.adapters.enableAdapter(get(payload, 'adapter.name'));

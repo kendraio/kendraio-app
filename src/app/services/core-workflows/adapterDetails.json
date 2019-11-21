@@ -21,6 +21,24 @@
         {
           "blocks": [
             {
+              "type": "actions",
+              "buttons": [
+                {
+                  "label": "Export",
+                  "blocks": [
+                    {
+                      "type": "dispatch",
+                      "action": "exportAdapter"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "blocks": [
+            {
               "type": "message",
               "title": "Database schemas"
             },

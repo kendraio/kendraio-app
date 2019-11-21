@@ -23,7 +23,6 @@ export class AppComponent {
 
   constructor(
     private readonly coreEventHandlers: CoreEventHandlersService,
-    public auth: AuthService,
     private readonly router: Router,
     private readonly route: ActivatedRoute,
     private readonly title: PageTitleService,
@@ -32,7 +31,6 @@ export class AppComponent {
     @Inject(LOCALE_ID) public locale: string,
     public translate: TranslateService
   ) {
-    auth.handleAuthentication();
     this.pageTitle$ = this.title.pageTitle$;
     const browserLang = translate.getBrowserLang();
     translate.addLangs(['en', 'fr', 'de', 'pt', 'it', 'ru', 'ja', 'es', 'el']);

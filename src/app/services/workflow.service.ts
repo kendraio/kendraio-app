@@ -168,7 +168,9 @@ export class WorkflowService {
         this.localData['adapters'].get(this.getAdapterName()).then(adapter => {
           const workflow = get(adapter, 'workflow', []);
           const workflowIndex = findIndex(workflow, ({ workflowId }) => workflowId === this.id);
-          workflow[workflowIndex] = { ...workflow[workflowIndex], modified: true };
+          if (workflowIndex !== -1) {
+            workflow[workflowIndex] = { ...workflow[workflowIndex], title: this.title, modified: true };
+          }
           this.localData['adapters'].update(this.getAdapterName(), { ...adapter, workflow, modified: true }).then(() => {
             this.notify.open('Saved workflow', 'OK', { verticalPosition: 'top', horizontalPosition: 'center', duration: 2000 });
           });

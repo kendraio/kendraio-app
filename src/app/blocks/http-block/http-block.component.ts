@@ -18,6 +18,8 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   @Input() model: any = {};
   @Output() output = new EventEmitter();
 
+  responseType: 'json' = 'json';
+
   hasError = false;
   errorMessage = '';
 
@@ -37,6 +39,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     if (get(this.config, 'skipInit', true) && get(changes, 'model.firstChange', false)) {
       return;
     }
+    this.responseType = get(this.config, 'responseType', 'json');
     this.makeRequest();
   }
 
@@ -84,7 +87,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     // TODO: decide what to do with response when error condition
     switch (toUpper(method)) {
       case 'GET':
-        this.http.get(url, {headers})
+        this.http.get(url, {headers, responseType: this.responseType})
           .pipe(
             catchError(error => {
               this.hasError = true;
@@ -99,7 +102,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           });
         break;
       case 'DELETE':
-        this.http.delete(url, {headers})
+        this.http.delete(url, {headers, responseType: this.responseType})
           .pipe(
             catchError(error => {
               this.hasError = true;
@@ -116,8 +119,8 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       case 'PUT':
       case 'POST':
         const sub = (toUpper(method) === 'PUT')
-          ? this.http.put(url, this.model, {headers})
-          : this.http.post(url, this.model, {headers});
+          ? this.http.put(url, this.model, {headers, responseType: this.responseType})
+          : this.http.post(url, this.model, {headers, responseType: this.responseType});
         sub
           .pipe(
             catchError(error => {
