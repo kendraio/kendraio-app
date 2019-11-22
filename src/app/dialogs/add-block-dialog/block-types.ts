@@ -27,6 +27,7 @@ export const BLOCK_TYPES = [
       blocks: []
     }
   },
+
   {
     type: 'card',
     label: 'Card',
@@ -190,6 +191,18 @@ export const BLOCK_TYPES = [
     icon: 'fa-play',
     defaultConfig: {
       type: 'init'
+    }
+  },
+  {
+    type: 'image',
+    label: 'Image',
+    description: 'Add view image/thumb',
+    icon: 'fa-image',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'image',
+      imgUrl: '',
+      title: ''
     }
   },
   {

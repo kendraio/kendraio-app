@@ -191,6 +191,7 @@ import { Auth0ProfileDataBlockComponent } from './blocks/auth0-profile-data-bloc
 import { AdapterListBlockComponent } from './blocks/adapter-list-block/adapter-list-block.component';
 import { AdapterInfoBlockComponent } from './blocks/adapter-info-block/adapter-info-block.component';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
+import { ImageBlockComponent } from './blocks/image-block/image-block.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -316,6 +317,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     WorkflowCellRendererComponent,
     CsvExportBlockComponent,
     CardBlockComponent,
+    ImageBlockComponent,
     FakerBlockComponent,
     WorkflowSidenavComponent,
     LoadWorkflowDialogComponent,
