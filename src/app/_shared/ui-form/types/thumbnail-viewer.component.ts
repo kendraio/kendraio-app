@@ -39,15 +39,15 @@ export class ThumbnailViewerComponent extends FieldType implements OnInit {
 
   ngOnInit() {
 
-    this.videoUrl = this.cleanUrl(this.formControl.value); // TODO: include whole uRL
+    // this.videoUrl = this.cleanUrl(this.formControl.value); // TODO: include whole uRL
 
 
     // TODO: how do we locate the default thumb?
     this.thumbs = [
-      {url: 'https://i.ytimg.com/vi/' + this.videoUrl + '/0.jpg', isDefault: true},
-{url: 'https://i.ytimg.com/vi/' + this.videoUrl + '/1.jpg', isDefault: false},
-{url: 'https://i.ytimg.com/vi/' + this.videoUrl + '/2.jpg', isDefault: true},
-{url: 'https://i.ytimg.com/vi/' + this.videoUrl + '/3.jpg', isDefault: false},
+      {url: 'https://i.ytimg.com/vi/' + this.formControl.value + '/0.jpg', isDefault: true},
+{url: 'https://i.ytimg.com/vi/' + this.formControl.value + '/1.jpg', isDefault: false},
+{url: 'https://i.ytimg.com/vi/' + this.formControl.value + '/2.jpg', isDefault: true},
+{url: 'https://i.ytimg.com/vi/' + this.formControl.value + '/3.jpg', isDefault: false},
     ];
 
 
