@@ -57,7 +57,10 @@ export class ThumbnailViewerComponent extends FieldType implements OnInit {
   }
 
   cleanUrl(urlStr: string) {
-    return urlStr.split('/')[4];
+    if (urlStr.length) {
+        return urlStr.split('/')[4];
+    }
+  
     }
 
 
