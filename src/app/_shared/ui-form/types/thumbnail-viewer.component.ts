@@ -21,7 +21,7 @@ role="option" *ngFor="let thumb of thumbs; index as i" (click)="selectThumb(i)"
 [ngClass]="{'default-thumb': thumb.isDefault}"
 src="{{thumb.url}}">
 
-{{formControl.value}}xxxxxxxxx {{videoUrl}}
+
 
 </div>
 
