@@ -191,6 +191,9 @@ import { Auth0ProfileDataBlockComponent } from './blocks/auth0-profile-data-bloc
 import { AdapterListBlockComponent } from './blocks/adapter-list-block/adapter-list-block.component';
 import { AdapterInfoBlockComponent } from './blocks/adapter-info-block/adapter-info-block.component';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
+import {FileValueAccessor} from './_shared/ui-form/types/file-type-value-accessor';
+import { FormlyFileInputComponent } from './form-controls/formly-file-input/formly-file-input.component';
+import { ReadFileBlockComponent } from './blocks/read-file-block/read-file-block.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -337,7 +340,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     ContextBlockComponent,
     Auth0ProfileDataBlockComponent,
     AdapterListBlockComponent,
-    AdapterInfoBlockComponent
+    AdapterInfoBlockComponent,
+    FileValueAccessor,
+    FormlyFileInputComponent,
+    ReadFileBlockComponent
   ],
   imports: [
     FormlyModule.forRoot({

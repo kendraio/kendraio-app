@@ -36,6 +36,7 @@
     <app-auth0-profile-data-block class="block-wrapper" *ngSwitchCase="'auth0'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-auth0-profile-data-block>
     <app-adapter-list-block class="block-wrapper" *ngSwitchCase="'adapter-list'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-adapter-list-block>
     <app-adapter-info-block class="block-wrapper" *ngSwitchCase="'adapter-info'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-adapter-info-block>
+    <app-read-file-block class="block-wrapper" *ngSwitchCase="'read-file'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-read-file-block>
   </ng-container>
 </ng-container>
 <!--<pre>{{ blocks | json }}</pre>-->

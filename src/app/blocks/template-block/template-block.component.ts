@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-import {get, isArray, isObject} from 'lodash-es';
+import {clone, get} from 'lodash-es';
 import {compile} from 'handlebars';
 
 @Component({
@@ -25,7 +25,7 @@ export class TemplateBlockComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes) {
     // TODO: Allow loading template from Adapter
-    this.innerHtml = compile(get(this.config, 'template', ''))(this.model);
-    this.output.emit(isArray(this.model) ? [ ...this.model ] : isObject(this.model) ? { ...this.model } : this.model);
+    this.innerHtml = compile(get(this.config, 'template', ''))({ context: this.context, data: this.model });
+    this.output.emit(clone(this.model));
   }
 }

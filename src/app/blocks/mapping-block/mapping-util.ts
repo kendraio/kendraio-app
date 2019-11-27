@@ -58,6 +58,13 @@ export function mappingUtility(value, expr) {
       zip: {
         _func: ([a1, a2]) => zip(a1, a2),
         _signature: [{types: [TYPE_ARRAY]}, {types: [TYPE_ARRAY]}]
+      },
+      debug: {
+        _func: ([v]) => {
+          console.log('debug value in mapping', v);
+          return v;
+        },
+        _signature: [{types: [TYPE_ANY]}]
       }
     }
   });
