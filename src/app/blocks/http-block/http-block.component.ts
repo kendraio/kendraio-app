@@ -5,6 +5,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {MatSnackBar} from '@angular/material';
 import {catchError} from 'rxjs/operators';
 import {of} from 'rxjs';
+import {mappingUtility} from '../mapping-block/mapping-util';
 
 @Component({
   selector: 'app-http-block',
@@ -62,7 +63,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     const url = this.constructEndpointUrl(this.config);
     // console.log({ url });
 
-    let headers = new HttpHeaders();
+    let headers = new HttpHeaders(this.getPayloadHeaders());
     if (has(this.config, 'authentication.type')) {
       const valueGetters = get(this.config, 'authentication.valueGetters', {});
       const context = {...this.config.authentication, ...this.contextData.getGlobalContext(valueGetters, this.context, this.model)};
@@ -121,8 +122,8 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       case 'PUT':
       case 'POST':
         const sub = (toUpper(method) === 'PUT')
-          ? this.http.put(url, this.model, {headers, responseType: this.responseType})
-          : this.http.post(url, this.model, {headers, responseType: this.responseType});
+          ? this.http.put(url, this.getPayload(), {headers, responseType: this.responseType})
+          : this.http.post(url, this.getPayload(), {headers, responseType: this.responseType});
         sub
           .pipe(
             catchError(error => {
@@ -152,6 +153,22 @@ export class HttpBlockComponent implements OnInit, OnChanges {
 
   outputResult(data) {
     this.output.emit(data);
+  }
+
+  getPayloadHeaders() {
+    const headers = get(this.config, 'headers', {});
+    return Object.keys(headers).reduce((a, key) => {
+      a[key] = mappingUtility({ data: this.model, context: this.context }, headers[key]);
+      return a;
+    }, {});
+  }
+
+  getPayload() {
+    const payloadMapping = get(this.config, 'payload');
+    if (payloadMapping) {
+      return mappingUtility({ data: this.model, context: this.context }, payloadMapping);
+    }
+    return this.model;
   }
 
   constructEndpointUrl(config) {

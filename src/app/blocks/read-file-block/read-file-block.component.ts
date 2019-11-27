@@ -1,6 +1,6 @@
 import {Component, NgZone} from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
-import {clone, get, result, set} from 'lodash-es';
+import {clone, get, pick, set,} from 'lodash-es';
 import {mappingUtility} from '../mapping-block/mapping-util';
 
 @Component({
@@ -43,15 +43,16 @@ export class ReadFileBlockComponent extends BaseBlockComponent {
     this.hasError = false;
     const file = mappingUtility({ data: this.model, context: this.context }, this.fileGetter);
     if (file) {
+      const fileMeta = pick(file, ['name', 'lastModified', 'type', 'size']);
       this.isLoading = true;
       const reader  = new FileReader();
       reader.addEventListener('load', () => {
         if (this.mode === 'update') {
           const outputData = clone(data);
-          set(outputData, this.updatePath, reader.result);
+          set(outputData, this.updatePath, { ...fileMeta, result: reader.result });
           this.output.emit(outputData);
         } else {
-          this.output.emit({ result: reader.result });
+          this.output.emit({ ...fileMeta, result: reader.result });
         }
         this.zone.run(() => {
           this.isLoading = false;
