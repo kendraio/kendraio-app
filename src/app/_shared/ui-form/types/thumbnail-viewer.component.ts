@@ -21,6 +21,7 @@ role="option" *ngFor="let thumb of thumbs; index as i" (click)="selectThumb(i)"
 [ngClass]="{'default-thumb': thumb.isDefault}"
 src="{{thumb.url}}">
 
+{{formControl.value}}
 
 </div>
 
@@ -32,14 +33,36 @@ src="{{thumb.url}}">
 
 export class ThumbnailViewerComponent extends FieldType implements OnInit {
   @Input()
-  formControl;
-  videoId: any;
+  videoId: any = 'I_txFxMKg4U';
   videoUrl: any;
-  thumbs: Array<any>;
+  thumbs: Array<any> = [];
 
   ngOnInit() {
-    this.thumbs = this.formControl.value;
+
+    // this.videoUrl = this.cleanUrl(this.formControl.value); // TODO: include whole uRL
+
+
+    // TODO: how do we locate the default thumb?
+    this.thumbs = [
+      {url: 'https://i.ytimg.com/vi/' + this.formControl.value + '/0.jpg', isDefault: true},
+{url: 'https://i.ytimg.com/vi/' + this.formControl.value + '/1.jpg', isDefault: false},
+{url: 'https://i.ytimg.com/vi/' + this.formControl.value + '/2.jpg', isDefault: true},
+{url: 'https://i.ytimg.com/vi/' + this.formControl.value + '/3.jpg', isDefault: false},
+    ];
+
+
+
+
+
   }
+
+  cleanUrl(urlStr: string) {
+    if (urlStr.length) {
+        return urlStr.split('/')[4];
+    }
+  
+    }
+
 
   selectThumb(i: number) {
     this.thumbs.forEach(t => {

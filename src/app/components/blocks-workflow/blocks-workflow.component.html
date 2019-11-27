@@ -9,6 +9,7 @@
     <app-chart-block class="block-wrapper" *ngSwitchCase="'chart'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-chart-block>
     <app-init-block class="block-wrapper" *ngSwitchCase="'init'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-init-block>
     <app-message-block class="block-wrapper" *ngSwitchCase="'message'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-message-block>
+    <app-image-block class="block-wrapper" *ngSwitchCase="'image'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-image-block>
     <app-template-block class="block-wrapper" *ngSwitchCase="'template'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-template-block>
     <app-button-block class="block-wrapper" *ngSwitchCase="'button'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-button-block>
     <app-dialog-block class="block-wrapper" *ngSwitchCase="'dialog'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-dialog-block>
