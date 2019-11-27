@@ -80,7 +80,7 @@ export class AdapterInstallService {
   }
 
   downloadData(outputData, fileName) {
-    const blob = new Blob([JSON.stringify(outputData)], { type: `application/json;charset=utf-8;` });
+    const blob = new Blob([JSON.stringify(outputData, null, 2)], { type: `application/json;charset=utf-8;` });
     const link = document.createElement('a');
     if (link.download !== undefined) { // feature detection
       // Browsers that support HTML5 download attribute
