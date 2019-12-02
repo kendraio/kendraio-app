@@ -406,6 +406,11 @@ export const BLOCK_TYPES = [
     }
   },
   {
+    type: 'launch',
+    deprecated: true,
+    hasEditor: true
+  },
+  {
     type: 'query',
     deprecated: true,
     hasEditor: true
