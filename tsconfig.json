@@ -21,6 +21,7 @@
     ],
     "allowSyntheticDefaultImports": true,
     "paths": {
+      "@env/*": ["./src/environments/*"],
       "ngx-image-tagger": [
         "dist/ngx-image-tagger"
       ],

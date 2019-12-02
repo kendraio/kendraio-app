@@ -63,6 +63,11 @@ export const FORM_APIS = {
             json: 'assets/fake-data/test-cmo-ref-data.json',
             http: 'https://api.com/countries',
         },
+        youtube_playlists:
+        {
+            json: 'assets/fake-data/test-cmo-ref-data.json',
+            http: 'https://www.googleapis.com/youtube/v3/playlists',
+        },
 
 
 

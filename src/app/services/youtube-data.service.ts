@@ -8,7 +8,7 @@ import {HttpClient, HttpEventType, HttpHeaders} from '@angular/common/http';
   providedIn: 'root'
 })
 export class YoutubeDataService {
-
+  googleapis = 'https://www.googleapis.com/youtube/v3/';  // TODO: should be this.apiService.google.youtube
   categoryCache;
 
   _error = new BehaviorSubject<null|string>(null);
@@ -73,6 +73,63 @@ export class YoutubeDataService {
             'Authorization': `Bearer ${access_token}`
           }
         }).pipe(
+          catchError(err => {
+            this._error.next(err.message);
+            return of({});
+          })
+        );
+      })
+    );
+  }
+  getMyPlaylists() {
+    return this.getAccessToken().pipe(
+      switchMap(access_token => {
+        return this.http.get('https://www.googleapis.com/youtube/v3/playlists', {
+          params: {
+            part: 'snippet,id,contentDetails,status',
+            mine: 'true',
+            maxResults: '50'
+          },
+          headers: {
+            'Authorization': `Bearer ${access_token}`
+          }
+        }).pipe(
+          catchError(err => {
+            this._error.next(err.message);
+            return of({});
+          })
+        );
+      })
+    );
+  }
+  addVideoToPlaylist(playlistId: string, videoId: string) {
+    return this.getAccessToken().pipe(
+      switchMap(access_token => {
+        return this.http.post(this.googleapis + '/playlistItems', 
+        {
+          'snippet': {
+            'playlistId': playlistId,
+            'position': 0,
+            'resourceId': {
+              'kind': 'youtube#video',
+              'videoId': videoId
+            }
+          },
+          'status': {
+            'privacyStatus': 'private'
+          }
+        }, {
+          params: {
+            part: 'snippet,status',
+            uploadType: 'resumable'
+          },
+          headers: {
+            'Authorization': `Bearer ${access_token}`
+          },
+          observe: 'response'
+        }
+        
+        ).pipe(
           catchError(err => {
             this._error.next(err.message);
             return of({});

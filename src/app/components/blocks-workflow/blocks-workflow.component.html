@@ -39,4 +39,4 @@
     <app-adapter-info-block class="block-wrapper" *ngSwitchCase="'adapter-info'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-adapter-info-block>
   </ng-container>
 </ng-container>
-<!--<pre>{{ blocks | json }}</pre>-->
+<pre>workblock: {{ context | json }}</pre>

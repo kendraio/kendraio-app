@@ -1,2 +1,5 @@
 <app-blocks-workflow *ngIf="!gotContextValue" [blocks]="contextBlocks" [models]="models" [context]="context" (workflowComplete)="onContextComplete($event)"></app-blocks-workflow>
 <app-blocks-workflow *ngIf="gotContextValue" [blocks]="blocks" [models]="models" [context]="newContext" (workflowComplete)="onWorkflowComplete($event)"></app-blocks-workflow>
+context-block2 {{context | json}}
+
+newContext1: {{newContext | json}}

@@ -13,6 +13,17 @@ export class AuthService {
 
   auth0;
 
+  private _accessToken: string;
+
+  // TD
+  set accessToken(value) {
+    this._accessToken = value;
+  }
+  get accessToken() {
+    return this._accessToken;
+  }
+
+
   constructor(
     private readonly router: Router,
     private readonly http: HttpClient
@@ -107,6 +118,7 @@ export class AuthService {
     }
 
     const accessToken = localStorage.getItem('access_token');
+    this.accessToken = accessToken; // TD
     if (!accessToken) {
       cb(new Error('Access Token must exist to fetch profile'));
       return;

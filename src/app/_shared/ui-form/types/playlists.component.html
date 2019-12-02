@@ -1,58 +1,61 @@
 <div class="popup-container mt-5">
 
 
-  <mat-card @enterAnimateUpDwn style="max-width: 340px" [formGroup]="myform">
-  <mat-card-header>
-    <label>{{to.label}}</label></mat-card-header>
+  <mat-card @enterAnimateUpDwn style="max-width: 50%" [formGroup]="myform">
+    <mat-card-header>
+      <label>{{to.label}}</label></mat-card-header>
 
     <mat-card-content>
-    <mat-selection-list #playlists formControlName="myPlaylistCtrl"   >
-      <mat-list-option checkboxPosition="before" *ngFor="let playlist of myPlaylists" [value]="playlist"
-        (mouseup)="onListControlChanged(playlists)">
-        {{playlist.name  | titlecase}} ({{playlist.visibility}})
-      </mat-list-option>
-    </mat-selection-list>
-    <small>
-      Selected: {{ playlists.selectedOptions.selected.length }}
-    </small>
+      <mat-selection-list #playlists formControlName="myPlaylistCtrl">
+        <mat-list-option checkboxPosition="before" *ngFor="let playlist of Playlists" [value]="playlist"
+          (mouseup)="onListControlChanged(playlists)">
+
+          <img matListAvatar width="30px" src="{{playlist.snippet.thumbnails.default.url}}" alt="">
+          <span><b>{{playlist.snippet.title  | titlecase}}</b></span> - {{playlist.status.privacyStatus}} 
+            ({{playlist.contentDetails.itemCount}} items) 
+
+        </mat-list-option>
+      </mat-selection-list>
+      <small>
+        Selected: {{ playlists.selectedOptions.selected.length }}
+      </small>
 
 
-  <div class="" *ngIf="showNewPlaylist" [ngClass]="showNewPlaylist ? 'in' : 'out'" @enterAnimateUpDwn>
+      <div class="" *ngIf="showNewPlaylist" [ngClass]="showNewPlaylist ? 'in' : 'out'" @enterAnimateUpDwn>
 
-    <div [formGroup]="newPlaylistForm">
+        <div [formGroup]="newPlaylistForm">
 
-        <mat-form-field>
-      <input matInput  placeholder="Title" formControlName="playlistTitle" />
-    </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Title" formControlName="playlistTitle" />
+          </mat-form-field>
 
 
-      <mat-form-field>
-        <mat-label>Visibility</mat-label>
-        <mat-select>
-          <mat-option value="Public">Public</mat-option>
-          <mat-option value="Private">Private</mat-option>
-          <mat-option value="Unlisted">Unlisted</mat-option>
-        </mat-select>
-      </mat-form-field>
+          <mat-form-field>
+            <mat-label>Visibility</mat-label>
+            <mat-select>
+              <mat-option value="Public">Public</mat-option>
+              <mat-option value="Private">Private</mat-option>
+              <mat-option value="Unlisted">Unlisted</mat-option>
+            </mat-select>
+          </mat-form-field>
 
-    </div>
+        </div>
 
-  </div>
+      </div>
 
-  </mat-card-content>
+    </mat-card-content>
 
-  <mat-card-actions>
-      <button type="button" mat-button *ngIf="showNewPlaylist"  (click)="showNewPlaylist = false" (click)="createPlayList()">Create</button>
-      <button  type="button" mat-button  (click)="showNewPlaylist = !showNewPlaylist"><b>{{!showNewPlaylist ? '+ Add New Playlist' : 'Close'}}</b></button>
+    <mat-card-actions>
+      <button type="button" mat-button *ngIf="showNewPlaylist" (click)="showNewPlaylist = false"
+        (click)="createPlayList()">Create</button>
+      <button type="button" mat-button
+        (click)="showNewPlaylist = !showNewPlaylist"><b>{{!showNewPlaylist ? '+ Add New Playlist' : 'Close'}}</b></button>
     </mat-card-actions>
-</mat-card>
+  </mat-card>
 </div>
-
+<!-- <pre>
 formControl={{formControl.value | json}}<br>
-
-<pre>
-formx={{myform.value | json}}
-
 </pre>
-<!-- {{myPlaylistCtrl.value | json}} -->
-
+<pre>
+form={{myform.value | json}}
+</pre> -->

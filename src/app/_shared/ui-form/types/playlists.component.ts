@@ -4,6 +4,8 @@ import { MatRadioChange } from '@angular/material/radio';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { Animations } from '../../animations';
+import { UserProfile } from '../../services/google/user-profile.service';
+import { YoutubeDataService } from 'src/app/services/youtube-data.service';
 
 @Component({
   selector: 'app-field-input-visibility',
@@ -16,19 +18,15 @@ export class FieldInputPlaylistComponent extends FieldType implements OnInit {
   // @Input()
   // formControl;
 
+  @Input() blocks = [];
+  @Input() models = [];
+  @Input() context = {};
+  @Input() videoId = {};
 
   showNewPlaylist  = false;
   mySelectedPlaylists = [];
-  myPlaylists: {
-    id: string;
-    name: string;
-    visibility: string;
-  }[] = [
-      { 'id': '1', 'name': 'Fav Playlist', 'visibility': 'private' },
-      { 'id': '2', 'name': 'Must See This', 'visibility': 'private' },
-      { 'id': '3', 'name': 'OOOH nice one', 'visibility': 'private' },
-      { 'id': '4', 'name': 'Testing Testing', 'visibility': 'private' }
-    ];
+Playlists: any = [];
+
 
   videoPlaylist: {
     id: string;
@@ -47,11 +45,26 @@ export class FieldInputPlaylistComponent extends FieldType implements OnInit {
   selectedOptionsx: string[];
   selectedOptions: string[];
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private  userProfile: UserProfile,
+    private yt: YoutubeDataService
+    ) {
     super();
+
+ 
   }
 
   ngOnInit(): void {
+
+
+
+
+
+              this.yt.getMyPlaylists().subscribe((response: any) => {
+this.Playlists = response.items;
+});
+
 
     this.newPlaylistForm = this.fb.group({
       visibility: '',
@@ -87,19 +100,21 @@ export class FieldInputPlaylistComponent extends FieldType implements OnInit {
 
   }
 
+
+
   private updateList() {
-    this.mySelectedPlaylists = this.myPlaylists
-      .filter(option => {
-        return this.videoPlaylist.find(select => {
-          return option.id === select.id;
-        });
-      });
-    setTimeout(() => {
-      this.myform.get('myPlaylistCtrl').setValue(this.mySelectedPlaylists);
+//     this.mySelectedPlaylists = this.myPlaylists
+//       .filter(option => {
+//         return this.videoPlaylist.find(select => {
+//           return option.id === select.id;
+//         });
+//       });
+//     setTimeout(() => {
+//   this.myform.get('myPlaylistCtrl').setValue(this.mySelectedPlaylists);
 
-// this.formControl.setValue(this.formx.value);
+// this.formControl.setValue(this.myform.value);
 
-    }, 500);
+//     }, 500);
   }
 
   // get myPlaylistCtrl() {
@@ -125,7 +140,7 @@ export class FieldInputPlaylistComponent extends FieldType implements OnInit {
 
   createPlayList(event) {
     const newId = Date.now().toString();
-    this.myPlaylists.unshift({ 'id': newId, 'name': this.playlistTitle, 'visibility': this.visibility });
+    // this.myPlaylists.unshift({ 'id': newId, 'name': this.playlistTitle, 'visibility': this.visibility });
     this.videoPlaylist.unshift({ 'id': newId });
     this.formControl.patchValue(this.videoPlaylist);
     this.updateList();
