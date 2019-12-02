@@ -41,6 +41,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {FormlyFieldFileComponent} from './types/file-type.component';
 
 // import { ContentEditableFormDirective } from '../directives/editable-content';
 // import { KendraioFormComponent } from './kendraio-form/kendraio-form.component';
@@ -56,7 +57,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     ReactiveFormsModule,
     FormlyModule.forRoot(config),
     TextMaskModule,
-    FlexLayoutModule, 
+    FlexLayoutModule,
 
     // AppMaterialModule,
     NgSelectModule,
@@ -124,10 +125,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     types.FieldInputPasswordComponent,
     types.TimePickerComponent,
     types.ImageViewerComponent,
-    types.NullTypeComponent
+    types.NullTypeComponent,
     // ContentEditableFormDirective
     // KendraioFormComponent
-
+    FormlyFieldFileComponent
   ]
 })
 export class UiFormModule {}

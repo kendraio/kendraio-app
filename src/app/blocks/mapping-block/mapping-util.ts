@@ -3,6 +3,7 @@ import uuid from 'uuid';
 import {find, omit, pick, pickBy, zip} from 'lodash-es';
 import {DateTime} from 'luxon';
 import {parse as parseQueryString, stringify as asQueryString} from 'qs';
+import stringify from 'json-stringify-safe';
 
 // Type constants used to define functions.
 const TYPE_NUMBER = 0;
@@ -58,6 +59,17 @@ export function mappingUtility(value, expr) {
       zip: {
         _func: ([a1, a2]) => zip(a1, a2),
         _signature: [{types: [TYPE_ARRAY]}, {types: [TYPE_ARRAY]}]
+      },
+      debug: {
+        _func: ([v]) => {
+          console.log('debug value in mapping', v);
+          return v;
+        },
+        _signature: [{types: [TYPE_ANY]}]
+      },
+      json: {
+        _func: ([v]) => stringify(v),
+        _signature: [{types: [TYPE_ANY]}]
       }
     }
   });

@@ -30,6 +30,8 @@ import {FormlyBlocksInputComponent} from '../../form-controls/formly-blocks-inpu
 import {FormlyWorkflowFieldComponent} from '../../form-controls/formly-workflow-field/formly-workflow-field.component';
 import {FormlyCardListComponent} from '../../form-controls/formly-card-list/formly-card-list.component';
 import {FormlyTableWidgetComponent} from '../../form-controls/formly-table-widget/formly-table-widget.component';
+import {FormlyFieldFileComponent} from './types/file-type.component';
+import {FormlyFileInputComponent} from '../../form-controls/formly-file-input/formly-file-input.component';
 
 export const config: ConfigOption = {
   validationMessages: [
@@ -185,7 +187,13 @@ export const config: ConfigOption = {
     },
     {
       name: 'k-timepicker', component: types.TimePickerComponent
-    }
+    },
+    {
+      name: 'file',
+      component: FormlyFileInputComponent
+      // component: FormlyFieldFileComponent,
+      // wrappers: ['form-field']
+    },
   ],
   validators: [
     { name: 'maximumNumValidation', validation: maximumNumValidation },

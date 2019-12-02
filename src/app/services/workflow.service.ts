@@ -110,26 +110,28 @@ export class WorkflowService {
     const dialogRef = this.dialog.open(PasteConfigDialogComponent, {});
     dialogRef.afterClosed().subscribe(value => {
       if (!!value) {
-        try {
-          const config = JSON.parse(value);
-          if (has(config, 'blocks')) {
-            this.router.routerState.root.queryParams.pipe(
-              take(1),
-              withLatestFrom(this.router.routerState.root.fragment)
-            ).subscribe(([queryParams, fragment]) => {
-              this.initWorkflow({
-                title: get(config, 'title', 'Imported config'),
-                blocks: get(config, 'blocks', []),
-                context: {queryParams, fragment}
+        this.router.navigate(['/workflow-builder']).then(() => {
+          try {
+            const config = JSON.parse(value);
+            if (has(config, 'blocks')) {
+              this.router.routerState.root.queryParams.pipe(
+                take(1),
+                withLatestFrom(this.router.routerState.root.fragment)
+              ).subscribe(([queryParams, fragment]) => {
+                this.initWorkflow({
+                  title: get(config, 'title', 'Imported config'),
+                  blocks: get(config, 'blocks', []),
+                  context: {queryParams, fragment}
+                });
+                this.id = get(config, 'id');
+                set(this.context, 'app.adapterName', get(config, 'adapterName', 'UNKNOWN'));
+                this.saveState();
               });
-              this.id = get(config, 'id');
-              set(this.context, 'app.adapterName', get(config, 'adapterName', 'UNKNOWN'));
-              this.saveState();
-            });
+            }
+          } catch (e) {
+            console.log('Error importing config', e);
           }
-        } catch (e) {
-          console.log('Error importing config', e);
-        }
+        });
       }
     });
   }

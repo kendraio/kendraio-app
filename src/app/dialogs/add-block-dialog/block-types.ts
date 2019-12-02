@@ -382,6 +382,31 @@ export const BLOCK_TYPES = [
   },
   {
     type: 'auth0',
+    label: 'Auth0',
+    description: 'Fetch access details from Auth0',
+    icon: 'person',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'auth0',
+      provider: 'google-oauth2'
+    }
+  },
+  {
+    type: 'read-file',
+    label: 'Read file',
+    description: 'Read contents of a file object',
+    icon: 'insert_drive_file',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'read-file',
+      readMode: 'dataUrl',
+      fileGetter: 'data',
+      mode: 'update',
+      skipFirst: true
+    }
+  },
+  {
+    type: 'launch',
     deprecated: true,
     hasEditor: true
   },
