@@ -21,60 +21,27 @@ interface YoutubeApiServiceOptions {
 
 const defaultParams = {
     part: 'snippet,contentDetails',
-    key: environment.youtube.API_KEY,
+    key: '',  // environment.youtube.API_KEY,
     maxResults: '50',
     pageToken: ''
 };
 
-// @Injectable()
+//TODO: consider each api should have own class and interface???
+
 export class YoutubeApiService {
-    // context = {
-    //     'app':
-    //         { 'adapterName': 'youtube', 'workflowId': 'NbDpScfXgWb00Dzq3sfD' },
-    //     'queryParams': {}, 'fragment': null, 'googleAuth':
-    //     {
-    //         'provider': 'google-oauth2',
-    //         'access_token': 'ya29.ImWyB_mvZ1Xw3t1pcY0qPLN8QeYUbN4r4nl9Wq_1Cv8rr3gt233Sp1E5VF4VdLA5x1bfmJvEzayTpItlQmxxYYBDP9luRKLvZHha7iQPnUrAFjSdxugxlYuS1cdL78q4zI1321nOvQ',
-    //         'expires_in': 3600,
-    //         'user_id': '117029515571498307678', 'connection': 'google-oauth2', 'isSocial': true
-    //     }
-    // };
-
-
-    // config =
-    //     {
-    //         'type': 'http',
-    //         'method': 'get',
-    //         'endpoint': {
-    //             'protocol': 'https:',
-    //             'host': 'www.googleapis.com',
-    //             'pathname': '/youtube/v3/search',
-    //             'valueGetters': {
-    //                 'query': 'data'
-    //             }
-    //         },
-    //         'authentication': {
-    //             'type': 'bearer',
-    //             'valueGetters': {
-    //                 'jwt': 'context.googleAuth.access_token'
-    //             }
-    //         }
-    //     };
-
-
+  
     url: string;
     http: HttpClient;
     idKey: string;
     authorize = false;
     isSearching = false;
     params: HttpParams;
-    nextPageToken: string;
+    nextPageToken: string;   // todo need to handle youtube paging
 
     constructor(options: any,
         private yt: YoutubeDataService,
         // private readonly contextData: ContextDataService,
         private authService?: AuthService,
-  
 
     ) {
         this.resetConfig();
@@ -142,6 +109,8 @@ export class YoutubeApiService {
         );
     }
 
+
+// TODO handle youtube paging
     fetchNextPage() {
         if (!this.isSearching) {
             // this.params['pageToken'] = this.nextPageToken;
