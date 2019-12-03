@@ -33,9 +33,11 @@ export class NotFoundComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this.destroy$),
         map(([x]) => x),
+        map(v => (isArray(v) && v.length === 0) ? [{path: 'core'}, {path: 'dashboard'}] : v),
+        map(v => (isArray(v) && v.length === 1 && v[0].path && v[0].path === 'dashboard') ? [{path: 'core'}, {path: 'dashboard'}] : v),
         filter(v => isArray(v) && v.length >= 2),
         withLatestFrom(this.route.queryParams),
-        switchMap(([[adapterName, workflowId], queryParams]) => this.workflowRepo.getBlocks(adapterName.path, workflowId.path)
+        switchMap(([[adapterName, workflowId], queryParams]: any) => this.workflowRepo.getBlocks(adapterName.path, workflowId.path)
           .pipe(
             withLatestFrom(this.route.fragment),
             map(([blocks, fragment]) => ({ ...blocks, queryParams, fragment }))

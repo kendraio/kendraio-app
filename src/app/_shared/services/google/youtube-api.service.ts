@@ -1,6 +1,5 @@
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '@env/environment';
 // import { Authorization } from './authorization.service';
 import { AuthService } from '../../../services/auth.service';
 import { map } from 'rxjs/operators';
@@ -29,7 +28,7 @@ const defaultParams = {
 //TODO: consider each api should have own class and interface???
 
 export class YoutubeApiService {
-  
+
     url: string;
     http: HttpClient;
     idKey: string;
@@ -83,7 +82,7 @@ export class YoutubeApiService {
             headers: this.createHeaders()
         };
 
-  
+
 
 
         return this.http.get(this.url, options);

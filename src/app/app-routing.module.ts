@@ -50,7 +50,7 @@ const routes: Routes = [
  //   children: [
       {
         path: 'dashboard',
-        component: Pages.DashboardPageComponent,
+        component: NotFoundComponent,
         data: {
           pageTitle: {'de': 'Instrumententafel' , 'fr': '', 'en-US': 'Dashboard' },
           breadcrumb: {'de': 'Instrumententafel' , 'fr': '', 'en-US': 'dashboard' },
@@ -305,7 +305,10 @@ const routes: Routes = [
     component: BlocksBuilderPageComponent
   },
 
-       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+       {
+         path: '',
+         component: NotFoundComponent
+       },
        { path: '**', component: NotFoundComponent },
   //  ]
  // }

@@ -4,6 +4,7 @@ import {find, omit, pick, pickBy, zip} from 'lodash-es';
 import {DateTime} from 'luxon';
 import {parse as parseQueryString, stringify as asQueryString} from 'qs';
 import stringify from 'json-stringify-safe';
+import * as showdown from 'showdown';
 
 // Type constants used to define functions.
 const TYPE_NUMBER = 0;
@@ -70,6 +71,14 @@ export function mappingUtility(value, expr) {
       json: {
         _func: ([v]) => stringify(v),
         _signature: [{types: [TYPE_ANY]}]
+      },
+      markdown: {
+        _func: ([s]) => {
+          showdown.setFlavor('github');
+          const converter = new showdown.Converter();
+          return converter.makeHtml(s);
+        },
+        _signature: [{types: [TYPE_STRING]}]
       }
     }
   });
