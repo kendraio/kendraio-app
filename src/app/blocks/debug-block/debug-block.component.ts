@@ -18,6 +18,8 @@ export class DebugBlockComponent implements OnInit, OnChanges {
 
   open = 1;
   showContext = false;
+  consoleLog = false;
+  consoleLabel = 'debug block';
 
   constructor(
     private readonly zone: NgZone
@@ -30,6 +32,8 @@ export class DebugBlockComponent implements OnInit, OnChanges {
   ngOnChanges(changes) {
     this.open = get(this.config, 'open', 1);
     this.showContext = get(this.config, 'showContext', false);
+    this.consoleLog = get(this.config, 'consoleLog', false);
+    this.consoleLabel = get(this.config, 'consoleLabel', 'debug block');
     this.updateOutputDisplay();
     this.output.emit(clone(this.model));
   }
@@ -45,6 +49,9 @@ export class DebugBlockComponent implements OnInit, OnChanges {
             this.modelOutput.nativeElement.removeChild(this.modelOutput.nativeElement.firstChild);
           }
           this.modelOutput.nativeElement.append(formatter.render());
+          if (this.consoleLog) {
+            console.log(this.consoleLabel, this.model);
+          }
         } else {
           console.log('Debug output DIV not available', this.model);
         }

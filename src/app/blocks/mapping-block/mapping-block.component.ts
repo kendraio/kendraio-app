@@ -17,6 +17,8 @@ export class MappingBlockComponent implements OnInit, OnChanges {
   mapping = '';
   debugMapping = false;
   skipFirst = false;
+  runOnce = false;
+  hasRun = false;
 
   hasError = false;
   errorMessage = '';
@@ -27,17 +29,24 @@ export class MappingBlockComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes): void {
+    // console.log('mapping changes', this.mapping,  changes);
     this.mapping = this.parseMapping(get(this.config, 'mapping'));
     this.debugMapping = get(this.config, 'debug', false);
     this.skipFirst = get(this.config, 'skipFirst', false);
+    this.runOnce = get(this.config, 'runOnce', false);
     if (this.skipFirst && get(changes, 'model.firstChange', false)) {
+      return;
+    }
+    if (this.runOnce && this.hasRun) {
       return;
     }
     this.hasError = false;
     try {
       const mappingResult = this.getMappingResult(this.mapping);
+      // console.log(this.mapping, { mappingResult });
       setTimeout(() => {
         this.output.emit(clone(mappingResult));
+        this.hasRun = true;
       }, 0);
     } catch (e) {
       this.hasError = true;
