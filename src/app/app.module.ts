@@ -195,6 +195,7 @@ import {FileValueAccessor} from './_shared/ui-form/types/file-type-value-accesso
 import { FormlyFileInputComponent } from './form-controls/formly-file-input/formly-file-input.component';
 import { ReadFileBlockComponent } from './blocks/read-file-block/read-file-block.component';
 import { ImageBlockComponent } from './blocks/image-block/image-block.component';
+import { ContextSaveBlockComponent } from './blocks/context-save-block/context-save-block.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -345,7 +346,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AdapterInfoBlockComponent,
     FileValueAccessor,
     FormlyFileInputComponent,
-    ReadFileBlockComponent
+    ReadFileBlockComponent,
+    ContextSaveBlockComponent
   ],
   imports: [
     FormlyModule.forRoot({

@@ -1,6 +1,6 @@
 import { search } from './jmespath';
 import uuid from 'uuid';
-import {find, omit, pick, pickBy, zip} from 'lodash-es';
+import {find, get, omit, pick, pickBy, zip} from 'lodash-es';
 import {DateTime} from 'luxon';
 import {parse as parseQueryString, stringify as asQueryString} from 'qs';
 import stringify from 'json-stringify-safe';

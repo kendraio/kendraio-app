@@ -347,6 +347,17 @@ export const BLOCK_TYPES = [
     }
   },
   {
+    type: 'context-save',
+    label: 'Context (Save)',
+    description: 'Save a value into context',
+    icon: 'fa-stamp',
+    defaultConfig: {
+      type: 'context-save',
+      contextKey: 'saved'
+    },
+    hasEditor: true
+  },
+  {
     type: 'context',
     label: 'Context',
     description: 'Load a value into context',
