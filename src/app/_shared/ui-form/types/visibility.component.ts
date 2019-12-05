@@ -28,7 +28,7 @@ export class FieldInputVisibilityComponent  extends FieldType implements OnInit 
     this.formx = this.fb.group({
       date: '',
       time: '',
-      option: ''
+      option: this.formControl.value
     });
 
   this.valueChanges$ = this.formx.valueChanges;

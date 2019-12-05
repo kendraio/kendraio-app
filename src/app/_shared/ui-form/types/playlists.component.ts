@@ -61,7 +61,7 @@ Playlists: any = [];
 
 
 
-              this.yt.getMyPlaylists().subscribe((response: any) => {
+this.yt.getMyPlaylists().subscribe((response: any) => {
 this.Playlists = response.items;
 });
 
@@ -101,6 +101,13 @@ this.Playlists = response.items;
   }
 
 
+addVideoToPlayList (playlistId, videoId) {
+  this.yt.addVideoToPlaylist(playlistId, videoId).subscribe(()=> {
+
+  })
+}
+
+
 
   private updateList() {
 //     this.mySelectedPlaylists = this.myPlaylists
@@ -129,13 +136,14 @@ this.Playlists = response.items;
     return this.newPlaylistForm.get('playlistTitle').value;
   }
 
-  onListControlChanged(list, event) {
+  onListControlChanged(listId, event) {
     // this.selectedOptionsx = list.options.map(item => item.value);
    this.formControl.patchValue(this.videoPlaylist);
     // this.formControl.setValue('this.videoPlaylist');
    // console.log(this.formControl);
     // console.log(this.videoPlaylist);
   console.log(this.myform.value);
+  // this.addVideoToPlayList(listId, this.formControl.value) // TODO uncomment when ready
   }
 
   createPlayList(event) {

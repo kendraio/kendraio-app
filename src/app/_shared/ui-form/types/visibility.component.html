@@ -1,5 +1,8 @@
 <div class="popup-container mt-5"
 >
+
+
+
 <mat-card @enterAnimateUpDwn style="max-width: 340px" [formGroup]="formx">
   <mat-card-header>
     <mat-label>{{to.label}}</mat-label>
@@ -8,12 +11,12 @@
   <mat-card-content>
 
     <mat-radio-group aria-label="Visibility" (change)="radioChange($event)" formControlName="option">
-      <mat-radio-button value="1">Public</mat-radio-button>
-      <mat-radio-button value="2">Private</mat-radio-button>
-      <mat-radio-button value="3">Unlisted</mat-radio-button>
+      <mat-radio-button value="public">Public</mat-radio-button>
+      <mat-radio-button value="private">Private</mat-radio-button>
+      <mat-radio-button value="unlisted">Unlisted</mat-radio-button>
     </mat-radio-group>
 
-    <div [ngClass]="val === '2' ? 'in' : 'out'" *ngIf="val === '2'" @enterAnimateUpDwn>
+    <div [ngClass]="val === 'private' ? 'in' : 'out'" *ngIf="val === 'private'" @enterAnimateUpDwn>
 
       <label (click)="showSchedulue = !showSchedulue"> <b> + Add Schedule</b></label>
 

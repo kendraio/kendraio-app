@@ -102,6 +102,26 @@ export class YoutubeDataService {
       })
     );
   }
+
+
+  // Adding a video to a playlist
+  // Now that we've created a playlist, let's add a video to it. This request adds a video to the beginning of the playlist ('position': 0).
+  
+  // POST {base_URL}/playlistItems?part=snippet
+  //   Request body:
+  //   {
+  //     'snippet': {
+  //       'playlistId': '{PLAYLIST_ID}', 
+  //       'resourceId': {
+  //           'kind': 'youtube#video',
+  //           'videoId': '{VIDEO_ID}'
+  //         }
+  //      'position': 0
+  //       }
+  //    }
+
+ 
+
   addVideoToPlaylist(playlistId: string, videoId: string) {
     return this.getAccessToken().pipe(
       switchMap(access_token => {
