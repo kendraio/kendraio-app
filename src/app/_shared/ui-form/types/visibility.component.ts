@@ -16,7 +16,7 @@ import { Animations } from '../../animations';
 export class FieldInputVisibilityComponent  extends FieldType implements OnInit {
   val: string;
   showSchedulue: boolean;
-  formx = new FormGroup({});
+  visabilityForm = new FormGroup({});
   valueChanges$: Observable<any>;
   subscription: Subscription;
 
@@ -25,32 +25,32 @@ export class FieldInputVisibilityComponent  extends FieldType implements OnInit 
   }
 
   ngOnInit(): void {
-    this.formx = this.fb.group({
+    this.visabilityForm = this.fb.group({
       date: '',
       time: '',
-      option: this.formControl.value
+      privacyStatus: this.formControl.value
     });
 
-  this.valueChanges$ = this.formx.valueChanges;
+  this.valueChanges$ = this.visabilityForm.valueChanges;
 
   this.subscription = this.valueChanges$
   .pipe().subscribe(res => {
-    this.formControl.patchValue(this.formx.value);
+ //   this.formControl.patchValue(this.visabilityForm.value);
   });
   }
 
   get date() {
-    return this.formx.get('date').value;
+    return this.visabilityForm.get('date').value;
   }
 
   get time() {
-    return this.formx.get('time').value;
+    return this.visabilityForm.get('time').value;
   }
 
 
   radioChange(event: MatRadioChange) {
     this.val = event.value;
-    this.formControl.patchValue(this.formx.value);
+    this.formControl.patchValue(this.val);
   }
 
 }

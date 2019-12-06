@@ -3,14 +3,14 @@
 
 
 
-<mat-card @enterAnimateUpDwn style="max-width: 340px" [formGroup]="formx">
+<mat-card @enterAnimateUpDwn style="max-width: 340px" [formGroup]="visabilityForm">
   <mat-card-header>
     <mat-label>{{to.label}}</mat-label>
   </mat-card-header>
 
   <mat-card-content>
 
-    <mat-radio-group aria-label="Visibility" (change)="radioChange($event)" formControlName="option">
+    <mat-radio-group aria-label="Visibility" (change)="radioChange($event)" formControlName="privacyStatus">
       <mat-radio-button value="public">Public</mat-radio-button>
       <mat-radio-button value="private">Private</mat-radio-button>
       <mat-radio-button value="unlisted">Unlisted</mat-radio-button>
