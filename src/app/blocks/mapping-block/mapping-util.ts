@@ -25,6 +25,14 @@ export function mappingUtility(value, expr) {
         _func: uuid.v4,
         _signature: []
       },
+      toLower: {
+        _func: ([s]) => s.toLowerCase(),
+        _signature: [{types: [TYPE_STRING]}]
+      },
+      trim: {
+        _func: ([s]) => s.trim(),
+        _signature: [{types: [TYPE_STRING]}]
+      },
       formatDate: {
         _func: ([dateString, formatString]) => DateTime.fromISO(dateString).toFormat(formatString),
         _signature: [{types: [TYPE_STRING]}, {types: [TYPE_STRING]}]
