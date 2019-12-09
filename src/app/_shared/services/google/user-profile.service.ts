@@ -2,7 +2,7 @@ import { Subject, Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, NgZone } from '@angular/core';
 
-import { YoutubeApiService } from './youtube-api.service';
+import { YoutubeApiService } from './youtube-api.class';
 
 // import { Authorization } from './authorization.service';
 import { AuthService } from '../../../services/auth.service';

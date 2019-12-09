@@ -15,7 +15,10 @@ import { MatInput, ErrorStateMatcher } from '@angular/material';
 
 @Component({
   template: `
-  <mat-form-field  appearance="outline">
+
+
+
+  <mat-form-field  class="example-full-width">
 
                   <textarea matInput
                             [id]="id"

@@ -25,7 +25,7 @@ const defaultParams = {
     pageToken: ''
 };
 
-//TODO: consider each api should have own class and interface???
+// TODO: consider each api should have own class / interface???
 
 export class YoutubeApiService {
 
