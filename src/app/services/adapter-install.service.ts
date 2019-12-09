@@ -48,6 +48,25 @@ export class AdapterInstallService {
       });
   }
 
+  async cloneAdapter(payload) {
+    const { sourceAdapter, sourceId, targetAdapter, targetId } = payload;
+    const workflow = get(await this.localData['workflows'].where({adapterName: sourceAdapter, workflowId: sourceId}).toArray(), '[0]', {});
+
+    const errorReporter = params => err => console.error('db error', err.message, params);
+    this.localData['workflows']
+      .add({ ...workflow, adapterName: targetAdapter, workflowId: targetId })
+      .catch(errorReporter(workflow))
+      .then(() => {
+        this.localData['adapters'].get(targetAdapter).then(adapter => {
+          const workflowMeta = get(adapter, 'workflow', []);
+          workflowMeta.push({ adapterName: targetAdapter, workflowId: targetId, title: workflow.title, modified: false });
+          this.localData['adapters'].update(targetAdapter, { ...adapter, workflow: workflowMeta, modified: true }).then(() => {
+            this.notify.open('Saved workflow', 'OK', { verticalPosition: 'top', horizontalPosition: 'center', duration: 2000 });
+          });
+        });
+      });
+  }
+
   async exportAdapter(adapterConfig) {
     // console.log({adapterConfig});
     const {adapterName} = adapterConfig;

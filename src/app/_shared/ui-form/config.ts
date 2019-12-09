@@ -130,6 +130,18 @@ export const config: ConfigOption = {
       },
     },
     {
+      name: 'kendraio-password',
+      component: types.FieldInputPasswordComponent,
+      defaultOptions: {
+        templateOptions: {
+          type: 'password',
+        },
+        validators: {
+          // validation: ['PasswordStrengthValidation'],
+        },
+      },
+    },
+    {
       name: 'password',
       extends: 'input',
       defaultOptions: {
@@ -142,6 +154,10 @@ export const config: ConfigOption = {
     },
     {
       name: 'k-hidden',
+      component: types.FieldHiddenComponent
+    },
+    {
+      name: 'kendraio-hidden',
       component: types.FieldHiddenComponent
     },
     { name: 'string', extends: 'input' },
@@ -160,6 +176,7 @@ export const config: ConfigOption = {
     { name: 'k-textarea', component: types.TextareaComponent},
     { name: 'kendraio-textarea', component: types.TextareaComponent},
     { name: 'k-image', component: types.ImageViewerComponent},
+    { name: 'kendraio-image', component: types.ImageViewerComponent},
     { name: 'null', component: types.NullTypeComponent},
 
     {
@@ -186,7 +203,22 @@ export const config: ConfigOption = {
 
     },
     {
+      name: 'kendraio-select', component: types.KendraFieldSelect,
+      defaultOptions: {
+        wrappers: ['panel'],
+        templateOptions: {
+          multiple: false,
+          placeholder: 'Select Option',
+          options: []
+        }
+      }
+
+    },
+    {
       name: 'k-timepicker', component: types.TimePickerComponent
+    },
+    {
+      name: 'kendraio-timepicker', component: types.TimePickerComponent
     },
     {
       name: 'file',

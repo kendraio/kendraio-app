@@ -54,6 +54,9 @@ export class CoreEventHandlersService {
           case 'importAdapter':
             this.adapterInstall.importAdapter(payload);
             break;
+          case 'cloneAdapter':
+            this.adapterInstall.cloneAdapter(payload);
+            break;
           case 'enableAdapter':
             if (has(payload, 'adapter.name')) {
               this.adapters.enableAdapter(get(payload, 'adapter.name'));
