@@ -157,6 +157,20 @@
                                         }
                                       }
                                     ]
+                                  },
+                                  {
+                                    "label": "Clone",
+                                    "blocks": [
+                                      {
+                                        "type": "launch",
+                                        "adapter": "core",
+                                        "workflowId": "cloneWorkflow",
+                                        "context": {
+                                          "adapter": "context.queryParams.adapterName",
+                                          "workflowId": "data.workflowId"
+                                        }
+                                      }
+                                    ]
                                   }
                                 ]
                               }
