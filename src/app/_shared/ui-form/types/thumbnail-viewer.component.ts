@@ -7,10 +7,10 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browse
   selector: 'app-thumbnail-viewer',
   template: `
 
-  <mat-card>
-  <mat-card-header>
-    <mat-label>{{to.label}}</mat-label>
-  </mat-card-header>
+  <section>
+
+    <mat-label>{{to.label}}</mat-label><br>
+
   <mat-card-content>
 
 <div class="k-thumbnails">
@@ -26,7 +26,7 @@ src="{{thumb.url}}">
 </div>
 
 </mat-card-content>
-</mat-card>
+</section>
 
  `,
 })
