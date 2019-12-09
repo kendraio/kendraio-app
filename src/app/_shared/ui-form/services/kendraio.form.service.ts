@@ -199,14 +199,17 @@ export class KendraioFormService {
                 // k-password money, datepicker, k-timepicker, videoviewer, thumbnailviewer, tags, visibility, playlist
 
                 case 'k-textarea':
+                case 'kendraio-textarea':
                   mapTextArea(TO, uiSchema, key);
                   break;
 
                 case 'k-timepicker':
+                case 'kendraio-timepicker':
                   mapTimepicker(TO, uiSchema, key);
                   break;
 
                 case 'k-select' || 'typeahead':
+                case 'kendraio-select' || 'typeahead':
                   mapKSelect(TO, uiSchema, key);
                   const ref = get(uiSchema, `${key}.ui:ref`, '');
                   const refType = get(uiSchema, `${key}.ui:refType`, 'json');
