@@ -66,6 +66,10 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
+              "src/browserconfig.xml",
+              "src/apple-touch-icon.png",
+              "src/apple-touch-icon-precomposed.png",
+              "src/mstile-150x150.png",
               "src/assets",
               "src/manifest.json",
               {
