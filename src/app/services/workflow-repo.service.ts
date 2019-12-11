@@ -25,8 +25,9 @@ export class WorkflowRepoService {
       app: {
         adapterName,
         workflowId,
+        location: location,
         // TODO: adapter info may not be loaded at this point
-        adapters: this.adapters.getAdaptersInfo()
+        // adapters: this.adapters.getAdaptersInfo()
       }
     };
 

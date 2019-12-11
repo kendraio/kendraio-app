@@ -4,7 +4,7 @@ import {filter, take, tap, withLatestFrom} from 'rxjs/operators';
 import {ExportConfigDialogComponent} from '../dialogs/export-config-dialog/export-config-dialog.component';
 import * as stringify from 'json-stringify-safe';
 import {PasteConfigDialogComponent} from '../dialogs/paste-config-dialog/paste-config-dialog.component';
-import {clone, findIndex, get, has, isArray, set} from 'lodash-es';
+import {clone, findIndex, get, has, isArray, pick, set} from 'lodash-es';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {PageTitleService} from './page-title.service';
 import {AdaptersService} from './adapters.service';
@@ -75,7 +75,7 @@ export class WorkflowService {
     this.models = this.blocks.map(blockDef => get(blockDef, 'defaultValue', {}));
     this.models.push({});
     // TODO: this is a partial refresh of context data, but needs refactoring
-    set(this.context, 'adapters', this.adapters.getAdaptersInfo());
+    // set(this.context, 'adapters', this.adapters.getAdaptersInfo());
   }
 
   onBlocksUpdate(newBlocks) {
@@ -142,6 +142,7 @@ export class WorkflowService {
     this.title = title;
     this.blocks = blocks;
     this.context = clone(context);
+    set(this.context, 'app.location', pick(location, ['origin', 'protocol', 'host', 'port', 'pathname', 'search', 'hash', 'href']));
     this.id = this.getWorkflowId();
     this.models = this.blocks.map(blockDef => get(blockDef, 'defaultValue', {}));
     this.models.push({});
