@@ -21,7 +21,6 @@ role="option" *ngFor="let thumb of thumbs; index as i" (click)="selectThumb(i)"
 [ngClass]="{'default-thumb': thumb.isDefault}"
 src="{{thumb.url}}">
 
-{{formControl.value}}
 
 </div>
 
@@ -44,7 +43,7 @@ export class ThumbnailViewerComponent extends FieldType implements OnInit {
 
     // TODO: how do we locate the default thumb?
     this.thumbs = [
-      {url: 'https://i.ytimg.com/vi/' + this.formControl.value + '/0.jpg', isDefault: true},
+      // {url: 'https://i.ytimg.com/vi/' + this.formControl.value + '/0.jpg', isDefault: true},
 {url: 'https://i.ytimg.com/vi/' + this.formControl.value + '/1.jpg', isDefault: false},
 {url: 'https://i.ytimg.com/vi/' + this.formControl.value + '/2.jpg', isDefault: true},
 {url: 'https://i.ytimg.com/vi/' + this.formControl.value + '/3.jpg', isDefault: false},

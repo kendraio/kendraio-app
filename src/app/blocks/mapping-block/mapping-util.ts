@@ -87,6 +87,10 @@ export function mappingUtility(value, expr) {
           return converter.makeHtml(s);
         },
         _signature: [{types: [TYPE_STRING]}]
+      },
+      btoa: {
+        _func: ([s]) => btoa(s),
+        _signature: [{types: [TYPE_STRING]}]
       }
     }
   });
