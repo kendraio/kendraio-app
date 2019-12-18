@@ -29,6 +29,10 @@ export function mappingUtility(value, expr) {
         _func: ([s]) => s.toLowerCase(),
         _signature: [{types: [TYPE_STRING]}]
       },
+      replaceMe: { // TODO: its a bit restictive at the mo! 
+        _func: ([s]) => s.replace('/videos/', ''),
+        _signature: [{types: [TYPE_STRING]}]
+      },
       trim: {
         _func: ([s]) => s.trim(),
         _signature: [{types: [TYPE_STRING]}]
