@@ -1,8 +1,4 @@
-<app-profile-data-form></app-profile-data-form>
 
-<app-teosto-user-form></app-teosto-user-form>
-
-<app-user-ipn-form></app-user-ipn-form>
 
 <mat-card *ngIf="isAuthenticated; else notLoggedIn">
   <h3>Identities</h3>
@@ -44,7 +40,13 @@
       logging in using different authentication providers.
     </p>
     <button mat-flat-button color="primary" (click)="onLogin()">Login</button>
-    <br><br>
-    <button mat-flat-button color="primary" (click)="loginGoogle()">Login with Google</button>
+<!--    <br><br>-->
+<!--    <button mat-flat-button color="primary" (click)="loginGoogle()">Login with Google</button>-->
   </mat-card>
 </ng-template>
+
+<app-profile-data-form></app-profile-data-form>
+
+<app-teosto-user-form></app-teosto-user-form>
+
+<app-user-ipn-form></app-user-ipn-form>

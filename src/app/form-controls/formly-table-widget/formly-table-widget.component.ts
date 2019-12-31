@@ -21,6 +21,10 @@ export class FormlyTableWidgetComponent extends FieldArrayType<FormlyFieldConfig
     return this.blocksConfig.length > 0;
   }
 
+  get defaultValue() {
+    return get(this.field, 'templateOptions.uiSchema.defaultValue', {});
+  }
+
   // TODO: replace the HTML table with ag-grid
 
   constructor(

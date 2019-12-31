@@ -54,7 +54,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       this.isLoading = false;
       return;
     }
-    if (!includes(['GET', 'POST', 'PUT', 'DELETE'], toUpper(method))) {
+    if (!includes(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], toUpper(method))) {
       this.errorMessage = 'HTTP method not supported';
       this.hasError = true;
       this.isLoading = false;
@@ -121,9 +121,12 @@ export class HttpBlockComponent implements OnInit, OnChanges {
         break;
       case 'PUT':
       case 'POST':
+      case 'PATCH':
         const sub = (toUpper(method) === 'PUT')
           ? this.http.put(url, this.getPayload(), {headers, responseType: this.responseType})
-          : this.http.post(url, this.getPayload(), {headers, responseType: this.responseType});
+          : (toUpper(method) === 'PATCH') ?
+            this.http.patch(url, this.getPayload(), {headers, responseType: this.responseType})
+            : this.http.post(url, this.getPayload(), {headers, responseType: this.responseType});
         sub
           .pipe(
             catchError(error => {
@@ -158,7 +161,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   getPayloadHeaders() {
     const headers = get(this.config, 'headers', {});
     return Object.keys(headers).reduce((a, key) => {
-      a[key] = mappingUtility({ data: this.model, context: this.context }, headers[key]);
+      a[key] = mappingUtility({data: this.model, context: this.context}, headers[key]);
       return a;
     }, {});
   }
@@ -166,7 +169,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   getPayload() {
     const payloadMapping = get(this.config, 'payload');
     if (payloadMapping) {
-      return mappingUtility({ data: this.model, context: this.context }, payloadMapping);
+      return mappingUtility({data: this.model, context: this.context}, payloadMapping);
     }
     return this.model;
   }

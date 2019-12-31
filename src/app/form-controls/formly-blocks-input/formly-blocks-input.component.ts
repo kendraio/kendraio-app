@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {FieldType} from '@ngx-formly/core';
 import {get} from 'lodash-es';
 
@@ -8,7 +8,7 @@ import {get} from 'lodash-es';
   styleUrls: ['./formly-blocks-input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FormlyBlocksInputComponent extends FieldType implements OnInit {
+export class FormlyBlocksInputComponent extends FieldType implements OnInit, OnChanges {
 
   blocks = [];
   models = [];
@@ -21,8 +21,24 @@ export class FormlyBlocksInputComponent extends FieldType implements OnInit {
     // console.log(this.field, this.blocks);
     // console.log('form block value', this.formControl.value);
     // this.models = this.blocks.map(blockDef => get(blockDef, 'defaultValue', {}));
+    // this.context = { ...this.context, defaultValue: this.formControl.value };
+    const adapterName = get(this.field, 'templateOptions.uiSchema.blocksConfig.adapterName', 'UNKNOWN');
+    this.context = {
+      app: {
+        adapterName,
+      }
+    };
     this.models.push(this.formControl.value);
-    this.context = { ...this.context, defaultValue: this.formControl.value };
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log({ changes });
+    const adapterName = get(this.field, 'templateOptions.uiSchema.blocksConfig.adapterName', 'UNKNOWN');
+    this.context = {
+      app: {
+        adapterName,
+      }
+    };
   }
 
   onWorkflowComplete(value) {

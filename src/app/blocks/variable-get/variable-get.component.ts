@@ -32,7 +32,6 @@ export class VariableGetComponent implements OnInit, OnChanges {
     const key = `${adapterName}.variables.${variableName}`;
     try {
       const data = JSON.parse(localStorage.getItem(key));
-      // console.log({ key, data });
       if (!!data) {
         this.output.emit(clone(data));
       } else {
