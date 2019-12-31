@@ -110,6 +110,7 @@ import {FormlyFieldFileComponent} from './types/file-type.component';
     types.KendraFieldInputPercentage,
     // FormlyFieldTypeahead,
     types.FormlyFieldVideoViewer,
+    types.FormlyFieldVideoViewer2,
     types.SelectTagsComponent,
     types.FieldInputVisibilityComponent,
     types.FieldInputPlaylistComponent,

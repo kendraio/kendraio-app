@@ -4,7 +4,7 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browse
 
 
 @Component({
-  selector: 'formly-field-video-viewer',
+  selector: 'formly-field-video-viewer2',
   template: `
 
   <mat-card>
@@ -12,10 +12,17 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browse
     <mat-label>{{to.label}}</mat-label>
   </mat-card-header>
   <mat-card-content>
-<iframe class="e2e-iframe-trusted-src" width="640" height="360" [src]="videoUrl"></iframe><br>
 
-Video URL<br>
-<a href="https://youtu.be/{{videoId}}" target="_blank">https://youtu.be/{{videoId}}</a><br><br>
+
+<iframe *ngIf="formControl.value"
+class="e2e-iframe-trusted-src"
+[src]="videoUrl"
+width="800" height="600" 
+frameborder="0" 
+allow="autoplay; fullscreen; gyroscope; accelerometer" 
+allowfullscreen title="Bali Blue"></iframe>
+
+{{formControl.value}}
 
 
 </mat-card-content>
@@ -24,7 +31,7 @@ Video URL<br>
  `,
 })
 
-export class FormlyFieldVideoViewer extends FieldType {
+export class FormlyFieldVideoViewer2 extends FieldType {
   @Input()
   formControl;
   videoId: any;
@@ -38,7 +45,7 @@ export class FormlyFieldVideoViewer extends FieldType {
 
   ngOnInit() {
     this.videoId = this.formControl.value;
-    this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.formControl.value);
+    this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://player.vimeo.com/video/' + this.formControl.value + '?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=16166');
   }
 
   // innerHTML: string =  "<iframe width='560' height='315' src='https://www.youtube.com/embed/YA9N4nsAxZo' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"
