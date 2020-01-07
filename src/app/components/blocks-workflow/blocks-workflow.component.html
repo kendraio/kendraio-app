@@ -40,6 +40,7 @@
     <app-adapter-info-block class="block-wrapper" *ngSwitchCase="'adapter-info'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-adapter-info-block>
     <app-read-file-block class="block-wrapper" *ngSwitchCase="'read-file'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-read-file-block>
     <app-context-save-block class="block-wrapper" *ngSwitchCase="'context-save'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-context-save-block>
+    <app-video-upload-block class="block-wrapper" *ngSwitchCase="'video-upload'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-video-upload-block>
   </ng-container>
 </ng-container>
 <!-- <pre>workblock: {{ context | json }}</pre> -->

@@ -197,6 +197,7 @@ import { ReadFileBlockComponent } from './blocks/read-file-block/read-file-block
 import { ImageBlockComponent } from './blocks/image-block/image-block.component';
 import { ContextSaveBlockComponent } from './blocks/context-save-block/context-save-block.component';
 import { VimeoBlockComponent } from './blocks/vimeo-block/vimeo-block.component';
+import { VideoUploadBlockComponent } from './blocks/video-upload-block/video-upload-block.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -349,7 +350,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormlyFileInputComponent,
     ReadFileBlockComponent,
     ContextSaveBlockComponent,
-    VimeoBlockComponent
+    VimeoBlockComponent,
+    VideoUploadBlockComponent
   ],
   imports: [
     FormlyModule.forRoot({

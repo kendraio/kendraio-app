@@ -12,6 +12,8 @@ export class FileInputBlockComponent extends BaseBlockComponent {
   label = 'Import';
   accept = 'text/csv';
 
+  // vimeo vids accept = application/vnd.vimeo.*+json;version=3.4
+
   // TODO: Add support for Excel files
   onConfigUpdate(config) {
     const mimeTypeMap = {
