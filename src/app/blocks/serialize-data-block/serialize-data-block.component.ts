@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
 import * as serialize from 'json-stringify-safe';
 import * as X2JS from 'x2js';
@@ -45,6 +45,7 @@ export class SerializeDataBlockComponent extends BaseBlockComponent {
     this.onData();
   }
 
+
   onData() {
     if (this.numberOfRows === 0) {
       return;
@@ -58,10 +59,33 @@ export class SerializeDataBlockComponent extends BaseBlockComponent {
           break;
         case 'xml':
           const x2js = new X2JS();
-          data = x2js.js2xml(isArray(this.model) ? { rows: { row: this.model }} : this.model);
+          data = x2js.js2xml(isArray(this.model) ? {rows: {row: this.model}} : this.model);
           break;
         case 'csv':
-          data = unparse(this.model, this.csvOptions);
+          const flattenObject = (ob: any) => {
+            const toReturn = {};
+
+            for (const i in ob) {
+              if (!ob.hasOwnProperty(i)) {
+                continue;
+              }
+
+              if ((typeof ob[i]) === 'object' && ob[i] !== null) {
+                const flatObject = flattenObject(ob[i]);
+                for (const x in flatObject) {
+                  if (!flatObject.hasOwnProperty(x)) {
+                    continue;
+                  }
+
+                  toReturn[i + '.' + x] = flatObject[x];
+                }
+              } else {
+                toReturn[i] = ob[i];
+              }
+            }
+            return toReturn;
+          };
+          data = unparse((this.model as any[]).map(flattenObject), this.csvOptions);
           break;
       }
       this.output.emit({
