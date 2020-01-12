@@ -26,9 +26,9 @@ export class VimeoUploadService {
   }
 
   private api = 'https://api.vimeo.com/me/videos'; // TODO: SUGGESTION: get end point from central 'lookup table' via an endpoint service do not allow  user to edit.
-  // private accessToken = '821dd421875cbbc4050434264e1ffd82';
+ // private accessToken = '4f84c2818123b9fd56ff6cf06cbd6926';
 
-  private accessToken = localStorage.getItem('vimeo.variables.access_token'); // TODO: needs flexibility
+  private accessToken = JSON.parse(localStorage.getItem('vimeo.variables.access_token')); // TODO: needs flexibility
   //TODO: access tokens may change location ?? localstorage to memory to server??
 
 
