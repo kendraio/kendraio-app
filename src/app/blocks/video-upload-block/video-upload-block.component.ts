@@ -17,8 +17,58 @@ export class uploadFiles {
 @Component({
   selector: 'app-video-upload-block',
   template: `<div style="text-align:center">
-  <input type="file" #file name="video" id="video" accept="video/*" multiple>
-  <input type="button" value="Upload" (click)="start(file.files);"> </div>`,
+
+  <h1 *ngIf="allComplete"> All Complete! </h1>
+
+
+
+  <section style="margin:1rem">
+  <button mat-raised-button (click)="openInput()">
+    Select Videos to Upload
+</button>
+
+
+
+
+  <input id="video" 
+  type="file" 
+  hidden 
+  class="file-input" 
+  mat-raised-button 
+  #file name="video" 
+  accept="video/*" 
+  multiple
+  (change)="fileChange($event.target.files)" >
+
+  <button  mat-raised-button color="primary" (click)="start(file.files);"> Upload </button>
+  {{statusMsg}}
+
+<h2>{{percentage}} % complete</h2>
+
+<div  *ngFor="let file of pendingFiles; index as i">
+
+uploading: {{file.video.name }} ({{file.video.size }} bytes )
+
+</div>
+
+  <div  *ngFor="let file of pendingFiles; index as i">
+  <a target="_blank" href="{{file.path}}"> Click to view </a>
+  </div>
+
+
+  </section>
+  </div>
+  
+
+  <mat-progress-bar mode="determinate" value="{{percentage}}"> </mat-progress-bar>
+  Total Complete {{percentage}}
+
+
+
+      
+  
+  
+  `,
   styleUrls: ['./video-upload-block.component.scss']
 })
 
@@ -28,13 +78,51 @@ export class VideoUploadBlockComponent extends BaseBlockComponent   implements O
   videoList: FileList;
   videoLinks = [];
   pendingFiles: uploadFiles[] = [];
+  percentage: string;
+  allComplete: boolean;
+  statusMsg: string;
+  
 
   constructor(private upload: VimeoUploadService) {
     super();
    }
 
 
-  ngOnInit() {}
+
+
+    ngOnInit() {
+      this.upload.getValue().subscribe((value) => {
+        this.percentage = value;
+      });
+
+      this.upload.getSuccess().subscribe((value) => {
+        this.allComplete = value;
+      });
+    }
+
+    
+  openInput() {
+    // your can use ElementRef for this later
+    document.getElementById('video').click();
+  }
+
+  fileChange(files: File[]) {
+    if (files.length > 0) {
+console.log('You are about to upload ' + files.length + ' Videos to Vimeo');
+this.statusMsg = 'You are about to upload ' + files.length + ' Videos to Vimeo';
+    }
+  }
+
+// this.upload.test();
+
+//   console.log(this.upload.percentage.value);
+
+
+//   this.percentage = this.upload.percentage;
+  
+
+
+
 
   public start(files: FileList) {
     this.videoList = files;
@@ -47,6 +135,7 @@ export class VideoUploadBlockComponent extends BaseBlockComponent   implements O
         if (x.index > x.arr.length - 1) {
           console.log('Link generated, Starting upload');
          // All links have been generated now you can start the upload
+         this.videoUpload();
         }
       });
   }
@@ -74,7 +163,7 @@ export class VideoUploadBlockComponent extends BaseBlockComponent   implements O
     for (let i = 0; i < this.pendingFiles.length; i++) {
       upload.push(
         this.upload.tusUpload(
-          { file: { file: this.pendingFiles[i], i, videoArray: this.pendingFiles, uploadArray: upload, success } }
+          this.pendingFiles[i], i, this.pendingFiles,  upload, success
           )
       );
     }
