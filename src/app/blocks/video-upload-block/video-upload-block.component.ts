@@ -41,7 +41,9 @@ export class uploadFiles {
   (change)="fileChange($event.target.files)" >
 
   <button  mat-raised-button color="primary" (click)="start(file.files);"> Upload </button>
-  {{statusMsg}}
+
+  <div  *ngIf="!allComplete">{{statusMsg}} </div>
+
 
 <h2>{{percentage}} % complete</h2>
 
@@ -107,6 +109,7 @@ export class VideoUploadBlockComponent extends BaseBlockComponent   implements O
   }
 
   fileChange(files: File[]) {
+    this.allComplete = false;
     if (files.length > 0) {
 console.log('You are about to upload ' + files.length + ' Videos to Vimeo');
 this.statusMsg = 'You are about to upload ' + files.length + ' Videos to Vimeo';
