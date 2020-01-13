@@ -14,16 +14,14 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browse
   <mat-card-content>
 
 
-<iframe *ngIf="formControl.value"
-class="e2e-iframe-trusted-src"
-[src]="videoUrl"
-width="800" height="600" 
-frameborder="0" 
-allow="autoplay; fullscreen; gyroscope; accelerometer" 
-allowfullscreen title="Bali Blue"></iframe>
+            <iframe *ngIf="formControl.value"
+            class="e2e-iframe-trusted-src"
+            [src]="videoUrl"
+            width="800" height="600" 
+            frameborder="0" 
+            allow="autoplay; fullscreen; gyroscope; accelerometer" 
+            allowfullscreen title="Bali Blue"></iframe>
 
-
-{{to | json}}
 
 </mat-card-content>
 </mat-card><br>
@@ -45,8 +43,22 @@ export class FormlyFieldVideoViewerDM extends FieldType {
 
   ngOnInit() {
     this.videoId = this.formControl.value;
-    this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl('//www.dailymotion.com/embed/video/' 
-    + this.formControl.value + '?');
+
+    switch (this.to.uiSchema.adapter) {
+      case 'dailymotion':
+        this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl('//www.dailymotion.com/embed/video/'
+          + this.formControl.value + '?');
+        break;
+
+      default:
+        this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://player.vimeo.com/video/'
+          + this.formControl.value + '?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=16166');
+
+        break;
+    }
+
+
+
   }
 
 
