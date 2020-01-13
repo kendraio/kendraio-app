@@ -9,7 +9,7 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browse
 
   <mat-card>
   <mat-card-header>
-    <mat-label>{{to.label}}   (Daily Motion Video Player)</mat-label>
+    <mat-label>{{to.label}}   ({{to.uiSchema.adapter}} Video Player)</mat-label>
   </mat-card-header>
   <mat-card-content>
 
@@ -21,6 +21,7 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browse
             frameborder="0" 
             allow="autoplay; fullscreen; gyroscope; accelerometer" 
             allowfullscreen title="Bali Blue"></iframe>
+
 
 
 </mat-card-content>
