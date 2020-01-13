@@ -89,6 +89,87 @@
           "blocks": [
             {
               "type": "message",
+              "title": "Cloud workflows"
+            },
+            {
+              "type": "http",
+              "method": "get",
+              "endpoint": "https://us-central1-kendraioworkflowstorage.cloudfunctions.net/api"
+            },
+            {
+              "type": "mapping",
+              "mapping": "data[?adapterName == _(&context.queryParams.adapterName)]"
+            },
+            {
+              "type": "grid",
+              "gridOptions": {
+                "pagination": true,
+                "paginationPageSize": 15,
+                "defaultColDef": {
+                  "sortable": true,
+                  "resizable": true
+                }
+              },
+              "columnDefs": [
+                {
+                  "headerName": "Title",
+                  "field": "title",
+                  "width": 300,
+                  "filter": true
+                },
+                {
+                  "headerName": "Operations",
+                  "cellRenderer": "workflowRenderer",
+                  "cellRendererParams": {
+                    "blocks": [
+                      {
+                        "type": "actions",
+                        "buttons": [
+                          {
+                            "label": "Launch",
+                            "blocks": [
+                              {
+                                "type": "launch",
+                                "valueGetters": {
+                                  "adapter": "data.adapterName",
+                                  "workflowId": "data.id"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "headerName": "Workflow ID",
+                  "field": "id"
+                },
+                {
+                  "headerName": "Adapter",
+                  "field": "adapterName",
+                  "filter": true
+                },
+                {
+                  "headerName": "Created",
+                  "field": "created",
+                  "valueFormatter": "formatDate(value, 'ff')"
+                },
+                {
+                  "headerName": "Modified",
+                  "field": "modified",
+                  "sort": "desc",
+                  "valueFormatter": "formatDate(value, 'ff')"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "blocks": [
+            {
+              "type": "message",
               "title": "Workflows"
             },
             {
