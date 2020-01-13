@@ -45,7 +45,8 @@ export class FormlyFieldVideoViewer2 extends FieldType {
 
   ngOnInit() {
     this.videoId = this.formControl.value;
-    this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://player.vimeo.com/video/' + this.formControl.value + '?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=16166');
+    this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://player.vimeo.com/video/' 
+    + this.formControl.value + '?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=16166');
   }
 
   // innerHTML: string =  "<iframe width='560' height='315' src='https://www.youtube.com/embed/YA9N4nsAxZo' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"

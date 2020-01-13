@@ -55,7 +55,9 @@ export const config: ConfigOption = {
     // { name: 'repeat', component: RepeatSectionComponent },
     { name: 'array', component: types.ArrayTypeComponent },
     { name: 'videoviewer', component: types.FormlyFieldVideoViewer },
-    { name: 'videoviewer2', component: types.FormlyFieldVideoViewer2 },
+    { name: 'videoviewer2', component: types.FormlyFieldVideoViewer2 },  
+    // TODO: there should only be one vid viewer that accoms all players
+    { name: 'videoviewerDM', component: types.FormlyFieldVideoViewerDM },  // TODO: temp player refactor and delete ...see above
      { name: 'thumbnailviewer', component: types.ThumbnailViewerComponent },
     { name: 'visibility', component: types.FieldInputVisibilityComponent },
     { name: 'playlist', component: types.FieldInputPlaylistComponent },

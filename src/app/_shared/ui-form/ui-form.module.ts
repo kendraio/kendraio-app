@@ -111,6 +111,7 @@ import {FormlyFieldFileComponent} from './types/file-type.component';
     // FormlyFieldTypeahead,
     types.FormlyFieldVideoViewer,
     types.FormlyFieldVideoViewer2,
+    types.FormlyFieldVideoViewerDM,
     types.SelectTagsComponent,
     types.FieldInputVisibilityComponent,
     types.FieldInputPlaylistComponent,

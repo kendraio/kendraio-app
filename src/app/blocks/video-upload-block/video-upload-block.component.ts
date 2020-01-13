@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {BaseBlockComponent} from '../base-block/base-block.component';
+import { BaseBlockComponent } from '../base-block/base-block.component';
 import { VimeoUploadService } from './vimeo-upload.service';
 import { map, expand } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
-
 
 
 export class uploadFiles {
@@ -16,66 +15,11 @@ export class uploadFiles {
 }
 @Component({
   selector: 'app-video-upload-block',
-  template: `<div style="text-align:center">
-
-  <h1 *ngIf="allComplete"> All Complete! </h1>
-
-
-
-  <section style="margin:1rem">
-  <button mat-raised-button (click)="openInput()">
-    Select Videos to Upload
-</button>
-
-
-
-
-  <input id="video" 
-  type="file" 
-  hidden 
-  class="file-input" 
-  mat-raised-button 
-  #file name="video" 
-  accept="video/*" 
-  multiple
-  (change)="fileChange($event.target.files)" >
-
-  <button  mat-raised-button color="primary" (click)="start(file.files);"> Upload </button>
-
-  <div  *ngIf="!allComplete">{{statusMsg}} </div>
-
-
-<h2>{{percentage}} % complete</h2>
-
-<div  *ngFor="let file of pendingFiles; index as i">
-
-uploading: {{file.video.name }} ({{file.video.size }} bytes )
-
-</div>
-
-  <div  *ngFor="let file of pendingFiles; index as i">
-  <a target="_blank" href="{{file.path}}"> Click to view </a>
-  </div>
-
-
-  </section>
-  </div>
-  
-
-  <mat-progress-bar mode="determinate" value="{{percentage}}"> </mat-progress-bar>
-  Total Complete {{percentage}}
-
-
-
-      
-  
-  
-  `,
+  templateUrl: './video-upload-block.component.html',
   styleUrls: ['./video-upload-block.component.scss']
 })
 
-
-export class VideoUploadBlockComponent extends BaseBlockComponent   implements OnInit {
+export class VideoUploadBlockComponent extends BaseBlockComponent implements OnInit {
   title = 'vimeo-uploader';
   videoList: FileList;
   videoLinks = [];
@@ -83,48 +27,36 @@ export class VideoUploadBlockComponent extends BaseBlockComponent   implements O
   percentage: string;
   allComplete: boolean;
   statusMsg: string;
-  
 
   constructor(private upload: VimeoUploadService) {
     super();
-   }
+  }
 
 
 
 
-    ngOnInit() {
-      this.upload.getValue().subscribe((value) => {
-        this.percentage = value;
-      });
+  ngOnInit() {
+    this.upload.getValue().subscribe((value) => {
+      this.percentage = value;
+    });
 
-      this.upload.getSuccess().subscribe((value) => {
-        this.allComplete = value;
-      });
-    }
+    this.upload.getSuccess().subscribe((value) => {
+      this.allComplete = value;
+    });
+  }
 
-    
+
   openInput() {
-    // your can use ElementRef for this later
     document.getElementById('video').click();
   }
 
   fileChange(files: File[]) {
     this.allComplete = false;
     if (files.length > 0) {
-console.log('You are about to upload ' + files.length + ' Videos to Vimeo');
-this.statusMsg = 'You are about to upload ' + files.length + ' Videos to Vimeo';
+      console.log('You are about to upload ' + files.length + ' Videos to Vimeo');
+      this.statusMsg = 'You are about to upload ' + files.length + ' Videos to Vimeo';
     }
   }
-
-// this.upload.test();
-
-//   console.log(this.upload.percentage.value);
-
-
-//   this.percentage = this.upload.percentage;
-  
-
-
 
 
   public start(files: FileList) {
@@ -132,15 +64,14 @@ this.statusMsg = 'You are about to upload ' + files.length + ' Videos to Vimeo';
     console.log(this.videoList);
     const recursion = this.getLink(this.videoList[0], 0, this.videoList).pipe(expand(res => {
       return res.index > res.arr.length - 1 ?
-      EMPTY : this.getLink(this.videoList[res.index], res.index, this.videoList);
+        EMPTY : this.getLink(this.videoList[res.index], res.index, this.videoList);
     }));
-      recursion.subscribe(x => {
-        if (x.index > x.arr.length - 1) {
-          console.log('Link generated, Starting upload');
-         // All links have been generated now you can start the upload
-         this.videoUpload();
-        }
-      });
+    recursion.subscribe(x => {
+      if (x.index > x.arr.length - 1) {
+        console.log('Link generated, Starting upload');
+        this.videoUpload();
+      }
+    });
   }
   getLink = (video: File, index, arr) => {
     console.log('index: ' + index);
@@ -166,8 +97,8 @@ this.statusMsg = 'You are about to upload ' + files.length + ' Videos to Vimeo';
     for (let i = 0; i < this.pendingFiles.length; i++) {
       upload.push(
         this.upload.tusUpload(
-          this.pendingFiles[i], i, this.pendingFiles,  upload, success
-          )
+          this.pendingFiles[i], i, this.pendingFiles, upload, success
+        )
       );
     }
     console.log('start video upload sequentially');
