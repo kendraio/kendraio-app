@@ -5,7 +5,7 @@
                  routerLinkActive="menu-item--active">
     <li class="mat-tree-node  mat-menu-item"  [routerLink]="node.path">
       <!-- use a disabled button to provide padding for tree leaf -->
-      <mat-icon>{{node.icon}}</mat-icon>
+      <mat-icon style="color: #999999;">{{node.icon}}</mat-icon>
       <span class="ml-2">{{node.label | translate}}</span>
     </li>
   </mat-tree-node>
@@ -19,11 +19,11 @@
               matTreeNodeToggle [routerLink]="node.path"
               routerLinkActive="menu-item--active">
 
-        <mat-icon>{{node.icon}}</mat-icon>
+        <mat-icon style="color: #999999;">{{node.icon}}</mat-icon>
 
         <span class="ml-2">{{node.label | translate}}</span>
 
-        <mat-icon class="mat-icon-rtl-mirror">
+        <mat-icon class="mat-icon-rtl-mirror" style="color: #999999;">
           {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
         </mat-icon>
 

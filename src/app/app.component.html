@@ -11,7 +11,7 @@
     <mat-toolbar>
 
       <button mat-icon-button (click)="sidenav.toggle()">
-        <mat-icon>menu</mat-icon>
+        <mat-icon style="color: #999999;">menu</mat-icon>
       </button>
 
       <ng-container *ngIf="pageTitle$ | async as pageTitleData">
@@ -19,7 +19,7 @@
           {{ pageTitleData.title }}
         </span>
         <button *ngIf="pageTitleData.isWorkflow" mat-icon-button (click)="onRefresh()">
-          <mat-icon>refresh</mat-icon>
+          <mat-icon style="color: #999999;">refresh</mat-icon>
         </button>
       </ng-container>
       <span class="spacer"></span>
@@ -42,7 +42,7 @@
     <div class="page-content">
 
 
-  
+
 
 
 
