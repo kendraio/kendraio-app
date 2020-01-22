@@ -20,16 +20,31 @@ export class VimeoUploadService {
   constructor(
     private http: HttpClient
   ) {
-      // interval(200)
-      // .subscribe(res =>  this.percentage.next(res));
-      this.percentage.next(0)
+    // interval(200)
+    // .subscribe(res =>  this.percentage.next(res));
+    this.percentage.next(0)
   }
 
   private api = 'https://api.vimeo.com/me/videos'; // TODO: SUGGESTION: get end point from central 'lookup table' via an endpoint service do not allow  user to edit.
- // private accessToken = '4f84c2818123b9fd56ff6cf06cbd6926';
+  // private accessToken = '4f84c2818123b9fd56ff6cf06cbd6926';
 
   private accessToken = JSON.parse(localStorage.getItem('vimeo.variables.access_token')); // TODO: needs flexibility
-  //TODO: access tokens may change location ?? localstorage to memory to server??
+
+  // TODO: access tokens may change location ?? localstorage to memory to server??
+  // SUGGEST: provide accessToken service
+  // eg [
+  //     {
+  //      ref: 'ruy8728rg',
+  //      provider: 'vimeo',
+  //      location: 'localhost',
+  //      name: 'vimeo.variables.access_token'
+  //     },
+  //     {
+  //      provider: 'youtube',
+  //      location: 'kendraio.proxy.now/youtube/access_token'
+  //     }
+  // ]
+
 
 
   createVideo(file: File): Observable<any> {
@@ -98,7 +113,7 @@ export class VimeoUploadService {
     return upload;
   }
 
-  
+
 
 
 }
