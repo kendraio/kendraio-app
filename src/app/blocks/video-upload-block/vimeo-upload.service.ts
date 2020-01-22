@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-
 import { Observable, BehaviorSubject, interval } from 'rxjs';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 
@@ -20,13 +19,13 @@ export class VimeoUploadService {
   constructor(
     private http: HttpClient
   ) {
-    // interval(200)
-    // .subscribe(res =>  this.percentage.next(res));
-    this.percentage.next(0)
+    this.percentage.next(0);
   }
 
-  private api = 'https://api.vimeo.com/me/videos'; // TODO: SUGGESTION: get end point from central 'lookup table' via an endpoint service do not allow  user to edit.
-  // private accessToken = '4f84c2818123b9fd56ff6cf06cbd6926';
+  // TODO: note hard coded endpoint
+  // TODO: provide an 'endpoint' api Service eg. kendraio.com/endpoints/vimeo/videos/upload 
+  private api = 'https://api.vimeo.com/me/videos'; 
+  // TODO: SUGGESTION: get end point from central 'lookup table' via an endpoint service do not allow  user to edit.
 
   private accessToken = JSON.parse(localStorage.getItem('vimeo.variables.access_token')); // TODO: needs flexibility
 
@@ -74,7 +73,6 @@ export class VimeoUploadService {
   }
 
 
-
   public tusUpload(
     file: uploadFiles,
     i: number,
@@ -88,6 +86,7 @@ export class VimeoUploadService {
       endpoint: file.uploadURI,
       retryDelays: [0, 1000, 3000, 5000],
       onError: error => {
+        // TODO: we need to do something here
         console.log('Failed: ' + file.video.name + error);
       },
       onProgress: (bytesUploaded, bytesTotal) => {
