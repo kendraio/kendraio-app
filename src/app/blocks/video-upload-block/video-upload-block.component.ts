@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {clone, get, isObject} from 'lodash-es';
 import { BaseBlockComponent } from '../base-block/base-block.component';
 import { VimeoUploadService } from './vimeo-upload.service';
 import { map, expand } from 'rxjs/operators';
@@ -6,6 +7,13 @@ import { EMPTY } from 'rxjs';
 
 
 export class uploadFiles {
+
+  @Input() config;
+  @Input() context;
+  @Input() model: any = {};
+
+  @Output() output = new EventEmitter();
+
   constructor(public video: File, public path: string, public uploadURI: string) {
     this.video = video;
     this.path = path;
@@ -33,8 +41,6 @@ export class VideoUploadBlockComponent extends BaseBlockComponent implements OnI
   }
 
 
-
-
   ngOnInit() {
     this.upload.getValue().subscribe((value) => {
       this.percentage = value;
@@ -42,6 +48,8 @@ export class VideoUploadBlockComponent extends BaseBlockComponent implements OnI
 
     this.upload.getSuccess().subscribe((value) => {
       this.allComplete = value;
+      console.log(value);
+      this.output.emit(clone(value));
     });
   }
 
