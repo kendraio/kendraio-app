@@ -417,6 +417,16 @@ export const BLOCK_TYPES = [
     }
   },
   {
+    type: 'gosub',
+    label: 'Subroutine',
+    description: 'Embed another workflow or partial workflow',
+    icon: 'autorenew',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'gosub'
+    }
+  },
+  {
     type: 'launch',
     deprecated: true,
     hasEditor: true
