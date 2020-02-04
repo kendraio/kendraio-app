@@ -122,11 +122,19 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       case 'PUT':
       case 'POST':
       case 'PATCH':
+        const isEmptyObject = obj => (obj instanceof Object && Object.keys(obj).length === 0);
+        const payload = this.getPayload();
+        if (isEmptyObject(payload)) {
+          this.isLoading = false;
+          this.hasError = true;
+          this.errorMessage = `${toUpper(method)} of empty payload prevented in http block`;
+          return;
+        }
         const sub = (toUpper(method) === 'PUT')
-          ? this.http.put(url, this.getPayload(), {headers, responseType: this.responseType})
+          ? this.http.put(url, payload, {headers, responseType: this.responseType})
           : (toUpper(method) === 'PATCH') ?
-            this.http.patch(url, this.getPayload(), {headers, responseType: this.responseType})
-            : this.http.post(url, this.getPayload(), {headers, responseType: this.responseType});
+            this.http.patch(url, payload, {headers, responseType: this.responseType})
+            : this.http.post(url, payload, {headers, responseType: this.responseType});
         sub
           .pipe(
             catchError(error => {
@@ -150,34 +158,6 @@ export class HttpBlockComponent implements OnInit, OnChanges {
             }
           });
         break;
-
-
-        case 'PATCH':
-         this.http.patch(url, this.getPayload(), {headers, responseType: this.responseType})
-            .pipe(
-              catchError(error => {
-                this.hasError = true;
-                this.errorMessage = error.message;
-                // TODO: need to prevent errors for triggering subsequent blocks
-                return of([]);
-              })
-            )
-            .subscribe(response => {
-              this.isLoading = false;
-              this.hasError = false;
-              this.outputResult(response);
-              const notify = get(this.config, 'notify', true);
-              if (notify) {
-                const message = 'API update successful';
-                this.notify.open(message, 'OK', {
-                  duration: 2000,
-                  verticalPosition: 'top'
-                });
-              }
-            });
-          break;
-
-
 
     }
 
