@@ -40,6 +40,7 @@ Kendraio App
    workflow/blocks/batch
    workflow/blocks/card
    workflow/blocks/chart
+   workflow/blocks/context_block
    workflow/blocks/csv_export
    workflow/blocks/csv_import
    workflow/blocks/debug
