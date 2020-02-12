@@ -1,6 +1,13 @@
 {
 	"HOME": "Bienvenido a la aplicación Kendraio",
+	"adapters": "Adaptadores",
 	"assets": "Bienes",
+	"bloomen": {
+		"intro": "",
+		"registerFail": "Registro de usuario fallido!",
+		"registerSuccess": "Su usuario ha sido registrado correctamente",
+		"title": "Bloomen"
+	},
 	"claims": "Reclamaciones",
 	"contacts": {
 		"organisations": "Organizaciones",
@@ -8,9 +15,14 @@
 		"title": "Contactos"
 	},
 	"dashboard": "Tablero",
+	"database": "Base de datos",
 	"files": {
 		"intro": "Esta es la página de archivos.",
 		"title": "archivos"
+	},
+	"formBuilder": {
+		"menuTitle": "Generador de formularios",
+		"pageTitle": "Generador de formularios"
 	},
 	"help": {
 		"1": "Este es un ejemplo de texto de ayuda. Solo está aquí para su placer visual y para dar a los desarrolladores una idea de cómo se ve en realidad HelpText en diferentes idiomas. Cool hey?",
@@ -20,6 +32,11 @@
 		"title": "Casa",
 		"welcome": "Bienvenido a la aplicación Kendraio"
 	},
+	"import": "Importar",
+	"importPage": {
+		"pageTitle": "Datos de importacion"
+	},
+	"pageTitle": "",
 	"recordings": {
 		"btnAddNew": "Registrar nueva grabación",
 		"intro": "Grabaciones de música Esto permitirá al usuario administrar los datos de derechos y otros metadatos relacionados con las grabaciones. Estas grabaciones pueden ser inéditas o publicadas.",
@@ -32,10 +49,16 @@
 		"intro": "Esta página le permite gestionar sus informes",
 		"title": "informes"
 	},
+	"services": "Servicios",
 	"settings": "Ajustes",
 	"tasks": "Tareas",
 	"upload": {
 		"title": "Subir"
+	},
+	"wfBuilder": "generador de flujo de trabajo",
+	"workflowCloud": {
+		"menuTitle": "Nube de flujo de trabajo",
+		"pageTitle": "Construye tu flujo de trabajo"
 	},
 	"works": {
 		"intro": "Esta página le permite gestionar sus obras.",

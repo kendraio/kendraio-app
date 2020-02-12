@@ -27,7 +27,7 @@ export class ImportPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.pageTitle.setTitle('Import data');
+    this.pageTitle.setTitle('importPage.pageTitle');
   }
 
   fileSelected(event) {

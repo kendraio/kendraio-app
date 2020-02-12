@@ -1,6 +1,13 @@
 {
 	"HOME": "Welcome to the Kendraio App",
+	"adapters": "Adapters",
 	"assets": "Assets",
+	"bloomen": {
+		"intro": "This is page allows you to manage your Users",
+		"registerFail": "User Registration Failed!",
+		"registerSuccess": "Your User has been sucessfully Registered",
+		"title": "Bloomen"
+	},
 	"claims": "Claims",
 	"contacts": {
 		"organisations": "Organisations",
@@ -8,9 +15,14 @@
 		"title": "Contacts"
 	},
 	"dashboard": "Dashboard",
+	"database": "Database",
 	"files": {
 		"intro": "This is the Files Page",
 		"title": "Files"
+	},
+	"formBuilder": {
+		"menuTitle": "Form Builder",
+		"pageTitle": "Form Builder"
 	},
 	"help": {
 		"1": "This is sample help text. It is only here for your viewing pleasure and to give the developers an idea of what HelpText actually looks like in different languages. Cool hey?",
@@ -20,6 +32,11 @@
 		"title": "Home",
 		"welcome": "Welcome to the Kendraio App"
 	},
+	"import": "Import",
+	"importPage": {
+		"pageTitle": "Import Data"
+	},
+	"pageTitle": "",
 	"recordings": {
 		"btnAddNew": "Register New Recording",
 		"intro": "Music recordings This will allow the user to manage rights data and other related metadata about recordings. These recordings could be unreleased or released.",
@@ -32,20 +49,20 @@
 		"intro": "This page allows you to manage your Reports",
 		"title": "Reports"
 	},
+	"services": "Services",
 	"settings": "Settings",
 	"tasks": "Tasks",
 	"upload": {
 		"title": "Upload"
 	},
+	"wfBuilder": "workflow builder",
+	"workflowCloud": {
+		"menuTitle": "Workflow Cloud",
+		"pageTitle": "Build Your Workflow"
+	},
 	"works": {
 		"intro": "This is page allows you to manage your Works",
 		"registerNew": "Register New Work",
 		"title": "Works"
-	},
-	"bloomen": {
-		"intro": "This is page allows you to manage your Users",
-		"registerSuccess": "Your User has been sucessfully Registered",
-		"registerFail": "User Registration Failed!",
-		"title": "Bloomen"
 	}
 }

@@ -16,7 +16,7 @@
 
       <ng-container *ngIf="pageTitle$ | async as pageTitleData">
         <span>
-          {{ pageTitleData.title }}
+          {{ pageTitleData.title | translate }}
         </span>
         <button *ngIf="pageTitleData.isWorkflow" mat-icon-button (click)="onRefresh()">
           <mat-icon style="color: #999999;">refresh</mat-icon>

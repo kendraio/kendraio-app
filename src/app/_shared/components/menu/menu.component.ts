@@ -2,7 +2,7 @@ import { MenuItem } from 'src/app/_models/classes/common';
 
 export const MENUITEMS: MenuItem[] = [
   {
-    label: 'Assets',
+    label: 'assets',
     icon: 'favorite',
     path: '/assets',
     children: [
@@ -75,7 +75,7 @@ export const MENUITEMS: MenuItem[] = [
   },
   {
     path: '/import',
-    label:  'Import',
+    label:  'import',
     icon: 'import_export',
 
     children: [
@@ -104,7 +104,7 @@ export const MENUITEMS: MenuItem[] = [
 
   {
     path: '/example/view-imported-data',
-    label: 'Database',
+    label: 'database',
     icon: 'storage'
   }
 ];

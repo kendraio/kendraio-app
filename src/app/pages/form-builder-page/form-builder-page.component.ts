@@ -63,7 +63,7 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.pageTitle.setTitle('Form builder');
+    this.pageTitle.setTitle('formBuilder.pageTitle');
     this._schemaChange$.pipe(
       takeUntil(this._destroy$),
       debounceTime(500)

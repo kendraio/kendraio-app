@@ -61,12 +61,12 @@ export class LayoutComponent implements OnInit {
     },
     {
       href: '/settings',
-      title: 'Settings',
+      title: 'settings',
       icon: 'settings'
     },
     {
       href: '/docs',
-      title: 'Database',
+      title: 'database',
       icon: 'storage'
     },
     {

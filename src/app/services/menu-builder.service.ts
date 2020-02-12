@@ -56,7 +56,7 @@ export class MenuBuilderService {
         icon: 'dashboard',
       },
       ...(services.length === 0) ? [] : [{
-        label: 'Services',
+        label: 'services',
         icon: 'live_tv',
         path: '/services',
         children: services
@@ -69,22 +69,22 @@ export class MenuBuilderService {
       },
       {
         path: '/core/adapters',
-        label: 'Adapters',
+        label: 'adapters',
         icon: 'extension'
       },
       {
         path: '/workflowCloud/listWorkflows',
-        label: 'Workflow cloud',
+        label: 'workflowCloud.menuTitle',
         icon: 'cloud'
       },
       {
         path: '/workflow-builder',
-        label: 'Workflow builder',
+        label: 'wfBuilder',
         icon: 'build'
       },
       {
         path: '/form-builder',
-        label: 'Form builder',
+        label: 'formBuilder.menuTitle',
         icon: 'build'
       }
     ];
