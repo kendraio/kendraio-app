@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MatButton , MatDialog, MatDialogClose } from '@angular/material';
+import { MatButton } from '@angular/material/button';
+import { MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MatDialog, MatDialogClose } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Animations } from 'src/app/_shared/animations';
 
@@ -7,7 +8,7 @@ import { Animations } from 'src/app/_shared/animations';
   selector: 'app-send-claims',
   templateUrl: './send-claims.component.html',
   styleUrls: ['./send-claims.component.scss'],
-  animations: [Animations.pageAni]
+  animations: [Animations.kendraAnimations]
 })
 export class SendClaimsComponent implements OnInit {
   nextStep = false;

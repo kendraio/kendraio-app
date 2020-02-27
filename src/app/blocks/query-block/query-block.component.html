@@ -1,0 +1,5 @@
+<!--<p>{{ debug }}</p>-->
+<mat-error *ngIf="hasError">
+  {{ errorMessage }}
+</mat-error>
+<mat-spinner *ngIf="isLoading" diameter="50"></mat-spinner>

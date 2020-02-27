@@ -12,34 +12,6 @@
       <mat-card-subtitle></mat-card-subtitle>
     </mat-card-header>
     <mat-card-content formGroupName="accountDetails">
-
-      <app-account-form  (formData)="eventHandler($event, 'accountDetails')"></app-account-form>
-<!-- [data]="value" -->
+      <app-account-form (formData)="eventHandler($event, 'accountDetails')"></app-account-form>
     </mat-card-content>
   </mat-card>
-
-  <mat-card class="mb-2">
-    <mat-card-header>
-      <mat-card-title>User Login</mat-card-title>
-      <mat-card-subtitle></mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content formGroupName="logonDetails">
-
-      <app-account-login-form mode="new" (formData)="eventHandler($event, 'logonDetails')">
-<!-- [data]="value"  -->
-      </app-account-login-form>
-
-    </mat-card-content>
-  </mat-card>
-  <button mat-flat-button color="primary" (click)="submit()" 
-  [disabled]="!allFormsVaild">Submit</button>
-</form>
-
-{{allFormsVaild}}===!!
-<!-- 
-{{accountDetails.invalid}} || {{logonDetails.invalid}} -->
-
-<!-- 
-{{ registerUser.value | json }}
-{{ accountDetails.valid}} 
--->

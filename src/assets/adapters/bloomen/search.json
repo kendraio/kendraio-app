@@ -1,0 +1,66 @@
+{
+  "title": "Bloomen search",
+  "blocks": [
+    {
+      "type": "form",
+      "hasSubmit": false,
+      "jsonSchema": {
+        "properties": {
+          "term": {
+            "title": "Search",
+            "type": "string"
+          }
+        }
+      },
+      "uiSchema": {}
+    },
+    {
+      "type": "context",
+      "contextPath": "jwt",
+      "contextBlocks": [
+        {
+          "type": "variable-get",
+          "name": "bloomen-jwt"
+        }
+      ],
+      "blocks": [
+        {
+          "type": "http",
+          "method": "post",
+          "notify": false,
+          "endpoint": {
+            "protocol": "https:",
+            "host": "bloomen.herokuapp.com",
+            "pathname": "/photos/search"
+          },
+          "authentication": {
+            "type": "bearer",
+            "valueGetters": {
+              "jwt": "context.jwt"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "batch",
+      "flex": true,
+      "blocks": [
+        {
+          "type": "card",
+          "blocks": [
+            {
+              "type": "template",
+              "template": "<p>{{description}}</p><img width=\"200\" src=\"{{url}}\">"
+            },
+            {
+              "type": "debug",
+              "showContext": false,
+              "open": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

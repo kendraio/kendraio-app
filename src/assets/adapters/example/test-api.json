@@ -1,0 +1,113 @@
+{
+  "title": "Test API Import",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "http",
+      "method": "get",
+      "endpoint": "https://google-sheets-api-proxy.now.sh"
+    },
+    {
+      "type": "batch",
+      "blocks": [
+        {
+          "type": "context",
+          "contextPath": "entityType",
+          "contextBlocks": [
+            {
+              "type": "mapping",
+              "mapping": "data"
+            }
+          ],
+          "blocks": [
+            {
+              "type": "actions",
+              "buttons": [
+                {
+                  "labelGetter": "join('', ['Import ', context.entityType])",
+                  "blocks": [
+                    {
+                      "type": "http",
+                      "method": "get",
+                      "endpoint": {
+                        "protocol": "https:",
+                        "host": "google-sheets-api-proxy.now.sh",
+                        "valueGetters": {
+                          "pathname": "['/', data].join('', @)"
+                        }
+                      }
+                    },
+                    {
+                      "type": "mapping",
+                      "mapping": "data[].id[].['/', _(&to_string(context.entityType)), '/', @]"
+                    },
+                    {
+                      "type": "batch",
+                      "blocks": [
+                        {
+                          "type": "mapping",
+                          "mapping": "map(&to_string(@), data).join('', @)"
+                        },
+                        {
+                          "type": "http",
+                          "method": "get",
+                          "skipInit": false,
+                          "endpoint": {
+                            "protocol": "https:",
+                            "host": "google-sheets-api-proxy.now.sh",
+                            "valueGetters": {
+                              "pathname": "data"
+                            }
+                          }
+                        },
+                        {
+                          "type": "mapping",
+                          "mapping": "data && merge(data, { uuid: uuid() })"
+                        },
+                        {
+                          "type": "db",
+                          "operation": "add",
+                          "adapterName": "testApi",
+                          "schemaGetter": "context.entityType"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "card",
+                      "blocks": [
+                        {
+                          "type": "mapping",
+                          "mapping": "((type(data) == 'array') && length(data)) || false"
+                        },
+                        {
+                          "type": "message",
+                          "message": "{{#if data}}Imported {{data}} items{{else}}Importing...{{/if}}"
+                        },
+                        {
+                          "type": "actions",
+                          "buttons": [
+                            {
+                              "label": "Done",
+                              "color": "primary",
+                              "blocks": [
+                                {
+                                  "type": "init"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

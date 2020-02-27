@@ -4,7 +4,7 @@ import { AdaptersService } from '../../services/adapters.service';
 import { interval } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-upload-page',

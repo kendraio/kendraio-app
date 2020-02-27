@@ -1,0 +1,18 @@
+<div class="toolbar">
+  <button type="button" mat-icon-button (click)="toggleConfig()" matTooltip="Configure">
+    <mat-icon>settings</mat-icon>
+  </button>
+  <ng-content select=".toolbar"></ng-content>
+</div>
+
+<div class="editor-wrapper">
+
+  <div class="editor-column editor-config-column" [hidden]="!showConfig">
+    <ng-content select=".editor-config"></ng-content>
+  </div>
+
+  <div class="editor-column editor-output-column">
+    <ng-content select=".editor-output"></ng-content>
+  </div>
+
+</div>

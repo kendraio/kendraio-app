@@ -1,0 +1,32 @@
+
+<mat-accordion cdkDropList (cdkDropListDropped)="drop($event)">
+  <mat-expansion-panel *ngFor="let block of blocks; let i = index" cdkDrag>
+    <mat-expansion-panel-header>
+      <mat-icon class="drag-handle" cdkDragHandle>reorder</mat-icon>
+      <span class="block-type-title">{{ block.type }}</span>
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+      <app-block-builder-box [block]="block" #value (updateBlock)="onUpdateBlock(i, value)"></app-block-builder-box>
+      <mat-action-row>
+        <button mat-flat-button color="primary" (click)="onUpdateBlock(i, value)">
+          <mat-icon>save</mat-icon>
+          <span class="button-label">Update</span>
+        </button>
+        <button style="margin-left: 1em" mat-flat-button color="warn" (click)="onDeleteBlock(i)">
+          <mat-icon>delete</mat-icon>
+          <span class="button-label">Delete</span>
+        </button>
+      </mat-action-row>
+    </ng-template>
+
+  </mat-expansion-panel>
+</mat-accordion>
+
+<br>
+<button mat-flat-button (click)="addBlock()">
+  <mat-icon>add</mat-icon>
+  <span class="button-label">Add Task</span>
+</button>
+<br>
+<!--    <pre>{{ blocks | json }}</pre>-->

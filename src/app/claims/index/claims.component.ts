@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { GridOptions, GridApi } from 'ag-grid-community';
-import { MatDialog, MAT_DIALOG_DATA, MatButton } from '@angular/material';
+import { MatButton } from '@angular/material/button';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { tap, switchMap, delay } from 'rxjs/operators';
 // import { delay } from 'q';
 import { ClaimsEditComponent } from '../claims-edit/claims-edit.component';
@@ -19,7 +20,7 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'app-index',
   templateUrl: './claims.component.html',
   styleUrls: ['./claims.component.scss'],
-  animations: [Animations.pageAni]
+  animations: [Animations.kendraAnimations]
 })
 export class IndexComponent implements OnInit {
   gridOptions: GridOptions;
@@ -35,9 +36,9 @@ export class IndexComponent implements OnInit {
   routeData: RouteData;
   subTitle: string;
 
-  @ViewChild('inBoxGrid') inBoxGrid;
-  @ViewChild('releasesNotSentGrid') releasesNotSentGrid;
-  @ViewChild('releasesSentGrid') releasesSentGrid;
+  @ViewChild('inBoxGrid', { static: false }) inBoxGrid;
+  @ViewChild('releasesNotSentGrid', { static: false }) releasesNotSentGrid;
+  @ViewChild('releasesSentGrid', { static: false }) releasesSentGrid;
   showSpinner2: boolean;
 
   constructor(

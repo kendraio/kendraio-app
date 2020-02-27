@@ -1,0 +1,83 @@
+{
+  "title": "Update Adapters",
+  "adapterName": "core",
+  "id": "updateAdapterList",
+  "blocks": [
+    {
+      "type": "actions",
+      "buttons": [
+        {
+          "label": "Update adapter list",
+          "color": "primary",
+          "blocks": [
+            {
+              "type": "init"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "variable-get",
+      "name": "adapterRepos"
+    },
+    {
+      "type": "mapping",
+      "mapping": "data.repos"
+    },
+    {
+      "type": "batch",
+      "blocks": [
+        {
+          "type": "context",
+          "contextPath": "repoUrl",
+          "contextBlocks": [
+            {
+              "type": "mapping",
+              "mapping": "data"
+            }
+          ],
+          "blocks": [
+            {
+              "type": "init"
+            },
+            {
+              "type": "http",
+              "method": "get",
+              "endpoint": {
+                "valueGetter": "join('', [data, 'index.json'])"
+              }
+            },
+            {
+              "type": "mapping",
+              "mapping": "data.adapters[].merge(@, { repoUrl: _(&context.repoUrl) })"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "mapping",
+      "mapping": "data[][]"
+    },
+    {
+      "type": "variable-set",
+      "name": "adapterList"
+    },
+    {
+      "type": "actions",
+      "buttons": [
+        {
+          "label": "Return to adapters",
+          "blocks": [
+            {
+              "type": "launch",
+              "adapter": "core",
+              "workflowId": "adapters"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

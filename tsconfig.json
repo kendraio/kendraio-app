@@ -9,6 +9,7 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "resolveJsonModule": true,
     "importHelpers": true,
     "target": "es5",
     "typeRoots": [
@@ -20,11 +21,12 @@
     ],
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "ngx-tagger": [
-        "dist/ngx-tagger"
+      "@env/*": ["./src/environments/*"],
+      "ngx-image-tagger": [
+        "dist/ngx-image-tagger"
       ],
-      "ngx-tagger/*": [
-        "dist/ngx-tagger/*"
+      "ngx-image-tagger/*": [
+        "dist/ngx-image-tagger/*"
       ]
     }
   }

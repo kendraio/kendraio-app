@@ -1,0 +1,20 @@
+<!-- <pre>
+{{config | json}}
+</pre>
+
+<pre>
+    {{defaultColDef | json}}
+
+</pre> -->
+
+<ag-grid-angular #gridAngular style="width: 100%;"
+                 class="ag-theme-material"
+                 domLayout="autoHeight"
+                 [rowData]="rowData"
+                 [defaultColDef]="defaultColDef"
+                 [gridOptions]="gridOptions"
+                 [frameworkComponents]="frameworkComponents"
+                 (selectionChanged)="onSelectionChanged($event)"
+                 [columnDefs]="columnDefs"></ag-grid-angular>
+
+

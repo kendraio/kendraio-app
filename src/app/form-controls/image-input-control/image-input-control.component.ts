@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { ControlValueAccessor, FormArray, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {AbstractControl, ControlValueAccessor, FormArray, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
 import { blobToDataURL } from 'blob-util';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -25,7 +25,7 @@ export class ImageInputControlComponent implements OnInit, OnDestroy, ControlVal
   // tags = new FormControl([]);
   destroy$ = new Subject();
 
-  @Input() tagControl: FormControl;
+  @Input() tagControl: AbstractControl;
 
   src;
   file: Blob;

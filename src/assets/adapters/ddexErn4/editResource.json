@@ -1,0 +1,270 @@
+{
+  "title": "Edit resource",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "db",
+      "operation": "fetch",
+      "uuidGetter": "context.queryParams.uuid"
+    },
+    {
+      "type": "mapping",
+      "mapping": "data[0]"
+    },
+    {
+      "type": "form",
+      "label": "Save",
+      "jsonSchema": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "title": "uuid",
+            "type": "string"
+          },
+          "Type": {
+            "title": "Type",
+            "type": "string"
+          },
+          "ResourceId": {
+            "type": "object",
+            "properties": {
+              "ISRC": {
+                "title": "ISRC",
+                "type": "string"
+              }
+            }
+          },
+          "DisplayTitleText": {
+            "title": "DisplayTitleText",
+            "type": "string"
+          },
+          "DisplayTitle": {
+            "title": "DisplayTitle",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "TitleText": {
+                  "title": "TitleText",
+                  "type": "string"
+                },
+                "_ApplicableTerritoryCode": {
+                  "title": "_ApplicableTerritoryCode",
+                  "type": "string"
+                },
+                "_LanguageAndScriptCode": {
+                  "title": "_LanguageAndScriptCode",
+                  "type": "string"
+                },
+                "_IsDefault": {
+                  "title": "_IsDefault",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "DisplayArtistName": {
+            "title": "DisplayArtistName",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "__text": {
+                  "title": "__text",
+                  "type": "string"
+                },
+                "_ApplicableTerritoryCode": {
+                  "title": "_ApplicableTerritoryCode",
+                  "type": "string"
+                },
+                "_LanguageAndScriptCode": {
+                  "title": "_LanguageAndScriptCode",
+                  "type": "string"
+                },
+                "_IsDefault": {
+                  "title": "_IsDefault",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "TechnicalDetails": {
+            "title": "Technical details",
+            "type": "object",
+            "properties": {
+              "File": {
+                "type": "object",
+                "properties": {
+                  "URI": {
+                    "title": "URI",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "DisplayArtist": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "artist_uuid": {
+                  "type": "string"
+                },
+                "DisplayArtistRole": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "Contributor": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "contributor_uuid": {
+                  "type": "string"
+                },
+                "Role": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "uiSchema": {
+        "uuid": {
+          "ui:disabled": true
+        },
+        "DisplayTitle": {
+          "ui:widget": "table",
+          "colHeadings": [
+            "Display Title",
+            "Territory",
+            "Language",
+            "Is default?"
+          ]
+        },
+        "DisplayArtistName": {
+          "ui:widget": "table",
+          "colHeadings": [
+            "Display Artist Name",
+            "Territory",
+            "Language",
+            "Is default?"
+          ]
+        },
+        "DisplayArtist": {
+          "ui:widget": "table",
+          "colHeadings": [
+            "Artist",
+            "Role"
+          ],
+          "items": {
+            "artist_uuid": {
+              "ui:widget": "blocks",
+              "blocksConfig": {
+                "blocks": [
+                  {
+                    "type": "init"
+                  },
+                  {
+                    "type": "db",
+                    "operation": "get",
+                    "adapterName": "ddexErn4",
+                    "schema": "party"
+                  },
+                  {
+                    "type": "reference",
+                    "fieldLabel": "Artist",
+                    "labelGetter": "PartyReference || uuid",
+                    "valueField": "uuid"
+                  }
+                ]
+              }
+            }
+          },
+          "blocks": [
+            {
+              "type": "actions",
+              "buttons": [
+                {
+                  "label": "Edit",
+                  "blocks": [
+                    {
+                      "type": "launch",
+                      "adapter": "ddexErn4",
+                      "workflowId": "editParty",
+                      "context": {
+                        "uuid": "data.artist_uuid"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "Contributor": {
+          "ui:widget": "table",
+          "colHeadings": [
+            "Contributor",
+            "Role"
+          ],
+          "items": {
+            "contributor_uuid": {
+              "ui:widget": "blocks",
+              "blocksConfig": {
+                "blocks": [
+                  {
+                    "type": "init"
+                  },
+                  {
+                    "type": "db",
+                    "operation": "get",
+                    "adapterName": "ddexErn4",
+                    "schema": "party"
+                  },
+                  {
+                    "type": "reference",
+                    "fieldLabel": "Contributor",
+                    "labelGetter": "PartyReference || uuid",
+                    "valueField": "uuid"
+                  }
+                ]
+              }
+            }
+          },
+          "blocks": [
+            {
+              "type": "actions",
+              "buttons": [
+                {
+                  "label": "Edit",
+                  "blocks": [
+                    {
+                      "type": "launch",
+                      "adapter": "ddexErn4",
+                      "workflowId": "editParty",
+                      "context": {
+                        "uuid": "data.contributor_uuid"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "launch",
+      "adapter": "ddexErn4",
+      "workflowId": "resourceList"
+    }
+  ]
+}

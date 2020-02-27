@@ -1,0 +1,114 @@
+{
+  "title": "MusicTeam edit contributor",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "db",
+      "operation": "fetch",
+      "uuidGetter": "context.queryParams.uuid"
+    },
+    {
+      "type": "mapping",
+      "mapping": "data[0]"
+    },
+    {
+      "type": "form",
+      "hasSubmit": false,
+      "emitOnInit": true,
+      "jsonSchema": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "title": "uuid",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "role": {
+            "title": "Role",
+            "type": "string",
+            "enum": [
+              "artist",
+              "publisher",
+              "collaborator",
+              "creator"
+            ]
+          },
+          "isni_number": {
+            "title": "ISNI",
+            "type": "string"
+          },
+          "email": {
+            "title": "Email",
+            "type": "string"
+          }
+        }
+      },
+      "uiSchema": {
+        "uuid": {
+          "ui:disabled": true
+        },
+        "owners": {
+          "items": {
+            "uuid": {
+              "ui:widget": "blocks",
+              "blocksConfig": {
+                "blocks": [
+                  {
+                    "type": "init"
+                  },
+                  {
+                    "type": "db",
+                    "operation": "get",
+                    "adapterName": "MusicTeam",
+                    "schema": "contributors"
+                  },
+                  {
+                    "type": "reference",
+                    "fieldLabel": "Contributor",
+                    "labelField": "name",
+                    "valueField": "uuid"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "actions",
+      "buttons": [
+        {
+          "label": "Save",
+          "color": "primary",
+          "blocks": [
+            {
+              "type": "db",
+              "operation": "update",
+              "uuidGetter": "uuid"
+            }
+          ]
+        },
+        {
+          "label": "Cancel",
+          "blocks": [
+            {
+              "type": "init"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "launch",
+      "adapter": "musicteam",
+      "workflowId": "contributors"
+    }
+  ],
+  "id": "editWork"
+}

@@ -8,7 +8,7 @@ import {HttpClient, HttpEventType, HttpHeaders} from '@angular/common/http';
   providedIn: 'root'
 })
 export class YoutubeDataService {
-
+  googleapis = 'https://www.googleapis.com/youtube/v3/';  // TODO: should be this.apiService.google.youtube
   categoryCache;
 
   _error = new BehaviorSubject<null|string>(null);
@@ -22,7 +22,20 @@ export class YoutubeDataService {
     private readonly http: HttpClient
   ) { }
 
-  getProfileData() {
+  getAllProfileData() {
+    return new Promise((resolve, reject) => {
+      this.auth.getProfile((err, profile) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        // console.log({ profile });
+        resolve(profile);
+      });
+    });
+  }
+
+  getProfileData(provider = 'google-oauth2') {
     return new Promise((resolve, reject) => {
       this.auth.getProfile((err, profile) => {
         if (err) {
@@ -31,14 +44,14 @@ export class YoutubeDataService {
         }
         // console.log({ profile });
         const ytProfile = (profile['identities'] || [])
-          .find(item => item['provider'] === 'google-oauth2');
+          .find(item => item['provider'] === provider);
         resolve(ytProfile);
       });
     });
   }
 
   getAccessToken() {
-    return from(this.getProfileData()).pipe(
+    return from(this.getProfileData('google-oauth2')).pipe(
       catchError(err => {
         this._error.next(err.message);
         return of({});
@@ -60,6 +73,83 @@ export class YoutubeDataService {
             'Authorization': `Bearer ${access_token}`
           }
         }).pipe(
+          catchError(err => {
+            this._error.next(err.message);
+            return of({});
+          })
+        );
+      })
+    );
+  }
+  getMyPlaylists() {
+    return this.getAccessToken().pipe(
+      switchMap(access_token => {
+        return this.http.get('https://www.googleapis.com/youtube/v3/playlists', {
+          params: {
+            part: 'snippet,id,contentDetails,status',
+            mine: 'true',
+            maxResults: '50'
+          },
+          headers: {
+            'Authorization': `Bearer ${access_token}`
+          }
+        }).pipe(
+          catchError(err => {
+            this._error.next(err.message);
+            return of({});
+          })
+        );
+      })
+    );
+  }
+
+
+  // Adding a video to a playlist
+  // Now that we've created a playlist, let's add a video to it. This request adds a video to the beginning of the playlist ('position': 0).
+  
+  // POST {base_URL}/playlistItems?part=snippet
+  //   Request body:
+  //   {
+  //     'snippet': {
+  //       'playlistId': '{PLAYLIST_ID}', 
+  //       'resourceId': {
+  //           'kind': 'youtube#video',
+  //           'videoId': '{VIDEO_ID}'
+  //         }
+  //      'position': 0
+  //       }
+  //    }
+
+ 
+
+  addVideoToPlaylist(playlistId: string, videoId: string) {
+    return this.getAccessToken().pipe(
+      switchMap(access_token => {
+        return this.http.post(this.googleapis + '/playlistItems', 
+        {
+          'snippet': {
+            'playlistId': playlistId,
+            'position': 0,
+            'resourceId': {
+              'kind': 'youtube#video',
+              'videoId': videoId
+            }
+          },
+          'status': {
+            'privacyStatus': 'private'
+          }
+        }, {
+          params: {
+            part: 'snippet,status',
+            uploadType: 'resumable'
+          },
+          headers: {
+            'Authorization': `Bearer ${access_token}`
+          },
+          observe: 'response'
+        }
+        
+        ).pipe(
           catchError(err => {
             this._error.next(err.message);
             return of({});

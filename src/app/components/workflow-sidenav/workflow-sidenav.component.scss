@@ -1,0 +1,17 @@
+// TODO: Make the width of the side nav responsive?
+:host {
+  display: block;
+  padding: 1em;
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.toolbar {
+  margin-bottom: 1em;
+}
+
+.adapter-metadata {
+  margin-bottom: 1em;
+}
+.metadata-edit {
+  float: right;
+}

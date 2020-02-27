@@ -1,0 +1,69 @@
+{
+  "title": "MusicTeam dashboard",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "multi",
+      "batches": [
+        {
+          "blocks": [
+            {
+              "type": "db",
+              "operation": "get",
+              "adapterName": "MusicTeam",
+              "schema": "contributors"
+            }
+          ]
+        },
+        {
+          "blocks": [
+            {
+              "type": "db",
+              "operation": "get",
+              "adapterName": "MusicTeam",
+              "schema": "recordings"
+            }
+          ]
+        },
+        {
+          "blocks": [
+            {
+              "type": "db",
+              "operation": "get",
+              "adapterName": "MusicTeam",
+              "schema": "works"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "mapping",
+      "//debug": true,
+      "mapping": {
+        "[": [
+          {
+            "label": "'Contributors'",
+            "value": "length(data[0])"
+          },
+          {
+            "label": "'Recordings'",
+            "value": "length(data[1])"
+          },
+          {
+            "label": "'Works'",
+            "value": "length(data[2])"
+          }
+        ]
+      }
+    },
+    {
+      "type": "debug"
+    },
+    {
+      "type": "chart"
+    }
+  ]
+}

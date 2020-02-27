@@ -1,0 +1,230 @@
+{
+  "title": "DDEX Resources",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "db",
+      "operation": "get",
+      "adapterName": "ddexErn4",
+      "schema": "resource"
+    },
+    {
+      "type": "grid",
+      "gridOptions": {
+        "pagination": true,
+        "paginationPageSize": 15,
+        "rowSelection": "multiple"
+      },
+      "columnDefs": [
+        {
+          "width": 50,
+          "resizable": false,
+          "checkboxSelection": true,
+          "headerCheckboxSelection": true
+        },
+        {
+          "headerName": "Title",
+          "field": "DisplayTitleText"
+        },
+        {
+          "headerName": "Type",
+          "field": "Type"
+        },
+        {
+          "headerName": "Language",
+          "field": "LanguageOfPerformance"
+        },
+        {
+          "headerName": "Operations",
+          "cellRenderer": "workflowRenderer",
+          "cellRendererParams": {
+            "blocks": [
+              {
+                "type": "actions",
+                "buttons": [
+                  {
+                    "label": "View",
+                    "blocks": [
+                      {
+                        "type": "dialog",
+                        "blocks": [
+                          {
+                            "type": "debug"
+                          },
+                          {
+                            "type": "actions",
+                            "buttons": [
+                              {
+                                "label": "OK",
+                                "blocks": [
+                                  {
+                                    "type": "init"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Edit",
+                    "blocks": [
+                      {
+                        "type": "launch",
+                        "adapter": "ddexErn4",
+                        "workflowId": "editResource",
+                        "context": {
+                          "uuid": "data.uuid"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Delete",
+                    "blocks": [
+                      {
+                        "type": "launch",
+                        "adapter": "ddexErn4",
+                        "workflowId": "deleteResource",
+                        "context": {
+                          "uuid": "data.uuid"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "mapping",
+      "mapping": "{ records: data }"
+    },
+    {
+      "type": "actions",
+      "buttons": [
+        {
+          "label": "Delete",
+          "color": "warn",
+          "blocks": [
+            {
+              "type": "dialog",
+              "blocks": [
+                {
+                  "type": "message",
+                  "message": "Are you sure you want to delete {{records.length}} items?"
+                },
+                {
+                  "type": "actions",
+                  "buttons": [
+                    {
+                      "label": "Delete",
+                      "color": "warn",
+                      "blocks": [
+                        {
+                          "type": "mapping",
+                          "mapping": "data.records"
+                        },
+                        {
+                          "type": "batch",
+                          "blocks": [
+                            {
+                              "type": "db",
+                              "operation": "delete",
+                              "uuidGetter": "data.uuid",
+                              "skipFirst": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "dispatch",
+                          "action": "refreshWorkflow"
+                        }
+                      ]
+                    },
+                    {
+                      "label": "Cancel",
+                      "blocks": [
+                        {
+                          "type": "init"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Export",
+          "blocks": [
+            {
+              "type": "mapping",
+              "mapping": "{ mapping: 'Default', records: data.records }"
+            },
+            {
+              "type": "dialog",
+              "blocks": [
+                {
+                  "type": "form",
+                  "label": "Run mapping",
+                  "jsonSchema": {
+                    "type": "object",
+                    "properties": {
+                      "mapping": {
+                        "title": "Output mapping",
+                        "type": "string",
+                        "enum": ["Default"]
+                      }
+                    }
+                  },
+                  "uiSchema": {}
+                },
+                {
+                  "type": "mapping",
+                  "mapping": "data.records"
+                },
+                {
+                  "type": "serialize",
+                  "hasFormatSelection": true,
+                  "formats": [
+                    "json",
+                    "csv",
+                    "xml"
+                  ]
+                },
+                {
+                  "type": "file-export",
+                  "label": "Export",
+                  "fileName": "exported"
+                },
+                {
+                  "type": "actions",
+                  "buttons": [
+                    {
+                      "label": "Close",
+                      "blocks": [
+                        {
+                          "type": "init"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "id": ""
+}

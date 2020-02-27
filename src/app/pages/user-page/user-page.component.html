@@ -1,9 +1,4 @@
-<mat-card>
-  <h3>Profile data</h3>
-  <app-dynamic-form-repo [formGroup]="form"
-                         formName="assets/forms/userProfile.yaml"></app-dynamic-form-repo>
-  <button mat-flat-button [color]="form.touched ? 'primary' : undefined" (click)="saveProfile()">Save</button>
-</mat-card>
+
 
 <mat-card *ngIf="isAuthenticated; else notLoggedIn">
   <h3>Identities</h3>
@@ -39,9 +34,19 @@
 
 <ng-template #notLoggedIn>
   <mat-card>
+    <h3>Connected Profiles</h3>
+
     <p>No profiles are saved on this device. You can connect multiple profiles by
       logging in using different authentication providers.
     </p>
     <button mat-flat-button color="primary" (click)="onLogin()">Login</button>
+<!--    <br><br>-->
+<!--    <button mat-flat-button color="primary" (click)="loginGoogle()">Login with Google</button>-->
   </mat-card>
 </ng-template>
+
+<app-profile-data-form></app-profile-data-form>
+
+<app-teosto-user-form></app-teosto-user-form>
+
+<app-user-ipn-form></app-user-ipn-form>

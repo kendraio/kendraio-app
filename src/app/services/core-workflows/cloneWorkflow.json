@@ -1,0 +1,79 @@
+{
+  "title": "Clone workflow",
+  "id": "cloneWorkflow",
+  "blocks": [
+    {
+      "type": "debug",
+      "showContext": true
+    },
+    {
+      "type": "mapping",
+      "mapping": "{ sourceAdapter: context.queryParams.adapter, sourceId: context.queryParams.workflowId, targetId: context.queryParams.workflowId }"
+    },
+    {
+      "type": "form",
+      "label": "Clone",
+      "jsonSchema": {
+        "type": "object",
+        "properties": {
+          "sourceAdapter": {
+            "type": "string",
+            "title": "Source adapter"
+          },
+          "sourceId": {
+            "type": "string",
+            "title": "Source workflow ID"
+          },
+          "targetAdapter": {
+            "type": "string",
+            "title": "Target adapter"
+          },
+          "targetId": {
+            "type": "string",
+            "title": "Target workflow ID"
+          }
+        }
+      },
+      "uiSchema": {
+        "targetAdapter": {
+          "ui:widget": "blocks",
+          "blocksConfig": {
+            "blocks": [
+              {
+                "type": "message",
+                "message": "Select target adapter"
+              },
+              {
+                "type": "adapter-list"
+              },
+              {
+                "type": "reference",
+                "valueField": "name",
+                "labelField": "label"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "type": "dispatch",
+      "action": "cloneAdapter"
+    },
+    {
+      "type": "actions",
+      "buttons": [
+        {
+          "label": "Return to adapters",
+          "blocks": [
+            {
+              "type": "launch",
+              "adapter": "core",
+              "workflowId": "adapters"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

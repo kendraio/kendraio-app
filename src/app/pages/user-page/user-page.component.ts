@@ -12,7 +12,6 @@ export class UserPageComponent implements OnInit {
 
   profile: any;
 
-  form: FormGroup;
 
   get isAuthenticated() {
     return this.auth.isAuthenticated();
@@ -21,30 +20,21 @@ export class UserPageComponent implements OnInit {
   constructor(
     private readonly pageTitle: PageTitleService,
     private readonly auth: AuthService,
-    private readonly fb: FormBuilder
   ) { }
 
   ngOnInit() {
-    this.form = this.fb.group({
-      ipi: [''],
-      fullName: ['']
-    });
     this.pageTitle.setTitle('User settings');
     if (this.auth.userProfile) {
       this.profile = this.auth.userProfile;
     } else {
       try {
-        this.auth.getProfile((err, profile) => {
-          this.profile = profile;
+        this.auth.getProfile((err, _profile) => {
+          this.profile = _profile;
         });
       } catch (e) {
         // There was an error fetching profile
         this.profile = {};
       }
-    }
-    const profile = JSON.parse(localStorage.getItem('kendraio-user-profile'));
-    if (!!profile) {
-      this.form.patchValue(profile);
     }
   }
 
@@ -56,11 +46,16 @@ export class UserPageComponent implements OnInit {
     this.auth.login();
   }
 
+  loginGoogle() {
+    this.auth.login({
+      connection: 'google-oauth2',
+      accessType: 'offline',
+      approvalPrompt: 'force'
+    });
+  }
+
   onLogout() {
     this.auth.logout();
   }
 
-  saveProfile() {
-    localStorage.setItem('kendraio-user-profile', JSON.stringify(this.form.getRawValue()));
-  }
 }

@@ -1,0 +1,86 @@
+{
+  "title": "MusicTeam import",
+  "blocks": [
+    {
+      "type": "message",
+      "message": "This workflow will accept JSON data as provided by the MusicTeam system."
+    },
+    {
+      "type": "file-input",
+      "label": "Load JSON",
+      "accept": [
+        "json"
+      ]
+    },
+    {
+      "type": "parse-data",
+      "csvOptions": {
+        "header": true,
+        "skipEmptyLines": true
+      },
+      "xmlOptions": {}
+    },
+    {
+      "type": "mapping",
+      "mapping": "data.{ work: merge(work, { uuid: uuid(), owners: work.owners[].merge(@, { uuid: uuid() }) }), recording: merge(recording, { uuid: uuid(), owners: recording.owners[].merge(@, { uuid: uuid() }) }) }"
+    },
+    {
+      "type": "multi",
+      "batches": [
+        {
+          "blocks": [
+            {
+              "type": "mapping",
+              "mapping": "data.work.merge(@, { owners: owners[].{ uuid: uuid, split: split } })"
+            },
+            {
+              "type": "db",
+              "operation": "add",
+              "adapterName": "MusicTeam",
+              "schema": "works",
+              "skipFirst": false
+            }
+          ]
+        },
+        {
+          "blocks": [
+            {
+              "type": "mapping",
+              "mapping": "merge(data.recording.merge(@, { owners: owners[].{ uuid: uuid, split: split } }), { related_works: [ data.work.uuid ] })"
+            },
+            {
+              "type": "db",
+              "operation": "add",
+              "adapterName": "MusicTeam",
+              "schema": "recordings",
+              "skipFirst": false
+            }
+          ]
+        },
+        {
+          "blocks": [
+            {
+              "type": "mapping",
+              "mapping": "[data.work.owners[], data.recording.owners[]][].omit(@, ['split'])"
+            },
+            {
+              "type": "batch",
+              "blocks": [
+                {
+                  "type": "db",
+                  "operation": "add",
+                  "adapterName": "MusicTeam",
+                  "schema": "contributors",
+                  "skipFirst": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "debug"
+    }
+  ]
+}

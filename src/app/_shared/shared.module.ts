@@ -1,23 +1,25 @@
 
-import { NgModule } from '@angular/core';
+import { NgModule, Type } from '@angular/core';
 import { CommonModule, LowerCasePipe, DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, FormControl, FormGroup, ReactiveFormsModule, NG_VALIDATORS, NG_ASYNC_VALIDATORS, Validator } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import {
-  MatCardModule,
-  MatButtonToggleModule,
-  MatCheckboxModule,
-  MatFormFieldModule,
-  MatIconModule,
-  MatInputModule,
-  MatProgressSpinnerModule,
-  MatRadioModule,
-  MatSelectModule,
-  MatSliderModule,
-  MatButtonModule,
-  MatMenuModule, MatDialogModule, MatTooltipModule, MatListModule, MatTreeModule
-} from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTreeModule } from '@angular/material/tree';
 
 import * as matComponents from '../_shared/components';
 import { AgGridModule } from 'ag-grid-angular';
@@ -29,12 +31,31 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
 import { HelpTextService } from './services/help-text.service';
 import { HelpTextBtnDirective } from './directives/help-text-btn.directive';
 import { TranslateModule } from '@ngx-translate/core';
+import { PasswordStrength, PasswordStrength2, matchPasswords } from './directives/passwordValidation';
+import { DYNAMIC_VALIDATORS, ValidatorFactory, DYNAMIC_FORM_CONTROL_MAP_FN, DynamicFormControlModel, DynamicFormControl,
+  DynamicInputControlModel,
+  DynamicInputModel,
+  DynamicSelectModel} from '@ng-dynamic-forms/core';
+import { PasswordInputComponent } from './form-controls/password-input/password-input.component';
+import { DynamicPasswordInputComponent } from './form-controls/password-input/dynamic/dynamic-password-input/dynamic-password-input.component';
+import { DEBUG_DYNAMIC_FORM_CONTROL_TYPE } from '../form-controls/debug-form-model';
+import { FormlyModule } from '@ngx-formly/core';
+// import { FormlyMaterialModule } from '@ngx-formly/material';
+import { AccountLoginFormComponent } from '../bloomen/users/_shared';
+import { UiFormModule } from './ui-form/ui-form.module';
+import { UsersComponent } from '../bloomen/users/users.component';
 // import { BaseComponent } from './base/base.component';
 // import { MenuComponent } from './components/menu/menu.component';
 // import { MenuItemComponent } from './components/menu/menu-item.component';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { ClaimsEditSendComponent } from '../claims/claims-edit-send/claims-edit-send.component';
 
+import { NgSelectModule } from '@ng-select/ng-select';
+import { KendraioFormComponent } from './ui-form/kendraio-form/kendraio-form.component';
+
+export function minlengthValidationMessage(err, field) {
+  return `what the.. ${field.templateOptions.minLength} characters`;
+}
 
 @NgModule({
   imports: [
@@ -69,7 +90,24 @@ import { TranslateModule } from '@ngx-translate/core';
     DynamicFormsMaterialUIModule,
     FormsModule,
     ReactiveFormsModule,
+    // FormlyMaterialModule,
+    FormlyModule.forRoot({
+      // validationMessages:
+      // [
+      //   // { name: 'required', message: 'This field is required' },
+      //   // { name: 'minlength', message: minlengthValidationMessage },
+      // ],
+    }),
+    UiFormModule,
     // BrowserAnimationsModule
+    // FormlyMaterialModule,
+    // FormlyModule.forRoot({
+    //   validationMessages: [
+    //     { name: 'required', message: 'This field is required' },
+    //     { name: 'minlength', message: minlengthValidationMessage },
+    //   ],
+    // }),
+    NgSelectModule
   ],
   declarations: [
     matComponents.MatInputComponent,
@@ -78,10 +116,15 @@ import { TranslateModule } from '@ngx-translate/core';
     ClaimsEditComponent,
     BreadcrumbComponent,
     HelpTextBtnDirective,
+    PasswordInputComponent,
+    DynamicPasswordInputComponent,
+    // AccountLoginFormComponent
     // BaseComponent,
     // MenuComponent,
     // MenuItemComponent,
     // ClaimsEditSendComponent
+    UsersComponent,
+    // KendraioFormComponent,
   ],
   exports: [
   //  matComponents.MatInputComponent,
@@ -96,19 +139,47 @@ import { TranslateModule } from '@ngx-translate/core';
   // ClaimsEditSendComponent,
   MatListModule,
   BreadcrumbComponent,
+
   MatTreeModule,
   HelpTextBtnDirective,
+  UsersComponent,
+  UiFormModule,
+  NgSelectModule,
 // BrowserAnimationsModule
 TranslateModule
   ],
   providers: [
     DatePipe,
     LowerCasePipe,
-    HelpTextService
+    HelpTextService,
+    {provide: NG_VALIDATORS , useValue: PasswordStrength2, multi: true},
+    {provide: NG_VALIDATORS , useValue: matchPasswords, multi: true},
+
+    {
+      provide: DYNAMIC_FORM_CONTROL_MAP_FN,
+      useValue: (model: DynamicFormControlModel): Type<DynamicFormControl> | null  => {
+
+        switch (model.type) {
+
+          case DynamicInputModel.toString():
+          return DynamicPasswordInputComponent;
+
+          }
+       }
+    }
+
+
+  //   {
+  //     provide: DYNAMIC_VALIDATORS,
+  //     useValue: new Map<string, Validator | ValidatorFactory>([
+  //         ['myCustomValidator', myCustomValidator]
+  //     ])
+  // }
   ],
-  entryComponents: [   
+  entryComponents: [
     SendClaimsComponent,
     ClaimsEditComponent,
+    DynamicPasswordInputComponent
     // ClaimsEditSendComponent //may move this to claims module
    ]
 })

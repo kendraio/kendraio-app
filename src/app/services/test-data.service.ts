@@ -39,6 +39,8 @@ export class TestDataService {
       return this.http.get(`${KENDRAIO_API}${type}`);
     }
     return this.docs.listAll().pipe(
+      // TEMP
+      map(_ => ({ rows: [] })),
       map(({ rows }) =>
         rows
           .filter(({ id }) => id.startsWith(`kendraio_${type}`))
@@ -65,6 +67,8 @@ export class TestDataService {
 
   getEntityCounts() {
     return this.docs.listAll().pipe(
+      // TEMP
+      map(_ => ({ rows: [] })),
       map(({ rows }) => rows.reduce((acc, item) => {
         const namedType = item['id'].split(':')[0];
         const type = includes(namedType, '_') ? namedType.split('_')[1] : namedType;

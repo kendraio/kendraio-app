@@ -1,0 +1,46 @@
+{
+  "title": "Teosto Works",
+  "dataSource": {
+    "type": "remote",
+    "endpoint": {
+      "protocol": "https:",
+      "host": "teosto-cors-proxy-eilgg5e92.now.sh",
+      "pathname": "/dev/rest/work/perTitle/HEART",
+      "query": {
+        "limit": 4
+      },
+      "valueGetters": {
+        "pathname": "join('', ['/dev/rest/work/perTitle/', 'HEART'])",
+        "query": "{limit: model.limit}"
+      }
+    },
+    "authentication": {
+      "type": "basic-auth",
+      "valueGetters": {
+        "username": "user.teosto.username",
+        "password": "user.teosto.password"
+      }
+    }
+  },
+  "output": {
+    "type": "grid",
+    "columnDefs": [
+      {
+        "headerName": "Work key",
+        "field": "workkey"
+      },
+      {
+        "headerName": "Titles",
+        "valueGetter": "titles[].work_title"
+      },
+      {
+        "headerName": "Performers",
+        "valueGetter": "performers.name"
+      },
+      {
+        "headerName": "Rights owners",
+        "valueGetter": "right_owners[].name"
+      }
+    ]
+  }
+}

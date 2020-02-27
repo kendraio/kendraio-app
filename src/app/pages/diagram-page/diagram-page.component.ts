@@ -15,7 +15,7 @@ const BASE_PATH = 'https://kendraio.github.io/kendraio-adapter/';
 })
 export class DiagramPageComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('diagram') diagram: ElementRef;
+  @ViewChild('diagram', { static: true }) diagram: ElementRef;
 
   title = '';
   graph;
@@ -38,7 +38,7 @@ export class DiagramPageComponent implements OnInit, AfterViewInit {
         id: params.get('id')
       })),
       switchMap(({ adapter, id }) => this.adapters.getAdapter(adapter).pipe(
-        map(allAdapters => get(allAdapters, `${adapter}.adapter.actions[${id}]`))
+        map(allAdapters => get(allAdapters, `actions[${id}]`))
       )),
       filter(Boolean),
       switchMap(({ title, path }) => {

@@ -1,0 +1,68 @@
+{
+  "title": "Adapter Repositories",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "variable-get",
+      "name": "adapterRepos"
+    },
+    {
+      "type": "form",
+      "hasSubmit": false,
+      "jsonSchema": {
+        "type": "object",
+        "properties": {
+          "repos": {
+            "title": "Repositories",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "uiSchema": {}
+    },
+    {
+      "type": "actions",
+      "buttons": [
+        {
+          "label": "Save",
+          "color": "primary",
+          "blocks": [
+            {
+              "type": "variable-set",
+              "name": "adapterRepos"
+            },
+            {
+              "type": "launch",
+              "adapter": "core",
+              "workflowId": "adapters"
+            }
+          ]
+        },
+        {
+          "label": "Set to default",
+          "blocks": [
+            {
+              "type": "mapping",
+              "mapping": "{ repos: ['https://kendraio-adapter.kendraio.now.sh/'] }"
+            },
+            {
+              "type": "variable-set",
+              "name": "adapterRepos"
+            },
+            {
+              "type": "launch",
+              "adapter": "core",
+              "workflowId": "updateAdapterList"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "id": "adapterRepos"
+}

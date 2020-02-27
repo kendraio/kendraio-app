@@ -25,7 +25,7 @@ export class DynamicAudioInputControlComponent extends DynamicFormControlCompone
   @Output() customEvent: EventEmitter<DynamicFormControlCustomEvent> = new EventEmitter();
   @Output() focus: EventEmitter<any> = new EventEmitter();
 
-  @ViewChild(AudioInputControlComponent) audioInputControlComponent: AudioInputControlComponent;
+  @ViewChild(AudioInputControlComponent, { static: true }) audioInputControlComponent: AudioInputControlComponent;
 
   clipControl = new FormControl([]);
 

@@ -1,0 +1,55 @@
+{
+  "title": "Edit Musical Work (Bloomen API)",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "http",
+      "method": "get",
+      "notify": false,
+      "endpoint": {
+        "protocol": "https:",
+        "host": "bloomen.herokuapp.com",
+        "valueGetters": {
+          "pathname": "join('', ['/sound/music/', context.queryParams.id])"
+        }
+      },
+      "authentication": {
+        "type": "bearer",
+        "valueGetters": {
+          "jwt": "user.profile.bloomenAuth"
+        }
+      }
+    },
+    {
+      "type": "form",
+      "label": "Save",
+      "adapter": "bloomen",
+      "formId": "musicalWork"
+    },
+    {
+      "type": "http",
+      "method": "put",
+      "notify": true,
+      "endpoint": {
+        "protocol": "https:",
+        "host": "bloomen.herokuapp.com",
+        "valueGetters": {
+          "pathname": "join('', ['/sound/music/', context.queryParams.id])"
+        }
+      },
+      "authentication": {
+        "type": "bearer",
+        "valueGetters": {
+          "jwt": "user.profile.bloomenAuth"
+        }
+      }
+    },
+    {
+      "type": "launch",
+      "adapter": "bloomen",
+      "workflowId": "listWorks"
+    }
+  ]
+}

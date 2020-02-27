@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ConfirmAppResetDialogComponent } from '../../dialogs/confirm-app-reset-dialog/confirm-app-reset-dialog.component';
 import { PageTitleService } from '../../services/page-title.service';
 import { AdaptersService } from '../../services/adapters.service';
@@ -28,10 +28,11 @@ export class SettingsPageComponent implements OnInit {
 
   ngOnInit() {
     this.pageTitle.setTitle('App settings');
-    this.isDebug = this.settings.get('debug-mode', false);
+    this.isDebug = this.settings.get('debugMode', false);
      this.showHelp = this.settings.getTmp('showHelp', true);
   }
 
+  // TODO: Remove any other data added to localStorage
   resetApp() {
     const dialogRef = this.dialog.open(ConfirmAppResetDialogComponent, {
       width: '300px'
@@ -47,7 +48,7 @@ export class SettingsPageComponent implements OnInit {
 
   toggleDebugMode() {
     this.isDebug = !this.isDebug;
-    this.settings.set('debug-mode', this.isDebug);
+    this.settings.set('debugMode', this.isDebug);
   }
 
   toggleShowHelp() {

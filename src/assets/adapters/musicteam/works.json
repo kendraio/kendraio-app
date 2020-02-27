@@ -1,0 +1,147 @@
+{
+  "title": "MusicTeam works",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "db",
+      "operation": "get",
+      "adapterName": "MusicTeam",
+      "schema": "works"
+    },
+    {
+      "type": "grid",
+      "gridOptions": {},
+      "columnDefs": [
+        {
+          "headerName": "Title",
+          "field": "title"
+        },
+        {
+          "headerName": "ISWC",
+          "field": "iswc"
+        },
+        {
+          "headerName": "Operations",
+          "cellRenderer": "workflowRenderer",
+          "cellRendererParams": {
+            "blocks": [
+              {
+                "type": "actions",
+                "buttons": [
+                  {
+                    "label": "View",
+                    "blocks": [
+                      {
+                        "type": "dialog",
+                        "blocks": [
+                          {
+                            "type": "debug"
+                          },
+                          {
+                            "type": "actions",
+                            "buttons": [
+                              {
+                                "label": "OK",
+                                "blocks": [
+                                  {
+                                    "type": "init"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Edit",
+                    "blocks": [
+                      {
+                        "type": "launch",
+                        "adapter": "musicteam",
+                        "workflowId": "editWork",
+                        "context": {
+                          "uuid": "data.uuid"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Delete",
+                    "blocks": [
+                      {
+                        "type": "dialog",
+                        "blocks": [
+                          {
+                            "type": "message",
+                            "title": "Are you sure you want to delete {{title}}?",
+                            "message": "This action cannot be undone."
+                          },
+                          {
+                            "type": "actions",
+                            "buttons": [
+                              {
+                                "label": "Delete",
+                                "color": "warn",
+                                "blocks": [
+                                  {
+                                    "type": "db",
+                                    "operation": "delete",
+                                    "uuidGetter": "data.uuid"
+                                  },
+                                  {
+                                    "type": "dispatch",
+                                    "action": "refreshWorkflow"
+                                  }
+                                ]
+                              },
+                              {
+                                "label": "Cancel",
+                                "blocks": [
+                                  {
+                                    "type": "init"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "actions",
+      "buttons": [
+        {
+          "label": "Add work",
+          "blocks": [
+            {
+              "type": "mapping",
+              "mapping": "{ uuid: uuid(), title: 'New work' }"
+            },
+            {
+              "type": "db",
+              "operation": "add",
+              "adapterName": "MusicTeam",
+              "schema": "works"
+            },
+            {
+              "type": "dispatch",
+              "action": "refreshWorkflow"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

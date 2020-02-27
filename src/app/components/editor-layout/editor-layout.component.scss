@@ -1,0 +1,21 @@
+.toolbar {
+  margin-bottom: 1em;
+}
+
+.editor-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.editor-column {
+  flex: 1;
+}
+.editor-config-column {
+  margin-right: 1em;
+  max-width: 40%;
+}
+.editor-output-column {
+  width: 60%;
+}

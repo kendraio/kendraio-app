@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MatButton, MatDialog, MatDialogClose } from '@angular/material';
+import { MatButton } from '@angular/material/button';
+import { MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MatDialog, MatDialogClose } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Animations } from 'src/app/_shared/animations';
 import { AdaptersService } from 'src/app/services/adapters.service';
@@ -8,7 +9,7 @@ import { AdaptersService } from 'src/app/services/adapters.service';
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
-  animations: [Animations.pageAni]
+  animations: [Animations.kendraAnimations]
 })
 export class RegisterComponent implements OnInit {
   nextStep = false;

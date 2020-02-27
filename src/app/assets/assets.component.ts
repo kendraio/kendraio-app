@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PageTitleService } from '../services/page-title.service';
-import { MatGridListModule } from '@angular/material';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { from, ObservableInput } from 'rxjs';
 import { TestDataService } from '../services/test-data.service';
 import { HelpTextService } from '../_shared/services/help-text.service';

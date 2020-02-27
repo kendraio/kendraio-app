@@ -21,7 +21,7 @@ export class WaveformComponent implements OnInit, AfterViewInit {
 
   @Input() file;
   // @Input() item;
-  @ViewChild('waveform') waveform: ElementRef;
+  @ViewChild('waveform', { static: true }) waveform: ElementRef;
 
   wavesurfer;
 

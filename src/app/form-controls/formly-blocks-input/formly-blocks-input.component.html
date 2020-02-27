@@ -1,0 +1,2 @@
+<!--<app-blocks-input-control [models]="models" [blocks]="blocks" [context]="context" [formControl]="formControl"></app-blocks-input-control>-->
+<app-blocks-workflow [blocks]="blocks" [models]="models" [context]="context" (workflowComplete)="onWorkflowComplete($event)"></app-blocks-workflow>

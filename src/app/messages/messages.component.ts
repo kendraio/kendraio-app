@@ -7,7 +7,7 @@ import { Animations } from '../_shared/animations';
   selector: 'app-messages',
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.scss'],
-  animations: [Animations.pageAni]
+  animations: [Animations.kendraAnimations]
 
 })
 export class MessagesComponent {

@@ -1,0 +1,149 @@
+{
+  "title": "Workflow",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "context",
+      "contextPath": "adapterList",
+      "contextBlocks": [
+        {
+          "type": "variable-get",
+          "name": "adapterList"
+        }
+      ],
+      "blocks": [
+        {
+          "type": "actions",
+          "buttons": [
+            {
+              "label": "All",
+              "color": "primary",
+              "blocks": [
+                {
+                  "type": "mapping",
+                  "mapping": "{ term: '' }"
+                }
+              ]
+            },
+            {
+              "label": "Demo",
+              "blocks": [
+                {
+                  "type": "mapping",
+                  "mapping": "{ term: 'demo' }"
+                }
+              ]
+            },
+            {
+              "label": "Music",
+              "blocks": [
+                {
+                  "type": "mapping",
+                  "mapping": "{ term: 'music' }"
+                }
+              ]
+            },
+            {
+              "label": "Photo",
+              "blocks": [
+                {
+                  "type": "mapping",
+                  "mapping": "{ term: 'photos' }"
+                }
+              ]
+            },
+            {
+              "label": "B2B",
+              "blocks": [
+                {
+                  "type": "mapping",
+                  "mapping": "{ term: 'b2b' }"
+                }
+              ]
+            },
+            {
+              "label": "Retail",
+              "blocks": [
+                {
+                  "type": "mapping",
+                  "mapping": "{ term: 'retail' }"
+                }
+              ]
+            },
+            {
+              "label": "Streaming",
+              "blocks": [
+                {
+                  "type": "mapping",
+                  "mapping": "{ term: 'streaming' }"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "form",
+          "hasSubmit": false,
+          "emitOnInit": true,
+          "jsonSchema": {
+            "type": "object",
+            "properties": {
+              "term": {
+                "type": "string",
+                "title": "Search term",
+                "default": ""
+              }
+            }
+          },
+          "uiSchema": {}
+        },
+        {
+          "type": "mapping",
+          "mapping": "(length(data.term) == `0` && context.adapterList) || context.adapterList[?contains(tags, _(&data.term)) || contains(name, _(&data.term))]"
+        }
+      ]
+    },
+    {
+      "type": "message",
+      "message": "{{#unless data.length}}The adapter cache is empty. Please try refreshing adapter repository data.{{/unless}}"
+    },
+    {
+      "type": "batch",
+      "blocks": [
+        {
+          "type": "card",
+          "blocks": [
+            {
+              "type": "template",
+              "template": "<h3>{{ label }}</h3><div class='tag-list'><span class='tag version-tag'>v{{ version }}</span>{{#each tags}}<span class='tag'>{{ this }}</span>{{/each}}</div><p>{{ description }}</p>"
+            },
+            {
+              "type": "actions",
+              "buttons": [
+                {
+                  "label": "Install",
+                  "color": "primary",
+                  "blocks": [
+                    {
+                      "type": "dispatch",
+                      "action": "installAdapter"
+                    },
+                    {
+                      "type": "launch",
+                      "adapter": "core",
+                      "workflowId": "adapters"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "id": "adapterSearch",
+  "adapterName": "core"
+}

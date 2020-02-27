@@ -1,0 +1,155 @@
+{
+  "title": "My YouTube Play Lists",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "db",
+      "operation": "get",
+      "adapterName": "YouTube",
+      "schema": "my-playlist"
+    },
+    {
+      "type": "grid",
+      "gridOptions": {},
+      "columnDefs": [
+        {
+          "headerName": "Title",
+          "field": "title"
+        },
+        {
+          "headerName": "Visibility",
+          "field": "visibility",
+          "enum": [
+            "Private",
+            "Public",
+            "Unlisted"
+          ]
+        },
+        {
+          "headerName": "Operations",
+          "cellRenderer": "workflowRenderer",
+          "cellRendererParams": {
+            "blocks": [
+              {
+                "type": "actions",
+                "buttons": [
+                  {
+                    "label": "View",
+                    "blocks": [
+                      {
+                        "type": "dialog",
+                        "blocks": [
+                          {
+                            "type": "debug"
+                          },
+                          {
+                            "type": "actions",
+                            "buttons": [
+                              {
+                                "label": "OK",
+                                "blocks": [
+                                  {
+                                    "type": "init"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Edit",
+                    "blocks": [
+                      {
+                        "type": "launch",
+                        "adapter": "youtube",
+                        "workflowId": "editPlaylist",
+                        "context": {
+                          "uuid": "data.uuid"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Delete",
+                    "blocks": [
+                      {
+                        "type": "dialog",
+                        "blocks": [
+                          {
+                            "type": "message",
+                            "title": "Are you sure you want to delete {{title}}?",
+                            "message": "This action cannot be undone."
+                          },
+                          {
+                            "type": "actions",
+                            "buttons": [
+                              {
+                                "label": "Delete",
+                                "color": "warn",
+                                "blocks": [
+                                  {
+                                    "type": "db",
+                                    "operation": "delete",
+                                    "uuidGetter": "data.uuid"
+                                  },
+                                  {
+                                    "type": "dispatch",
+                                    "action": "refreshWorkflow"
+                                  }
+                                ]
+                              },
+                              {
+                                "label": "Cancel",
+                                "blocks": [
+                                  {
+                                    "type": "init"
+                                  }
+                                ]
+                              },
+                              {
+                                "label": "S"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "actions",
+      "buttons": [
+        {
+          "label": "Add new PlayList",
+          "blocks": [
+            {
+              "type": "mapping",
+              "mapping": "{ uuid: uuid(), title: 'New Playlist', visibility: 'Private' }"
+            },
+            {
+              "type": "db",
+              "operation": "add",
+              "adapterName": "YouTube",
+              "schema": "my-playlist"
+            },
+            {
+              "type": "dispatch",
+              "action": "refreshWorkflow"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

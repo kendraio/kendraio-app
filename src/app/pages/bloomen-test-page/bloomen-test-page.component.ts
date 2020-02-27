@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {tap} from 'rxjs/operators';
 import {TestImportDialogComponent} from '../../dialogs/test-import-dialog/test-import-dialog.component';
 import {PageTitleService} from '../../services/page-title.service';
-import {MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import {Router} from '@angular/router';
 import {omit} from 'lodash-es';
 
@@ -60,6 +60,23 @@ export class BloomenTestPageComponent implements OnInit {
     this.userInfo$ = this.http.get(`${BLOOMEN_URL}/me`, {
       headers: { Authorization: `Bearer ${this.keys[this.activeUser]}` }
     }).pipe(tap(console.log));
+  }
+
+  importUsers() {
+    this.http.get(`${BLOOMEN_URL}/users/kyc`, {
+      headers: { Authorization: `Bearer ${this.keys[this.activeUser]}` }
+    }).pipe(tap(console.log))
+      .subscribe(users => {
+        if (users) {
+          const type = 'bloomen_User';
+          const records = users.map(user => {
+            return {
+              ...omit(user, ['__v', '_id']),
+            };
+          });
+          this.doImport({ type, records });
+        }
+      });
   }
 
   importPhotos() {

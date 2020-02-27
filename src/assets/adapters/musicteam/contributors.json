@@ -1,0 +1,147 @@
+{
+  "title": "MusicTeam contributors",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "db",
+      "operation": "get",
+      "adapterName": "MusicTeam",
+      "schema": "contributors"
+    },
+    {
+      "type": "grid",
+      "gridOptions": {},
+      "columnDefs": [
+        {
+          "headerName": "Name",
+          "field": "name"
+        },
+        {
+          "headerName": "Role",
+          "field": "role"
+        },
+        {
+          "headerName": "Operations",
+          "cellRenderer": "workflowRenderer",
+          "cellRendererParams": {
+            "blocks": [
+              {
+                "type": "actions",
+                "buttons": [
+                  {
+                    "label": "View",
+                    "blocks": [
+                      {
+                        "type": "dialog",
+                        "blocks": [
+                          {
+                            "type": "debug"
+                          },
+                          {
+                            "type": "actions",
+                            "buttons": [
+                              {
+                                "label": "OK",
+                                "blocks": [
+                                  {
+                                    "type": "init"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Edit",
+                    "blocks": [
+                      {
+                        "type": "launch",
+                        "adapter": "musicteam",
+                        "workflowId": "editContributor",
+                        "context": {
+                          "uuid": "data.uuid"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Delete",
+                    "blocks": [
+                      {
+                        "type": "dialog",
+                        "blocks": [
+                          {
+                            "type": "message",
+                            "title": "Are you sure you want to delete {{name}}?",
+                            "message": "This action cannot be undone."
+                          },
+                          {
+                            "type": "actions",
+                            "buttons": [
+                              {
+                                "label": "Delete",
+                                "color": "warn",
+                                "blocks": [
+                                  {
+                                    "type": "db",
+                                    "operation": "delete",
+                                    "uuidGetter": "data.uuid"
+                                  },
+                                  {
+                                    "type": "dispatch",
+                                    "action": "refreshWorkflow"
+                                  }
+                                ]
+                              },
+                              {
+                                "label": "Cancel",
+                                "blocks": [
+                                  {
+                                    "type": "init"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "actions",
+      "buttons": [
+        {
+          "label": "Add contributor",
+          "blocks": [
+            {
+              "type": "mapping",
+              "mapping": "{ uuid: uuid(), title: 'New contributor' }"
+            },
+            {
+              "type": "db",
+              "operation": "add",
+              "adapterName": "MusicTeam",
+              "schema": "contributors"
+            },
+            {
+              "type": "dispatch",
+              "action": "refreshWorkflow"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatSidenav, MatMenu } from '@angular/material';
+import { MatMenu } from '@angular/material/menu';
+import { MatSidenav } from '@angular/material/sidenav';
 import { Observable } from 'rxjs';
 import {SharedModule} from '../../_shared/shared.module';
 import { PageTitleService } from '../../services/page-title.service';
@@ -60,12 +61,12 @@ export class LayoutComponent implements OnInit {
     },
     {
       href: '/settings',
-      title: 'Settings',
+      title: 'settings',
       icon: 'settings'
     },
     {
       href: '/docs',
-      title: 'Database',
+      title: 'database',
       icon: 'storage'
     },
     {
@@ -75,18 +76,22 @@ export class LayoutComponent implements OnInit {
     }
   ];
 
-  pageTitle$: Observable<string>;
+  pageTitle$: Observable<{ title: string, isWorkflow: boolean}>;
   sidenav: MatSidenav;
 
   constructor(
     private readonly router: Router,
     private readonly title: PageTitleService,
-   
+
   ) { }
 
   ngOnInit() {
     this.pageTitle$ = this.title.pageTitle$;
   //  this.sidenav.open();
+  }
+
+  onRefresh() {
+    this.title.onRefresh();
   }
 
   gotoPage(href: string, sidenav: MatSidenav) {

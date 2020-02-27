@@ -1,0 +1,304 @@
+{
+  "title": "Adapters",
+  "blocks": [
+    {
+      "type": "multi",
+      "batches": [
+        {
+          "blocks": [
+            {
+              "type": "actions",
+              "buttons": [
+                {
+                  "label": "Manage Repositories",
+                  "color": "link",
+                  "blocks": [
+                    {
+                      "type": "launch",
+                      "adapter": "core",
+                      "workflowId": "adapterRepos"
+                    }
+                  ]
+                },
+                {
+                  "label": "Refresh Adapters",
+                  "color": "link",
+                  "blocks": [
+                    {
+                      "type": "launch",
+                      "adapter": "core",
+                      "workflowId": "updateAdapterList"
+                    }
+                  ]
+                },
+                {
+                  "label": "New Adapter",
+                  "color": "link",
+                  "blocks": [
+                    {
+                      "type": "launch",
+                      "adapter": "core",
+                      "workflowId": "newAdapter"
+                    }
+                  ]
+                },
+                {
+                  "label": "Import Adapter",
+                  "color": "link",
+                  "blocks": [
+                    {
+                      "type": "launch",
+                      "adapter": "core",
+                      "workflowId": "importAdapter"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "message",
+              "title": "Installed adapters"
+            },
+            {
+              "type": "adapter-list"
+            },
+            {
+              "type": "grid",
+              "gridOptions": {},
+              "columnDefs": [
+                {
+                  "headerName": "Adapter",
+                  "field": "label"
+                },
+                {
+                  "headerName": "Version",
+                  "field": "version"
+                },
+                {
+                  "headerName": "Modified",
+                  "valueGetter": "modified && 'yes' || 'no'"
+                },
+                {
+                  "headerName": "Operations",
+                  "cellRenderer": "workflowRenderer",
+                  "cellRendererParams": {
+                    "blocks": [
+                      {
+                        "type": "actions",
+                        "buttons": [
+                          {
+                            "label": "View",
+                            "color": "primary",
+                            "blocks": [
+                              {
+                                "type": "launch",
+                                "adapter": "core",
+                                "workflowId": "adapterDetails",
+                                "context": {
+                                  "adapterName": "data.adapterName"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "label": "Export",
+                            "blocks": [
+                              {
+                                "type": "dispatch",
+                                "action": "exportAdapter"
+                              }
+                            ]
+                          },
+                          {
+                            "label": "Uninstall",
+                            "color": "warn",
+                            "blocks": [
+                              {
+                                "type": "dispatch",
+                                "action": "uninstallAdapter"
+                              },
+                              {
+                                "type": "dispatch",
+                                "action": "refreshWorkflow"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "blocks": [
+            {
+              "type": "message",
+              "title": "Search available adapters"
+            },
+            {
+              "type": "init"
+            },
+            {
+              "type": "context",
+              "contextPath": "adapterList",
+              "contextBlocks": [
+                {
+                  "type": "variable-get",
+                  "name": "adapterList"
+                }
+              ],
+              "blocks": [
+                {
+                  "type": "actions",
+                  "buttons": [
+                    {
+                      "label": "All",
+                      "color": "primary",
+                      "blocks": [
+                        {
+                          "type": "mapping",
+                          "mapping": "{ term: '' }"
+                        }
+                      ]
+                    },
+                    {
+                      "label": "Demo",
+                      "blocks": [
+                        {
+                          "type": "mapping",
+                          "mapping": "{ term: 'demo' }"
+                        }
+                      ]
+                    },
+                    {
+                      "label": "Music",
+                      "blocks": [
+                        {
+                          "type": "mapping",
+                          "mapping": "{ term: 'music' }"
+                        }
+                      ]
+                    },
+                    {
+                      "label": "Photo",
+                      "blocks": [
+                        {
+                          "type": "mapping",
+                          "mapping": "{ term: 'photos' }"
+                        }
+                      ]
+                    },
+                    {
+                      "label": "B2B",
+                      "blocks": [
+                        {
+                          "type": "mapping",
+                          "mapping": "{ term: 'b2b' }"
+                        }
+                      ]
+                    },
+                    {
+                      "label": "Retail",
+                      "blocks": [
+                        {
+                          "type": "mapping",
+                          "mapping": "{ term: 'retail' }"
+                        }
+                      ]
+                    },
+                    {
+                      "label": "Streaming",
+                      "blocks": [
+                        {
+                          "type": "mapping",
+                          "mapping": "{ term: 'streaming' }"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "form",
+                  "hasSubmit": false,
+                  "emitOnInit": true,
+                  "jsonSchema": {
+                    "type": "object",
+                    "properties": {
+                      "term": {
+                        "type": "string",
+                        "title": "Search term",
+                        "default": ""
+                      }
+                    }
+                  },
+                  "uiSchema": {}
+                },
+                {
+                  "type": "mapping",
+                  "mapping": "data && (length(data.term) == `0` && context.adapterList) || context.adapterList[?contains(tags, _(&data.term)) || contains(name, _(&data.term))]"
+                }
+              ]
+            },
+            {
+              "type": "message",
+              "message": "{{#unless data.length}}The adapter cache is empty. Please try refreshing adapter repository data.{{/unless}}"
+            },
+            {
+              "type": "grid",
+              "columnDefs": [
+                {
+                  "headerName": "Adapter",
+                  "field": "label"
+                },
+                {
+                  "headerName": "Version",
+                  "field": "version"
+                },
+                {
+                  "headerName": "Tags",
+                  "field": "tags"
+                },
+                {
+                  "headerName": "Description",
+                  "field": "description"
+                },
+                {
+                  "headerName": "Operations",
+                  "cellRenderer": "workflowRenderer",
+                  "cellRendererParams": {
+                    "blocks": [
+                      {
+                        "type": "actions",
+                        "buttons": [
+                          {
+                            "label": "Install",
+                            "color": "primary",
+                            "blocks": [
+                              {
+                                "type": "dispatch",
+                                "action": "installAdapter"
+                              },
+                              {
+                                "type": "dispatch",
+                                "action": "refreshWorkflow"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "id": "adapters",
+  "adapterName": "core"
+}

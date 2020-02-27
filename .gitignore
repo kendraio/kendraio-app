@@ -6,6 +6,7 @@
 /dist
 /tmp
 /out-tsc
+/docs/_build
 
 # dependencies
 /node_modules
@@ -16,6 +17,7 @@ speed-measure-plugin.json
 
 # IDEs and editors
 /.idea
+.vscode
 .project
 .classpath
 .c9/

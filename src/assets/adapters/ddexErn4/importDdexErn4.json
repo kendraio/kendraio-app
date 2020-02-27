@@ -1,0 +1,228 @@
+{
+  "title": "DDEX Electronic Release Notification Import",
+  "blocks": [
+    {
+      "type": "file-input",
+      "label": "Load ERN",
+      "accept": [
+        "xml"
+      ]
+    },
+    {
+      "type": "parse-data",
+      "csvOptions": {
+        "header": true,
+        "skipEmptyLines": true
+      },
+      "xmlOptions": {
+        "arrayAccessFormPaths": [
+          "NewReleaseMessage.PartyList.Party",
+          "NewReleaseMessage.PartyList.Party.PartyName",
+          "NewReleaseMessage.ResourceList.SoundRecording",
+          "NewReleaseMessage.ResourceList.SoundRecording.DisplayArtist",
+          "NewReleaseMessage.ResourceList.SoundRecording.Contributor",
+          "NewReleaseMessage.ResourceList.Image",
+          "NewReleaseMessage.ReleaseList.Release",
+          "NewReleaseMessage.ReleaseList.Release.DisplayArtist",
+          "NewReleaseMessage.ReleaseList.Release.ResourceGroup",
+          "NewReleaseMessage.ReleaseList.Release.ResourceGroup.ResourceGroupContentItem",
+          "NewReleaseMessage.ReleaseList.TrackRelease"
+        ]
+      }
+    },
+    {
+      "type": "mapping",
+      "mapping": "data.NewReleaseMessage"
+    },
+    {
+      "type": "debug"
+    },
+    {
+      "type": "mapping",
+      "//mapping": "data.{ PartyList: PartyList.Party[].merge(@, { uuid: uuid() }), ResourceList: ResourceList.[SoundRecording[], Video[], Image[]][][].merge(@, { uuid: uuid() }) }",
+      "mapping": {
+        "data": {
+          ".": {
+            "PartyList": "PartyList.Party[].merge(@, { uuid: uuid() })",
+            "ResourceList": {
+              "ResourceList.": [
+                {
+                  "[": [
+                    "SoundRecording[]",
+                    "Video[]",
+                    "Image[]"
+                  ]
+                },
+                "[][]",
+                {
+                  ".": {
+                    "(": [
+                      "merge",
+                      "@",
+                      {
+                        "{": {
+                          "uuid": "uuid()"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "ReleaseList": {
+              "ReleaseList.": [
+                {
+                  "[": [
+                    "Release[]",
+                    "TrackRelease[]"
+                  ]
+                },
+                "[][]",
+                {
+                  ".": {
+                    "(": [
+                      "merge",
+                      "@",
+                      {
+                        "{": {
+                          "uuid": "uuid()"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "debug"
+    },
+    {
+      "type": "multi",
+      "batches": [
+        {
+          "blocks": [
+            {
+              "type": "mapping",
+              "mapping": "data.PartyList"
+            },
+            {
+              "type": "debug"
+            },
+            {
+              "type": "batch",
+              "blocks": [
+                {
+                  "type": "db",
+                  "operation": "add",
+                  "adapterName": "ddexErn4",
+                  "schema": "party",
+                  "skipFirst": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "blocks": [
+            {
+              "type": "mapping",
+              "mapping": "data.ResourceList[].compact(merge(@, { Contributor: Contributor[].merge(@, { contributor_uuid: find(_(&data.PartyList), 'PartyReference', ContributorPartyReference).uuid }), DisplayArtist: DisplayArtist[].merge(@, { artist_uuid: find(_(&data.PartyList), 'PartyReference', ArtistPartyReference).uuid }) }))"
+            },
+            {
+              "type": "debug"
+            },
+            {
+              "type": "batch",
+              "blocks": [
+                {
+                  "type": "db",
+                  "operation": "add",
+                  "adapterName": "ddexErn4",
+                  "schema": "resource",
+                  "skipFirst": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "blocks": [
+            {
+              "type": "mapping",
+              "//mapping": "data.ReleaseList[].compact(merge(@, { Contributor: Contributor[].merge(@, { contributor_uuid: find(_(&data.PartyList), 'PartyReference', ContributorPartyReference).uuid }) }))",
+              "mapping": {
+                "data.ReleaseList[]": {
+                  ".": {
+                    "(": [
+                      "compact",
+                      {
+                        "(": [
+                          "merge",
+                          "@",
+                          {
+                            "{": {
+                              "resource_uuid": "find(_(&data.ResourceList), 'ResourceReference', ReleaseResourceReference).uuid",
+                              "ResourceGroup": {
+                                "ResourceGroup[].": {
+                                  "(": [
+                                    "merge",
+                                    "@",
+                                    {
+                                      "{": {
+                                        "linked_resource_uuid": "find(_(&data.ResourceList), 'ResourceReference', LinkedReleaseResourceReference).uuid",
+                                        "ResourceGroupContentItem": {
+                                          "ResourceGroupContentItem[].": {
+                                            "(": [
+                                              "merge",
+                                              "@",
+                                              {
+                                                "{": {
+                                                  "resource_uuid": "find(_(&data.ResourceList), 'ResourceReference', ReleaseResourceReference).uuid"
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "type": "debug"
+            },
+            {
+              "type": "batch",
+              "blocks": [
+                {
+                  "type": "db",
+                  "operation": "add",
+                  "adapterName": "ddexErn4",
+                  "schema": "release",
+                  "skipFirst": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "debug"
+    }
+  ],
+  "id": "importDdexErn4"
+}

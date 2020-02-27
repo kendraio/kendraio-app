@@ -1,0 +1,50 @@
+
+    <div class="toolbar">
+      <button type="button" mat-icon-button (click)="toggleExpand()" [matTooltip]="isExpanded ? 'Shrink' : 'Expand'">
+        <mat-icon>{{ isExpanded ? 'arrow_right' : 'arrow_left' }}</mat-icon>
+      </button>
+      <button type="button" mat-icon-button (click)="closeSidenav.emit()" matTooltip="Close">
+        <mat-icon>close</mat-icon>
+      </button>
+      <button type="button" mat-icon-button (click)="workflow.clearBlocks()" matTooltip="Clear workflow">
+        <mat-icon>delete_forever</mat-icon>
+      </button>
+      <button type="button" mat-icon-button (click)="workflow.clearWorkflowData()" matTooltip="Clear workflow data">
+        <app-kendraio-icon icon="fa-eraser"></app-kendraio-icon>
+      </button>
+      <button type="button" mat-icon-button (click)="workflow.shareConfig()" matTooltip="Share">
+        <mat-icon>share</mat-icon>
+      </button>
+      <button type="button" mat-icon-button (click)="workflow.loadFromAdapter()" matTooltip="Load from Adapter">
+        <mat-icon>open_in_browser</mat-icon>
+      </button>
+      <button type="button" mat-icon-button (click)="workflow.saveToAdapter()" matTooltip="Save">
+        <mat-icon>save_alt</mat-icon>
+      </button>
+      <button type="button" mat-icon-button (click)="workflow.copyConfig()" matTooltip="Copy config">
+        <mat-icon>content_copy</mat-icon>
+      </button>
+      <button type="button" mat-icon-button (click)="workflow.pasteConfig()" matTooltip="Paste config">
+        <mat-icon>content_paste</mat-icon>
+      </button>
+<!--      <button type="button" mat-icon-button (click)="workflow.download()" matTooltip="Download">-->
+<!--        <mat-icon>cloud_download</mat-icon>-->
+<!--      </button>-->
+      <button type="button" mat-icon-button (click)="workflow.upload()" matTooltip="Upload">
+        <mat-icon>cloud_upload</mat-icon>
+      </button>
+    </div>
+
+    <mat-card class="adapter-metadata">
+      <div class="metadata-edit">
+        <button type="button" mat-icon-button (click)="workflow.editMetadata()" matTooltip="Edit metadata">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+      <p>
+        Title: {{ workflow.title }}<br>
+        Adapter: {{ workflow.getAdapterName() }}<br>
+        Workflow ID: {{ workflow.id }}
+      </p>
+    </mat-card>
+    <app-blocks-editor [blocks]="workflow.blocks" (blockUpdate)="workflow.onBlocksUpdate($event)"></app-blocks-editor>

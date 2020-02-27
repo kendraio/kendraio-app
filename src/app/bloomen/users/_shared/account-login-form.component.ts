@@ -8,8 +8,10 @@ import { Component, HostBinding, OnChanges, OnDestroy, OnInit, SimpleChanges, In
 import { IUser } from 'src/app/_models/classes';
 import { PasswordValidation, PasswordStrength } from 'src/app/_shared/directives/passwordValidation';
 import { Subscription } from 'rxjs';
-import { DynamicFormModel, DynamicFormLayout, DynamicFormService } from '@ng-dynamic-forms/core';
+ import { DynamicFormModel, DynamicFormLayout, DynamicFormService } from '@ng-dynamic-forms/core';
 import { LOGIN_FORM_MODEL } from '../../_shared/form-models/login-form.modal';
+import { LOGIN_FORM_LAYOUT } from '../../_shared/form-models/login-form.layout';
+import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 
 @Component({
   selector: 'app-account-login-form',
@@ -41,11 +43,11 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
   passwordPattern: RegExp = /^(?=.*[a-z])(?=.*[A-Z]).{8,30}$/g;
   private userFormChanges: any;
   sub: Subscription;
-
   formGroupNew: FormGroup;
-  // formLayout: DynamicFormLayout = FORM_LAYOUT;
-
-  formModel: DynamicFormModel = LOGIN_FORM_MODEL;
+  form = new FormGroup({});
+  model: any = {};
+  options: FormlyFormOptions = {};
+  public fields: FormlyFieldConfig[]
 
   constructor(
     private route: ActivatedRoute,
@@ -54,10 +56,11 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
     private formService: DynamicFormService
   ) {
     // this.passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!+_#\-&$£*])(?=.*[0-9])$/g
+    // this.formGroupNew = this.formService.createFormGroup(this.formModel);
   }
-  
 
-  ngOnInit() {   
+
+  ngOnInit() {
     this.loginForm = this.fb.group({
       currentPassword: 'Whollop-99', //currentPasswordCtrl,
       password: ['Whollop99', [
@@ -67,7 +70,7 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
       ]],
       confirmPassword: [{ value: 'Whollop99', disabled: true}, [Validators.required]],
       username: [{ value: 'Whollop99'}, [Validators.required, Validators.minLength(4)]]
-    }, 
+    },
     {
         validator: PasswordValidation.MatchPassword
       });
@@ -81,15 +84,15 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
     }
 
     this.showPassword = false;
-    const passwordStatusChange$ = this.passwordCtrl.statusChanges;
-    passwordStatusChange$.pipe(distinctUntilChanged()).subscribe(
-      status => {
-        if (status === 'INVALID') {
-          this.confirmPassword.disable();
-        } else if (status === 'VALID') {
-          this.confirmPassword.enable();
-        }
-      });
+    // const passwordStatusChange$ = this.password2.statusChanges;
+    // passwordStatusChange$.pipe(distinctUntilChanged()).subscribe(
+    //   status => {
+    //     if (status === 'INVALID') {
+    //       // this.confirmPassword2.disable();
+    //     } else if (status === 'VALID') {
+    //       this.confirmPassword2.enable();
+    //     }
+    //   });
 
       this.sub = this.loginForm.valueChanges
       .pipe(
@@ -102,15 +105,33 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
 
       });
 
-      this.formGroupNew = this.formService.createFormGroup(this.formModel);
+//        this.sub.add(
+// this.password2.statusChanges.subscribe(
+//   (val) => {
+//     this.confirmPassword2.enable();
+// })
+
+//        );
+
+      // this.formGroupNew = this.formService.createFormGroup(this.formModel);
+      // this.formGroupNew.get('password').setValidators(
+      //   PasswordStrength.strong
+      // );
 
   }
-  get password() {
-    return this.loginForm.get('password');
-  }
-  get confirmPassword() {
-    return this.loginForm.get('confirmPassword');
-  }
+  // get password2() {
+  //   return this.formGroupNew.get('passwordSetterGroup.password');
+  // }
+  // get confirmPassword2() {
+  //   return this.formGroupNew.get('passwordSetterGroup.confirmPassword');
+  // }
+
+  // get password() {
+  //   return this.loginForm.get('password');
+  // }
+  // get confirmPassword() {
+  //   return this.loginForm.get('confirmPassword');
+  // }
   ngOnDestroy() {
     //   this.userFormChanges.unsubscribe() //TODO!!!
   }
@@ -124,6 +145,23 @@ export class AccountLoginFormComponent implements OnInit, OnDestroy {
       this.onSubmit.emit(this.loginForm.value);
     }
 
+  }
+
+
+  onBlur($event) {
+    console.log(`Material blur event on: ${$event.model.id}: `, $event);
+  }
+
+  onChange($event) {
+    console.log(`Material change event on: ${$event.model.id}: `, $event);
+  }
+
+  onFocus($event) {
+    console.log(`Material focus event on: ${$event.model.id}: `, $event);
+  }
+
+  onMatEvent($event) {
+    console.log(`Material ${$event.type} event on: ${$event.model.id}: `, $event);
   }
 
 }

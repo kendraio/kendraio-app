@@ -2,138 +2,90 @@ import { MenuItem } from 'src/app/_models/classes/common';
 
 export const MENUITEMS: MenuItem[] = [
   {
-    path: '/dashboard',
-    label: {'de': 'Instrumententafel' , 'fr': '', 'en-US': 'dashboard' },
-    icon: 'dashboard',
-  },
-  {
-    label: {'de': 'Vermögenswerte' , 'fr': '', 'en-US': 'assets'},
-    icon: 'favorite',   
+    label: 'assets',
+    icon: 'favorite',
     path: '/assets',
     children: [
       {
-        label: {'de': 'Veröffentlichungen' , 'fr': '', 'en-US': 'Releases'},
-        icon: 'radio', 
+        label: 'Releases',
+        icon: 'radio',
         path: 'assets/releases',
         children: [
           {
-            label: {'de': 'Liste' , 'fr': '', 'en-US': 'List'},
-            icon: 'list', 
+            label: 'List',
+            icon: 'list',
             path: 'assets/releases/list',
           },
           {
-            label: {'de': 'Aufgaben' , 'fr': '', 'en-US': 'Tasks'},
-            icon: 'list', 
+            label: 'Tasks',
+            icon: 'list',
             path: 'assets/releases/tasks',
           }
         ]
       },
       {
-        label: {'de': 'Aufnahmen' , 'fr': '', 'en-US': 'Recordings'},
-        icon: 'library_music', 
+        label: 'Recordings',
+        icon: 'library_music',
         path: 'assets/recordings',
       },
       {
-        label: {'de': 'Dateien' , 'fr': '', 'en-US': 'files.title'},
-        icon: 'library_music', 
+        label: 'files.title',
+        icon: 'library_music',
         path: 'assets/files',
       },
       {
-        label: {'de': 'Arbeitet' , 'fr': '', 'en-US': 'works.title'},
-        icon: 'library_music', 
+        label: 'works.title',
+        icon: 'library_music',
         path: 'assets/works',
       }
     ]
   },
 
   {
-    label: {'de': 'Services' , 'fr': '', 'en-US': 'Services'},
-    icon: 'live_tv',   
-    path: '/channels',
-    children: [
-      {
-        path: '/bloomen',
-        label: {'de': 'Bloomen' , 'fr': '', 'en-US': 'Bloomen'},
-        icon: 'brightness_5',
-        children: [
-          {
-            label: {'de': 'Menschen' , 'fr': '', 'en-US': 'Users'},
-            icon: 'people', 
-            path: 'bloomen/users',
-         
-          children: [
-            {
-              label: {'de': 'Menschen' , 'fr': '', 'en-US': 'register'},
-              icon: 'people', 
-              path: 'bloomen/users/register',
-            }
-          ]
-        }
-        ]
-      },
-      {        
-          path: '../youtube',
-          label: {'de': 'Ansprüche' , 'fr': '', 'en-US': 'YouTube'},
-          icon: 'attach_money'
-        },
-        {        
-          path: 'channels/spotify',
-          label: {'de': 'Spotify' , 'fr': '', 'en-US': 'Spotify'},
-          icon: 'attach_money'
-        },
-      
-  ]
-},
-
-
-
-
-
-
-  {
     path: '/claims',
-    label: {'de': 'Ansprüche' , 'fr': '', 'en-US': 'claims'},
+    label:  'claims',
     icon: 'attach_money'
   },
   {
     path: '/tasks',
-    label: {'de': 'Aufgaben' , 'fr': '', 'en-US': 'tasks'},
+    label:  'tasks',
     icon: 'alarm_on'
   },
   {
     path: '/reports',
-    label: {'de': 'Berichte' , 'fr': '', 'en-US': 'reports.title'},
+    label: 'reports.title',
     icon: 'assignment'
   },
   {
-    label: {'de': 'Kontakte' , 'fr': '', 'en-US': 'contacts.title'},
-    icon: 'contacts',   
+    label:  'contacts.title',
+    icon: 'contacts',
     path: '/contacts',
     children: [
       {
-        label: {'de': 'Menschen' , 'fr': '', 'en-US': 'contacts.people'},
-        icon: 'people', 
+        label:  'contacts.people',
+        icon: 'people',
         path: 'contacts/people',
       },
       {
-        label: {'de': 'Organisationen' , 'fr': '', 'en-US': 'contacts.organisations'},
-        icon: 'business', 
+        label:  'contacts.organisations',
+        icon: 'business',
         path: 'contacts/organisations',
       }
     ]
   },
   {
     path: '/import',
-    label: {'de': 'Einführen' , 'fr': '', 'en-US': 'Import'},
+    label:  'import',
     icon: 'import_export',
+
     children: [
       {
-        label: {'de': 'Prüfung' , 'fr': '', 'en-US': 'Test API'},
+        label: 'Test API',
         icon: 'import_export',
-        path: 'test-api',
+        path: 'example/test-api',
       },
       {
-        label: {'de': 'Prüfung' , 'fr': '', 'en-US': 'Bloomen API'},
+        label: 'Bloomen API',
         icon: 'import_export',
         path: 'bloomen-api',
       },
@@ -141,7 +93,7 @@ export const MENUITEMS: MenuItem[] = [
   },
   {
     path: '/upload',
-    label: {'de': 'Hochladen' , 'fr': '', 'en-US': 'upload.title'},
+    label: 'upload.title',
     icon: 'cloud_upload'
   },
   // {
@@ -149,30 +101,11 @@ export const MENUITEMS: MenuItem[] = [
   //   label: 'Processes',
   //   icon: 'bubble_chart'
   // },
+
   {
-    path: '/adapters',
-    label: {'de': 'Instrumententafel' , 'fr': '', 'en-US': 'Adapters'},
-    icon: 'extension'
-  },
-  {
-    path: '/settings',
-    label: {'de': 'die Einstellungen' , 'fr': '', 'en-US': 'settings'},
-    icon: 'settings'
-  },
-  {
-    path: '/docs',
-    label: {'de': 'Datenbank' , 'fr': '', 'en-US': 'Database'},
+    path: '/example/view-imported-data',
+    label: 'database',
     icon: 'storage'
-  },
-  {
-    path: '/user',
-    label: {'de': 'Identitäten' , 'fr': '', 'en-US': 'Identities'},
-    icon: 'person'
   }
 ];
-
-
-
-
-
 

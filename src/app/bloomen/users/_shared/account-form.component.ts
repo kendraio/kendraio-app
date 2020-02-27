@@ -16,8 +16,12 @@ import {
 
 // import { AnimationService } from '../../_shared/animations/animation.service';
 import { Observable, of, Subscription } from 'rxjs';
-import { ValidationService } from 'src/app/_shared/services/validation.service';
+// import { ValidationService } from 'src/app/_shared/services/validation.service';
 import { IUser } from 'src/app/_models/classes';
+import { KendraioFormService } from 'src/app/_shared/ui-form/services/kendraio.form.service';
+import { FormlyFieldConfig } from '@ngx-formly/core';
+
+import { FULLNAME, EMAIL, MESSAGE, TYPEAHEAD } from '../../../_shared/ui-form/schemas/form-elements';
 
 // import { environment } from 'environments/environment';
 @Component({
@@ -49,7 +53,14 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
   subTitle: string;
   showNamer = false;
   // user: IUser;
-  userForm: FormGroup;
+  // userForm: FormGroup;
+  public userForm = new FormGroup({});
+  public fields: FormlyFieldConfig[] = [
+    // ...this.formService.getDefaultForm()
+  ];
+
+
+
   crumb: string;
   // private userFormChanges: any;
   private emailSub: Subscription;
@@ -60,53 +71,34 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
   originalEmail: string;
   // EMAIL_REGEXP = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
   EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
   TEL_REGEX = /^[\d\s]+$/i;
-
   now: string;
   firstname: FormControl;
   lastname: FormControl;
   telephone: FormControl;
   sub: Subscription;
+  model: {};
+  dataFromFakeData: {};
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private _fb: FormBuilder,
-    private validationService: ValidationService
+    private fb: FormBuilder,
+    private formService: KendraioFormService,
+    // private fullnamex = FULLNAME,
+    // private validationService: ValidationService
   ) {
-     this.createForm();
+
   }
   // updateOn: 'blur' USE THIS TODO:
 
   getErrorMessage() {
     return this.email.hasError('required') ? 'You must enter a value' :
-        this.email.hasError('pattern') ? 'Not a valid email' :
-            '';
+      this.email.hasError('pattern') ? 'Not a valid email' :
+        '';
   }
 
-  createForm() {
-    this.email = new FormControl('test@test.com', [Validators.required, Validators.email]);
-    this.firstname = this._fb.control('', [
-      Validators.required,
-      Validators.minLength(2)
-    ]);
-    this.lastname = this._fb.control('lastName', [
-      Validators.required,
-      Validators.minLength(2)
-    ]);
-    this.telephone = this._fb.control('999-999-999', [
-      Validators.required,
-      Validators.minLength(8)
-    ]);
-    this.userForm = this._fb.group({
-      // bloomenRef: this.now,
-        firstname: this.firstname,
-        lastname: this.lastname,
-        email: this.email,
-        telephone: this.telephone,
-    });
-  }
+
   get address(): any {
     return this.userForm.get('address');
   }
@@ -115,35 +107,15 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
   }
   ngOnInit() {
     this.now = (Math.floor(Math.random() * 9999) + 1).toString(); // Date().toString();
-    this.createForm();
-    this.emailChanges$ = this.email.valueChanges;
+
+    // this.emailChanges$ = this.email.valueChanges;
     // this.currentUser$ = this.currentUser;
     this.subTitle = this.route.snapshot.data['subTitle'];
     this.crumb = this.route.snapshot.data['crumbs'];
-    this.emailSub = this.emailChanges$
-      .pipe(
-        distinctUntilChanged(),
-        debounceTime(400),
-        tap(() => {
-          this.isUnique = false;
-          this.email.setValidators([
-            Validators.required,
-            Validators.minLength(8),
-            Validators.pattern(this.EMAIL_REGEXP)
-          ]);
-          this.email.updateValueAndValidity();
-          this.isLoading = true;
-          this.msg = null;
-        })
-      )
-      .pipe(debounceTime(400))
-      .subscribe(val => {
-        // this.checkEmailName(this.email.value);
-        this.isLoading = false;
-      });
 
 
-      this.sub = this.userForm.valueChanges
+
+    this.sub = this.userForm.valueChanges
       .pipe(
         distinctUntilChanged(),
         debounceTime(600)
@@ -158,9 +130,57 @@ export class AccountFormComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges() {
-console.log('ive changed')
+    console.log('ive changed')
   }
 
+
+     makePropSetter<T>(prop: string): (val: T) => T {
+      return function(val) {
+        this.props[prop] = val;
+        return val;
+      }
+    }
+
+
+  public switchForm(id) {
+
+    const mappedFields = [
+      { 'field': 'FULLNAME', 'enabled': false },
+      { 'field': 'EMAIL', 'enabled': false },
+    ];
+
+    const myFields = [
+      // FULLNAME(false, data['fullname']),
+      // EMAIL(false, data['email']),
+    ];
+
+
+//     this.formService.getYoutubeData()
+//       .subscribe(newValue => {
+//         this.dataFromFakeData = newValue;
+//         this.fields = this.formService.getJSONFormById(id, false);
+//         this.model = {};
+//         mappedFields.forEach(v => {
+//           // const fname: any = ;
+// // console.log(this.fullnamex)
+//               // v['field'](false, this.dataFromFakeData['fullname']);
+//               // this[v.field.toLowerCase()]();
+//         });
+//         this.fields = this.formService.getFormById(id, false, this.dataFromFakeData);
+//       });
+
+  }
+
+  public FULLNAME() {
+    console.log('gggg');
+  }
+
+
+  public modelChange(e) {
+  }
+
+  public detailsModelChange(e) {
+  }
   // checkEmailName(val: string): void {
   //   if (this.email.valid && this.email.value !== this.originalEmail) {
   //     const sub = this.validationService
@@ -186,7 +206,7 @@ console.log('ive changed')
     this.email.updateValueAndValidity();
     this.isLoading = false;
   }
-  onEmailChange() {}
+  onEmailChange() { }
 
   submit() {
     if (this.userForm.valid) {
@@ -207,7 +227,7 @@ console.log('ive changed')
 
   ngOnDestroy() {
     // this.userFormChanges.unsubscribe() // TODO!!
-    this.emailSub.unsubscribe();
+    // this.emailSub.unsubscribe();
   }
 
   toggleLogin() {

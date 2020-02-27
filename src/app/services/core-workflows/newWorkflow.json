@@ -1,0 +1,70 @@
+{
+  "title": "New Workflow",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "mapping",
+      "mapping": "{ workflowId: 'myWorkflow', title: 'My Workflow', adapterName: context.queryParams.adapterName }"
+    },
+    {
+      "type": "form",
+      "hasSubmit": false,
+      "emitOnInit": true,
+      "jsonSchema": {
+        "type": "object",
+        "properties": {
+          "workflowId": {
+            "type": "string",
+            "title": "Workflow ID",
+            "default": "myWorkflow",
+            "description": "camelCase, no spaces"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title",
+            "default": "My Workflow",
+            "description": "Human-friendly title"
+          },
+          "adapterName": {
+            "type": "string",
+            "title": "Adapter"
+          }
+        }
+      },
+      "uiSchema": {}
+    },
+    {
+      "type": "debug",
+      "open": 1,
+      "showContext": false
+    },
+    {
+      "type": "actions",
+      "buttons": [
+        {
+          "label": "Add workflow",
+          "color": "primary",
+          "blocks": [
+            {
+              "type": "dispatch",
+              "action": "addNewWorkflow"
+            },
+            {
+              "type": "launch",
+              "adapter": "core",
+              "workflowId": "adapters"
+            },
+            {
+              "type": "dispatch",
+              "action": "refreshWorkflow"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "id": "newWorkflow",
+  "adapterName": "core"
+}

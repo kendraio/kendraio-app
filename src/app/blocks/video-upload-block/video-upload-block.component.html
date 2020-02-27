@@ -1,0 +1,36 @@
+<div style="text-align:center">
+
+  <h1 *ngIf="allComplete"> All Complete! </h1>
+
+  <section style="margin:1rem">
+    <button mat-raised-button (click)="openInput()">
+      Select Videos to Upload
+    </button>
+
+
+    <input id="video" type="file" hidden class="file-input" mat-raised-button #file name="video" accept="video/*"
+      multiple (change)="fileChange($event.target.files)">
+
+    <button mat-raised-button color="primary" (click)="start(file.files);"> Upload </button>
+
+    <div *ngIf="!allComplete">{{statusMsg}} </div>
+
+
+    <h2>{{percentage}} % complete</h2>
+
+    <div *ngFor="let file of pendingFiles; index as i">
+
+      uploading: {{file.video.name }} ({{file.video.size }} bytes )
+
+    </div>
+
+    <div *ngFor="let file of pendingFiles; index as i">
+      <a target="_blank" href="{{file.path}}"> Click to view </a>
+    </div>
+
+
+  </section>
+</div>
+
+<mat-progress-bar mode="determinate" value="{{percentage}}"> </mat-progress-bar>
+Total Complete {{percentage}}

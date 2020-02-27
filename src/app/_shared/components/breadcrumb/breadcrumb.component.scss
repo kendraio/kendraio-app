@@ -3,8 +3,12 @@
   }
   .breadcrumb li+li:before {
     content: " > ";
- 
+
   }
   .breadcrumb{
     padding: 20px;
   }
+
+.breadcrumb:empty {
+  display: none;
+}

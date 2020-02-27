@@ -61,7 +61,7 @@ this.allFormsVaild = this.logonFormIsVaild && this.regFormIsVaild;
     // setTimeout(() => {
 
     // if (event.valid) {
-    //   this[form].patchValue(event.value);        
+    //   this[form].patchValue(event.value);
     // }
     // this.name.setErrors({ invalid: true, valid: false, badword: true })
     // this[form].setErrors({ invalid: false});

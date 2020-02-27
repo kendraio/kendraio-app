@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  urlPrefix: 'http://localhost:4200/',
   production: false,
+  adapterBaseUrl: 'https://kendraio.github.io/kendraio-adapter/',
   adapterConfig: 'https://kendraio.github.io/kendraio-adapter/config.json',
   auth0: {
     clientID: 'BpSIsaDagBnDpAZyfJOVoAqG1r041Nj7',
@@ -12,7 +14,10 @@ export const environment = {
     audience: 'https://kendraio.eu.auth0.com/api/v2/',
     redirectUri: 'http://localhost:4200/callback',
     scope: 'openid profile'
-  }
+  },
+  workflowStoreUrl: 'https://us-central1-kendraioworkflowstorage.cloudfunctions.net/api',
+  authProxyUrl: 'https://kendraio-auth0-proxy.now.sh/',
+  // authProxyUrl: 'http://localhost:3000/'
 };
 
 /*

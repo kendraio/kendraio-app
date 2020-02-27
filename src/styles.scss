@@ -1,4 +1,4 @@
-
+@import "~@fortawesome/fontawesome-free/css/all.css";
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @import '~@angular/material/theming';
@@ -27,7 +27,7 @@ $kendraio-app-theme: mat-light-theme($kendraio-app-primary, $kendraio-app-accent
 @include angular-material-theme($kendraio-app-theme);
 
 
-html, body { height: 100%; }
+html, body { height: 100%; overflow: hidden; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .mb-1 {
@@ -39,4 +39,57 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 dynamic-material-form-control .mat-form-field {
   width: 100%;
+}
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+
+.in {
+  display: block;
+}
+.out {
+  display: none;
+}
+
+.schedule-popup{
+  // display:none;
+  position: absolute;
+  box-shadow: 3px 3px 3px rgba(55,3, 3, .5);
+  padding: 16px;
+  background-color: silver;
+transform: translatey(-80px);
+transition: all 2s ease;
+z-index: 9;
+&.in{
+  display: block;
+//  transform: translate(80px,-80px);
+}
+}
+
+.editor-config-column .mat-expansion-panel-body {
+  padding: 0;
+}
+
+app-workflow-cell-renderer app-actions-block.block-wrapper {
+  margin: 0;
+}
+
+.batch-block-flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.tag-list {
+  font-size: 0.8em;
+  margin-bottom: 0.4em;
+  .tag {
+    background: #eee;
+    padding: 0.2em 0.4em;
+    border-radius: 0.4em;
+    margin-right: 0.4em;
+  }
+  .version-tag {
+    background-color: #7fbbe3;
+  }
 }

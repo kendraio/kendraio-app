@@ -1,0 +1,79 @@
+{
+  "title": "My YouTube Play Lists",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "db",
+      "operation": "get",
+      "adapterName": "YouTube",
+      "schema": "my-playlist"
+    },
+    {
+      "type": "form",
+      "hasSubmit": false,
+      "jsonSchema": {
+        "title": "My Play Lists",
+        "type": "object",
+        "required": [],
+        "properties": {
+          "tasks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "title",
+                "visibility"
+              ],
+              "properties": {
+                "required": [
+                  "title"
+                ],
+                "title": {
+                  "type": "string",
+                  "title": "Title",
+                  "description": "A sample title"
+                },
+                "visibility": {
+                  "type": "string",
+                  "title": "Visibility",
+                  "enum": [
+                    "Private",
+                    "Public",
+                    "Unlisted"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "uiSchema": {
+       
+      }
+    },
+    {
+      "type": "debug",
+      "open": 1,
+      "showContext": false
+    },
+    {
+      "type": "actions",
+      "buttons": [
+        {
+          "label": "Add new PlayList",
+          "blocks": [
+            {
+              "type": "db",
+              "operation": "add",
+              "adapterName": "YouTube",
+              "schema": "my-playlist"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "id": "playlists"
+}

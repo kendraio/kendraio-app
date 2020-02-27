@@ -56,19 +56,30 @@
       },
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "ngx-build-plus:browser",
           "options": {
-            "outputPath": "docs",
+            "aot": true,
+            "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
+              "src/browserconfig.xml",
+              "src/apple-touch-icon.png",
+              "src/apple-touch-icon-precomposed.png",
+              "src/mstile-150x150.png",
               "src/assets",
-              "src/manifest.json"
+              "src/manifest.json",
+              {
+                "glob": "**/*",
+                "input": "node_modules/ngx-monaco-editor/assets/monaco",
+                "output": "./assets/monaco/"
+              }
             ],
             "styles": [
+              "node_modules/@fortawesome/fontawesome-free/css/all.css",
               "node_modules/ag-grid-community/dist/styles/ag-grid.css",
               "node_modules/ag-grid-community/dist/styles/ag-theme-material.css",
               "node_modules/swagger-ui/dist/swagger-ui.css",
@@ -77,27 +88,12 @@
               "src/styles/main.scss"
             ],
             "scripts": [
-              "node_modules/auth0-js/build/auth0.js"
+              "node_modules/@fortawesome/fontawesome-free/js/all.js",
+              "node_modules/auth0-js/build/auth0.js",
+              "node_modules/json-schema-faker/dist/bundle.umd.min.js"
             ]
           },
           "configurations": {
-
-            "de": {
-              "aot": true,
-              "outputPath": "dist/kendraio-app-de/",
-              "baseHref": "/de/",
-              "i18nFile": "src/locale/messages.de.xlf",
-              "i18nFormat": "xlf",
-              "i18nLocale": "de"           
-            },
-            "fr": {
-              "aot": true,
-              "i18nLocale": "fr"           
-            },
-        
-        
-
-
             "production": {
               "fileReplacements": [
                 {
@@ -122,11 +118,36 @@
                 }
               ],
               "serviceWorker": true
+            },
+            "dev": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb",
+                  "maximumError": "10mb"
+                }
+              ],
+              "serviceWorker": true
             }
           }
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "ngx-build-plus:dev-server",
           "options": {
             "browserTarget": "kendraio-app:build"
           },
@@ -134,12 +155,10 @@
             "de": {
               "browserTarget": "kendraio-app:build:de",
               "baseHref": "/de/"
-      
             },
             "fr": {
               "browserTarget": "kendraio-app:build:fr"
             },
-
             "production": {
               "browserTarget": "kendraio-app:build:production"
             }
@@ -152,7 +171,7 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "ngx-build-plus:karma",
           "options": {
             "main": "src/test.ts",
             "polyfills": "src/polyfills.ts",
@@ -238,6 +257,41 @@
             "tsConfig": [
               "projects/ngx-tagger/tsconfig.lib.json",
               "projects/ngx-tagger/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ngx-image-tagger": {
+      "projectType": "library",
+      "root": "projects/ngx-image-tagger",
+      "sourceRoot": "projects/ngx-image-tagger/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-image-tagger/tsconfig.lib.json",
+            "project": "projects/ngx-image-tagger/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-image-tagger/src/test.ts",
+            "tsConfig": "projects/ngx-image-tagger/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-image-tagger/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-image-tagger/tsconfig.lib.json",
+              "projects/ngx-image-tagger/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

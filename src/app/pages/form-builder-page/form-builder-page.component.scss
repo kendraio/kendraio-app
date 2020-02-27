@@ -1,0 +1,39 @@
+.editor-title {
+  font-size: 0.8rem;
+  background-color: whitesmoke;
+  color: #1e1e1e;
+  padding: 0.5rem;
+  display: block;
+  user-select: none;
+}
+.editor-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.editor-panels {
+  margin-right: 1rem;
+}
+.editor-column {
+  flex: 1;
+}
+.model-wrapper {
+  max-width: 420px;
+}
+.model-output {
+  color: #1e1e1e;
+  background-color: whitesmoke;
+  padding: 0.0rem 0.5rem 0.5rem;
+  overflow-y: auto;
+}
+.json-code-editor {
+  height: 600px;
+}
+.form-actions {
+  margin-top: 1em;
+}
+.uischema-editor {
+  height: 500px;
+}
+

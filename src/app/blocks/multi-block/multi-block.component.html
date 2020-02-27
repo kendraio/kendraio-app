@@ -1,0 +1,3 @@
+<div class="multi-wrapper" *ngFor="let batch of batches; let i = index">
+  <app-blocks-workflow [blocks]="batch.blocks" [models]="modelStacks[i]" [context]="context" (workflowComplete)="onWorkflowComplete(i, $event)"></app-blocks-workflow>
+</div>

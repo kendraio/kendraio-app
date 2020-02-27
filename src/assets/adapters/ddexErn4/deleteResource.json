@@ -1,0 +1,54 @@
+{
+  "title": "Delete resource",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "db",
+      "operation": "fetch",
+      "uuidGetter": "context.queryParams.uuid"
+    },
+    {
+      "type": "mapping",
+      "mapping": "data[0]"
+    },
+    {
+      "type": "debug",
+      "showContext": true
+    },
+    {
+      "type": "message",
+      "message": "Are you sure you want to delete {{Type}} {{ DisplayTitleText }} with UUID: {{ context.queryParams.uuid }}?"
+    },
+    {
+      "type": "actions",
+      "buttons": [
+        {
+          "label": "Delete",
+          "color": "warn",
+          "blocks": [
+            {
+              "type": "db",
+              "operation": "delete",
+              "uuidGetter": "context.queryParams.uuid"
+            }
+          ]
+        },
+        {
+          "label": "Cancel",
+          "blocks": [
+            {
+              "type": "init"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "launch",
+      "adapter": "ddexErn4",
+      "workflowId": "resourceList"
+    }
+  ]
+}

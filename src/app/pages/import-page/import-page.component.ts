@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PageTitleService } from '../../services/page-title.service';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ImportProgressDialogComponent } from '../../dialogs/import-progress-dialog/import-progress-dialog.component';
 import { AddNewNodeDialogComponent } from '../../dialogs/add-new-node-dialog/add-new-node-dialog.component';
 import { HttpClient } from '@angular/common/http';
@@ -27,7 +27,7 @@ export class ImportPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.pageTitle.setTitle('Import data');
+    this.pageTitle.setTitle('importPage.pageTitle');
   }
 
   fileSelected(event) {

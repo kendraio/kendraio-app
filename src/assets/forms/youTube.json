@@ -1,0 +1,15 @@
+
+{
+  "id": "YOUTUBE",
+  "template": [
+    {
+      "wrappers": "['panel']",
+      "templateOptions": {
+        "label": "YouTube"
+      },
+      "fieldGroup": [
+        "FULLNAME(false)"
+      ]
+    }
+  ]
+}

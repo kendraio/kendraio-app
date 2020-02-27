@@ -1,0 +1,69 @@
+{
+  "title": "DDEX dashboard",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "multi",
+      "batches": [
+        {
+          "blocks": [
+            {
+              "type": "db",
+              "operation": "get",
+              "adapterName": "ddexErn4",
+              "schema": "resource"
+            }
+          ]
+        },
+        {
+          "blocks": [
+            {
+              "type": "db",
+              "operation": "get",
+              "adapterName": "ddexErn4",
+              "schema": "party"
+            }
+          ]
+        },
+        {
+          "blocks": [
+            {
+              "type": "db",
+              "operation": "get",
+              "adapterName": "ddexErn4",
+              "schema": "release"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "mapping",
+      "//debug": true,
+      "mapping": {
+        "[": [
+          {
+            "label": "'Party (contributor) records'",
+            "value": "length(data[1])"
+          },
+          {
+            "label": "'Resources'",
+            "value": "length(data[0])"
+          },
+          {
+            "label": "'Releases (including tracks)'",
+            "value": "length(data[2])"
+          }
+        ]
+      }
+    },
+    {
+      "type": "debug"
+    },
+    {
+      "type": "chart"
+    }
+  ]
+}

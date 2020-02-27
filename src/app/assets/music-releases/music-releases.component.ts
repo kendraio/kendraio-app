@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { IMusicRelease } from 'src/app/_models/classes/musicRelease';
 import { GridOptions } from 'ag-grid-community';
 import { PageTitleService } from 'src/app/services/page-title.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { MusicReleasesEditComponent } from './music-releases-edit/music-releases-edit.component';
 import { TestDataService } from 'src/app/services/test-data.service';
 import { MatInputComponent, MatButtonComponent } from 'src/app/_shared/components';
@@ -23,7 +23,7 @@ import { ActivatedRoute } from '@angular/router';
   styles: [` 
   dynamic-material-form[fxLayoutAlign] { padding:10px; padding-left: 25px;}
   `],
-  animations: [Animations.pageAni]
+  animations: [Animations.kendraAnimations]
 })
 export class ReleasesComponent implements OnInit {
   public gridOptions: GridOptions;

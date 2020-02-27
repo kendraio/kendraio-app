@@ -1,0 +1,299 @@
+[{
+  "ISWC": "T9204649558",
+  "originalTitle": "SHAPE OF YOU",
+  "creators": [{
+    "name": "SHEERAN ED",
+    "IPINameNumber": "00583552527",
+    "role": "ComposerLyricist"
+  },
+    {
+      "name": "MCDAID JOHN",
+      "IPINameNumber": "00412720203",
+      "role": "ComposerLyricist"
+    },
+    {
+      "name": "MAC STEVE",
+      "IPINameNumber": "00257395141",
+      "role": "ComposerLyricist"
+    },
+    {
+      "name": "COTTLE TAMEKA D",
+      "IPINameNumber": "00338239158",
+      "role": "ComposerLyricist"
+    },
+    {
+      "name": "BURRUSS KANDI L",
+      "IPINameNumber": "00338170958",
+      "role": "ComposerLyricist"
+    },
+    {
+      "name": "BRIGGS KEVIN",
+      "IPINameNumber": "00344353278",
+      "role": "ComposerLyricist"
+    }],
+  "alternativeTitles": ["SHAPE OF YOU (STORMZY REMIX)", "SHAPE OF YOU [OFFICIAL LYRIC VIDEO]", "SHAPE OF YOU (LIVE FROM THE 59TH GRAMMYS)", "SHAPE OF YOU - ACOUSTIC"],
+  "associatedPerformers": ["WALK OFF THE EARTH", "WALE FEATURING ED SHEERAN", "SING2PIANO", "SHEERAN ED", "MADILYN BAILEY", "GALANTIS", "FAME ON FIRE", "ED SHEERAN", "BOYCE AVENUE"],
+  "associatedISRCs": ["GBAHS1600463", "GBAHS1700245", "GBAHS1700200", "GBAHS1700196", "GBAHS1700651"]
+},
+  {
+    "ISWC": "T9212781141",
+    "originalTitle": "WHATEVER IT TAKES",
+    "creators": [{
+      "name": "SERMON DANIEL WAYNE",
+      "IPINameNumber": "00595230537",
+      "role": "ComposerLyricist"
+    },
+      {
+        "name": "REYNOLDS DANIEL COULTER",
+        "IPINameNumber": "00595230341",
+        "role": "ComposerLyricist"
+      },
+      {
+        "name": "PLATZMAN DANIEL",
+        "IPINameNumber": "00436938130",
+        "role": "ComposerLyricist"
+      },
+      {
+        "name": "MCKEE BENJAMIN ARTHUR",
+        "IPINameNumber": "00595231632",
+        "role": "ComposerLyricist"
+      },
+      {
+        "name": "LITTLE JOEL",
+        "IPINameNumber": "00454893516",
+        "role": "ComposerLyricist"
+      }],
+    "alternativeTitles": [],
+    "associatedPerformers": ["IMAGINE DRAGONS"],
+    "associatedISRCs": ["USUM71703515"]
+  },
+  {
+    "ISWC": "T9223130629",
+    "originalTitle": "HAVANA",
+    "creators": [{
+      "name": "WOTMAN ANDREW",
+      "IPINameNumber": "00690253248",
+      "role": "ComposerLyricist"
+    },
+      {
+        "name": "WILLIAMS PHARRELL L",
+        "IPINameNumber": "00243778641",
+        "role": "ComposerLyricist"
+      },
+      {
+        "name": "WILLIAMS JEFFERY LAMAR (MR)",
+        "IPINameNumber": "00664487309",
+        "role": "ComposerLyricist"
+      },
+      {
+        "name": "TAMPOSI ALI",
+        "IPINameNumber": "00667960984",
+        "role": "ComposerLyricist"
+      },
+      {
+        "name": "HAZZARD BRITTANY TALIA",
+        "IPINameNumber": "00573445632",
+        "role": "ComposerLyricist"
+      },
+      {
+        "name": "GUNESBERK KAAN",
+        "IPINameNumber": "00792661700",
+        "role": "ComposerLyricist"
+      },
+      {
+        "name": "FEENEY ADAM KING",
+        "IPINameNumber": "00526959902",
+        "role": "ComposerLyricist"
+      },
+      {
+        "name": "CABELLO CAMILA",
+        "IPINameNumber": "00828918003",
+        "role": "ComposerLyricist"
+      },
+      {
+        "name": "BELL LOUIS RUSSELL",
+        "IPINameNumber": "00555036361",
+        "role": "ComposerLyricist"
+      }],
+    "alternativeTitles": ["HAVANA FT. YOUNG THUG"],
+    "associatedPerformers": ["YOUNG THUG", "MIRANDA SINGS", "MADILYN BAILEY", "CAMILA CABELLO"],
+    "associatedISRCs": ["USSM11706905", "USSM11709272", "USSM11708094", "FR5PW1800047", "USRC11800580"]
+  },
+  {
+    "ISWC": "T9232235631",
+    "originalTitle": "DURA",
+    "creators": [{
+      "name": "ROMERO LUIS JORGE",
+      "IPINameNumber": "00567812616",
+      "role": "ComposerLyricist"
+    },
+      {
+        "name": "RIVERA VAZQUEZ JUAN G",
+        "IPINameNumber": "00573750530",
+        "role": "ComposerLyricist"
+      },
+      {
+        "name": "MOTA CEDENO URBANI",
+        "IPINameNumber": "00534522470",
+        "role": "ComposerLyricist"
+      },
+      {
+        "name": "AYALA RAMON L",
+        "IPINameNumber": "00339234559",
+        "role": "ComposerLyricist"
+      }],
+    "alternativeTitles": ["DURA (FEAT. BECKY G BAD BUNNY & NATTI NATASHA)", "DURA - REMIX", "DURA (REMIX)"],
+    "associatedPerformers": ["DJ JONATHAN", "DADDY YANKEE-BECKY G-BAD BUNNY-NATTI NATASHA", "DADDY YANKEE"],
+    "associatedISRCs": ["US2BU1700200", "US2BU1800400", "PEBQ91895969"]
+  },
+  {
+    "ISWC": "T0618257309",
+    "originalTitle": "FRIENDS",
+    "creators": [{
+      "name": "BOARDMAN RICHARD",
+      "IPINameNumber": "00466742231",
+      "role": "ComposerLyricist"
+    },
+      {
+        "name": "DUNN NATALIE MAREE",
+        "IPINameNumber": "00295393229",
+        "role": "ComposerLyricist"
+      },
+      {
+        "name": "NICHOLSON ANNE MARIE ROSE",
+        "IPINameNumber": "00678975070",
+        "role": "ComposerLyricist"
+      },
+      {
+        "name": "ANDERSON EDEN SAMUEL HARRY",
+        "IPINameNumber": "00607191852",
+        "role": "ComposerLyricist"
+      },
+      {
+        "name": "THOMPSON JASMINE YING",
+        "IPINameNumber": "00728784988",
+        "role": "ComposerLyricist"
+      },
+      {
+        "name": "BLANCHARD SARAH ELIZABETH",
+        "IPINameNumber": "00746382617",
+        "role": "ComposerLyricist"
+      },
+      {
+        "name": "BOWMAN PABLO",
+        "IPINameNumber": "00741716153",
+        "role": "ComposerLyricist"
+      },
+      {
+        "name": "MARSHMELLO",
+        "IPINameNumber": "00831814349",
+        "role": "ComposerLyricist"
+      }],
+    "alternativeTitles": ["FRIENDS (R3hab Remix)", "FRIENDS - A Boogie Wit Da Hoodie Remix", "FRIENDS (Borgeous Remix)", "FRIENDS (Justin Caruso Remix)"],
+    "associatedPerformers": ["MARSHMELLO AND ANNE-MARIE"],
+    "associatedISRCs": ["GBAHS1800025", "GBAHS1800153", "GBAHS1800258", "GBAHS1800240", "GBAHS1800439"]
+  },
+  {
+    "ISWC": "T9210705445",
+    "originalTitle": "PERFECT",
+    "creators": [{
+      "name": "SHEERAN EDWARD CHRISTOPHER",
+      "IPINameNumber": "00600664284",
+      "role": "ComposerLyricist"
+    }],
+    "alternativeTitles": ["Perfect - Robin Schulz Remix", "Perfect - Acoustic", "Perfect - Mike Perry Remix"],
+    "associatedPerformers": ["SHEERAN ED"],
+    "associatedISRCs": ["GBAHS1700024", "GBAHS1701189", "GBAHS1701083", "USSM11801982", "GBAHS1701146"]
+  },
+  {
+    "ISWC": "T9211077406",
+    "originalTitle": "ECHAME LA CULPA",
+    "creators": [{
+      "name": "LUIS FONSI",
+      "IPINameNumber": "00348019855",
+      "role": "ComposerLyricist"
+    },
+      {
+        "name": "RENGIFO MAURICIO",
+        "IPINameNumber": "00604067379",
+        "role": "ComposerLyricist"
+      },
+      {
+        "name": "00603835755",
+        "IPINameNumber": "RENGIFO ALEJANDRO",
+        "role": "ComposerLyricist"
+      },
+      {
+        "name": "TORRES ANDRES",
+        "IPINameNumber": "00702650868",
+        "role": "ComposerLyricist"
+      }],
+    "alternativeTitles": ["ACHAME LA CULPA", "Échame La Culpa - Not On You Remix"],
+    "associatedPerformers": ["DEMI LOVATO", "LUIS FONSI"],
+    "associatedISRCs": ["USUM71712163", "USUM71800442", "USUM71801137", "ITC091800031", "USCGH1955177"]
+  },
+  {
+    "ISWC": "T9217370713",
+    "originalTitle": "ROBARTE UN BESO",
+    "creators": [{
+      "name": "VIVES CARLOS",
+      "IPINameNumber": "00129440874",
+      "role": "ComposerLyricist"
+    },
+      {
+        "name": "RENGIFO MAURICIO",
+        "IPINameNumber": "00604067379",
+        "role": "ComposerLyricist"
+      },{
+        "name": "TORRES ANDRES",
+        "IPINameNumber": "00702650868",
+        "role": "ComposerLyricist"
+      },
+      {
+        "name": "OBANDO SEBASTIAN",
+        "IPINameNumber": "00697563582",
+        "role": "ComposerLyricist"
+      }],
+    "alternativeTitles": [],
+    "associatedPerformers": ["SEBASTIAN YATRA FEAT. CARLOS VIVES", "SEBASTIAN YATRA CARLOS VIVES", "CARLOS VIVES & SEBASTIAN YATRA", "SEBASTIAN YATRA"],
+    "associatedISRCs": ["USSD11700301", "USSD21700276"]
+  },
+  {
+    "ISWC": "T9225486102",
+    "originalTitle": "LEAVE A LIGHT ON",
+    "creators": [{
+      "name": "WALKER THOMAS ALEXANDER",
+      "IPINameNumber": "00803536751",
+      "role": "ComposerLyricist"
+    },
+      {
+        "name": "MAC STEVE",
+        "IPINameNumber": "00257395141",
+        "role": "ComposerLyricist"
+      }],
+    "alternativeTitles": ["Leave a Light On (Cheat Codes Remix)", "Leave a Light On (Jayson DeZuzio Remix)", "Leave a Light on (Addal Remix)"],
+    "associatedPerformers": ["WALKER TOM", "AA"],
+    "associatedISRCs": ["GBARL1701655", "GBARL1800483", "GB1101701651", "GBARL1800485", "GBARL1800480"]
+  },
+  {
+    "ISWC": "T9200715293",
+    "originalTitle": "24K MAGIC",
+    "creators": [{
+      "name": "LAWRENCE PHILIP MARTIN II",
+      "IPINameNumber": "00430835768",
+      "role": "ComposerLyricist"
+    },
+      {
+        "name": "BROWN CHRISTOPHER STEVEN",
+        "IPINameNumber": "00549974390",
+        "role": "ComposerLyricist"
+      },
+      {
+        "name": "HERNANDEZ PETER GENE",
+        "IPINameNumber": "00477487104",
+        "role": "ComposerLyricist"
+      }],
+    "alternativeTitles": ["24 KARAT MAGIC", "24K MAGIC (R3HAB REMIX)", "BRUNO MARS - 24K MAGIC (COVER)", "TWENTY FOUR KARAT MAGIC", "24K Magic (Ao Vivo)", "24K Magic (B Remix)"],
+    "associatedPerformers": ["KIDZ BOP KIDS", "BRUNO MARS", "FUTURE SUNSETS & PONTEA", "RICHARDS LATRELL"],
+    "associatedISRCs": ["USAT21602944", "USAT21701345", "ES71G1722134", "FR10S1704011", "ITC941604605"]
+  }]

@@ -1,0 +1,104 @@
+{
+  "title": "DDEX PartyList",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "db",
+      "operation": "get",
+      "adapterName": "ddexErn4",
+      "schema": "party"
+    },
+    {
+      "type": "grid",
+      "gridOptions": {
+        "pagination": true,
+        "paginationPageSize": 15,
+        "rowSelection": "multiple"
+      },
+      "columnDefs": [
+        {
+          "width": 50,
+          "resizable": false,
+          "checkboxSelection": true,
+          "headerCheckboxSelection": true
+        },
+        {
+          "headerName": "PartyReference",
+          "field": "PartyReference"
+        },
+        {
+          "headerName": "PartyName",
+          "valueGetter": "PartyName[].FullName"
+        },
+        {
+          "headerName": "Operations",
+          "cellRenderer": "workflowRenderer",
+          "cellRendererParams": {
+            "blocks": [
+              {
+                "type": "actions",
+                "buttons": [
+                  {
+                    "label": "View",
+                    "blocks": [
+                      {
+                        "type": "dialog",
+                        "blocks": [
+                          {
+                            "type": "debug"
+                          },
+                          {
+                            "type": "actions",
+                            "buttons": [
+                              {
+                                "label": "OK",
+                                "blocks": [
+                                  {
+                                    "type": "init"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Edit",
+                    "blocks": [
+                      {
+                        "type": "launch",
+                        "adapter": "ddexErn4",
+                        "workflowId": "editParty",
+                        "context": {
+                          "uuid": "data.uuid"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Delete",
+                    "blocks": [
+                      {
+                        "type": "launch",
+                        "adapter": "ddexErn4",
+                        "workflowId": "deleteParty",
+                        "context": {
+                          "uuid": "data.uuid"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "id": ""
+}

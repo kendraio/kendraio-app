@@ -1,5 +1,6 @@
 import { AfterViewInit, Directive, ElementRef, EventEmitter, HostBinding, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import * as interact from 'interactjs';
+import * as interact_ from 'interactjs';
+const interact = interact_ as any;
 
 @Directive({
   selector: '[appTrackClip]'

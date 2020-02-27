@@ -11,13 +11,20 @@ import { SettingsPageComponent } from './pages/settings-page/settings-page.compo
 import { UserPageComponent } from './pages/user-page/user-page.component';
 import { AuthCallbackComponent } from './pages/auth-callback/auth-callback.component';
 import { DropboxPageComponent } from './pages/dropbox-page/dropbox-page.component';
-import { SwaggerPageComponent } from './pages/swagger-page/swagger-page.component';
+// import { SwaggerPageComponent } from './pages/swagger-page/swagger-page.component';
 import {TestApiPageComponent} from './pages/test-api-page/test-api-page.component';
 import {DiagramPageComponent} from './pages/diagram-page/diagram-page.component';
 import { PeopleComponent } from './contacts/people/people.component';
 import {BloomenTestPageComponent} from './pages/bloomen-test-page/bloomen-test-page.component';
 import { DashboardPageComponent } from './pages';
 import {YoutubePageComponent} from './pages/youtube-page/youtube-page.component';
+import {BloomenSearchPageComponent} from './pages/bloomen-search-page/bloomen-search-page.component';
+import { FormTestPageComponent } from './pages/form-test-page/form-test-page.component';
+import {FormBuilderPageComponent} from './pages/form-builder-page/form-builder-page.component';
+import {QueryBuilderPageComponent} from './pages/query-builder-page/query-builder-page.component';
+import {BlocksBuilderPageComponent} from './pages/blocks-builder-page/blocks-builder-page.component';
+import {NotFoundComponent} from './components/not-found/not-found.component';
+import {JsonViewPageComponent} from './pages/json-view-page/json-view-page.component';
 
 
 // NB all routes must have a breadcrumb
@@ -44,7 +51,7 @@ const routes: Routes = [
  //   children: [
       {
         path: 'dashboard',
-        component: Pages.DashboardPageComponent,
+        component: NotFoundComponent,
         data: {
           pageTitle: {'de': 'Instrumententafel' , 'fr': '', 'en-US': 'Dashboard' },
           breadcrumb: {'de': 'Instrumententafel' , 'fr': '', 'en-US': 'dashboard' },
@@ -70,7 +77,7 @@ const routes: Routes = [
         }
       },
       {
-        path: 'channels',
+        path: 'services',
         loadChildren: './channels/channels.module#ChannelsModule',
         data: {
           pageTitle: {'de': 'Channels' , 'fr': '', 'en-US': 'Channels'},
@@ -78,13 +85,22 @@ const routes: Routes = [
           menuLabel: 'Assets-BGTT'
         }
       },
+      // {
+      //   path: 'bloomen',
+      //   loadChildren: './bloomen/bloomen.module#BloomenModule',
+      //   data: {
+      //     pageTitle: {'de': 'Channels' , 'fr': '', 'en-US': 'Bloomen'},
+      //     breadcrumb: {'de': 'Bloomen' , 'fr': '', 'en-US': 'Bloomen'},
+      //     menuLabel: 'Bloomen'
+      //   }
+      // },
       {
-        path: 'bloomen',
-        loadChildren: './bloomen/bloomen.module#BloomenModule',
+        path: 'notifications',
+        loadChildren: './notifications/notifications.module#NotificationsModule',
         data: {
-          pageTitle: {'de': 'Channels' , 'fr': '', 'en-US': 'Bloomen'},
-          breadcrumb: {'de': 'Bloomen' , 'fr': '', 'en-US': 'Bloomen'},
-          menuLabel: 'Bloomen'
+          pageTitle: {'de': 'Channels' , 'fr': '', 'en-US': 'Notifications'},
+          breadcrumb: {'de': 'Channels' , 'fr': '', 'en-US': 'notifications'},
+          menuLabel: 'Notifications'
         }
       },
 
@@ -96,7 +112,7 @@ const routes: Routes = [
       //     subTitle: ''
       //   }
       // },
-  
+
       {
         path: 'import',
         component: Pages.ImportPageComponent,
@@ -187,13 +203,13 @@ const routes: Routes = [
     }
   },
 
-      {
-        path: 'api-client/:id',
-        component: SwaggerPageComponent,
-        data: {
-          breadcrumb: 'API'
-        }
-      },
+      // {
+      //   path: 'api-client/:id',
+      //   component: SwaggerPageComponent,
+      //   data: {
+      //     breadcrumb: 'API'
+      //   }
+      // },
       {
         path: 'test-api',
         component: TestApiPageComponent,
@@ -211,7 +227,7 @@ const routes: Routes = [
           menuLabel: 'Bloomen API'
         }
       },
-   
+
       {
         path: 'claims',
         loadChildren: './claims/claims.module#ClaimsModule',
@@ -219,29 +235,28 @@ const routes: Routes = [
           pageTitle: 'Claims',
           breadcrumb: 'claims',
           menuLabel: 'Claims'
-        } 
+        }
       },
-      { path: 'contacts', 
+      { path: 'contacts',
         loadChildren: './contacts/contacts.module#ContactsModule',
         data: {
           pageTitle: 'Contacts',
           breadcrumb: 'contacts',
           menuLabel: 'Contacts'
 
-        } 
+        }
       },
 
-        { path: 'tasks', 
-        loadChildren: './tasks/tasks.module#TasksModule',      
+        { path: 'tasks',
+        loadChildren: './tasks/tasks.module#TasksModule',
         data: {
           pageTitle: 'Tasks',
           breadcrumb: 'tasks',
           menuLabel: 'Tasks'
-        } 
+        }
       },
-
-        { path: 'reports', 
-        loadChildren: './reports/reports.module#ReportsModule',  
+        { path: 'reports',
+        loadChildren: './reports/reports.module#ReportsModule',
         data: {
           pageTitle: 'Reports',
           breadcrumb: 'reports.title',
@@ -258,8 +273,48 @@ const routes: Routes = [
           menuLabel: 'Settings'
         }
       },
-       { path: '', redirectTo: '/tasks', pathMatch: 'full' },
-       { path: '**', redirectTo: './', pathMatch: 'full' },
+      {
+        path: 'tools',
+        loadChildren: './tools/tools.module#ToolsModule',
+        data: {
+          pageTitle: 'Tools',
+          breadcrumb: 'tools',
+          menuLabel: 'Tools'
+        }
+      },
+  {
+    // Deprecated:
+    // This has been removed from the app menu
+    // and will be removed from router in subsequent version
+    path: 'form-test',
+    component: FormTestPageComponent
+  },
+  {
+    path: 'form-builder',
+    component: FormBuilderPageComponent
+  },
+  {
+    path: 'query-builder',
+    component: QueryBuilderPageComponent
+  },
+  {
+    path: 'blocks-builder',
+    redirectTo: 'workflow-builder'
+  },
+  {
+    path: 'workflow-builder',
+    component: BlocksBuilderPageComponent
+  },
+  {
+    path: 'json-view',
+    component: JsonViewPageComponent
+  },
+
+       {
+         path: '',
+         component: NotFoundComponent
+       },
+       { path: '**', component: NotFoundComponent },
   //  ]
  // }
 ];
