@@ -18,7 +18,6 @@ export class ReferenceBlockComponent extends BaseBlockComponent {
 
   values;
 
-
   constructor() {
     super();
   }
@@ -29,10 +28,6 @@ export class ReferenceBlockComponent extends BaseBlockComponent {
     this.labelGetter = get(config, 'labelGetter');
     this.valueField = get(config, 'valueField', 'uuid');
     this.required = get(config, 'required', false);
-
-
-
-
   }
 
   onData(data: any, firstChange: boolean) {
