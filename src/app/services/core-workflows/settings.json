@@ -44,15 +44,13 @@
                     "default": false
                   },
                   "disablePreview": {
-                    "title": "Disable prototypes and features under development",
+                    "title": "Disable prototypes",
                     "type": "boolean",
                     "default": false
                   }
                 }
               },
-              "uiSchema": {
-
-              }
+              "uiSchema": {}
             },
             {
               "type": "debug"
@@ -115,5 +113,7 @@
         }
       ]
     }
-  ]
+  ],
+  "id": "settings",
+  "adapterName": "core"
 }
