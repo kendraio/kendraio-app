@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
-import {get, isArray} from 'lodash-es';
+import {get, isArray, find} from 'lodash-es';
+import {mappingUtility} from '../mapping-block/mapping-util';
 
 @Component({
   selector: 'app-reference-block',
@@ -15,6 +16,7 @@ export class ReferenceBlockComponent extends BaseBlockComponent {
   valueField = 'uuid';
   defaultValue;
   required = false;
+  outputGetter = 'uuid';
 
   values;
 
@@ -28,6 +30,7 @@ export class ReferenceBlockComponent extends BaseBlockComponent {
     this.labelGetter = get(config, 'labelGetter');
     this.valueField = get(config, 'valueField', 'uuid');
     this.required = get(config, 'required', false);
+    this.outputGetter = get(config, 'outputGetter', this.valueField);
   }
 
   onData(data: any, firstChange: boolean) {
@@ -38,6 +41,7 @@ export class ReferenceBlockComponent extends BaseBlockComponent {
   }
 
   onValueChange(value) {
-    this.output.emit(value);
+    const result = find(this.values, item => item[this.valueField] === value);
+    this.output.emit(mappingUtility(result, this.outputGetter));
   }
 }
