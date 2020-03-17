@@ -63,7 +63,7 @@
     "lodash-es": "^4.17.11",
     "luxon": "^1.21.2",
     "lz-string": "^1.4.4",
-    "mermaid": "^8.2.3",
+    "mermaid": "^8.4.8",
     "ngx-build-plus": "^8.1.5",
     "ngx-material-timepicker": "^5.1.1",
     "ngx-monaco-editor": "^7.0.0",
