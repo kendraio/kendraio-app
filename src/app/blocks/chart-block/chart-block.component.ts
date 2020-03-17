@@ -4,6 +4,14 @@ import * as Chart from 'chart.js';
 import {BehaviorSubject, combineLatest, Subject} from 'rxjs';
 import {filter, map, takeUntil, tap} from 'rxjs/operators';
 
+const CAT10 = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf'];
+const CAT10a = CAT10.map(hex => {
+  const r = parseInt(hex.slice(1, 3), 16),
+    g = parseInt(hex.slice(3, 5), 16),
+    b = parseInt(hex.slice(5, 7), 16);
+  return `rgba(${r},${g},${b},0.1)`;
+});
+
 @Component({
   selector: 'app-chart-block',
   templateUrl: './chart-block.component.html',
@@ -18,6 +26,7 @@ export class ChartBlockComponent implements OnInit, OnChanges, AfterViewInit, On
   @Input() context;
   @Input() model: any = {};
   @Output() output = new EventEmitter();
+  multi = false;
 
   @ViewChild('chart', { static: false }) chartElement: ElementRef;
   _chart;
@@ -55,6 +64,7 @@ export class ChartBlockComponent implements OnInit, OnChanges, AfterViewInit, On
   ngOnChanges(changes) {
     this._dataUpdates$.next({});
     this.output.emit(clone(this.model));
+    this.multi = get(this.config, 'multi', false);
   }
 
   initChartType() {
@@ -69,6 +79,22 @@ export class ChartBlockComponent implements OnInit, OnChanges, AfterViewInit, On
 
   updateOutputDisplay() {
     this.initChartType();
+    if (this.multi && isArray(this.model) && this.model.length > 0) {
+      if (this.model.map(_set => !!_set.data).includes(false)) {
+        return;
+      }
+      this._chart.data.labels = this.model[0].data.map(({ label }) => label);
+      this._chart.data.datasets = this.model.map((_data, i) => (
+        {
+          borderColor: CAT10[i % 10],
+          backgroundColor: CAT10a[i % 10],
+          label: _data.label,
+          data: _data.data.map(({ value }) => value)
+        }
+      ));
+      this._chart.update();
+      return;
+    }
     const data = isArray(this.model) ? this.model : get(this.model, 'result', []);
     this._chart.data.labels = data.map(({ label }) => label);
     this._chart.data.datasets = [
