@@ -436,17 +436,17 @@ export const BLOCK_TYPES = [
     deprecated: true,
     hasEditor: true
   },
-  {
-    type: 'video-uploader',
-    label: 'Vimeo Upload (Vimeo)',
-    description: 'Upload a Video to Vimeo Only',
-    icon: 'fa-video',
-    hasEditor: true,
-    defaultConfig: {
-      type: 'video-upload',
-      accept: 'application/vnd.vimeo.*+json;version=3.4'
-    }
-  },
+  // {
+  //   type: 'video-uploader',
+  //   label: 'Vimeo Upload (Vimeo)',
+  //   description: 'Upload a Video to Vimeo Only',
+  //   icon: 'fa-video',
+  //   hasEditor: true,
+  //   defaultConfig: {
+  //     type: 'video-upload',
+  //     accept: 'application/vnd.vimeo.*+json;version=3.4'
+  //   }
+  // },
   {
     type: 'gsheet',
     label: 'Google Spreadsheet',

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
 import {get} from 'lodash-es';
-import { init } from 'tabletop';
+import * as Tabletop from './tabletop';
 
 @Component({
   selector: 'app-gsheet-block',
@@ -19,7 +19,7 @@ export class GsheetBlockComponent extends BaseBlockComponent {
   }
 
   onData(data: any, firstChange: boolean) {
-    init({ key: this.key, simpleSheet: this.simple })
+    Tabletop.init({ key: this.key, simpleSheet: this.simple })
       .then(values => this.output.emit(values));
   }
 }
