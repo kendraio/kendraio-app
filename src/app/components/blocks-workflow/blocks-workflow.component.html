@@ -42,6 +42,7 @@
     <app-context-save-block class="block-wrapper" *ngSwitchCase="'context-save'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-context-save-block>
     <app-video-upload-block class="block-wrapper" *ngSwitchCase="'video-upload'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-video-upload-block>
     <app-gosub-block class="block-wrapper" *ngSwitchCase="'gosub'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-gosub-block>
+    <app-gsheet-block class="block-wrapper" *ngSwitchCase="'gsheet'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-gsheet-block>
   </ng-container>
 </ng-container>
 <!-- <pre>workblock: {{ context | json }}</pre> -->

@@ -446,5 +446,16 @@ export const BLOCK_TYPES = [
       type: 'video-upload',
       accept: 'application/vnd.vimeo.*+json;version=3.4'
     }
+  },
+  {
+    type: 'gsheet',
+    label: 'Google Spreadsheet',
+    description: 'Use a Google Spreadsheet as a data source',
+    icon: 'fa-table',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'gsheet',
+      key: 'https://docs.google.com/spreadsheets/d/1sbyMINQHPsJctjAtMW0lCfLrcpMqoGMOJj6AN-sNQrc/pubhtml'
+    }
   }
 ];
