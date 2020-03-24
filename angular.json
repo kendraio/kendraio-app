@@ -85,7 +85,8 @@
               "node_modules/swagger-ui/dist/swagger-ui.css",
               "src/styles.scss",
               "src/styles/vendor.scss",
-              "src/styles/main.scss"
+              "src/styles/main.scss",
+              "node_modules/leaflet/dist/leaflet.css"
             ],
             "scripts": [
               "node_modules/@fortawesome/fontawesome-free/js/all.js",

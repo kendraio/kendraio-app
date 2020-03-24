@@ -201,6 +201,9 @@ import { VideoUploadBlockComponent } from './blocks/video-upload-block/video-upl
 import { JsonViewPageComponent } from './pages/json-view-page/json-view-page.component';
 import { GosubBlockComponent } from './blocks/gosub-block/gosub-block.component';
 import {GsheetBlockComponent} from './blocks/gsheet-block/gsheet-block.component';
+import { MapBlockComponent } from './blocks/map-block/map-block.component';
+import {LeafletModule} from '@asymmetrik/ngx-leaflet';
+import {LeafletMarkerClusterModule} from '@asymmetrik/ngx-leaflet-markercluster';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -357,7 +360,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     VideoUploadBlockComponent,
     JsonViewPageComponent,
     GosubBlockComponent,
-    GsheetBlockComponent
+    GsheetBlockComponent,
+    MapBlockComponent
   ],
   imports: [
     FormlyModule.forRoot({
@@ -391,7 +395,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     AgGridModule.withComponents([
       WorkflowCellRendererComponent
     ]),
-    DragDropModule
+    DragDropModule,
+    LeafletModule.forRoot(),
+    LeafletMarkerClusterModule.forRoot()
   ],
   entryComponents: [
     AddDocDialogComponent,

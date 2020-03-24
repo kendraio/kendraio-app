@@ -457,5 +457,16 @@ export const BLOCK_TYPES = [
       type: 'gsheet',
       key: 'https://docs.google.com/spreadsheets/d/1sbyMINQHPsJctjAtMW0lCfLrcpMqoGMOJj6AN-sNQrc/pubhtml'
     }
+  },
+  {
+    type: 'map',
+    label: 'Map',
+    description: 'Visualise geo-data on a map',
+    icon: 'map',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'map',
+      height: 400
+    }
   }
 ];
