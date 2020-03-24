@@ -87,3 +87,6 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
 // @ts-ignore
 window.Buffer = window.Buffer || require('buffer').Buffer;
 (process as any).browser = true;
+
+import 'leaflet/dist/images/marker-shadow.png';
+import 'leaflet/dist/images/marker-icon.png';
