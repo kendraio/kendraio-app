@@ -1,6 +1,6 @@
 import { search } from './jmespath';
 import uuid from 'uuid';
-import {find, get, omit, pick, pickBy, zip} from 'lodash-es';
+import {find, get, omit, pick, pickBy, zip, toPairs, fromPairs} from 'lodash-es';
 import {DateTime} from 'luxon';
 import {parse as parseQueryString, stringify as asQueryString} from 'qs';
 import stringify from 'json-stringify-safe';
@@ -116,6 +116,31 @@ export function mappingUtility(value, expr) {
           return ((newValue - oldValue) / oldValue) * 100;
         },
         _signature: [{ types: [TYPE_NUMBER] }, { types: [TYPE_NUMBER] }]
+      },
+      // Takes an array of objects and returns an object with values are array
+      // calculated by grouping values based on keys
+      groupByKeys: {
+        _func: ([inputArray]) => {
+          return inputArray.reduce((o, v) => {
+            Object.keys(v).forEach(key => {
+              if (o[key]) {
+                o[key].push(v[key]);
+              } else {
+                o[key] = [v[key]];
+              }
+            });
+            return o;
+          }, {});
+        },
+        _signature: [{types: [TYPE_ARRAY]}]
+      },
+      toPairs: {
+        _func: ([o]) => toPairs(o),
+        _signature: [{types: [TYPE_OBJECT]}]
+      },
+      fromPairs: {
+        _func: ([a]) => fromPairs(a),
+        _signature: [{types: [TYPE_ARRAY]}]
       }
     }
   });
