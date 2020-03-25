@@ -29,7 +29,7 @@ export function mappingUtility(value, expr) {
         _func: ([s]) => s.toLowerCase(),
         _signature: [{types: [TYPE_STRING]}]
       },
-      replaceMe: { // TODO: its a bit restictive at the mo! 
+      replaceMe: { // TODO: its a bit restictive at the mo!
         _func: ([s]) => s.replace('/videos/', ''),
         _signature: [{types: [TYPE_STRING]}]
       },
@@ -95,6 +95,27 @@ export function mappingUtility(value, expr) {
       btoa: {
         _func: ([s]) => btoa(s),
         _signature: [{types: [TYPE_STRING]}]
+      },
+      pairwise: {
+        _func: ([inputArray]) => {
+          return inputArray.reduce((a, v, i, src) => {
+            a.push({ current: v, next: src[i + 1] || null });
+            return a;
+          }, []);
+        },
+        _signature: [{types: [TYPE_ARRAY]}]
+      },
+      numDiff: {
+        _func: ([a, b]) => {
+          return a - b;
+        },
+        _signature: [{ types: [TYPE_NUMBER] }, { types: [TYPE_NUMBER] }]
+      },
+      percentChange: {
+        _func: ([oldValue, newValue]) => {
+          return ((newValue - oldValue) / oldValue) * 100;
+        },
+        _signature: [{ types: [TYPE_NUMBER] }, { types: [TYPE_NUMBER] }]
       }
     }
   });
