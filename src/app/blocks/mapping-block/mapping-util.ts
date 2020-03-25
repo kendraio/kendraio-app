@@ -1,6 +1,6 @@
 import { search } from './jmespath';
 import uuid from 'uuid';
-import {find, get, omit, pick, pickBy, zip, toPairs, fromPairs} from 'lodash-es';
+import {find, get, omit, pick, pickBy, zip, toPairs, fromPairs, pad, padStart, padEnd} from 'lodash-es';
 import {DateTime} from 'luxon';
 import {parse as parseQueryString, stringify as asQueryString} from 'qs';
 import stringify from 'json-stringify-safe';
@@ -141,6 +141,18 @@ export function mappingUtility(value, expr) {
       fromPairs: {
         _func: ([a]) => fromPairs(a),
         _signature: [{types: [TYPE_ARRAY]}]
+      },
+      pad: {
+        _func: ([s, l, c]) => pad(s, l, c),
+        _signature: [{types: [TYPE_STRING]}, {types: [TYPE_NUMBER]}, {types: [TYPE_STRING]}]
+      },
+      padStart: {
+        _func: ([s, l, c]) => padStart(s, l, c),
+        _signature: [{types: [TYPE_STRING]}, {types: [TYPE_NUMBER]}, {types: [TYPE_STRING]}]
+      },
+      padEnd: {
+        _func: ([s, l, c]) => padEnd(s, l, c),
+        _signature: [{types: [TYPE_STRING]}, {types: [TYPE_NUMBER]}, {types: [TYPE_STRING]}]
       }
     }
   });
