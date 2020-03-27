@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { KendraioFormService } from '../../_shared/ui-form/services/kendraio.form.service';
 import { FormSubmitHandlerService } from '../../services/form-submit-handler.service';
-import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-generic-form',

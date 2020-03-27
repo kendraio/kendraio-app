@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PageTitleService } from '../../services/page-title.service';
 import { AuthService } from '../../services/auth.service';
-import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-user-page',
