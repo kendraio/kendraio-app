@@ -55,7 +55,7 @@ export const config: ConfigOption = {
     // { name: 'repeat', component: RepeatSectionComponent },
     { name: 'array', component: types.ArrayTypeComponent },
     { name: 'videoviewer', component: types.FormlyFieldVideoViewer },
-    { name: 'videoviewer2', component: types.FormlyFieldVideoViewer2 },  
+    { name: 'videoviewer2', component: types.FormlyFieldVideoViewer2 },
     // TODO: there should only be one vid viewer that accoms all players
     { name: 'videoviewerDM', component: types.FormlyFieldVideoViewerDM },  // TODO: temp player refactor and delete ...see above
      { name: 'thumbnailviewer', component: types.ThumbnailViewerComponent },
@@ -164,8 +164,8 @@ export const config: ConfigOption = {
       component: types.FieldHiddenComponent
     },
     { name: 'string', extends: 'input' },
-    // { name: 'object', extends: 'formly-group' },
-    { name: 'object', component: types.ObjectTypeComponent },
+    { name: 'object', extends: 'formly-group' },
+    // { name: 'object', component: types.ObjectTypeComponent },
     { name: 'formgroup', component: types.FormGroupTypeComponent },
 
     { name: 'boolean', extends: 'checkbox',

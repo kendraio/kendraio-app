@@ -1,8 +1,0 @@
-<ng-container [formGroup]="group">
-  <app-legacy-data-form-control appDebugOnly [formControlName]="model.id"
-                                [doc]="group.getRawValue()"
-                                [ngClass]="[getClass('element', 'control'), getClass('grid', 'control')]"
-                                (blur)="onBlur($event)"
-                                (change)="onChange($event)"
-                                (focus)="onFocus($event)"></app-legacy-data-form-control>
-</ng-container>

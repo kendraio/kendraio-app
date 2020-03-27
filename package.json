@@ -35,8 +35,6 @@
     "@asymmetrik/ngx-leaflet-markercluster": "^3.0.0",
     "@daz.is/jmespath": "^1.1.2",
     "@fortawesome/fontawesome-free": "^5.10.2",
-    "@ng-dynamic-forms/core": "^9.0.1",
-    "@ng-dynamic-forms/ui-material": "^9.0.1",
     "@ng-select/ng-select": "^3.7.0",
     "@ngx-formly/core": "^5.5.1",
     "@ngx-formly/material": "^5.3.0",

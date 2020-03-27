@@ -25,7 +25,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTreeModule } from '@angular/material/tree';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import {MatTabsModule, MatTooltipModule} from '@angular/material';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatRadioModule } from '@angular/material/radio';
 
 const MATERIAL = [
   MatButtonModule,
@@ -54,7 +56,8 @@ const MATERIAL = [
   MatTreeModule,
   MatBadgeModule,
   MatTooltipModule,
-  MatTabsModule
+  MatTabsModule,
+  MatRadioModule
 ];
 
 @NgModule({

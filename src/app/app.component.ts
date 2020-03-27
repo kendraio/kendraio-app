@@ -1,5 +1,4 @@
 import { Component, Inject } from '@angular/core';
-import { AuthService } from './services/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PageTitleService } from './services/page-title.service';
 import { Title } from '@angular/platform-browser';

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {MENUITEMS as PROTOTYPE_MENU} from '../_shared/components/menu/menu.component';
+import {MENU_ITEMS as PROTOTYPE_MENU} from '../_shared/components/menu/menu.component';
 import {AppSettingsService} from './app-settings.service';
 import {BehaviorSubject} from 'rxjs';
 import {LocalDatabaseService} from './local-database.service';
