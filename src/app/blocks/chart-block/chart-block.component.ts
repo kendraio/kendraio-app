@@ -98,7 +98,10 @@ export class ChartBlockComponent implements OnInit, OnChanges, AfterViewInit, On
     const data = isArray(this.model) ? this.model : get(this.model, 'result', []);
     this._chart.data.labels = data.map(({ label }) => label);
     this._chart.data.datasets = [
-      { data: data.map(({ value }) => value) }
+      {
+        data: data.map(({ value }) => value),
+        backgroundColor: data.map((_v, i) => CAT10[i % 10])
+      }
     ];
     this._chart.update();
   }
