@@ -28,6 +28,9 @@ export class VariableSetComponent implements OnInit, OnChanges {
     if (get(changes, 'model.firstChange', false)) {
       return;
     }
+    if (!this.model) {
+      return;
+    }
     const adapterName = get(this.context, 'app.adapterName', 'UNKNOWN');
     const variableName = get(this.config, 'name', 'UNKNOWN');
     const data = stringify(this.model);
