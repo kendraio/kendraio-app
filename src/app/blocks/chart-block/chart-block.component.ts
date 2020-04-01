@@ -1,8 +1,9 @@
 import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
-import {clone, get, isArray, isObject} from 'lodash-es';
+import {clone, cloneDeep, get, isArray, isObject, isString} from 'lodash-es';
 import * as Chart from 'chart.js';
 import {BehaviorSubject, combineLatest, Subject} from 'rxjs';
 import {filter, map, takeUntil, tap} from 'rxjs/operators';
+import {mappingUtility} from '../mapping-block/mapping-util';
 
 const CAT10 = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf'];
 const CAT10a = CAT10.map(hex => {
@@ -92,7 +93,20 @@ export class ChartBlockComponent implements OnInit, OnChanges, AfterViewInit, On
           data: _data.data.map(({ value }) => value)
         }
       ));
-      this._chart.options = get(this.config, 'options', {});
+      const customOptions = cloneDeep(get(this.config, 'options', {}));
+      ['xAxes', 'yAxes'].forEach(axisType => {
+        if (customOptions.scales && customOptions.scales[axisType]) {
+          customOptions.scales[axisType].forEach(axes => {
+            if (axes.ticks && isString(axes.ticks.callback)) {
+              const expr = axes.ticks.callback as string;
+              axes.ticks.callback = function (value, index, values) {
+                return mappingUtility({ value, index, values }, expr);
+              };
+            }
+          });
+        }
+      });
+      this._chart.options = customOptions;
       this._chart.update();
       return;
     }
