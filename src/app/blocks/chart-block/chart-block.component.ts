@@ -92,6 +92,7 @@ export class ChartBlockComponent implements OnInit, OnChanges, AfterViewInit, On
           data: _data.data.map(({ value }) => value)
         }
       ));
+      this._chart.options = get(this.config, 'options', {});
       this._chart.update();
       return;
     }
