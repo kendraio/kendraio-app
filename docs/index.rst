@@ -37,6 +37,7 @@ Kendraio App
    :caption: Workflow Blocks Reference
 
    workflow/blocks/actions
+   workflow/blocks/adapter_info
    workflow/blocks/batch
    workflow/blocks/card
    workflow/blocks/chart
@@ -53,6 +54,7 @@ Kendraio App
    workflow/blocks/grid
    workflow/blocks/http
    workflow/blocks/init
+   workflow/blocks/map
    workflow/blocks/mapping
    workflow/blocks/message
    workflow/blocks/multi
@@ -63,4 +65,3 @@ Kendraio App
    workflow/blocks/template
    workflow/blocks/variable_get
    workflow/blocks/variable_set
-
