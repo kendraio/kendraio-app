@@ -35,3 +35,102 @@ Pie and Doughnut charts
   }
 
 (NB: more mapping examples will be added here as support for more chart types is added)
+
+Examples
+--------
+
+The Chart.JS options can be customised.
+Callback functions in the configuration are not supported.
+Instead, you can use a JMES Path expression
+anywhere in the Chart.JS options that expects a callback function.
+For example, to use a logarithmic
+scale, customise the ``yAxes`` property:
+
+.. code-block:: json
+
+
+                {
+                    "type": "chart",
+                    "chartType": "line",
+                    "multi": true,
+                    "options": {
+                        "scales": {
+                            "yAxes": [
+                                {
+                                    "type": "logarithmic",
+                                    "ticks": {
+                                        "callback": "value",
+                                        "maxTicksLimit": 10
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+
+
+The chart block can be configured to plot multiple sets of data on the same chart.
+To enabled this, set ``multi`` to true:
+
+.. code-block:: json
+
+  {
+      "type": "chart",
+      "chartType": "line",
+      "multi": true
+  }
+
+Then in the mapping that prepares the data for the chart block, create an
+array of data sets. Either using a ``batch`` block to query multiple sources
+or a single mapping that produces an array of data sets from a single source.
+Each dataset contains a ``data`` key and ``label``.
+Here is an example of a query against multiple sources:
+
+.. code-block:: json
+
+  {
+      "type": "multi",
+      "batches": [
+          {
+              "blocks": [
+                  {
+                      "type": "http",
+                      "method": "get",
+                      "endpoint": "https://trends-api.now.sh/api?keyword=angular"
+                  },
+                  {
+                      "type": "mapping",
+                      "mapping": "{ data: data.default.timelineData[].{ value: value[0], label: formattedAxisTime }, label: 'angular'}"
+                  }
+              ]
+          },
+          {
+              "blocks": [
+                  {
+                      "type": "http",
+                      "method": "get",
+                      "endpoint": "https://trends-api.now.sh/api?keyword=react"
+                  },
+                  {
+                      "type": "mapping",
+                      "mapping": "{ data: data.default.timelineData[].{ value: value[0], label: formattedAxisTime }, label: 'react'}"
+                  }
+              ]
+          },
+          {
+              "blocks": [
+                  {
+                      "type": "http",
+                      "method": "get",
+                      "endpoint": "https://trends-api.now.sh/api?keyword=vue"
+                  },
+                  {
+                      "type": "mapping",
+                      "mapping": "{ data: data.default.timelineData[].{ value: value[0], label: formattedAxisTime }, label: 'vue'}"
+                  }
+              ]
+          }
+      ]
+  }
+
+
