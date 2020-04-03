@@ -51,6 +51,7 @@ Kendraio App
    workflow/blocks/file_export
    workflow/blocks/file_input
    workflow/blocks/form
+   workflow/blocks/gosub
    workflow/blocks/grid
    workflow/blocks/http
    workflow/blocks/init
