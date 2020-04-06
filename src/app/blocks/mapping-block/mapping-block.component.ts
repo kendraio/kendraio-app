@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-import {clone, find, get, isArray, isObject, isString, omit, pick, pickBy} from 'lodash-es';
+import {clone, find, get, isArray, isObject, isString, isUndefined, omit, pick, pickBy} from 'lodash-es';
 import {mappingUtility} from './mapping-util';
 
 @Component({
@@ -38,6 +38,9 @@ export class MappingBlockComponent implements OnInit, OnChanges {
       return;
     }
     if (this.runOnce && this.hasRun) {
+      return;
+    }
+    if (this.model === null || isUndefined(this.model)) {
       return;
     }
     this.hasError = false;
