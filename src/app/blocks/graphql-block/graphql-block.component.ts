@@ -42,7 +42,14 @@ export class GraphqlBlockComponent extends BaseBlockComponent {
       }, {})
     };
 
+    this.isLoading = true;
     this.http.post(this.endpoint, payload)
-      .subscribe(result => this.output.emit(result));
+      .subscribe(result => {
+        this.isLoading = false;
+        this.output.emit(result);
+      }, error => {
+        this.hasError = true;
+        this.errorMessage = error.message;
+      });
   }
 }
