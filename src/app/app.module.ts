@@ -159,6 +159,7 @@ import {LeafletMarkerClusterModule} from '@asymmetrik/ngx-leaflet-markercluster'
 import {DashboardPageComponent} from './pages/dashboard-page/dashboard-page.component';
 import {config} from './_shared/ui-form/config';
 import {FormlyMaterialModule} from '@ngx-formly/material';
+import { GraphqlBlockComponent } from './blocks/graphql-block/graphql-block.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -294,7 +295,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     JsonViewPageComponent,
     GosubBlockComponent,
     GsheetBlockComponent,
-    MapBlockComponent
+    MapBlockComponent,
+    GraphqlBlockComponent
   ],
   imports: [
     FormlyModule.forRoot({}),

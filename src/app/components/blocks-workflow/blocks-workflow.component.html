@@ -44,6 +44,7 @@
     <app-gosub-block class="block-wrapper" *ngSwitchCase="'gosub'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-gosub-block>
     <app-gsheet-block class="block-wrapper" *ngSwitchCase="'gsheet'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-gsheet-block>
     <app-map-block class="block-wrapper" *ngSwitchCase="'map'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-map-block>
+    <app-graphql-block class="block-wrapper" *ngSwitchCase="'graphql'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-graphql-block>
   </ng-container>
 </ng-container>
 <!-- <pre>workblock: {{ context | json }}</pre> -->

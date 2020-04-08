@@ -468,5 +468,20 @@ export const BLOCK_TYPES = [
       type: 'map',
       height: 400
     }
+  },
+  {
+    type: 'graphql',
+    label: 'GraphQL',
+    description: 'Execute a query against a GraphQL endpoint',
+    icon: 'attractions',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'graphql',
+      endpoint: 'https://example.com/api/graphql',
+      query: '',
+      variables: {
+        token: 'context.authToken'
+      }
+    }
   }
 ];
