@@ -156,6 +156,15 @@ export const config: ConfigOption = {
       },
     },
     {
+      name: 'readonly',
+      extends: 'input',
+      defaultOptions: {
+        templateOptions: {
+          disabled: true,
+        },
+      },
+    },
+    {
       name: 'k-hidden',
       component: types.FieldHiddenComponent
     },

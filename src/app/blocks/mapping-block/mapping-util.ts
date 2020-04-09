@@ -153,6 +153,14 @@ export function mappingUtility(value, expr) {
       padEnd: {
         _func: ([s, l, c]) => padEnd(s, l, c),
         _signature: [{types: [TYPE_STRING]}, {types: [TYPE_NUMBER]}, {types: [TYPE_STRING]}]
+      },
+      product: {
+        _func: ([a, b]) => a * b,
+        _signature: [{types: [TYPE_NUMBER]}, {types: [TYPE_NUMBER]}]
+      },
+      currency: {
+        _func: ([n, l, c]) => new Intl.NumberFormat(l, { style: 'currency', currency: c }).format(n),
+        _signature: [{types: [TYPE_NUMBER, TYPE_STRING]}, {types: [TYPE_STRING]}, {types: [TYPE_STRING]}]
       }
     }
   });

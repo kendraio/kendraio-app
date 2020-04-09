@@ -13,7 +13,7 @@
   <tr>
     <th *ngFor="let h of colHeadings">{{ h }}</th>
     <th *ngIf="hasBlocks"></th>
-    <th></th>
+    <th *ngIf="allowRemove"></th>
   </tr>
   </thead>
   <tbody>
@@ -36,7 +36,7 @@
         [models]="[formControl.at(i).value]"></app-blocks-workflow>
     </td>
 
-    <td>
+    <td *ngIf="allowRemove">
       <div style="margin-top: 1em;">
         <button mat-flat-button (click)="remove(i)">
           <mat-icon>delete</mat-icon>
@@ -44,8 +44,8 @@
       </div>
     </td>
   </tr>
-  <tr>
-    <td [colSpan]="colHeadings.length + 2">
+  <tr *ngIf="allowAdd">
+    <td [colSpan]="colHeadings.length + (hasBlocks ? 1 : 0) + (allowRemove ? 1 : 0)">
       <button mat-flat-button (click)="add(null, defaultValue)">
         <mat-icon>add</mat-icon>
       </button>

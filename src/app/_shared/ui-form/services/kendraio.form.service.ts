@@ -110,7 +110,7 @@ export class KendraioFormService {
           set(_fields, `fieldGroup[${fieldIndex}].type`, newWidgetType);
           // TODO: Don't do this here!!!!!!
           const { items, ...subSchema } = get(uiSchema, uiKey);
-          set(_fields, 'templateOptions.uiSchema', subSchema);
+          set(_fields, `fieldGroup[${fieldIndex}].templateOptions.uiSchema`, subSchema);
         }
         // Recursively map arrays
         if (has(uiSchema, `${uiKey}.items`)) {

@@ -9,6 +9,14 @@ import {get} from 'lodash-es';
 })
 export class FormlyTableWidgetComponent extends FieldArrayType<FormlyFieldConfig> implements OnInit {
 
+  get allowAdd() {
+    return get(this.field, 'templateOptions.uiSchema.allowAdd', true);
+  }
+
+  get allowRemove() {
+    return get(this.field, 'templateOptions.uiSchema.allowRemove', true);
+  }
+
   get colHeadings() {
     return get(this.field, 'templateOptions.uiSchema.colHeadings', []);
   }
