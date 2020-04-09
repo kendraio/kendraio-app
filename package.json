@@ -13,7 +13,11 @@
     "build:prod": "ng build --prod",
     "now-build": "ng build ngx-image-tagger && ng build --configuration=dev",
     "docs:autobuild": "sphinx-autobuild docs/ docs/_build/html",
-    "watch:tagger": "ng build ngx-image-tagger --watch"
+    "watch:tagger": "ng build ngx-image-tagger --watch",
+    "update:function:cache": "mv dist/index.html functions/index.html",
+    "//comment1": "NB: Dynamic index html generation (SSO)",
+    "//comment2": "Before deploy, do prod build, and move index.html to functions folder",
+    "deploy": "firebase deploy --only functions,hosting"
   },
   "private": true,
   "dependencies": {
