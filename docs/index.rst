@@ -53,6 +53,7 @@ Kendraio App
    workflow/blocks/form
    workflow/blocks/gosub
    workflow/blocks/grid
+   workflow/blocks/gsheet
    workflow/blocks/http
    workflow/blocks/init
    workflow/blocks/map
@@ -61,6 +62,7 @@ Kendraio App
    workflow/blocks/multi
    workflow/blocks/parse_data
    workflow/blocks/query
+   workflow/blocks/reference
    workflow/blocks/serialize
    workflow/blocks/switch
    workflow/blocks/template
