@@ -80,8 +80,6 @@
             ],
             "styles": [
               "node_modules/@fortawesome/fontawesome-free/css/all.css",
-              "node_modules/ag-grid-community/dist/styles/ag-grid.css",
-              "node_modules/ag-grid-community/dist/styles/ag-theme-material.css",
               "node_modules/swagger-ui/dist/swagger-ui.css",
               "src/styles.scss",
               "src/styles/vendor.scss",

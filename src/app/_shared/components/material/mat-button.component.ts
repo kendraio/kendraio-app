@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IHeaderAngularComp, ICellRendererAngularComp} from 'ag-grid-angular/main';
+import {IHeaderAngularComp, ICellRendererAngularComp} from 'ag-grid-angular';
 
 
 @Component({
