@@ -17,7 +17,7 @@
     "update:function:cache": "mv dist/index.html functions/index.html",
     "//comment1": "NB: Dynamic index html generation (SSO)",
     "//comment2": "Before deploy, do prod build, and move index.html to functions folder",
-    "deploy": "firebase deploy --only functions,hosting"
+    "deploy": "mv dist/index.html functions/ && firebase deploy --only functions,hosting"
   },
   "private": true,
   "dependencies": {
