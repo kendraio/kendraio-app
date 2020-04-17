@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {clone, get} from 'lodash-es';
 import {compile} from 'handlebars';
+import DOMPurify from './dom-sanitiser';
 
 @Component({
   selector: 'app-template-block',
@@ -25,7 +26,9 @@ export class TemplateBlockComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes) {
     // TODO: Allow loading template from Adapter
-    this.innerHtml = compile(get(this.config, 'template', ''))({ context: this.context, data: this.model });
+    this.innerHtml = DOMPurify.sanitize(
+      compile(get(this.config, 'template', ''))({ context: this.context, data: this.model })
+    );
     this.output.emit(clone(this.model));
   }
 }
