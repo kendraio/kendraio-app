@@ -26,7 +26,8 @@ export class FormlyBlocksInputComponent extends FieldType implements OnInit, OnC
     this.context = {
       app: {
         adapterName,
-      }
+      },
+      ...this.options['context'] || {}
     };
     this.models.push(this.formControl.value);
   }
@@ -37,7 +38,8 @@ export class FormlyBlocksInputComponent extends FieldType implements OnInit, OnC
     this.context = {
       app: {
         adapterName,
-      }
+      },
+      ...this.options['context'] || {}
     };
   }
 

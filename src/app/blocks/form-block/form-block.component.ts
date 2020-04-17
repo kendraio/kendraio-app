@@ -60,6 +60,7 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
     if (this.emitOnInit) {
       this.onModelChange(this.model);
     }
+    this.options['context'] = this.context;
   }
 
   updateForm() {
