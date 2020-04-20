@@ -10,7 +10,7 @@ function appFactory({ db }) {
   app.use(cors());
   app.use(bodyParser.json());
 
-  app.post('/login', async (req, res) => {
+  app.post('/api/login', async (req, res) => {
     const { username, password } = req.body;
     if (username === 'kendraio' && password === 'kendraio') {
       res.send({ token: 'TEMP123QQ1' });
@@ -36,12 +36,12 @@ function appFactory({ db }) {
       });
   };
 
-  app.put('/', validateToken, async (req, res) => {
+  app.put('/api', validateToken, async (req, res) => {
     const docRef = await updateWorkflow(req.body);
     await res.send({ status: 'ok', id: docRef.id });
   });
 
-  app.post('/:adapterName/:workflowId', validateToken, async (req, res) => {
+  app.post('/api/:adapterName/:workflowId', validateToken, async (req, res) => {
     const now = new Date().toISOString();
     const adapterName = `${req.params.adapterName}`;
     const workflowId = `${req.params.workflowId}`;
@@ -54,7 +54,7 @@ function appFactory({ db }) {
     await res.json({ status: 'ok', id: docRef.id  });
   });
 
-  app.get('/:adapterName/:workflowId', async (req, res) => {
+  app.get('/api/:adapterName/:workflowId', async (req, res) => {
     const adapterName = `${req.params.adapterName}`;
     const workflowId = `${req.params.workflowId}`;
 
@@ -82,7 +82,7 @@ function appFactory({ db }) {
     await res.status(500).send();
   });
 
-  app.get('/', async (req, res) => {
+  app.get('/api/', async (req, res) => {
     const docs = await db.collectionGroup("workflows").get();
     const result : Array<any> = [];
     docs.forEach(doc => {
