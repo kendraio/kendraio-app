@@ -1,6 +1,21 @@
 import {validateToken} from '../utils/validate-token';
+import * as admin from 'firebase-admin';
+import { userHash } from '../utils/get-hash';
 
-function appFactory({ db }) {
+const crypto = require('crypto');
+
+const makeHash = (secret,  salt) => {
+  return new Promise((resolve, reject) => {
+    crypto.scrypt(secret, salt, 64, (err, derivedKey) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(derivedKey.toString('hex'));
+    });
+  });
+};
+
+function appFactory({db, auth}: { db: any, auth: admin.auth.Auth }) {
   const app = require('express')();
   const cors = require('cors');
   const bodyParser = require('body-parser');
@@ -11,15 +26,24 @@ function appFactory({ db }) {
   app.use(bodyParser.json());
 
   app.post('/api/login', async (req, res) => {
-    const { username, password } = req.body;
-    if (username === 'kendraio' && password === 'kendraio') {
-      res.send({ token: 'TEMP123QQ1' });
+    const {username, password} = req.body;
+    let user, hashedPassword;
+    try {
+      user = await auth.getUserByEmail(username);
+      hashedPassword = await makeHash(password, 'TEMP123QQ1');
+    }
+    catch (e) {
+      res.status(403).send(e.message);
+    }
+    if (hashedPassword === userHash) {
+      const token = await auth.createCustomToken(user.uid);
+      res.send({ token });
     } else {
       res.status(403).send('Unauthorized');
     }
   });
 
-  const updateWorkflow = async ({ adapterName, workflowId, title, created, updated, ...body }) => {
+  const updateWorkflow = async ({adapterName, workflowId, title, created, updated, ...body}) => {
     const now = new Date().toISOString();
     return await db
       .collection('adapters')
@@ -38,7 +62,7 @@ function appFactory({ db }) {
 
   app.put('/api', validateToken, async (req, res) => {
     const docRef = await updateWorkflow(req.body);
-    await res.send({ status: 'ok', id: docRef.id });
+    await res.send({status: 'ok', id: docRef.id});
   });
 
   app.post('/api/:adapterName/:workflowId', validateToken, async (req, res) => {
@@ -51,7 +75,7 @@ function appFactory({ db }) {
       workflowId,
       updated: now
     });
-    await res.json({ status: 'ok', id: docRef.id  });
+    await res.json({status: 'ok', id: docRef.id});
   });
 
   app.get('/api/:adapterName/:workflowId', async (req, res) => {
@@ -83,8 +107,8 @@ function appFactory({ db }) {
   });
 
   app.get('/api/', async (req, res) => {
-    const docs = await db.collectionGroup("workflows").get();
-    const result : Array<any> = [];
+    const docs = await db.collectionGroup('workflows').get();
+    const result: Array<any> = [];
     docs.forEach(doc => {
       result.push({
         id: doc.id,
