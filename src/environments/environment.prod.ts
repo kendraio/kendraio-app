@@ -26,7 +26,7 @@ export const environment = {
     messagingSenderId: '1093183061948',
     appId: '1:1093183061948:web:589b9bc7b5f3e9b20e35b9'
   },
-  workflowStoreUrl: 'https://us-central1-kendraioworkflowstorage.cloudfunctions.net/api',
+  workflowStoreUrl: 'https://app.kendra.io/api',
   // authProxyUrl: 'https://kendraio-auth0-proxy-qq0te0iza.now.sh/',
   authProxyUrl: 'https://kendraio-auth0-proxy.now.sh/'
 };
