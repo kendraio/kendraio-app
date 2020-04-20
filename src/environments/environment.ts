@@ -15,6 +15,15 @@ export const environment = {
     redirectUri: 'http://localhost:4200/callback',
     scope: 'openid profile'
   },
+  firebaseConfig: {
+    apiKey: 'AIzaSyCy5Kj9QL9Ar5zUXmhFYmieQI0VlpryvE4',
+    authDomain: 'kendraio-project.firebaseapp.com',
+    databaseURL: 'https://kendraio-project.firebaseio.com',
+    projectId: 'kendraio-project',
+    storageBucket: 'kendraio-project.appspot.com',
+    messagingSenderId: '1093183061948',
+    appId: '1:1093183061948:web:589b9bc7b5f3e9b20e35b9'
+  },
   workflowStoreUrl: 'https://us-central1-kendraioworkflowstorage.cloudfunctions.net/api',
   authProxyUrl: 'https://kendraio-auth0-proxy.now.sh/',
   // authProxyUrl: 'http://localhost:3000/'
