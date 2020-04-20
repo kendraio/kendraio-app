@@ -15,6 +15,7 @@ import {LoadWorkflowDialogComponent} from '../dialogs/load-workflow-dialog/load-
 import {SaveWorkflowDialogComponent} from '../dialogs/save-workflow-dialog/save-workflow-dialog.component';
 import {EditWorkflowMetadataDialogComponent} from '../dialogs/edit-workflow-metadata-dialog/edit-workflow-metadata-dialog.component';
 import {LocalDatabaseService} from './local-database.service';
+import { camelCase } from 'lodash-es';
 
 @Injectable({
   providedIn: 'root'
@@ -191,7 +192,7 @@ export class WorkflowService {
     const { title, blocks, id } = this;
     const dialogRef = this.dialog.open(SaveWorkflowDialogComponent, {
       disableClose: true,
-      data: { title, blocks, id, adapterName: this.getAdapterName() }
+      data: { title, blocks, id: camelCase(id), adapterName: this.getAdapterName() }
     });
     dialogRef.afterClosed().subscribe(values => {
       if (!!values) {

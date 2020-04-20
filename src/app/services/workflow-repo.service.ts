@@ -6,6 +6,7 @@ import {from, of} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {LocalDatabaseService} from './local-database.service';
 import {environment} from '../../environments/environment';
+import {camelCase} from 'camel-case';
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +43,7 @@ export class WorkflowRepoService {
           return of({ title, blocks, adapterName, workflowId, context });
         }
 
-        const URL = `${environment.workflowStoreUrl}/${adapterName}/${workflowId}`;
+        const URL = `${environment.workflowStoreUrl}/${adapterName}/${camelCase(workflowId)}`;
         return this.http.get(URL).pipe(
           map(config => ({
             ...config,

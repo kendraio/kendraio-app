@@ -1,3 +1,44 @@
+
+<mat-toolbar>
+
+  <button mat-icon-button (click)="sidenav.toggle()">
+    <mat-icon style="color: #999999;">menu</mat-icon>
+  </button>
+
+  <ng-container *ngIf="pageTitle$ | async as pageTitleData">
+        <span>
+          {{ pageTitleData.title | translate }}
+        </span>
+    <button *ngIf="pageTitleData.isWorkflow" mat-icon-button (click)="onRefresh()">
+      <mat-icon style="color: #999999;">refresh</mat-icon>
+    </button>
+  </ng-container>
+  <span class="spacer"></span>
+  <div style="padding-right: 1em">
+    <select #langSelect (change)="translate.use(langSelect.value)">
+      <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
+    </select>
+  </div>
+
+  <button mat-icon-button routerLink="/user"><mat-icon>person</mat-icon> </button>
+  <button mat-icon-button routerLink="/notifications"><mat-icon [matBadge]="notificationCount">notifications</mat-icon></button>
+
+  <ng-container *ngIf="pageTitle$ | async as pageTitleData">
+      <button mat-flat-button
+              (click)="blocksSidePane.close()"
+              *ngIf="blocksSidePane.opened">
+        <mat-icon>arrow_right</mat-icon> close
+      </button>
+      <button mat-flat-button
+              (click)="blocksSidePane.open()"
+              [disabled]="!pageTitleData.isWorkflow"
+              *ngIf="!blocksSidePane.opened">
+        <mat-icon>arrow_left</mat-icon> open
+      </button>
+  </ng-container>
+
+</mat-toolbar>
+
 <mat-sidenav-container class="app-container" style="height:100vh">
 
   <mat-sidenav #sidenav mode="side" opened (keydown.escape)="sidenav.close()" style="width: 260px;">
@@ -8,34 +49,6 @@
 
   <mat-sidenav-content>
 
-    <mat-toolbar>
-
-      <button mat-icon-button (click)="sidenav.toggle()">
-        <mat-icon style="color: #999999;">menu</mat-icon>
-      </button>
-
-      <ng-container *ngIf="pageTitle$ | async as pageTitleData">
-        <span>
-          {{ pageTitleData.title | translate }}
-        </span>
-        <button *ngIf="pageTitleData.isWorkflow" mat-icon-button (click)="onRefresh()">
-          <mat-icon style="color: #999999;">refresh</mat-icon>
-        </button>
-      </ng-container>
-      <span class="spacer"></span>
-      <div style="padding-right: 1em">
-          <select #langSelect (change)="translate.use(langSelect.value)">
-            <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
-          </select>
-      </div>
-
-      <button mat-icon-button routerLink="/user"><mat-icon>person</mat-icon> </button>
-      <button mat-icon-button routerLink="/notifications"><mat-icon [matBadge]="notificationCount">notifications</mat-icon></button>
-      <ng-container *ngIf="pageTitle$ | async as pageTitleData">
-        <button mat-icon-button (click)="blocksSidePane.toggle()" [disabled]="!pageTitleData.isWorkflow"><mat-icon>settings</mat-icon></button>
-      </ng-container>
-
-    </mat-toolbar>
 
 
 
@@ -55,7 +68,7 @@
 
 
 
-  <mat-sidenav #blocksSidePane position="end">
+  <mat-sidenav #blocksSidePane position="end" mode="side">
     <app-workflow-sidenav (closeSidenav)="blocksSidePane.close()"></app-workflow-sidenav>
   </mat-sidenav>
 

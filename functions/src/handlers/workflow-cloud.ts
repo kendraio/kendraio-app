@@ -34,12 +34,16 @@ function appFactory({db, auth}: { db: any, auth: admin.auth.Auth }) {
     }
     catch (e) {
       res.status(403).send(e.message);
+      return;
     }
-    if (hashedPassword === userHash) {
-      const token = await auth.createCustomToken(user.uid);
-      res.send({ token });
+    if (hashedPassword === userHash && user && user.uid) {
+      const token = `${user.uid}:${password}`;
+      await res.send({ token });
+      return;
     } else {
-      res.status(403).send('Unauthorized');
+      console.log(user);
+      await res.status(403).send('Unauthorized');
+      return;
     }
   });
 

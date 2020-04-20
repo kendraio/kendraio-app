@@ -15,7 +15,7 @@ export const environment = {
     redirectUri: 'http://localhost:4200/callback',
     scope: 'openid profile'
   },
-  workflowStoreUrl: 'https://app.kendra.io/api',
+  workflowStoreUrl: 'http://localhost:5001/kendraio-project/us-central1/api/api',
   authProxyUrl: 'https://kendraio-auth0-proxy.now.sh/',
   // authProxyUrl: 'http://localhost:3000/'
 };
