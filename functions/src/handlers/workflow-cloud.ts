@@ -91,9 +91,9 @@ function appFactory({ db }) {
         workflowId: doc.id,
         title: doc.data().title,
         adapterName: doc.data().adapterName || 'UNKNOWN',
-        created: doc.createTime.toDate().toISOString(),
-        updated: doc.updateTime.toDate().toISOString(),
-        modified: doc.updateTime.toDate().toISOString()
+        created: doc.data().created,
+        updated: doc.data().updated,
+        modified: doc.data().updated
       });
     });
     res.send(result);
