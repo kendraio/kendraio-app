@@ -3,9 +3,7 @@
       <button type="button" mat-icon-button (click)="toggleExpand()" [matTooltip]="isExpanded ? 'Shrink' : 'Expand'">
         <mat-icon>{{ isExpanded ? 'arrow_right' : 'arrow_left' }}</mat-icon>
       </button>
-<!--      <button type="button" mat-icon-button (click)="closeSidenav.emit()" matTooltip="Close">-->
-<!--        <mat-icon>close</mat-icon>-->
-<!--      </button>-->
+
       <button type="button" mat-icon-button (click)="workflow.clearBlocks()" matTooltip="Clear workflow">
         <mat-icon>delete_forever</mat-icon>
       </button>
@@ -32,6 +30,10 @@
 <!--      </button>-->
       <button type="button" mat-icon-button (click)="workflow.upload()" matTooltip="Upload">
         <mat-icon>cloud_upload</mat-icon>
+      </button>
+
+      <button type="button" style="float: right;" mat-icon-button (click)="closeSidenav.emit()" matTooltip="Close">
+        <mat-icon>close</mat-icon>
       </button>
     </div>
 

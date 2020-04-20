@@ -24,16 +24,16 @@
   <button mat-icon-button routerLink="/notifications"><mat-icon [matBadge]="notificationCount">notifications</mat-icon></button>
 
   <ng-container *ngIf="pageTitle$ | async as pageTitleData">
-      <button mat-flat-button
+      <button mat-icon-button
               (click)="blocksSidePane.close()"
               *ngIf="blocksSidePane.opened">
-        <mat-icon>arrow_right</mat-icon> close
+        <mat-icon>settings</mat-icon>
       </button>
-      <button mat-flat-button
+      <button mat-icon-button
               (click)="blocksSidePane.open()"
               [disabled]="!pageTitleData.isWorkflow"
               *ngIf="!blocksSidePane.opened">
-        <mat-icon>arrow_left</mat-icon> open
+        <mat-icon>settings</mat-icon>
       </button>
   </ng-container>
 
