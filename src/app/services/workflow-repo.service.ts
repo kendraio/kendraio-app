@@ -13,6 +13,8 @@ import {camelCase} from 'camel-case';
 })
 export class WorkflowRepoService {
 
+  configCache = {};
+
   constructor(
     private readonly adapters: AdaptersService,
     private readonly http: HttpClient,
@@ -32,6 +34,11 @@ export class WorkflowRepoService {
       }
     };
 
+    if (this.configCache[`${adapterName}::${workflowId}`]) {
+      const { title, blocks } = this.configCache[`${adapterName}::${workflowId}`];
+      return of({ title, blocks, adapterName, workflowId, context });
+    }
+
     // Attempt to load workflow from DB, fall back to legacy loading if not found
     return from(this.localData['workflows'].where({
       adapterName,
@@ -40,6 +47,7 @@ export class WorkflowRepoService {
       switchMap((data: any) => {
         if (!!data) {
           const { title, blocks } = data;
+          this.configCache[`${adapterName}::${workflowId}`] = data;
           return of({ title, blocks, adapterName, workflowId, context });
         }
 
@@ -54,6 +62,9 @@ export class WorkflowRepoService {
               }
             }
           })),
+          tap(({ title, blocks }: any) => {
+            this.configCache[`${adapterName}::${workflowId}`] = { title, blocks };
+          }),
           catchError(err => {
             console.log(`Workflow ${workflowId} loaded with previous loader`);
             return this.prevGetBlocks(adapterName, workflowId, context);
