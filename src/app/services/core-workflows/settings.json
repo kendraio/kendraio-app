@@ -7,6 +7,41 @@
         {
           "blocks": [
             {
+              "type": "form",
+              "hasSubmit": false,
+              "jsonSchema": {
+                "type": "object",
+                "properties": {
+                  "language": {
+                    "title": "Language",
+                    "default": "en",
+                    "type": "string",
+                    "description": "Select which language you would like to use for the App user interface",
+                    "enum": [
+                      "en",
+                      "fr",
+                      "de",
+                      "pt",
+                      "it",
+                      "ru",
+                      "ja",
+                      "es",
+                      "el"
+                    ]
+                  }
+                }
+              },
+              "uiSchema": {}
+            },
+            {
+              "type": "dispatch",
+              "action": "switchLanguage"
+            }
+          ]
+        },
+        {
+          "blocks": [
+            {
               "type": "init"
             },
             {
@@ -44,7 +79,7 @@
                     "default": false
                   },
                   "disablePreview": {
-                    "title": "Disable prototypes",
+                    "title": "Disable prototypes and features under development",
                     "type": "boolean",
                     "default": false
                   }
@@ -53,7 +88,8 @@
               "uiSchema": {}
             },
             {
-              "type": "debug"
+              "type": "debug",
+              "open": 0
             },
             {
               "type": "actions",

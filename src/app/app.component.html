@@ -14,11 +14,6 @@
     </button>
   </ng-container>
   <span class="spacer"></span>
-  <div style="padding-right: 1em">
-    <select #langSelect (change)="translate.use(langSelect.value)">
-      <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
-    </select>
-  </div>
 
   <button mat-icon-button routerLink="/user"><mat-icon>person</mat-icon> </button>
   <button mat-icon-button routerLink="/notifications"><mat-icon [matBadge]="notificationCount">notifications</mat-icon></button>

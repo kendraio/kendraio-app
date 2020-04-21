@@ -7,6 +7,7 @@ import {get, has} from 'lodash-es';
 import {WorkflowService} from './workflow.service';
 import {LocalDatabaseService} from './local-database.service';
 import {AdapterInstallService} from './adapter-install.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class CoreEventHandlersService {
     private readonly database: DocumentRepositoryService,
     private readonly workflow: WorkflowService,
     private readonly localData: LocalDatabaseService,
-    private readonly adapterInstall: AdapterInstallService
+    private readonly adapterInstall: AdapterInstallService,
+    private readonly translate: TranslateService
   ) {
     this.formSubmit.actions$
       .pipe(
@@ -74,6 +76,10 @@ export class CoreEventHandlersService {
             break;
           case 'debug':
             console.log('Debug action', payload);
+            break;
+          case 'switchLanguage':
+            const { language } = payload;
+            this.translate.use(language);
             break;
           default:
             console.log('Unknown core action', action);
