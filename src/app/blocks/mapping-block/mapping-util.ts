@@ -1,6 +1,6 @@
 import { decorate } from './jmespath';
 import uuid from 'uuid';
-import {find, get, omit, pick, pickBy, zip, toPairs, fromPairs, pad, padStart, padEnd} from 'lodash-es';
+import {find, get, omit, pick, pickBy, zip, toPairs, fromPairs, pad, padStart, padEnd, uniqBy, uniq, includes} from 'lodash-es';
 import {DateTime} from 'luxon';
 import {parse as parseQueryString, stringify as asQueryString} from 'qs';
 import stringify from 'json-stringify-safe';
@@ -159,6 +159,18 @@ const search = decorate({
   currency: {
     _func: ([n, l, c]) => new Intl.NumberFormat(l, { style: 'currency', currency: c }).format(n),
     _signature: [{types: [TYPE_NUMBER, TYPE_STRING]}, {types: [TYPE_STRING]}, {types: [TYPE_STRING]}]
+  },
+  uniq: {
+    _func: ([a]) => uniq(a),
+    _signature: [{types: [TYPE_ARRAY]}]
+  },
+  uniqBy: {
+    _func: ([a, e]) => uniqBy(a, e),
+    _signature: [{types: [TYPE_ARRAY]}, {types: [TYPE_STRING]}]
+  },
+  includes: {
+    _func: ([a, i]) => includes(a, i),
+    _signature: [{types: [TYPE_ARRAY, TYPE_OBJECT]}, {types: [TYPE_ANY]}]
   }
 });
 
