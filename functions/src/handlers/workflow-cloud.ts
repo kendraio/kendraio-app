@@ -93,8 +93,8 @@ function appFactory({db, auth}: { db: any, auth: admin.auth.Auth }) {
       .doc(workflowId)
       .get();
 
-    const data = docRef.data();
-    if (data) {
+    if (docRef.exists) {
+      const data = docRef.data();
       const unEncode = JSON.parse(data._encoded);
       await res.send({
         ...unEncode,
@@ -107,6 +107,7 @@ function appFactory({db, auth}: { db: any, auth: admin.auth.Auth }) {
       });
       return;
     }
+
     await res.status(500).send();
   });
 
