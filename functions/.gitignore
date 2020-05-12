@@ -6,6 +6,7 @@
 typings/
 
 node_modules/
+temp
 
 .secret.json
 firebase-debug.log

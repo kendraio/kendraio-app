@@ -66,8 +66,25 @@ export class WorkflowRepoService {
             this.configCache[`${adapterName}::${workflowId}`] = { title, blocks };
           }),
           catchError(err => {
-            console.log(`Workflow ${workflowId} loaded with previous loader`);
-            return this.prevGetBlocks(adapterName, workflowId, context);
+            const URL2 = `${environment.workflowStoreUrl}/${adapterName}/${workflowId}`;
+            return this.http.get(URL2).pipe(
+              map(config => ({
+                ...config,
+                context: {
+                  app: {
+                    adapterName,
+                    workflowId
+                  }
+                }
+              })),
+              tap(({ title, blocks }: any) => {
+                this.configCache[`${adapterName}::${workflowId}`] = { title, blocks };
+              }),
+              catchError(err2 => {
+                console.log(`Workflow ${workflowId} loaded with previous loader`);
+                return this.prevGetBlocks(adapterName, workflowId, context);
+              })
+            );
           })
         );
       })

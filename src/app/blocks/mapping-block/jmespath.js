@@ -163,6 +163,7 @@
   var TOK_RBRACE = "Rbrace";
   var TOK_NUMBER = "Number";
   var TOK_CURRENT = "Current";
+  var TOK_ROOT = "Root";
   var TOK_EXPREF = "Expref";
   var TOK_PIPE = "Pipe";
   var TOK_OR = "Or";
@@ -199,7 +200,8 @@
     "]": TOK_RBRACKET,
     "(": TOK_LPAREN,
     ")": TOK_RPAREN,
-    "@": TOK_CURRENT
+    "@": TOK_CURRENT,
+    "$": TOK_ROOT,
   };
 
   var operatorStartToken = {
@@ -212,6 +214,7 @@
   var skipChars = {
     " ": true,
     "\t": true,
+    "\r": true,
     "\n": true
   };
 
@@ -481,6 +484,7 @@
   bindingPower[TOK_RBRACE] = 0;
   bindingPower[TOK_NUMBER] = 0;
   bindingPower[TOK_CURRENT] = 0;
+  bindingPower[TOK_ROOT] = 0;
   bindingPower[TOK_EXPREF] = 0;
   bindingPower[TOK_PIPE] = 1;
   bindingPower[TOK_OR] = 2;
@@ -602,6 +606,8 @@
           return this._parseMultiselectList();
         case TOK_CURRENT:
           return {type: TOK_CURRENT};
+        case TOK_ROOT:
+          return {type: TOK_ROOT};
         case TOK_EXPREF:
           expression = this.expression(bindingPower.Expref);
           return {type: "ExpressionReference", children: [expression]};
@@ -805,7 +811,7 @@
         right = this._parseDotRHS(rbp);
       } else {
         var t = this._lookaheadToken(0);
-        var error = new Error("Sytanx error, unexpected token: " +
+        var error = new Error("Syntax error, unexpected token: " +
           t.value + "(" + t.type + ")");
         error.name = "ParserError";
         throw error;
@@ -863,6 +869,7 @@
 
   TreeInterpreter.prototype = {
     search: function(node, value) {
+      this._rootValue = value;
       return this.visit(node, value);
     },
 
@@ -1060,6 +1067,8 @@
           return this.visit(node.children[1], left);
         case TOK_CURRENT:
           return value;
+        case TOK_ROOT:
+          return this._rootValue;
         case "Function":
           var resolvedArgs = [];
           for (i = 0; i < node.children.length; i++) {
@@ -1122,7 +1131,7 @@
 
   };
 
-  function Runtime(options, interpreter) {
+  function Runtime(interpreter) {
     this._interpreter = interpreter;
     this.functionTable = {
       // name: [function, <signature>]
@@ -1205,8 +1214,7 @@
       _: {
         _func: this._functionUnderscore,
         _signature: [{types: [TYPE_EXPREF]}]
-      },
-      ...(options.functionTable || {})
+      }
     };
   }
 
@@ -1326,6 +1334,10 @@
       }
     },
 
+    _functionUnderscore: function(resolvedArgs) {
+      return this._interpreter.search(resolvedArgs[0], this._rootData);
+    },
+
     _functionStartsWith: function(resolvedArgs) {
       return resolvedArgs[0].lastIndexOf(resolvedArgs[1]) === 0;
     },
@@ -1397,12 +1409,6 @@
       }
       return mapped;
     },
-
-
-    _functionUnderscore: function(resolvedArgs) {
-      return this._interpreter.search(resolvedArgs[0], this._rootData);
-    },
-
 
     _functionMerge: function(resolvedArgs) {
       var merged = {};
@@ -1664,21 +1670,43 @@
     return lexer.tokenize(stream);
   }
 
-  function search(data, expression, options) {
+  function search(data, expression) {
+    return decorate({})(expression)(data);
+  }
+
+  function decorate(fns) {
     var parser = new Parser();
     // This needs to be improved.  Both the interpreter and runtime depend on
     // each other.  The runtime needs the interpreter to support exprefs.
     // There's likely a clean way to avoid the cyclic dependency.
-    var runtime = new Runtime(options);
+    var runtime = new Runtime();
+    Object.assign(runtime.functionTable, fns);
     var interpreter = new TreeInterpreter(runtime);
     runtime._interpreter = interpreter;
-    runtime._rootData = data;
-    var node = parser.parse(expression);
-    return interpreter.search(node, data);
+    return function (expression) {
+      var node = parser.parse(expression);
+      return function (data) {
+        runtime._rootData = data;
+        return interpreter.search(node, data);
+      };
+    };
   }
 
   exports.tokenize = tokenize;
   exports.compile = compile;
   exports.search = search;
+  exports.decorate = decorate;
   exports.strictDeepEqual = strictDeepEqual;
+  exports.types = {
+    TYPE_NUMBER: 0,
+    TYPE_ANY: 1,
+    TYPE_STRING: 2,
+    TYPE_ARRAY: 3,
+    TYPE_OBJECT: 4,
+    TYPE_BOOLEAN: 5,
+    TYPE_EXPREF: 6,
+    TYPE_NULL: 7,
+    TYPE_ARRAY_NUMBER: 8,
+    TYPE_ARRAY_STRING: 9,
+  };
 })(typeof exports === "undefined" ? this.jmespath = {} : exports);
