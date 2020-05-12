@@ -1,6 +1,6 @@
 import { decorate } from './jmespath';
 import uuid from 'uuid';
-import {find, get, omit, pick, pickBy, zip, toPairs, fromPairs, pad, padStart, padEnd, uniqBy, uniq, includes} from 'lodash-es';
+import {find, get, omit, pick, pickBy, zip, toPairs, fromPairs, pad, padStart, padEnd, uniqBy, uniq, includes, filter} from 'lodash-es';
 import {DateTime} from 'luxon';
 import {parse as parseQueryString, stringify as asQueryString} from 'qs';
 import stringify from 'json-stringify-safe';
@@ -171,6 +171,10 @@ const search = decorate({
   includes: {
     _func: ([a, i]) => includes(a, i),
     _signature: [{types: [TYPE_ARRAY, TYPE_OBJECT]}, {types: [TYPE_ANY]}]
+  },
+  all: {
+    _func: ([a]) => filter(a).length === a.length,
+    _signature: [{types: [TYPE_ARRAY]}]
   }
 });
 
