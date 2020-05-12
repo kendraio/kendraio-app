@@ -1210,6 +1210,10 @@
       "not_null": {
         _func: this._functionNotNull,
         _signature: [{types: [TYPE_ANY], variadic: true}]
+      },
+      _: {
+        _func: this._functionUnderscore,
+        _signature: [{types: [TYPE_EXPREF]}]
       }
     };
   }
@@ -1328,6 +1332,10 @@
             return TYPE_OBJECT;
           }
       }
+    },
+
+    _functionUnderscore: function(resolvedArgs) {
+      return this._interpreter.search(resolvedArgs[0], this._rootData);
     },
 
     _functionStartsWith: function(resolvedArgs) {
@@ -1678,6 +1686,7 @@
     return function (expression) {
       var node = parser.parse(expression);
       return function (data) {
+        runtime._rootData = data;
         return interpreter.search(node, data);
       };
     };
