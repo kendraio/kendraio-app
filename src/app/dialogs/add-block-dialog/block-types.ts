@@ -483,5 +483,17 @@ export const BLOCK_TYPES = [
         token: 'context.authToken'
       }
     }
+  },
+  {
+    type: 'validator',
+    label: 'Validator',
+    description: 'Data validation task. Only allows Flows to continue if the test passes.',
+    icon: 'error',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'validator',
+      test: 'not_null(data)',
+      message: 'Validation Failed'
+    }
   }
 ];
