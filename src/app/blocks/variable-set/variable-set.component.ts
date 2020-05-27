@@ -28,7 +28,7 @@ export class VariableSetComponent implements OnInit, OnChanges {
     if (get(changes, 'model.firstChange', false)) {
       return;
     }
-    if (!this.model) {
+    if (!this.model || (isObject(this.model) && Object.keys(this.model).length === 0)) {
       return;
     }
     const adapterName = get(this.context, 'app.adapterName', 'UNKNOWN');
