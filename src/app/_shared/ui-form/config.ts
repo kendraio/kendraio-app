@@ -165,7 +165,7 @@ export const config: ConfigOption = {
       },
     },
     {
-      name: 'k-hidden',
+      name: 'hidden',
       component: types.FieldHiddenComponent
     },
     {
@@ -185,7 +185,7 @@ export const config: ConfigOption = {
 
     // { name: 'array', component: ArrayTypeComponent },
     { name: 'enum', extends: 'select' },
-    { name: 'k-textarea', component: types.TextareaComponent},
+    { name: 'textarea', component: types.TextareaComponent},
     { name: 'kendraio-textarea', component: types.TextareaComponent},
     { name: 'k-image', component: types.ImageViewerComponent},
     { name: 'kendraio-image', component: types.ImageViewerComponent},
@@ -231,6 +231,9 @@ export const config: ConfigOption = {
     },
     {
       name: 'kendraio-timepicker', component: types.TimePickerComponent
+    },
+    {
+      name: 'timepicker', component: types.TimePickerComponent
     },
     {
       name: 'file',
