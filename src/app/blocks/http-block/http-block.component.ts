@@ -24,6 +24,9 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   hasError = false;
   errorMessage = '';
 
+  errorData = {};
+  errorBlocks = [];
+
   isLoading = false;
 
   constructor(
@@ -41,6 +44,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       return;
     }
     this.responseType = get(this.config, 'responseType', 'json');
+    this.errorBlocks = get(this.config, 'onError.blocks', []);
     this.makeRequest();
   }
 
@@ -50,12 +54,16 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     const method = get(this.config, 'method');
     if (!method) {
       this.errorMessage = 'No HTTP method provided';
+      this.errorData = {};
+      this.errorBlocks = [];
       this.hasError = true;
       this.isLoading = false;
       return;
     }
     if (!includes(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], toUpper(method))) {
       this.errorMessage = 'HTTP method not supported';
+      this.errorData = {};
+      this.errorBlocks = [];
       this.hasError = true;
       this.isLoading = false;
       return;
@@ -93,6 +101,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
             catchError(error => {
               this.hasError = true;
               this.errorMessage = error.message;
+              this.errorData = error;
               // TODO: need to prevent errors for triggering subsequent blocks
               return of([]);
             })
@@ -109,6 +118,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
             catchError(error => {
               this.hasError = true;
               this.errorMessage = error.message;
+              this.errorData = error;
               // TODO: need to prevent errors for triggering subsequent blocks
               return of([]);
             })
@@ -128,6 +138,9 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           this.isLoading = false;
           this.hasError = true;
           this.errorMessage = `${toUpper(method)} of empty payload prevented in http block`;
+          this.errorData = {};
+          this.errorBlocks = [];
+
           return;
         }
         const sub = (toUpper(method) === 'PUT')
@@ -140,6 +153,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
             catchError(error => {
               this.hasError = true;
               this.errorMessage = error.message;
+              this.errorData = error;
               // TODO: need to prevent errors for triggering subsequent blocks
               return of([]);
             })

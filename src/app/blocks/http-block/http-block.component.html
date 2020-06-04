@@ -1,6 +1,13 @@
 <mat-error *ngIf="hasError">
   {{ errorMessage }}
 </mat-error>
+
+<div *ngIf="errorBlocks.length > 0">
+  <app-blocks-workflow [blocks]="errorBlocks"
+                       [models]="[errorData]"
+                       [context]="context"></app-blocks-workflow>
+</div>
+
 <mat-spinner *ngIf="isLoading" diameter="50"></mat-spinner>
 
 <!-- <pre>httpblock-contect:{{context | json}}</pre>
