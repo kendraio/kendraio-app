@@ -29,6 +29,10 @@ export class HttpBlockComponent implements OnInit, OnChanges {
 
   isLoading = false;
 
+  contextErrorKey = null;
+  contextErrors = '';
+  prevContextKey = '';
+
   constructor(
     private readonly contextData: ContextDataService,
     private readonly notify: MatSnackBar,
@@ -40,6 +44,20 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes) {
+    const keyChanges = Object.keys(changes);
+    this.contextErrorKey = get(this.config, 'contextErrorKey', null);
+    if (this.context.__key !== this.prevContextKey) {
+      // context has changed
+      this.prevContextKey = this.context.__key;
+      // update errors from context if used
+      if (this.contextErrorKey) {
+        this.contextErrors = mappingUtility(this.context, this.contextErrorKey) || '';
+      }
+      if (keyChanges.length === 1 && keyChanges.includes('context')) {
+        // exit if only the context was changed
+        return;
+      }
+    }
     if (get(this.config, 'skipInit', true) && get(changes, 'model.firstChange', false)) {
       return;
     }

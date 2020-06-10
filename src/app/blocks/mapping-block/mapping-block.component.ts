@@ -29,6 +29,11 @@ export class MappingBlockComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes): void {
+    const keyChanges = Object.keys(changes);
+    if (keyChanges.length === 1 && keyChanges.includes('context')) {
+      // ignore changes where only the context changed
+      return;
+    }
     // console.log('mapping changes', this.mapping,  changes);
     this.mapping = this.parseMapping(get(this.config, 'mapping'));
     this.debugMapping = get(this.config, 'debug', false);

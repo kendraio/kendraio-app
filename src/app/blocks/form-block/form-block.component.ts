@@ -5,6 +5,7 @@ import {FormlyFieldConfig, FormlyFormOptions} from '@ngx-formly/core';
 import {Subject} from 'rxjs';
 import {debounceTime, distinctUntilChanged, filter, tap} from 'rxjs/operators';
 import { clone, get, has } from 'lodash-es';
+import {mappingUtility} from '../mapping-block/mapping-util';
 
 @Component({
   selector: 'app-form-block',
@@ -27,6 +28,10 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
   label = 'Submit';
   hasSubmit = true;
   emitOnInit = false;
+
+  contextErrorKey = null;
+  contextErrors = '';
+  prevContextKey = '';
 
   constructor(
     private readonly formService: KendraioFormService
@@ -53,6 +58,21 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes): void {
+    const keyChanges = Object.keys(changes);
+    this.contextErrorKey = get(this.config, 'contextErrorKey', null);
+    if (this.context.__key !== this.prevContextKey) {
+      // context has changed
+      this.prevContextKey = this.context.__key;
+      // update errors from context if used
+      if (this.contextErrorKey) {
+        this.contextErrors = mappingUtility(this.context, this.contextErrorKey) || '';
+      }
+      if (keyChanges.length === 1 && keyChanges.includes('context')) {
+        // exit if only the context was changed
+        return;
+      }
+    }
+
     this.label = get(this.config, 'label', 'Submit');
     this.hasSubmit = get(this.config, 'hasSubmit', true);
     this.emitOnInit = get(this.config, 'emitOnInit', false) as boolean;

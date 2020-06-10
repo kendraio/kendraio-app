@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
 import {clone, get, set} from 'lodash-es';
+import v4 from 'uuid/v4';
 
 @Component({
   selector: 'app-context-save-block',
@@ -17,6 +18,7 @@ export class ContextSaveBlockComponent extends BaseBlockComponent {
 
   onData(data: any, firstChange: boolean) {
     set(this.context, this.contextKey, data);
+    this.context.__key = v4();
     this.output.emit(clone(data));
   }
 

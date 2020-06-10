@@ -2,6 +2,8 @@
   {{ errorMessage }}
 </mat-error>
 
+<mat-error *ngIf="contextErrorKey && contextErrors">{{contextErrors}}</mat-error>
+
 <div *ngIf="errorBlocks.length > 0">
   <app-blocks-workflow [blocks]="errorBlocks"
                        [models]="[errorData]"
