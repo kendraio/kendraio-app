@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
 import {HttpClient} from '@angular/common/http';
-import { get } from 'lodash';
+import { get, isObject } from 'lodash';
 import {mappingUtility} from '../mapping-block/mapping-util';
 
 @Component({
@@ -33,6 +33,13 @@ export class GraphqlBlockComponent extends BaseBlockComponent {
     if (firstChange) {
       return;
     }
+    const allowEmpty = get(this.config, 'allowEmpty', false);
+    if (!isObject(data) && !allowEmpty) {
+      return;
+    }
+    if (Object.keys(data).length === 0 && !allowEmpty) {
+      return;
+    }
 
     const payload = {
       query: this.query,
@@ -42,6 +49,7 @@ export class GraphqlBlockComponent extends BaseBlockComponent {
       }, {})
     };
 
+    this.hasError = false;
     this.isLoading = true;
     this.http.post(this.endpoint, payload)
       .subscribe(result => {
