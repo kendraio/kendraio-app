@@ -1,7 +1,8 @@
 import {ChangeDetectorRef, Component, NgZone} from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
 import {WorkflowRepoService} from '../../services/workflow-repo.service';
-import { get } from 'lodash';
+import {get} from 'lodash';
+import {mappingUtility} from '../mapping-block/mapping-util';
 
 @Component({
   selector: 'app-gosub-block',
@@ -18,6 +19,8 @@ export class GosubBlockComponent extends BaseBlockComponent {
   isLoading = true;
   hasError = false;
   errorMessage = '';
+  configGetter;
+  contextGetter;
 
   constructor(
     private readonly repo: WorkflowRepoService,
@@ -30,15 +33,29 @@ export class GosubBlockComponent extends BaseBlockComponent {
   onConfigUpdate(config: any) {
     this.adapterName = get(config, 'adapterName');
     this.workflowId = get(config, 'workflowId');
+    this.configGetter = get(config, 'configGetter');
+    this.contextGetter = get(config, 'contextGetter');
   }
 
   onData(data: any, firstChange: boolean) {
-    if (this.adapterName && this.workflowId) {
+    if (this.configGetter) {
+      const {adapterName, workflowId} = mappingUtility({data: this.model, context: this.context}, this.configGetter);
+      this.doLoad(adapterName, workflowId);
+    } else {
+      this.doLoad(this.adapterName, this.workflowId);
+    }
+  }
+
+  doLoad(adapterName, workflowId) {
+    if (adapterName && workflowId) {
       this.isLoading = true;
-      this.repo.getBlocks(this.adapterName, this.workflowId).toPromise().then(({ blocks }) => {
+      if (this.contextGetter) {
+        this.context = mappingUtility({ data: this.model, context: this.context }, this.contextGetter);
+      }
+      this.repo.getBlocks(adapterName, workflowId).toPromise().then(({blocks}) => {
         this.zone.run(() => {
           this.isLoading = false;
-          this.blocks = [ ...blocks];
+          this.blocks = [...blocks];
           this.subModels = [this.model];
           this.cd.markForCheck();
         });

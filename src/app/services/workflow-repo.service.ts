@@ -21,6 +21,10 @@ export class WorkflowRepoService {
     private readonly localData: LocalDatabaseService
   ) { }
 
+  clearCacheFor(adapterName: string, workflowId: string) {
+    delete(this.configCache[`${adapterName}::${workflowId}`]);
+  }
+
   getBlocks(adapterName: string, workflowId: string) {
     const context = {
       // TODO: Object wrapper for context to enforce rules about use, for example
@@ -35,8 +39,8 @@ export class WorkflowRepoService {
     };
 
     if (this.configCache[`${adapterName}::${workflowId}`]) {
-      const { title, blocks } = this.configCache[`${adapterName}::${workflowId}`];
-      return of({ title, blocks, adapterName, workflowId, context });
+      const { title, blocks, tags } = this.configCache[`${adapterName}::${workflowId}`];
+      return of({ title, blocks, tags, adapterName, workflowId, context });
     }
 
     // Attempt to load workflow from DB, fall back to legacy loading if not found
@@ -46,9 +50,9 @@ export class WorkflowRepoService {
     }).first()).pipe(
       switchMap((data: any) => {
         if (!!data) {
-          const { title, blocks } = data;
+          const { title, blocks, tags } = data;
           this.configCache[`${adapterName}::${workflowId}`] = data;
-          return of({ title, blocks, adapterName, workflowId, context });
+          return of({ title, blocks, tags, adapterName, workflowId, context });
         }
 
         const URL = `${environment.workflowStoreUrl}/${adapterName}/${camelCase(workflowId)}`;
@@ -62,8 +66,8 @@ export class WorkflowRepoService {
               }
             }
           })),
-          tap(({ title, blocks }: any) => {
-            this.configCache[`${adapterName}::${workflowId}`] = { title, blocks };
+          tap(({ title, blocks, tags }: any) => {
+            this.configCache[`${adapterName}::${workflowId}`] = { title, blocks, tags };
           }),
           catchError(err => {
             const URL2 = `${environment.workflowStoreUrl}/${adapterName}/${workflowId}`;
@@ -77,8 +81,8 @@ export class WorkflowRepoService {
                   }
                 }
               })),
-              tap(({ title, blocks }: any) => {
-                this.configCache[`${adapterName}::${workflowId}`] = { title, blocks };
+              tap(({ title, blocks, tags }: any) => {
+                this.configCache[`${adapterName}::${workflowId}`] = { title, blocks, tags };
               }),
               catchError(err2 => {
                 console.log(`Workflow ${workflowId} loaded with previous loader`);

@@ -161,6 +161,7 @@ import {config} from './_shared/ui-form/config';
 import {FormlyMaterialModule} from '@ngx-formly/material';
 import { GraphqlBlockComponent } from './blocks/graphql-block/graphql-block.component';
 import { ValidatorBlockComponent } from './blocks/validator-block/validator-block.component';
+import { ConnectComponent } from './pages/connect/connect.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -298,7 +299,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     GsheetBlockComponent,
     MapBlockComponent,
     GraphqlBlockComponent,
-    ValidatorBlockComponent
+    ValidatorBlockComponent,
+    ConnectComponent
   ],
   imports: [
     FormlyModule.forRoot({}),

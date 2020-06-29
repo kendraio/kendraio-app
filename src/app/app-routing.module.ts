@@ -15,6 +15,7 @@ import {QueryBuilderPageComponent} from './pages/query-builder-page/query-builde
 import {BlocksBuilderPageComponent} from './pages/blocks-builder-page/blocks-builder-page.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
 import {JsonViewPageComponent} from './pages/json-view-page/json-view-page.component';
+import {ConnectComponent} from './pages/connect/connect.component';
 
 const routes: Routes = [
   {
@@ -74,6 +75,14 @@ const routes: Routes = [
     data: {
       pageTitle: 'User',
       breadcrumb: 'User'
+    }
+  },
+  {
+    path: 'connect',
+    component: ConnectComponent,
+    data: {
+      pageTitle: 'Connect',
+      breadcrumb: 'Connect'
     }
   },
   {

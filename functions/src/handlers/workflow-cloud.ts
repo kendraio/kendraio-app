@@ -47,7 +47,7 @@ function appFactory({db, auth}: { db: any, auth: admin.auth.Auth }) {
     }
   });
 
-  const updateWorkflow = async ({adapterName, workflowId, title, created, updated, ...body}) => {
+  const updateWorkflow = async ({adapterName, workflowId, title, tags, created, updated, ...body}) => {
     const now = new Date().toISOString();
     return await db
       .collection('adapters')
@@ -58,6 +58,7 @@ function appFactory({db, auth}: { db: any, auth: admin.auth.Auth }) {
         adapterName,
         workflowId,
         title,
+        tags,
         created: created || now,
         updated: updated || now,
         _encoded: JSON.stringify(body)
@@ -67,6 +68,28 @@ function appFactory({db, auth}: { db: any, auth: admin.auth.Auth }) {
   app.put('/api', validateToken, async (req, res) => {
     const docRef = await updateWorkflow(req.body);
     await res.send({status: 'ok', id: docRef.id});
+  });
+
+  app.get('/api/tag/:tag', async (req, res) => {
+    const tag = `${req.params.tag}`;
+    const docs = await db
+      .collectionGroup('workflows')
+      .where('tags', 'array-contains', tag)
+      .get();
+    const result: Array<any> = [];
+    docs.forEach(doc => {
+      result.push({
+        id: doc.id,
+        workflowId: doc.id,
+        tags: doc.data().tags,
+        title: doc.data().title,
+        adapterName: doc.data().adapterName || 'UNKNOWN',
+        created: doc.data().created,
+        updated: doc.data().updated,
+        modified: doc.data().updated
+      });
+    });
+    res.send(result);
   });
 
   app.post('/api/:adapterName/:workflowId', validateToken, async (req, res) => {
@@ -101,6 +124,7 @@ function appFactory({db, auth}: { db: any, auth: admin.auth.Auth }) {
         workflowId: docRef.id,
         adapterName: data.adapterName,
         created: data.created,
+        tags: data.tags,
         updated: data.updated,
         modified: data.updated,
         title: data.title
@@ -119,6 +143,7 @@ function appFactory({db, auth}: { db: any, auth: admin.auth.Auth }) {
         id: doc.id,
         workflowId: doc.id,
         title: doc.data().title,
+        tags: doc.data().tags,
         adapterName: doc.data().adapterName || 'UNKNOWN',
         created: doc.data().created,
         updated: doc.data().updated,

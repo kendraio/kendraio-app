@@ -8,6 +8,7 @@ import {clone, findIndex, get, has, isArray, pick, set} from 'lodash-es';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {PageTitleService} from './page-title.service';
 import {AdaptersService} from './adapters.service';
+// tslint:disable-next-line:import-spacing
 import {AdapterBlocksConfigSelectDialogComponent} from
     '../dialogs/adapter-blocks-config-select-dialog/adapter-blocks-config-select-dialog.component';
 import {ShareLinkGeneratorService} from './share-link-generator.service';
@@ -16,6 +17,8 @@ import {SaveWorkflowDialogComponent} from '../dialogs/save-workflow-dialog/save-
 import {EditWorkflowMetadataDialogComponent} from '../dialogs/edit-workflow-metadata-dialog/edit-workflow-metadata-dialog.component';
 import {LocalDatabaseService} from './local-database.service';
 import { camelCase } from 'lodash-es';
+import {ConnectionManagerService} from './connection-manager.service';
+import {WorkflowRepoService} from './workflow-repo.service';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +30,7 @@ export class WorkflowService {
   blocks = [];
   models = [];
   context = {};
+  tags = [];
 
   constructor(
     private readonly router: Router,
@@ -35,7 +39,9 @@ export class WorkflowService {
     private readonly adapters: AdaptersService,
     private readonly shareLinks: ShareLinkGeneratorService,
     private readonly localData: LocalDatabaseService,
-    private readonly notify: MatSnackBar
+    private readonly notify: MatSnackBar,
+    private readonly connectionManager: ConnectionManagerService,
+    private readonly workflowRepo: WorkflowRepoService,
   ) {
     this.router.events
       .pipe(
@@ -49,7 +55,7 @@ export class WorkflowService {
     const urlData = this.shareLinks.getData();
     if (urlData && isArray(urlData)) {
       this.blocks = urlData;
-      this.initWorkflow({ title: 'Workflow', blocks: urlData, context: {} }, true);
+      this.initWorkflow({ title: 'Workflow', blocks: urlData, context: {}, tags: [] }, true);
     }
   }
 
@@ -58,7 +64,8 @@ export class WorkflowService {
     const title = get(state, 'title', 'Workflow');
     const blocks = get(state, 'blocks', []);
     const context = get(state, 'context', {});
-    this.initWorkflow({ title, blocks, context });
+    const tags = get(state, 'tags', []);
+    this.initWorkflow({ title, blocks, context, tags });
     this.id = get(state, 'id', false);
     set(this.context, 'app.adapterName', get(state, 'adapterName', this.getAdapterName()));
   }
@@ -66,6 +73,7 @@ export class WorkflowService {
   saveState() {
     const { title, blocks, context, id } = this;
     const adapterName = this.getAdapterName();
+    this.workflowRepo.clearCacheFor(adapterName, id);
     localStorage.setItem('kendraio-workflow-state', JSON.stringify({ title, blocks, context, id, adapterName }));
   }
 
@@ -122,7 +130,8 @@ export class WorkflowService {
                 this.initWorkflow({
                   title: get(config, 'title', 'Imported config'),
                   blocks: get(config, 'blocks', []),
-                  context: {queryParams, fragment}
+                  context: {queryParams, fragment},
+                  tags: get(config, 'tags', [])
                 });
                 this.id = get(config, 'id');
                 set(this.context, 'app.adapterName', get(config, 'adapterName', 'UNKNOWN'));
@@ -137,13 +146,14 @@ export class WorkflowService {
     });
   }
 
-  initWorkflow({ title, blocks, context }, isBuilder = false) {
-    // console.log('init workflow', { title, blocks, context });
+  initWorkflow({ title, blocks, context, tags }, isBuilder = false) {
     this.pageTitle.setTitle(title, true);
     this.title = title;
     this.blocks = blocks;
+    this.tags = tags || [];
     this.context = clone(context);
     set(this.context, 'app.location', pick(location, ['origin', 'protocol', 'host', 'port', 'pathname', 'search', 'hash', 'href']));
+    this.connectionManager.addToContext(this.context);
     this.id = this.getWorkflowId();
     this.models = this.blocks.map(blockDef => get(blockDef, 'defaultValue', {}));
     this.models.push({});
@@ -189,10 +199,10 @@ export class WorkflowService {
   }
 
   upload() {
-    const { title, blocks, id } = this;
+    const { title, blocks, id, tags } = this;
     const dialogRef = this.dialog.open(SaveWorkflowDialogComponent, {
       disableClose: true,
-      data: { title, blocks, id: camelCase(id), adapterName: this.getAdapterName() }
+      data: { title, blocks, id: camelCase(id), adapterName: this.getAdapterName(), tags }
     });
     dialogRef.afterClosed().subscribe(values => {
       if (!!values) {
@@ -209,9 +219,11 @@ export class WorkflowService {
       if (!!values) {
         // console.log(values);
         const blocks = get(values, 'blocks', []);
+        const tags = get(values, 'tags', []);
         const title = get(values, 'title', 'Workflow');
-        this.initWorkflow({ title, blocks, context: {} });
+        this.initWorkflow({ title, blocks, context: {}, tags });
         this.id = get(values, 'id');
+        this.tags = get(values, 'tags', []);
         set(this.context, 'app.adapterName', get(values, 'adapterName', this.getAdapterName()));
         this.saveState();
       }
@@ -219,15 +231,16 @@ export class WorkflowService {
   }
 
   editMetadata() {
-    const { title, id } = this;
+    const { title, id, tags } = this;
     const dialogRef = this.dialog.open(EditWorkflowMetadataDialogComponent, {
       disableClose: true,
-      data: { title, id, adapterName: this.getAdapterName() }
+      data: { title, id, adapterName: this.getAdapterName(), tags }
     });
     dialogRef.afterClosed().subscribe(values => {
       if (!!values) {
         this.title = get(values, 'title', 'Workflow');
         this.id = get(values, 'id');
+        this.tags = get(values, 'tags');
         set(this.context, 'app.adapterName', get(values, 'adapterName', this.getAdapterName()));
         this.saveState();
       }

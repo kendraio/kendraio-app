@@ -57,8 +57,8 @@ export class NotFoundComponent implements OnInit, OnDestroy {
           });
         }),
       )
-      .subscribe(({ blocks, title, context, queryParams, fragment }) => {
-        this.workflow.initWorkflow({ title, blocks, context: { ...context, queryParams, fragment }});
+      .subscribe(({ blocks, title, context, tags, queryParams, fragment }) => {
+        this.workflow.initWorkflow({ title, blocks, tags, context: { ...context, queryParams, fragment }});
         this.isLoaded = true;
       });
   }
