@@ -2,7 +2,8 @@ import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, V
 import {clone, get, isArray, isObject} from 'lodash-es';
 import * as stringify from 'json-stringify-safe';
 import {MatSnackBar} from '@angular/material';
-import { AppSettingsService } from '../../services/app-settings.service';
+import {AppSettingsService} from '../../services/app-settings.service';
+import {mappingUtility} from '../mapping-block/mapping-util';
 
 @Component({
   selector: 'app-variable-set',
@@ -15,16 +16,21 @@ export class VariableSetComponent implements OnInit, OnChanges {
   @Input() context;
   @Input() model: any = {};
   @Output() output = new EventEmitter();
+  showNotify = true;
+  nameGetter;
 
   constructor(
     private readonly notify: MatSnackBar,
     private readonly settings: AppSettingsService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
   }
 
   ngOnChanges(changes) {
+    this.showNotify = get(this.config, 'notify', true);
+    this.nameGetter = get(this.config, 'nameGetter');
     if (get(changes, 'model.firstChange', false)) {
       return;
     }
@@ -33,13 +39,20 @@ export class VariableSetComponent implements OnInit, OnChanges {
     }
     const adapterName = get(this.context, 'app.adapterName', 'UNKNOWN');
     const variableName = get(this.config, 'name', 'UNKNOWN');
+    let savedVariableName = `${adapterName}.variables.${variableName}`;
+    if (this.nameGetter) {
+      // console.log(this.nameGetter, this.model, this.context);
+      savedVariableName = mappingUtility({ data: this.model, context: this.context }, this.nameGetter);
+    }
     const data = stringify(this.model);
-    localStorage.setItem(`${adapterName}.variables.${variableName}`, data);
-    const message = `${variableName} update successful`;
-    this.notify.open(message, 'OK', {
-      duration: 4000,
-      verticalPosition: 'top'
-    });
+    localStorage.setItem(savedVariableName, data);
+    if (this.showNotify) {
+      const message = `${variableName} update successful`;
+      this.notify.open(message, 'OK', {
+        duration: 4000,
+        verticalPosition: 'top'
+      });
+    }
     this.output.emit(clone(this.model));
 
     if (get(this.context, 'app.adapterName') === 'core') {

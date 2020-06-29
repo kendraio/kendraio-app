@@ -21,6 +21,7 @@ export class GosubBlockComponent extends BaseBlockComponent {
   errorMessage = '';
   configGetter;
   contextGetter;
+  modelGetter;
 
   constructor(
     private readonly repo: WorkflowRepoService,
@@ -35,6 +36,7 @@ export class GosubBlockComponent extends BaseBlockComponent {
     this.workflowId = get(config, 'workflowId');
     this.configGetter = get(config, 'configGetter');
     this.contextGetter = get(config, 'contextGetter');
+    this.modelGetter = get(config, 'modelGetter');
   }
 
   onData(data: any, firstChange: boolean) {
@@ -52,11 +54,15 @@ export class GosubBlockComponent extends BaseBlockComponent {
       if (this.contextGetter) {
         this.context = mappingUtility({ data: this.model, context: this.context }, this.contextGetter);
       }
+      let model = this.model;
+      if (this.modelGetter) {
+        model = mappingUtility({ data: this.model, context: this.context }, this.modelGetter);
+      }
       this.repo.getBlocks(adapterName, workflowId).toPromise().then(({blocks}) => {
         this.zone.run(() => {
           this.isLoading = false;
           this.blocks = [...blocks];
-          this.subModels = [this.model];
+          this.subModels = [model, ...blocks.map(() => ({}))];
           this.cd.markForCheck();
         });
       }).catch(err => {

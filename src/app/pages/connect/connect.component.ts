@@ -9,6 +9,8 @@ import {ConnectionManagerService} from '../../services/connection-manager.servic
 })
 export class ConnectComponent implements OnInit {
 
+  isLoading = true;
+
   config = {
     columnDefs: [
       { headerName: 'id', field: 'id', },
@@ -29,13 +31,26 @@ export class ConnectComponent implements OnInit {
                       'type': 'dialog',
                       'blocks': [
                         {
+                          type: 'context-save',
+                          contextKey: 'authParamInfo'
+                        },
+                        {
                           type: 'message',
                           title: '{{ data.title }}'
                         },
                         {
                           type: 'gosub',
                           configGetter: '{ adapterName: data.adapterName, workflowId: data.id }',
-                          contextGetter: '{ app: { adapterName: data.adapterName }}'
+                          contextGetter: '{ app: { adapterName: data.adapterName }}',
+                          // TODO: load default model from saved params
+                          modelGetter: '`{}`'
+                          // TODO: capture workflow output and save as connect params
+                        },
+                        {
+                          type: 'variable-set',
+                          name: 'auth',
+                          notify: false,
+                          nameGetter: 'join(`__`, [`connect`, context.authParamInfo.adapterName, context.authParamInfo.workflowId])'
                         }
                       ]
                     }
@@ -56,7 +71,7 @@ export class ConnectComponent implements OnInit {
 
   ngOnInit() {
     this.pageTitle.setTitle('User settings');
-    this.connectionManager.init();
+    this.connectionManager.init().then(() => this.isLoading = false);
   }
 
 }

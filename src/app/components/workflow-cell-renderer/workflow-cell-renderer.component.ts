@@ -23,7 +23,7 @@ export class WorkflowCellRendererComponent implements OnInit, ICellRendererAngul
     // console.log('agInit', { params });
     this.blocks = get(params, 'colDef.cellRendererParams.blocks', []);
     this.context = get(params, 'colDef.cellRendererParams.context', {});
-    this.data = get(params, 'data');
+    this.data = [get(params, 'data'), ...this.blocks.map(() => ({}))];
   }
 
   refresh(params: any): boolean {

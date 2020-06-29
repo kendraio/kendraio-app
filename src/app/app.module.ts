@@ -162,6 +162,7 @@ import {FormlyMaterialModule} from '@ngx-formly/material';
 import { GraphqlBlockComponent } from './blocks/graphql-block/graphql-block.component';
 import { ValidatorBlockComponent } from './blocks/validator-block/validator-block.component';
 import { ConnectComponent } from './pages/connect/connect.component';
+import { LoadAuthBlockComponent } from './blocks/load-auth-block/load-auth-block.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -300,7 +301,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MapBlockComponent,
     GraphqlBlockComponent,
     ValidatorBlockComponent,
-    ConnectComponent
+    ConnectComponent,
+    LoadAuthBlockComponent
   ],
   imports: [
     FormlyModule.forRoot({}),

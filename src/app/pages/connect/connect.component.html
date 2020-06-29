@@ -10,8 +10,9 @@ click here for the old account page</button>
   </div>
 </div>
 
-
-
-<app-grid-block [config]="config" [model]="connectionManager.flows"></app-grid-block>
+<div *ngIf="isLoading">
+  <p>Loading...</p>
+</div>
+<app-grid-block *ngIf="!isLoading" [config]="config" [model]="connectionManager.flows"></app-grid-block>
 
 

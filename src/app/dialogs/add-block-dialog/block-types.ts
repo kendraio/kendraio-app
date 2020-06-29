@@ -495,5 +495,17 @@ export const BLOCK_TYPES = [
       test: 'not_null(data)',
       message: 'Validation Failed'
     }
+  },
+  {
+    type: 'load-auth',
+    label: 'Load Auth',
+    description: 'Load authentication details from connection storage.',
+    icon: 'lock',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'load-auth',
+      adapterName: 'UNKNOWN',
+      workflowId: 'connect'
+    }
   }
 ];

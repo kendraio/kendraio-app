@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { set } from 'lodash';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '@env/environment';
+import {tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +24,11 @@ export class ConnectionManagerService {
   }
 
   init() {
-    this.http.get<any[]>(`${environment.workflowStoreUrl}/tag/connect`)
-      .subscribe(flows => this.flows = flows);
+    return this.http.get<any[]>(`${environment.workflowStoreUrl}/tag/connect`)
+      .pipe(
+        tap(flows => this.flows = flows)
+      )
+      .toPromise();
   }
 
   addConnection(workflowId) {
