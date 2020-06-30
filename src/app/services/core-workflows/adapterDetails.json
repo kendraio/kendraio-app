@@ -98,7 +98,7 @@
             },
             {
               "type": "mapping",
-              "mapping": "data[?adapterName == _(&context.queryParams.adapterName)]"
+              "mapping": "data[?adapterName == $.context.queryParams.adapterName]"
             },
             {
               "type": "grid",

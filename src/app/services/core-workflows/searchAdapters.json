@@ -101,7 +101,7 @@
         },
         {
           "type": "mapping",
-          "mapping": "(length(data.term) == `0` && context.adapterList) || context.adapterList[?contains(tags, _(&data.term)) || contains(name, _(&data.term))]"
+          "mapping": "(length(data.term) == `0` && context.adapterList) || context.adapterList[?contains(tags, $.data.term) || contains(name, $.data.term)]"
         }
       ]
     },
