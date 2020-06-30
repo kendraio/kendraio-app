@@ -35,6 +35,10 @@ const search = decorate({
     _func: ([s]) => s.trim(),
     _signature: [{types: [TYPE_STRING]}]
   },
+  now: {
+    _func: () => new Date().toUTCString(),
+    _signature: []
+  },
   formatDate: {
     _func: ([dateString, formatString]) => DateTime.fromISO(dateString).toFormat(formatString),
     _signature: [{types: [TYPE_STRING]}, {types: [TYPE_STRING]}]

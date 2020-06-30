@@ -163,6 +163,7 @@ import { GraphqlBlockComponent } from './blocks/graphql-block/graphql-block.comp
 import { ValidatorBlockComponent } from './blocks/validator-block/validator-block.component';
 import { ConnectComponent } from './pages/connect/connect.component';
 import { LoadAuthBlockComponent } from './blocks/load-auth-block/load-auth-block.component';
+import { ConnectionStatusRendererComponent } from './components/connection-status-renderer/connection-status-renderer.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -302,7 +303,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     GraphqlBlockComponent,
     ValidatorBlockComponent,
     ConnectComponent,
-    LoadAuthBlockComponent
+    LoadAuthBlockComponent,
+    ConnectionStatusRendererComponent
   ],
   imports: [
     FormlyModule.forRoot({}),
@@ -327,7 +329,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatAutocompleteModule,
     MonacoEditorModule.forRoot(),
     AgGridModule.withComponents([
-      WorkflowCellRendererComponent
+      WorkflowCellRendererComponent,
+      ConnectionStatusRendererComponent
     ]),
     DragDropModule,
     LeafletModule.forRoot(),

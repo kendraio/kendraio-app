@@ -37,7 +37,7 @@
     "@angular/service-worker": "^8.2.14",
     "@asymmetrik/ngx-leaflet": "^6.0.1",
     "@asymmetrik/ngx-leaflet-markercluster": "^3.0.0",
-    "@daz.is/jmespath": "^1.1.2",
+    "@daz.is/jmespath": "^1.2.1",
     "@fortawesome/fontawesome-free": "^5.10.2",
     "@ng-select/ng-select": "^3.7.0",
     "@ngx-formly/core": "^5.5.1",

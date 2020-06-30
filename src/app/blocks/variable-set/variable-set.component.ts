@@ -18,6 +18,7 @@ export class VariableSetComponent implements OnInit, OnChanges {
   @Output() output = new EventEmitter();
   showNotify = true;
   nameGetter;
+  valueGetter;
 
   constructor(
     private readonly notify: MatSnackBar,
@@ -31,6 +32,7 @@ export class VariableSetComponent implements OnInit, OnChanges {
   ngOnChanges(changes) {
     this.showNotify = get(this.config, 'notify', true);
     this.nameGetter = get(this.config, 'nameGetter');
+    this.valueGetter = get(this.config, 'valueGetter');
     if (get(changes, 'model.firstChange', false)) {
       return;
     }
@@ -44,7 +46,9 @@ export class VariableSetComponent implements OnInit, OnChanges {
       // console.log(this.nameGetter, this.model, this.context);
       savedVariableName = mappingUtility({ data: this.model, context: this.context }, this.nameGetter);
     }
-    const data = stringify(this.model);
+    const data = this.valueGetter
+      ? mappingUtility({ data: this.model, context: this.context }, this.valueGetter)
+      : stringify(this.model);
     localStorage.setItem(savedVariableName, data);
     if (this.showNotify) {
       const message = `${variableName} update successful`;

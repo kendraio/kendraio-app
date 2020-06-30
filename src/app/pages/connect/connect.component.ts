@@ -16,7 +16,10 @@ export class ConnectComponent implements OnInit {
       { headerName: 'id', field: 'id', },
       { headerName: 'title', field: 'title', },
       { headerName: 'project', field: 'adapterName', },
-      // { headerName: 'modified', field: 'modified', },
+      {
+        headerName: 'Last verified',
+        cellRenderer: 'connectionStatusRenderer'
+      },
       {
         'cellRenderer': 'workflowRenderer',
         'cellRendererParams': {
@@ -51,6 +54,14 @@ export class ConnectComponent implements OnInit {
                           name: 'auth',
                           notify: false,
                           nameGetter: 'join(`__`, [`connect`, context.authParamInfo.adapterName, context.authParamInfo.workflowId])'
+                        },
+                        {
+                          type: 'variable-set',
+                          name: 'auth',
+                          notify: false,
+                          valueGetter: 'now()',
+                          nameGetter:
+                            'join(`__`, [`connect`, context.authParamInfo.adapterName, context.authParamInfo.workflowId, `updated`])'
                         }
                       ]
                     }

@@ -3,6 +3,7 @@ import {clone, get, has, isArray, isObject} from 'lodash-es';
 import {search} from 'jmespath';
 import {WorkflowCellRendererComponent} from '../../components/workflow-cell-renderer/workflow-cell-renderer.component';
 import {mappingUtility} from '../mapping-block/mapping-util';
+import {ConnectionStatusRendererComponent} from '../../components/connection-status-renderer/connection-status-renderer.component';
 
 @Component({
   selector: 'app-grid-block',
@@ -28,7 +29,8 @@ export class GridBlockComponent implements OnInit, OnChanges {
   gridOptions = {};
 
   frameworkComponents = {
-    workflowRenderer: WorkflowCellRendererComponent
+    workflowRenderer: WorkflowCellRendererComponent,
+    connectionStatusRenderer: ConnectionStatusRendererComponent,
   };
 
   constructor(
