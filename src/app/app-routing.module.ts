@@ -16,6 +16,7 @@ import {BlocksBuilderPageComponent} from './pages/blocks-builder-page/blocks-bui
 import {NotFoundComponent} from './components/not-found/not-found.component';
 import {JsonViewPageComponent} from './pages/json-view-page/json-view-page.component';
 import {ConnectComponent} from './pages/connect/connect.component';
+import {KqlBuilderComponent} from './pages/kql-builder/kql-builder.component';
 
 const routes: Routes = [
   {
@@ -140,6 +141,10 @@ const routes: Routes = [
   {
     path: 'query-builder',
     component: QueryBuilderPageComponent
+  },
+  {
+    path: 'query',
+    component: KqlBuilderComponent
   },
   {
     path: 'blocks-builder',

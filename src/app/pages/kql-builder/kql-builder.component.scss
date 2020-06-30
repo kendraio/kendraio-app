@@ -1,0 +1,9 @@
+.bottom-editor-wrapper {
+  display: flex;
+}
+.bottom-editor-wrapper > * {
+  flex: 1;
+}
+ngx-monaco-editor.data-input {
+  height: 40vh;
+}

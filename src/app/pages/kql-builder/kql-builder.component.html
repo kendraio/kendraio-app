@@ -1,0 +1,16 @@
+<div style="display:flex;margin-bottom:0.5rem;">
+  <button mat-flat-button color="primary" (click)="runMapping()">Run</button>
+  <div style="margin-left:1rem;margin-top: 0.5rem;color: red;">
+    {{errorMessage}}
+  </div>
+</div>
+<ngx-monaco-editor class="kql-query" [options]="kqlEditorOptions"
+                   [(ngModel)]="queryTxt"></ngx-monaco-editor>
+<div class="bottom-editor-wrapper">
+  <ngx-monaco-editor class="data-input" [options]="jsonEditorOptions"
+                     [(ngModel)]="dataInTxt"></ngx-monaco-editor>
+
+  <div>
+    <app-debug-block [config]="{ open: 5 }" [model]="dataOut"></app-debug-block>
+  </div>
+</div>
