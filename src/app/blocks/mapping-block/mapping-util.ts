@@ -1,4 +1,4 @@
-import { decorate } from './jmespath';
+import { decorate } from '@daz.is/jmespath';
 import uuid from 'uuid';
 import {find, get, omit, pick, pickBy, zip, toPairs, fromPairs, pad, padStart, padEnd, uniqBy, uniq, includes, filter} from 'lodash-es';
 import {DateTime} from 'luxon';
