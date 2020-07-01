@@ -19,6 +19,10 @@ const TYPE_ARRAY_NUMBER = 8;
 const TYPE_ARRAY_STRING = 9;
 
 const search = decorate({
+  get: {
+    _func: ([o, s, d]) => get(o, s, d),
+    _signature: [{types: [TYPE_OBJECT, TYPE_ARRAY]}, {types: [TYPE_STRING]}, { types: [TYPE_ANY], optional: true}]
+  },
   uuid: {
     _func: uuid.v4,
     _signature: []
