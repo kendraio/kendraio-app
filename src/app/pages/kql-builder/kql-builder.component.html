@@ -8,9 +8,31 @@
                    [(ngModel)]="queryTxt"></ngx-monaco-editor>
 <div class="bottom-editor-wrapper">
   <ngx-monaco-editor class="data-input" [options]="jsonEditorOptions"
+                     [model]="dataInModel"
+                     (ngModelChange)="dataInModelChange()"
                      [(ngModel)]="dataInTxt"></ngx-monaco-editor>
 
   <div>
     <app-debug-block [config]="{ open: 5 }" [model]="dataOut"></app-debug-block>
   </div>
+</div>
+
+<div>
+  <label>
+    <select (change)="updateBlockOptions($event.target.value)">
+      <option *ngFor="let o of flows; let i = index" [value]="i">{{ o.title }} ({{o.adapterName}}/{{o.workflowId}})</option>
+    </select>
+  </label>
+  <label>
+    <select [(ngModel)]="blockLimit">
+      <option *ngFor="let b of blockOptions; let i = index" [value]="i">
+        {{ i + 1 }}: {{ b.type }}
+      </option>
+    </select>
+  </label>
+  <button mat-flat-button (click)="runBlocks()">Load</button>
+</div>
+
+<div>
+  <app-blocks-workflow [context]="context" [blocks]="blockExec" [models]="startModels" (workflowComplete)="loadNewData($event)"></app-blocks-workflow>
 </div>

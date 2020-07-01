@@ -1,8 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 import {JSON_EDITOR_OPTIONS} from './json-editor-options';
 import {KQL_EDITOR_OPTIONS} from './kql-editor-options';
 import {NgxEditorModel} from 'ngx-monaco-editor';
 import {mappingUtility} from '../../blocks/mapping-block/mapping-util';
+import {HttpClient} from '@angular/common/http';
+import {map} from 'rxjs/operators';
+import {sortBy} from 'lodash-es';
 
 @Component({
   selector: 'app-kql-builder',
@@ -50,10 +53,32 @@ export class KqlBuilderComponent implements OnInit {
 
   errorMessage = '';
 
-  constructor() {
+  flows = [];
+  selectedFlow;
+  blockOptions = [];
+  blockLimit = '0';
+  blockExec = [];
+  startModels;
+  context = {};
+
+  constructor(
+    private readonly http: HttpClient,
+    private readonly zone: NgZone
+  ) {
   }
 
   ngOnInit() {
+    this.getFlows();
+    this.updateDataInModel();
+  }
+
+  async getFlows() {
+    const url = 'https://app.kendra.io/api';
+    this.flows = await this.http.get<any[]>(url)
+      .pipe(
+        map(x => sortBy(x, 'title'))
+      )
+      .toPromise();
   }
 
   runMapping() {
@@ -66,4 +91,47 @@ export class KqlBuilderComponent implements OnInit {
     }
   }
 
+  async updateBlockOptions(v) {
+    this.blockOptions = [];
+    this.blockLimit = '0';
+    const {adapterName, workflowId} = this.flows[+v];
+    const {blocks} = await this.http.get<any>(`https://app.kendra.io/api/${adapterName}/${workflowId}`)
+      .toPromise();
+    this.blockOptions = blocks;
+    this.context = {
+      app: { adapterName, workflowId }
+    };
+  }
+
+  runBlocks() {
+    setTimeout(() => {
+      this.zone.run(() => {
+        this.blockExec = this.blockOptions.slice(0, 1 + parseInt(this.blockLimit, 10));
+        this.startModels = this.blockExec.map(() => ({}));
+      });
+    }, 100);
+  }
+
+  loadNewData(v) {
+    if (!v) {
+      return;
+    }
+    // console.log(v);
+    this.zone.run(() => {
+      this.dataInTxt = JSON.stringify(v, null, 2);
+      this.updateDataInModel();
+    });
+  }
+
+  dataInModelChange() {
+    // console.log(this);
+  }
+
+  updateDataInModel() {
+    this.dataInModel = {
+      value: this.dataInTxt,
+      language: 'json',
+      uri: 'a:dataModel.json'
+    };
+  }
 }

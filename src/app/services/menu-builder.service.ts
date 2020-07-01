@@ -86,6 +86,11 @@ export class MenuBuilderService {
         path: '/form-builder',
         label: 'formBuilder.menuTitle',
         icon: 'build'
+      },
+      {
+        path: '/query',
+        label: 'queryBuilder.menuTitle',
+        icon: 'build'
       }
     ];
   }

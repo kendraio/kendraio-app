@@ -56,10 +56,14 @@
 		"title": "Upload"
 	},
 	"wfBuilder": "workflow builder",
-	"workflowCloud": {
-		"menuTitle": "Workflow Cloud",
-		"pageTitle": "Build Your Workflow"
-	},
+  "workflowCloud": {
+    "menuTitle": "Workflow Cloud",
+    "pageTitle": "Build Your Workflow"
+  },
+  "queryBuilder": {
+    "menuTitle": "Query Builder",
+    "pageTitle": "Query Builder"
+  },
 	"works": {
 		"intro": "This is page allows you to manage your Works",
 		"registerNew": "Register New Work",
