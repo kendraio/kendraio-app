@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
 import {parse} from 'papaparse';
 import * as X2JS from 'x2js';
-import {get} from 'lodash-es';
+import {fromPairs, get} from 'lodash-es';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-parse-data-block',
@@ -59,6 +60,18 @@ export class ParseDataBlockComponent extends BaseBlockComponent {
         try {
           const _r = x2js.xml2js(content);
           this.output.emit(_r);
+        } catch (e) {
+          this.hasError = true;
+          this.errorMessage = e.message;
+        }
+        break;
+      case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+      case 'application/vnd.ms-excel':
+        try {
+          const xF = XLSX.read(content, {type: 'binary'});
+          const xData = fromPairs(xF.SheetNames
+            .map(name => [name, XLSX.utils.sheet_to_json(xF.Sheets[name], { header: 1 })]));
+          this.output.emit(xData);
         } catch (e) {
           this.hasError = true;
           this.errorMessage = e.message;

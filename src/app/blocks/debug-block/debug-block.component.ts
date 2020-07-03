@@ -50,7 +50,7 @@ export class DebugBlockComponent implements OnInit, OnChanges {
           }
           this.modelOutput.nativeElement.append(formatter.render());
           if (this.consoleLog) {
-            console.log(this.consoleLabel, this.model);
+            console.log(this.consoleLabel, this.model, this.context);
           }
         } else {
           console.log('Debug output DIV not available', this.model);

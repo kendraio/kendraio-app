@@ -30,7 +30,7 @@ export class GraphqlBlockComponent extends BaseBlockComponent {
   }
 
   onData(data: any, firstChange: boolean) {
-    if (firstChange) {
+    if (firstChange && !get(this.config, 'allowFirst', false)) {
       return;
     }
     const allowEmpty = get(this.config, 'allowEmpty', false);

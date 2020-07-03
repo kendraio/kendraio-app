@@ -87,6 +87,7 @@
     "uuid": "^3.3.2",
     "wavesurfer.js": "^3.0.0",
     "x2js": "^3.2.3",
+    "xlsx": "^0.16.3",
     "zone.js": "~0.10.0"
   },
   "devDependencies": {
