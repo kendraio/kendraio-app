@@ -178,7 +178,7 @@ const search = decorate({
   },
   includes: {
     _func: ([a, i]) => includes(a, i),
-    _signature: [{types: [TYPE_ARRAY, TYPE_OBJECT]}, {types: [TYPE_ANY]}]
+    _signature: [{types: [TYPE_ARRAY, TYPE_OBJECT, TYPE_STRING]}, {types: [TYPE_ANY]}]
   },
   all: {
     _func: ([a]) => filter(a).length === a.length,
