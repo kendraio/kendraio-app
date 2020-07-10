@@ -13,6 +13,7 @@ export class GraphqlBlockComponent extends BaseBlockComponent {
 
   endpoint = '';
   variableGetters = {};
+  headers = {};
   query = '';
 
   hasError = false;
@@ -26,6 +27,7 @@ export class GraphqlBlockComponent extends BaseBlockComponent {
   onConfigUpdate(config: any) {
     this.endpoint = get(config, 'endpoint', '');
     this.variableGetters = get(config, 'variables', {});
+    this.headers = get(config, 'headers', {});
     this.query = get(config, 'query', '');
   }
 
@@ -48,10 +50,14 @@ export class GraphqlBlockComponent extends BaseBlockComponent {
         return a;
       }, {})
     };
+    const headers = Object.keys(this.headers).reduce((a, key) => {
+      a[key] = mappingUtility({ data, context: this.context }, this.headers[key]);
+      return a;
+    }, {});
 
     this.hasError = false;
     this.isLoading = true;
-    this.http.post(this.endpoint, payload)
+    this.http.post(this.endpoint, payload, { headers })
       .subscribe(result => {
         this.isLoading = false;
         this.output.emit(result);
