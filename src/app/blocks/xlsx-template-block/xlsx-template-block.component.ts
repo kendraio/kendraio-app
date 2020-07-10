@@ -48,7 +48,7 @@ export class XlsxTemplateBlockComponent extends BaseBlockComponent {
     }
     const url = `https://cors-anywhere.herokuapp.com/${this.templateUrl}`;
     this.http.get(url, {responseType: 'arraybuffer'})
-      .pipe(map(blob => XLSX.read(blob, {type: 'buffer'})))
+      .pipe(map(blob => XLSX.read(blob, {type: 'buffer', cellStyles: true })))
       .subscribe(template => {
         try {
           XLSX.utils.sheet_add_aoa(template.Sheets[template.SheetNames[0]], this.model, {
