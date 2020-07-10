@@ -1,0 +1,22 @@
+<mat-form-field>
+  <label>
+    <span>Endpoint</span>
+  </label>
+  <input matInput [formControl]="endpointFormControl">
+</mat-form-field>
+
+<div>
+  <span>Query</span>
+  <ngx-monaco-editor [options]="editorOptions" style="height: 160px;"
+                     [(ngModel)]="queryModel"></ngx-monaco-editor>
+</div>
+<div>
+  <span>Variables</span>
+  <ngx-monaco-editor [options]="editorOptionsJson" style="height: 90px;"
+                     [(ngModel)]="variablesModel"></ngx-monaco-editor>
+</div>
+<div>
+  <span>Headers</span>
+  <ngx-monaco-editor [options]="editorOptionsJson" style="height: 90px;"
+                     [(ngModel)]="headerModel"></ngx-monaco-editor>
+</div>

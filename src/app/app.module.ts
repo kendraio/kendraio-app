@@ -165,6 +165,7 @@ import { ConnectComponent } from './pages/connect/connect.component';
 import { LoadAuthBlockComponent } from './blocks/load-auth-block/load-auth-block.component';
 import { ConnectionStatusRendererComponent } from './components/connection-status-renderer/connection-status-renderer.component';
 import { KqlBuilderComponent } from './pages/kql-builder/kql-builder.component';
+import { BlockGraphqlBuilderBoxComponent } from './components/block-graphql-builder-box/block-graphql-builder-box.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -306,7 +307,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ConnectComponent,
     LoadAuthBlockComponent,
     ConnectionStatusRendererComponent,
-    KqlBuilderComponent
+    KqlBuilderComponent,
+    BlockGraphqlBuilderBoxComponent
   ],
   imports: [
     FormlyModule.forRoot({}),
