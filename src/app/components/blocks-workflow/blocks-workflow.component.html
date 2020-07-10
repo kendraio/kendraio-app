@@ -47,6 +47,7 @@
     <app-graphql-block class="block-wrapper" *ngSwitchCase="'graphql'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-graphql-block>
     <app-validator-block class="block-wrapper" *ngSwitchCase="'validator'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-validator-block>
     <app-load-auth-block class="block-wrapper" *ngSwitchCase="'load-auth'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-load-auth-block>
+    <app-xlsx-template-block class="block-wrapper" *ngSwitchCase="'xlsx-template'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-xlsx-template-block>
   </ng-container>
 </ng-container>
 <!-- <pre>workblock: {{ context | json }}</pre> -->

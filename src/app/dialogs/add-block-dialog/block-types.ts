@@ -507,5 +507,17 @@ export const BLOCK_TYPES = [
       adapterName: 'UNKNOWN',
       workflowId: 'connect'
     }
+  },
+  {
+    type: 'xlsx-template',
+    label: 'XLSX Template',
+    description: 'Format data into Excel export using an XLSX template',
+    icon: 'table_chart',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'xlsx-template',
+      template: 'https://example.com/template.xlsx',
+      headerRows: 12
+    }
   }
 ];

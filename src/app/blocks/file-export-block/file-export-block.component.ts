@@ -30,6 +30,22 @@ export class FileExportBlockComponent extends BaseBlockComponent {
   }
 
   exportData() {
+    if (get(this.model, 'type') === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+      const xlsxBlob = new Blob([this.model.content], { type: this.model.type });
+      const xlsxLink = document.createElement('a');
+      if (xlsxLink.download !== undefined) { // feature detection
+        // Browsers that support HTML5 download attribute
+        const url = URL.createObjectURL(xlsxBlob);
+        xlsxLink.setAttribute('href', url);
+        xlsxLink.setAttribute('download', `${this.fileName}.xlsx`);
+        xlsxLink.style.visibility = 'hidden';
+        document.body.appendChild(xlsxLink);
+        xlsxLink.click();
+        document.body.removeChild(xlsxLink);
+      }
+      return;
+    }
+
     const format = isString(this.model) ? 'txt' : get(this.model, 'format', 'json');
     const outputData = isString(this.model)
       ? this.model

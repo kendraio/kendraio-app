@@ -166,6 +166,7 @@ import { LoadAuthBlockComponent } from './blocks/load-auth-block/load-auth-block
 import { ConnectionStatusRendererComponent } from './components/connection-status-renderer/connection-status-renderer.component';
 import { KqlBuilderComponent } from './pages/kql-builder/kql-builder.component';
 import { BlockGraphqlBuilderBoxComponent } from './components/block-graphql-builder-box/block-graphql-builder-box.component';
+import { XlsxTemplateBlockComponent } from './blocks/xlsx-template-block/xlsx-template-block.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -308,7 +309,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoadAuthBlockComponent,
     ConnectionStatusRendererComponent,
     KqlBuilderComponent,
-    BlockGraphqlBuilderBoxComponent
+    BlockGraphqlBuilderBoxComponent,
+    XlsxTemplateBlockComponent
   ],
   imports: [
     FormlyModule.forRoot({}),
