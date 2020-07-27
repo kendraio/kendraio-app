@@ -37,6 +37,8 @@ export class BlockGraphqlBuilderBoxComponent implements OnInit {
   queryModel = '';
   variablesModel = '';
   headerModel = '';
+  allowEmpty = false;
+  allowFirst = false;
   endpointFormControl = new FormControl();
 
   constructor() { }
@@ -45,6 +47,8 @@ export class BlockGraphqlBuilderBoxComponent implements OnInit {
     this.queryModel = get(this.block, 'query', '');
     this.variablesModel = JSON.stringify(get(this.block, 'variables', {}), null, 2);
     this.headerModel = JSON.stringify(get(this.block, 'headers', {}), null, 2);
+    this.allowEmpty = get(this.block, 'allowEmpty', false);
+    this.allowFirst = get(this.block, 'allowEmpty', false);
     this.endpointFormControl.setValue(get(this.block, 'endpoint', ''));
   }
 
@@ -55,6 +59,8 @@ export class BlockGraphqlBuilderBoxComponent implements OnInit {
       endpoint: this.endpointFormControl.value,
       variables: JSON.parse(this.variablesModel || '{}'),
       headers: JSON.parse(this.headerModel || '{}'),
+      allowFirst: this.allowFirst,
+      allowEmpty: this.allowEmpty,
     };
   }
 }

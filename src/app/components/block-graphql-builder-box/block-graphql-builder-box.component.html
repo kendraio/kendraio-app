@@ -1,9 +1,14 @@
-<mat-form-field>
+<mat-form-field style="margin-bottom: 0;">
   <label>
     <span>Endpoint</span>
   </label>
   <input matInput [formControl]="endpointFormControl">
 </mat-form-field>
+
+<div class="">
+  <mat-checkbox [(ngModel)]="allowEmpty" class="allow-empty-checkbox">Allow empty</mat-checkbox>
+  <mat-checkbox [(ngModel)]="allowFirst" class="allow-first-checkbox">Allow first</mat-checkbox>
+</div>
 
 <div>
   <span>Query</span>
