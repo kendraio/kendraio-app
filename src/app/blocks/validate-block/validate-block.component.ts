@@ -10,13 +10,13 @@ import {get} from 'lodash-es';
 })
 export class ValidateBlockComponent extends BaseBlockComponent {
 
-  schema = '';
+  schema = null;
   validator = null;
   errors = null;
 
   onConfigUpdate(config: any) {
     const ajv = new Ajv({allErrors: true});
-    this.schema = get(config, 'schema', false);
+    this.schema = get(config, 'schema', null);
     if (this.schema) {
       this.validator = ajv.compile(this.schema);
     } else {

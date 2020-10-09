@@ -1,7 +1,7 @@
 
 import {throwError as observableThrowError,  Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+// import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()
@@ -35,7 +35,7 @@ export class ValidationService {
   constructor(private http: HttpClient) { }
 
   // checkForDupEmail(email: string): Observable<any> {
-    
+
   //   // return this.http.post(`${environment.appApi.baseUrl}/accounts/isregisteredemailaddress?emailAddress=${email}`, {email})
   // }
   // private extractRes(response: Response) {
@@ -52,7 +52,7 @@ export class ValidationService {
   //   return observableThrowError(error.json().error || 'Server error');
   // }
 
-  
+
 
 
 }

@@ -497,6 +497,17 @@ export const BLOCK_TYPES = [
     }
   },
   {
+    type: 'validate',
+    label: 'Schema Validator',
+    description: 'Validate data against a JSONSchema',
+    icon: 'error',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'validate',
+      schema: ''
+    }
+  },
+  {
     type: 'load-auth',
     label: 'Load Auth',
     description: 'Load authentication details from connection storage.',
