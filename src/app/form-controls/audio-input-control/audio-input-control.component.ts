@@ -33,7 +33,7 @@ export class AudioInputControlComponent implements OnInit, OnDestroy, ControlVal
 
   @Input() clipControl: FormControl;
 
-  @ViewChild('player', { static: false }) player: WaveformComponent;
+  @ViewChild('player') player: WaveformComponent;
   isPlaying = false;
 
   clipValues;

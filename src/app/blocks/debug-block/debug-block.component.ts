@@ -12,7 +12,7 @@ export class DebugBlockComponent implements OnInit, OnChanges {
   @Input() config;
   @Input() context;
   @Input() model: any = {};
-  @ViewChild('modelOutput', {static: false}) modelOutput: ElementRef;
+  @ViewChild('modelOutput') modelOutput: ElementRef;
 
   @Output() output = new EventEmitter();
 

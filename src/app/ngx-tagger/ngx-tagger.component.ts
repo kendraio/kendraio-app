@@ -51,7 +51,7 @@ export class NgxTaggerComponent implements OnInit, AfterContentInit, TaggerInter
 
   tags: Array<TagInterface>;
 
-  @ContentChild(TagBaseDirective, { static: false }) tagBase: TagBaseDirective;
+  @ContentChild(TagBaseDirective) tagBase: TagBaseDirective;
 
   constructor() { }
 

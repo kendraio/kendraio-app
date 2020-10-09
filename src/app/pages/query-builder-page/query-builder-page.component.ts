@@ -34,11 +34,11 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
   queryModel;
 
   output;
-  @ViewChild('modelOutput', {static: false}) modelOutput: ElementRef;
+  @ViewChild('modelOutput') modelOutput: ElementRef;
   showMappingResult = false;
-  @ViewChild('mappingOutput', { static: false }) mappingOutput: ElementRef;
+  @ViewChild('mappingOutput') mappingOutput: ElementRef;
 
-  @ViewChild('gridAngular', { static: false }) gridAngular;
+  @ViewChild('gridAngular') gridAngular;
 
   defaultColDef = {
     resizable: true

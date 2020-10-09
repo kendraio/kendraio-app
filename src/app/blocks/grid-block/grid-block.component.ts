@@ -15,11 +15,11 @@ export class GridBlockComponent implements OnInit, OnChanges {
   @Input() config;
   @Input() context;
   @Input() model: any = {};
-  @ViewChild('modelOutput', {static: false}) modelOutput: ElementRef;
+  @ViewChild('modelOutput') modelOutput: ElementRef;
 
   @Output() output = new EventEmitter();
 
-  @ViewChild('gridAngular', { static: false }) gridAngular;
+  @ViewChild('gridAngular') gridAngular;
 
   defaultColDef = {
     resizable: true

@@ -10,7 +10,7 @@ export class ShowShareLinkDialogComponent implements OnInit {
 
   shareLink = '';
 
-  @ViewChild('textBox', {static: false}) textBox;
+  @ViewChild('textBox') textBox;
 
   constructor(
     public dialogRef: MatDialogRef<ShowShareLinkDialogComponent>,

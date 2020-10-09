@@ -11,7 +11,7 @@ export class DataChartOutputComponent implements OnInit, AfterViewInit, OnChange
 
   @Input() data;
   @Input() config;
-  @ViewChild('chart', { static: false }) chart: ElementRef;
+  @ViewChild('chart') chart: ElementRef;
   _chart;
   isInit = false;
 

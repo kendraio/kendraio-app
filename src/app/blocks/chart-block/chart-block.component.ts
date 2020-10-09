@@ -29,7 +29,7 @@ export class ChartBlockComponent implements OnInit, OnChanges, AfterViewInit, On
   @Output() output = new EventEmitter();
   multi = false;
 
-  @ViewChild('chart', { static: false }) chartElement: ElementRef;
+  @ViewChild('chart') chartElement: ElementRef;
   _chart;
 
   _destroy$ = new Subject();

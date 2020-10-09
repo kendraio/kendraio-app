@@ -20,7 +20,7 @@ export class ActionsBlockComponent implements OnInit, OnChanges {
   blocks = [];
   models = [];
 
-  @ViewChild(BlocksWorkflowComponent, { static: false }) workflow;
+  @ViewChild(BlocksWorkflowComponent) workflow;
 
   constructor(
     private readonly zone: NgZone

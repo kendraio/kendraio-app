@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Directive } from '@angular/core';
 import {clone, get, isObject} from 'lodash-es';
 import { BaseBlockComponent } from '../base-block/base-block.component';
 import { VimeoUploadService } from './vimeo-upload.service';
@@ -6,6 +6,7 @@ import { map, expand } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
 
 
+@Directive()
 export class uploadFiles {
 
   @Input() config;

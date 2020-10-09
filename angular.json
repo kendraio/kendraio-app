@@ -114,6 +114,10 @@
                   "type": "initial",
                   "maximumWarning": "10mb",
                   "maximumError": "10mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ],
               "serviceWorker": true
@@ -139,6 +143,10 @@
                   "type": "initial",
                   "maximumWarning": "10mb",
                   "maximumError": "10mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ],
               "serviceWorker": true

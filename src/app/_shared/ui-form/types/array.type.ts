@@ -6,5 +6,7 @@ import { FieldArrayType } from '@ngx-formly/core';
   templateUrl: 'array.type.html',
   styleUrls: ['array.type.scss']
 })
-export class ArrayTypeComponent extends FieldArrayType {}
+export class ArrayTypeComponent extends FieldArrayType {
+  // TODO: add explicit constructor
+}
 

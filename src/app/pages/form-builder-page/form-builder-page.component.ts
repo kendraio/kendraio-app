@@ -50,7 +50,7 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
   isAPIData = false;
   endpoint = '';
 
-  @ViewChild('modelOutput', {static: false}) modelOutput: ElementRef;
+  @ViewChild('modelOutput') modelOutput: ElementRef;
 
   constructor(
     private formService: KendraioFormService,

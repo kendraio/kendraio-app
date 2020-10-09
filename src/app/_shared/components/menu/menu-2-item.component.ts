@@ -9,7 +9,7 @@ import { MenuItem } from 'src/app/_models/classes/common';
 })
 export class Menu2ItemComponent implements OnInit {
   @Input() items: MenuItem[];
-  @ViewChild('childMenu', { static: false }) public childMenu;
+  @ViewChild('childMenu') public childMenu;
 
   constructor(public router: Router) {
   }

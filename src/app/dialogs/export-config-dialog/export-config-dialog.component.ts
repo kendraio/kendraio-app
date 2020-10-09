@@ -10,7 +10,7 @@ export class ExportConfigDialogComponent implements OnInit {
 
   configText = '';
 
-  @ViewChild('textBox', {static: false}) textBox;
+  @ViewChild('textBox') textBox;
 
   constructor(
     public dialogRef: MatDialogRef<ExportConfigDialogComponent>,
