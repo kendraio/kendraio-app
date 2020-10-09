@@ -1,0 +1,6 @@
+<div *ngIf="!validator">
+  <p>No validator loaded. Check if schema has loaded.</p>
+</div>
+<pre *ngIf="errors">
+  {{ errors | json }}
+</pre>

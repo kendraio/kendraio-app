@@ -3,6 +3,9 @@ import {BaseBlockComponent} from '../base-block/base-block.component';
 import {get} from 'lodash-es';
 import {mappingUtility} from '../mapping-block/mapping-util';
 
+// NB: THIS IS THE JMESPath based validator block
+//   THE NEW SCHEMA VALIDATOR IS CALLED validate-block
+
 @Component({
   selector: 'app-validator-block',
   templateUrl: './validator-block.component.html',
