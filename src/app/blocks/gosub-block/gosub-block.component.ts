@@ -52,11 +52,11 @@ export class GosubBlockComponent extends BaseBlockComponent {
     if (adapterName && workflowId) {
       this.isLoading = true;
       if (this.contextGetter) {
-        this.context = mappingUtility({ data: this.model, context: this.context }, this.contextGetter);
+        this.context = mappingUtility({data: this.model, context: this.context}, this.contextGetter);
       }
       let model = this.model;
       if (this.modelGetter) {
-        model = mappingUtility({ data: this.model, context: this.context }, this.modelGetter);
+        model = mappingUtility({data: this.model, context: this.context}, this.modelGetter);
       }
       this.repo.getBlocks(adapterName, workflowId).toPromise().then(({blocks}) => {
         this.zone.run(() => {

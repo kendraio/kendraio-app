@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
 import {get} from 'lodash-es';
 import {mappingUtility} from '../mapping-block/mapping-util';
@@ -11,7 +11,7 @@ import {mappingUtility} from '../mapping-block/mapping-util';
   templateUrl: './validator-block.component.html',
   styleUrls: ['./validator-block.component.scss']
 })
-export class ValidatorBlockComponent extends BaseBlockComponent{
+export class ValidatorBlockComponent extends BaseBlockComponent {
 
   hasError = false;
   errorMessage = 'Validation Failed';
@@ -29,7 +29,7 @@ export class ValidatorBlockComponent extends BaseBlockComponent{
       return;
     }
     this.hasError = false;
-    const check = mappingUtility({ data: this.model, context: this.context }, this.test);
+    const check = mappingUtility({data: this.model, context: this.context}, this.test);
     if (check !== false) {
       this.output.emit(this.model);
     } else {

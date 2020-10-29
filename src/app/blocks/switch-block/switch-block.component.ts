@@ -19,15 +19,16 @@ export class SwitchBlockComponent implements OnInit, OnChanges {
 
   constructor(
     private readonly zone: NgZone
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
   }
 
   ngOnChanges(changes) {
     const cases = get(this.config, 'cases', []);
-    const matchValue = search({ data: this.model, context: this.context }, get(this.config, 'valueGetter', 'data'));
-    const match = find(cases, ({ value }) => value === matchValue);
+    const matchValue = search({data: this.model, context: this.context}, get(this.config, 'valueGetter', 'data'));
+    const match = find(cases, ({value}) => value === matchValue);
     if (!!match) {
       this.blocks = get(match, 'blocks', []);
     } else {

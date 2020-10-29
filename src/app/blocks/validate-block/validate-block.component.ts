@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
 import Ajv from 'ajv';
-import {get} from 'lodash-es';
+import {get, has} from 'lodash-es';
 
 @Component({
   selector: 'app-validate-block',
@@ -14,7 +14,22 @@ export class ValidateBlockComponent extends BaseBlockComponent {
   validator = null;
   errors = null;
 
+  useGoSub = false;
+  errorBlocks = [];
+  goSubConfig = {
+    workflowId: '',
+    adapterName: '',
+  };
+
   onConfigUpdate(config: any) {
+    if (has(config, 'onError.blocks')) {
+      this.useGoSub = false;
+      this.errorBlocks = get(config, 'onError.blocks', []);
+    } else if (has(config, 'onError.workflowId') && has(config, 'onError.adapterName')) {
+      this.useGoSub = true;
+      this.goSubConfig.adapterName = get(config, 'onError.adapterName', '');
+      this.goSubConfig.workflowId = get(config, 'onError.workflowId', '');
+    }
     const ajv = new Ajv({allErrors: true});
     this.schema = get(config, 'schema', null);
     if (this.schema) {
