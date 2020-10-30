@@ -46,6 +46,7 @@
     "ag-grid-angular": "^23.0.3",
     "ag-grid-community": "^23.0.2",
     "ajv": "^7.0.0-beta.0",
+    "ajv-errors": "^1.0.1",
     "ajv-formats": "^0.4.0",
     "angular2-text-mask": "^9.0.0",
     "auth0-js": "^9.13.2",

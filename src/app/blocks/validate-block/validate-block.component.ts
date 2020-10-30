@@ -39,6 +39,7 @@ export class ValidateBlockComponent extends BaseBlockComponent {
     //    The types returned by 'compare(...)' are incompatible between these types.
     //                           Type 'boolean' is not assignable to type 'number'.
     addFormats(ajv as any);
+
     this.schema = get(config, 'schema', null);
     if (this.schema) {
       this.validator = ajv.compile(this.schema);
