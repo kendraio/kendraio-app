@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
 import Ajv from 'ajv';
+import addFormats from 'ajv-formats';
 import {get, has} from 'lodash-es';
 
 @Component({
@@ -30,7 +31,14 @@ export class ValidateBlockComponent extends BaseBlockComponent {
       this.goSubConfig.adapterName = get(config, 'onError.adapterName', '');
       this.goSubConfig.workflowId = get(config, 'onError.workflowId', '');
     }
-    const ajv = new Ajv({allErrors: true});
+    const ajv = new Ajv({
+      allErrors: true
+    });
+    // THIS ANY TYPE BELOW IS NEEDED BECAUSE OF COMPILE ERROR:
+    //  Types of property 'opts' are incompatible.
+    //    The types returned by 'compare(...)' are incompatible between these types.
+    //                           Type 'boolean' is not assignable to type 'number'.
+    addFormats(ajv as any);
     this.schema = get(config, 'schema', null);
     if (this.schema) {
       this.validator = ajv.compile(this.schema);
