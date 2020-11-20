@@ -51,7 +51,7 @@
                 "adapterRepoUrl": "https://kendraio.github.io/kendraio-adapter/",
                 "showHelp": true,
                 "debugMode": false,
-                "disablePreview": false
+                "disablePreview": true
               }
             },
             {

@@ -47,7 +47,8 @@ export class FileInputBlockComponent extends BaseBlockComponent {
       });
     };
     if (this.binary) {
-      fileReader.readAsBinaryString(file);
+      // fileReader.readAsBinaryString(file);
+      fileReader.readAsArrayBuffer(file);
     } else {
       fileReader.readAsText(file);
     }

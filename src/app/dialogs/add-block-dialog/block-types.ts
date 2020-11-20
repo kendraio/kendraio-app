@@ -508,6 +508,16 @@ export const BLOCK_TYPES = [
     }
   },
   {
+    type: 'player',
+    label: 'Kendraio Player',
+    description: 'Audio player with Web Monetization support (in development)',
+    icon: 'audiotrack',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'player'
+    }
+  },
+  {
     type: 'load-auth',
     label: 'Load Auth',
     description: 'Load authentication details from connection storage.',

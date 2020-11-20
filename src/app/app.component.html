@@ -9,11 +9,15 @@
         <span>
           {{ pageTitleData.title | translate }}
         </span>
+<!--    <app-bookmark-button *ngIf="pageTitleData.isWorkflow"></app-bookmark-button>-->
     <button *ngIf="pageTitleData.isWorkflow" mat-icon-button (click)="onRefresh()">
       <mat-icon style="color: #999999;">refresh</mat-icon>
     </button>
   </ng-container>
   <span class="spacer"></span>
+
+  <button mat-icon-button routerLink="/workflowCloud/listWorkflows"><mat-icon>list</mat-icon></button>
+<!--  <button mat-icon-button routerLink="/core/collection"><mat-icon>collections_bookmark</mat-icon></button>-->
 
   <button mat-icon-button routerLink="/connect"><mat-icon>person</mat-icon> </button>
   <button mat-icon-button routerLink="/notifications"><mat-icon [matBadge]="notificationCount">notifications</mat-icon></button>
@@ -36,7 +40,7 @@
 
 <mat-sidenav-container class="app-container" style="height:100vh">
 
-  <mat-sidenav #sidenav mode="side" opened (keydown.escape)="sidenav.close()" style="width: 260px;">
+  <mat-sidenav #sidenav mode="side" (keydown.escape)="sidenav.close()" style="width: 260px;">
 
     <app-main-menu></app-main-menu>
 

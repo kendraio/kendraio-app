@@ -48,6 +48,7 @@
     "ajv": "^7.0.0-beta.0",
     "ajv-errors": "^1.0.1",
     "ajv-formats": "^0.4.0",
+    "amplitudejs": "^5.2.0",
     "angular2-text-mask": "^9.0.0",
     "auth0-js": "^9.13.2",
     "blob-util": "^2.0.2",

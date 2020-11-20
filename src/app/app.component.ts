@@ -52,6 +52,7 @@ export class AppComponent {
   }
 
 
+
   public setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle);
     this.pageTitle$ = this.title.pageTitle$;

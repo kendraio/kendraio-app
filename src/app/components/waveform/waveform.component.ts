@@ -20,6 +20,7 @@ import * as WaveSurfer from 'wavesurfer.js';
 export class WaveformComponent implements OnInit, AfterViewInit {
 
   @Input() file;
+  @Input() fileUrl;
   // @Input() item;
   @ViewChild('waveform', { static: true }) waveform: ElementRef;
 
@@ -71,5 +72,9 @@ export class WaveformComponent implements OnInit, AfterViewInit {
     if (this.file) {
       this.wavesurfer.loadBlob(this.file);
     }
+    if (this.fileUrl) {
+      this.wavesurfer.load(this.fileUrl);
+    }
   }
+
 }

@@ -169,6 +169,9 @@ import { BlockGraphqlBuilderBoxComponent } from './components/block-graphql-buil
 import { XlsxTemplateBlockComponent } from './blocks/xlsx-template-block/xlsx-template-block.component';
 import { BlockMappingBuilderBoxComponent } from './components/block-mapping-builder-box/block-mapping-builder-box.component';
 import { ValidateBlockComponent } from './blocks/validate-block/validate-block.component';
+import { BookmarkButtonComponent } from './components/bookmark-button/bookmark-button.component';
+import { AudioPlayerBlockComponent } from './blocks/audio-player-block/audio-player-block.component';
+import { PlayerBlockComponent } from './blocks/player-block/player-block.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -314,7 +317,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     BlockGraphqlBuilderBoxComponent,
     XlsxTemplateBlockComponent,
     BlockMappingBuilderBoxComponent,
-    ValidateBlockComponent
+    ValidateBlockComponent,
+    BookmarkButtonComponent,
+    AudioPlayerBlockComponent,
+    PlayerBlockComponent
   ],
   imports: [
     FormlyModule.forRoot({}),

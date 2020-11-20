@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {clone, get} from 'lodash-es';
+import {BookmarkDataService} from '../../services/bookmark-data.service';
 
 @Component({
   selector: 'app-variable-get',
@@ -17,7 +18,7 @@ export class VariableGetComponent implements OnInit, OnChanges {
   errorMessage = '';
   skipFirst = true;
 
-  constructor() { }
+  constructor(private readonly bookmarks: BookmarkDataService) { }
 
   ngOnInit() {
   }
@@ -27,8 +28,20 @@ export class VariableGetComponent implements OnInit, OnChanges {
     if (this.skipFirst && get(changes, 'model.firstChange', false)) {
       return;
     }
-    const adapterName = get(this.context, 'app.adapterName', 'UNKNOWN');
+
     const variableName = get(this.config, 'name', 'UNKNOWN');
+
+    const isSystemVar = get(this.config, 'systemVar', false);
+    if (isSystemVar) {
+      switch (variableName) {
+        case 'bookmarked-flows':
+          this.output.emit(this.bookmarks.activeBookmarks);
+          return;
+      }
+    }
+
+    const adapterName = get(this.context, 'app.adapterName', 'UNKNOWN');
+
     const key = `${adapterName}.variables.${variableName}`;
     try {
       const data = JSON.parse(localStorage.getItem(key));
