@@ -4,7 +4,7 @@ import {
   ElementRef,
   EventEmitter,
   Input,
-  NgZone,
+  NgZone, OnChanges,
   OnInit,
   Output,
   ViewChild
@@ -17,7 +17,7 @@ import * as WaveSurfer from 'wavesurfer.js';
   templateUrl: './waveform.component.html',
   styleUrls: ['./waveform.component.scss']
 })
-export class WaveformComponent implements OnInit, AfterViewInit {
+export class WaveformComponent implements OnInit, AfterViewInit, OnChanges {
 
   @Input() file;
   @Input() fileUrl;
@@ -34,6 +34,12 @@ export class WaveformComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+  }
+
+  ngOnChanges(changes) {
+    if (this.fileUrl && this.wavesurfer) {
+      this.wavesurfer.load(this.fileUrl);
+    }
   }
 
   playPause() {
