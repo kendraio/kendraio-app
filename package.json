@@ -137,7 +137,7 @@
     "tslib": "^1.10.0",
     "tslint": "~5.18.0",
     "typescript": "3.8.3",
-    "webpack-dev-server": "^3.10.3"
+    "webpack-dev-server": "^3.11.0"
   },
   "browser": {
     "crypto": false
