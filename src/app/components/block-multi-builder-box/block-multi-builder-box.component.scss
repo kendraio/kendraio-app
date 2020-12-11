@@ -1,0 +1,21 @@
+.batch-divider {
+  border-bottom: 2px dashed #ededed;
+  margin-bottom: 1em;
+  padding-bottom: 1em;
+}
+.batch-divider:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.batch-header {
+  color: #bbb;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.bottom-button {
+  margin-bottom: -3rem;
+  margin-top: 1.5rem;
+}

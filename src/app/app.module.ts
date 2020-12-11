@@ -172,6 +172,7 @@ import { ValidateBlockComponent } from './blocks/validate-block/validate-block.c
 import { BookmarkButtonComponent } from './components/bookmark-button/bookmark-button.component';
 import { AudioPlayerBlockComponent } from './blocks/audio-player-block/audio-player-block.component';
 import { PlayerBlockComponent } from './blocks/player-block/player-block.component';
+import { BlockMultiBuilderBoxComponent } from './components/block-multi-builder-box/block-multi-builder-box.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -320,7 +321,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ValidateBlockComponent,
     BookmarkButtonComponent,
     AudioPlayerBlockComponent,
-    PlayerBlockComponent
+    PlayerBlockComponent,
+    BlockMultiBuilderBoxComponent
   ],
   imports: [
     FormlyModule.forRoot({}),
