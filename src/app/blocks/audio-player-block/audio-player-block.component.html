@@ -1,5 +1,5 @@
 <div *ngIf="playerUrl">
-  <app-waveform #player [fileUrl]="playerUrl"></app-waveform>
+  <app-waveform #player [fileUrl]="playerUrl" [title]="playerTitle"></app-waveform>
   <button type="button" mat-icon-button (click)="playPause(player)">
     <mat-icon>{{ isPlaying ? 'pause' : 'play_arrow' }}</mat-icon>
   </button>

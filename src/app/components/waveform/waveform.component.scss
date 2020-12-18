@@ -1,0 +1,14 @@
+.time-display {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.time-spacer {
+  margin: 0 1em;
+}
+.time-wide-space {
+  flex: 1;
+}
+.time-title {
+  font-size: 0.8em;
+}

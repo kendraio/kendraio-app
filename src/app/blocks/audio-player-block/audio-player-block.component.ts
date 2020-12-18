@@ -12,15 +12,19 @@ import {WaveformComponent} from '../../components/waveform/waveform.component';
 export class AudioPlayerBlockComponent extends BaseBlockComponent {
 
   mapping = 'data.url';
+  titleMapping = '``';
   playerUrl = '';
+  playerTitle = '';
 
   isPlaying = false;
 
   onConfigUpdate(config: any) {
     this.mapping = get(config, 'mapping', 'data.url');
+    this.titleMapping = get(config, 'titleMapping', '``');
   }
 
   onData(data: any, firstChange: boolean) {
+    this.playerTitle = mappingUtility({ data: this.model, context: this.context }, this.titleMapping);
     this.playerUrl = mappingUtility({ data: this.model, context: this.context }, this.mapping);
   }
 

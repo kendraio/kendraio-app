@@ -141,5 +141,8 @@
   },
   "browser": {
     "crypto": false
+  },
+  "resolutions": {
+    "uglify-es": "npm:terser"
   }
 }
