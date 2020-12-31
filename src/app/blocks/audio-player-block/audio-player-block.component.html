@@ -1,7 +1,37 @@
 <div *ngIf="playerUrl">
-  <app-waveform #player [fileUrl]="playerUrl" [title]="playerTitle"></app-waveform>
+  <app-waveform #player [fileUrl]="playerUrl" [title]="playerTitle"
+                (error)="doError($event)"
+                (play)="doPlay()"
+                (pause)="doPause()"
+                (ready)="doReady()"
+                (finish)="doFinish()"></app-waveform>
   <button type="button" mat-icon-button (click)="playPause(player)">
     <mat-icon>{{ isPlaying ? 'pause' : 'play_arrow' }}</mat-icon>
   </button>
 </div>
 
+<div *ngIf="hasError && onErrorBlocks.length > 0">
+  <app-blocks-workflow [blocks]="onErrorBlocks"
+                       [models]="[errorData]"
+                       [context]="context"></app-blocks-workflow>
+</div>
+<div *ngIf="!hasError && onReadyBlocks.length > 0">
+  <app-blocks-workflow [blocks]="onReadyBlocks"
+                       [models]="[model]"
+                       [context]="context"></app-blocks-workflow>
+</div>
+<div *ngIf="!hasError && onPlayBlocks.length > 0">
+  <app-blocks-workflow [blocks]="onPlayBlocks"
+                       [models]="[model]"
+                       [context]="context"></app-blocks-workflow>
+</div>
+<div *ngIf="!hasError && onPauseBlocks.length > 0">
+  <app-blocks-workflow [blocks]="onPauseBlocks"
+                       [models]="[model]"
+                       [context]="context"></app-blocks-workflow>
+</div>
+<div *ngIf="!hasError && onFinishBlocks.length > 0">
+  <app-blocks-workflow [blocks]="onFinishBlocks"
+                       [models]="[model]"
+                       [context]="context"></app-blocks-workflow>
+</div>

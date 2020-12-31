@@ -18,9 +18,23 @@ export class AudioPlayerBlockComponent extends BaseBlockComponent {
 
   isPlaying = false;
 
+  hasError = false;
+  onErrorBlocks = [];
+  errorData = {};
+
+  onReadyBlocks = [];
+  onPlayBlocks = [];
+  onPauseBlocks = [];
+  onFinishBlocks = [];
+
   onConfigUpdate(config: any) {
     this.mapping = get(config, 'mapping', 'data.url');
     this.titleMapping = get(config, 'titleMapping', '``');
+    this.onErrorBlocks = get(config, 'onError', []);
+    this.onReadyBlocks = get(config, 'onReady', []);
+    this.onPlayBlocks = get(config, 'onPlay', []);
+    this.onPauseBlocks = get(config, 'onPause', []);
+    this.onFinishBlocks = get(config, 'onFinish', []);
   }
 
   onData(data: any, firstChange: boolean) {
@@ -35,4 +49,20 @@ export class AudioPlayerBlockComponent extends BaseBlockComponent {
     }
   }
 
+  doError(e) {
+    this.errorData = { error: e };
+    this.hasError = true;
+  }
+  doReady() {
+    this.hasError = false;
+  }
+  doPlay() {
+    // this.hasError = false;
+  }
+  doPause() {
+    // this.hasError = false;
+  }
+  doFinish() {
+    // this.hasError = false;
+  }
 }
