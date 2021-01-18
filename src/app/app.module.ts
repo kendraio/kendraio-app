@@ -174,6 +174,7 @@ import { AudioPlayerBlockComponent } from './blocks/audio-player-block/audio-pla
 import { PlayerBlockComponent } from './blocks/player-block/player-block.component';
 import { BlockMultiBuilderBoxComponent } from './components/block-multi-builder-box/block-multi-builder-box.component';
 import { DurationPipe } from './pipes/duration.pipe';
+import { WebMoneyComponent } from './blocks/web-money/web-money.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -324,7 +325,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AudioPlayerBlockComponent,
     PlayerBlockComponent,
     BlockMultiBuilderBoxComponent,
-    DurationPipe
+    DurationPipe,
+    WebMoneyComponent
   ],
   imports: [
     FormlyModule.forRoot({}),
