@@ -5,6 +5,7 @@ import { get } from 'lodash-es';
 
 const metaSelector = 'meta[name="monetization"]';
 
+
 function setPaymentPointer(paymentPointer: string) {
   // Creates or modifies monetization meta tag with a payment pointer
   // using track data, stored in the player's dataset
@@ -21,6 +22,15 @@ function setPaymentPointer(paymentPointer: string) {
 }
 
 
+function removePaymentPointer() {
+  console.info('removePaymentPointer called');
+  var metaTag = document.querySelector(metaSelector);
+  if (metaTag) {
+    metaTag.remove();
+  }
+};
+
+
 @Component({
   selector: 'app-web-money-block',
   templateUrl: './web-money.component.html',
@@ -30,15 +40,22 @@ export class WebMoneyComponent extends BaseBlockComponent {
 
   mapping = 'data.paymentPointer';
   paymentPointer = '';
-
+  enabled = true;
+  time: string = '';
 
   onConfigUpdate(config: any) {
-    this.mapping = get(config, 'mapping', this.mapping);
+    this.mapping = get(config, 'mapping', 'data.paymentPointer');
+    this.enabled = get(config, 'enabled', true);
   }
 
   onData(data: any, _firstChange: boolean) {
     this.paymentPointer = mappingUtility({ data: this.model, context: this.context }, this.mapping);
-    setPaymentPointer(this.model.paymentPointer);
+    if (!!this.model.paymentPointer && this.model.paymentPointer.length > 0 && this.enabled) {
+      setPaymentPointer(this.model.paymentPointer);
+    } else {
+      removePaymentPointer();
+    }
+
   }
 
 }
