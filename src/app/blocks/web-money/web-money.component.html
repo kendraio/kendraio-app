@@ -2,3 +2,9 @@
 
 <p *ngIf="!!paymentPointer && enabled==true">{{ paymentPointer }}</p>
 <p *ngIf="enabled==false">Disabled</p>
+<div *ngIf="supported==true">
+    <app-template-block [config]=supportFoundTemplateConfig></app-template-block>
+</div>
+<div *ngIf="supported==false">
+    <app-template-block [config]=supportMissingTemplateConfig></app-template-block>
+</div>

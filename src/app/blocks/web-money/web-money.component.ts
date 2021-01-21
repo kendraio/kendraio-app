@@ -5,6 +5,13 @@ import { get } from 'lodash-es';
 
 const metaSelector = 'meta[name="monetization"]';
 
+function isMonetizationSupported(): boolean {
+  if (!document['monetization']){
+    return false;
+  } else {
+    return true;
+  }
+}
 
 function setPaymentPointer(paymentPointer: string) {
   // Creates or modifies monetization meta tag with a payment pointer
@@ -41,10 +48,18 @@ export class WebMoneyComponent extends BaseBlockComponent {
   mapping = 'data.paymentPointer';
   paymentPointer = '';
   enabled = true;
-
+  supported = isMonetizationSupported();
+  supportFoundMessage = '';
+  supportMissingMessage = '';
+  supportFoundTemplateConfig = {template: this.supportFoundMessage};
+  supportMissingTemplateConfig = {template: this.supportMissingMessage};
+  
   onConfigUpdate(config: any) {
     this.mapping = get(config, 'mapping', 'data.paymentPointer');
     this.enabled = get(config, 'enabled', true);
+    this.supportFoundMessage = get(config, 'supportFoundMessage', 'It works!');
+    this.supportMissingMessage = get(config, 'supportMissingMessage', 'Install Coil?');
+    
   }
 
   onData(data: any, _firstChange: boolean) {
@@ -56,5 +71,7 @@ export class WebMoneyComponent extends BaseBlockComponent {
     }
 
   }
+
+
 
 }
