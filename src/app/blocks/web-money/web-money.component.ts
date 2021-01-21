@@ -41,7 +41,6 @@ export class WebMoneyComponent extends BaseBlockComponent {
   mapping = 'data.paymentPointer';
   paymentPointer = '';
   enabled = true;
-  time: string = '';
 
   onConfigUpdate(config: any) {
     this.mapping = get(config, 'mapping', 'data.paymentPointer');
