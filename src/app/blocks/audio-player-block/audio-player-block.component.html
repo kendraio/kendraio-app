@@ -20,12 +20,12 @@
                        [models]="[model]"
                        [context]="context"></app-blocks-workflow>
 </div>
-<div *ngIf="!hasError && onPlayBlocks.length > 0">
+<div *ngIf="!hasError && onPlayBlocks.length > 0 && isPlaying">
   <app-blocks-workflow [blocks]="onPlayBlocks"
                        [models]="[model]"
                        [context]="context"></app-blocks-workflow>
 </div>
-<div *ngIf="!hasError && onPauseBlocks.length > 0">
+<div *ngIf="isPlaying == false && onPauseBlocks.length > 0">
   <app-blocks-workflow [blocks]="onPauseBlocks"
                        [models]="[model]"
                        [context]="context"></app-blocks-workflow>
