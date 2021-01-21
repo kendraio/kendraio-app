@@ -50,6 +50,7 @@
     <app-xlsx-template-block class="block-wrapper" *ngSwitchCase="'xlsx-template'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-xlsx-template-block>
     <app-validate-block class="block-wrapper" *ngSwitchCase="'validate'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-validate-block>
     <app-audio-player-block class="block-wrapper" *ngSwitchCase="'player'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-audio-player-block>
+    <app-web-money-block class="block-wrapper" *ngSwitchCase="'web-money'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-web-money-block>
   </ng-container>
 </ng-container>
 <!-- <pre>workblock: {{ context | json }}</pre> -->
