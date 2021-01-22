@@ -6,11 +6,7 @@ import { get } from 'lodash-es';
 const metaSelector = 'meta[name="monetization"]';
 
 function isMonetizationSupported(): boolean {
-  if (!document['monetization']){
-    return false;
-  } else {
-    return true;
-  }
+  return Boolean(document['monetization']);
 }
 
 function setPaymentPointer(paymentPointer: string) {
@@ -37,6 +33,21 @@ function removePaymentPointer() {
   }
 };
 
+const defaultPaymentActiveMessage = `💸▶️ Streaming web payment`;
+const defaultPaymentPausedMessage = '💸⏸️';
+const defaultSupportFoundMessage = '';
+const defaultSupportMissingMessage = `
+No Web Monetization support found 😟.
+<br> 
+<a href="https://webmonetization.org">
+  Learn about Web Monetization here.</a>
+<br>
+<br>
+<a href="https://coil.com">
+  <img src="https://coil.com/images/coil-logo.svg" title="Coil logo"/>
+  <br>
+  Support us with Coil.
+</a>`;
 
 @Component({
   selector: 'app-web-money-block',
@@ -49,17 +60,28 @@ export class WebMoneyComponent extends BaseBlockComponent {
   paymentPointer = '';
   enabled = true;
   supported = isMonetizationSupported();
-  supportFoundMessage = '';
-  supportMissingMessage = '';
-  supportFoundTemplateConfig = {template: this.supportFoundMessage};
-  supportMissingTemplateConfig = {template: this.supportMissingMessage};
-  
+  showPaymentPointer = true;
+  supportFoundMessage = defaultSupportFoundMessage;
+  supportMissingMessage = defaultSupportMissingMessage;
+  paymentActiveMessage = defaultPaymentActiveMessage;
+  paymentPausedMessage = defaultPaymentPausedMessage;
+  paymentActiveTemplateConfig = { template: this.paymentActiveMessage };
+  paymentPausedTemplateConfig = { template: this.paymentPausedMessage };
+  supportFoundTemplateConfig = { template: this.supportFoundMessage };
+  supportMissingTemplateConfig = { template: this.supportMissingMessage };
+
   onConfigUpdate(config: any) {
     this.mapping = get(config, 'mapping', 'data.paymentPointer');
     this.enabled = get(config, 'enabled', true);
-    this.supportFoundMessage = get(config, 'supportFoundMessage', 'It works!');
-    this.supportMissingMessage = get(config, 'supportMissingMessage', 'Install Coil?');
-    
+    this.showPaymentPointer = get(config, 'showPaymentPointer', true);
+    this.paymentPausedMessage = get(config, 'paymentPausedMessage', defaultPaymentPausedMessage);
+    this.supportFoundMessage = get(config, 'supportFoundMessage', defaultSupportFoundMessage);
+    this.supportMissingMessage = get(config, 'supportMissingMessage', defaultSupportMissingMessage);
+    this.paymentActiveTemplateConfig = { template: this.paymentActiveMessage };
+    this.paymentPausedTemplateConfig = { template: this.paymentPausedMessage };
+    this.supportFoundTemplateConfig = { template: this.supportFoundMessage };
+    this.supportMissingTemplateConfig = { template: this.supportMissingMessage };
+
   }
 
   onData(data: any, _firstChange: boolean) {
@@ -71,7 +93,5 @@ export class WebMoneyComponent extends BaseBlockComponent {
     }
 
   }
-
-
 
 }
