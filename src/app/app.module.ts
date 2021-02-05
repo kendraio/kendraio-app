@@ -386,12 +386,15 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormlyFormDialogComponent
   ],
   providers: [
-    {
-      provide: APP_INITIALIZER,
-      multi: true,
-      useFactory: (schemaRepo: SchemaRepositoryService) => () => schemaRepo.init(),
-      deps: [SchemaRepositoryService]
-    },
+    // This service is from old legacy code and no longer used,
+    // so I'm commenting out the init() function and the whole thing
+    // can be removed once confirmed nothing is still using it.
+    // {
+    //   provide: APP_INITIALIZER,
+    //   multi: true,
+    //   useFactory: (schemaRepo: SchemaRepositoryService) => () => schemaRepo.init(),
+    //   deps: [SchemaRepositoryService]
+    // },
     {
       provide: APP_INITIALIZER,
       multi: true,
