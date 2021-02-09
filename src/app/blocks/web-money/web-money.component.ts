@@ -33,11 +33,67 @@ function removePaymentPointer() {
   }
 };
 
+const COIL_CLIENT_ID = '19d9c8e7-3a37-4fd5-803c-057300f4354b';
+function uuid4() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+
+function addCoilClientScript() {
+  const s = document.createElement('script');
+  s.setAttribute('src', 'https://cdn.coil.com/coil-oauth-wm.v7.beta.js');
+  document.head.appendChild(s);
+}
+
+async function setupCoilClient() {
+  let callbackCode = new URLSearchParams(location.search).get('code');
+
+  if (callbackCode) {
+    addCoilClientScript()
+    document['monetization'] = document.createElement('div')
+    document['monetization'].state = 'stopped'
+    let response = await fetch('http://localhost:3000/api/login?code=' + callbackCode, {
+      method: 'POST'
+    });
+
+    let result = await response.json();
+    console.dir({ btpToken: result.btpToken })
+    window.history.replaceState(null, document.title, location.href.replace(location.search, ''));
+    document['coilMonetizationPolyfill'].init({ btpToken: result.btpToken })
+  } else { console.log('login?') }
+}
+
+
+
+
+
+function unixTime() {
+  return Math.floor(Date.now() / 1000);
+}
+
+const sessionUUID = uuid4();
+const loginURL = `https://coil.com/oauth/auth?response_type=code&scope=simple_wm openid&client_id=` + COIL_CLIENT_ID +
+  `&state=` + sessionUUID + `&redirect_uri=https://app.kendra.io/coil/callback`;
+
+
+const supportCheck = isMonetizationSupported();
+if (supportCheck == false) {
+  setupCoilClient()
+
+}
 const defaultPaymentActiveMessage = `💸▶️ Streaming web payment`;
 const defaultPaymentPausedMessage = '💸⏸️';
 const defaultSupportFoundMessage = '';
+const protectedLoginButtonMessage = `<a href="` + loginURL + `">
+<img src="https://coil.com/images/coil-logo.svg" title="Coil logo"/>
+<br>
+Login with Coil here
+</a>`;
 const defaultSupportMissingMessage = `
-No Web Monetization support found 😟.
+No Web Monetization extension found 😟.
+
 <br> 
 <a href="https://webmonetization.org">
   Learn about Web Monetization here.</a>
@@ -46,8 +102,9 @@ No Web Monetization support found 😟.
 <a href="https://coil.com">
   <img src="https://coil.com/images/coil-logo.svg" title="Coil logo"/>
   <br>
-  Support us with Coil.
+  Join Coil here.
 </a>`;
+
 
 @Component({
   selector: 'app-web-money-block',
@@ -61,6 +118,7 @@ export class WebMoneyComponent extends BaseBlockComponent {
   enabled = true;
   supported = isMonetizationSupported();
   showPaymentPointer = true;
+  protectedLoginButtonMessage = protectedLoginButtonMessage;
   supportFoundMessage = defaultSupportFoundMessage;
   supportMissingMessage = defaultSupportMissingMessage;
   paymentActiveMessage = defaultPaymentActiveMessage;

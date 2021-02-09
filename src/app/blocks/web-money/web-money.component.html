@@ -23,6 +23,7 @@
 
 <!-- 💸😞😭 support not found -->
 <span *ngIf="supported == false">
+  <div innerHTML="{{protectedLoginButtonMessage}}"></div>
   <app-template-block [config]="supportMissingTemplateConfig"></app-template-block>
 </span>
 
