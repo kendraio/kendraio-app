@@ -13,7 +13,7 @@
                      [(ngModel)]="dataInTxt"></ngx-monaco-editor>
 
   <div>
-    <app-debug-block [config]="{ open: 5 }" [model]="dataOut"></app-debug-block>
+    <app-debug-block [config]="{ open: 1 }" [model]="dataOut"></app-debug-block>
   </div>
 </div>
 
@@ -31,6 +31,7 @@
     </select>
   </label>
   <button mat-flat-button (click)="runBlocks()">Load</button>
+  <button style="margin-left: 1rem;" mat-flat-button *ngIf="selectedBlockType === 'mapping'" (click)="saveBlocks()">Save</button>
 </div>
 
 <div>
