@@ -23,7 +23,8 @@
 
 <!-- 💸😞😭 support not found -->
 <span *ngIf="supported == false">
-  <div innerHTML="{{protectedLoginButtonMessage}}"></div>
+  <button><a href="{{coilLoginURL}}">Connect to Coil</a></button>
+  <br>
   <app-template-block [config]="supportMissingTemplateConfig"></app-template-block>
 </span>
 
