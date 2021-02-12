@@ -5,7 +5,10 @@ import {NgxEditorModel} from 'ngx-monaco-editor';
 import {mappingUtility} from '../../blocks/mapping-block/mapping-util';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
-import {sortBy} from 'lodash-es';
+import {camelCase, get, sortBy, set} from 'lodash-es';
+import {WorkflowService} from '../../services/workflow.service';
+import {SaveWorkflowDialogComponent} from '../../dialogs/save-workflow-dialog/save-workflow-dialog.component';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-kql-builder',
@@ -60,10 +63,15 @@ export class KqlBuilderComponent implements OnInit {
   blockExec = [];
   startModels;
   context = {};
+  flowConfig = {};
+
+  selectedBlock = {};
+  selectedBlockType = '';
 
   constructor(
     private readonly http: HttpClient,
-    private readonly zone: NgZone
+    private readonly zone: NgZone,
+    private readonly dialog: MatDialog,
   ) {
   }
 
@@ -95,9 +103,10 @@ export class KqlBuilderComponent implements OnInit {
     this.blockOptions = [];
     this.blockLimit = '0';
     const {adapterName, workflowId} = this.flows[+v];
-    const {blocks} = await this.http.get<any>(`https://app.kendra.io/api/${adapterName}/${workflowId}`)
+    const {blocks, ...flowConfig} = await this.http.get<any>(`https://app.kendra.io/api/${adapterName}/${workflowId}`)
       .toPromise();
     this.blockOptions = blocks;
+    this.flowConfig = flowConfig;
     this.context = {
       app: { adapterName, workflowId }
     };
@@ -106,10 +115,34 @@ export class KqlBuilderComponent implements OnInit {
   runBlocks() {
     setTimeout(() => {
       this.zone.run(() => {
-        this.blockExec = this.blockOptions.slice(0, 1 + parseInt(this.blockLimit, 10));
-        this.startModels = this.blockExec.map(() => ({}));
+        this.selectedBlock = this.blockOptions[parseInt(this.blockLimit, 10)];
+        this.selectedBlockType = get(this.selectedBlock, 'type', '');
+        if (this.selectedBlockType === 'mapping') {
+          this.queryTxt = get(this.selectedBlock, 'mapping', 'data');
+          this.blockExec = this.blockOptions.slice(0, parseInt(this.blockLimit, 10));
+          this.startModels = this.blockExec.map(() => ({}));
+        } else {
+          this.blockExec = this.blockOptions.slice(0, 1 + parseInt(this.blockLimit, 10));
+          this.startModels = this.blockExec.map(() => ({}));
+        }
       });
     }, 100);
+  }
+
+  saveBlocks() {
+    // console.log(this.blockOptions);
+    // const prevMapping = get(this.selectedBlock, 'mapping', 'data');
+    set(this.blockOptions[parseInt(this.blockLimit, 10)], 'mapping', this.queryTxt);
+    const dialogRef = this.dialog.open(SaveWorkflowDialogComponent, {
+      disableClose: true,
+      data: { ...this.flowConfig, blocks: this.blockOptions }
+    });
+    dialogRef.afterClosed().subscribe(values => {
+      if (!!values) {
+        console.log('workflow saved', {values});
+      }
+    });
+
   }
 
   loadNewData(v) {

@@ -309,8 +309,16 @@ export const BLOCK_TYPES = [
     hasEditor: true,
     defaultConfig: {
       type: 'switch',
-      eval: 'data',
-      branches: []
+      valueGetter: 'data',
+      cases: [
+        {
+          value: 'example',
+          blocks: []
+        }
+      ],
+      'default': {
+        blocks: []
+      }
     }
   },
   {
