@@ -309,8 +309,16 @@ export const BLOCK_TYPES = [
     hasEditor: true,
     defaultConfig: {
       type: 'switch',
-      eval: 'data',
-      branches: []
+      valueGetter: 'data',
+      cases: [
+        {
+          value: 'example',
+          blocks: []
+        }
+      ],
+      'default': {
+        blocks: []
+      }
     }
   },
   {
@@ -505,6 +513,16 @@ export const BLOCK_TYPES = [
     defaultConfig: {
       type: 'validate',
       schema: ''
+    }
+  },
+  {
+    type: 'player',
+    label: 'Kendraio Player',
+    description: 'Audio player with Web Monetization support (in development)',
+    icon: 'audiotrack',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'player'
     }
   },
   {

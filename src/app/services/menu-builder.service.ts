@@ -61,7 +61,7 @@ export class MenuBuilderService {
         path: '/services',
         children: services
       }],
-      ...this.settings.get('disablePreview', false) ? [] : PROTOTYPE_MENU,
+      ...this.settings.get('disablePreview', true) ? [] : PROTOTYPE_MENU,
       {
         path: '/core/settings',
         label: 'settings',

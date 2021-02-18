@@ -78,7 +78,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       this.isLoading = false;
       return;
     }
-    if (!includes(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], toUpper(method))) {
+    if (!includes(['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'BPUT'], toUpper(method))) {
       this.errorMessage = 'HTTP method not supported';
       this.errorData = {};
       this.errorBlocks = [];
@@ -87,7 +87,6 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       return;
     }
     const url = this.constructEndpointUrl(this.config);
-    // console.log({ url });
 
     let headers = new HttpHeaders(this.getPayloadHeaders());
     if (has(this.config, 'authentication.type')) {
@@ -145,6 +144,42 @@ export class HttpBlockComponent implements OnInit, OnChanges {
             this.isLoading = false;
             this.hasError = false;
             this.outputResult(response);
+          });
+        break;
+      case 'BPUT': // binary PUT
+        const isArrayBufferWithContent = obj => (obj instanceof ArrayBuffer) && obj.byteLength > 0;
+        const payloadB = get(this.model, 'content');
+        if (!isArrayBufferWithContent(payloadB)) {
+          this.isLoading = false;
+          this.hasError = true;
+          this.errorMessage = `${toUpper(method)} of empty payload prevented in http block`;
+          this.errorData = {};
+          this.errorBlocks = [];
+
+          return;
+        }
+        this.http.put(url, payloadB, {headers, responseType: this.responseType})
+          .pipe(
+            catchError(error => {
+              this.hasError = true;
+              this.errorMessage = error.message;
+              this.errorData = error;
+              // TODO: need to prevent errors for triggering subsequent blocks
+              return of([]);
+            })
+          )
+          .subscribe(response => {
+            this.isLoading = false;
+            this.hasError = false;
+            this.outputResult(response);
+            const notify = get(this.config, 'notify', true);
+            if (notify) {
+              const message = 'API update successful';
+              this.notify.open(message, 'OK', {
+                duration: 2000,
+                verticalPosition: 'top'
+              });
+            }
           });
         break;
       case 'PUT':

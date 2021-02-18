@@ -1,6 +1,9 @@
 import { decorate } from '@daz.is/jmespath';
 import uuid from 'uuid';
-import {find, get, omit, pick, pickBy, zip, toPairs, fromPairs, pad, padStart, padEnd, uniqBy, uniq, includes, filter} from 'lodash-es';
+import {
+  isString, find, get, omit, pick, pickBy, zip, toPairs, fromPairs, pad, padStart, padEnd, uniqBy,
+  uniq, includes, filter, isNull, isNumber
+} from 'lodash-es';
 import {DateTime} from 'luxon';
 import {parse as parseQueryString, stringify as asQueryString} from 'qs';
 import stringify from 'json-stringify-safe';
@@ -183,6 +186,41 @@ const search = decorate({
   all: {
     _func: ([a]) => filter(a).length === a.length,
     _signature: [{types: [TYPE_ARRAY]}]
+  },
+  parseDate: {
+    _func: ([n]) => {
+      if (isNull(n)) {
+        return null;
+      }
+      if (isNumber(n)) {
+        const nn = (n - 25569) * 86400;
+        return DateTime.fromSeconds(nn).toISO();
+      }
+      if (isString(n)) {
+        return DateTime.fromISO(n).toISO();
+      }
+      return null;
+    },
+    _signature: [{types: [TYPE_NUMBER, TYPE_STRING, TYPE_NULL]}]
+  },
+  parseDuration: {
+    _func: ([n]) => {
+      if (isNull(n)) {
+        return null;
+      }
+      if (isString(n) && n.includes(':')) {
+        const [m, s] = n.split(':');
+        return (parseInt(m, 10) * 60) + s;
+      }
+      if (isString(n)) {
+        return parseInt(n, 10);
+      }
+      if (isNumber(n)) {
+        return n;
+      }
+      return null;
+    },
+    _signature: [{types: [TYPE_NUMBER, TYPE_STRING, TYPE_NULL]}]
   }
 });
 

@@ -12,6 +12,7 @@ export class FileInputBlockComponent extends BaseBlockComponent {
   label = 'Import';
   accept = 'text/csv';
   binary = false;
+  arrayBuffer = true;
 
   // vimeo vids accept = application/vnd.vimeo.*+json;version=3.4
 
@@ -27,6 +28,7 @@ export class FileInputBlockComponent extends BaseBlockComponent {
     this.accept = flatten(get(config, 'accept', ['csv']).map(key => mimeTypeMap[key])).join(', ');
     this.label = get(config, 'label', 'Import');
     this.binary = get(config, 'binary', false);
+    this.arrayBuffer = get(config, 'arrayBuffer', true);
   }
 
   onFileChange(files: FileList) {
@@ -47,7 +49,11 @@ export class FileInputBlockComponent extends BaseBlockComponent {
       });
     };
     if (this.binary) {
-      fileReader.readAsBinaryString(file);
+      if (this.arrayBuffer) {
+        fileReader.readAsArrayBuffer(file);
+      } else {
+        fileReader.readAsBinaryString(file);
+      }
     } else {
       fileReader.readAsText(file);
     }

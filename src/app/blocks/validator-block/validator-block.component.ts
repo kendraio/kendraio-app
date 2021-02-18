@@ -30,10 +30,11 @@ export class ValidatorBlockComponent extends BaseBlockComponent {
     }
     this.hasError = false;
     const check = mappingUtility({data: this.model, context: this.context}, this.test);
-    if (check !== false) {
-      this.output.emit(this.model);
-    } else {
+    // console.log({ check });
+    if (check === false || check === null) {
       this.hasError = true;
+    } else {
+      this.output.emit(this.model);
     }
   }
 

@@ -43,17 +43,28 @@ export class GraphqlBlockComponent extends BaseBlockComponent {
       return;
     }
 
-    const payload = {
-      query: this.query,
-      variables: Object.keys(this.variableGetters).reduce((a, key) => {
-        a[key] = mappingUtility({ data, context: this.context }, this.variableGetters[key]);
+    let payload;
+    let headers;
+    try {
+      payload = {
+        query: this.query,
+        variables: Object.keys(this.variableGetters).reduce((a, key) => {
+          a[key] = mappingUtility({ data, context: this.context }, this.variableGetters[key]);
+          return a;
+        }, {})
+      };
+      headers = Object.keys(this.headers).reduce((a, key) => {
+        a[key] = mappingUtility({ data, context: this.context }, this.headers[key]);
         return a;
-      }, {})
-    };
-    const headers = Object.keys(this.headers).reduce((a, key) => {
-      a[key] = mappingUtility({ data, context: this.context }, this.headers[key]);
-      return a;
-    }, {});
+      }, {});
+    } catch (e) {
+      this.hasError = true;
+      this.errorMessage = e.message;
+    }
+    if (!payload || !headers) {
+      console.log('graphql payload or headers not set');
+      return;
+    }
 
     this.hasError = false;
     this.isLoading = true;
@@ -63,6 +74,7 @@ export class GraphqlBlockComponent extends BaseBlockComponent {
         this.output.emit(result);
       }, error => {
         this.hasError = true;
+        this.isLoading = false;
         this.errorMessage = error.message;
       });
   }
