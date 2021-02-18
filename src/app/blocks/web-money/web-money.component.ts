@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { BaseBlockComponent } from '../base-block/base-block.component';
 import { mappingUtility } from '../mapping-block/mapping-util';
 import { get } from 'lodash-es';
+import uuid from 'uuid';
 
 const metaSelector = 'meta[name="monetization"]';
 
@@ -34,12 +35,7 @@ function removePaymentPointer() {
 };
 
 const COIL_CLIENT_ID = '19d9c8e7-3a37-4fd5-803c-057300f4354b';
-function uuid4() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-    return v.toString(16);
-  });
-}
+
 
 function addCoilClientScript() {
   const s = document.createElement('script');
@@ -104,7 +100,8 @@ async function setupCoilClient() {
 }
 
 
-const oauthState = uuid4() + '_' + btoa(location.pathname);
+const oauthState = uuid.v4() + '_' + btoa(location.pathname);
+
 // A random UUID with our current path, to redirect back to
 
 const urlPrefix = "https://app.kendra.io/";;
