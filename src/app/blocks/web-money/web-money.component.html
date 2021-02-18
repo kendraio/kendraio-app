@@ -23,6 +23,8 @@
 
 <!-- 💸😞😭 support not found -->
 <span *ngIf="supported == false">
+  <a mat-flat-button class="mat-primary" href="{{coilLoginURL}}">Connect to Coil</a>
+  <br>
   <app-template-block [config]="supportMissingTemplateConfig"></app-template-block>
 </span>
 
