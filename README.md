@@ -51,10 +51,13 @@ Edit the generated my-block.component.ts to make it a sub-class of BaseBlock.
 Take a look at one of the more recent blocks as an example, eg the AudioPlayer:
 
 ```javascript
+
 export class AudioPlayerBlockComponent extends BaseBlockComponent {
+
 ```
 
 There are two functions to implement to make it work:
+
 ```javascript
 onConfigUpdate(config: any) {
 
@@ -70,7 +73,8 @@ onData(data: any, firstChange: boolean) {
 
       this.output.emit(this.model);
 
-}```
+}
+```
 
 Implement onConfigUpdate() to modify the block state based on changes to the block configuration.
 
