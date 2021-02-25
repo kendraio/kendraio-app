@@ -518,7 +518,7 @@ export const BLOCK_TYPES = [
   {
     type: 'player',
     label: 'Kendraio Player',
-    description: 'Audio player with Web Monetization support (in development)',
+    description: 'Audio player with Web Monetization support',
     icon: 'audiotrack',
     hasEditor: true,
     defaultConfig: {
