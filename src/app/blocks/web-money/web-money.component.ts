@@ -127,9 +127,6 @@ const defaultPaymentActiveMessage = `💸▶️ Streaming web payment`;
 const defaultPaymentPausedMessage = '💸⏸️';
 const defaultSupportFoundMessage = '';
 const defaultSupportMissingMessage = `
-No Web Monetization extension found 😟.
-
-<br> 
 <a href="https://webmonetization.org">
   Learn about Web Monetization here.</a>
 <br>
