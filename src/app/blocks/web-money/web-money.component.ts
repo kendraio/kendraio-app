@@ -100,25 +100,27 @@ async function setupCoilClient() {
 }
 
 
-const oauthState = uuid.v4() + '_' + btoa(location.pathname);
-
-// A random UUID with our current path, to redirect back to
 
 const urlPrefix = "https://app.kendra.io/";;
 
-const coilLoginParameters = {
-  response_type:'code',
-  scope:'simple_wm openid',
-  client_id: COIL_CLIENT_ID,
-  state: oauthState,
-  redirect_uri: urlPrefix + 'coil/callback'
-};
+function getCoilOauthLoginURL(): string {
+  const coilOauthLoginURL = new URL("https://coil.com/oauth/auth");
 
-const coilOauthLoginURL = new URL("https://coil.com/oauth/auth");
-Object.entries(coilLoginParameters).forEach(([key,value])=>{
-  coilOauthLoginURL.searchParams.append(key,value);
-})
+  const oauthState = uuid.v4() + '_' + btoa(location.pathname);
+  // A random UUID with our current path, to redirect back to
 
+  Object.entries({
+    response_type: 'code',
+    scope: 'simple_wm openid',
+    client_id: COIL_CLIENT_ID,
+    state: oauthState,
+    redirect_uri: urlPrefix + 'coil/callback'
+  }).forEach(([key, value]) => {
+    coilOauthLoginURL.searchParams.append(key, value);
+  })
+
+  return coilOauthLoginURL.href;
+}
 const webMonetizationSupportFound = isMonetizationSupported();
 if (!webMonetizationSupportFound) {
   setupCoilClient()
@@ -148,7 +150,7 @@ export class WebMoneyComponent extends BaseBlockComponent {
   enabled = true;
   supported = isMonetizationSupported();
   showPaymentPointer = true;
-  coilLoginURL = coilOauthLoginURL.href;
+  coilLoginURL = '';
   supportFoundMessage = defaultSupportFoundMessage;
   supportMissingMessage = defaultSupportMissingMessage;
   paymentActiveMessage = defaultPaymentActiveMessage;
@@ -169,7 +171,7 @@ export class WebMoneyComponent extends BaseBlockComponent {
     this.paymentPausedTemplateConfig = { template: this.paymentPausedMessage };
     this.supportFoundTemplateConfig = { template: this.supportFoundMessage };
     this.supportMissingTemplateConfig = { template: this.supportMissingMessage };
-
+    this.coilLoginURL = getCoilOauthLoginURL(); // uses location to redirect back
   }
 
   onData(data: any, _firstChange: boolean) {
