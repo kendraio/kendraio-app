@@ -27,24 +27,23 @@ Contribute
 - To download the source code, visit the repo: https://github.com/kendraio/kendraio-app
 
 
-Setting up
-----------
 
 Setting up a local development environment
-==========================================
+------------------------------------------
 
 You will need to install node, npm, and the Angular CLI.
 
 Clone the repo.
 
-Run npm install
+Run `npm install`
 
 Start the development server using `npm run serve:dev`
+
 
 Adding a "Block" (i.e. Task for the Flow editor)
 --------------------------------------------------
 
-Use the Angular CLI to scaffold a new block: ng g c blocks/my-block
+Use the Angular CLI to scaffold a new block: `ng g c blocks/my-block`
 
 Edit the generated my-block.component.ts to make it a sub-class of BaseBlock.
 
@@ -86,10 +85,10 @@ Add any required CSS to the stylesheet for the component.
 
 To make the block show up in the App:
 
--   Add the component to this horrible big switch block in the BlocksWorfklowComponent src/app/components/blocks-workflow/blocks-workflow.component.html
+-   Add the component to this horrible big switch block in the BlocksWorkflowComponent [src/app/components/blocks-workflow/blocks-workflow.component.html](src/app/components/blocks-workflow/blocks-workflow.component.html)
 
 This is needed for the flow to show up in rendered workflows.
 
 -   Add a definition for the block to the block types so it can appear in the "Add Task" dialog:
 
-src/app/dialogs/add-block-dialog/block-types.ts
+[src/app/dialogs/add-block-dialog/block-types.ts](src/app/dialogs/add-block-dialog/block-types.ts)
