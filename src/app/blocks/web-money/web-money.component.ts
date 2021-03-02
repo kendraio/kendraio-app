@@ -164,6 +164,7 @@ export class WebMoneyComponent extends BaseBlockComponent {
     this.mapping = get(config, 'mapping', 'data.paymentPointer');
     this.enabled = get(config, 'enabled', true);
     this.showPaymentPointer = get(config, 'showPaymentPointer', true);
+    this.paymentActiveMessage = get(config, 'paymentActiveMessage', defaultPaymentActiveMessage);
     this.paymentPausedMessage = get(config, 'paymentPausedMessage', defaultPaymentPausedMessage);
     this.supportFoundMessage = get(config, 'supportFoundMessage', defaultSupportFoundMessage);
     this.supportMissingMessage = get(config, 'supportMissingMessage', defaultSupportMissingMessage);
