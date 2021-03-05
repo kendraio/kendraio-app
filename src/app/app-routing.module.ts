@@ -140,6 +140,7 @@ const routes: Routes = [
   },
   {
     path: 'query-builder',
+    // FYI: This is the OLD version
     component: QueryBuilderPageComponent
   },
   {

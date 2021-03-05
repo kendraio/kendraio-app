@@ -4,11 +4,12 @@ import {KQL_EDITOR_OPTIONS} from './kql-editor-options';
 import {NgxEditorModel} from 'ngx-monaco-editor';
 import {mappingUtility} from '../../blocks/mapping-block/mapping-util';
 import {HttpClient} from '@angular/common/http';
-import {map} from 'rxjs/operators';
+import {map, take} from 'rxjs/operators';
 import {camelCase, get, sortBy, set} from 'lodash-es';
 import {WorkflowService} from '../../services/workflow.service';
 import {SaveWorkflowDialogComponent} from '../../dialogs/save-workflow-dialog/save-workflow-dialog.component';
 import {MatDialog} from '@angular/material';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-kql-builder',
@@ -72,12 +73,22 @@ export class KqlBuilderComponent implements OnInit {
     private readonly http: HttpClient,
     private readonly zone: NgZone,
     private readonly dialog: MatDialog,
+    private readonly route: ActivatedRoute
   ) {
   }
 
   ngOnInit() {
     this.getFlows();
     this.updateDataInModel();
+    this.createDummyContext();
+  }
+
+  async createDummyContext() {
+    this.route.queryParams.pipe(
+      take(1)
+    ).subscribe(queryParams => {
+      this.context = {...this.context, queryParams};
+    });
   }
 
   async getFlows() {
@@ -108,8 +119,9 @@ export class KqlBuilderComponent implements OnInit {
     this.blockOptions = blocks;
     this.flowConfig = flowConfig;
     this.context = {
-      app: { adapterName, workflowId }
+      app: {adapterName, workflowId}
     };
+    await this.createDummyContext();
   }
 
   runBlocks() {
@@ -135,7 +147,7 @@ export class KqlBuilderComponent implements OnInit {
     set(this.blockOptions[parseInt(this.blockLimit, 10)], 'mapping', this.queryTxt);
     const dialogRef = this.dialog.open(SaveWorkflowDialogComponent, {
       disableClose: true,
-      data: { ...this.flowConfig, blocks: this.blockOptions }
+      data: {...this.flowConfig, blocks: this.blockOptions}
     });
     dialogRef.afterClosed().subscribe(values => {
       if (!!values) {
@@ -150,10 +162,14 @@ export class KqlBuilderComponent implements OnInit {
       return;
     }
     // console.log(v);
-    this.zone.run(() => {
-      this.dataInTxt = JSON.stringify(v, null, 2);
-      this.updateDataInModel();
-    });
+    setTimeout(() => {
+      this.zone.run(() => {
+        this.dataInTxt = JSON.stringify(v, null, 2);
+        this.updateDataInModel();
+      });
+    }, 30);
+    // This timeout should not be needed but there's an ExpressionChangedAfterItHasBeenCheckedError
+    // in here somewhere that I can't track down.
   }
 
   dataInModelChange() {
