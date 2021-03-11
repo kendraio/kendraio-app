@@ -12,7 +12,22 @@
     <span *ngIf="showPaymentPointer"> 
         Payment pointer: {{ paymentPointer }}
     </span>
-  </span>
+
+    <!-- 🧐 show payment stream total estimate -->
+    <div class="payTotal" *ngIf="showPaymentTotal && nativeTotalAmount"> 
+      <span class="payTitle">
+        {{payTotalTitle}}
+      </span>
+      <span class="nativeTotal"> 
+        {{ nativeTotalAmount }}
+      </span>
+      <span class="around"> 
+        ≈
+      </span>
+      <span class="fiatTotal" *ngIf="fiatTotalAmount"> 
+        {{ fiatTotalAmount }}
+      </span>
+    </div>
 
   <!-- ⏸️ paused messaging -->
   <span *ngIf="enabled == false">
