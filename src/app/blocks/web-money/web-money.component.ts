@@ -138,6 +138,29 @@ const defaultSupportMissingMessage = `
 </a>`;
 
 
+// memory caches currency rates, indexed by a key, made of assetCode + fiat
+var rates = {};
+var rate_fetches = {};
+function loadCurrencyRates(assetCode, fiat) {
+  if (assetCode + fiat in rate_fetches) {
+    return // prevent clobbering
+  }
+  rate_fetches[assetCode + fiat] = true;
+
+  return fetch('https://api.coingecko.com/api/v3/coins/markets?order=market_cap_desc&per_page=20&page=1&sparkline=false&vs_currency=' + fiat, {
+    method: 'GET',
+    mode: 'cors'
+  }).then((response) => response.json()).then((response) => {
+    const matching_asset = response.filter((item) => { return item.symbol === assetCode });
+    rates[assetCode + fiat] = matching_asset[0].current_price;
+  });
+}
+
+
+let totalAmount = 0;
+
+const defaultFiatCurrency = 'usd'; //must be lowercase
+
 @Component({
   selector: 'app-web-money-block',
   templateUrl: './web-money.component.html',
@@ -150,6 +173,13 @@ export class WebMoneyComponent extends BaseBlockComponent {
   enabled = true;
   supported = isMonetizationSupported();
   showPaymentPointer = true;
+  
+  showPaymentTotal = true;
+  fiatCurrency = defaultFiatCurrency;
+  nativeTotalAmount = ''; // total amount stored in native currency format (e.g: ETH, XRP)
+  fiatTotalAmount = ''; // total amount converted to a fiat currency (e.g: USD, EUR)
+  payTotalTitle = ''; // heading for the total amounts
+
   coilLoginURL = '';
   supportFoundMessage = defaultSupportFoundMessage;
   supportMissingMessage = defaultSupportMissingMessage;
@@ -164,6 +194,9 @@ export class WebMoneyComponent extends BaseBlockComponent {
     this.mapping = get(config, 'mapping', 'data.paymentPointer');
     this.enabled = get(config, 'enabled', true);
     this.showPaymentPointer = get(config, 'showPaymentPointer', true);
+    this.showPaymentTotal = get(config, 'showPaymentTotal', true);
+    this.fiatCurrency = get(config, 'fiatCurrency', defaultFiatCurrency).toLowerCase();
+    this.payTotalTitle = get(config, 'payTotalTitle', 'Pay total:');
     this.paymentActiveMessage = get(config, 'paymentActiveMessage', defaultPaymentActiveMessage);
     this.paymentPausedMessage = get(config, 'paymentPausedMessage', defaultPaymentPausedMessage);
     this.supportFoundMessage = get(config, 'supportFoundMessage', defaultSupportFoundMessage);
@@ -175,10 +208,52 @@ export class WebMoneyComponent extends BaseBlockComponent {
     this.coilLoginURL = getCoilOauthLoginURL(); // uses location to redirect back
   }
 
+  setupPaymentWatcher() {
+    var parentScope = this;
+    const fiat = this.fiatCurrency;
+
+    function monetizationprogressHandler(event) {
+      let detail = event.detail;
+      detail.assetCode = detail.assetCode.toLowerCase();
+
+      totalAmount += Number(detail.amount);
+      const floatTotalAmount = totalAmount * Math.pow(10, -detail.assetScale);
+      const fiatCurrencyFormatter = new Intl.NumberFormat(window.navigator.language, {
+        style: 'currency',
+        currency: fiat.toUpperCase(),
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 20,
+        maximumSignificantDigits: 5
+      });
+      const nativeCurrencyFormatter = new Intl.NumberFormat(window.navigator.language, {
+        // when cryptocurrencies are part of browser number formatting,
+        // perhaps a style parameter can be passed to get symbol icons etc
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 20,
+        maximumSignificantDigits: 5
+      });
+
+      parentScope.nativeTotalAmount = `${nativeCurrencyFormatter.format(floatTotalAmount)}  ${detail.assetCode.toUpperCase()}`;
+
+      if (detail.assetCode + fiat in rates) {
+        const fiatTotalAmount = floatTotalAmount * rates[detail.assetCode + fiat];
+        parentScope.fiatTotalAmount = `${fiatCurrencyFormatter.format(fiatTotalAmount)} ${fiat.toUpperCase()}`;
+      } else {
+        console.info('loading latest currency conversion');
+        loadCurrencyRates(detail.assetCode, fiat);
+      }
+
+    }
+    if (document['monetization']) {
+      document['monetization'].addEventListener('monetizationprogress', monetizationprogressHandler);
+    }
+  }
+
   onData(data: any, _firstChange: boolean) {
     this.paymentPointer = mappingUtility({ data: this.model, context: this.context }, this.mapping);
     if (!!this.model.paymentPointer && this.model.paymentPointer.length > 0 && this.enabled) {
       setPaymentPointer(this.model.paymentPointer);
+      this.setupPaymentWatcher();
     } else {
       removePaymentPointer();
     }
