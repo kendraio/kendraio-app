@@ -61,6 +61,7 @@ Kendraio App
    workflow/blocks/message
    workflow/blocks/multi
    workflow/blocks/parse_data
+   workflow/blocks/player
    workflow/blocks/query
    workflow/blocks/reference
    workflow/blocks/serialize
@@ -68,3 +69,4 @@ Kendraio App
    workflow/blocks/template
    workflow/blocks/variable_get
    workflow/blocks/variable_set
+   workflow/blocks/web_money
