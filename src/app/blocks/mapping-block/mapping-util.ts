@@ -2,7 +2,7 @@ import { decorate } from '@daz.is/jmespath';
 import uuid from 'uuid';
 import {
   isString, find, get, omit, pick, pickBy, zip, toPairs, fromPairs, pad, padStart, padEnd, uniqBy,
-  uniq, includes, filter, isNull, isNumber
+  uniq, includes, filter, isNull, isNumber, set
 } from 'lodash-es';
 import {DateTime} from 'luxon';
 import {parse as parseQueryString, stringify as asQueryString} from 'qs';
@@ -25,6 +25,10 @@ const search = decorate({
   get: {
     _func: ([o, s, d]) => get(o, s, d),
     _signature: [{types: [TYPE_OBJECT, TYPE_ARRAY]}, {types: [TYPE_STRING]}, { types: [TYPE_ANY], optional: true}]
+  },
+  set: {
+    _func: ([o, p, v]) => set(o, p, v),
+    _signature: [{types: [TYPE_OBJECT, TYPE_ARRAY]}, {types: [TYPE_STRING]}, { types: [TYPE_ANY] }]
   },
   uuid: {
     _func: uuid.v4,
