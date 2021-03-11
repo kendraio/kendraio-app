@@ -104,7 +104,7 @@ export class KqlBuilderComponent implements OnInit {
     this.errorMessage = '';
     try {
       const data = JSON.parse(this.dataInTxt);
-      this.dataOut = mappingUtility({data}, this.queryTxt);
+      this.dataOut = mappingUtility({data, context: this.context }, this.queryTxt);
     } catch (e) {
       this.errorMessage = e.message;
     }
