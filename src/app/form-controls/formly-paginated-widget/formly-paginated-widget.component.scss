@@ -1,0 +1,40 @@
+.paginated-widget-wrapper {
+  margin-bottom: 2rem;
+}
+.paginated-form-wrapper {
+  display: flex;
+
+}
+.page-list {
+  margin-right: 1rem;
+}
+.paginated-item-form {
+  flex: 1;
+}
+.page-list-wrapper {
+  list-style: none;
+  padding: 0;
+}
+.page-list-item {
+  padding: 0.125rem;
+}
+.page-list-item-button {
+  border: none;
+  width: 100%;
+  position: relative;
+  text-align: left;
+  padding: 0.25rem 2rem 0.25rem 0.5rem;
+}
+.page-list-item-button.active-button {
+  display: block;
+  background: white;
+}
+.remove-button {
+  border: none;
+  padding: 0.125rem;
+  display: flex;
+  color: red;
+  position: absolute;
+  top: 2px;
+  right: 0;
+}
