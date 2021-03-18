@@ -3,7 +3,9 @@ import { BaseBlockComponent } from '../base-block/base-block.component';
 import { mappingUtility } from '../mapping-block/mapping-util';
 import { get } from 'lodash-es';
 import uuid from 'uuid';
+import {Tracking} from './tracking';
 
+const tracking = new Tracking();
 const metaSelector = 'meta[name="monetization"]';
 
 function isMonetizationSupported(): boolean {
@@ -168,8 +170,10 @@ const defaultFiatCurrency = 'usd'; //must be lowercase
 })
 export class WebMoneyComponent extends BaseBlockComponent {
 
-  mapping = 'data.paymentPointer';
+  paymentPointerSourceMapping = 'data.paymentPointer';
   paymentPointer = '';
+  analyticsRecipientID = '';
+  analyticsItemUUID = '';
   enabled = true;
   supported = isMonetizationSupported();
   showPaymentPointer = true;
@@ -191,7 +195,7 @@ export class WebMoneyComponent extends BaseBlockComponent {
   supportMissingTemplateConfig = { template: this.supportMissingMessage };
 
   onConfigUpdate(config: any) {
-    this.mapping = get(config, 'mapping', 'data.paymentPointer');
+    this.paymentPointerSourceMapping = get(config, 'mapping', 'data.paymentPointer');
     this.enabled = get(config, 'enabled', true);
     this.showPaymentPointer = get(config, 'showPaymentPointer', true);
     this.showPaymentTotal = get(config, 'showPaymentTotal', true);
@@ -238,6 +242,7 @@ export class WebMoneyComponent extends BaseBlockComponent {
       if (detail.assetCode + fiat in rates) {
         const fiatTotalAmount = floatTotalAmount * rates[detail.assetCode + fiat];
         parentScope.fiatTotalAmount = `${fiatCurrencyFormatter.format(fiatTotalAmount)} ${fiat.toUpperCase()}`;
+        tracking.capture({"event": {"fiatTotalAmount": parentScope.fiatTotalAmount}}, parentScope.analyticsRecipientID, parentScope.analyticsItemUUID)
       } else {
         console.info('loading latest currency conversion');
         loadCurrencyRates(detail.assetCode, fiat);
@@ -250,7 +255,10 @@ export class WebMoneyComponent extends BaseBlockComponent {
   }
 
   onData(data: any, _firstChange: boolean) {
-    this.paymentPointer = mappingUtility({ data: this.model, context: this.context }, this.mapping);
+    this.analyticsRecipientID=mappingUtility({ data: this.model, context: this.context }, "data.analyticsRecipientID");
+    this.analyticsItemUUID=mappingUtility({ data: this.model, context: this.context }, "data.analyticsItemUUID");
+    
+    this.paymentPointer = mappingUtility({ data: this.model, context: this.context }, this.paymentPointerSourceMapping);
     if (!!this.model.paymentPointer && this.model.paymentPointer.length > 0 && this.enabled) {
       setPaymentPointer(this.model.paymentPointer);
       this.setupPaymentWatcher();
