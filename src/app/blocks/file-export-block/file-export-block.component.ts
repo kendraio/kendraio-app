@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
 import {get, has, isArray, isObject, isString} from 'lodash-es';
 import * as stringify from 'json-stringify-safe';
+import * as X2JS from 'x2js';
 
 @Component({
   selector: 'app-file-export-block',
@@ -13,11 +14,18 @@ export class FileExportBlockComponent extends BaseBlockComponent {
   label = 'Export';
   fileName = 'exported';
   hasData = false;
+  // block was originally designed to read JS File object "type"
+  // a "format" config option has been added to allow overriding
+  // e.g. for "xml"
+  forceFormat = '';
+  xmlOptions = {};
 
   onConfigUpdate(config: any) {
     super.onConfigUpdate(config);
     this.label = get(config, 'label', 'Export');
     this.fileName = get(config, 'fileName', 'exported');
+    this.forceFormat = get(config, 'format', '');
+    this.xmlOptions = get(config, 'xmlOptions', {});
   }
 
   get numberOfRows() {
@@ -42,6 +50,24 @@ export class FileExportBlockComponent extends BaseBlockComponent {
         document.body.appendChild(xlsxLink);
         xlsxLink.click();
         document.body.removeChild(xlsxLink);
+      }
+      return;
+    }
+
+    if (this.forceFormat === 'xml') {
+      const x2js = new X2JS(this.xmlOptions);
+      const xmlData = x2js.js2xml(this.model);
+      const xmlBlob = new Blob([xmlData], { type: `text/xml;charset=utf-8;` });
+      const xmlLink = document.createElement('a');
+      if (xmlLink.download !== undefined) { // feature detection
+        // Browsers that support HTML5 download attribute
+        const url = URL.createObjectURL(xmlBlob);
+        xmlLink.setAttribute('href', url);
+        xmlLink.setAttribute('download', `${this.fileName}.xml`);
+        xmlLink.style.visibility = 'hidden';
+        document.body.appendChild(xmlLink);
+        xmlLink.click();
+        document.body.removeChild(xmlLink);
       }
       return;
     }
