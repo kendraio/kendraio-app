@@ -3,7 +3,7 @@ import { BaseBlockComponent } from '../base-block/base-block.component';
 import { mappingUtility } from '../mapping-block/mapping-util';
 import { get } from 'lodash-es';
 import uuid from 'uuid';
-import {Tracking} from './tracking';
+import { Tracking } from './tracking';
 
 const tracking = new Tracking();
 const metaSelector = 'meta[name="monetization"]';
@@ -160,6 +160,7 @@ function loadCurrencyRates(assetCode, fiat) {
 
 
 let totalAmount = 0;
+let lastStreamTotalAmount = 0;
 
 const defaultFiatCurrency = 'usd'; //must be lowercase
 
@@ -175,13 +176,17 @@ export class WebMoneyComponent extends BaseBlockComponent {
   analyticsRecipientID = '';
   analyticsItemUUID = '';
   enabled = true;
+  trackingEnabled = false;
   supported = isMonetizationSupported();
   showPaymentPointer = true;
-  
+
   showPaymentTotal = true;
   fiatCurrency = defaultFiatCurrency;
   nativeTotalAmount = ''; // total amount stored in native currency format (e.g: ETH, XRP)
+  nativeLastStreamTotalAmount = ''; // total amount of the last / current payment stream only
+
   fiatTotalAmount = ''; // total amount converted to a fiat currency (e.g: USD, EUR)
+  fiatLastStreamTotalAmount = ''; // last / current payment stream, currency converted
   payTotalTitle = ''; // heading for the total amounts
 
   coilLoginURL = '';
@@ -197,6 +202,7 @@ export class WebMoneyComponent extends BaseBlockComponent {
   onConfigUpdate(config: any) {
     this.paymentPointerSourceMapping = get(config, 'mapping', 'data.paymentPointer');
     this.enabled = get(config, 'enabled', true);
+    this.trackingEnabled = get(config, 'trackingEnabled', false);
     this.showPaymentPointer = get(config, 'showPaymentPointer', true);
     this.showPaymentTotal = get(config, 'showPaymentTotal', true);
     this.fiatCurrency = get(config, 'fiatCurrency', defaultFiatCurrency).toLowerCase();
@@ -221,7 +227,9 @@ export class WebMoneyComponent extends BaseBlockComponent {
       detail.assetCode = detail.assetCode.toLowerCase();
 
       totalAmount += Number(detail.amount);
+      lastStreamTotalAmount += Number(detail.amount);
       const floatTotalAmount = totalAmount * Math.pow(10, -detail.assetScale);
+      const lastStreamFloatTotalAmount = lastStreamTotalAmount * Math.pow(10, -detail.assetScale);
       const fiatCurrencyFormatter = new Intl.NumberFormat(window.navigator.language, {
         style: 'currency',
         currency: fiat.toUpperCase(),
@@ -238,11 +246,25 @@ export class WebMoneyComponent extends BaseBlockComponent {
       });
 
       parentScope.nativeTotalAmount = `${nativeCurrencyFormatter.format(floatTotalAmount)}  ${detail.assetCode.toUpperCase()}`;
-
+      parentScope.nativeLastStreamTotalAmount = `${nativeCurrencyFormatter.format(lastStreamFloatTotalAmount)}  ${detail.assetCode.toUpperCase()}`;
       if (detail.assetCode + fiat in rates) {
         const fiatTotalAmount = floatTotalAmount * rates[detail.assetCode + fiat];
+        const lastStreamFiatTotalAmount = lastStreamFloatTotalAmount * rates[detail.assetCode + fiat];
         parentScope.fiatTotalAmount = `${fiatCurrencyFormatter.format(fiatTotalAmount)} ${fiat.toUpperCase()}`;
-        tracking.capture({"event": {"fiatTotalAmount": parentScope.fiatTotalAmount}}, parentScope.analyticsRecipientID, parentScope.analyticsItemUUID)
+        parentScope.fiatLastStreamTotalAmount = `${fiatCurrencyFormatter.format(lastStreamFiatTotalAmount)} ${fiat.toUpperCase()}`;
+        if (parentScope.trackingEnabled) {
+          tracking.capture(
+            {
+              "type": "nativeWebMoneyTotal",
+              "numericKey": detail.assetCode.toUpperCase(),
+              "numericValue": lastStreamFloatTotalAmount,
+              "data": {
+                "fiatLastStreamTotalAmount": parentScope.fiatLastStreamTotalAmount
+              },
+              "analyticsRecipientID": parentScope.analyticsRecipientID,
+              "analyticsItemUUID": parentScope.analyticsItemUUID
+            })
+        }
       } else {
         console.info('loading latest currency conversion');
         loadCurrencyRates(detail.assetCode, fiat);
@@ -255,10 +277,10 @@ export class WebMoneyComponent extends BaseBlockComponent {
   }
 
   onData(data: any, _firstChange: boolean) {
-    this.analyticsRecipientID=mappingUtility({ data: this.model, context: this.context }, "data.analyticsRecipientID");
-    this.analyticsItemUUID=mappingUtility({ data: this.model, context: this.context }, "data.analyticsItemUUID");
-    
+    this.analyticsRecipientID = mappingUtility({ data: this.model, context: this.context }, "data.analyticsRecipientID");
+    this.analyticsItemUUID = mappingUtility({ data: this.model, context: this.context }, "data.analyticsItemUUID");
     this.paymentPointer = mappingUtility({ data: this.model, context: this.context }, this.paymentPointerSourceMapping);
+    lastStreamTotalAmount = 0; //reset on event change
     if (!!this.model.paymentPointer && this.model.paymentPointer.length > 0 && this.enabled) {
       setPaymentPointer(this.model.paymentPointer);
       this.setupPaymentWatcher();

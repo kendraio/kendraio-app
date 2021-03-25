@@ -1,12 +1,14 @@
 import uuid from 'uuid'
 import { jsonToGraphQLQuery } from 'json-to-graphql-query'
 
+
 export class Tracking {
-    sessionUUID = uuid.v4() // TODO: ensure this doesn't refresh between tracks
+    sessionUUID = uuid.v4()
     queue = []
     hotQueue = []
-    queueWaitSeconds = 2 // seconds
+    queueWaitSeconds = 10 // seconds
     fake = false
+    graphqlEndpoint = "https://star-grackle-36.hasura.app/v1/graphql"
 
 
     sendData(data) {
@@ -39,7 +41,7 @@ export class Tracking {
                 }, 50)
             })
         } else {
-            return fetch("https://star-grackle-36.hasura.app/v1/graphql", {
+            return fetch(this.graphqlEndpoint, {
                 "method": "POST",
                 "headers": {
                     "Accept": "*/*",
@@ -51,7 +53,6 @@ export class Tracking {
     }
 
     queueWorkerTimer = setInterval(() => {
-
         if (this.queue.length === 0) {
             return
         }
@@ -65,10 +66,19 @@ export class Tracking {
 
     }, this.queueWaitSeconds * 1000)
 
-    capture(data, analyticsRecipientID, analyticsItemUUID) {
+    capture(providedData) {
         const timestamp = Math.floor(Date.now() / 1000)
-        this.queue.push({ "date": timestamp, "data": data, "session": this.sessionUUID, "analyticsRecipientID": analyticsRecipientID, "analyticsItemUUID": analyticsItemUUID })
-        console.log('Queue length:' + this.queue.length)
+        const defaultData = {
+            "session": this.sessionUUID,
+            "date": timestamp,
+            "data": null, //data permits arbitrary JSON,
+            "numericKey": null, // but could be a string e.g: "XRP" 
+            "numericValue": null, // but could be a numeric value e.g: 123.456789
+            "type": null, // but could be a string,
+            "analyticsRecipientID": null, // should be set to allow a recipient to access the analytics data
+            "analyticsItemUUID": null // can be set to query unique items (e.g: a music track UUID)
+        }
+        this.queue.push({ ...defaultData, ...providedData })
     }
 
 
