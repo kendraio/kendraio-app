@@ -35,8 +35,8 @@ export class Tracking {
         if (this.fake) {
             return new Promise((resolve, reject) => {
                 setTimeout(() => {
-                    console.log(' pretending to send for session UUID: ' + this.sessionUUID)
-                    console.log(makeGraphQLMutationQuery(data))
+                    console.info(' pretending to send for session UUID: ' + this.sessionUUID)
+                    console.info(makeGraphQLMutationQuery(data))
                     resolve(undefined)
                 }, 50)
             })
@@ -60,7 +60,7 @@ export class Tracking {
         this.hotQueue = JSON.parse(JSON.stringify(this.queue)) // clone
         this.queue = []
         this.sendData(this.hotQueue).then((_) => {
-            console.log('Success sending, emptying queue')
+            console.info('Success sending, emptying queue')
             parentThis.hotQueue = []
         })
 
