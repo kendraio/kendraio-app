@@ -22,7 +22,7 @@
     "firebase-functions": "^3.3.0",
     "jsonwebtoken": "^8.5.1",
     "jwks-rsa": "^1.8.0",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.19"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^8.3.9",
