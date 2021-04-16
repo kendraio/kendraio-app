@@ -1,5 +1,6 @@
 import { decorate } from '@daz.is/jmespath';
 import uuid from 'uuid';
+import uuidV5 from 'uuid/v5';
 import {
   isString, find, get, omit, pick, pickBy, zip, toPairs, fromPairs, pad, padStart, padEnd, uniqBy,
   uniq, includes, filter, isNull, isNumber, set, findIndex
@@ -8,6 +9,8 @@ import {DateTime} from 'luxon';
 import {parse as parseQueryString, stringify as asQueryString} from 'qs';
 import stringify from 'json-stringify-safe';
 import * as showdown from 'showdown';
+
+const KENDRAIO_NAMESPACE = 'd1521314-64dd-4e9e-96c7-9809ba58547e';
 
 // Type constants used to define functions.
 const TYPE_NUMBER = 0;
@@ -35,8 +38,8 @@ const search = decorate({
     _signature: [{types: [TYPE_ARRAY]}, {types: [TYPE_OBJECT]}]
   },
   uuid: {
-    _func: uuid.v4,
-    _signature: []
+    _func: ([name]) => (name) ? uuidV5(name, KENDRAIO_NAMESPACE) : uuid.v4(),
+    _signature: [{ types: [TYPE_STRING], optional: true}]
   },
   toLower: {
     _func: ([s]) => s.toLowerCase(),
