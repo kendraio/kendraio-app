@@ -35,8 +35,15 @@ const search = decorate({
     _signature: [{types: [TYPE_ARRAY]}, {types: [TYPE_OBJECT]}]
   },
   uuid: {
-    _func: uuid.v4,
-    _signature: []
+    _func: ([name, NAMESPACE_STRING]) => {
+      if (name) {
+        const NAMESPACE_UUID = uuid.v5(NAMESPACE_STRING || 'https://app.kendra.io', uuid.v5.URL);
+        return uuid.v5(name, NAMESPACE_UUID);
+      } else {
+        return uuid.v4();
+      }
+    },
+    _signature: [{ types: [TYPE_STRING], optional: true}, { types: [TYPE_STRING], optional: true}]
   },
   toLower: {
     _func: ([s]) => s.toLowerCase(),
