@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { BaseBlockComponent } from '../base-block/base-block.component';
 import { mappingUtility } from '../mapping-block/mapping-util';
 import { get } from 'lodash-es';
-import uuid from 'uuid';
+import * as uuid from 'uuid';
 import { Tracking } from './tracking';
 
 const tracking = new Tracking();

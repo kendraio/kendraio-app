@@ -1,4 +1,4 @@
-import uuid from 'uuid';
+import * as uuid from 'uuid';
 import { jsonToGraphQLQuery } from 'json-to-graphql-query';
 
 export class Tracking {

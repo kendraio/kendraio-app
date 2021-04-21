@@ -1,5 +1,5 @@
 import { decorate } from '@daz.is/jmespath';
-import uuid from 'uuid';
+import * as uuid from 'uuid';
 import {
   isString, find, get, omit, pick, pickBy, zip, toPairs, fromPairs, pad, padStart, padEnd, uniqBy,
   uniq, includes, filter, isNull, isNumber, set, findIndex
