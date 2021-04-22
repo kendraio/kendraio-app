@@ -85,7 +85,6 @@
     "reflect-metadata": "^0.1.12",
     "rxjs": "~6.6.3",
     "showdown": "^1.9.1",
-    "swagger-ui": "^3.47.1",
     "text-mask-addons": "^3.8.0",
     "tus-js-client": "^1.8.0",
     "uuid": "^8.3.0",
