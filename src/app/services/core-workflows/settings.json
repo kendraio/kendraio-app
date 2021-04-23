@@ -48,7 +48,7 @@
               "type": "variable-get",
               "name": "settings",
               "default": {
-                "defaultCorsProxy": "https://kendraio-proxy.vercel.app/",
+                "defaultCorsProxy": "https://proxy.kendra.io/",
                 "adapterRepoUrl": "https://kendraio.github.io/kendraio-adapter/",
                 "showHelp": true,
                 "debugMode": false,

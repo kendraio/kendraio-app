@@ -94,7 +94,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     if (useProxy) {
       headers = headers.append('Target-URL', url);
       const appSettings = JSON.parse(localStorage.getItem('core.variables.settings') || '{}');
-      const defaultProxy = get(appSettings, 'defaultCorsProxy');
+      const defaultProxy = get(appSettings, 'defaultCorsProxy', 'https://proxy.kendra.io/');
       url = get(this.config, 'proxyUrl', defaultProxy);
       if (!url) {
         this.hasError = true;
