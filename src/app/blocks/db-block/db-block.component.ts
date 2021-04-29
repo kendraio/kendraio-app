@@ -63,6 +63,7 @@ export class DbBlockComponent extends BaseBlockComponent {
           }
         }
         // TODO: Error
+        this.isLoading = false;
         return;
       }
       case  'delete': {
