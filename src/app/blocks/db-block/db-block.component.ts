@@ -46,7 +46,8 @@ export class DbBlockComponent extends BaseBlockComponent {
     }
 
     const isEmptyObject = o => isObject(o) && Object.keys(o).length === 0;
-    if (isUndefined(data) || isEmptyObject(data)) {
+    const isGetOperation = () => this.operation === 'fetch' || this.operation === 'get';
+    if (isUndefined(data) || (isEmptyObject(data) && !isGetOperation())) {
       return;
     }
 
