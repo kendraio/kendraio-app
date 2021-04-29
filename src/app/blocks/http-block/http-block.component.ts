@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {get, has, includes, isString, toUpper} from 'lodash-es';
 import {ContextDataService} from '../../services/context-data.service';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {MatSnackBar} from '@angular/material';
 import {catchError} from 'rxjs/operators';
 import {of} from 'rxjs';
@@ -200,7 +200,11 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       case 'POST':
       case 'PATCH':
         const isEmptyObject = obj => (obj instanceof Object && Object.keys(obj).length === 0);
-        const payload = this.getPayload();
+        let payload = this.getPayload();
+        if ('application/x-www-form-urlencoded' === get(this.config, 'requestType', 'application/json')) {
+          payload = (new HttpParams({ fromObject: payload })).toString();
+          headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
+        }
         if (isEmptyObject(payload)) {
           this.isLoading = false;
           this.hasError = true;
