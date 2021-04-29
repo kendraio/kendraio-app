@@ -1,6 +1,6 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, NgZone, OnChanges, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, NgZone, OnChanges, OnInit, Output} from '@angular/core';
 import {clone, find, get} from 'lodash-es';
-import {search} from 'jmespath';
+import {mappingUtility} from '../mapping-block/mapping-util';
 
 @Component({
   selector: 'app-switch-block',
@@ -27,7 +27,7 @@ export class SwitchBlockComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes) {
     const cases = get(this.config, 'cases', []);
-    const matchValue = search({data: this.model, context: this.context}, get(this.config, 'valueGetter', 'data'));
+    const matchValue = mappingUtility({data: this.model, context: this.context}, get(this.config, 'valueGetter', 'data'));
     const match = find(cases, ({value}) => value === matchValue);
     if (!!match) {
       this.blocks = get(match, 'blocks', []);
