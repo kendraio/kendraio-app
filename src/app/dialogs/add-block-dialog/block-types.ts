@@ -548,5 +548,19 @@ export const BLOCK_TYPES = [
       template: 'https://example.com/template.xlsx',
       headerRows: 12
     }
+  },
+  {
+    type: 'load-schema',
+    label: 'Load Schema',
+    description: 'Resolve a JSON Schema reference',
+    icon: 'article',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'load-schema',
+      adapterName: 'schemas',
+      '//comment': 'use either schema or schemaGetter',
+      schema: 'schema',
+      schemaGetter: 'data.schema',
+    }
   }
 ];

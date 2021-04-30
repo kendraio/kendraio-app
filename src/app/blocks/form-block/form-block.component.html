@@ -9,3 +9,9 @@
 
 
 </div>
+
+<div *ngIf="schemaBlocks && schemaBlocks.length > 0">
+  <app-blocks-workflow [blocks]="schemaBlocks"
+                       [models]="[model]"
+                       [context]="context" (workflowComplete)="onSchemaBlocksComplete($event)"></app-blocks-workflow>
+</div>

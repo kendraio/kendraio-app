@@ -27,7 +27,7 @@ export class LocalDatabaseService extends Dexie {
 
   initDatabase() {
     this.version(1).stores({
-      metadata: 'uuid, schemaName, adapterName, [adapterName+schemaName]',
+      metadata: 'uuid, schemaName, adapterName, label, [adapterName+schemaName]',
       adapters: 'adapterName',
       dashboards: 'adapterName',
       services: 'adapterName',
@@ -48,7 +48,8 @@ export class LocalDatabaseService extends Dexie {
 
   add({adapterName, schema: schemaName, data}) {
     const uuid =  _get(data, 'uuid', v4());
-    return this['metadata'].add({uuid, adapterName, schemaName, data});
+    const label = _get(data, '_label', _get(data, 'name'));
+    return this['metadata'].add({uuid, adapterName, schemaName, data, label});
   }
 
   get({adapterName, schema: schemaName, idField}) {
@@ -58,7 +59,8 @@ export class LocalDatabaseService extends Dexie {
       .then(items => items.map(({uuid, data}) => ({uuid, ...data})));
   }
   update({data, uuid}) {
-    return this['metadata'].update(uuid, { data });
+    const label = _get(data, '_label', _get(data, 'name'));
+    return this['metadata'].update(uuid, { data, label });
   }
 
   fetch({ uuid }) {

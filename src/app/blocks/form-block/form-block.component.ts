@@ -4,7 +4,7 @@ import {FormGroup} from '@angular/forms';
 import {FormlyFieldConfig, FormlyFormOptions} from '@ngx-formly/core';
 import {Subject} from 'rxjs';
 import {debounceTime, distinctUntilChanged, filter, tap} from 'rxjs/operators';
-import { clone, get, has } from 'lodash-es';
+import {clone, get, has, isUndefined} from 'lodash-es';
 import {mappingUtility} from '../mapping-block/mapping-util';
 
 @Component({
@@ -33,6 +33,8 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
   contextErrors = '';
   prevContextKey = '';
 
+  schemaBlocks = [];
+
   constructor(
     private readonly formService: KendraioFormService
   ) { }
@@ -59,6 +61,10 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnChanges(changes): void {
     const keyChanges = Object.keys(changes);
+    if (isUndefined(get(changes, 'model.previousValue')) && get(this.config, 'skipInit', false)) {
+      return;
+    }
+
     this.contextErrorKey = get(this.config, 'contextErrorKey', null);
     if (this.context.__key !== this.prevContextKey) {
       // context has changed
@@ -92,9 +98,18 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
     } else if (has(this.config, 'jsonSchema') && has(this.config, 'uiSchema')) {
       const { jsonSchema, uiSchema } = this.config;
       this.fields = this.formService.schemasToFieldConfig(jsonSchema, uiSchema);
+    } else if (has(this.config,  'schemaGetter')) {
+      this.fields = [];
+      this.schemaBlocks = get(this.config, 'schemaGetter.blocks', []);
     } else {
       this.fields = [];
     }
+  }
+
+  onSchemaBlocksComplete(result) {
+    const jsonSchema = get(result, 'jsonSchema', {});
+    const uiSchema = get(result, 'uiSchema', {});
+    this.fields = this.formService.schemasToFieldConfig(jsonSchema, uiSchema);
   }
 
   onModelChange(model) {
