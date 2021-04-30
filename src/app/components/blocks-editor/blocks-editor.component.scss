@@ -8,6 +8,22 @@
   cursor: move;
 }
 
+
+:host ::ng-deep {
+  mat-expansion-panel app-kendraio-icon {
+    width: 1em;
+    height: 1em;
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+  }
+
+  mat-expansion-panel app-kendraio-icon mat-icon.material-icons {
+    font-size: 1.3em;
+    line-height: 1.3em;
+  }
+}
+
+
 @import '~@angular/material/theming';
 .mat-expansion-panel {
   user-select: none;
