@@ -1,11 +1,12 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-import {get, has, includes, isString, toLower, toUpper} from 'lodash-es';
+import {get, has, includes, isString, toUpper} from 'lodash-es';
 import {ContextDataService} from '../../services/context-data.service';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {MatSnackBar} from '@angular/material';
 import {catchError} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {mappingUtility} from '../mapping-block/mapping-util';
+import {settings} from 'cluster';
 
 @Component({
   selector: 'app-http-block',
@@ -86,9 +87,22 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       this.isLoading = false;
       return;
     }
-    const url = this.constructEndpointUrl(this.config);
-
+    let url = this.constructEndpointUrl(this.config);
     let headers = new HttpHeaders(this.getPayloadHeaders());
+
+    const useProxy = get(this.config, 'useProxy', false);
+    if (useProxy) {
+      headers = headers.append('Target-URL', url);
+      const appSettings = JSON.parse(localStorage.getItem('core.variables.settings') || '{}');
+      const defaultProxy = get(appSettings, 'defaultCorsProxy', 'https://proxy.kendra.io/');
+      url = get(this.config, 'proxyUrl', defaultProxy);
+      if (!url) {
+        this.hasError = true;
+        this.errorMessage = 'Invalid proxy URL';
+        return;
+      }
+    }
+
     if (has(this.config, 'authentication.type')) {
       const valueGetters = get(this.config, 'authentication.valueGetters', {});
       const context = {...this.config.authentication, ...this.contextData.getGlobalContext(valueGetters, this.context, this.model)};
@@ -186,7 +200,11 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       case 'POST':
       case 'PATCH':
         const isEmptyObject = obj => (obj instanceof Object && Object.keys(obj).length === 0);
-        const payload = this.getPayload();
+        let payload = this.getPayload();
+        if ('application/x-www-form-urlencoded' === get(this.config, 'requestType', 'application/json')) {
+          payload = (new HttpParams({ fromObject: payload })).toString();
+          headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
+        }
         if (isEmptyObject(payload)) {
           this.isLoading = false;
           this.hasError = true;

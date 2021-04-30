@@ -32,6 +32,7 @@ import {FormlyCardListComponent} from '../../form-controls/formly-card-list/form
 import {FormlyTableWidgetComponent} from '../../form-controls/formly-table-widget/formly-table-widget.component';
 import {FormlyFieldFileComponent} from './types/file-type.component';
 import {FormlyFileInputComponent} from '../../form-controls/formly-file-input/formly-file-input.component';
+import {FormlyPaginatedWidgetComponent} from '../../form-controls/formly-paginated-widget/formly-paginated-widget.component';
 
 export const config: ConfigOption = {
   validationMessages: [
@@ -70,6 +71,7 @@ export const config: ConfigOption = {
     { name: 'workflow', component: FormlyWorkflowFieldComponent },
     { name: 'cards', component: FormlyCardListComponent },
     { name: 'table', component: FormlyTableWidgetComponent },
+    { name: 'paginated', component: FormlyPaginatedWidgetComponent },
     {
       name: 'money', component: types.FormlyFieldInputMoney,
       defaultOptions: {

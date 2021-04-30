@@ -51,6 +51,7 @@
     <app-validate-block class="block-wrapper" *ngSwitchCase="'validate'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-validate-block>
     <app-audio-player-block class="block-wrapper" *ngSwitchCase="'player'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-audio-player-block>
     <app-web-money-block class="block-wrapper" *ngSwitchCase="'web-money'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-web-money-block>
+    <app-load-schema-block class="block-wrapper" *ngSwitchCase="'load-schema'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-load-schema-block>
   </ng-container>
 </ng-container>
 <!-- <pre>workblock: {{ context | json }}</pre> -->

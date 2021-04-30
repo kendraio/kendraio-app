@@ -80,7 +80,6 @@
             ],
             "styles": [
               "node_modules/@fortawesome/fontawesome-free/css/all.css",
-              "node_modules/swagger-ui/dist/swagger-ui.css",
               "src/styles.scss",
               "src/styles/vendor.scss",
               "src/styles/main.scss",

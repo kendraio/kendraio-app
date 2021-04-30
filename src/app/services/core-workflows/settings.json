@@ -48,6 +48,7 @@
               "type": "variable-get",
               "name": "settings",
               "default": {
+                "defaultCorsProxy": "https://proxy.kendra.io/",
                 "adapterRepoUrl": "https://kendraio.github.io/kendraio-adapter/",
                 "showHelp": true,
                 "debugMode": false,
@@ -62,6 +63,11 @@
               "jsonSchema": {
                 "type": "object",
                 "properties": {
+                  "defaultCorsProxy": {
+                    "title": "Default CORS Proxy",
+                    "type": "string",
+                    "default": "https://kendraio-proxy.vercel.app/"
+                  },
                   "adapterRepoUrl": {
                     "title": "Adapter repository base URL",
                     "description": "Enter the location of the adapter repository, including the final trailing slash",

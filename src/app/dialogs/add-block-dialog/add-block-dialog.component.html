@@ -9,6 +9,7 @@
               [color]="(selectedBlockType && selectedBlockType.type == b.type) ? 'primary' : undefined"
               (click)="setBlockType(b)">
         <app-kendraio-icon [icon]="b.icon"></app-kendraio-icon>
+        {{b.label}}
       </button>
     </ng-container>
   </div>

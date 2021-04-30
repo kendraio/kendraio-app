@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
-import {get, isNull, isString, isUndefined} from 'lodash-es';
+import {get, isNull, isObject, isString, isUndefined} from 'lodash-es';
 import {LocalDatabaseService} from '../../services/local-database.service';
 import {mappingUtility} from '../mapping-block/mapping-util';
 
@@ -45,7 +45,9 @@ export class DbBlockComponent extends BaseBlockComponent {
       return;
     }
 
-    if (isUndefined(data)) {
+    const isEmptyObject = o => isObject(o) && Object.keys(o).length === 0;
+    const isGetOperation = () => this.operation === 'fetch' || this.operation === 'get';
+    if (isUndefined(data) || (isEmptyObject(data) && !isGetOperation())) {
       return;
     }
 
@@ -63,6 +65,7 @@ export class DbBlockComponent extends BaseBlockComponent {
           }
         }
         // TODO: Error
+        this.isLoading = false;
         return;
       }
       case  'delete': {
