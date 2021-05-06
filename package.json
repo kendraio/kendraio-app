@@ -62,7 +62,7 @@
     "dompurify": "^2.2.6",
     "faker": "^4.1.0",
     "hammerjs": "^2.0.8",
-    "handlebars": "^4.7.4",
+    "handlebars": "^4.7.7",
     "interactjs": "^1.5.4",
     "jmespath": "^0.15.0",
     "js-yaml": "^3.13.1",
