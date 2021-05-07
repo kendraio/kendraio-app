@@ -1,0 +1,43 @@
+{
+  "title": "Workflow",
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "db",
+      "operation": "get",
+      "adapterName": "schemas",
+      "schema": "schemas"
+    },
+    {
+      "type": "context-save",
+      "contextKey": "schemas"
+    },
+    {
+      "type": "mapping",
+      "mapping": "{ schemaName: `Person` }"
+    },
+    {
+      "type": "mapping",
+      "mapping": "context.schemas[?name==$.data.schemaName] | [0]"
+    },
+    {
+      "type": "context-save",
+      "contextKey": "schema"
+    },
+    {
+      "type": "db",
+      "operation": "get",
+      "adapterName": "schemas",
+      "schema": "Person"
+    },
+    {
+      "type": "mapping",
+      "mapping": "data[].{ uuid: uuid, label: get(@, $.context.schema.label) }"
+    },
+    {
+      "type": "reference"
+    }
+  ]
+}
