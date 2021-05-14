@@ -87,7 +87,7 @@
     "showdown": "^1.9.1",
     "text-mask-addons": "^3.8.0",
     "tus-js-client": "^1.8.0",
-    "uuid": "^8.3.0",
+    "uuid": "^8.3.2",
     "wavesurfer.js": "^3.0.0",
     "x2js": "^3.4.1",
     "xlsx": "^0.16.3",

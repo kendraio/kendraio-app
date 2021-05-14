@@ -1,6 +1,5 @@
 import { decorate } from '@daz.is/jmespath';
 import * as uuid from 'uuid';
-import v5 from 'uuid/v5';
 import {
   isString, find, get, omit, pick, pickBy, zip, toPairs, fromPairs, pad, padStart, padEnd, uniqBy,
   uniq, includes, filter, isNull, isNumber, set, findIndex
@@ -38,8 +37,8 @@ const search = decorate({
   uuid: {
     _func: ([name, NAMESPACE_STRING]) => {
       if (name) {
-        const NAMESPACE_UUID = v5(NAMESPACE_STRING || 'https://app.kendra.io', v5.URL);
-        return v5(name, NAMESPACE_UUID);
+        const NAMESPACE_UUID = uuid.v5(NAMESPACE_STRING || 'https://app.kendra.io', uuid.v5.URL);
+        return uuid.v5(name, NAMESPACE_UUID);
       } else {
         return uuid.v4();
       }

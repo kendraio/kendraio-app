@@ -96,9 +96,12 @@ export class LoadSchemaBlockComponent  extends BaseBlockComponent {
         case 'Reference': {
           // TODO: use reference widget to link to data items
           outputSchema.properties[get(p, 'key', '')] = {
-            type: 'string',
-            title: [get(p, 'title', ''), 'ID'].join(' '),
-            description: get(p, 'description', ''),
+            type: 'array',
+            items: {
+              type: 'string',
+              title: [get(p, 'title', ''), 'ID'].join(' '),
+              description: get(p, 'description', ''),
+            }
           };
           break;
         }
