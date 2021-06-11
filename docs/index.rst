@@ -38,6 +38,7 @@ Kendraio App
 
    workflow/blocks/actions
    workflow/blocks/adapter_info
+   workflow/blocks/app_layout
    workflow/blocks/batch
    workflow/blocks/card
    workflow/blocks/chart
