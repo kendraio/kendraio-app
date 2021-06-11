@@ -46,7 +46,7 @@ export class XlsxTemplateBlockComponent extends BaseBlockComponent {
       }
       return;
     }
-    const url = `https://cors-anywhere.herokuapp.com/${this.templateUrl}`;
+    const url = this.templateUrl;
     this.http.get(url, {responseType: 'arraybuffer'})
       .pipe(map(blob => XLSX.read(blob, {type: 'buffer', cellStyles: true })))
       .subscribe(template => {
