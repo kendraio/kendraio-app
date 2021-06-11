@@ -160,6 +160,11 @@ export class WorkflowService {
     if (isBuilder) {
       this.saveState();
     }
+    if (this.tags.includes('app')) {
+      this.pageTitle.enableAppLayout();
+    } else {
+      this.pageTitle.disableAppLayout();
+    }
   }
 
   shareConfig() {

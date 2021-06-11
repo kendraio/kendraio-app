@@ -71,6 +71,7 @@ export class LocalDatabaseService extends Dexie {
   }
 
   deleteItem({ uuid }) {
+    console.log('delete', uuid);
     return this['metadata'].delete(uuid);
   }
 }

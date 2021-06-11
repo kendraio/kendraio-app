@@ -9,6 +9,7 @@ export class PageTitleService {
 
   pageTitle$ = new BehaviorSubject({ title: 'Kendraio App', isWorkflow: false });
   refresh$ = new BehaviorSubject({});
+  isApp$ = new BehaviorSubject(false);
 
   constructor(
     private titleService: Title
@@ -21,6 +22,14 @@ export class PageTitleService {
 
   onRefresh() {
     this.refresh$.next({});
+  }
+
+  enableAppLayout() {
+    this.isApp$.next(true);
+  }
+
+  disableAppLayout() {
+    this.isApp$.next(false);
   }
 }
 

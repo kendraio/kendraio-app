@@ -16,6 +16,7 @@ import { CoreEventHandlersService } from './services/core-event-handlers.service
 })
 export class AppComponent {
   pageTitle$: Observable<{ title: string, isWorkflow: boolean }>;
+  isAppLayout$: Observable<boolean>;
   transViaService = '';
 
   notificationCount = '';
@@ -31,6 +32,7 @@ export class AppComponent {
     public translate: TranslateService
   ) {
     this.pageTitle$ = this.title.pageTitle$;
+    this.isAppLayout$ = this.title.isApp$;
     const browserLang = translate.getBrowserLang();
     translate.addLangs(['en', 'fr', 'de', 'pt', 'it', 'ru', 'ja', 'es', 'el']);
     translate.setDefaultLang('fr');
@@ -56,5 +58,9 @@ export class AppComponent {
   public setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle);
     this.pageTitle$ = this.title.pageTitle$;
+  }
+
+  public toggleAppMode() {
+    this.title.disableAppLayout();
   }
 }

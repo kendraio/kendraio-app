@@ -48,6 +48,7 @@ export class DbBlockComponent extends BaseBlockComponent {
     const isEmptyObject = o => isObject(o) && Object.keys(o).length === 0;
     const isGetOperation = () => this.operation === 'fetch' || this.operation === 'get';
     if (isUndefined(data) || (isEmptyObject(data) && !isGetOperation())) {
+      console.log('skipping empty db payload', data);
       return;
     }
 

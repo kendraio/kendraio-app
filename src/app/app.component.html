@@ -1,5 +1,20 @@
+<mat-toolbar *ngIf="(isAppLayout$ | async)">
 
-<mat-toolbar>
+  <ng-container *ngIf="pageTitle$ | async as pageTitleData">
+        <span>
+          {{ pageTitleData.title | translate }}
+        </span>
+    <button *ngIf="pageTitleData.isWorkflow" mat-icon-button (click)="onRefresh()">
+      <mat-icon style="color: #999999;">refresh</mat-icon>
+    </button>
+  </ng-container>
+
+  <span class="spacer"></span>
+
+  <button style="color: #999999;" mat-icon-button (click)="toggleAppMode()"><mat-icon>more_vert</mat-icon></button>
+
+</mat-toolbar>
+<mat-toolbar *ngIf="!(isAppLayout$ | async)">
 
   <button mat-icon-button (click)="sidenav.toggle()">
     <mat-icon style="color: #999999;">menu</mat-icon>
@@ -61,6 +76,10 @@
 <!--      <app-breadcrumb [locale]="locale"></app-breadcrumb>-->
       <router-outlet name="popup"></router-outlet>
       <router-outlet></router-outlet>
+
+      <div style="min-height: 6rem;" *ngIf="(isAppLayout$ | async)">
+        <!-- spacer to overlap of bottom tab menu when on app layout -->
+      </div>
     </div>
 
   </mat-sidenav-content>

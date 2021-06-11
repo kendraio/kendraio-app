@@ -562,5 +562,27 @@ export const BLOCK_TYPES = [
       schema: 'schema',
       schemaGetter: 'data.schema',
     }
+  },
+  {
+    type: 'app-layout',
+    label: 'App Layout',
+    description: 'Widget for mobile app layout',
+    icon: 'smartphone',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'app-layout',
+      tabs: [
+        {
+          icon: 'person',
+          title: 'Account',
+          blocks: []
+        },
+        {
+          icon: 'settings',
+          title: 'Settings',
+          blocks: []
+        }
+      ]
+    }
   }
 ];
