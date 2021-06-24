@@ -41,6 +41,18 @@ If you're wrangling data from one form to another, you may need to add new keys.
   data[*].merge(@, { key: value })
 
 
+Finding a specific key in an array
+"""""""""""""""""""""""""""""""""""
+
+A more advanced version of the object merge can involve looking up a specific entry in an existing array of objects. 
+
+In this example, we look up a unique key from a list, and then add that key so that we can create a reference. 
+
+..code-block:: jmespath
+
+  data && merge(data, {track: uniqBy(data.track, 'key')})
+
+
 Merging two arrays
 ^^^^^^^^^^^^^^^^^^^
 
