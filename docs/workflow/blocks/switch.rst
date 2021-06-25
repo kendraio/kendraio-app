@@ -26,3 +26,15 @@ Supported properties
   - **default** - object contains one key:
 
     - **blocks** - the array of workflow items to run if no cases match
+  
+
+Notes
+-----
+
+The comparison made to select the branch is that it’s the first branch where value === matchValue - where value is the value defined in the branch, and matchValue is the result of valueGetter , and === is the JavaScript “strict equality”.
+    
+If you are looking to perform a test against a more variable value, you will need to use a more complex expression in the initial valueGetter. 
+
+  .. code-block:: JMESPath
+
+    (test && value) || (otherTest && someOtherValue)

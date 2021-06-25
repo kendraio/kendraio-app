@@ -65,7 +65,7 @@ If you want to add a new value to your object based on whether or not another fl
 
 .. code-block:: jmespath
 
-   data[*].merge(@,{deleted: @.tags[?@ == `deleted`] && `true` || `false` })
+   data[*].merge(@,{deleted: @.tags[?@ == `deleted`]})
 
 This will look through the tags attribute to see whether or not a "deleted" tag is set, and set the new attribute accordingly.
 
@@ -99,10 +99,10 @@ For example, if you want to combine information from a form with data you've pre
 
 
 
-Kendra.io Mapping extensions
+Kendraio Mapping extensions
 ----------------------------
 
-Kendra.io is using a version of JMESPath that supports extensions to provide additional functionality. You can find these in our repository: 
+Kendraio is using a version of JMESPath that supports extensions to provide additional functionality. You can find these in our repository: 
 
 https://github.com/kendraio/kendraio-app/blob/develop/src/app/blocks/mapping-block/mapping-util.ts
 
