@@ -22,6 +22,10 @@ Supported properties
 For example, if you use a key of "savedData" then the value will be available in the
 context as "context.savedData".
 
+- **valueGetter** (string) [OPTIONAL] - the JMESPath of the value to store into
+context. This defaults to "data" so if it is omitted it stores the whole incoming
+value into context.
+
 
 Usage patterns
 --------------
