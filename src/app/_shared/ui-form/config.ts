@@ -33,6 +33,7 @@ import {FormlyTableWidgetComponent} from '../../form-controls/formly-table-widge
 import {FormlyFieldFileComponent} from './types/file-type.component';
 import {FormlyFileInputComponent} from '../../form-controls/formly-file-input/formly-file-input.component';
 import {FormlyPaginatedWidgetComponent} from '../../form-controls/formly-paginated-widget/formly-paginated-widget.component';
+import {ReadonlyInputComponent} from '../../form-controls/readonly-input/readonly-input.component';
 
 export const config: ConfigOption = {
   validationMessages: [
@@ -159,12 +160,13 @@ export const config: ConfigOption = {
     },
     {
       name: 'readonly',
-      extends: 'input',
-      defaultOptions: {
-        templateOptions: {
-          disabled: true,
-        },
-      },
+      // extends: 'input',
+      // defaultOptions: {
+      //   templateOptions: {
+      //     disabled: true,
+      //   },
+      // },
+      component: ReadonlyInputComponent
     },
     {
       name: 'hidden',
