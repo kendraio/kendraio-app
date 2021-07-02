@@ -44,6 +44,19 @@ For simple requests, the ``endpoint`` can just be a simple string:
                 }
 
 
+If the endpoint needs to be constructed from data, the endpoint can be specified as an object with a "valueGetter" attribute. 
+
+.. code-block:: json
+
+                {
+                    "type": "http",
+                    "method": "get",
+                    "endpoint": {
+                       "valueGetter: "context.saved"
+                    }
+                }
+
+
 For advanced use cases, the payload can be constructed using a JMES Path expression.
 Custom headers can also be specified using JMES Path expressions:
 
