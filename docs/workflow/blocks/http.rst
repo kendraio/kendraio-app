@@ -43,6 +43,7 @@ For simple requests, the ``endpoint`` can just be a simple string:
                     "endpoint": "https://covid19.mathdro.id/api"
                 }
 
+
 For advanced use cases, the payload can be constructed using a JMES Path expression.
 Custom headers can also be specified using JMES Path expressions:
 
