@@ -584,5 +584,23 @@ export const BLOCK_TYPES = [
         }
       ]
     }
+  },
+  {
+    type: 'rename-fields',
+    label: 'Rename fields',
+    description: 'Use a field mapping to rename fields in an object or array of objects',
+    icon: 'drive_file_rename_outline',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'rename-fields',
+      mapping: [
+        {
+          source: 'SourceField',
+          target: 'TargetField'
+        }
+      ],
+      mappingGetter: 'data.something',
+      inputGetter: 'data'
+    }
   }
 ];

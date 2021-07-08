@@ -53,6 +53,7 @@
     <app-web-money-block class="block-wrapper" *ngSwitchCase="'web-money'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-web-money-block>
     <app-load-schema-block class="block-wrapper" *ngSwitchCase="'load-schema'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-load-schema-block>
     <app-app-layout-block class="block-wrapper" *ngSwitchCase="'app-layout'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-app-layout-block>
+    <app-rename-fields-block class="block-wrapper" *ngSwitchCase="'rename-fields'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-rename-fields-block>
   </ng-container>
 </ng-container>
 <!-- <pre>workblock: {{ context | json }}</pre> -->

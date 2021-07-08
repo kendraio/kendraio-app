@@ -179,6 +179,7 @@ import { FormlyPaginatedWidgetComponent } from './form-controls/formly-paginated
 import { LoadSchemaBlockComponent } from './blocks/load-schema-block/load-schema-block.component';
 import { AppLayoutBlockComponent } from './blocks/app-layout-block/app-layout-block.component';
 import { ReadonlyInputComponent } from './form-controls/readonly-input/readonly-input.component';
+import { RenameFieldsBlockComponent } from './blocks/rename-fields-block/rename-fields-block.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -334,7 +335,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormlyPaginatedWidgetComponent,
     LoadSchemaBlockComponent,
     AppLayoutBlockComponent,
-    ReadonlyInputComponent
+    ReadonlyInputComponent,
+    RenameFieldsBlockComponent
   ],
   imports: [
     FormlyModule.forRoot({}),
