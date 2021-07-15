@@ -7,7 +7,10 @@ import {clone} from 'lodash-es';
 
 
 const _blockIcons = {};
+const _blockTypes = {};
 BLOCK_TYPES.forEach(element => _blockIcons[element.type]=element.icon||'?');
+
+BLOCK_TYPES.forEach(element => _blockTypes[element.type]=element);
 @Component({
   selector: 'app-blocks-editor',
   templateUrl: './blocks-editor.component.html',
@@ -16,7 +19,8 @@ BLOCK_TYPES.forEach(element => _blockIcons[element.type]=element.icon||'?');
 export class BlocksEditorComponent implements OnInit {
 
   @Input() blocks = [];
-  @Input() blockIcons =_blockIcons;
+  @Input() blockIcons = _blockIcons;
+  @Input() blockTypes = _blockTypes;
   @Output() blockUpdate = new EventEmitter();
 
   constructor(
