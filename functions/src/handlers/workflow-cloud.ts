@@ -153,6 +153,27 @@ function appFactory({db, auth}: { db: any, auth: admin.auth.Auth }) {
     res.send(result);
   });
 
+  app.get('/flows/', async (req, res) => {
+    const docs = await db.collectionGroup('workflows').get();
+    const result: Array<any> = [];
+    docs.forEach(doc => {
+      let data = doc.data();
+      let unEncode = JSON.parse(data._encoded);
+      result.push({
+        ...unEncode,
+        id: doc.id,
+        workflowId: doc.id,
+        title: doc.data().title,
+        tags: doc.data().tags,
+        adapterName: doc.data().adapterName || 'UNKNOWN',
+        created: doc.data().created,
+        updated: doc.data().updated,
+        modified: doc.data().updated
+      });
+    });
+    res.send(result);
+  });
+
   return app;
 }
 
