@@ -16,6 +16,10 @@
         "function": "api"
       },
       {
+        "source": "/flows",
+        "function": "api"
+      },
+      {
         "source": "**",
         "function": "dynamicIndex"
       }
@@ -26,5 +30,19 @@
       "npm --prefix \"$RESOURCE_DIR\" run lint",
       "npm --prefix \"$RESOURCE_DIR\" run build"
     ]
+  },
+  "emulators": {
+    "functions": {
+      "port": 5001
+    },
+    "firestore": {
+      "port": 9001
+    },
+    "hosting": {
+      "port": 5000
+    },
+    "ui": {
+      "enabled": true
+    }
   }
 }
