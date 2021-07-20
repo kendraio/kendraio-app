@@ -3,8 +3,8 @@
   <mat-expansion-panel *ngFor="let block of blocks; let i = index" cdkDrag>
     <mat-expansion-panel-header>
       <mat-icon class="drag-handle" cdkDragHandle>reorder</mat-icon>
-      <app-kendraio-icon [icon]="blockIcons[block.type]"></app-kendraio-icon>
-      <span class="block-type-title">{{ blockTypes[block.type].label }}</span>
+      <app-kendraio-icon [icon]="blockIcons[block.type]||''"></app-kendraio-icon>
+      <span class="block-type-title">{{ blockTypes[block.type]?.label||block.type }}</span>
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
