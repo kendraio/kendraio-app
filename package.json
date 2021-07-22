@@ -90,7 +90,7 @@
     "uuid": "^8.3.2",
     "wavesurfer.js": "^3.0.0",
     "x2js": "^3.4.1",
-    "xlsx": "^0.16.3",
+    "xlsx": "^0.17.0",
     "zone.js": "~0.10.3"
   },
   "devDependencies": {
