@@ -1,0 +1,19 @@
+<span *ngIf="loginActive == false">
+  <a mat-flat-button class="mat-primary" href="{{login_url}}">Connect to Uphold</a>
+</span>
+
+
+<span *ngIf="loginActive == true">
+  
+  <a mat-flat-button class="mat-primary" href="{{login_url}}">Reconnect to Uphold</a><br>
+  <span *ngIf="1===1">
+    <button mat-flat-button class="mat-accent" (click)="this.check_auth_and_list_cards(true)" >Output balance for card specified by IPL address</button><br>
+    <button mat-flat-button class="mat-accent" (click)="this.check_auth_and_list_cards(false)" >Output XRP cards</button><br>
+    <button mat-flat-button class="mat-accent" (click)="this.make_card()">Make XRP card</button>
+
+    <ul *ngFor="let item of this.xrp_address_list; let i=index" style="display:none">
+      <li id="item{{i}}">Item {{i}}: {{item}}</li>
+    </ul>
+</span>
+  
+</span>

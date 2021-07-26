@@ -602,5 +602,15 @@ export const BLOCK_TYPES = [
       mappingGetter: 'data.something',
       inputGetter: 'data'
     }
+  },
+  {
+    type: 'wallet',
+    label: 'Wallet',
+    description: 'Check information or perform actions with a wallet like Uphold, and make Cards with Payment Pointers',
+    icon: 'account_balance_wallet',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'wallet'
+    }
   }
 ];

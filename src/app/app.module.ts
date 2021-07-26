@@ -175,6 +175,8 @@ import { PlayerBlockComponent } from './blocks/player-block/player-block.compone
 import { BlockMultiBuilderBoxComponent } from './components/block-multi-builder-box/block-multi-builder-box.component';
 import { DurationPipe } from './pipes/duration.pipe';
 import { WebMoneyComponent } from './blocks/web-money/web-money.component';
+import { WalletComponent } from './blocks/wallet/wallet.component';
+
 import { FormlyPaginatedWidgetComponent } from './form-controls/formly-paginated-widget/formly-paginated-widget.component';
 import { LoadSchemaBlockComponent } from './blocks/load-schema-block/load-schema-block.component';
 import { AppLayoutBlockComponent } from './blocks/app-layout-block/app-layout-block.component';
@@ -332,6 +334,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     BlockMultiBuilderBoxComponent,
     DurationPipe,
     WebMoneyComponent,
+    WalletComponent,
     FormlyPaginatedWidgetComponent,
     LoadSchemaBlockComponent,
     AppLayoutBlockComponent,
