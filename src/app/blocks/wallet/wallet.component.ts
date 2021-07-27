@@ -16,15 +16,13 @@ const UPHOLD_API_ROOT = environment.uphold.apiRoot;
 
 const MY_UPHOLD_CARDS = UPHOLD_API_ROOT + 'v0/me/cards';
 
-// TODO: define expected config and emit output when listing all cards
-// TODO: define expected config and emit output when listing the balance for a card
-// TODO: define expected config and emit output when making new cards
-
 
 function hasActiveToken() {
   const max_time = 25 * 60 * 1000;
   // TODO: validate this
-  const issue_time = Number(localStorage.getItem('uphold_token_timestamp'));
+  const timestamp = localStorage.getItem('uphold_token_timestamp');
+  if (!timestamp) { return false; }
+  const issue_time = Number(timestamp);
   const issue_age = (Date.now() - issue_time) / 1000;
   console.log('issue age', issue_age);
   const is_fresh = (issue_time && issue_age < max_time);
@@ -49,6 +47,30 @@ function getUpholdOauthLoginURL() {
 }
 
 
+async function finish_auth() {
+  const parsed_url = new URL(window.location.href);
+  const code = parsed_url.searchParams.get('code');
+  const response = await fetch(UPHOLD_OAUTH_PROXY_URL + code, {
+    method: 'POST'
+  });
+
+  const result = await response.json();
+  if (result.access_token) {
+    localStorage.setItem('uphold_token', result.access_token);
+    localStorage.setItem('uphold_token_timestamp', Date.now().toString());
+
+    const state = parsed_url.searchParams.get('state');
+    const decoded_path_name = atob(state.split('_')[1]);
+    // redirects to the original path if different, unless it is workflow-builder which would fail due 
+    // to the URL 'search' parameters being incompatible
+
+    if ((decoded_path_name !== window.location.pathname) && (decoded_path_name !== '/workflow-builder')) {
+      window.location.href = decoded_path_name;
+
+    }
+  }
+}
+
 @Component({
   selector: 'app-wallet-block',
   templateUrl: './wallet.component.html',
@@ -66,70 +88,50 @@ export class WalletComponent extends BaseBlockComponent {
   code = '';
   token = '';
   cards = [];
-  xrp_address_list = [];
+  xrp_address_balances = {};
   balance_target_type = '';
   balance_address = '';
+  make_card_button = false;
+  reconnect_button = false;
+  list_all_balances = false;
 
   async check_auth_and_list_cards(only_balance) {
     const parent_this = this;
+    parent_this.token = localStorage.getItem('uphold_token');
 
-    async function main() {
+    async function oauth_get(url) {
 
-      async function oauth_get(url) {
-
-        const request = await axios.request({
-          method: 'GET',
-          url: CORS_PROXY,
-          headers: {
-            'Authorization': 'Bearer ' + parent_this.token,
-            'Remove-Origin': '1',
-            'Target-URL': UPHOLD_API_ROOT + url
-          }
-        });
-        return await request.data;
-      }
-
-      const users_cards = await oauth_get('v0/me/cards/');
-      const xrp_cards = users_cards.filter(item => item.currency === 'XRP');
-
-      parent_this.xrp_address_list = [];
-
-      await Promise.all(xrp_cards.map(async (card) => {
-        const address_data = await oauth_get('v0/me/cards/' + card.id + '/addresses');
-        const ILP_address = search(address_data, `[?type=='interledger'].formats[0].value|[0]`);
-        const cardBalance = users_cards.filter(cardItem => cardItem.id === card.id)[0].balance;
-        parent_this.xrp_address_list.push(ILP_address + ' ' + cardBalance);
-        if (parent_this.balance_address === ILP_address && only_balance === true) {
-          parent_this.output.emit(cardBalance);
+      const request = await axios.request({
+        method: 'GET',
+        url: CORS_PROXY,
+        headers: {
+          'Authorization': 'Bearer ' + parent_this.token,
+          'Remove-Origin': '1',
+          'Target-URL': UPHOLD_API_ROOT + url
         }
-      }));
-
-      if (only_balance !== true) {
-        parent_this.output.emit(parent_this.xrp_address_list);
-      }
-
+      });
+      return await request.data;
     }
 
-    if (hasActiveToken()) {
-      parent_this.token = localStorage.getItem('uphold_token');
-      main();
-    } else {
-      const response = await fetch(UPHOLD_OAUTH_PROXY_URL + parent_this.code, {
-        method: 'POST'
-      });
+    const users_cards = await oauth_get('v0/me/cards/');
+    const xrp_cards = users_cards.filter(
+      item => item.currency === 'XRP' && (
+        item.settings.position > 28 || item.settings.position === 6
+      ));
 
-      const result = await response.json();
-      if (result.access_token) {
-        parent_this.token = result.access_token;
-        console.dir(result);
-        console.log(parent_this.token);
-
-        // TODO: deduplicate code
-        // TODO: ensure runs only once
-        localStorage.setItem('uphold_token', result.access_token);
-        localStorage.setItem('uphold_token_timestamp', Date.now().toString());
-        main();
+    await Promise.all(xrp_cards.map(async (card) => {
+      const address_data = await oauth_get('v0/me/cards/' + card.id + '/addresses');
+      const ILP_address = search(address_data, `[?type=='interledger'].formats[0].value|[0]`);
+      const matchingCard = users_cards.filter(cardItem => cardItem.id === card.id)[0];
+      const cardBalance = parseFloat(matchingCard.balance);
+      parent_this.xrp_address_balances[card.id.replace(/-/g, '')] = { 'balance': cardBalance, 'ILP_URL': ILP_address };
+      if (parent_this.balance_address === ILP_address && only_balance === true) {
+        parent_this.output.emit(cardBalance);
       }
+    }));
+
+    if (only_balance !== true) {
+      parent_this.output.emit(parent_this.xrp_address_balances);
     }
 
   }
@@ -165,9 +167,12 @@ export class WalletComponent extends BaseBlockComponent {
         },
         data: { network: 'interledger' }
       }).then(function (interledger_address_response) {
-        parent_this.xrp_address_list.push(interledger_address_response.data.id);
-        parent_this.output.emit(parent_this.xrp_address_list);
-        parent_this.check_auth_and_list_cards(false);
+        parent_this.xrp_address_balances[new_card_data.id.replace(/-/g, '')] = {
+          'balance': 0.00,
+          'ILP_URL': interledger_address_response.data.id
+        };
+        parent_this.output.emit(JSON.parse(JSON.stringify(parent_this.xrp_address_balances)));
+        // TODO: test updating
 
       }).catch(function (error) {
         console.error(error);
@@ -190,28 +195,29 @@ export class WalletComponent extends BaseBlockComponent {
     this.enabled = get(config, 'enabled', true);
     this.login_url = getUpholdOauthLoginURL(); // uses current location to redirect back here when done
     this.redirect = get(config, 'redirect', false);
-    if (this.redirect === 'return') { // The useragent arrived at the Oauth redirect URL
-      const parsed_url = new URL(window.location.href);
-      this.code = parsed_url.searchParams.get('code');
-      this.loginActive = true;
-      const state = parsed_url.searchParams.get('state');
-      const decoded_path_name = atob(state.split('_')[1]);
-      // redirects to the original path if different, unless it is workflow-builder which would fail due 
-      // to the URL 'search' parameters being incompatible
-      if ((decoded_path_name !== window.location.pathname) && (decoded_path_name !== '/workflow-builder')) {
-        window.location.pathname = decoded_path_name;
 
-      }
+    if (this.redirect === 'return') { // The useragent arrived at the Oauth redirect URL
+      this.loginActive = true; // Hide the login button on this redirect display
+      finish_auth();
+      return;
     }
+
+    this.make_card_button = get(config, 'make_card_button', false);
+    this.reconnect_button = get(config, 'reconnect_button', false);
     this.get_balance = get(config, 'get_balance', false);
+    this.list_all_balances = get(config, 'list_all_balances', false);
+
     if (this.get_balance) {
       if (this.get_balance.hasOwnProperty('ILP')) {
         this.balance_target_type = 'ILP';
         this.balance_address = this.get_balance['ILP'];
         this.check_auth_and_list_cards(true);
-
       }
     }
+    if (this.list_all_balances === true) {
+      this.check_auth_and_list_cards(false);
+    }
+
   }
 
   onData(data: any, _firstChange: boolean) {
