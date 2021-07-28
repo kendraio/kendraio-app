@@ -13,17 +13,25 @@ export class ContextSaveBlockComponent extends BaseBlockComponent {
 
   contextKey = 'saved';
   valueGetter = 'data';
+  keyGetter = '';
 
   onConfigUpdate(config: any) {
     this.contextKey = get(config, 'contextKey', 'saved');
     this.valueGetter = get(config, 'valueGetter', 'data');
+    this.keyGetter = get(config, 'keyGetter', '');
   }
 
   onData(data: any, firstChange: boolean) {
     const value = mappingUtility({ data, context: this.context }, this.valueGetter);
-    set(this.context, this.contextKey, value);
-    this.context.__key = uuid.v4();
-    this.output.emit(clone(data));
+    let key = this.contextKey;
+    if (this.keyGetter.length>0) {
+      key = mappingUtility({ data, context: this.context }, this.keyGetter);
+    }
+    if (key){
+      set(this.context, key, value);
+      this.context.__key = uuid.v4();
+    }
+    this.output.emit(clone(data));    
   }
 
 

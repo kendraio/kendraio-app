@@ -69,6 +69,18 @@ If you want to add a new value to your object based on whether or not another fl
 
 This will look through the tags attribute to see whether or not a "deleted" tag is set, and set the new attribute accordingly.
 
+Accessing context from within a merge
+"""""""""""""""""""""""""""""""""""""
+When using a merge, or similar function, paths become relative to your current item. 
+If you need to access a value from beyond this context, you need to use the "$" operator to access the root of the data. 
+
+.. code-block:: jmespath
+
+  data[*].merge(@,{      
+      exists:contains($.context.flowsExisting || [''], join('-',[@.adapterName,@.workflowId]))
+      })
+   
+
 
 Finding a specific key in an array
 """""""""""""""""""""""""""""""""""
