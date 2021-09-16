@@ -9,12 +9,12 @@ import { search } from '@daz.is/jmespath';
 const axios = require('axios').default;
 const qs = require('qs');
 
-const CORS_PROXY = environment.corsProxyUrl;
-const UPHOLD_OAUTH_PROXY_URL = environment.uphold.proxy;
+const CORS_PROXY = environment.uphold.proxy;
+const UPHOLD_OAUTH_PROXY_URL = environment.uphold.proxy + 'api/login?code=';
 const UPHOLD_SITE_ROOT = environment.uphold.siteRoot;
-const UPHOLD_API_ROOT = environment.uphold.apiRoot;
+const UPHOLD_API_ROOT = environment.uphold.proxy;
 
-const MY_UPHOLD_CARDS = UPHOLD_API_ROOT + 'v0/me/cards';
+const MY_UPHOLD_CARDS = environment.uphold.proxy + 'v0/me/cards/';
 
 
 function hasActiveToken() {
@@ -103,11 +103,9 @@ export class WalletComponent extends BaseBlockComponent {
 
       const request = await axios.request({
         method: 'GET',
-        url: CORS_PROXY,
+        url: UPHOLD_API_ROOT + url,
         headers: {
-          'Authorization': 'Bearer ' + parent_this.token,
-          'Remove-Origin': '1',
-          'Target-URL': UPHOLD_API_ROOT + url
+          'Authorization': 'Bearer ' + parent_this.token
         }
       });
       return await request.data;
@@ -115,9 +113,8 @@ export class WalletComponent extends BaseBlockComponent {
 
     const users_cards = await oauth_get('v0/me/cards/');
     const xrp_cards = users_cards.filter(
-      item => item.currency === 'XRP' && (
-        item.settings.position > 28 || item.settings.position === 6
-      ));
+      item => item.currency === 'XRP'
+    );
 
     await Promise.all(xrp_cards.map(async (card) => {
       const address_data = await oauth_get('v0/me/cards/' + card.id + '/addresses');
@@ -145,11 +142,9 @@ export class WalletComponent extends BaseBlockComponent {
 
     axios.request({
       method: 'POST',
-      url: CORS_PROXY,
+      url: MY_UPHOLD_CARDS,
       headers: {
-        Authorization: 'Bearer ' + parent_this.token,
-        'Remove-Origin': '1',
-        'Target-URL': MY_UPHOLD_CARDS
+        Authorization: 'Bearer ' + parent_this.token
       },
       data: { currency: 'XRP' }
     }).then(function (new_card_response) {
@@ -159,11 +154,9 @@ export class WalletComponent extends BaseBlockComponent {
 
       axios.request({
         method: 'POST',
-        url: CORS_PROXY,
+        url: MY_UPHOLD_CARDS + new_card_data.id + '/addresses',
         headers: {
-          Authorization: 'Bearer ' + parent_this.token,
-          'Remove-Origin': '1',
-          'Target-URL': MY_UPHOLD_CARDS + '/' + new_card_data.id + '/addresses'
+          Authorization: 'Bearer ' + parent_this.token
         },
         data: { network: 'interledger' }
       }).then(function (interledger_address_response) {
@@ -172,7 +165,6 @@ export class WalletComponent extends BaseBlockComponent {
           'ILP_URL': interledger_address_response.data.id
         };
         parent_this.output.emit(JSON.parse(JSON.stringify(parent_this.xrp_address_balances)));
-        // TODO: test updating
 
       }).catch(function (error) {
         console.error(error);

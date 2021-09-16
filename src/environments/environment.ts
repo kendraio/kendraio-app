@@ -19,10 +19,10 @@ export const environment = {
   authProxyUrl: 'https://kendraio-auth0-proxy.now.sh/',
   // authProxyUrl: 'http://localhost:3000/',
   uphold: {
-    proxy: 'https://uphold-api-proxy-lukestanley-kendraio.vercel.app/api/login?code=',
-    apiRoot: 'https://api-sandbox.uphold.com/',
-    siteRoot: 'https://sandbox.uphold.com/',
-    clientID: '3f334a0f7713909bc572015946845e14314273c6'
+    proxy: 'https://uphold-proxy.kendra.io/',
+    apiRoot: 'https://api.uphold.com/',
+    siteRoot: 'https://uphold.com/',
+    clientID: '83ca2ad1489b3d8935b130ba523508f3733002c5'
   },
   corsProxyUrl: 'https://proxy.kendra.io'
 };
