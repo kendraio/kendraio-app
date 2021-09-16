@@ -51,6 +51,7 @@
     "amplitudejs": "^5.2.0",
     "angular2-text-mask": "^9.0.0",
     "auth0-js": "^9.13.2",
+    "axios": "^0.21.4",
     "blob-util": "^2.0.2",
     "bootstrap": "^4.3.1",
     "bootstrap-scss": "^4.3.1",
