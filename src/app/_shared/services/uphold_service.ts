@@ -3,11 +3,12 @@ import { search } from '@daz.is/jmespath';
 
 import { environment } from '../../../environments/environment';
 import * as uuid from 'uuid';
+const axios = require('axios').default;
 
 const UPHOLD_OAUTH_PROXY_URL = environment.uphold.proxy + 'api/login?code=';
 const UPHOLD_SITE_ROOT = environment.uphold.siteRoot;
-export const UPHOLD_API_ROOT = environment.uphold.proxy;
-export const MY_UPHOLD_CARDS = environment.uphold.proxy + 'v0/me/cards/';
+const UPHOLD_API_ROOT = environment.uphold.proxy;
+const MY_UPHOLD_CARDS = environment.uphold.proxy + 'v0/me/cards/';
 
 export function hasActiveToken() {
   // To ensure user has a recently authorised token, this check
@@ -88,7 +89,6 @@ export async function finishAuth() {
   }
 }
 
-const axios = require('axios').default;
 
 export class UpholdService {
   xrp_address_balances = {}; // Uphold card IDs with XRP wallet balance and ILP addresse if exist
