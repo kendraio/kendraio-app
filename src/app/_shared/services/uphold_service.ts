@@ -26,15 +26,13 @@ export function hasActiveToken() {
   const is_fresh = issue_age < max_time;
   return is_fresh;
 }
+
 export function getUpholdOauthLoginURL() {
   // Returns the URL to redirect to for Uphold OAuth login button.
   // the URL is constructed like this, to ensure that arbitrary
   // data from the pathname is encoded safely for use in the
   // Oauth redirect URL
   const existing_path = btoa(location.pathname); // encodes path as base64
-
-
-
   // to uniquely represent this user auth attempt, and the users place here
   // in our app, we generate a random UUID with the current path appended 
   // to allow redirecting the user back to where they were once authorised:
@@ -53,6 +51,7 @@ export function getUpholdOauthLoginURL() {
   });
   return loginURL.href;
 }
+
 export async function finishAuth() {
   // Called when the user has successfully logged in to Uphold
   // and we have received a code from the OAuth server. 
@@ -120,6 +119,8 @@ export class UpholdService {
     // save 'xrp_address_balances', 
     // look for a specified 'balance_address',
     // and emit our result to 'output'
+
+    // TODO: use return instead of emit, to improve service seperation
 
     async function oauth_get(url: string) {
       // This helper function helps do authorised calls to the Uphold API
@@ -213,7 +214,7 @@ export class UpholdService {
 
     // Output the cards, with the new card for flows to make use of:
     parent_this.output.emit(clone(parent_this.xrp_address_balances));
-
+    // TODO: use return instead of emit, to improve service seperation
   }
 
 }
