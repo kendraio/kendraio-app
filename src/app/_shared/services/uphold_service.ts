@@ -36,18 +36,18 @@ export function getUpholdOauthLoginURL(): string {
   // The URL is encoded and constructed like this, to ensure 
   // that arbitrary data from the pathname is encoded safely 
   // for use in the Oauth redirect URL
-  
+
   // Encodes path as base64, to uniquely represent this
   // user auth attempt, and the users place here in our app,
   // we generate a random UUID with the current path appended 
   // to allow redirecting the user back to where they were once authorised:
   const oauthState = uuid.v4() + '_' + btoa(location.pathname);
-  
+
   // A random UUID with our current path, to redirect back to.
   // URL is constructed like this, to ensure that potential 
   // arbitrary user data like the pathname is safely encoded
   const loginURL = new URL(UPHOLD_SITE_ROOT + 'authorize/' + environment.uphold.clientID);
-  
+
   // now we safely combine the above base URL with the query params
   // to create the full URL for the login button:
   Object.entries({
@@ -145,7 +145,7 @@ export class UpholdService {
     // and emit our result to 'output'
 
     // TODO: use return instead of emit, to improve service seperation
-    
+
     /**
      * Helper function to do authorised calls to the Uphold API
      * using the users Uphold token and return the data
@@ -203,7 +203,7 @@ export class UpholdService {
   public async make_card() {
     const token = this.get_token();
     console.assert(token);
-    
+
     // we emit using the 'output' of this scope,
     // and add the new card to 'xrp_address_balances'
     const parent_this = this;
