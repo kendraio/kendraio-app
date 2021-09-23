@@ -11,9 +11,10 @@ const UPHOLD_API_ROOT = environment.uphold.proxy;
 const MY_UPHOLD_CARDS = environment.uphold.proxy + 'v0/me/cards/';
 
 /**
- * To ensure user has a recently authorised token, this check
- * returns true if we have an Uphold auth token younger than 25 minutes 
- * and otherwise returns false
+ * Ensures the user has a recently authorised token 
+ * 
+ * @returns true if we have an Uphold auth token younger
+ * than 25 minutes and otherwise returns false
  */
 export function hasActiveToken(): boolean {
   const max_time = 25 * 60; // 25 minutes in seconds
@@ -30,7 +31,8 @@ export function hasActiveToken(): boolean {
 }
 
 /**
- * Returns the URL to redirect to for Uphold OAuth login button.
+ * Generates the URL to redirect to for Uphold OAuth login button.
+ * @returns url string with current location base64 encoded
  */
 export function getUpholdOauthLoginURL(): string {
   // The URL is encoded and constructed like this, to ensure 
