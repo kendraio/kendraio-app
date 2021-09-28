@@ -71,3 +71,4 @@ Kendraio App
    workflow/blocks/variable_get
    workflow/blocks/variable_set
    workflow/blocks/web_money
+   workflow/blocks/wallet
