@@ -26,6 +26,11 @@ context as "context.savedData".
 context. This defaults to "data" so if it is omitted it stores the whole incoming
 value into context.
 
+- **keyGetter** (string) [OPTIONAL] - the JMESPath of the key to use within context. 
+JMESPath does not allow for variable keys, so this makes it possible for batch code to
+write to different context locations. 
+
+
 
 Usage patterns
 --------------

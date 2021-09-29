@@ -59,10 +59,10 @@ export class DbBlockComponent extends BaseBlockComponent {
         if (isString(this.uuidGetter)) {
           const uuid = mappingUtility({ data: this.model, context: this.context }, this.uuidGetter);
           if (isString(uuid)) {
-            this.localDatabase.fetch({ uuid }).then(result => {
+            this.localDatabase.fetch({ uuid }).then(function(result){
               this.isLoading = false;
               this.output.emit(result);
-            });
+            }.bind(this));
           }
         }
         // TODO: Error
@@ -73,10 +73,10 @@ export class DbBlockComponent extends BaseBlockComponent {
         if (isString(this.uuidGetter)) {
           const uuid = mappingUtility({ data: this.model, context: this.context }, this.uuidGetter);
           if (isString(uuid)) {
-            this.localDatabase.deleteItem({ uuid }).then(result => {
+            this.localDatabase.deleteItem({ uuid }).then(function(result){
               this.isLoading = false;
               this.output.emit(result);
-            });
+            }.bind(this));
           }
         }
         // TODO: Error
@@ -87,10 +87,10 @@ export class DbBlockComponent extends BaseBlockComponent {
         this.localDatabase.update({
           uuid: data.uuid,
           data
-        }).then(result => {
+        }).then(function(result){
           this.isLoading = false;
           this.output.emit(result);
-        });
+        }.bind(this));
         return;
       }
       case 'add': {
@@ -103,10 +103,10 @@ export class DbBlockComponent extends BaseBlockComponent {
             adapterName: this.adapterName,
             schema,
             data
-          }).then(result => {
+          }).then(function(result) {
             this.isLoading = false;
             this.output.emit(result);
-          });
+          }.bind(this));
         }
         return;
       }
@@ -118,10 +118,10 @@ export class DbBlockComponent extends BaseBlockComponent {
           adapterName: this.adapterName,
           schema,
           idField: this.idField,
-        }).then(result => {
+        }).then(function(result) {
           this.isLoading = false;
           this.output.emit(result);
-        });
+        }.bind(this));
         return;
       }
       default:

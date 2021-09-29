@@ -19,5 +19,12 @@ export const environment = {
   },
   workflowStoreUrl: 'https://app.kendra.io/api',
   // authProxyUrl: 'https://kendraio-auth0-proxy-qq0te0iza.now.sh/',
-  authProxyUrl: 'https://kendraio-auth0-proxy.now.sh/'
+  authProxyUrl: 'https://kendraio-auth0-proxy.now.sh/',
+  uphold: {
+    proxy: 'https://uphold-proxy.kendra.io/',
+    apiRoot: 'https://api.uphold.com/',
+    siteRoot: 'https://uphold.com/',
+    clientID: '83ca2ad1489b3d8935b130ba523508f3733002c5'
+  },
+  corsProxyUrl: 'https://proxy.kendra.io'
 };
