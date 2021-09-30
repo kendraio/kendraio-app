@@ -123,12 +123,15 @@ export class UpholdService {
   }
 
   /**
-   * Get the Uphold token
+   * Get the Uphold token or raise error without it
    */
   get_token() {
-    // Get the Uphold token
     this.token = localStorage.getItem('uphold_token');
-    return this.token;
+    if (this.token) {
+      return this.token;
+    } else {
+      console.error('No auth token loaded, stopping.');
+    }
   }
 
   /**
@@ -140,6 +143,9 @@ export class UpholdService {
   public async get_xrp_cards_list(only_balance: boolean) {
 
     const token = this.get_token();
+    if (!token) {
+      return;
+    }
 
     const parent_this = this; // we use this scope later to
     // save 'xrp_address_balances', 
@@ -204,7 +210,9 @@ export class UpholdService {
    */
   public async make_card() {
     const token = this.get_token();
-    console.assert(token);
+    if (!token) {
+      return;
+    }
 
     // we emit using the 'output' of this scope,
     // and add the new card to 'xrp_address_balances'
