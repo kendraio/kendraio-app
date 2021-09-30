@@ -51,10 +51,17 @@ export class WalletComponent extends BaseBlockComponent {
       return;
     }
 
+    // Now we should be on an actual flow, not a redirect page:
+
     this.make_card_button = get(config, 'make_card_button', false);
     this.reconnect_button = get(config, 'reconnect_button', false);
     this.get_balance = get(config, 'get_balance', false);
     this.list_all_balances = get(config, 'list_all_balances', false);
+
+    if (!this.loginActive) {
+      // we can't do anything without login, the UI will already show login button so we stop now.
+      return;
+    }
 
     if (this.get_balance) {
       if (this.get_balance.hasOwnProperty('ILP')) {
