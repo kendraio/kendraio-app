@@ -27,6 +27,7 @@ export class GridBlockComponent implements OnInit, OnChanges {
   columnDefs = [];
   rowData = [];
   gridOptions = {};
+  passThrough = false; // set true to transparently pass through any data model changes
 
   frameworkComponents = {
     workflowRenderer: WorkflowCellRendererComponent,
@@ -42,6 +43,7 @@ export class GridBlockComponent implements OnInit, OnChanges {
    // if (isObject(this.config.gridOptions.defaultColDef)) {
     // this.defaultColDef = isObject(this.config.gridOptions.defaultColDef) ? this.config.gridOptions.defaultColDef : {resizable: true};
   // }
+    this.passThrough = get(this.config, 'passThrough', false);
   }
 
   ngOnChanges(changes) {
@@ -49,7 +51,7 @@ export class GridBlockComponent implements OnInit, OnChanges {
     // console.log(get(changes, 'model.previousValue', []).map(({ enabled }) => enabled));
     // console.log(get(changes, 'model.currentValue', []).map(({ enabled }) => enabled));
     this.updateOutputDisplay();
-    // this.output.emit(isArray(this.model) ? [ ...this.model ] : isObject(this.model) ? { ...this.model } : this.model);
+    if (this.passThrough) this.output.emit(this.model)
   }
 
   updateOutputDisplay() {
