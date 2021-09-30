@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'Kendraio App'
-copyright = '2019, Kendraio Developers'
+copyright = '2021, Kendraio Developers'
 author = 'Kendraio Developers'
 
 master_doc = 'index'
