@@ -2,7 +2,7 @@
   "name": "kendraio-app",
   "version": "0.2.0",
   "engines": {
-    "node": "14.16.1"
+    "node": ">=14.0.0"
   },
   "scripts": {
     "start:dev": "npm-run-all serve:dev",
