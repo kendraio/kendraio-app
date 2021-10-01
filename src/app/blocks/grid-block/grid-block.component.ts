@@ -39,19 +39,12 @@ export class GridBlockComponent implements OnInit, OnChanges {
     private readonly zone: NgZone
   ) { }
 
-  ngOnInit() {
-    // console.log('init');
-    // if (isObject(this.config.gridOptions.defaultColDef)) {
-    // this.defaultColDef = isObject(this.config.gridOptions.defaultColDef) ? this.config.gridOptions.defaultColDef : {resizable: true};
-    // }
+  ngOnInit() {    
     this.passThrough = get(this.config, 'passThrough', false);
     this.firstRowHeaders = get(this.config, 'firstRowHeaders', false);
   }
 
-  ngOnChanges(changes) {
-    // console.log({ changes });
-    // console.log(get(changes, 'model.previousValue', []).map(({ enabled }) => enabled));
-    // console.log(get(changes, 'model.currentValue', []).map(({ enabled }) => enabled));
+  ngOnChanges(changes) {    
     this.updateOutputDisplay();
     if (this.passThrough) this.output.emit(this.model)
   }
@@ -64,16 +57,14 @@ export class GridBlockComponent implements OnInit, OnChanges {
           if (this.firstRowHeaders) column.headerName = this.model[0][key];
           return column;
         }        
-      )
-      if (this.firstRowHeaders) this.model.shift(); // remove first row
+      )      
     }
+    let workingModel = this.model; // create a local clone of the data - to allow us to modify data only for display
+    if (this.firstRowHeaders && workingModel.length >0) workingModel.shift(); // remove first row from the working model
     this.columnDefs = this.preprocessColumnDefinition(get(this.config, 'columnDefs', defaultCols));
-    this.gridOptions = clone(get(this.config, 'gridOptions', {}));
-
-    // this.defaultColDef =  isObject(this.config.gridOptions.defaultColDef) ? this.config.gridOptions.defaultColDef : {resizable: true};
+    this.gridOptions = clone(get(this.config, 'gridOptions', {}));    
     this.defaultColDef = has(this.gridOptions, 'defaultColDef') ? this.config.gridOptions.defaultColDef : this.defaultColDef;
-
-    this.rowData = isArray(this.model) ? this.model : get(this.model, 'result', []);
+    this.rowData = isArray(workingModel) ? workingModel : get(this.model, 'result', []);
     if (!!this.gridAngular && get(this.config, 'sizeColumnsToFit', true)) {
       setTimeout(() => {
         this.zone.run(() => {
@@ -81,15 +72,13 @@ export class GridBlockComponent implements OnInit, OnChanges {
         });
       }, 40);
     }
-
   }
 
   preprocessColumnDefinition(def: Array<any>) {
     return def.map(item => ({
       ...item,
       ...has(item, 'valueGetter') ? {
-        valueGetter: ({ data }) => {
-          // console.log({ data, item });
+        valueGetter: ({ data }) => {          
           try {
             return mappingUtility(data, item['valueGetter']);
           } catch (e) {
@@ -98,8 +87,7 @@ export class GridBlockComponent implements OnInit, OnChanges {
         }
       } : {},
       ...has(item, 'valueFormatter') ? {
-        valueFormatter: (params) => {
-          // console.log(params);
+        valueFormatter: (params) => {          
           try {
             return mappingUtility(params, item['valueFormatter']);
           } catch (e) {
@@ -113,10 +101,8 @@ export class GridBlockComponent implements OnInit, OnChanges {
     }));
   }
 
-  onSelectionChanged(e) {
-    // console.log({ e });
-    const selectedRows = e.api.getSelectedRows();
-    // console.log({ selectedRows });
+  onSelectionChanged(e) {    
+    const selectedRows = e.api.getSelectedRows();    
     this.output.emit(clone(selectedRows));
   }
 

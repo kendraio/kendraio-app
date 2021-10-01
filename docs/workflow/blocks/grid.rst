@@ -23,6 +23,8 @@ Supported properties
 - **columnDefs** (array) - A list of columns to display in the grid. The supported options are based on the grid column properties documented here: https://www.ag-grid.com/javascript-grid-column-properties/
 - **passThrough** (boolean) - always pass through changes to data model, rather than emiting new changes based on selected rows
 - **firstRowHeaders** (boolean) - Use the first row as column headers
+ 
+
 Advanced features
 -----------------
 
