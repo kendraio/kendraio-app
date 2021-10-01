@@ -1,9 +1,9 @@
-import {Component, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
-import {clone, get, has, isArray, isObject} from 'lodash-es';
-import {search} from 'jmespath';
-import {WorkflowCellRendererComponent} from '../../components/workflow-cell-renderer/workflow-cell-renderer.component';
-import {mappingUtility} from '../mapping-block/mapping-util';
-import {ConnectionStatusRendererComponent} from '../../components/connection-status-renderer/connection-status-renderer.component';
+import { Component, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
+import { clone, get, has, isArray, isObject } from 'lodash-es';
+import { search } from 'jmespath';
+import { WorkflowCellRendererComponent } from '../../components/workflow-cell-renderer/workflow-cell-renderer.component';
+import { mappingUtility } from '../mapping-block/mapping-util';
+import { ConnectionStatusRendererComponent } from '../../components/connection-status-renderer/connection-status-renderer.component';
 
 @Component({
   selector: 'app-grid-block',
@@ -28,6 +28,7 @@ export class GridBlockComponent implements OnInit, OnChanges {
   rowData = [];
   gridOptions = {};
   passThrough = false; // set true to transparently pass through any data model changes
+  firstRowHeaders = false; // use the first row as the headers
 
   frameworkComponents = {
     workflowRenderer: WorkflowCellRendererComponent,
@@ -40,10 +41,11 @@ export class GridBlockComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     // console.log('init');
-   // if (isObject(this.config.gridOptions.defaultColDef)) {
+    // if (isObject(this.config.gridOptions.defaultColDef)) {
     // this.defaultColDef = isObject(this.config.gridOptions.defaultColDef) ? this.config.gridOptions.defaultColDef : {resizable: true};
-  // }
+    // }
     this.passThrough = get(this.config, 'passThrough', false);
+    this.firstRowHeaders = get(this.config, 'firstRowHeaders', false);
   }
 
   ngOnChanges(changes) {
@@ -55,9 +57,16 @@ export class GridBlockComponent implements OnInit, OnChanges {
   }
 
   updateOutputDisplay() {
-    const defaultCols = isArray(this.model) && this.model.length > 0
-      ? Object.keys(this.model[0]).map(key => ({ headerName: key, field: key }))
-      : [];
+    let defaultCols = [];
+    if (isArray(this.model) && this.model.length > 0) {      
+      defaultCols = Object.keys(this.model[0]).map((key) => {
+          let column = { headerName: key, field: key };
+          if (this.firstRowHeaders) column.headerName = this.model[0][key];
+          return column;
+        }        
+      )
+      if (this.firstRowHeaders) this.model.shift(); // remove first row
+    }
     this.columnDefs = this.preprocessColumnDefinition(get(this.config, 'columnDefs', defaultCols));
     this.gridOptions = clone(get(this.config, 'gridOptions', {}));
 
@@ -78,24 +87,28 @@ export class GridBlockComponent implements OnInit, OnChanges {
   preprocessColumnDefinition(def: Array<any>) {
     return def.map(item => ({
       ...item,
-      ...has(item, 'valueGetter') ? { valueGetter: ({ data }) => {
+      ...has(item, 'valueGetter') ? {
+        valueGetter: ({ data }) => {
           // console.log({ data, item });
           try {
             return mappingUtility(data, item['valueGetter']);
           } catch (e) {
             return e.message;
           }
-        }} : {},
-      ...has(item, 'valueFormatter') ? { valueFormatter: (params) => {
-        // console.log(params);
+        }
+      } : {},
+      ...has(item, 'valueFormatter') ? {
+        valueFormatter: (params) => {
+          // console.log(params);
           try {
             return mappingUtility(params, item['valueFormatter']);
           } catch (e) {
             return e.message;
           }
-        }} : {},
+        }
+      } : {},
       ...has(item, 'cellRendererParams')
-        ? { cellRendererParams: { ...item.cellRendererParams, context: this.context }}
+        ? { cellRendererParams: { ...item.cellRendererParams, context: this.context } }
         : {}
     }));
   }
@@ -103,7 +116,7 @@ export class GridBlockComponent implements OnInit, OnChanges {
   onSelectionChanged(e) {
     // console.log({ e });
     const selectedRows = e.api.getSelectedRows();
-     // console.log({ selectedRows });
+    // console.log({ selectedRows });
     this.output.emit(clone(selectedRows));
   }
 
