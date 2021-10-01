@@ -59,7 +59,7 @@ export class GridBlockComponent implements OnInit, OnChanges {
         }        
       )      
     }
-    let workingModel = this.model; // create a local clone of the data - to allow us to modify data only for display
+    let workingModel = this.model ? clone(this.model) : []; // create a local clone of the data - to allow us to modify data only for display
     if (this.firstRowHeaders && workingModel.length >0) workingModel.shift(); // remove first row from the working model
     this.columnDefs = this.preprocessColumnDefinition(get(this.config, 'columnDefs', defaultCols));
     this.gridOptions = clone(get(this.config, 'gridOptions', {}));    
