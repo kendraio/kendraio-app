@@ -4,10 +4,10 @@ Kendraio App
 
 Kendraio App is an open source dashboard application for rights owners, music makers, managers and record labels, enabling users to manage and track their digital media assets, collaborations and associated rights.
 
-- Online demo: https://app.kendra.io
-- Read the Docs: https://kendraio-app.readthedocs.io
-- More information: https://www.kendra.io/kendraio-app
-- Privacy policy: https://www.kendra.io/privacy
+- Online demo: <https://app.kendra.io>
+- Read the Docs: <https://kendraio-app.readthedocs.io>
+- More information: <https://www.kendra.io/kendraio-app>
+- Privacy policy: <https://www.kendra.io/privacy>
 
 ![Uptime Robot](https://img.shields.io/uptimerobot/ratio/7/m783523815-565ba269d3dc13ded01aae34)
 ![Version](https://img.shields.io/github/package-json/v/kendraio/kendraio-app/main)
@@ -16,17 +16,14 @@ Kendraio App is an open source dashboard application for rights owners, music ma
 [![Documentation Status](https://readthedocs.org/projects/kendraio-app/badge/?version=latest)](https://kendraio-app.readthedocs.io/en/latest/?badge=latest)
 ![Angular Version](https://img.shields.io/github/package-json/dependency-version/kendraio/kendraio-app/@angular/core)
 
-
 Contribute
 ----------
 
-- Read the documentation: https://kendraio-app.readthedocs.io
-- For help and support, join the conversation on Slack: http://slack.kendra.io
-- Kendraio Google Drive folder: https://goo.gl/Oyuli4
-- To report bugs, suggest improvements, or request features, use the issue tracker: https://github.com/kendraio/kendraio-app/issues
-- To download the source code, visit the repo: https://github.com/kendraio/kendraio-app
-
-
+- Read the documentation: <https://kendraio-app.readthedocs.io>
+- For help and support, join the conversation on Slack: <http://slack.kendra.io>
+- Kendraio Google Drive folder: <https://goo.gl/Oyuli4>
+- To report bugs, suggest improvements, or request features, use the issue tracker: <https://github.com/kendraio/kendraio-app/issues>
+- To download the source code, visit the repo: <https://github.com/kendraio/kendraio-app>
 
 Setting up a local development environment
 ------------------------------------------
@@ -60,12 +57,14 @@ onData(data: any, firstChange: boolean) {
    this.output.emit(this.model);
 }
 ```
+
 Implement onConfigUpdate() to modify the block state based on changes to the block configuration.
 Implement onData() to respond to data being sent into the block.
 Add any UI or output to the angular template for the block component.
 Add any required CSS to the stylesheet for the component.
 To make the block show up in the App:
--   Add the component to this horrible big switch block in the BlocksWorkflowComponent [src/app/components/blocks-workflow/blocks-workflow.component.html](src/app/components/blocks-workflow/blocks-workflow.component.html)
+
+- Add the component to this horrible big switch block in the BlocksWorkflowComponent [src/app/components/blocks-workflow/blocks-workflow.component.html](src/app/components/blocks-workflow/blocks-workflow.component.html)
 This is needed for the flow to show up in rendered workflows.
--   Add a definition for the block to the block types so it can appear in the "Add Task" dialog:
+- Add a definition, and default configuration, for the block to the block types so it can appear in the "Add Task" dialog:
 [src/app/dialogs/add-block-dialog/block-types.ts](src/app/dialogs/add-block-dialog/block-types.ts)
