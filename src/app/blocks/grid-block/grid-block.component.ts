@@ -1,9 +1,9 @@
-import {Component, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
-import {clone, get, has, isArray, isObject} from 'lodash-es';
-import {search} from 'jmespath';
-import {WorkflowCellRendererComponent} from '../../components/workflow-cell-renderer/workflow-cell-renderer.component';
-import {mappingUtility} from '../mapping-block/mapping-util';
-import {ConnectionStatusRendererComponent} from '../../components/connection-status-renderer/connection-status-renderer.component';
+import { Component, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
+import { clone, get, has, isArray, isObject } from 'lodash-es';
+import { search } from 'jmespath';
+import { WorkflowCellRendererComponent } from '../../components/workflow-cell-renderer/workflow-cell-renderer.component';
+import { mappingUtility } from '../mapping-block/mapping-util';
+import { ConnectionStatusRendererComponent } from '../../components/connection-status-renderer/connection-status-renderer.component';
 
 @Component({
   selector: 'app-grid-block',
@@ -28,6 +28,7 @@ export class GridBlockComponent implements OnInit, OnChanges {
   rowData = [];
   gridOptions = {};
   passThrough = false; // set true to transparently pass through any data model changes
+  firstRowHeaders = false; // use the first row as the headers
 
   frameworkComponents = {
     workflowRenderer: WorkflowCellRendererComponent,
@@ -38,33 +39,32 @@ export class GridBlockComponent implements OnInit, OnChanges {
     private readonly zone: NgZone
   ) { }
 
-  ngOnInit() {
-    // console.log('init');
-   // if (isObject(this.config.gridOptions.defaultColDef)) {
-    // this.defaultColDef = isObject(this.config.gridOptions.defaultColDef) ? this.config.gridOptions.defaultColDef : {resizable: true};
-  // }
+  ngOnInit() {    
     this.passThrough = get(this.config, 'passThrough', false);
+    this.firstRowHeaders = get(this.config, 'firstRowHeaders', false);
   }
 
-  ngOnChanges(changes) {
-    // console.log({ changes });
-    // console.log(get(changes, 'model.previousValue', []).map(({ enabled }) => enabled));
-    // console.log(get(changes, 'model.currentValue', []).map(({ enabled }) => enabled));
+  ngOnChanges(changes) {    
     this.updateOutputDisplay();
     if (this.passThrough) this.output.emit(this.model)
   }
 
   updateOutputDisplay() {
-    const defaultCols = isArray(this.model) && this.model.length > 0
-      ? Object.keys(this.model[0]).map(key => ({ headerName: key, field: key }))
-      : [];
+    let defaultCols = [];
+    if (isArray(this.model) && this.model.length > 0) {      
+      defaultCols = Object.keys(this.model[0]).map((key) => {
+          let column = { headerName: key, field: key };
+          if (this.firstRowHeaders) column.headerName = this.model[0][key];
+          return column;
+        }        
+      )      
+    }
+    let workingModel = this.model ? clone(this.model) : []; // create a local clone of the data - to allow us to modify data only for display
+    if (this.firstRowHeaders && workingModel.length >0) workingModel.shift(); // remove first row from the working model
     this.columnDefs = this.preprocessColumnDefinition(get(this.config, 'columnDefs', defaultCols));
-    this.gridOptions = clone(get(this.config, 'gridOptions', {}));
-
-    // this.defaultColDef =  isObject(this.config.gridOptions.defaultColDef) ? this.config.gridOptions.defaultColDef : {resizable: true};
+    this.gridOptions = clone(get(this.config, 'gridOptions', {}));    
     this.defaultColDef = has(this.gridOptions, 'defaultColDef') ? this.config.gridOptions.defaultColDef : this.defaultColDef;
-
-    this.rowData = isArray(this.model) ? this.model : get(this.model, 'result', []);
+    this.rowData = isArray(workingModel) ? workingModel : get(this.model, 'result', []);
     if (!!this.gridAngular && get(this.config, 'sizeColumnsToFit', true)) {
       setTimeout(() => {
         this.zone.run(() => {
@@ -72,38 +72,37 @@ export class GridBlockComponent implements OnInit, OnChanges {
         });
       }, 40);
     }
-
   }
 
   preprocessColumnDefinition(def: Array<any>) {
     return def.map(item => ({
       ...item,
-      ...has(item, 'valueGetter') ? { valueGetter: ({ data }) => {
-          // console.log({ data, item });
+      ...has(item, 'valueGetter') ? {
+        valueGetter: ({ data }) => {          
           try {
             return mappingUtility(data, item['valueGetter']);
           } catch (e) {
             return e.message;
           }
-        }} : {},
-      ...has(item, 'valueFormatter') ? { valueFormatter: (params) => {
-        // console.log(params);
+        }
+      } : {},
+      ...has(item, 'valueFormatter') ? {
+        valueFormatter: (params) => {          
           try {
             return mappingUtility(params, item['valueFormatter']);
           } catch (e) {
             return e.message;
           }
-        }} : {},
+        }
+      } : {},
       ...has(item, 'cellRendererParams')
-        ? { cellRendererParams: { ...item.cellRendererParams, context: this.context }}
+        ? { cellRendererParams: { ...item.cellRendererParams, context: this.context } }
         : {}
     }));
   }
 
-  onSelectionChanged(e) {
-    // console.log({ e });
-    const selectedRows = e.api.getSelectedRows();
-     // console.log({ selectedRows });
+  onSelectionChanged(e) {    
+    const selectedRows = e.api.getSelectedRows();    
     this.output.emit(clone(selectedRows));
   }
 
