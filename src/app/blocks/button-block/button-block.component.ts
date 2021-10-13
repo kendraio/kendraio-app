@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {clone, get, isArray, isObject} from 'lodash-es';
-import {MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import {BlocksDialogComponent} from '../../dialogs/blocks-dialog/blocks-dialog.component';
 
 @Component({

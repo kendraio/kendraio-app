@@ -1,7 +1,7 @@
 import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
 import {clone, get, isArray, isObject} from 'lodash-es';
 import * as stringify from 'json-stringify-safe';
-import {MatSnackBar} from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {AppSettingsService} from '../../services/app-settings.service';
 import {mappingUtility} from '../mapping-block/mapping-util';
 
