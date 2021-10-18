@@ -35,7 +35,7 @@ export class MappingBlockComponent implements OnInit, OnChanges {
   ngOnChanges(changes): void {
     const keyChanges = Object.keys(changes);
     if (keyChanges.length === 1 && keyChanges.includes('context')) {
-      // ignore changes where only the context changed      
+      // ignore changes where only the context changed
       return;
     }
     // console.log('mapping changes', this.mapping,  changes);
@@ -53,16 +53,18 @@ export class MappingBlockComponent implements OnInit, OnChanges {
       return;
     }
     this.hasError = false;
-    setTimeout(function(){
-      try {
+    try {
+      
+      // console.log(this.mapping, { mappingResult });
+      setTimeout(function(){
         const mappingResult = this.getMappingResult(this.mapping);
         this.output.emit(clone(mappingResult));
-        } catch (e) {
-          this.hasError = true;
-          this.errorMessage = `${e.message}  \nMapping: ${this.mapping}`;    
-        }
         this.hasRun = true;
       }.bind(this), 0);
+    } catch (e) {
+      this.hasError = true;
+      this.errorMessage = e.message;
+    }
   }
 
   parseMapping(mapping) {
