@@ -10,7 +10,9 @@ Default config
 
     {
       "type": "grid",
-      "gridOptions": {}
+      "gridOptions": {},
+      "passThrough": false,
+      "firstRowHeaders": false,
     }
 
 Supported properties
@@ -19,6 +21,9 @@ Supported properties
 - **sizeColumnsToFit** (boolean) (default = true) - set this to false to disable the auto-size algorithm from running that will resize the columns after display to best fit the available space.
 - **gridOptions** (object) - Add supported options for the grid, based on the grid properties listed here: https://www.ag-grid.com/javascript-grid-properties/
 - **columnDefs** (array) - A list of columns to display in the grid. The supported options are based on the grid column properties documented here: https://www.ag-grid.com/javascript-grid-column-properties/
+- **passThrough** (boolean) - always pass through changes to data model, rather than emiting new changes based on selected rows
+- **firstRowHeaders** (boolean) - Use the first row as column headers
+ 
 
 Advanced features
 -----------------
