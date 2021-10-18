@@ -57,12 +57,13 @@ export class MappingBlockComponent implements OnInit, OnChanges {
       try {
         const mappingResult = this.getMappingResult(this.mapping);
         this.output.emit(clone(mappingResult));
-        } catch (e) {
-          this.hasError = true;
-          this.errorMessage = `${e.message}  \nMapping: ${this.mapping}`;    
-        }
-        this.hasRun = true;
-      }.bind(this), 0);
+      } catch (e) {
+        this.hasError = true;
+        this.errorMessage = `${e.message}  \nMapping: ${this.mapping}`;    
+      } finally {
+        this.hasRun = true; 
+      }      
+    }.bind(this), 0);
   }
 
   parseMapping(mapping) {
