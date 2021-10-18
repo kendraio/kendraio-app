@@ -53,10 +53,8 @@ export class MappingBlockComponent implements OnInit, OnChanges {
       return;
     }
     this.hasError = false;
-    try {      
-      // console.log(this.mapping, { mappingResult });
-      setTimeout(function(){
-        try {
+    setTimeout(function(){
+      try {
         const mappingResult = this.getMappingResult(this.mapping);
         this.output.emit(clone(mappingResult));
         } catch (e) {
@@ -65,10 +63,6 @@ export class MappingBlockComponent implements OnInit, OnChanges {
         }
         this.hasRun = true;
       }.bind(this), 0);
-    } catch (e) {
-      this.hasError = true;
-      this.errorMessage = e.message;
-    }
   }
 
   parseMapping(mapping) {
