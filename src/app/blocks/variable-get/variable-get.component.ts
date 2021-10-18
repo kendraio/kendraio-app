@@ -44,11 +44,15 @@ export class VariableGetComponent implements OnInit, OnChanges {
 
     const key = `${adapterName}.variables.${variableName}`;
     try {
+      // Variable set does not enforce JSON. Strings can be saved directly. 
+      // To get around this, we need to attempt to parse the JSON, 
+      // but if we don't get a valid result, just allow the value through "as-is"
       let data = localStorage.getItem(key);
       try {
         data = JSON.parse(data);
       } catch {
         // just get data "neat"
+        // Catch is not optional. 
       }
       if (!!data) {
         this.output.emit(clone(data));
