@@ -26,7 +26,7 @@ import { MatInput } from '@angular/material/input';
                             [formControl]="formControl"
                             [cols]="cols"
                             [rows]="rows"
-                            [placeholder]="placeholder"
+                            [placeholder]="placeholderOrLabel"
                             [matTextareaAutosize]="autosize"
                   >
                   </textarea>
@@ -63,8 +63,31 @@ export class TextareaComponent extends FieldType {
   get cols(): number { return this.to.cols || 50; }
   get rows(): number { return this.to.rows || 8; }
   get maxLength(): number { return this.to.maxLength || 15000; }
-  get placeholder(): string {return this.to.placeholder ||  this.to.label; }
+  // In the absense of a placeholder, may use JSON schema label (title key), see below:
+  get placeholderOrLabel(): string {return this.to.placeholder ||  this.to.label; }
   get description(): string {return this.to.description; }
   get test(): string {return this.formControl.getError('maxLength'); }
-
+  
 }
+
+// Form blocks have may labels may be defined like this:
+`{
+  "type": "form",
+    "jsonSchema": {
+    "type": "object",
+      "properties": {
+      "data": {
+        "type": "string",
+          "title": "label title" // This is the label
+      }
+    }
+  },
+  "uiSchema": {
+    "data": {
+      "ui:widget": "kendraio-textarea",
+        "ui:labelProp": "label text",
+          //"ui:placeholder": "uiplaceholder", // this is used instead of labels
+          "ui:rows": 10
+    }
+  }
+}`
