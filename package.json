@@ -5,6 +5,7 @@
     "node": ">=14.0.0"
   },
   "scripts": {
+    "test":"ng build --configuration=dev --watch=false --source-map=false",
     "start:dev": "npm-run-all serve:dev",
     "serve:dev": "ng serve",
     "build:local": "ng build",
