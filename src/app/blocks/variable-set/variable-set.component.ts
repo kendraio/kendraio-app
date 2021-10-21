@@ -19,6 +19,7 @@ export class VariableSetComponent implements OnInit, OnChanges {
   showNotify = true;
   nameGetter;
   valueGetter;
+  test;
 
   constructor(
     private readonly notify: MatSnackBar,
@@ -33,12 +34,18 @@ export class VariableSetComponent implements OnInit, OnChanges {
     this.showNotify = get(this.config, 'notify', true);
     this.nameGetter = get(this.config, 'nameGetter');
     this.valueGetter = get(this.config, 'valueGetter');
+    this.test = get(this.config, 'test');
     if (get(changes, 'model.firstChange', false)) {
       return;
     }
     if (!this.model || (isObject(this.model) && Object.keys(this.model).length === 0)) {
       return;
     }
+    if (this.test && mappingUtility({data: this.model, context: this.context}, this.test)) {
+      // allow for some validation before we write the variable
+      return; 
+    }
+
     const adapterName = get(this.context, 'app.adapterName', 'UNKNOWN');
     const variableName = get(this.config, 'name', 'UNKNOWN');
     let savedVariableName = `${adapterName}.variables.${variableName}`;
