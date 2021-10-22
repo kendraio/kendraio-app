@@ -37,15 +37,14 @@ export class SwitchBlockComponent implements OnInit, OnChanges {
     this.models = this.blocks.map(blockDef => get(blockDef, 'defaultValue', {}));
     this.models.push({});
     setTimeout(() => {
-      this.zone.run(() => {
-        // this.workflow.runWorkflow();
-        this.models[0] = clone(this.model);
+      this.zone.run(() => {                
+        this.models = [clone(this.model)];
       });
     }, 0);
   }
 
   finishAction(value) {
-    this.output.emit(clone(value));
+    this.output.emit(clone(this.model));
   }
 
 }
