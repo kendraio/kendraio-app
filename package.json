@@ -11,7 +11,7 @@
     "build:tagger": "ng build ngx-image-tagger",
     "build:dev": "ng build --configuration=dev",
     "build:prod": "ng build --prod",
-    "now-build": "ng build ngx-image-tagger && ng build --configuration=dev",
+    "now-build": "  ng build --configuration=dev",
     "docs:autobuild": "sphinx-autobuild docs/ docs/_build/html",
     "watch:tagger": "ng build ngx-image-tagger --watch",
     "update:function:cache": "mv dist/index.html functions/index.html",
