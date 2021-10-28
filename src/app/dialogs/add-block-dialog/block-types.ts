@@ -311,7 +311,7 @@ export const BLOCK_TYPES = [
     hasEditor: true,
     defaultConfig: {
       type: 'switch',
-      valueGetter: 'data',
+      valueGetter: 'data',      
       cases: [
         {
           value: 'example',

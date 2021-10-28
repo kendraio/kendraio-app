@@ -32,7 +32,7 @@ export class VariableSetComponent implements OnInit, OnChanges {
   ngOnChanges(changes) {
     this.showNotify = get(this.config, 'notify', true);
     this.nameGetter = get(this.config, 'nameGetter');
-    this.valueGetter = get(this.config, 'valueGetter');
+    this.valueGetter = get(this.config, 'valueGetter');    
     if (get(changes, 'model.firstChange', false)) {
       return;
     }
