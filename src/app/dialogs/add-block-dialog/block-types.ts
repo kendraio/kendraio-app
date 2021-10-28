@@ -312,6 +312,7 @@ export const BLOCK_TYPES = [
     defaultConfig: {
       type: 'switch',
       valueGetter: 'data',
+      passDown: false,
       cases: [
         {
           value: 'example',

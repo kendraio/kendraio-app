@@ -16,6 +16,7 @@ export class SwitchBlockComponent implements OnInit, OnChanges {
 
   blocks = [];
   models = [];
+  passDown = false; //Pass model down to child flows in a standard form. 
 
   constructor(
     private readonly zone: NgZone
@@ -23,6 +24,7 @@ export class SwitchBlockComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    this.passDown = get(this.config, 'passDown', false);
   }
 
   ngOnChanges(changes) {
@@ -38,7 +40,15 @@ export class SwitchBlockComponent implements OnInit, OnChanges {
     this.models.push({});
     setTimeout(() => {
       this.zone.run(() => {                
-        this.models = [clone(this.model)];
+        // The structure of the data model passed to blocks within the flow
+        if (this.passDown) {
+          // The passdown model is actually the standard model structure expected by most blocks
+          this.models = [clone(this.model)];
+        } else {
+          // the default model structure is compatible with datagrid row formatters (and possibly other looping control structures)
+          this.models[0] = clone(this.model);
+        }
+
       });
     }, 0);
   }
