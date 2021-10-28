@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {clone, get} from 'lodash-es';
-import Handlebars from 'handlebars';
+import {compile} from 'handlebars';
 import DOMPurify from './dom-sanitiser';
 
 @Component({
@@ -25,17 +25,9 @@ export class TemplateBlockComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes) {
-    /**
-     * If template helpers need to be defined, this is an example process. 
-     * 
-     * 
-    Handlebars.registerHelper("link", function(text, adapter, workflowID) {             
-     return '<a [routerlink]="[\'/\',\''+adapter+'\',\'${workflowID}\']">'+text+'</a>';         
-    });
-    **/
-
+    // TODO: Allow loading template from Adapter
     this.innerHtml = DOMPurify.sanitize(
-      Handlebars.compile(get(this.config, 'template', ''))({ context: this.context, data: this.model })
+      compile(get(this.config, 'template', ''))({ context: this.context, data: this.model })
     );
     this.output.emit(clone(this.model));
   }
