@@ -10,8 +10,7 @@ Default config
 
     {
       "type": "switch",
-      "valueGetter": "data",
-      "passDown":false,
+      "valueGetter": "data",      
       "cases": []
     }
 
@@ -23,8 +22,7 @@ Supported properties
 
   - **value** - the value that must match for this case to run
   - **blocks** - the workflow items that are run when this case matches
-  - **valueGetter** (optional) - a JMESPath expression to evaluate which is used to compare and select the appropriate case. Only the specified case that matches the evaluated expression will be run. If a valueGetter expression is not provided then the input data is used as the value to match against.
-  - **passDown** - Pass the data model to child flows. Set to true to allow your child flows to access the standard data model.
+  - **valueGetter** (optional) - a JMESPath expression to evaluate which is used to compare and select the appropriate case. Only the specified case that matches the evaluated expression will be run. If a valueGetter expression is not provided then the input data is used as the value to match against.  
   - **default** - object contains one key:
 
     - **blocks** - the array of workflow items to run if no cases match
