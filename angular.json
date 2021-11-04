@@ -107,7 +107,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -135,7 +134,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -163,8 +161,7 @@
           },
           "configurations": {
             "de": {
-              "browserTarget": "kendraio-app:build:de",
-              "baseHref": "/de/"
+              "browserTarget": "kendraio-app:build:de"
             },
             "fr": {
               "browserTarget": "kendraio-app:build:fr"
@@ -197,18 +194,6 @@
               "src/manifest.json"
             ]
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
         }
       }
     },
@@ -227,15 +212,6 @@
             "production": {
               "devServerTarget": "kendraio-app:serve:production"
             }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": "e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         }
       }
@@ -260,18 +236,6 @@
             "tsConfig": "projects/ngx-tagger/tsconfig.spec.json",
             "karmaConfig": "projects/ngx-tagger/karma.conf.js"
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/ngx-tagger/tsconfig.lib.json",
-              "projects/ngx-tagger/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
         }
       }
     },
@@ -294,18 +258,6 @@
             "main": "projects/ngx-image-tagger/src/test.ts",
             "tsConfig": "projects/ngx-image-tagger/tsconfig.spec.json",
             "karmaConfig": "projects/ngx-image-tagger/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/ngx-image-tagger/tsconfig.lib.json",
-              "projects/ngx-image-tagger/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         }
       }
