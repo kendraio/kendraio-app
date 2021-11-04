@@ -27,7 +27,7 @@ import { MatInput } from '@angular/material/input';
                             [cols]="cols"
                             [rows]="rows"
                             [placeholder]="placeholderOrLabel"
-                            [matTextareaAutosize]="autosize"
+                            [cdkTextareaAutosize]="autosize"
                   >
                   </textarea>
                   <mat-hint>{{description}}</mat-hint>
