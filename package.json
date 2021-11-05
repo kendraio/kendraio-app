@@ -58,7 +58,7 @@
     "bootstrap-scss": "^4.3.1",
     "buffer": "^5.2.1",
     "camel-case": "^4.1.1",
-    "chart.js": "^2.8.0",
+    "chart.js": "^2.9.4",
     "core-js": "^2.6.9",
     "dexie": "^2.0.4",
     "dompurify": "^2.2.6",
