@@ -87,8 +87,8 @@
             ],
             "scripts": [
               "node_modules/@fortawesome/fontawesome-free/js/all.js",
-              "node_modules/auth0-js/build/auth0.js",
-              "node_modules/json-schema-faker/dist/bundle.umd.min.js"
+              "node_modules/auth0-js/dist/auth0.js",
+              "node_modules/json-schema-faker/dist/bundle.js"
             ]
           },
           "configurations": {

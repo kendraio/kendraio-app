@@ -13,7 +13,7 @@ export class AppSettingsService {
   constructor() { }
 
   init() {
-    return new Promise((resolve, _) => {
+    return new Promise<void>((resolve, _) => {
       const settings = localStorage.getItem('core.variables.settings');
       if (settings) {
         this.settings = JSON.parse(settings);

@@ -368,8 +368,8 @@ export function HttpLoaderFactory(http: HttpClient) {
       ConnectionStatusRendererComponent
     ]),
     DragDropModule,
-    LeafletModule.forRoot(),
-    LeafletMarkerClusterModule.forRoot(),
+    LeafletModule,
+    LeafletMarkerClusterModule,
     FormlyModule.forRoot(config),
     FormlyMaterialModule
   ],

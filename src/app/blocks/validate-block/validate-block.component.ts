@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
 import Ajv from 'ajv';
-import addFormats from 'ajv-formats';
+import addFormats  from 'ajv-formats';
 import {get, has} from 'lodash-es';
 
 @Component({
@@ -38,7 +38,7 @@ export class ValidateBlockComponent extends BaseBlockComponent {
     //  Types of property 'opts' are incompatible.
     //    The types returned by 'compare(...)' are incompatible between these types.
     //                           Type 'boolean' is not assignable to type 'number'.
-    addFormats(ajv as any);
+    addFormats(ajv);
 
     this.schema = get(config, 'schema', null);
     if (this.schema) {
