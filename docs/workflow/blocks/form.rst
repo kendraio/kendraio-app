@@ -26,6 +26,7 @@ Supported properties
 - **hasSubmit** (default = true): this allows you to remove the submit button from the form. If this is set to true the submit button is not displayed and the form will output all changes.
 - **debounceTime** (default = 400): the number of milliseconds to debounce form output when not using a submit button. Multiple changes within this time will be ignored, and only the last change is emitted. This is a useful option to prevent unnecessary execution of multiple tasks within the workflow, for example if the form feeds into a HTTP block to pull data from an API (such as in an autocomplete) then the debounce will limit the number of requests that are sent while the user is entering input.
 - **emitOnInit** (boolean) (default = false): enable this to emit the form values when the block is initialised. This is useful if you need to pass on default values.
+- **schemaGetter**: Form schemas can be made dynamic by providing a getter function. 
 
 
 Important notes on creating flows with forms
@@ -80,3 +81,63 @@ A simple search form without a submit button.
     },
     "uiSchema": {}
   }
+
+
+Dynamic Forms
+-------------
+
+Here's a complex example that generates a static form, but uses the **set** function to add a dynamic list of options to the dropdown. 
+
+.. code-block:: jmespath
+
+  data && { inputFile: context.fileName, form: set(`{
+      "type": "form",
+      "jsonSchema": {
+          "type": "object",
+          "properties": {
+              "inputFile": {
+                  "title": "Example source file",
+                  "type": "string"
+              },
+              "targetSchema": {
+                  "title": "Target schema",
+                  "type": "string"
+              },
+              "presetName": {
+  "title": "Preset name",
+  "description": "A name for this mapping preset so it can be identified during import operations.",
+  "type": "string"
+              },
+              "fieldMappings": {
+                  "title": "Mapping",
+                  "type": "array",
+                  "items": {
+                      "type": "object",
+                      "properties": {
+                          "source": {
+                              "title": "Source",
+                              "type": "string",
+                              "enum": [
+                              ]
+                          },
+                          "target": {
+                              "title": "Destination",
+                              "type": "string",
+                              "enum": [                            ]
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "uiSchema": {
+          "targetSchema": {
+              "ui:widget":  "readonly"
+          },
+          "inputFile": {
+              "ui:widget":  "readonly"
+          }
+      }
+  }`, 'jsonSchema.properties.fieldMappings.items.properties.source.enum', data) }
+
+

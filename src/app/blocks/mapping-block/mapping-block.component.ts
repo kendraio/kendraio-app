@@ -53,20 +53,18 @@ export class MappingBlockComponent implements OnInit, OnChanges {
       return;
     }
     this.hasError = false;
-    try {
-      
-      // console.log(this.mapping, { mappingResult });
-      setTimeout(function(){
+    setTimeout(function(){
+      try {
         const mappingResult = this.getMappingResult(this.mapping);
         this.output.emit(clone(mappingResult));
-        this.hasRun = true;
-      }.bind(this), 0);
-    } catch (e) {
-      this.hasError = true;
-      this.errorMessage = e.message;
-    }
+      } catch (e) {
+        this.hasError = true;
+        this.errorMessage = `${e.message}  \nMapping: ${this.mapping}`;    
+      } finally {
+        this.hasRun = true; 
+      }      
+    }.bind(this), 0);
   }
-
   parseMapping(mapping) {
     if (isString(mapping)) {
       return mapping;
