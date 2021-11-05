@@ -8,7 +8,7 @@ import {map, take} from 'rxjs/operators';
 import {camelCase, get, sortBy, set} from 'lodash-es';
 import {WorkflowService} from '../../services/workflow.service';
 import {SaveWorkflowDialogComponent} from '../../dialogs/save-workflow-dialog/save-workflow-dialog.component';
-import {MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({

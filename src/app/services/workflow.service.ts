@@ -5,7 +5,8 @@ import {ExportConfigDialogComponent} from '../dialogs/export-config-dialog/expor
 import * as stringify from 'json-stringify-safe';
 import {PasteConfigDialogComponent} from '../dialogs/paste-config-dialog/paste-config-dialog.component';
 import {clone, findIndex, get, has, isArray, pick, set} from 'lodash-es';
-import {MatDialog, MatSnackBar} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {PageTitleService} from './page-title.service';
 import {AdaptersService} from './adapters.service';
 // tslint:disable-next-line:import-spacing
