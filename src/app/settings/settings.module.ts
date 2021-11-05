@@ -11,4 +11,4 @@ import { IndexComponent } from './index/index.component';
     SettingsRoutingModule
   ]
 })
-export class SettingsModule { }
+export default class SettingsModule { }

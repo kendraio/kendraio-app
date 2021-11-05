@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import {clone, get, isObject} from 'lodash-es';
-import { compile } from 'handlebars';
+import { compile } from 'handlebars/dist/handlebars.js';
 import { DomSanitizer } from '@angular/platform-browser';
 
 
