@@ -1,5 +1,5 @@
 // WIP
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 @mixin ng-select-theme($theme) {
     $primary: map-get($theme, primary);
     $accent: map-get($theme, accent);
