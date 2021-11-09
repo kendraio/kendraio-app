@@ -36,7 +36,7 @@ const routes: Routes = [
   },
   {
     path: 'notifications',
-    loadChildren: './notifications/notifications.module#NotificationsModule',
+    loadChildren: () => import('./notifications/notifications.module').then(m => m.NotificationsModule),
     data: {
       pageTitle: {'de': 'Channels', 'fr': '', 'en-US': 'Notifications'},
       breadcrumb: {'de': 'Channels', 'fr': '', 'en-US': 'notifications'},
@@ -127,7 +127,7 @@ const routes: Routes = [
   },
   {
     path: 'settings',
-    loadChildren: './settings/settings.module',
+    loadChildren: () => import('./settings/settings.module').then(m => m.default),
     data: {
       pageTitle: 'Settings',
       breadcrumb: 'settings',

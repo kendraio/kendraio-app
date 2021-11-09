@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import * as LZS from 'lz-string';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ShowShareLinkDialogComponent } from '../dialogs/show-share-link-dialog/show-share-link-dialog.component';
 
 @Injectable({

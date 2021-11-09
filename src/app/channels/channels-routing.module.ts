@@ -13,7 +13,7 @@ const routes: Routes = [
     children: [
       {
         path: 'youtube',
-        loadChildren: './youtube/youtube.module#YoutubeModule',
+        loadChildren: () => import('./youtube/youtube.module').then(m => m.YoutubeModule),
         data: {
           pageTitle: {'en-US': 'My YouTube'},
           breadcrumb: { 'en-US': 'My YouTube'},

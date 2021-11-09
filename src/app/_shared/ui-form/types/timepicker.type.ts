@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { FieldType } from '@ngx-formly/material';
-import { MatInput, ErrorStateMatcher } from '@angular/material';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { MatInput } from '@angular/material/input';
 
 
 

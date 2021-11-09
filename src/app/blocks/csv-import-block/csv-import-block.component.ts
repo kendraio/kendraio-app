@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { clone } from 'lodash-es';
-import { parse } from 'papaparse';
+import { parse, ParseResult, ParseConfig } from 'papaparse';
+import { types } from 'util';
 
 @Component({
   selector: 'app-csv-import-block',
@@ -49,7 +50,7 @@ export class CsvImportBlockComponent implements OnInit, OnChanges {
     const fileReader = new FileReader();
     fileReader.onload = (_) => {
       const { type, ...config } = this.config;
-      const parsedData = parse(fileReader.result as any, config);
+      const parsedData = parse(fileReader.result as string, config as ParseConfig) as ParseResult<any>;
       if (!!parsedData.data) {
         this.output.emit(parsedData.data);
         console.log(parsedData.data);

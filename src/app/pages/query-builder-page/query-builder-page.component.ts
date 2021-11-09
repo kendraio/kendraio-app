@@ -8,7 +8,7 @@ import JSONFormatter from 'json-formatter-js';
 import {get, has, isString} from 'lodash-es';
 import {BehaviorSubject} from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import {AdapterQuerySelectDialogComponent} from '../../dialogs/adapter-query-select-dialog/adapter-query-select-dialog.component';
 import {ShareLinkGeneratorService} from '../../services/share-link-generator.service';
 import { search } from 'jmespath';

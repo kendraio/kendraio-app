@@ -1,3 +1,4 @@
+@use '@angular/material' as mat;
 
 .block-type-title {
   flex: 1;
@@ -24,12 +25,11 @@
 }
 
 
-@import '~@angular/material/theming';
 .mat-expansion-panel {
   user-select: none;
 
   &.cdk-drag-preview { // while dragging
-    @include mat-elevation(12);
+    @include mat.elevation(12);
   }
 
   &.cdk-drag-placeholder { // potential drop area

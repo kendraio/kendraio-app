@@ -1,6 +1,6 @@
 import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
 import {clone, get, isObject} from 'lodash-es';
-import { compile } from 'handlebars';
+import { compile } from 'handlebars/dist/handlebars.js';
 
 @Component({
   selector: 'app-image-block',

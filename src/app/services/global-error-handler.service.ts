@@ -1,5 +1,5 @@
 import { Injectable, ErrorHandler } from '@angular/core';
-import {MatSnackBar} from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {Subject} from 'rxjs';
 import {debounceTime, throttleTime} from 'rxjs/operators';
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FieldArrayType, FormlyFieldConfig, FormlyFormBuilder} from '@ngx-formly/core';
 import {AddBlockDialogComponent} from '../../dialogs/add-block-dialog/add-block-dialog.component';
-import {MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import {FormArray} from '@angular/forms';
 import {EDITOR_OPTIONS} from '../../components/block-builder-box/editor-options';
 

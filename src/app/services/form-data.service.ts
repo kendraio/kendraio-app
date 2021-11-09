@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {of} from 'rxjs';
-import {MatDialog, MatSnackBar} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {FormDataSelectDialogComponent} from '../dialogs/form-data-select-dialog/form-data-select-dialog.component';
 import {DocumentRepositoryService} from './document-repository.service';
 import {map, switchMap, tap} from 'rxjs/operators';

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AddBlockDialogComponent} from '../../dialogs/add-block-dialog/add-block-dialog.component';
 import {BLOCK_TYPES} from '../../dialogs/add-block-dialog/block-types';
-import {MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import {moveItemInArray} from '@angular/cdk/drag-drop';
 import {clone} from 'lodash-es';
 
