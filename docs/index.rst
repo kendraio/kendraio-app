@@ -31,7 +31,6 @@ Kendraio App
    workflow/intro
    workflow/sharing
    workflow/cloud
-   workflow/implementation 
 
 .. toctree::
    :maxdepth: 1
@@ -46,7 +45,6 @@ Kendraio App
    workflow/blocks/context_block
    workflow/blocks/csv_export
    workflow/blocks/csv_import
-   workflow/blocks/db
    workflow/blocks/debug
    workflow/blocks/dialog
    workflow/blocks/dispatch
@@ -59,7 +57,6 @@ Kendraio App
    workflow/blocks/gsheet
    workflow/blocks/http
    workflow/blocks/init
-   workflow/blocks/launch_block
    workflow/blocks/map
    workflow/blocks/mapping
    workflow/blocks/message
