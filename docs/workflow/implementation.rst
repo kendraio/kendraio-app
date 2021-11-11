@@ -63,20 +63,20 @@ processing will stop and no more blocks in the flow will run.
 
 
 
-.. |step1| image:: /images/execution-blocks-1.png
+.. |step1| image:: images/execution-blocks-1.png
   :width: 50%
 
-.. |step2| image:: /images/execution-blocks-2.png
+.. |step2| image:: images/execution-blocks-2.png
   :width: 40%
 
-.. |step3| image:: /images/execution-blocks-3.png
+.. |step3| image:: images/execution-blocks-3.png
   :width: 40%
 
-.. |step4| image:: /images/execution-blocks-4.png
+.. |step4| image:: images/execution-blocks-4.png
   :width: 60%
 
-.. |step5| image:: /images/execution-blocks-5.png
+.. |step5| image:: images/execution-blocks-5.png
   :width: 30%
 
-.. |step6| image:: /images/execution-blocks-6.png
+.. |step6| image:: images/execution-blocks-6.png
   :width: 50%
