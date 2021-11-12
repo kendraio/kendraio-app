@@ -217,9 +217,9 @@
       "prefix": "",
       "architect": {
         "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
+          "builder": "@nrwl/cypress:cypress",
           "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
+            "cypressConfig": "e2e/cypress.json",
             "devServerTarget": "kendraio-app:serve"
           },
           "configurations": {
