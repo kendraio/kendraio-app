@@ -31,6 +31,7 @@ Kendraio App
    workflow/intro
    workflow/sharing
    workflow/cloud
+   workflow/implementation
 
 .. toctree::
    :maxdepth: 1

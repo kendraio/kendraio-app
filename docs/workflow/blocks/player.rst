@@ -5,9 +5,10 @@ Play audio and with a waveform visual.
 Can be used with web-money - the Web Monetization block that allows streaming micropayments.
 
 Web Monetization example config:
---------------
+---------------------------------
 
 .. code-block:: json
+
     {
         "type": "player",
         "onPlay": [

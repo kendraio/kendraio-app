@@ -18,18 +18,15 @@ Default config
 Supported properties
 --------------------
 
-- **contextKey** (string) - the key of the value that will be saved into context.
-For example, if you use a key of "savedData" then the value will be available in the
-context as "context.savedData".
+- **contextKey** (string) The key of the value that will be saved into context.
+  For example, if you use a key of "savedData" then the value will be available in the context as "context.savedData".
 
-- **valueGetter** (string) [OPTIONAL] - the JMESPath of the value to store into
-context. This defaults to "data" so if it is omitted it stores the whole incoming
-value into context.
+- **valueGetter** (string) [OPTIONAL]  The JMESPath of the value to store into context. 
+  This defaults to "data" so if it is omitted it stores the whole incoming value into context.
 
 - **keyGetter** (string) [OPTIONAL] - the JMESPath of the key to use within context. 
-JMESPath does not allow for variable keys, so this makes it possible for batch code to
-write to different context locations. 
-
+  JMESPath does not allow for variable keys, so this makes it possible for batch code to
+  write to different context locations. 
 
 
 Usage patterns
