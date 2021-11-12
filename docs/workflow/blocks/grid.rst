@@ -120,65 +120,63 @@ to a content administration table.
       }
     }
 
-
-.. code-block:: json
-
 This example shows filters, checkbox selection, pagination, and valueFormatter
 options in use:
 
+.. code-block:: json
 
-  {
-      "type": "grid",
-      "gridOptions": {
-          "pagination": true,
-          "paginationPageSize": 20,
-          "rowSelection": "multiple"
-      },
-      "columnDefs": [
-          {
-              "headerCheckboxSelection": true,
-              "width": 50,
-              "resizable": false,
-              "checkboxSelection": true
-          },
-          {
-              "headerName": "Description",
-              "field": "Description",
-              "filter": "agTextColumnFilter",
-              "filterParams": {
-                  "applyButton": true,
-                  "resetButton": true
-              }
-          },
-          {
-              "headerName": "Department",
-              "field": "Department",
-              "filter": "agTextColumnFilter",
-              "filterParams": {
-                  "applyButton": true,
-                  "resetButton": true
-              }
-          },
-          {
-              "headerName": "Size / Weight",
-              "field": "Size / Weight",
-              "filter": "agTextColumnFilter",
-              "filterParams": {
-                  "applyButton": true,
-                  "resetButton": true
-              }
-          },
-          {
-              "headerName": "Price",
-              "field": "Price",
-              "width": 150,
-              "filter": "agNumberColumnFilter",
-              "valueFormatter": "join('', ['£', value])",
-              "filterParams": {
-                  "applyButton": true,
-                  "resetButton": true
-              },
-              "cellClass": "text-right"
-          }
-      ]
-  }
+    {
+        "type": "grid",
+        "gridOptions": {
+            "pagination": true,
+            "paginationPageSize": 20,
+            "rowSelection": "multiple"
+        },
+        "columnDefs": [
+            {
+                "headerCheckboxSelection": true,
+                "width": 50,
+                "resizable": false,
+                "checkboxSelection": true
+            },
+            {
+                "headerName": "Description",
+                "field": "Description",
+                "filter": "agTextColumnFilter",
+                "filterParams": {
+                    "applyButton": true,
+                    "resetButton": true
+                }
+            },
+            {
+                "headerName": "Department",
+                "field": "Department",
+                "filter": "agTextColumnFilter",
+                "filterParams": {
+                    "applyButton": true,
+                    "resetButton": true
+                }
+            },
+            {
+                "headerName": "Size / Weight",
+                "field": "Size / Weight",
+                "filter": "agTextColumnFilter",
+                "filterParams": {
+                    "applyButton": true,
+                    "resetButton": true
+                }
+            },
+            {
+                "headerName": "Price",
+                "field": "Price",
+                "width": 150,
+                "filter": "agNumberColumnFilter",
+                "valueFormatter": "join('', ['£', value])",
+                "filterParams": {
+                    "applyButton": true,
+                    "resetButton": true
+                },
+                "cellClass": "text-right"
+            }
+        ]
+    }
