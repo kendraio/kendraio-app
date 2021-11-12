@@ -52,7 +52,7 @@ The card balances are returned as a data object, with card ID's as the keys, lik
 
 
 To show the XRP card creation button:
---------------
+-------------------------------------
 
 .. code-block:: json
 

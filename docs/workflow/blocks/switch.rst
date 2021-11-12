@@ -35,6 +35,6 @@ The comparison made to select the branch is that it’s the first branch where v
     
 If you are looking to perform a test against a more variable value, you will need to use a more complex expression in the initial valueGetter. 
 
-  .. code-block:: JMESPath
+  .. code-block:: text
 
     (test && value) || (otherTest && someOtherValue)

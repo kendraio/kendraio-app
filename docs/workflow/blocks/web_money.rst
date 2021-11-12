@@ -7,7 +7,7 @@ Web Monetization block that allows streaming micropayments.
 Can be used with the Player block.
 
 Web Monetization example config:
---------------
+--------------------------------
 
 .. code-block:: json
 

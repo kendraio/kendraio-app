@@ -36,13 +36,13 @@ Filtering data
 
 Filter by the existence of a flag
 
-.. code-block:: jmespath
+.. code-block:: text
 
   data[?tags[?@ == 'deleted']]
 
 This will keep any item that has a "deleted" flag in the "tags" array. More useful in this instance would be it's inverse. 
 
-.. code-block:: jmespath
+.. code-block:: text
 
   data[?!(tags[?@ == 'deleted'])]
 
@@ -54,7 +54,7 @@ Adding a new key to an object
 
 If you're wrangling data from one form to another, you may need to add new keys. 
 
-.. code-block:: jmespath
+.. code-block:: text
 
   data[*].merge(@, { key: value })
 
@@ -63,7 +63,7 @@ Setting a value based on a flag
 
 If you want to add a new value to your object based on whether or not another flag is set in an array, you can do something like this. 
 
-.. code-block:: jmespath
+.. code-block:: text
 
    data[*].merge(@,{deleted: @.tags[?@ == `deleted`]})
 
@@ -74,7 +74,7 @@ Accessing context from within a merge
 When using a merge, or similar function, paths become relative to your current item. 
 If you need to access a value from beyond this context, you need to use the "$" operator to access the root of the data. 
 
-.. code-block:: jmespath
+.. code-block:: text
 
   data[*].merge(@,{      
       exists:contains($.context.flowsExisting || [''], join('-',[@.adapterName,@.workflowId]))
@@ -89,11 +89,11 @@ A more advanced version of the object merge can involve looking up a specific en
 
 In this example, we merge two object arrays, and look up a unique key from a list, and then add that key so that we can create a reference. 
 
-.. code-block:: jmespath
+.. code-block:: text
 
   data && merge(data, {track: uniqBy(data.track, 'key')})
 
-.. code-block:: jmespath
+.. code-block:: text
 
 find($.data.licensor, 'name', "LICENSOR NAME").id,   
 
@@ -105,7 +105,7 @@ Merging two arrays
 If you have two arrays, and want to combine them, you can use the flatten operator "[]". 
 For example, if you want to combine information from a form with data you've previously saved to context, you can merge the two arrays like this. 
 
-.. code-block:: jmespath
+.. code-block:: text
 
   [context.saved, [data]][]
 
