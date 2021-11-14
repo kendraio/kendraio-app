@@ -139,24 +139,23 @@
                 }
               ],
               "optimization": {
-                "scripts": true,
+                "scripts": false,
                 "styles": {
-                  "minify": true,
+                  "minify": false,
                   "inlineCritical": false
                 },
-                "fonts": true
+                "fonts": false
               },
-              "outputHashing": "all",
               "sourceMap": false,
               "namedChunks": false,
-              "extractLicenses": true,
+              "extractLicenses": false,
               "vendorChunk": false,
-              "buildOptimizer": true,
+              "buildOptimizer": false,
               "budgets": [
                 {
                   "type": "initial",
                   "maximumWarning": "10mb",
-                  "maximumError": "10mb"
+                  "maximumError": "23mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -166,7 +165,7 @@
               "serviceWorker": true
             }
           },
-          "defaultConfiguration": ""
+          "defaultConfiguration": "dev"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -223,9 +222,6 @@
             "devServerTarget": "kendraio-app:serve"
           },
           "configurations": {
-            "production": {
-              "devServerTarget": "kendraio-app:serve:production"
-            }
           }
         }
       }
