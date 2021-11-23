@@ -33,10 +33,24 @@ Clone the repo.
 Run `npm install`
 Start the development server using `npm run serve:dev`
 
+
+Running End-to-end tests with the development environment
+------------------------------------------
+`npm run e2e:autorun` is good for running tests on an already running server once automatically.
+
+`npm run e2e:retest_on_change` will rerun tests automatically upon file changes.
+
+`npm run e2e:serve_and_test` will start the dev server, and run headless tests once automatically and stop. It should work in CI, producing a HTML report file and JSON file at `cypress/results/mochawesome.json` on first run.
+
+`npm run e2e:serve_and_retest_on_change` will start the dev server, and rerun tests automatically upon file changes, good for general develoment.
+
+The existing `npx ng e2e` Angular command works too, though requires clicking on the set of tests that need running. It builds and runs the server then runs E2E tests once.
+
+
 Adding a "Block" (i.e. Task for the Flow editor)
 --------------------------------------------------
 
-Use the Angular CLI to scaffold a new block: `ng g c blocks/my-block`
+Use the Angular CLI to scaffold a new block: `npx ng g c blocks/my-block`
 Edit the generated my-block.component.ts to make it a sub-class of BaseBlock.
 Take a look at one of the more recent blocks as an example, eg the AudioPlayer:
 
