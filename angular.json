@@ -207,21 +207,50 @@
               "src/manifest.json"
             ]
           }
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "kendraio-app:serve"
+          },
+          "configurations": {
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "kendraio-app:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+          }
         }
       }
     },
     "kendraio-app-e2e": {
-      "root": "e2e/",
+      "root": "",
       "projectType": "application",
       "prefix": "",
       "architect": {
         "e2e": {
-          "builder": "@nrwl/cypress:cypress",
+          "builder": "@cypress/schematic:cypress",
           "options": {
-            "cypressConfig": "e2e/cypress.json",
-            "devServerTarget": "kendraio-app:serve"
+            "devServerTarget": "kendraio-app-e2e:serve:dev",
+            "browser": "electron",
+            "configFile": "cypress.json"
           },
           "configurations": {
+            "dev": {
+              "devServerTarget": "kendraio-app-e2e:serve:dev"
+            }
           }
         }
       }
