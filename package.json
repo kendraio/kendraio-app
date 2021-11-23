@@ -7,8 +7,6 @@
   "scripts": {
     "start:dev": "npm-run-all serve:dev",
     "serve:dev": "ng serve",
-    "serve:devE2E": "ng e2e --watch=true --headed=true",
-    "e2e": "ng e2e --watch=true --headed=true --skipServe=true",
     "build:local": "ng build",
     "build:tagger": "ng build ngx-image-tagger",
     "build:dev": "ng build --configuration=dev",
