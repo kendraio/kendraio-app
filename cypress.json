@@ -5,5 +5,12 @@
   "screenshotsFolder": "cypress/screenshots",
   "pluginsFile": false,
   "fixturesFolder": "cypress/fixtures",
-  "baseUrl": "http://localhost:4200"
+  "baseUrl": "http://localhost:4200",  
+  "reporter": "mochawesome",
+  "reporterOptions": {
+     "reportDir": "cypress/results",
+     "overwrite": false,
+     "html": true,
+     "json": true
+  }
 }
