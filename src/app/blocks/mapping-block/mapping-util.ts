@@ -37,9 +37,8 @@ const search = decorate({
   uuid: {
     _func: ([name, NAMESPACE_STRING]) => {
       if (name) {
-        const NAMESPACE_UUID = uuid.v5(NAMESPACE_STRING || 'https://app.kendra.io', uuid.v5.URL);
-        // TODO: delete this line, as it is just to try getting Vercel CI to run Cypress tests
-        // TODO: and this
+        const NAMESPACE_UUID = uuid.v5(NAMESPACE_STRING || 'https://app.kendra.io_DELETE_ME_ALSO!', uuid.v5.URL);
+        // TODO: delete above test
         return uuid.v5(name, NAMESPACE_UUID);
       } else {
         return uuid.v4();
