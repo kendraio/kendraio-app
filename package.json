@@ -17,8 +17,12 @@
     "update:function:cache": "mv dist/index.html functions/index.html",
     "//comment1": "NB: Dynamic index html generation (SSO)",
     "//comment2": "Before deploy, do prod build, and move index.html to functions folder",
-    "deploy": "mv dist/index.html functions/ && firebase deploy --only functions,hosting"
-  },
+    "deploy": "mv dist/index.html functions/ && firebase deploy --only functions,hosting",
+    "e2e:autorun": "cypress run --headed --no-exit",
+    "e2e:retest_on_change": "nodemon -e js,jsx,ts,tsx,css,scss --exec 'cypress run --headed --no-exit'",
+    "e2e:serve_and_test": "start-server-and-test serve:dev http://localhost:4200 'cypress run'",
+    "e2e:serve_and_retest_on_change": "start-server-and-test serve:dev http://localhost:4200 'npm run cypress:retest_on_change'"
+     },
   "private": true,
   "dependencies": {
     "@angular/animations": "^13.0.0",
@@ -135,6 +139,7 @@
     "ng-packagr": "^13.0.0",
     "npm-run-all": "^4.1.5",
     "serve": "^13.0.2",
+    "start-server-and-test": "^1.14.0",
     "ts-node": "^10.4.0",
     "tslib": "^2.3.1",
     "tslint": "^6.1.3",
