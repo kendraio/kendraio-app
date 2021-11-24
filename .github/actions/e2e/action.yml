@@ -1,0 +1,18 @@
+name: "e2e"
+description: "Run Cypress tests against a Vercel deployment"
+branding:
+  icon: "alert-circle"
+  color: "green"
+inputs:
+  vercel-token:
+    description: "Vercel API token"
+    required: true
+  repo:
+    description: "Repository name"
+    required: true
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.vercel-token }}
+    - ${{ inputs.repo }}
