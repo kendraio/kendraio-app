@@ -6,7 +6,7 @@ jobs:
   regression:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/e2e
+      - uses: ../actions/e2e
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           repo: kendraio-app&teamId=kendraio
