@@ -2,7 +2,7 @@ FROM cypress/included:3.2.0
 
 # https://docs.cypress.io/guides/continuous-integration/introduction#Machine-requirements
 RUN apt-get update && apt-get install -y curl jq
-RUN npm install npm@latest
+RUN npm install -g npm@latest
 # Copies your code file from your action repository to the filesystem path `/` of the container
 COPY entrypoint.sh /entrypoint.sh
 
