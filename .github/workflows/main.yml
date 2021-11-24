@@ -1,4 +1,4 @@
-name: CI
+name: firebase_deploy
 
 on:
   push:
@@ -46,14 +46,3 @@ jobs:
           args: deploy --only hosting,functions
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
-  tests:
-    name: tests
-    on: deployment
-    jobs:
-      regression:
-        runs-on: ubuntu-latest
-        steps:
-          - uses: actions/vercel-cypress@v1
-            with:
-              vercel-token: ${{ secrets.VERCEL_TOKEN }}
-              repo: kendraio-app&teamId=kendraio
