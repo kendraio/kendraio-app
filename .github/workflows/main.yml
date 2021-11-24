@@ -46,8 +46,8 @@ jobs:
           args: deploy --only hosting,functions
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
-  test:
-    name: test
+  tests:
+    name: tests
     on: deployment
     jobs:
       regression:
