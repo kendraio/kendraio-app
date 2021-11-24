@@ -1,8 +1,8 @@
 describe('workspace-project App', () => {
-  beforeEach(() => cy.visit('http://localhost:4200/'));
+  beforeEach(() => cy.visit('/'));
 
   it('should load a saved flow and assert a uuid output exists', () => {
-    cy.visit('http://localhost:4200/workflow-builder?data=NobwRALgngDgpmAXGAtgQxjAlgOwOZgA0qG2+SYArpVgCYAUA5BHAM4SMCUYAvoeNHgVacAEaUCxAPbwcSAIzFWACykB3AMJScLAB4QkAMzQAbVnB4BdIA');
+    cy.visit('/workflow-builder?data=NobwRALgngDgpmAXGAtgQxjAlgOwOZgA0qG2+SYArpVgCYAUA5BHAM4SMCUYAvoeNHgVacAEaUCxAPbwcSAIzFWACykB3AMJScLAB4QkAMzQAbVnB4BdIA');
     cy.contains('3ab8d0cd-7b76-5741-8bc9-5725650dc435', { timeout: 10000 });
   });
 
