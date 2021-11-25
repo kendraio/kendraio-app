@@ -1,13 +1,14 @@
 #!/bin/sh -l
-DEPLOYMENT_URL=$(curl --insecure -H "Content-type: application/json" -H "Authorization: Bearer $1" "https://api.vercel.com/v5/deployments?meta-githubRepo=${2}" | jq -r '.deployments[0].url')
+DEPLOYMENT_URL=$(curl --silent --insecure -H "Content-type: application/json" -H "Authorization: Bearer $1" "https://api.vercel.com/v5/deployments?meta-githubRepo=${2}" | jq -r '.deployments[0].url')
 echo "Waiting for url to load:$DEPLOYMENT_URL"
-STATE=$(curl --insecure -H "Content-type: application/json" -H "Authorization: Bearer $1" "https://api.vercel.com/v5/deployments?meta-githubRepo=${2}" | jq -r '.deployments[0].state')
-
+STATE=$(curl --silent --insecure -H "Content-type: application/json" -H "Authorization: Bearer $1" "https://api.vercel.com/v5/deployments?meta-githubRepo=${2}" | jq -r '.deployments[0].state')
+i=0
 while [ "$STATE" != "READY" ]
 do
-  echo "waiting"    
-  sleep 5
-  STATE=$(curl --insecure -H "Content-type: application/json" -H "Authorization: Bearer $1" "https://api.vercel.com/v5/deployments?meta-githubRepo=${2}" | jq -r '.deployments[0].state')
+  echo "Waited $i seconds"    
+  sleep 2
+  i=$((i+2))
+  STATE=$(curl --silent --insecure -H "Content-type: application/json" -H "Authorization: Bearer $1" "https://api.vercel.com/v5/deployments?meta-githubRepo=${2}" | jq -r '.deployments[0].state')
 done
 
 echo "The deployment at:$DEPLOYMENT_URL should be complete"
