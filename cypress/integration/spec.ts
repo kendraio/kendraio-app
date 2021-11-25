@@ -14,7 +14,6 @@ describe('workspace-project App', () => {
     cy.contains('settings');
     cy.get('mat-toolbar > button mat-icon').contains('settings').click();
     cy.get('app-workflow-sidenav').contains('delete_forever').click();
-    cy.wait(1000);
     cy.get('app-workflow-sidenav').contains('Mapping').should('not.exist');
     cy.get('app-workflow-sidenav').contains('Add Task').click();
     cy.contains('Select Task');
