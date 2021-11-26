@@ -9,12 +9,18 @@ Kendraio App is an open source dashboard application for rights owners, music ma
 - More information: <https://www.kendra.io/kendraio-app>
 - Privacy policy: <https://www.kendra.io/privacy>
 
-[![vercel_deployment_tests](https://github.com/kendraio/kendraio-app/actions/workflows/vercel_deployment_tests.yml/badge.svg)](https://github.com/kendraio/kendraio-app/actions/workflows/vercel_deployment_tests.yml)
+[![deployment_tests](https://img.shields.io/github/workflow/status/kendraio/kendraio-app/vercel_deployment_tests)](https://github.com/kendraio/kendraio-app/actions/workflows/vercel_deployment_tests.yml)
+
 ![Uptime Robot](https://img.shields.io/uptimerobot/ratio/7/m783523815-565ba269d3dc13ded01aae34)
+
 ![Version](https://img.shields.io/github/package-json/v/kendraio/kendraio-app/main)
+
 ![License](https://img.shields.io/github/license/kendraio/kendraio-app)
+
 ![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/kendraio/kendraio-app)
+
 [![Documentation Status](https://readthedocs.org/projects/kendraio-app/badge/?version=latest)](https://kendraio-app.readthedocs.io/en/latest/?badge=latest)
+
 ![Angular Version](https://img.shields.io/github/package-json/dependency-version/kendraio/kendraio-app/@angular/core)
 
 Contribute
