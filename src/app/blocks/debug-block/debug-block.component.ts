@@ -1,7 +1,7 @@
 import {Component, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
 import JSONFormatter from 'json-formatter-js';
 import {clone, get, isArray, isObject} from 'lodash-es';
-
+import { SharedContextService } from 'src/app/services/shared-context.service';
 @Component({
   selector: 'app-debug-block',
   templateUrl: './debug-block.component.html',
@@ -22,7 +22,8 @@ export class DebugBlockComponent implements OnInit, OnChanges {
   consoleLabel = 'debug block';
 
   constructor(
-    private readonly zone: NgZone
+    private readonly zone: NgZone,
+    private sharedContext:SharedContextService
   ) { }
 
   ngOnInit() {
@@ -43,7 +44,7 @@ export class DebugBlockComponent implements OnInit, OnChanges {
       this.zone.run(() => {
         if (!!this.modelOutput) {
           // Replace #modelOutput DIV contents with formatted JSON
-          const debugData = this.showContext ? { data: this.model, context: this.context } : this.model;
+          const debugData = this.showContext ? { data: this.model, context: this.context, shared: this.sharedContext._context } : this.model;
           const formatter = new JSONFormatter(debugData, this.open);
           while (this.modelOutput.nativeElement.firstChild) {
             this.modelOutput.nativeElement.removeChild(this.modelOutput.nativeElement.firstChild);

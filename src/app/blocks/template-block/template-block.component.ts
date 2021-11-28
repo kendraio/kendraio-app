@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angula
 import {clone, get} from 'lodash-es';
 import { compile } from 'handlebars/dist/handlebars.js';
 import DOMPurify from './dom-sanitiser';
+import { SharedContextService } from 'src/app/services/shared-context.service';
 
 @Component({
   selector: 'app-template-block',
@@ -18,17 +19,23 @@ export class TemplateBlockComponent implements OnInit, OnChanges {
 
   innerHtml = '';
 
-  constructor() { }
+  constructor(private sharedContext: SharedContextService) {    
+    sharedContext.shared$.subscribe(incoming => { setTimeout(() =>{this.render()}) });
+  }
 
   ngOnInit() {
     // this.updateOutputDisplay();
   }
 
   ngOnChanges(changes) {
-    // TODO: Allow loading template from Adapter
-    this.innerHtml = DOMPurify.sanitize(
-      compile(get(this.config, 'template', ''))({ context: this.context, data: this.model })
-    );
+    // TODO: Allow loading template from Adapter    
+    this.render();
     this.output.emit(clone(this.model));
+  }
+
+  render(){
+    this.innerHtml = DOMPurify.sanitize(
+      compile(get(this.config, 'template', ''))({ context: this.context, data: this.model, shared: this.sharedContext._context })
+    );
   }
 }
