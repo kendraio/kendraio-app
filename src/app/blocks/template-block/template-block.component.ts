@@ -34,8 +34,13 @@ export class TemplateBlockComponent implements OnInit, OnChanges {
   }
 
   render(){
-    this.innerHtml = DOMPurify.sanitize(
-      compile(get(this.config, 'template', ''))({ context: this.context, data: this.model, shared: this.sharedContext._context })
-    );
+    try {
+      this.innerHtml = DOMPurify.sanitize(
+        
+          compile(get(this.config, 'template', ''))({ context: this.context, data: this.model, shared: this.sharedContext._context })      
+      );
+    } catch {
+    // hide errors for now
+    }
   }
 }
