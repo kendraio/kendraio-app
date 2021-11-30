@@ -89,7 +89,7 @@
     "qs": "^6.10.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.6.7",
-    "showdown": "^1.9.1",
+    "showdown": "^1.9.0",
     "text-mask-addons": "^3.8.0",
     "tus-js-client": "^2.3.0",
     "uuid": "^8.3.2",
