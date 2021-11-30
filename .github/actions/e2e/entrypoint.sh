@@ -1,5 +1,7 @@
 #!/bin/sh -l
 npm install
+echo "Expected NPM install to have finished!"
+npm install
 echo "Starting Karma unit tests"
 npx ng test -- --watch=false
 
