@@ -25,7 +25,19 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Electron'],
+    customLaunchers: {
+      CustomElectron: {
+        base: 'Electron',
+        flags: ['--no-sandbox'],
+        browserWindowOptions: {
+          webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false
+          }
+        }
+      }
+    },
+    browsers: ['CustomElectron'],
     singleRun: false,
     restartOnFileChange: true,
     failOnEmptyTestSuite: false
