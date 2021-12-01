@@ -1,25 +1,35 @@
 #!/bin/sh -l
 echo "::group::General setup"
+echo '::echo::off'
 npm install
 echo "Expected NPM install to have finished!"
 echo "::endgroup::"
 echo "::group::Karma unit tests"
 echo "Starting Karma unit tests"
+echo '::echo::on'
 xvfb-run --auto-servernum npx ng test -- --watch=false
+if [ $? -ne 0 ]; then
+  echo "::error::Karma unit tests failed"
+fi
 echo "::endgroup::"
 echo "::group::E2E Test Setup"
+echo '::echo::off'
 DEPLOYMENT_URL=$(curl --silent --insecure -H "Content-type: application/json" -H "Authorization: Bearer $1" "https://api.vercel.com/v5/deployments?meta-githubRepo=${2}" | jq -r '.deployments[0].url')
+echo '::echo::on'
 echo "Waiting for url to load:$DEPLOYMENT_URL"
+echo '::echo::off'
 STATE=$(curl --silent --insecure -H "Content-type: application/json" -H "Authorization: Bearer $1" "https://api.vercel.com/v5/deployments?meta-githubRepo=${2}" | jq -r '.deployments[0].state')
 i=0
 while [ "$STATE" != "READY" ]
 do
-  echo "Waited $i seconds"    
+  echo '::echo::on'
+  echo "Waited $i seconds"
+  echo '::echo::off'    
   sleep 2
   i=$((i+2))
   STATE=$(curl --silent --insecure -H "Content-type: application/json" -H "Authorization: Bearer $1" "https://api.vercel.com/v5/deployments?meta-githubRepo=${2}" | jq -r '.deployments[0].state')
 done
-
+echo '::echo::on'
 echo "The deployment at:$DEPLOYMENT_URL should be complete"
 echo "::endgroup::"
 echo "URL loaded, running cypress"
