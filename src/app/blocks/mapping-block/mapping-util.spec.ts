@@ -6,7 +6,7 @@ import { mappingUtility } from './mapping-util';
 describe('MappingUtil', () => {
 
     it('should return the same value as is set', () => {
-        expect(mappingUtility('', "uuid('test')")).toBe('3ab8d0cd-7b76-5741-8bc9-5725650dc435');
+        expect(mappingUtility('', "uuid('test')")).toBe('DELETE_ME_3ab8d0cd-7b76-5741-8bc9-5725650dc435');
     });
 
 });
