@@ -4,12 +4,16 @@ echo '::echo::off'
 npm install
 echo "Expected NPM install to have finished!"
 echo "::endgroup::"
+
+FAILURE_COUNT=0
+
 echo "::group::Karma unit tests"
 echo "Starting Karma unit tests"
 echo '::echo::on'
 xvfb-run --auto-servernum npx ng test -- --watch=false
 if [ $? -ne 0 ]; then
   echo "::error::Karma unit tests failed"
+  FAILURE_COUNT=$((FAILURE_COUNT+1))
 fi
 echo "::endgroup::"
 echo "::group::E2E Test Setup"
@@ -35,4 +39,11 @@ echo "::endgroup::"
 echo "URL loaded, running cypress"
 echo "::group::Cypress E2E tests"
 npx cypress run --config baseUrl="https://$DEPLOYMENT_URL"
+if [ $? -ne 0 ]; then
+  echo "::error::Cypress E2E tests failed"
+  FAILURE_COUNT=$((FAILURE_COUNT+1))
+fi
 echo "::endgroup::"
+
+echo $FAILURE_COUNT test groups failed
+exit $FAILURE_COUNT
