@@ -18,10 +18,10 @@
     "//comment1": "NB: Dynamic index html generation (SSO)",
     "//comment2": "Before deploy, do prod build, and move index.html to functions folder",
     "deploy": "mv dist/index.html functions/ && firebase deploy --only functions,hosting",
-    "e2e:autorun": "cypress run --headed --no-exit",
-    "e2e:retest_on_change": "nodemon -e js,jsx,ts,tsx,css,scss --exec 'cypress run --headed --no-exit'",
-    "e2e:serve_and_test": "npx cypress install; start-server-and-test serve:dev http://localhost:4200 'cypress run'",
-    "e2e:serve_and_retest_on_change": "start-server-and-test serve:dev http://localhost:4200 'npm run e2e:retest_on_change'"
+    "e2e:serve_and_retest_on_change": "start-server-and-test serve:dev http://localhost:4200 'npm run e2e:retest_on_change'",
+    "e2e:retest_on_change": "nodemon -e js,jsx,ts,tsx,css,scss --exec 'ng test -- --watch=false; cypress run --headed --no-exit'",
+    "e2e:autorun": "ng test -- --watch=false; cypress run --headed --no-exit",
+    "e2e:serve_and_test": "npx cypress install; start-server-and-test serve:dev http://localhost:4200 'ng test -- --watch=false; cypress run'"
   },
   "private": true,
   "dependencies": {
