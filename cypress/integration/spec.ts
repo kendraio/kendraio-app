@@ -46,4 +46,13 @@ describe('workspace-project App', () => {
     cy.contains('Kendraio App');
   });
 
+  it('should display saved workflows', () => {
+    cy.intercept('GET', 'https://app.kendra.io/api', {
+      fixture: 'flowList.json' }
+      ).as('flowList.json');
+    
+    cy.visit('/workflowCloud/listWorkflows');
+    cy.contains('Made up flow A');
+  });
+
 });

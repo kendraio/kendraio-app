@@ -1,0 +1,22 @@
+[
+    {
+        "id": "someIDA",
+        "workflowId": "madeUpFlowIDA",
+        "title": "Made up flow A",
+        "tags": [],
+        "adapterName": "someAdapterA",
+        "created": "2021-03-01T12:31:07.310Z",
+        "updated": "2021-03-01T12:31:07.310Z",
+        "modified": "2021-03-01T12:31:07.310Z"
+    },
+    {
+        "id": "someIDB",
+        "workflowId": "madeUpFlowIDB",
+        "title": "Made up flow B",
+        "tags": [],
+        "adapterName": "someAdapterB",
+        "created": "2021-01-28T15:44:30.871Z",
+        "updated": "2021-01-28T15:44:30.871Z",
+        "modified": "2021-01-28T15:44:30.871Z"
+    }
+]
