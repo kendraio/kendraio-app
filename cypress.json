@@ -12,5 +12,6 @@
      "overwrite": false,
      "html": true,
      "json": true
-  }
+  },
+  "watchForFileChanges":false
 }
