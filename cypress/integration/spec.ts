@@ -1,13 +1,32 @@
-describe('workspace-project App', () => {
-  beforeEach(() => cy.visit('/'));
+import { loadFlowCode } from '../support/helper';
+// tslint:disable: quotemark
 
-  it('should load a saved flow and assert a uuid output exists', () => {
-    cy.visit('/workflow-builder?data=NobwRALgngDgpmAXGAtgQxjAlgOwOZgA0qG2+SYArpVgCYAUA5BHAM4SMCUYAvoeNHgVacAEaUCxAPbwcSAIzFWACykB3AMJScLAB4QkAMzQAbVnB4BdIA');
+describe('workspace-project App', () => {
+
+  beforeEach(() => {
+    // Prevent external network request for adapter config
+    cy.intercept('GET', 'https://kendraio.github.io/kendraio-adapter/config.json', {
+       fixture: 'adapterConfig.json' }
+       ).as('adapterConfig.json');
+  });
+
+  it('should assert the mapping block produces the expected UUID string output', () => {
+    loadFlowCode([
+      {
+        "type": "mapping",
+        "mapping": "uuid('test')"
+      },
+      {
+        "type": "debug",
+        "open": 1,
+        "showContext": false
+      }
+    ]);
     cy.contains('3ab8d0cd-7b76-5741-8bc9-5725650dc435', { timeout: 10000 });
   });
 
   it('should make new workflow with mapping block', () => {
-    //cy.contains('Kendraio App');
+    cy.visit('/');
     cy.contains('menu');
     cy.get('app-root mat-toolbar').contains('menu').click();
     cy.contains('workflow builder').click();
@@ -23,6 +42,7 @@ describe('workspace-project App', () => {
   });
 
   it('should display welcome message', () => {
+    cy.visit('/');
     cy.contains('Kendraio App');
   });
 
