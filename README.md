@@ -38,15 +38,15 @@ Setting up a local development environment
 You will need to install node, npm, and the Angular CLI.
 Clone the repo.
 Run `npm install`
-Start the development server using `npm run serve:dev`
+You can start the development server using `npm run serve:dev` or use `npm run e2e:serve_and_retest_on_change`, which will run the dev server and tests upon changes.
 
 
 Running End-to-end tests with the development environment
 ------------------------------------------
 
-`npm run e2e:serve_and_retest_on_change` will start the dev server, and run unit and E2E tests automatically upon file changes, good for general develoment.
+`npm run e2e:serve_and_retest_on_change` will start the dev server, and run unit and E2E tests automatically upon file changes. It is useful for general local develoment.
 
-`npm run e2e:retest_on_change` will rerun unit and E2E tests automatically upon file changes, it needs a running server.
+`npm run e2e:retest_on_change` will re-run unit and E2E tests automatically upon file changes, but it needs a running server.
 
 `npm run e2e:autorun` is good for automatically running unit and E2E tests ONCE, using an already running server.
 
