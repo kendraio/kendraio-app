@@ -3,6 +3,7 @@ echo "::group::General setup"
 echo '::echo::off'
 # Assert the key exists, and exit with code 404 if not
 echo '::echo::on'
+export CYPRESS_RECORD_KEY=$3
 echo -n "$CYPRESS_RECORD_KEY" | sha1sum | awk '{print $1}'
 if [ ! -f "$CYPRESS_RECORD_KEY" ]; then
   echo "::error:: Could not find cypress record key"

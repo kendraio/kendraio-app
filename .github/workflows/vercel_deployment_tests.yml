@@ -7,7 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/actions/e2e
+      - uses: ./.github/actions/tests
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           repo: kendraio-app&teamId=kendraio
+          cypress-record-key: ${{ secrets.CYPRESS_RECORD_KEY }}
