@@ -10,7 +10,7 @@ inputs:
   repo:
     description: "Repository name"
     required: true
-  cypress-record-key:
+  record:
     description: "A secret key for recording Cypress results to their dashboard service"
     required: true
 runs:
@@ -19,4 +19,4 @@ runs:
   args:
     - ${{ inputs.vercel-token }}
     - ${{ inputs.repo }}
-    - ${{ inputs.cypress-record-key }}
+    - ${{ inputs.record }}
