@@ -38,6 +38,7 @@ echo "The deployment at:$DEPLOYMENT_URL should be complete"
 echo "::endgroup::"
 echo "URL loaded, running cypress"
 echo "::group::Cypress E2E tests"
+export CYPRESS_RECORD_KEY="$3"
 npx cypress run --record --config baseUrl="https://$DEPLOYMENT_URL"
 if [ $? -ne 0 ]; then
   echo "::error::Cypress E2E tests failed"
