@@ -1,6 +1,16 @@
 #!/bin/sh -l
 echo "::group::General setup"
 echo '::echo::off'
+export CYPRESS_RECORD_KEY="$3"
+# Assert the key exists, and exit with code 404 if not
+echo '::echo::on'
+echo -n "$CYPRESS_RECORD_KEY" | sha1sum | awk '{print $1}'
+if [ ! -f "$CYPRESS_RECORD_KEY" ]; then
+  echo "::error:: Could not find cypress record key"
+  exit 404
+fi
+echo '::echo::off'
+
 npm install
 echo "Expected NPM install to have finished!"
 echo "::endgroup::"
@@ -38,8 +48,8 @@ echo "The deployment at:$DEPLOYMENT_URL should be complete"
 echo "::endgroup::"
 echo "URL loaded, running cypress"
 echo "::group::Cypress E2E tests"
-export CYPRESS_RECORD_KEY="$3"
-npx cypress run --record --config baseUrl="https://$DEPLOYMENT_URL"
+
+npx cypress run --record --key $3 --config baseUrl="https://$DEPLOYMENT_URL"
 if [ $? -ne 0 ]; then
   echo "::error::Cypress E2E tests failed"
   FAILURE_COUNT=$((FAILURE_COUNT+1))
