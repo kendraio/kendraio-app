@@ -10,9 +10,13 @@ inputs:
   repo:
     description: "Repository name"
     required: true
+  cypress-record-key:
+    description: "A secret key for recording Cypress results to their dashboard service"
+    required: false
 runs:
   using: "docker"
   image: "Dockerfile"
   args:
     - ${{ inputs.vercel-token }}
     - ${{ inputs.repo }}
+    - ${{ inputs.cypress-record-key }}

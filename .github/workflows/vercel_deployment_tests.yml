@@ -11,3 +11,4 @@ jobs:
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           repo: kendraio-app&teamId=kendraio
+          cypress-record-key: ${{ secrets.CYPRESS_RECORD_KEY }}
