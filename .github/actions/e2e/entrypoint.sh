@@ -1,7 +1,6 @@
 #!/bin/sh -l
 echo "::group::General setup"
 echo '::echo::off'
-export CYPRESS_RECORD_KEY="$3"
 # Assert the key exists, and exit with code 404 if not
 echo '::echo::on'
 echo -n "$CYPRESS_RECORD_KEY" | sha1sum | awk '{print $1}'
