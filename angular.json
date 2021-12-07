@@ -139,24 +139,23 @@
                 }
               ],
               "optimization": {
-                "scripts": true,
+                "scripts": false,
                 "styles": {
-                  "minify": true,
+                  "minify": false,
                   "inlineCritical": false
                 },
-                "fonts": true
+                "fonts": false
               },
-              "outputHashing": "all",
               "sourceMap": false,
               "namedChunks": false,
-              "extractLicenses": true,
+              "extractLicenses": false,
               "vendorChunk": false,
-              "buildOptimizer": true,
+              "buildOptimizer": false,
               "budgets": [
                 {
                   "type": "initial",
                   "maximumWarning": "10mb",
-                  "maximumError": "10mb"
+                  "maximumError": "23mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -166,7 +165,7 @@
               "serviceWorker": true
             }
           },
-          "defaultConfiguration": ""
+          "defaultConfiguration": "dev"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -208,47 +207,50 @@
               "src/manifest.json"
             ]
           }
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "kendraio-app:serve"
+          },
+          "configurations": {
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "kendraio-app:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+          }
         }
       }
     },
     "kendraio-app-e2e": {
-      "root": "e2e/",
+      "root": "",
       "projectType": "application",
       "prefix": "",
       "architect": {
         "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
+          "builder": "@cypress/schematic:cypress",
           "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "kendraio-app:serve"
+            "devServerTarget": "kendraio-app-e2e:serve:dev",
+            "browser": "electron",
+            "configFile": "cypress.json"
           },
           "configurations": {
-            "production": {
-              "devServerTarget": "kendraio-app:serve:production"
+            "dev": {
+              "devServerTarget": "kendraio-app-e2e:serve:dev"
             }
-          }
-        }
-      }
-    },
-    "ngx-tagger": {
-      "root": "projects/ngx-tagger",
-      "sourceRoot": "projects/ngx-tagger/src",
-      "projectType": "library",
-      "prefix": "ngx",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/ngx-tagger/tsconfig.lib.json",
-            "project": "projects/ngx-tagger/ng-package.json"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/ngx-tagger/src/test.ts",
-            "tsConfig": "projects/ngx-tagger/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-tagger/karma.conf.js"
           }
         }
       }

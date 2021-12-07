@@ -9,11 +9,18 @@ Kendraio App is an open source dashboard application for rights owners, music ma
 - More information: <https://www.kendra.io/kendraio-app>
 - Privacy policy: <https://www.kendra.io/privacy>
 
+[![deployment_tests](https://img.shields.io/github/workflow/status/kendraio/kendraio-app/vercel_deployment_tests)](https://github.com/kendraio/kendraio-app/actions/workflows/vercel_deployment_tests.yml)
+
 ![Uptime Robot](https://img.shields.io/uptimerobot/ratio/7/m783523815-565ba269d3dc13ded01aae34)
+
 ![Version](https://img.shields.io/github/package-json/v/kendraio/kendraio-app/main)
+
 ![License](https://img.shields.io/github/license/kendraio/kendraio-app)
-![Dependencies Status](https://img.shields.io/david/kendraio/kendraio-app)
+
+![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/kendraio/kendraio-app)
+
 [![Documentation Status](https://readthedocs.org/projects/kendraio-app/badge/?version=latest)](https://kendraio-app.readthedocs.io/en/latest/?badge=latest)
+
 ![Angular Version](https://img.shields.io/github/package-json/dependency-version/kendraio/kendraio-app/@angular/core)
 
 Contribute
@@ -31,12 +38,27 @@ Setting up a local development environment
 You will need to install node, npm, and the Angular CLI.
 Clone the repo.
 Run `npm install`
-Start the development server using `npm run serve:dev`
+You can start the development server using `npm run serve:dev` or use `npm run e2e:serve_and_retest_on_change`, which will run the dev server and tests upon changes.
+
+
+Running End-to-end tests with the development environment
+------------------------------------------
+
+`npm run e2e:serve_and_retest_on_change` will start the dev server, and run unit and E2E tests automatically upon file changes. It is useful for general local develoment.
+
+`npm run e2e:retest_on_change` will re-run unit and E2E tests automatically upon file changes, but it needs a running server.
+
+`npm run e2e:autorun` is good for automatically running unit and E2E tests ONCE, using an already running server.
+
+`npm run e2e:serve_and_test` will start the dev server, and run unit and E2E headless tests once automatically and stop. It might even work in CI, producing a HTML report file and JSON file at `cypress/results/mochawesome.json` on first run.
+
+The existing `npx ng e2e` Angular command works too, but requires clicking on the set of tests that need running. It builds and runs the server then runs E2E tests once.
+
 
 Adding a "Block" (i.e. Task for the Flow editor)
 --------------------------------------------------
 
-Use the Angular CLI to scaffold a new block: `ng g c blocks/my-block`
+Use the Angular CLI to scaffold a new block: `npx ng g c blocks/my-block`
 Edit the generated my-block.component.ts to make it a sub-class of BaseBlock.
 Take a look at one of the more recent blocks as an example, eg the AudioPlayer:
 
