@@ -52,7 +52,7 @@ describe('workspace-project App', () => {
       ).as('flowList.json');
     
     cy.visit('/workflowCloud/listWorkflows');
-    cy.contains('Made up flow A');
+    cy.contains('Made up flow A', { timeout: 10000 });
   });
 
 });
