@@ -6,11 +6,14 @@ describe('workspace-project App', () => {
   beforeEach(() => {
     // Prevent external network request for adapter config
     cy.intercept('GET', 'https://kendraio.github.io/kendraio-adapter/config.json', {
-       fixture: 'adapterConfig.json' }
-       ).as('adapterConfig.json');
+      fixture: 'adapterConfig.json'
+    }
+    ).as('adapterConfig.json');
   });
 
+
   it('should assert the mapping block produces the expected UUID string output', () => {
+
     loadFlowCode([
       {
         "type": "mapping",
@@ -22,8 +25,14 @@ describe('workspace-project App', () => {
         "showContext": false
       }
     ]);
-    cy.contains('3ab8d0cd-7b76-5741-8bc9-5725650dc435', { timeout: 10000 });
+
+    cy.contains(
+      '3ab8d0cd-7b76-5741-8bc9-5725650dc435',
+      { timeout: 10000 }
+    );
+
   });
+
 
   it('should make new workflow with mapping block', () => {
     cy.visit('/');
@@ -41,18 +50,22 @@ describe('workspace-project App', () => {
     cy.get('app-workflow-sidenav').contains('Mapping');
   });
 
+
   it('should display welcome message', () => {
     cy.visit('/');
     cy.contains('Kendraio App');
   });
 
+
   it('should display saved workflows', () => {
     cy.intercept('GET', 'https://app.kendra.io/api', {
-      fixture: 'flowList.json' }
-      ).as('flowList.json');
-    
+      fixture: 'flowList.json'
+    }
+    ).as('flowList.json');
+
     cy.visit('/workflowCloud/listWorkflows');
     cy.contains('Made up flow A', { timeout: 10000 });
   });
+
 
 });
