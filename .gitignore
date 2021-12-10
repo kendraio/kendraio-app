@@ -45,6 +45,9 @@ testem.log
 /.local
 /.auth
 /.vercel
+/cypress/videos
+/cypress/screenshots
+/cypress/results
 
 # System Files
 .DS_Store

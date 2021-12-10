@@ -1,0 +1,14 @@
+name: vercel_deployment_tests
+
+on: deployment
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/tests
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          repo: kendraio-app&teamId=kendraio
+          record: ${{ secrets.CYPRESS_RECORD_KEY }}
