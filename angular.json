@@ -9,50 +9,6 @@
       "projectType": "application",
       "prefix": "app",
       "schematics": {
-        "@ngrx/schematics:component": {
-          "styleext": "scss",
-          "spec": false
-        },
-        "@ngrx/schematics:class": {
-          "spec": false
-        },
-        "@ngrx/schematics:directive": {
-          "spec": false
-        },
-        "@ngrx/schematics:guard": {
-          "spec": false
-        },
-        "@ngrx/schematics:module": {
-          "spec": false
-        },
-        "@ngrx/schematics:pipe": {
-          "spec": false
-        },
-        "@ngrx/schematics:service": {
-          "spec": false
-        },
-        "@schematics/angular:component": {
-          "styleext": "scss",
-          "spec": false
-        },
-        "@schematics/angular:class": {
-          "spec": false
-        },
-        "@schematics/angular:directive": {
-          "spec": false
-        },
-        "@schematics/angular:guard": {
-          "spec": false
-        },
-        "@schematics/angular:module": {
-          "spec": false
-        },
-        "@schematics/angular:pipe": {
-          "spec": false
-        },
-        "@schematics/angular:service": {
-          "spec": false
-        }
       },
       "architect": {
         "build": {
