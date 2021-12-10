@@ -82,7 +82,9 @@ export const BLOCK_TYPES = [
     defaultConfig: {
       type: 'debug',
       open: 1,
-      showContext: false
+      showData: true,
+      showContext: false,
+      showState: false
     }
   },
   {
@@ -358,8 +360,8 @@ export const BLOCK_TYPES = [
   },
   {
     type: 'context-save',
-    label: 'Context (Save)',
-    description: 'Save a value into context',
+    label: 'Context & State(Save)',
+    description: 'Save a value into context or state',
     icon: 'fa-stamp',
     defaultConfig: {
       type: 'context-save',

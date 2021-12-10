@@ -2,7 +2,14 @@ Mapping
 =======
 
 Map data from one format to another, or query the input data using JMESPath or JSONPath expressions.
-http://jmespath.org/tutorial.html
+http://jmespath.org/tutorial.html. 
+
+
+The mapping object has three top level keys 
+- data : The core data being processed and passed from block to block
+- context : Metadata about the data being processed, also passed from block to block 
+- state : General metadata about the general state of processing, shared by all blocks
+
 
 Default config
 --------------
@@ -17,7 +24,30 @@ Default config
 Supported properties
 --------------------
 
-- **mapping** - a JMESPath expression
+- **mapping** - a JMESPath expression. 
+
+
+Working with State
+------------------
+
+State is a shared, realtime storage. It is also available between flows but will not persist beyond a single user session. 
+Not all blocks are able to access state, but it is particularly useful for user interface components that want to keep updating 
+their display to show the user live values - rather than the value that was passed into the block when it was run.
+
+The mapping block cannot write to state, it can only read from state. Writes are managed with the :doc:`context_block` block. 
+
+
+Local and global State
+++++++++++++++++++++++
+
+It is assumed that the state storage will mirror the site structure. Flows should generally read from *state.local*. 
+Internally *state.local* will be translated to a path to mirror the current url. 
+
+When on a the path */workflowCloud/listWorkflows*, reading from *state.local.filter* will be translated rad from  *workflowCloud.listWorkflows.filter*. 
+This internal, translated path is the global state path, and it can also be accessed directly via *state.global*. 
+
+When a path is prefixed with *state.global*, it will allow values to be read from to any part of the tree. Reading from *state.global.filter* will be translated to
+read from *filter*. Reading from  *state.global.workflowCloud.listWorkflows.filter* will access *workflowCloud.listWorkflows.filter*.
 
 
 Handy JMESPath patterns
