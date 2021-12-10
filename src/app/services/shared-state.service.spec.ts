@@ -1,6 +1,7 @@
 import { TestBed} from '@angular/core/testing';
 import { SpyLocation } from '@angular/common/testing'
 import { SharedStateService } from './shared-state.service';
+import { loadFlowCode } from '../../../cypress/support/helper';
 
 
 describe('SharedStateService', () => {
@@ -42,7 +43,6 @@ describe('SharedStateService', () => {
     const state = service.state;
     console.log(state);
     expect(state.local).toBeDefined();
-
   })
 
 });

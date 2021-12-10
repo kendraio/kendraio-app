@@ -41,7 +41,7 @@ export class SharedStateService {
     console.log(location);
     const localPath = location.pathname.substr(1).split("/").join('.'); 
     if (key.startsWith("global")) {
-      internalKey = key.substr(6); // remove the prefix
+      internalKey = key.substr(7); // remove the prefix
     } else {
       if (key.startsWith("local")) {
         internalKey = key.substr(6); // remove the prefix
