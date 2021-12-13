@@ -9,7 +9,13 @@
       "projectType": "application",
       "prefix": "app",
       "schematics": {
-      },
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },      
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
