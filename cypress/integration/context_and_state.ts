@@ -11,15 +11,7 @@ describe('Kendraio context and state', () => {
   });
 
   it('A debug block should show global state values', () => {
-    loadFlowCode([
-      {
-        "type": "debug",
-        "open": 1,
-        "showContext": false,
-        "showData": false,        
-        "showState": true,
-
-      },
+    loadFlowCode([     
       {
          "type":"template",
          "template":"{{state.global.test}}"
