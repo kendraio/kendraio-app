@@ -45,4 +45,15 @@ describe('SharedStateService', () => {
     expect(state.local).toBeDefined();
   })
 
+  it ('should allow string values to be saved to the local state', () => {
+    service.setValue('local.key','value');
+    const state = service.state;
+    expect(state.local.key).toBe('value');
+  })
+
+  it ('should not add a blank key if an object is passed to state.local', () => {
+    service.setValue('local',{key:"value"});
+    expect(service.getValue('local.key')).toBe('value');
+  })
+
 });

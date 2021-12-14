@@ -1,5 +1,5 @@
 <ng-container *ngFor="let b of buttons; let i = index">
-  <button type="button" class="actions-button" *ngIf="!b.color || b.color !== 'link'"
+  <button type="button" class="actions-button" *ngIf="b.enabled && (!b.color || b.color !== 'link')"
           mat-flat-button [color]="b.color" (click)="onSubmit(b)">{{ getLabel(b) }}</button>
   <a class="actions-button" *ngIf="b.color && b.color === 'link'"
      mat-button color="link" (click)="onSubmit(b)">{{ getLabel(b) }}</a>

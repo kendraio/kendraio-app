@@ -365,7 +365,7 @@ export const BLOCK_TYPES = [
     icon: 'fa-stamp',
     defaultConfig: {
       type: 'context-save',
-      contextKey: 'saved'
+      key: 'saved'
     },
     hasEditor: true
   },

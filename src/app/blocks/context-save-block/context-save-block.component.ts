@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BaseBlockComponent } from '../base-block/base-block.component';
-import { clone, get, set } from 'lodash-es';
+import { clone, get, set, has } from 'lodash-es';
 import * as uuid from 'uuid';
 import { mappingUtility } from '../mapping-block/mapping-util';
 import { SharedStateService } from 'src/app/services/shared-state.service';
@@ -12,7 +12,7 @@ import { SharedStateService } from 'src/app/services/shared-state.service';
 })
 export class ContextSaveBlockComponent extends BaseBlockComponent {
 
-  contextKey = 'saved';
+  key = 'saved';
   valueGetter = 'data';
   keyGetter = '';
   skipFirst = true;
@@ -24,7 +24,11 @@ export class ContextSaveBlockComponent extends BaseBlockComponent {
 
 
   onConfigUpdate(config: any) {
-    this.contextKey = get(config, 'contextKey', 'saved');
+    if (has(config,'key')) {
+      this.key = get(config, 'key', 'saved');
+    } else {
+      this.key = get(config, 'contextKey', 'saved');
+    }   
     this.valueGetter = get(config, 'valueGetter', 'data');
     this.keyGetter = get(config, 'keyGetter', '');
     this.state = get(config, 'state', '');
@@ -37,7 +41,7 @@ export class ContextSaveBlockComponent extends BaseBlockComponent {
     }
 
     const value = mappingUtility({ data, context: this.context, state: this.stateService.state }, this.valueGetter);
-    let key = this.contextKey;
+    let key = this.key;
 
     if (this.keyGetter.length > 0) {
       key = mappingUtility({ data, context: this.context, state: this.stateService.state }, this.keyGetter);

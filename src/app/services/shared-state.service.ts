@@ -37,8 +37,7 @@ export class SharedStateService {
    * @returns Value that was set
    */
   setValue(key:string, value:any):any {
-    let internalKey = key;
-    console.log(location);
+    let internalKey = key;    
     const localPath = location.pathname.substr(1).split("/").join('.'); 
     if (key.startsWith("global")) {
       internalKey = key.substr(7); // remove the prefix
@@ -46,7 +45,12 @@ export class SharedStateService {
       if (key.startsWith("local")) {
         internalKey = key.substr(6); // remove the prefix
       }
-      internalKey = [localPath,internalKey].join('.');
+      if(internalKey.length) { 
+        internalKey = [localPath,internalKey].join('.');
+      }
+      else {
+        internalKey = localPath;
+      }  
     }
     set(this._state,internalKey,value);
     console.log("Internal key:"+internalKey);

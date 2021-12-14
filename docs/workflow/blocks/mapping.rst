@@ -53,6 +53,33 @@ read from *filter*. Reading from  *state.global.workflowCloud.listWorkflows.filt
 Handy JMESPath patterns
 -----------------------
 
+Not
+^^^
+
+When your data structuture holds the value that you wish to negate, you need to enclose the 
+path of your data in parentheses before you NOT it. 
+
+**This statement will fail**
+
+.. code-block:: text
+
+  !state.import.status 
+
+**Use this instead**
+
+.. code-block:: text
+
+  !(state.import.status) 
+
+If you want to combine a NOT statement like this with aditional logic, you need to wrap it in parentheses again. 
+
+.. code-block:: text
+
+  (!(state.import.status)) && (length(state.import.data)>`0`)
+
+
+
+
 Default values
 ^^^^^^^^^^^^^^^
 
