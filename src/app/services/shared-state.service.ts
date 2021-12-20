@@ -52,18 +52,17 @@ export class SharedStateService {
         internalKey = localPath;
       }  
     }
-    set(this._state,internalKey,value);
-    console.log("Internal key:"+internalKey);
+    set(this._state,internalKey,value);    
     // announce the change to any listeners
     this.sharedSource.next(this.state);
     return value;
   }
 
   getValue(key:string):any{
-    if (!key.startsWith("local.") || !key.startsWith("global.")){
+    if (!(key.startsWith("local.") || key.startsWith("global."))){
       key = "local."+key;
     }
-    const state = this.state;
+    const state = this.state;  
     const value = get(state,key);
     return value;
   }

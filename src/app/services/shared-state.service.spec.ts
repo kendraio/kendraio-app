@@ -1,7 +1,5 @@
-import { TestBed} from '@angular/core/testing';
-import { SpyLocation } from '@angular/common/testing'
+import { TestBed} from '@angular/core/testing'
 import { SharedStateService } from './shared-state.service';
-import { loadFlowCode } from '../../../cypress/support/helper';
 
 
 describe('SharedStateService', () => {
@@ -33,15 +31,13 @@ describe('SharedStateService', () => {
 
   it ('get should return a top level global path', () => {
     service.setValue('key','value');
-    const state = service.state;
-    console.log(state);
+    const state = service.state;    
     expect(state.global).toBeDefined();
   })
 
   it ('get should return a top level local path', () => {
     service.setValue('key','value');
-    const state = service.state;
-    console.log(state);
+    const state = service.state;    
     expect(state.local).toBeDefined();
   })
 
@@ -52,7 +48,8 @@ describe('SharedStateService', () => {
   })
 
   it ('should not add a blank key if an object is passed to state.local', () => {
-    service.setValue('local',{key:"value"});
+    service.setValue('local',{'key':"value"});
+    const state = service.state;
     expect(service.getValue('local.key')).toBe('value');
   })
 
