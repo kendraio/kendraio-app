@@ -39,8 +39,7 @@ export class ActionsBlockComponent implements OnInit, OnChanges {
   setEnabled(){
     setTimeout(() =>{
       this.buttons.forEach( (button,index) => {
-        let enabled = button.enabledGetter ? mappingUtility({ data: this.model, context: this.context,state: this.stateService.state  }, button.enabledGetter) : true;
-        console.log("e:"+enabled + ":" + button.enabledGetter )
+        let enabled = button.enabledGetter ? mappingUtility({ data: this.model, context: this.context,state: this.stateService.state  }, button.enabledGetter) : true;        
         this.buttons[index].enabled = enabled;
       })
     })
