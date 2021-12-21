@@ -4,6 +4,7 @@ import { search } from 'jmespath';
 import { WorkflowCellRendererComponent } from '../../components/workflow-cell-renderer/workflow-cell-renderer.component';
 import { mappingUtility } from '../mapping-block/mapping-util';
 import { ConnectionStatusRendererComponent } from '../../components/connection-status-renderer/connection-status-renderer.component';
+import { SharedStateService } from 'src/app/services/shared-state.service';
 
 @Component({
   selector: 'app-grid-block',
@@ -36,8 +37,11 @@ export class GridBlockComponent implements OnInit, OnChanges {
   };
 
   constructor(
-    private readonly zone: NgZone
-  ) { }
+    private readonly zone: NgZone,
+    private stateService: SharedStateService
+  ) {
+    stateService.state$.subscribe(state => { setTimeout(() =>{this.setEnabled()}) });
+   }
 
   ngOnInit() {    
     this.passThrough = get(this.config, 'passThrough', false);
