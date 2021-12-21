@@ -71,4 +71,27 @@ it('should allow the enabling and disabling of action buttons', () => {
   cy.contains("Hidden").should('not.exist');
 });
 
+it('should allow the enabling and disabling of the datagrid', () => {
+  loadFlowCode([
+    {
+      "type": "context-save",
+      "valueGetter": "`true`",
+      "contextKey": "state.global.disabled",      
+    },
+    {
+      "type": "mapping",
+      "mapping": "[{one:`Column 1`, two:`col 2`},{one:`Data Grid Exists`, two: `more`}]"
+    },
+    {
+      "type": "grid",
+      "gridOptions": {},
+      "passThrough": false,
+      "firstRowHeaders": true,
+      "enabledGetter": "state.global.disabled"
+    }
+  ]);  
+  cy.contains("Data",{ timeout: 10000 }).should('not.exist');
+});
+
+
 });

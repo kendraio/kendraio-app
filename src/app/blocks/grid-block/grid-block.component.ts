@@ -50,6 +50,7 @@ export class GridBlockComponent implements OnInit, OnChanges {
     this.passThrough = get(this.config, 'passThrough', false);
     this.firstRowHeaders = get(this.config, 'firstRowHeaders', false);
     this.enabledGetter = get(this.config, 'enabledGetter', null);
+    this.setEnabled();
   }
 
   ngOnChanges(changes) {    
@@ -57,28 +58,30 @@ export class GridBlockComponent implements OnInit, OnChanges {
     if (this.passThrough) this.output.emit(this.model)
   }
 
-  setEnabled(){
+  setEnabled(){    
     if(this.enabledGetter!==null) {
       this.enabled = mappingUtility({ data: this.model, context: this.context,state: this.stateService.state  }, this.enabledGetter);        
-    }
+    }    
   } 
 
   updateOutputDisplay() {
     let defaultCols = [];
-    if (isArray(this.model) && this.model.length > 0) {      
-      defaultCols = Object.keys(this.model[0]).map((key) => {
+    let workingModel = this.model ? clone(this.model) : []; // create a local clone of the data - to allow us to modify data only for display
+    
+    if (isArray(workingModel) && workingModel.length > 0) {      
+      defaultCols = Object.keys(workingModel[0]).map((key) => {
           let column = { headerName: key, field: key };
-          if (this.firstRowHeaders) column.headerName = this.model[0][key];
+          if (this.firstRowHeaders) column.headerName = workingModel[0][key];
           return column;
         }        
       )      
     }
-    let workingModel = this.model ? clone(this.model) : []; // create a local clone of the data - to allow us to modify data only for display
+    
     if (this.firstRowHeaders && workingModel.length >0) workingModel.shift(); // remove first row from the working model
     this.columnDefs = this.preprocessColumnDefinition(get(this.config, 'columnDefs', defaultCols));
     this.gridOptions = clone(get(this.config, 'gridOptions', {}));    
     this.defaultColDef = has(this.gridOptions, 'defaultColDef') ? this.config.gridOptions.defaultColDef : this.defaultColDef;
-    this.rowData = isArray(workingModel) ? workingModel : get(this.model, 'result', []);
+    this.rowData = isArray(workingModel) ? workingModel : get(workingModel, 'result', []);    
     if (!!this.gridAngular && get(this.config, 'sizeColumnsToFit', true)) {
       setTimeout(() => {
         this.zone.run(() => {
