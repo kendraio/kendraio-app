@@ -75,7 +75,7 @@ it('should allow the enabling and disabling of the datagrid', () => {
   loadFlowCode([
     {
       "type": "context-save",
-      "valueGetter": "`true`",
+      "valueGetter": "`false`",
       "contextKey": "state.global.disabled",      
     },
     {
@@ -90,7 +90,7 @@ it('should allow the enabling and disabling of the datagrid', () => {
       "enabledGetter": "state.global.disabled"
     }
   ]);  
-  cy.contains("Data",{ timeout: 10000 }).should('not.exist');
+  cy.get(".ag-root",{ timeout: 10000 }).should('not.exist');  
 });
 
 
