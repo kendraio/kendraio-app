@@ -21,14 +21,14 @@ Default config
 
     {
       "type": "context-save",
-      "contextKey": "saved"      
+      "key": "saved"      
     }
 
 
 Supported properties
 --------------------
 
-- **contextKey** (string) The key of the value that will be saved into context.
+- **key** (string) The key of the value that will be saved into context.
   For example, if you use a key of "saved" then the value will be available in the context as "context.saved".
 
   When context key starts with "state", values will be written to the shared state storage. State paths should
