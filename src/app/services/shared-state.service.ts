@@ -25,7 +25,7 @@ import { Location } from '@angular/common';
   providedIn: 'root'
 })
 export class SharedStateService {
-  private _state = {}
+  private _state = {} 
   
   // set up observable streams to allow for realtime state sharing
   private stateSource = new Subject<any>();
@@ -36,7 +36,10 @@ export class SharedStateService {
   ) { }
 
   /**
-   * Returns a processed version if state that has both global and local paths
+   * Returns a processed version if state that has both global and local paths. 
+   * 
+   * "global" contains the entire state tree, and is the root. 
+   * "local" contains a specific slice of the tree for the current location
    */
   public get state(){
     const localPath = this.location.path().substring(1).split("/").join('.'); 
@@ -55,8 +58,7 @@ export class SharedStateService {
    */
   setValue(key:string, value:any):any {
     let internalKey = key;    
-    const localPath = this.location.path().substring(1).split("/").join('.'); 
-    console.log("p:"+localPath);
+    const localPath = this.location.path().substring(1).split("/").join('.');     
     if (key.startsWith("global")) {
       internalKey = key.substring(7); // remove the prefix
     } else {
@@ -85,9 +87,8 @@ export class SharedStateService {
     if (!(key.startsWith("local.") || key.startsWith("global."))){
       // Default to local
       key = "local."+key;
-    }
-    const state = this.state;  
-    const value = get(state,key);
+    }    
+    const value = get(this.state,key);
     return value;
   }
 }

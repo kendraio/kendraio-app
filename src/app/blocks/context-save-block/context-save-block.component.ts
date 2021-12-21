@@ -15,7 +15,7 @@ export class ContextSaveBlockComponent extends BaseBlockComponent {
   key = 'saved';
   valueGetter = 'data';
   keyGetter = '';
-  skipFirst = true;
+  skipFirst = false;
   state = false; // force to shared context
 
   constructor(private stateService: SharedStateService) {
@@ -32,7 +32,7 @@ export class ContextSaveBlockComponent extends BaseBlockComponent {
     this.valueGetter = get(config, 'valueGetter', 'data');
     this.keyGetter = get(config, 'keyGetter', '');
     this.state = get(config, 'state', '');
-    this.skipFirst = get(config, 'skipFirst', true);
+    this.skipFirst = get(config, 'skipFirst', false);
   }
 
   onData(data: any, firstChange: boolean) {
@@ -49,7 +49,7 @@ export class ContextSaveBlockComponent extends BaseBlockComponent {
         
     if (key) {
       if (key.startsWith('state.') || this.state) {
-        if (key.startsWith('state.')) key = key.substr(6);
+        if (key.startsWith('state.')) key = key.substring(6);
         this.stateService.setValue(key, value);
       }
       else {

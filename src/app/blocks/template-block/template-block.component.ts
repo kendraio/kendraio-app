@@ -1,16 +1,15 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import {clone, get} from 'lodash-es';
 import { compile } from 'handlebars/dist/handlebars.js';
 import DOMPurify from './dom-sanitiser';
 import { SharedStateService } from 'src/app/services/shared-state.service';
-import { StatusPanelComponent } from 'ag-grid-community/dist/lib/components/framework/componentTypes';
 
 @Component({
   selector: 'app-template-block',
   templateUrl: './template-block.component.html',
   styleUrls: ['./template-block.component.scss']
 })
-export class TemplateBlockComponent implements OnInit, OnChanges {
+export class TemplateBlockComponent implements OnChanges {
 
   @Input() config;
   @Input() context;
@@ -20,13 +19,11 @@ export class TemplateBlockComponent implements OnInit, OnChanges {
 
   innerHtml = '';
 
-  constructor(private stateService: SharedStateService) {    
-    stateService.state$.subscribe(state => { setTimeout(() =>{this.render()}) });
+  constructor(private stateService: SharedStateService) {        
+    this.stateService.state$.subscribe(state => { Promise.resolve(null).then(() => this.render()); });
   }
-
-  ngOnInit() {
-    // this.updateOutputDisplay();
-  }
+  
+  
 
   ngOnChanges(changes) {
     // TODO: Allow loading template from Adapter    

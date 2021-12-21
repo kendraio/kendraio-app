@@ -30,6 +30,9 @@ export class GridBlockComponent implements OnInit, OnChanges {
   gridOptions = {};
   passThrough = false; // set true to transparently pass through any data model changes
   firstRowHeaders = false; // use the first row as the headers
+  enabled = true;
+  enabledGetter = null;
+
 
   frameworkComponents = {
     workflowRenderer: WorkflowCellRendererComponent,
@@ -39,19 +42,26 @@ export class GridBlockComponent implements OnInit, OnChanges {
   constructor(
     private readonly zone: NgZone,
     private stateService: SharedStateService
-  ) {
-    stateService.state$.subscribe(state => { setTimeout(() =>{this.setEnabled()}) });
+  ) {    
+    stateService.state$.subscribe(state => { Promise.resolve(null).then(() => this.setEnabled()); });
    }
 
   ngOnInit() {    
     this.passThrough = get(this.config, 'passThrough', false);
     this.firstRowHeaders = get(this.config, 'firstRowHeaders', false);
+    this.enabledGetter = get(this.config, 'enabledGetter', null);
   }
 
   ngOnChanges(changes) {    
     this.updateOutputDisplay();
     if (this.passThrough) this.output.emit(this.model)
   }
+
+  setEnabled(){
+    if(this.enabledGetter!==null) {
+      this.enabled = mappingUtility({ data: this.model, context: this.context,state: this.stateService.state  }, this.enabledGetter);        
+    }
+  } 
 
   updateOutputDisplay() {
     let defaultCols = [];

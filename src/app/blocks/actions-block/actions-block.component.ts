@@ -26,8 +26,8 @@ export class ActionsBlockComponent implements OnInit, OnChanges {
   constructor(
     private readonly zone: NgZone,
     private stateService: SharedStateService
-  ) {
-    stateService.state$.subscribe(state => { setTimeout(() =>{this.setEnabled()}) });
+  ) {    
+    stateService.state$.subscribe(state => { Promise.resolve(null).then(() => this.setEnabled()); });
    }
 
   getLabel(button) {
@@ -36,13 +36,11 @@ export class ActionsBlockComponent implements OnInit, OnChanges {
       : (button.label || 'Submit');
   }
 
-  setEnabled(){
-    setTimeout(() =>{
+  setEnabled(){    
       this.buttons.forEach( (button,index) => {
         let enabled = button.enabledGetter ? mappingUtility({ data: this.model, context: this.context,state: this.stateService.state  }, button.enabledGetter) : true;        
         this.buttons[index].enabled = enabled;
-      })
-    })
+      })    
   }
   
   ngOnInit() {
