@@ -27,7 +27,7 @@ export class DebugBlockComponent implements OnInit, OnChanges {
     private readonly zone: NgZone,
     private stateService:SharedStateService
   ) {
-    stateService.shared$.subscribe(incoming => { setTimeout(() =>{this.updateOutputDisplay()}) });
+    stateService.state$.subscribe(state => { setTimeout(() =>{this.updateOutputDisplay()}) });
   }
 
   ngOnInit() {

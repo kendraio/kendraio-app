@@ -1,15 +1,20 @@
 import { TestBed} from '@angular/core/testing'
 import { SharedStateService } from './shared-state.service';
+//import { RouterTestingModule } from '@angular/router/testing'
+
 
 
 describe('SharedStateService', () => {
   let service: SharedStateService;  
+//@todo: Find the correct way to fake the current location
+ // let locationStub = {
+ //   path : function(){return "testing/stub"}
+ // }
 
   beforeEach(() => {    
     //location = jasmine.createSpyObj(locationStub);
-    TestBed.configureTestingModule({      
-    });    
-    service = TestBed.inject(SharedStateService);
+    TestBed.configureTestingModule({});    
+    service = TestBed.inject(SharedStateService);        
   });
 
   it('should be created', () => {
@@ -48,8 +53,7 @@ describe('SharedStateService', () => {
   })
 
   it ('should not add a blank key if an object is passed to state.local', () => {
-    service.setValue('local',{'key':"value"});
-    const state = service.state;
+    service.setValue('local',{'key':"value"});    
     expect(service.getValue('local.key')).toBe('value');
   })
 

@@ -27,7 +27,7 @@ export class ActionsBlockComponent implements OnInit, OnChanges {
     private readonly zone: NgZone,
     private stateService: SharedStateService
   ) {
-    stateService.shared$.subscribe(incoming => { setTimeout(() =>{this.setEnabled()}) });
+    stateService.state$.subscribe(state => { setTimeout(() =>{this.setEnabled()}) });
    }
 
   getLabel(button) {

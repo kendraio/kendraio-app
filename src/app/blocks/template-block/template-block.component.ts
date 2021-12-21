@@ -3,6 +3,7 @@ import {clone, get} from 'lodash-es';
 import { compile } from 'handlebars/dist/handlebars.js';
 import DOMPurify from './dom-sanitiser';
 import { SharedStateService } from 'src/app/services/shared-state.service';
+import { StatusPanelComponent } from 'ag-grid-community/dist/lib/components/framework/componentTypes';
 
 @Component({
   selector: 'app-template-block',
@@ -20,7 +21,7 @@ export class TemplateBlockComponent implements OnInit, OnChanges {
   innerHtml = '';
 
   constructor(private stateService: SharedStateService) {    
-    stateService.shared$.subscribe(incoming => { setTimeout(() =>{this.render()}) });
+    stateService.state$.subscribe(state => { setTimeout(() =>{this.render()}) });
   }
 
   ngOnInit() {
