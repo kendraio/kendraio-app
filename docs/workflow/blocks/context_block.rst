@@ -1,17 +1,18 @@
 Context & State
 ===============
 
-Use the context block to save data into the flow context or global state to make it available for all
-subsequent tasks.
+Context and state are in-memory, temporary datastores. Use the context block to save data into the flow context or global state to make it available for all
+ tasks. 
 
 There are two different storage domains that can be written to with this block. 
 
 **Context** is passed from block to block. When processing data in parrallel - during a batch or multiplex flow - context will be different in each branch.
 Blocks will only have access to values written by another block in the same branch. 
 
-**state** is shared by all blocks, and by all flows. When writing to or reading from State, the data is available on two different branches. 
-**state.global** is a datastore that persists for a user's entire session, no matter where they are in the site. 
-**state.local** is a dynamic sub-branch of the global state based on the current url. 
+**State** is shared by all blocks. The content of state is stored in memory and is available to any subsequent flows - but only on the same tab until that tab is closed or reloaded. There are two possible ways to address the content of state:
+**state.global** contains all data stored in the state. 
+**state.local** is a dynamic sub-branch of the global state based on the current url. (eg. on path "x/y" state.local is the equivalent of "state.global.x.y")
+
 For more detailed information, see the State section below. 
 
 Default config
@@ -34,10 +35,13 @@ Supported properties
   When context key starts with "state", values will be written to the shared state storage. State paths should
   begin with "state.local" or "state.global". If the a key other than "local" or "global" follows "state", local will be assumed. 
   ie. "state.key" is the equivalent of "state.local.key". (See State below)
+
+  A previous version of the key was *contextKey*, which is still accepted as a configuration variable. 
+  If both *key* and *contextKey* exist in config, *key* will override. 
   
 - **valueGetter** (string) [OPTIONAL]  The JMESPath of the value to store into context. 
   This defaults to "data" so if it is omitted it stores the whole incoming value into context. 
-  Our implementation of JMESPath allows for direct manipulation of data in the JMESPath expression. 
+  JMESPath allows for direct manipulation of data in the expression. 
   This allows a **valueGetter** to read, transform and write data in a single statement. 
 
 - **keyGetter** (string) [OPTIONAL] - the JMESPath of the key to use within context. 
@@ -57,6 +61,11 @@ Working with State
 
 State is a shared storage. Values written to state will last for a single user session, and are available to any flow. 
 
+Persistence 
++++++++++++
+
+State data is not persistent. It only exists in memory for a specific tab and is lost on a reload. 
+
 Local and global State
 ++++++++++++++++++++++
 
@@ -71,6 +80,12 @@ When a path is prefixed with *state.global*, it will allow values written to any
 
 When a value is written to a location other than "local" or "global", "local" will be assumed. 
 When on the same url as above, writing to "state.filter" will get translated to *workflowCloud.listWorkflows.filter*. 
+
+Security and access control
++++++++++++++++++++++++++++
+
+There is currently no access control or protection in state. Any path in the global state is accessible (read and write) to any flow. 
+In the future some form of restriction may be implemented. 
 
 
 

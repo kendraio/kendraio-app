@@ -43,7 +43,7 @@ Local and global State
 It is assumed that the state storage will mirror the site structure. Flows should generally read from *state.local*. 
 Internally *state.local* will be translated to a path to mirror the current url. 
 
-When on a the path */workflowCloud/listWorkflows*, reading from *state.local.filter* will be translated rad from  *workflowCloud.listWorkflows.filter*. 
+When on a the path */workflowCloud/listWorkflows*, reading from *state.local.filter* will be translated to read from  *workflowCloud.listWorkflows.filter*. 
 This internal, translated path is the global state path, and it can also be accessed directly via *state.global*. 
 
 When a path is prefixed with *state.global*, it will allow values to be read from to any part of the tree. Reading from *state.global.filter* will be translated to
@@ -71,7 +71,7 @@ path of your data in parentheses before you NOT it.
 
   !(state.import.status) 
 
-If you want to combine a NOT statement like this with aditional logic, you need to wrap it in parentheses again. 
+If you want to combine a NOT statement like this with additional logic, you need to wrap it in parentheses again. 
 
 .. code-block:: text
 

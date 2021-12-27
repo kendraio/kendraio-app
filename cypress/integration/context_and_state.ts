@@ -71,11 +71,11 @@ it('should allow the enabling and disabling of action buttons', () => {
   cy.contains("Hidden").should('not.exist');
 });
 
-it('should allow the enabling and disabling of the datagrid', () => {
+it('should allow the disabling of the datagrid', () => {
   loadFlowCode([
     {
       "type": "context-save",
-      "valueGetter": "`false`",
+      "valueGetter": "`true`",
       "contextKey": "state.global.disabled",      
     },
     {
@@ -88,10 +88,50 @@ it('should allow the enabling and disabling of the datagrid', () => {
       "passThrough": false,
       "firstRowHeaders": true,
       "enabledGetter": "state.global.disabled"
+    },
+    {
+      "type": "debug"            
     }
   ]);  
-  cy.get(".ag-root",{ timeout: 10000 }).should('not.exist');  
+  let datagrid_selector = "ag-grid-angular";
+  cy.get(datagrid_selector,{ timeout: 10000 }).should('not.exist');  
 });
+
+it('should allow the disabling of the debug block', () => {
+  loadFlowCode([
+    {
+      "type": "context-save",
+      "valueGetter": "`false`",
+      "contextKey": "state.global.disabled",      
+    },
+    {
+      "type": "context-save",
+      "valueGetter": "`true`",
+      "contextKey": "state.global.enabled",      
+    },
+    {
+      "type": "mapping",
+      "mapping": "`debug disabled`"
+    },
+    {
+      "type": "debug",      
+      "enabledGetter": "state.global.disabled"
+    },
+    {
+      "type": "mapping",
+      "mapping": "`debug enabled`"
+    },
+    {
+      "type": "debug",      
+      "enabledGetter": "state.global.enabled"
+    }
+
+  ]);    
+  let datagrid_selector = "ag-grid-angular";
+  cy.contains("debug enabled").should('exist');  
+  cy.contains("debug disabled").should('not.exist');  
+});
+
 
 
 });

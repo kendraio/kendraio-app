@@ -435,7 +435,9 @@ export const BLOCK_TYPES = [
     icon: 'autorenew',
     hasEditor: true,
     defaultConfig: {
-      type: 'gosub'
+      type: 'gosub',
+      adapterName: '',
+      workflowId: ''
     }
   },
   {

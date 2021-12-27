@@ -2,6 +2,7 @@ import {Component, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnInit, O
 import JSONFormatter from 'json-formatter-js';
 import {clone, get, set, isArray, isObject} from 'lodash-es';
 import { SharedStateService } from 'src/app/services/shared-state.service';
+import { mappingUtility } from '../mapping-block/mapping-util';
 @Component({
   selector: 'app-debug-block',
   templateUrl: './debug-block.component.html',
@@ -22,12 +23,14 @@ export class DebugBlockComponent implements OnInit, OnChanges {
   showState = false;
   consoleLog = false;
   consoleLabel = 'debug block';
+  enabledGetter = null;
+  enabled = true;
 
   constructor(
     private readonly zone: NgZone,
     private stateService:SharedStateService
   ) {
-    stateService.state$.subscribe(state => { setTimeout(() =>{this.updateOutputDisplay()}) });
+    stateService.state$.subscribe(state => { setTimeout(() =>{this.setEnabled();this.updateOutputDisplay()}) });
   }
 
   ngOnInit() {
@@ -41,11 +44,20 @@ export class DebugBlockComponent implements OnInit, OnChanges {
     this.showState = get(this.config, 'showState', false);
     this.consoleLog = get(this.config, 'consoleLog', false);
     this.consoleLabel = get(this.config, 'consoleLabel', 'debug block');
+    this.enabledGetter = get(this.config, 'enabledGetter', null);
+    this.setEnabled();
     this.updateOutputDisplay();
     this.output.emit(clone(this.model));
   }
 
+  setEnabled(){    
+    if(this.enabledGetter!==null) {
+      this.enabled = mappingUtility({ data: this.model, context: this.context,state: this.stateService.state  }, this.enabledGetter);        
+    }    
+  } 
+
   updateOutputDisplay() {
+    if (this.enabled){
     setTimeout(() => {
       this.zone.run(() => {
         if (!!this.modelOutput) {
@@ -69,5 +81,6 @@ export class DebugBlockComponent implements OnInit, OnChanges {
         }
       });
     }, 40);
+    }
   }
 }

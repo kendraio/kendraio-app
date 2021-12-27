@@ -26,3 +26,4 @@ Supported properties
 - showContext (default = false): This defaults to false, in which case only output the input data into the debug
   block is shown. Set this to true to enable debugging of context values too.
 - showState (default = false): Set this to true to enable to display of state.
+- enabledGetter : When set the enabledGetter should contain a JMESPath expression that returns true/false to enable or disable the debug block. 

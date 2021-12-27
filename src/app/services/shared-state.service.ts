@@ -21,6 +21,10 @@ import { get, set} from 'lodash-es';
 import { Subject } from 'rxjs';
 import { Location } from '@angular/common';
 
+
+export const STATE_ROOT_GLOBAL = 'global';
+export const STATE_ROOT_LOCAL = 'local';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -41,15 +45,21 @@ export class SharedStateService {
    * "global" contains the entire state tree, and is the root. 
    * "local" contains a specific slice of the tree for the current location
    */
-  public get state(){
-    const localPath = this.location.path().substring(1).split("/").join('.'); 
+  public get state(){    
     const state = {
       global : this._state,
-      local : get(this._state,localPath)
+      local : get(this._state,this.localPath)
     }
     return state;
   }
-
+  /**
+   * returns a version of the current url path to an addressable  nested data path
+   * Eg: e.g from: /adapterName/workflowId to adapterName.workflowId 
+   */
+  private get localPath():string{
+    return this.location.path().substring(1).replace("/\/+/g,",'.');     
+  }
+  
   /**
    * 
    * @param key Set a value to the internal state
@@ -57,8 +67,7 @@ export class SharedStateService {
    * @returns Value that was set
    */
   setValue(key:string, value:any):any {
-    let internalKey = key;    
-    const localPath = this.location.path().substring(1).split("/").join('.');     
+    let internalKey = key;        
     if (key.startsWith("global")) {
       internalKey = key.substring(7); // remove the prefix
     } else {
@@ -66,10 +75,10 @@ export class SharedStateService {
         internalKey = key.substring(6); // remove the prefix
       }
       if(internalKey.length) { 
-        internalKey = [localPath,internalKey].join('.');
+        internalKey = [this.localPath,internalKey].join('.');
       }
       else {
-        internalKey = localPath;
+        internalKey = this.localPath;
       }  
     }
     set(this._state,internalKey,value);    
@@ -84,9 +93,9 @@ export class SharedStateService {
    * @returns any
    */
   getValue(key:string):any{
-    if (!(key.startsWith("local.") || key.startsWith("global."))){
+    if (!(key.startsWith(STATE_ROOT_LOCAL+".") || key.startsWith(STATE_ROOT_GLOBAL+"."))){
       // Default to local
-      key = "local."+key;
+      key = STATE_ROOT_LOCAL+"."+key;
     }    
     const value = get(this.state,key);
     return value;

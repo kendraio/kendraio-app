@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
-import { clone, get, has, isArray, isObject } from 'lodash-es';
+import { clone, get, has, isArray, isObject, toPairs } from 'lodash-es';
 import { search } from 'jmespath';
 import { WorkflowCellRendererComponent } from '../../components/workflow-cell-renderer/workflow-cell-renderer.component';
 import { mappingUtility } from '../mapping-block/mapping-util';
@@ -32,6 +32,7 @@ export class GridBlockComponent implements OnInit, OnChanges {
   firstRowHeaders = false; // use the first row as the headers
   enabled = true;
   enabledGetter = null;
+  valueGetter = null; 
 
 
   frameworkComponents = {
@@ -43,19 +44,37 @@ export class GridBlockComponent implements OnInit, OnChanges {
     private readonly zone: NgZone,
     private stateService: SharedStateService
   ) {    
-    stateService.state$.subscribe(state => { Promise.resolve(null).then(() => this.setEnabled()); });
-   }
+    stateService.state$.subscribe({next: (result:any) => this.handleStateChange(), error: () =>{}})
+  }
 
   ngOnInit() {    
     this.passThrough = get(this.config, 'passThrough', false);
     this.firstRowHeaders = get(this.config, 'firstRowHeaders', false);
-    this.enabledGetter = get(this.config, 'enabledGetter', null);
+    this.valueGetter = get(this.config, 'valueGetter', null);
+    this.enabledGetter = get(this.config, 'enabledGetter', null);    
     this.setEnabled();
   }
 
   ngOnChanges(changes) {    
     this.updateOutputDisplay();
+    if (!!this.gridAngular && get(this.config, 'sizeColumnsToFit', true)) {
+      setTimeout(() => {
+        this.zone.run(() => {
+          this.gridAngular.api.sizeColumnsToFit();
+        });
+      }, 40);
+    }
     if (this.passThrough) this.output.emit(this.model)
+  }
+
+  
+  handleStateChange(){
+    setTimeout(() => {
+      this.setEnabled();
+      if (this.valueGetter) {
+        this.updateOutputDisplay();
+      }  
+    });
   }
 
   setEnabled(){    
@@ -66,8 +85,16 @@ export class GridBlockComponent implements OnInit, OnChanges {
 
   updateOutputDisplay() {
     let defaultCols = [];
-    let workingModel = this.model ? clone(this.model) : []; // create a local clone of the data - to allow us to modify data only for display
-    
+    let workingModel = [];
+    if (this.valueGetter) {      
+      workingModel = mappingUtility({ data: this.model, context: this.context,state: this.stateService.state  }, this.valueGetter);              
+      if (!isArray(workingModel)) {
+        // make sure that we have a compatible array if we retrieved an object 
+        workingModel = toPairs(workingModel);        
+      }
+    } else {
+      workingModel = this.model ? clone(this.model) : []; // create a local clone of the data - to allow us to modify data only for display
+    }    
     if (isArray(workingModel) && workingModel.length > 0) {      
       defaultCols = Object.keys(workingModel[0]).map((key) => {
           let column = { headerName: key, field: key };
@@ -81,14 +108,7 @@ export class GridBlockComponent implements OnInit, OnChanges {
     this.columnDefs = this.preprocessColumnDefinition(get(this.config, 'columnDefs', defaultCols));
     this.gridOptions = clone(get(this.config, 'gridOptions', {}));    
     this.defaultColDef = has(this.gridOptions, 'defaultColDef') ? this.config.gridOptions.defaultColDef : this.defaultColDef;
-    this.rowData = isArray(workingModel) ? workingModel : get(workingModel, 'result', []);    
-    if (!!this.gridAngular && get(this.config, 'sizeColumnsToFit', true)) {
-      setTimeout(() => {
-        this.zone.run(() => {
-          this.gridAngular.api.sizeColumnsToFit();
-        });
-      }, 40);
-    }
+    this.rowData = isArray(workingModel) ? workingModel : get(workingModel, 'result', []);        
   }
 
   preprocessColumnDefinition(def: Array<any>) {
