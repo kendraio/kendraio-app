@@ -21,8 +21,11 @@ export class BlockGosubBuilderBoxComponent implements OnInit {
   filteredAdapters : Observable<String[]>
   filteredWorkflows : Observable<string[]>
 
-  adapterName: FormControl = new FormControl();
-  workflowId:  FormControl = new FormControl();
+  adapterNameFormControl: FormControl = new FormControl();
+  workflowIdFormControl:  FormControl = new FormControl();
+  blockTitleFormControl = new FormControl(); 
+  blockCommentFormControl = new FormControl(); 
+
 
 
   @Input() block;
@@ -31,12 +34,14 @@ export class BlockGosubBuilderBoxComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.adapterName.setValue(get(this.block, 'adapterName', ''));
-    this.workflowId.setValue(get(this.block, 'workflowId', ''));    
+    this.adapterNameFormControl.setValue(get(this.block, 'adapterName', ''));
+    this.workflowIdFormControl.setValue(get(this.block, 'workflowId', ''));    
+    this.blockTitleFormControl.setValue(get(this.block, 'blockTitle', ''));
+    this.blockCommentFormControl.setValue(get(this.block, 'blockComment', ''));
     this.getData();
 
-    this.filteredAdapters = this.adapterName.valueChanges.pipe(startWith(''),map(val => this.filterAdapters(val)))
-    this.filteredWorkflows = this.workflowId.valueChanges.pipe(startWith(''),map(val => this.filterWorkflows(val)))
+    this.filteredAdapters = this.adapterNameFormControl.valueChanges.pipe(startWith(''),map(val => this.filterAdapters(val)))
+    this.filteredWorkflows = this.workflowIdFormControl.valueChanges.pipe(startWith(''),map(val => this.filterWorkflows(val)))
 
   }
 
@@ -46,7 +51,7 @@ export class BlockGosubBuilderBoxComponent implements OnInit {
   }
 
   filterWorkflows(val: string): string[] {
-    const workflowAdapters = this.workflows[this.adapterName.value];
+    const workflowAdapters = this.workflows[this.adapterNameFormControl.value];
     let filteredWorkflows = [];
     if (workflowAdapters) {
       filteredWorkflows = workflowAdapters.filter(option =>
@@ -59,8 +64,11 @@ export class BlockGosubBuilderBoxComponent implements OnInit {
   getUpdatedModel() {
     return {
       ...this.block,
-      adapterName: this.adapterName.value,
-      workflowId: this.workflowId.value
+      adapterName: this.adapterNameFormControl.value,
+      workflowId: this.workflowIdFormControl.value,
+      blockTitle: this.blockTitleFormControl.value,
+      blockComment: this.blockCommentFormControl.value,
+
     };
   }
 
