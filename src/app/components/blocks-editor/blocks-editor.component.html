@@ -4,11 +4,14 @@
     <mat-expansion-panel-header>
       <mat-icon class="drag-handle" cdkDragHandle>reorder</mat-icon>
       <app-kendraio-icon [icon]="blockIcons[block.type]||''"></app-kendraio-icon>
-      <span class="block-type-title">{{ blockTypes[block.type]?.label||block.type }}</span>
+      <span class="block-type-title">{{ blockTypes[block.type]?.label||block.type}}{{ block.blockTitle ? ":"+block.blockTitle :""}}</span>      
     </mat-expansion-panel-header>
+    
 
-    <ng-template matExpansionPanelContent>
-
+    <ng-template matExpansionPanelContent>      
+      <block-editor-comment *ngIf="block.blockComment">
+        <div class="block-editor-comment">{{block.blockComment}}</div>
+      </block-editor-comment> 
       <ng-container [ngSwitch]="block.type">
         <ng-container *ngSwitchCase="'graphql'">
           <app-block-graphql-builder-box [block]="block"
@@ -75,10 +78,10 @@
           </mat-action-row>
         </ng-container>
 
-      </ng-container>
+      </ng-container>      
 
     </ng-template>
-
+   
   </mat-expansion-panel>
 </mat-accordion>
 
