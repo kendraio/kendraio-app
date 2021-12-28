@@ -53,7 +53,7 @@ describe('workspace-project App', () => {
     cy.get('mat-toolbar > button mat-icon').contains('settings').click();
     cy.get('app-workflow-sidenav').contains('testingTitle').should('exist');    
     cy.get('app-workflow-sidenav').contains('testingTitle').click();    
-    cy.get('app-workflow-sidenav').contains('Properties').click();    
+    cy.get('app-workflow-sidenav').contains('Metadata').click();    
     cy.get('app-workflow-sidenav').contains('Block Comment');    
   });
 
