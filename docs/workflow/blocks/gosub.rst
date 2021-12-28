@@ -11,12 +11,6 @@ be referenced from a form's ``uiSchema``. Or, creating dashboards
 that are made up of multiple other workflows combined with a ``multi``
 multiplex workflow block.
 
-.. code-block:: json
 
-    {
-      "type": "gosub",
-      "adapterName": "kendraio",
-      "workflowId": "myWorkflow"
-    }
 
 
