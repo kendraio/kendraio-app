@@ -20,10 +20,15 @@ import { Injectable } from '@angular/core';
 import { get, set} from 'lodash-es';
 import { Subject } from 'rxjs';
 import { Location } from '@angular/common';
+import internal from 'stream';
 
 
 export const STATE_ROOT_GLOBAL = 'global';
 export const STATE_ROOT_LOCAL = 'local';
+
+
+export const STATE_ROOT_FLAGS = 'flags'; // What top level key should contain flags
+export const STATE_ROOT_FLAGS_SOURCE = 'global._.flags'; // how should the top level flags key be translated in the global tree
 
 @Injectable({
   providedIn: 'root'
@@ -44,12 +49,14 @@ export class SharedStateService {
    * 
    * "global" contains the entire state tree, and is the root. 
    * "local" contains a specific slice of the tree for the current location
+   * "flags" is a shortcut to the flags storage location
    */
   public get state(){    
-    const state = {
+    let state = {
       global : this._state,
       local : get(this._state,this.localPath)
     }
+    state[STATE_ROOT_FLAGS] =get(this._state,STATE_ROOT_FLAGS_SOURCE.substring(7));
     return state;
   }
   /**
@@ -68,10 +75,14 @@ export class SharedStateService {
    */
   setValue(key:string, value:any):any {
     let internalKey = key;        
-    if (key.startsWith("global")) {
+    // if we are using the flags shortcut, swap it for the full path
+    if (key.startsWith(STATE_ROOT_FLAGS)) {
+      key = key.replace(STATE_ROOT_FLAGS,STATE_ROOT_FLAGS_SOURCE);      
+    }
+    if (key.startsWith(STATE_ROOT_GLOBAL)) {
       internalKey = key.substring(7); // remove the prefix
     } else {
-      if (key.startsWith("local")) {
+      if (key.startsWith(STATE_ROOT_LOCAL)) {
         internalKey = key.substring(6); // remove the prefix
       }
       if(internalKey.length) { 
@@ -93,7 +104,11 @@ export class SharedStateService {
    * @returns any
    */
   getValue(key:string):any{
-    if (!(key.startsWith(STATE_ROOT_LOCAL+".") || key.startsWith(STATE_ROOT_GLOBAL+"."))){
+    // if we are using the flags shortcut, swap it for the full path
+    if (key.startsWith(STATE_ROOT_FLAGS)) {
+      key=key.replace(STATE_ROOT_FLAGS,STATE_ROOT_FLAGS_SOURCE);
+    }
+    if (!(key.startsWith(STATE_ROOT_LOCAL) || key.startsWith(STATE_ROOT_GLOBAL))){
       // Default to local
       key = STATE_ROOT_LOCAL+"."+key;
     }    

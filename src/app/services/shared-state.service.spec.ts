@@ -1,5 +1,7 @@
 import { TestBed} from '@angular/core/testing'
-import { SharedStateService } from './shared-state.service';
+import { SharedStateService, STATE_ROOT_GLOBAL, STATE_ROOT_FLAGS, STATE_ROOT_FLAGS_SOURCE, STATE_ROOT_LOCAL } from './shared-state.service';
+import { get, set} from 'lodash-es';
+
 //import { RouterTestingModule } from '@angular/router/testing'
 
 
@@ -57,4 +59,11 @@ describe('SharedStateService', () => {
     expect(service.getValue('local.key')).toBe('value');
   })
 
+   it ('should allow flags to be set',() =>{
+     service.setValue('flags.devel',true);
+     expect(service.getValue(STATE_ROOT_FLAGS+'.devel')).toBe(true);
+     expect(service.getValue(STATE_ROOT_FLAGS_SOURCE+'.devel')).toBe(true);
+     const state = service.state;
+     expect(get(state,STATE_ROOT_FLAGS_SOURCE+'.devel')).toBe(true);     
+   })
 });
