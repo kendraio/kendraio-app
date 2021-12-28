@@ -26,7 +26,9 @@ import internal from 'stream';
 export const STATE_ROOT_GLOBAL = 'global';
 export const STATE_ROOT_LOCAL = 'local';
 
-
+/**
+ * Flags are a shortcut to allow the use of a standard state location, outside of the url hierarchy, for storing variables 
+ */
 export const STATE_ROOT_FLAGS = 'flags'; // What top level key should contain flags
 export const STATE_ROOT_FLAGS_SOURCE = 'global._.flags'; // how should the top level flags key be translated in the global tree
 

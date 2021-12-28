@@ -4,7 +4,7 @@ Context & State
 Context and state are in-memory, temporary datastores. Use the context block to save data into the flow context or global state to make it available for all
  tasks. 
 
-There are two different storage domains that can be written to with this block. 
+There are two top level storage domains that can be accessed with this block. 
 
 **Context** is passed from block to block. When processing data in parrallel - during a batch or multiplex flow - context will be different in each branch.
 Blocks will only have access to values written by another block in the same branch. 
@@ -12,6 +12,8 @@ Blocks will only have access to values written by another block in the same bran
 **State** is shared by all blocks. The content of state is stored in memory and is available to any subsequent flows - but only on the same tab until that tab is closed or reloaded. There are two possible ways to address the content of state:
 **state.global** contains all data stored in the state. 
 **state.local** is a dynamic sub-branch of the global state based on the current url. (eg. on path "x/y" state.local is the equivalent of "state.global.x.y")
+**state.flags** provides an additional, top level shortcut to state information. Flags is intended to be used to store small units of information
+that do not belong inside the standard url hierarchy. 
 
 For more detailed information, see the State section below. 
 
@@ -80,6 +82,31 @@ When a path is prefixed with *state.global*, it will allow values written to any
 
 When a value is written to a location other than "local" or "global", "local" will be assumed. 
 When on the same url as above, writing to "state.filter" will get translated to *workflowCloud.listWorkflows.filter*. 
+
+Flags
++++++
+
+Flags exist within the global state, but can be accessed directly via this "shortcut". The purpose of the flag address is to create a standard
+storage location for fragments of data that can be easily accessed and modified by different components. 
+
+Flags are available at the top level of the state to make it easy to quickly check their values to enable and disable functionality. 
+
+.. code-block:: Json
+
+  {
+     "type":"debug",
+     "enabledGetter":"flags.devel"
+  }
+
+
+Suggested Standard Flags
+^^^^^^^^^^^^^^^^^^^^^^^^
+* devel - Set this flag to true to signify that development elements of a flow should be enabled. 
+
+
+
+
+
 
 Security and access control
 +++++++++++++++++++++++++++
