@@ -8,10 +8,7 @@
     </mat-expansion-panel-header>
     
 
-    <ng-template matExpansionPanelContent>      
-      <block-editor-comment *ngIf="block.blockComment">
-        <div class="block-editor-comment">{{block.blockComment}}</div>
-      </block-editor-comment> 
+    <ng-template matExpansionPanelContent>            
       <ng-container [ngSwitch]="block.type">
         <ng-container *ngSwitchCase="'graphql'">
           <app-block-graphql-builder-box [block]="block"
