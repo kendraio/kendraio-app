@@ -4,3 +4,12 @@
   <ngx-monaco-editor *ngIf="hasEditor" [options]="editorOptions" style="height: 460px;"
                      [(ngModel)]="blockModel" (onInit)="initEditor()"></ngx-monaco-editor>
 </ng-container>
+
+<mat-form-field class="example-full-width">
+  <input type="text" placeholder="Block Title" aria-label="Block Title" matInput
+    [formControl]="blockTitleFormControl" />
+</mat-form-field>
+<mat-form-field class="example-full-width">
+  <input type="text" placeholder="Block Comment" aria-label="Block Comment" matInput
+    [formControl]="blockCommentFormControl" />
+</mat-form-field>

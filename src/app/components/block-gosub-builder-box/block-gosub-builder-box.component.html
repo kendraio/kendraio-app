@@ -1,36 +1,28 @@
 <mat-form-field class="example-full-width">
-    <input type="text" placeholder="Adapter" aria-label="Adapter" matInput [formControl]="adapterNameFormControl" [matAutocomplete]="autoAdapter">
-    <mat-autocomplete #autoAdapter="matAutocomplete">
-      <mat-option *ngFor="let adapter of filteredAdapters | async" [value]="adapter">
-        {{ adapter }}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
+  <input type="text" placeholder="Adapter" aria-label="Adapter" matInput [formControl]="adapterNameFormControl"
+    [matAutocomplete]="autoAdapter">
+  <mat-autocomplete #autoAdapter="matAutocomplete">
+    <mat-option *ngFor="let adapter of filteredAdapters | async" [value]="adapter">
+      {{ adapter }}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
 
-  <mat-form-field class="example-full-width">
-    <input type="text" placeholder="Workflow" aria-label="Workflow" matInput [formControl]="workflowIdFormControl" [matAutocomplete]="autoWorkflow">
-    <mat-autocomplete #autoWorkflow="matAutocomplete">
-      <mat-option *ngFor="let workflow of filteredWorkflows | async" [value]="workflow">
-        {{ workflow }}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-  <mat-divider></mat-divider>
-  <mat-expansion-panel class="mat-elevation-z0" >
-      <mat-expansion-panel-header><mat-panel-title>Metadata</mat-panel-title></mat-expansion-panel-header>
-  
-  <mat-form-field>
-      <label>
-        <span>Block Title</span>
-      </label>
-      <input matInput [formControl]="blockTitleFormControl">
-    </mat-form-field>
-    
-  <mat-form-field >
-    <label>
-      <span>Block Comment</span>
-    </label>
-    <input matInput [formControl]="blockCommentFormControl">
-  </mat-form-field>
-  </mat-expansion-panel>
-  
+<mat-form-field class="example-full-width">
+  <input type="text" placeholder="Workflow" aria-label="Workflow" matInput [formControl]="workflowIdFormControl"
+    [matAutocomplete]="autoWorkflow">
+  <mat-autocomplete #autoWorkflow="matAutocomplete">
+    <mat-option *ngFor="let workflow of filteredWorkflows | async" [value]="workflow">
+      {{ workflow }}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+
+<mat-form-field class="example-full-width">
+  <input type="text" placeholder="Block Title" aria-label="Block Title" matInput
+    [formControl]="blockTitleFormControl" />
+</mat-form-field>
+<mat-form-field class="example-full-width">
+  <input type="text" placeholder="Block Comment" aria-label="Block Comment" matInput
+    [formControl]="blockCommentFormControl" />
+</mat-form-field>

@@ -18,7 +18,7 @@ describe('Subroutine workflow block', () => {
     ]);
     cy.get('mat-toolbar > button mat-icon').contains('settings').click();
     cy.get("#mat-expansion-panel-header-0").click();
-    cy.pause();
+    //cy.pause();
     cy.get("#mat-input-0").clear().type("s");
     cy.get(".mat-option-text").contains("someAdapterB")
     cy.get("#mat-input-0").clear().type("someAdapterB");
