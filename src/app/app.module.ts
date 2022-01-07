@@ -182,7 +182,6 @@ import { LoadSchemaBlockComponent } from './blocks/load-schema-block/load-schema
 import { AppLayoutBlockComponent } from './blocks/app-layout-block/app-layout-block.component';
 import { ReadonlyInputComponent } from './form-controls/readonly-input/readonly-input.component';
 import { RenameFieldsBlockComponent } from './blocks/rename-fields-block/rename-fields-block.component';
-import { BlockGosubBuilderBoxComponent } from './components/block-gosub-builder-box/block-gosub-builder-box.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -340,8 +339,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoadSchemaBlockComponent,
     AppLayoutBlockComponent,
     ReadonlyInputComponent,
-    RenameFieldsBlockComponent,
-    BlockGosubBuilderBoxComponent
+    RenameFieldsBlockComponent
   ],
   imports: [
     FormlyModule.forRoot({}),
