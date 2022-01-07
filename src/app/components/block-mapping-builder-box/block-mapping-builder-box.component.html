@@ -1,9 +1,20 @@
+
 <ngx-monaco-editor [options]="editorOptions" style="height: 240px;" [(ngModel)]="mappingModel"></ngx-monaco-editor>
-<mat-form-field class="example-full-width">
-  <input type="text" placeholder="Block Title" aria-label="Block Title" matInput
-    [formControl]="blockTitleFormControl" />
+<mat-divider></mat-divider>
+<mat-expansion-panel class="mat-elevation-z0" >
+    <mat-expansion-panel-header><mat-panel-title>Metadata</mat-panel-title></mat-expansion-panel-header>
+
+<mat-form-field>
+    <label>
+      <span>Block Title</span>
+    </label>
+    <input matInput [formControl]="blockTitleFormControl">
+  </mat-form-field>
+  
+<mat-form-field >
+  <label>
+    <span>Block Comment</span>
+  </label>
+  <input matInput [formControl]="blockCommentFormControl">
 </mat-form-field>
-<mat-form-field class="example-full-width">
-  <input type="text" placeholder="Block Comment" aria-label="Block Comment" matInput
-    [formControl]="blockCommentFormControl" />
-</mat-form-field>
+</mat-expansion-panel>
