@@ -2,6 +2,7 @@
   "integrationFolder": "cypress/integration",
   "supportFile": false,
   "videosFolder": "cypress/videos",
+  "video":false,
   "screenshotsFolder": "cypress/screenshots",
   "pluginsFile": false,
   "fixturesFolder": "cypress/fixtures",
