@@ -31,6 +31,7 @@ Default config
 Supported properties
 --------------------
 
+
 - **key** (string) The key of the value that will be saved into context.
   For example, if you use a key of "saved" then the value will be available in the context as "context.saved".
 
