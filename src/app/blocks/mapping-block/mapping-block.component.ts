@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {clone, find, get, isArray, isObject, isString, isUndefined, omit, pick, pickBy} from 'lodash-es';
 import {mappingUtility} from './mapping-util';
+import { SharedStateService } from 'src/app/services/shared-state.service';
 
 @Component({
   selector: 'app-mapping-block',
@@ -23,7 +24,7 @@ export class MappingBlockComponent implements OnInit, OnChanges {
   hasError = false;
   errorMessage = '';
 
-  constructor() { }
+  constructor(private stateService:SharedStateService) { }
 
   ngOnInit() {
   }
@@ -99,7 +100,7 @@ export class MappingBlockComponent implements OnInit, OnChanges {
 
   getMappingResult(mapping) {
     if (isString(mapping)) {
-      return mappingUtility({ data: this.model, context: this.context }, mapping);
+      return mappingUtility({ data: this.model, context: this.context, state:this.stateService.state}, mapping);
     }
     if (isArray(mapping)) {
       return mapping.map(v => this.getMappingResult(v));

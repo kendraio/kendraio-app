@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Input, NgZone, OnChanges, OnInit, Output} from '@angular/core';
 import {clone, find, get} from 'lodash-es';
 import {mappingUtility} from '../mapping-block/mapping-util';
+import { SharedStateService } from 'src/app/services/shared-state.service';
+
 
 @Component({
   selector: 'app-switch-block',
@@ -18,7 +20,8 @@ export class SwitchBlockComponent implements OnInit, OnChanges {
   models = [];
   
   constructor(
-    private readonly zone: NgZone
+    private readonly zone: NgZone,
+    private stateService:SharedStateService
   ) {
   }
 
@@ -27,7 +30,7 @@ export class SwitchBlockComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes) {
     const cases = get(this.config, 'cases', []);
-    const matchValue = mappingUtility({data: this.model, context: this.context}, get(this.config, 'valueGetter', 'data'));
+    const matchValue = mappingUtility({data: this.model, context: this.context, state: this.stateService.state}, get(this.config, 'valueGetter', 'data'));
     const match = find(cases, ({value}) => value === matchValue);
     if (!!match) {
       this.blocks = get(match, 'blocks', []);

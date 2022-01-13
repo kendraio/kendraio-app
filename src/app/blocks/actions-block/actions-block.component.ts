@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, NgZone, OnChanges, OnInit, Output, ViewC
 import {clone, get} from 'lodash-es';
 import {BlocksWorkflowComponent} from '../../components/blocks-workflow/blocks-workflow.component';
 import {mappingUtility} from '../mapping-block/mapping-util';
+import { SharedStateService } from 'src/app/services/shared-state.service';
 
 @Component({
   selector: 'app-actions-block',
@@ -23,20 +24,31 @@ export class ActionsBlockComponent implements OnInit, OnChanges {
   @ViewChild(BlocksWorkflowComponent) workflow;
 
   constructor(
-    private readonly zone: NgZone
-  ) { }
+    private readonly zone: NgZone,
+    private stateService: SharedStateService
+  ) {    
+    stateService.state$.subscribe(state => { Promise.resolve(null).then(() => this.setEnabled()); });
+   }
 
   getLabel(button) {
     return button.labelGetter
-      ? mappingUtility({ data: this.model, context: this.context }, button.labelGetter)
+      ? mappingUtility({ data: this.model, context: this.context, state: this.stateService.state }, button.labelGetter)
       : (button.label || 'Submit');
   }
 
+  setEnabled(){    
+      this.buttons.forEach( (button,index) => {
+        let enabled = button.enabledGetter ? mappingUtility({ data: this.model, context: this.context,state: this.stateService.state  }, button.enabledGetter) : true;        
+        this.buttons[index].enabled = enabled;
+      })    
+  }
+  
   ngOnInit() {
   }
 
   ngOnChanges(changes) {
     this.buttons = get(this.config, 'buttons', []);
+    this.setEnabled();
   }
 
   onSubmit(button) {
