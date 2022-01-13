@@ -360,7 +360,7 @@ export const BLOCK_TYPES = [
   },
   {
     type: 'context-save',
-    label: 'Context & State(Save)',
+    label: 'Context and State(Save)',
     description: 'Save a value into context or state',
     icon: 'fa-stamp',
     defaultConfig: {
