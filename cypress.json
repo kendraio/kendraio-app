@@ -15,5 +15,6 @@
      "json": true
   },
   "watchForFileChanges":false,
-  "projectId": "ebzwp1"
+  "projectId": "ebzwp1",
+  "pageLoadTimeout": 200000
 }
