@@ -60,7 +60,11 @@ export class GridBlockComponent implements OnInit, OnChanges {
     if (!!this.gridAngular && get(this.config, 'sizeColumnsToFit', true)) {
       setTimeout(() => {
         this.zone.run(() => {
-          this.gridAngular.api.sizeColumnsToFit();
+          try {
+            this.gridAngular.api.sizeColumnsToFit();
+          } catch (e) {
+            console.log(e);
+          }
         });
       }, 40);
     }
