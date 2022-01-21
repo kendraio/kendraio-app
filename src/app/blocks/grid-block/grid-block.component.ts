@@ -1,9 +1,10 @@
 import { Component, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
-import { clone, get, has, isArray, isObject } from 'lodash-es';
+import { clone, get, has, isArray, isObject, toPairs } from 'lodash-es';
 import { search } from 'jmespath';
 import { WorkflowCellRendererComponent } from '../../components/workflow-cell-renderer/workflow-cell-renderer.component';
 import { mappingUtility } from '../mapping-block/mapping-util';
 import { ConnectionStatusRendererComponent } from '../../components/connection-status-renderer/connection-status-renderer.component';
+import { SharedStateService } from 'src/app/services/shared-state.service';
 
 @Component({
   selector: 'app-grid-block',
@@ -29,6 +30,10 @@ export class GridBlockComponent implements OnInit, OnChanges {
   gridOptions = {};
   passThrough = false; // set true to transparently pass through any data model changes
   firstRowHeaders = false; // use the first row as the headers
+  enabled = true;
+  enabledGetter = null;
+  valueGetter = null; 
+
 
   frameworkComponents = {
     workflowRenderer: WorkflowCellRendererComponent,
@@ -36,35 +41,22 @@ export class GridBlockComponent implements OnInit, OnChanges {
   };
 
   constructor(
-    private readonly zone: NgZone
-  ) { }
+    private readonly zone: NgZone,
+    private stateService: SharedStateService
+  ) {    
+    stateService.state$.subscribe({next: (result:any) => this.handleStateChange(), error: () =>{}})
+  }
 
   ngOnInit() {    
     this.passThrough = get(this.config, 'passThrough', false);
     this.firstRowHeaders = get(this.config, 'firstRowHeaders', false);
+    this.valueGetter = get(this.config, 'valueGetter', null);
+    this.enabledGetter = get(this.config, 'enabledGetter', null);    
+    this.setEnabled();
   }
 
   ngOnChanges(changes) {    
     this.updateOutputDisplay();
-    if (this.passThrough) this.output.emit(this.model)
-  }
-
-  updateOutputDisplay() {
-    let defaultCols = [];
-    if (isArray(this.model) && this.model.length > 0) {      
-      defaultCols = Object.keys(this.model[0]).map((key) => {
-          let column = { headerName: key, field: key };
-          if (this.firstRowHeaders) column.headerName = this.model[0][key];
-          return column;
-        }        
-      )      
-    }
-    let workingModel = this.model ? clone(this.model) : []; // create a local clone of the data - to allow us to modify data only for display
-    if (this.firstRowHeaders && workingModel.length >0) workingModel.shift(); // remove first row from the working model
-    this.columnDefs = this.preprocessColumnDefinition(get(this.config, 'columnDefs', defaultCols));
-    this.gridOptions = clone(get(this.config, 'gridOptions', {}));    
-    this.defaultColDef = has(this.gridOptions, 'defaultColDef') ? this.config.gridOptions.defaultColDef : this.defaultColDef;
-    this.rowData = isArray(workingModel) ? workingModel : get(this.model, 'result', []);
     if (!!this.gridAngular && get(this.config, 'sizeColumnsToFit', true)) {
       setTimeout(() => {
         this.zone.run(() => {
@@ -72,6 +64,51 @@ export class GridBlockComponent implements OnInit, OnChanges {
         });
       }, 40);
     }
+    if (this.passThrough) this.output.emit(this.model)
+  }
+
+  
+  handleStateChange(){
+    setTimeout(() => {
+      this.setEnabled();
+      if (this.valueGetter) {
+        this.updateOutputDisplay();
+      }  
+    });
+  }
+
+  setEnabled(){    
+    if(this.enabledGetter!==null) {
+      this.enabled = mappingUtility({ data: this.model, context: this.context,state: this.stateService.state  }, this.enabledGetter);        
+    }    
+  } 
+
+  updateOutputDisplay() {
+    let defaultCols = [];
+    let workingModel = [];
+    if (this.valueGetter) {      
+      workingModel = mappingUtility({ data: this.model, context: this.context,state: this.stateService.state  }, this.valueGetter);              
+      if (!isArray(workingModel)) {
+        // make sure that we have a compatible array if we retrieved an object 
+        workingModel = toPairs(workingModel);        
+      }
+    } else {
+      workingModel = this.model ? clone(this.model) : []; // create a local clone of the data - to allow us to modify data only for display
+    }    
+    if (isArray(workingModel) && workingModel.length > 0) {      
+      defaultCols = Object.keys(workingModel[0]).map((key) => {
+          let column = { headerName: key, field: key };
+          if (this.firstRowHeaders) column.headerName = workingModel[0][key];
+          return column;
+        }        
+      )      
+    }
+    
+    if (this.firstRowHeaders && workingModel.length >0) workingModel.shift(); // remove first row from the working model
+    this.columnDefs = this.preprocessColumnDefinition(get(this.config, 'columnDefs', defaultCols));
+    this.gridOptions = clone(get(this.config, 'gridOptions', {}));    
+    this.defaultColDef = has(this.gridOptions, 'defaultColDef') ? this.config.gridOptions.defaultColDef : this.defaultColDef;
+    this.rowData = isArray(workingModel) ? workingModel : get(workingModel, 'result', []);        
   }
 
   preprocessColumnDefinition(def: Array<any>) {

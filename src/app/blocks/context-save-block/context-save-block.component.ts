@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import {BaseBlockComponent} from '../base-block/base-block.component';
-import {clone, get, set} from 'lodash-es';
+import { BaseBlockComponent } from '../base-block/base-block.component';
+import { clone, get, set, has } from 'lodash-es';
 import * as uuid from 'uuid';
-import {mappingUtility} from '../mapping-block/mapping-util';
+import { mappingUtility } from '../mapping-block/mapping-util';
+import { SharedStateService } from 'src/app/services/shared-state.service';
 
 @Component({
   selector: 'app-context-save-block',
@@ -11,28 +12,52 @@ import {mappingUtility} from '../mapping-block/mapping-util';
 })
 export class ContextSaveBlockComponent extends BaseBlockComponent {
 
-  contextKey = 'saved';
+  key = 'saved';
   valueGetter = 'data';
   keyGetter = '';
+  skipFirst = false;
+  state = false; // force to shared context
+
+  constructor(private stateService: SharedStateService) {
+    super()
+  }
+
 
   onConfigUpdate(config: any) {
-    this.contextKey = get(config, 'contextKey', 'saved');
+    if (has(config,'key')) {
+      this.key = get(config, 'key', 'saved');
+    } else {
+      this.key = get(config, 'contextKey', 'saved');
+    }   
     this.valueGetter = get(config, 'valueGetter', 'data');
     this.keyGetter = get(config, 'keyGetter', '');
+    this.state = get(config, 'state', '');
+    this.skipFirst = get(config, 'skipFirst', false);
   }
 
   onData(data: any, firstChange: boolean) {
-    const value = mappingUtility({ data, context: this.context }, this.valueGetter);
-    let key = this.contextKey;
-    if (this.keyGetter.length>0) {
-      key = mappingUtility({ data, context: this.context }, this.keyGetter);
+    if (firstChange && this.skipFirst || data == null) {
+      return;
     }
-    if (key){
-      set(this.context, key, value);
+
+    const value = mappingUtility({ data, context: this.context, state: this.stateService.state }, this.valueGetter);
+    let key = this.key;
+
+    if (this.keyGetter.length > 0) {
+      key = mappingUtility({ data, context: this.context, state: this.stateService.state }, this.keyGetter);
+    }
+        
+    if (key) {
+      if (key.startsWith('state.') || this.state) {
+        if (key.startsWith('state.')) key = key.substring(6);
+        this.stateService.setValue(key, value);
+      }
+      else {
+        set(this.context, key, value);
+      }
       this.context.__key = uuid.v4();
     }
-    this.output.emit(clone(data));    
+    this.output.emit(clone(data));
   }
-
 
 }
