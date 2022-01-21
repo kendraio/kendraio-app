@@ -45,29 +45,27 @@ describe('workspace-project App', () => {
     loadFlowCode([
       {
         "type": "mapping",
-        "mapping": "`true`",
-        "blockTitle": "testingTitle",
+        "mapping": "`true`",        
         "blockComment": "testingComment",
       }
     ]);
     cy.get('mat-toolbar > button mat-icon').contains('settings').click();
-    cy.get('app-workflow-sidenav').contains('testingTitle').should('exist');    
-    cy.get('app-workflow-sidenav').contains('testingTitle').click();        
+    cy.get('app-workflow-sidenav').contains('testingComment').should('exist');    
+    cy.get('app-workflow-sidenav').contains('testingComment').click();        
     cy.get('app-workflow-sidenav').contains('Block Comment');    
   });
 
-  it('should display title and comment for a generic editor block', () => {
+  it('should display the comment for a generic editor block', () => {
     loadFlowCode([
       {
-        "type": "template",        
-        "blockTitle": "testingTitle",
-        "blockComment": "testingComment",
+        "type": "template",                
+        "blockComment": "testingComment first line\nComment line2",
       }
     ]);
     cy.get('mat-toolbar > button mat-icon').contains('settings').click();
-    cy.get('app-workflow-sidenav').contains('testingTitle').should('exist');
-    cy.get('app-workflow-sidenav').contains('testingTitle').click();    
-    //cy.get('app-workflow-sidenav').contains('testingComment').should('be.visible');    
+    cy.get('app-workflow-sidenav').contains('testingComment').should('exist');
+    cy.get('app-workflow-sidenav').contains('line2').should('not.exist');
+    cy.get('app-workflow-sidenav').contains('testingComment').click();        
   });
 
 

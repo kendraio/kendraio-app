@@ -22,8 +22,7 @@ export class BlockGosubBuilderBoxComponent implements OnInit {
   filteredWorkflows : Observable<string[]>
 
   adapterNameFormControl: FormControl = new FormControl();
-  workflowIdFormControl:  FormControl = new FormControl();
-  blockTitleFormControl = new FormControl(); 
+  workflowIdFormControl:  FormControl = new FormControl();  
   blockCommentFormControl = new FormControl(); 
 
 
@@ -35,8 +34,7 @@ export class BlockGosubBuilderBoxComponent implements OnInit {
 
   ngOnInit(): void {
     this.adapterNameFormControl.setValue(get(this.block, 'adapterName', ''));
-    this.workflowIdFormControl.setValue(get(this.block, 'workflowId', ''));    
-    this.blockTitleFormControl.setValue(get(this.block, 'blockTitle', ''));
+    this.workflowIdFormControl.setValue(get(this.block, 'workflowId', ''));        
     this.blockCommentFormControl.setValue(get(this.block, 'blockComment', ''));
     this.getData();
 
@@ -65,8 +63,7 @@ export class BlockGosubBuilderBoxComponent implements OnInit {
     return {
       ...this.block,
       adapterName: this.adapterNameFormControl.value,
-      workflowId: this.workflowIdFormControl.value,
-      blockTitle: this.blockTitleFormControl.value,
+      workflowId: this.workflowIdFormControl.value,      
       blockComment: this.blockCommentFormControl.value,
 
     };

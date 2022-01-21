@@ -19,9 +19,9 @@ export class BlockBuilderBoxComponent implements OnInit {
   hasEditor = false;
 
   @Input() block;
-  blockModel = '';
-  blockTitleFormControl = new FormControl(); 
+  blockModel = '';  
   blockCommentFormControl = new FormControl(); 
+  blockTitle = '';
 
   @Output() updateBlock = new EventEmitter();
   @Output() deleteBlock = new EventEmitter();
@@ -30,11 +30,9 @@ export class BlockBuilderBoxComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-    this.blockTitleFormControl.setValue(get(this.block, 'blockTitle', ''));
-    this.blockCommentFormControl.setValue(get(this.block, 'blockComment', ''));
-    let block = clone(this.block);
-    unset(block,"blockTitle");    
+  ngOnInit() {    
+    this.blockCommentFormControl.setValue(get(this.block, 'blockComment', ''));    
+    let block = clone(this.block);      
     unset(block,"blockComment");    
     this.blockModel = JSON.stringify(block, null, 4);
     this.blockTypeConfig = find(BLOCK_TYPES, ({ type }) => this.block.type === type);
@@ -55,9 +53,8 @@ export class BlockBuilderBoxComponent implements OnInit {
   getUpdatedModel() {
     let block = JSON.parse(this.blockModel);
     return {
-      ...block,      
-      blockTitle: this.blockTitleFormControl.value,
-      blockComment: this.blockCommentFormControl.value
+      ...block,            
+      blockComment: this.blockCommentFormControl.value,      
     };
 
   }
@@ -71,7 +68,8 @@ export class BlockBuilderBoxComponent implements OnInit {
     //   uri: 'a:blockModel.json'
     // };
   }
-
+  
+   
   initEditor() {
   }
 }

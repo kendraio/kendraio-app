@@ -23,8 +23,7 @@ export class BlockMappingBuilderBoxComponent implements OnInit {
 
   @Input() block;
   @Output() updateBlock = new EventEmitter();
-  mappingModel = '';
-  blockTitleFormControl = new FormControl(); 
+  mappingModel = '';  
   blockCommentFormControl = new FormControl(); 
 
 
@@ -32,16 +31,14 @@ export class BlockMappingBuilderBoxComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.mappingModel = get(this.block, 'mapping', '');
-    this.blockTitleFormControl.setValue(get(this.block, 'blockTitle', ''));
+    this.mappingModel = get(this.block, 'mapping', '');    
     this.blockCommentFormControl.setValue(get(this.block, 'blockComment', ''));
   }
 
   getUpdatedModel() {
     return {
       ...this.block,
-      mapping: this.mappingModel,
-      blockTitle: this.blockTitleFormControl.value,
+      mapping: this.mappingModel,      
       blockComment: this.blockCommentFormControl.value,
     };
   }
