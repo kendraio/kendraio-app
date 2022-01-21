@@ -37,14 +37,8 @@ export class BlocksEditorComponent implements OnInit, OnChanges {
   }
 
   generateTitles(){
-    this.blocks.forEach((block, i) => {            
-      const maxLength = 30       
-      let comment  = block.blockComment ? block.blockComment.split("\n")[0]: '';
-      // if the length is longer than max, truncate at word boundary
-      if (comment.length > maxLength) {
-        comment = comment.substr(0, comment.lastIndexOf(" ", maxLength)) + "...";
-      }      
-      this.blockTitles[i] = comment;
+    this.blocks.forEach((block, i) => {                  
+      this.blockTitles[i] = block.blockComment ? block.blockComment.split("\n")[0]: '';
     });
   }
 
