@@ -1,7 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {EDITOR_OPTIONS} from './editor-options';
 import {BLOCK_TYPES} from '../../dialogs/add-block-dialog/block-types';
-import { find, get } from 'lodash-es';
+import { find, get, unset, clone } from 'lodash-es';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-block-builder-box',
@@ -18,7 +19,9 @@ export class BlockBuilderBoxComponent implements OnInit {
   hasEditor = false;
 
   @Input() block;
-  blockModel = '';
+  blockModel = '';  
+  blockCommentFormControl = new FormControl(); 
+  blockTitle = '';
 
   @Output() updateBlock = new EventEmitter();
   @Output() deleteBlock = new EventEmitter();
@@ -27,10 +30,15 @@ export class BlockBuilderBoxComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-    this.blockModel = JSON.stringify(this.block, null, 4);
+  ngOnInit() {    
+    this.blockCommentFormControl.setValue(get(this.block, 'blockComment', ''));    
+    let block = clone(this.block);      
+    unset(block,"blockComment");    
+    this.blockModel = JSON.stringify(block, null, 4);
     this.blockTypeConfig = find(BLOCK_TYPES, ({ type }) => this.block.type === type);
     this.hasEditor = get(this.blockTypeConfig, 'hasEditor', false);
+
+    
     // this.jsonMode = {
       // value: this.blockModel,
       // language: 'json',
@@ -43,7 +51,12 @@ export class BlockBuilderBoxComponent implements OnInit {
   }
 
   getUpdatedModel() {
-    return JSON.parse(this.blockModel);
+    let block = JSON.parse(this.blockModel);
+    return {
+      ...block,            
+      blockComment: this.blockCommentFormControl.value,      
+    };
+
   }
 
   onBlockUpdated(newBlock) {
@@ -55,7 +68,8 @@ export class BlockBuilderBoxComponent implements OnInit {
     //   uri: 'a:blockModel.json'
     // };
   }
-
+  
+   
   initEditor() {
   }
 }

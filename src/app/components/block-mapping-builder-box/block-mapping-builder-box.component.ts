@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {get} from 'lodash-es';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-block-mapping-builder-box',
@@ -22,18 +23,23 @@ export class BlockMappingBuilderBoxComponent implements OnInit {
 
   @Input() block;
   @Output() updateBlock = new EventEmitter();
-  mappingModel = '';
+  mappingModel = '';  
+  blockCommentFormControl = new FormControl(); 
+
+
 
   constructor() { }
 
   ngOnInit() {
-    this.mappingModel = get(this.block, 'mapping', '');
+    this.mappingModel = get(this.block, 'mapping', '');    
+    this.blockCommentFormControl.setValue(get(this.block, 'blockComment', ''));
   }
 
   getUpdatedModel() {
     return {
       ...this.block,
-      mapping: this.mappingModel,
+      mapping: this.mappingModel,      
+      blockComment: this.blockCommentFormControl.value,
     };
   }
 }

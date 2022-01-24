@@ -3,6 +3,15 @@
 .block-type-title {
   flex: 1;
   margin-left: 0.5em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.block-editor-comment {
+  font-size: 0.75rem;
+  opacity: 70%;
+  margin-bottom: 10px;  
 }
 
 .drag-handle {
