@@ -1,6 +1,9 @@
 import { loadFlowCode } from '../support/helper';
 // tslint:disable: quotemark
 
+
+const THIRTY_SECONDS = 30000;
+
 describe('workspace-project App', () => {
 
   beforeEach(() => {
@@ -28,7 +31,7 @@ describe('workspace-project App', () => {
 
     cy.contains(
       '3ab8d0cd-7b76-5741-8bc9-5725650dc435',
-      { timeout: 30000 }
+      { timeout: THIRTY_SECONDS }
     );
 
   });
@@ -43,7 +46,7 @@ describe('workspace-project App', () => {
     cy.get('mat-toolbar > button mat-icon').contains('settings').click();
     cy.get('app-workflow-sidenav').contains('delete_forever').click();
     cy.get('app-workflow-sidenav').contains('Mapping',
-    { timeout: 20000 }).should('not.exist');
+      { timeout: THIRTY_SECONDS }).should('not.exist');
     cy.get('app-workflow-sidenav').contains('Add Task').click();
     cy.contains('Select Task');
     cy.get('mat-dialog-container').contains('Mapping').click();
@@ -65,7 +68,7 @@ describe('workspace-project App', () => {
     ).as('flowList.json');
 
     cy.visit('/workflowCloud/listWorkflows');
-    cy.contains('Made up flow A', { timeout: 30000 });
+    cy.contains('Made up flow A', { timeout: THIRTY_SECONDS });
   });
 
 
