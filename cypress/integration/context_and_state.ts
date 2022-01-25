@@ -11,7 +11,7 @@ describe('Kendraio context and state', () => {
        ).as('adapterConfig.json');
   });
 
-  it('should be posttible for a template block to access global state values', () => {
+  it('should be possible for a template block to access global state values', () => {
     loadFlowCode([     
       {
          "type":"template",
