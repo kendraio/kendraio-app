@@ -11,7 +11,7 @@ describe('Kendraio context and state', () => {
        ).as('adapterConfig.json');
   });
 
-  it('should be allow a template block to be able to access global state values', () => {
+  it('should be posttible for a template block to access global state values', () => {
     loadFlowCode([     
       {
          "type":"template",
@@ -19,19 +19,19 @@ describe('Kendraio context and state', () => {
       },
       {
         "type": "context-save",
-        "valueGetter": "uuid('global')",        
-        "contextKey":"state.global.test",
+        "valueGetter": "`globalTest`",        
+        "key":"state.global.test",
         "skipFirst":false
       },
       {
         "type": "context-save",
-        "valueGetter": "uuid('local')",        
-        "contextKey":"state.local.test",
+        "valueGetter": "`localTest`",        
+        "key":"state.local.test",
         "skipFirst":false
       }
     ]);
-    cy.contains('11b5372c-59da-529e-a28c-a2d5da41920f', { timeout: 10000 });
-    cy.contains('1569572c-18e9-578b-9a43-3f40e43a7292', { timeout: 10000 });
+    cy.contains('globalTest', { timeout: 10000 });
+    cy.contains('localTest', { timeout: 10000 });
   });
 
 
