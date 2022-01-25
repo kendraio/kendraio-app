@@ -2,8 +2,6 @@ import { loadFlowCode } from '../support/helper';
 // tslint:disable: quotemark
 
 
-const THIRTY_SECONDS = 30000;
-
 describe('workspace-project App', () => {
 
   beforeEach(() => {
@@ -30,8 +28,7 @@ describe('workspace-project App', () => {
     ]);
 
     cy.contains(
-      '3ab8d0cd-7b76-5741-8bc9-5725650dc435',
-      { timeout: THIRTY_SECONDS }
+      '3ab8d0cd-7b76-5741-8bc9-5725650dc435'
     );
 
   });
@@ -45,8 +42,7 @@ describe('workspace-project App', () => {
     cy.contains('settings');
     cy.get('mat-toolbar > button mat-icon').contains('settings').click();
     cy.get('app-workflow-sidenav').contains('delete_forever').click();
-    cy.get('app-workflow-sidenav').contains('Mapping',
-      { timeout: THIRTY_SECONDS }).should('not.exist');
+    cy.get('app-workflow-sidenav').contains('Mapping').should('not.exist');
     cy.get('app-workflow-sidenav').contains('Add Task').click();
     cy.contains('Select Task');
     cy.get('mat-dialog-container').contains('Mapping').click();
@@ -59,27 +55,27 @@ describe('workspace-project App', () => {
     loadFlowCode([
       {
         "type": "mapping",
-        "mapping": "`true`",        
+        "mapping": "`true`",
         "blockComment": "testingComment",
       }
     ]);
     cy.get('mat-toolbar > button mat-icon').contains('settings').click();
-    cy.get('app-workflow-sidenav').contains('testingComment').should('exist');    
-    cy.get('app-workflow-sidenav').contains('testingComment').click();        
-    cy.get('app-workflow-sidenav').contains('Block Comment');    
+    cy.get('app-workflow-sidenav').contains('testingComment').should('exist');
+    cy.get('app-workflow-sidenav').contains('testingComment').click();
+    cy.get('app-workflow-sidenav').contains('Block Comment');
   });
 
   it('should display the comment for a generic editor block', () => {
     loadFlowCode([
       {
-        "type": "template",                
+        "type": "template",
         "blockComment": "testingComment first line\nComment line2",
       }
     ]);
     cy.get('mat-toolbar > button mat-icon').contains('settings').click();
     cy.get('app-workflow-sidenav').contains('testingComment').should('exist');
     cy.get('app-workflow-sidenav').contains('line2').should('not.exist');
-    cy.get('app-workflow-sidenav').contains('testingComment').click();        
+    cy.get('app-workflow-sidenav').contains('testingComment').click();
   });
 
 
@@ -97,7 +93,7 @@ describe('workspace-project App', () => {
     ).as('flowList.json');
 
     cy.visit('/workflowCloud/listWorkflows');
-    cy.contains('Made up flow A', { timeout: THIRTY_SECONDS });
+    cy.contains('Made up flow A');
   });
 
 
