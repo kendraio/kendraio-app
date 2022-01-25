@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, OnChanges, Output} from '@angular/core';
 import {AddBlockDialogComponent} from '../../dialogs/add-block-dialog/add-block-dialog.component';
 import {BLOCK_TYPES} from '../../dialogs/add-block-dialog/block-types';
 import { MatDialog } from '@angular/material/dialog';
@@ -16,21 +16,34 @@ BLOCK_TYPES.forEach(element => _blockTypes[element.type]=element);
   templateUrl: './blocks-editor.component.html',
   styleUrls: ['./blocks-editor.component.scss']
 })
-export class BlocksEditorComponent implements OnInit {
+export class BlocksEditorComponent implements OnInit, OnChanges {
 
   @Input() blocks = [];
   @Input() blockIcons = _blockIcons;
   @Input() blockTypes = _blockTypes;
   @Output() blockUpdate = new EventEmitter();
 
+  blockTitles = [];
+
   constructor(
     private readonly dialog: MatDialog
   ) { }
 
-  ngOnInit() {
+  ngOnInit() {    
+  }
+
+  ngOnChanges(){
+    this.generateTitles();
+  }
+
+  generateTitles(){
+    this.blocks.forEach((block, i) => {                  
+      this.blockTitles[i] = block.blockComment ? block.blockComment.split("\n")[0]: '';
+    });
   }
 
   blocksChanged() {
+    this.generateTitles();
     this.blockUpdate.emit(clone(this.blocks));
   }
 

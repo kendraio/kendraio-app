@@ -55,6 +55,35 @@ describe('workspace-project App', () => {
   });
 
 
+  it('should display a custom title and additional form elements for the mapping editor block', () => {
+    loadFlowCode([
+      {
+        "type": "mapping",
+        "mapping": "`true`",        
+        "blockComment": "testingComment",
+      }
+    ]);
+    cy.get('mat-toolbar > button mat-icon').contains('settings').click();
+    cy.get('app-workflow-sidenav').contains('testingComment').should('exist');    
+    cy.get('app-workflow-sidenav').contains('testingComment').click();        
+    cy.get('app-workflow-sidenav').contains('Block Comment');    
+  });
+
+  it('should display the comment for a generic editor block', () => {
+    loadFlowCode([
+      {
+        "type": "template",                
+        "blockComment": "testingComment first line\nComment line2",
+      }
+    ]);
+    cy.get('mat-toolbar > button mat-icon').contains('settings').click();
+    cy.get('app-workflow-sidenav').contains('testingComment').should('exist');
+    cy.get('app-workflow-sidenav').contains('line2').should('not.exist');
+    cy.get('app-workflow-sidenav').contains('testingComment').click();        
+  });
+
+
+
   it('should display welcome message', () => {
     cy.visit('/');
     cy.contains('Kendraio App');
