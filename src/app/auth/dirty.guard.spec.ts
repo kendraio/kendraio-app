@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DirtyGuard } from './dirty.guard';
+import { CanDeactivateGuard } from './dirty.guard';
 
-describe('DirtyGuard', () => {
-  let guard: DirtyGuard;
+describe('CanDeactivateGuard', () => {
+  let guard: CanDeactivateGuard;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    guard = TestBed.inject(DirtyGuard);
+    guard = TestBed.inject(CanDeactivateGuard);
   });
 
   it('should be created', () => {
