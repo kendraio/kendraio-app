@@ -15,6 +15,7 @@ export class DirtyDialogService {
    * Returns observable resolving to `true`=confirm or `false`=cancel
    */
   confirm(message?: string): Observable<boolean> {
+    console.log('DirtyDialogService.confirm', message);
     const confirmation = window.confirm(message || 'Is it OK?');
     return of(confirmation);
   }

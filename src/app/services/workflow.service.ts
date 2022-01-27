@@ -219,6 +219,7 @@ export class WorkflowService {
         // console.log(values);
         this.id = get(values, 'id', this.id);
         this.saveState();
+        this.dirty = false;
       }
     });
   }
@@ -253,6 +254,7 @@ export class WorkflowService {
         this.tags = get(values, 'tags');
         set(this.context, 'app.adapterName', get(values, 'adapterName', this.getAdapterName()));
         this.saveState();
+        this.dirty = true;
       }
     });
   }

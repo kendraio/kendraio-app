@@ -72,9 +72,13 @@ export class NotFoundComponent implements OnInit, OnDestroy, CanComponentDeactiv
     this.destroy$.next();
     this.destroy$.complete();
   }
-
-  canDeactivate(): Observable<boolean> | boolean {
-    // Allow synchronous navigation (`true`) if no crisis or the crisis is unchanged
+  
+  /**
+   * Prevents navigation away from the component if changes have been made
+   * @returns true if the component can be deactivated
+   */
+  canDeactivate(): Observable<boolean> | boolean {    
+    console.log("this.workflow.Dirty", this.workflow.dirty);
     if (!this.workflow.dirty) {
       return true;
     }
