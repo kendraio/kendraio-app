@@ -2,6 +2,7 @@
   "integrationFolder": "cypress/integration",
   "supportFile": false,
   "videosFolder": "cypress/videos",
+  "video":false,
   "screenshotsFolder": "cypress/screenshots",
   "pluginsFile": false,
   "fixturesFolder": "cypress/fixtures",
@@ -14,5 +15,7 @@
      "json": true
   },
   "watchForFileChanges":false,
-  "projectId": "ebzwp1"
+  "projectId": "ebzwp1",
+  "pageLoadTimeout": 200000,
+  "defaultCommandTimeout": 30000
 }
