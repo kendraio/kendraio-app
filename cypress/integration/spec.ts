@@ -103,12 +103,17 @@ describe('workspace-project App', () => {
       cy.visit('/TESTING/dummy1');
       cy.location().should((loc) => {        
         expect(loc.pathname).to.eq('/TESTING/dummy1');
-      });            
+      });      
+      cy.contains('Dummy Workflow 1').should('be.visible',{ timeout: 10000 });
+      cy.contains('settings');
       cy.get('mat-toolbar > button mat-icon').contains('settings').click();
-      cy.get('app-workflow-sidenav').contains('Add Task').click();    
+      
+      cy.get('app-workflow-sidenav').contains('Add Task').click();      
+      cy.contains('Select Task');
       cy.get('mat-dialog-container').contains('Mapping').click();
-      cy.get('app-add-block-dialog .mat-dialog-actions').contains('Add Task').click();    
-      cy.get('app-root mat-toolbar').contains('menu').click();    
+      cy.get('app-add-block-dialog .mat-dialog-actions').contains('Add Task').click();
+      
+      cy.get('app-root mat-toolbar').contains('menu').click();
       // click in the menu to navigate away
       cy.contains('Dashboard').click();
       // confirm that we're not on the dashboard
