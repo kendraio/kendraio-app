@@ -6,24 +6,29 @@ import {catchError, filter, map, switchMap, switchMapTo, takeUntil, tap, withLat
 import {get, isArray, set} from 'lodash-es';
 import {BehaviorSubject, combineLatest, of, Subject} from 'rxjs';
 import {WorkflowService} from '../../services/workflow.service';
+import { Observable } from 'rxjs';
+import { DirtyDialogService } from 'src/app/services/dirty-dialog.service';
+import { CanComponentDeactivate } from 'src/app/auth/dirty.guard';
 
 @Component({
   selector: 'app-not-found',
   templateUrl: './not-found.component.html',
   styleUrls: ['./not-found.component.scss']
 })
-export class NotFoundComponent implements OnInit, OnDestroy {
+export class NotFoundComponent implements OnInit, OnDestroy, CanComponentDeactivate {
 
   isLoaded = false;
 
   destroy$ = new Subject();
   refresh$;
+  
 
   constructor(
     public readonly workflow: WorkflowService,
     private readonly pageTitle: PageTitleService,
     private readonly route: ActivatedRoute,
-    private readonly workflowRepo: WorkflowRepoService
+    private readonly workflowRepo: WorkflowRepoService,
+    private dirtyDialog: DirtyDialogService
   ) {
     this.refresh$ = this.pageTitle.refresh$;
   }
@@ -66,6 +71,20 @@ export class NotFoundComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+  
+  /**
+   * Prevents navigation away from the component if changes have been made
+   * @returns true if the component can be deactivated
+   */
+  canDeactivate(): Observable<boolean> | boolean {    
+    console.log("this.workflow.Dirty", this.workflow.dirty);
+    if (!this.workflow.dirty) {
+      return true;
+    }
+    // Otherwise ask the user with the dialog service and return its
+    // observable which resolves to true or false when the user decides
+    return this.dirtyDialog.confirm('Discard changes?');
   }
 
 }

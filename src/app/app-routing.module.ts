@@ -17,6 +17,7 @@ import {NotFoundComponent} from './components/not-found/not-found.component';
 import {JsonViewPageComponent} from './pages/json-view-page/json-view-page.component';
 import {ConnectComponent} from './pages/connect/connect.component';
 import {KqlBuilderComponent} from './pages/kql-builder/kql-builder.component';
+import { CanDeactivateGuard } from './auth/dirty.guard';
 
 const routes: Routes = [
   {
@@ -162,16 +163,18 @@ const routes: Routes = [
 
   {
     path: '',
+    canDeactivate: [CanDeactivateGuard],
     component: NotFoundComponent
   },
-  {path: '**', component: NotFoundComponent},
+  {path: '**', canDeactivate: [CanDeactivateGuard],component: NotFoundComponent},
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(
     routes,
   )],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [CanDeactivateGuard]
 })
 export class AppRoutingModule {
 }

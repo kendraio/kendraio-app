@@ -33,6 +33,8 @@ export class WorkflowService {
   context = {};
   tags = [];
 
+  dirty:boolean = false; // has this workflow been modified since last load/save?
+
   constructor(
     private readonly router: Router,
     private readonly dialog: MatDialog,
@@ -89,6 +91,7 @@ export class WorkflowService {
   }
 
   onBlocksUpdate(newBlocks) {
+    this.dirty = true;
     this.blocks = newBlocks;
     // this.models = [{}];
     this.saveState();
@@ -148,6 +151,7 @@ export class WorkflowService {
   }
 
   initWorkflow({ title, blocks, context, tags }, isBuilder = false) {
+    this.dirty = false;
     this.pageTitle.setTitle(title, true);
     this.title = title;
     this.blocks = blocks;
@@ -215,6 +219,7 @@ export class WorkflowService {
         // console.log(values);
         this.id = get(values, 'id', this.id);
         this.saveState();
+        this.dirty = false;
       }
     });
   }
@@ -249,6 +254,7 @@ export class WorkflowService {
         this.tags = get(values, 'tags');
         set(this.context, 'app.adapterName', get(values, 'adapterName', this.getAdapterName()));
         this.saveState();
+        this.dirty = true;
       }
     });
   }
