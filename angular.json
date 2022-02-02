@@ -108,7 +108,7 @@
                 },
                 "fonts": false
               },
-              "sourceMap": false,
+              "sourceMap": true,
               "namedChunks": false,
               "extractLicenses": false,
               "vendorChunk": false,
