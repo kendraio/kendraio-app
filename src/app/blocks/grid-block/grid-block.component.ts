@@ -60,6 +60,10 @@ export class GridBlockComponent implements OnInit, OnChanges {
     if (!!this.gridAngular && get(this.config, 'sizeColumnsToFit', true)) {
       setTimeout(() => {
         this.zone.run(() => {
+          /** I've attempted a number of approaches to this, but this is the only reliable one. 
+           * I cannot seem to properly detect whether or not the api object exists. gridAngular exists. Api is an object and it's not null. 
+           * But, when the sizeColumnsToFit runs, it's gone.
+            try..catch seems to be the safest bet. */
           try {
             this.gridAngular.api.sizeColumnsToFit();
           } catch (e) {
