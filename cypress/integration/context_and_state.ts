@@ -133,5 +133,14 @@ it('should allow the disabling of the debug block', () => {
 });
 
 
-
+it('should allow the disabling of the file input block ', () => {
+  cy.intercept('GET', 'https://app.kendra.io/api/TESTING/develmodeblocks', {
+    fixture: 'develModeBlocks.json' }
+    ).as('workflow.json');
+    cy.visit('/TESTING/develmodeblocks');
+    cy.contains('Devel Import').should('not.exist');
+    cy.contains("Enable Devel Mode").click();
+    cy.contains('Devel Import').should('exist');
+}
+);
 });

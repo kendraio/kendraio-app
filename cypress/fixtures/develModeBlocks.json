@@ -1,0 +1,78 @@
+{
+    "title": "Workflow",
+    "blocks": [
+      {
+            "type": "context-save",
+            "valueGetter": "`false`",
+            "contextKey": "state.flags.devel"
+        },
+        {
+            "type": "context-save",
+            "valueGetter": "`true`",
+            "contextKey": "state.flags.verbose"
+        },
+      {
+        "type": "template",
+        "template": "{{#unless state.flags.devel}}Not in Develop mode{{/unless}}{{#if state.flags.devel}}Develop mode{{/if}}",
+        "blockComment": ""
+      },
+      {
+        "type": "debug",
+        "open": 1,
+        "showData": true,
+        "showContext": false,
+        "showState": false,
+        "enabledGetter": "state.flags.devel",
+        "blockComment": ""
+      },
+      {
+        "type": "actions",
+        "buttons": [
+          {
+            "label": "Disable Devel Mode",
+            "color": "default",
+            "enabledGetter": "state.flags.devel",
+            "blocks": [
+                {
+                    "type": "context-save",
+                    "valueGetter": "`false`",
+                    "contextKey": "state.flags.devel"
+                }
+            ]          
+          },
+          {
+            "label": "Enable Devel Mode",
+            "color": "default",
+            "enabledGetter": "!(state.flags.devel)",
+            "blocks": [
+                {
+                    "type": "context-save",
+                    "valueGetter": "`true`",
+                    "contextKey": "state.flags.devel"
+                }
+            ]           
+          }
+        ]
+         },
+      {
+        "type": "file-input",
+        "label": "Devel Import",
+        "accept": [
+          "csv",
+          "json",
+          "xml"
+        ],
+        "enabledGetter": "state.flags.devel",
+        "blockComment": ""
+      },
+      {
+        "type": "gosub",
+        "adapterName": "devel",
+        "workflowId": "flagsDisplay",
+        "blockComment": ""
+      }
+    ],
+    "id": "develModeBlocks",
+    "adapterName": "TESTING"
+  }
+  
