@@ -133,5 +133,15 @@ it('should allow the disabling of the debug block', () => {
 });
 
 
-
+it('should allow the disabling of the file input block ', () => {
+  // Use a fixture workflow to define a standard set of state aware blocks
+  cy.intercept('GET', 'https://app.kendra.io/api/TESTING/stateawareblocks', {
+    fixture: 'stateAwareBlocks.json' }
+    ).as('workflow.json');
+    cy.visit('/TESTING/stateawareblocks');
+    cy.contains('Devel Mode File Import').should('not.exist');
+    cy.contains("Enable Devel Mode").click();
+    cy.contains('Devel Mode File Import').should('exist');
+}
+);
 });
