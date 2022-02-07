@@ -1,10 +1,12 @@
 {
     "title": "Workflow",
+    "description": "This is a standard testing workflow fixture to use as the basis of testing for 'state aware' blocks.", 
     "blocks": [
       {
             "type": "context-save",
             "valueGetter": "`false`",
-            "contextKey": "state.flags.devel"
+            "contextKey": "state.flags.devel",
+            "blockComment": "Set the devel flag to false to start. The action block in this flow makes it easy to switch states."
         },
         {
             "type": "context-save",
@@ -17,16 +19,8 @@
         "blockComment": ""
       },
       {
-        "type": "debug",
-        "open": 1,
-        "showData": true,
-        "showContext": false,
-        "showState": false,
-        "enabledGetter": "state.flags.devel",
-        "blockComment": ""
-      },
-      {
         "type": "actions",
+        "blockComment": "Action buttons for controlling devel state flag",
         "buttons": [
           {
             "label": "Disable Devel Mode",
@@ -54,6 +48,16 @@
           }
         ]
          },
+      {
+        "type": "debug",
+        "open": 1,
+        "showData": true,
+        "showContext": false,
+        "showState": false,
+        "enabledGetter": "state.flags.devel",
+        "blockComment": ""
+      },
+      
       {
         "type": "file-input",
         "label": "Devel Import",
