@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
 import {flatten, get} from 'lodash-es';
+import { SharedStateService } from 'src/app/services/shared-state.service';
+import { mappingUtility } from '../mapping-block/mapping-util';
 
 @Component({
   selector: 'app-file-input-block',
@@ -13,6 +15,16 @@ export class FileInputBlockComponent extends BaseBlockComponent {
   accept = 'text/csv';
   binary = false;
   arrayBuffer = true;
+
+  enabled:boolean = true;
+  enabledGetter:string = null;
+
+  constructor(   
+    private stateService:SharedStateService
+  ) {
+    super();
+    stateService.state$.subscribe(state => { setTimeout(() =>{this.setEnabled()}) });    
+  }
 
   // vimeo vids accept = application/vnd.vimeo.*+json;version=3.4
 
@@ -29,6 +41,8 @@ export class FileInputBlockComponent extends BaseBlockComponent {
     this.label = get(config, 'label', 'Import');
     this.binary = get(config, 'binary', false);
     this.arrayBuffer = get(config, 'arrayBuffer', true);
+    this.enabledGetter = get(config, 'enabledGetter', null);
+    this.setEnabled();
   }
 
   onFileChange(files: FileList) {
@@ -58,4 +72,12 @@ export class FileInputBlockComponent extends BaseBlockComponent {
       fileReader.readAsText(file);
     }
   }
+  /**
+   * Set enabled state based on enabledGetter
+   */
+  setEnabled(){    
+    if(this.enabledGetter!==null) {
+      this.enabled = mappingUtility({ data: this.model, context: this.context,state: this.stateService.state  }, this.enabledGetter);        
+    }    
+  } 
 }
