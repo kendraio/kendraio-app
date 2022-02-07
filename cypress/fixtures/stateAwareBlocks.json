@@ -60,7 +60,7 @@
       
       {
         "type": "file-input",
-        "label": "Devel Import",
+        "label": "Devel Mode File Import",        
         "accept": [
           "csv",
           "json",
@@ -76,7 +76,7 @@
         "blockComment": ""
       }
     ],
-    "id": "develModeBlocks",
+    "id": "stateAwareBlocks",
     "adapterName": "TESTING"
   }
   

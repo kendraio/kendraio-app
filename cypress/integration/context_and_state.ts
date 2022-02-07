@@ -139,9 +139,9 @@ it('should allow the disabling of the file input block ', () => {
     fixture: 'stateAwareBlocks.json' }
     ).as('workflow.json');
     cy.visit('/TESTING/stateawareblocks');
-    cy.contains('Devel Import').should('not.exist');
+    cy.contains('Devel Mode File Import').should('not.exist');
     cy.contains("Enable Devel Mode").click();
-    cy.contains('Devel Import').should('exist');
+    cy.contains('Devel Mode File Import').should('exist');
 }
 );
 });
