@@ -10,6 +10,10 @@ describe('workspace-project App', () => {
       fixture: 'adapterConfig.json'
     }
     ).as('adapterConfig.json');
+
+    // Prevent external network requests for fonts with empty CSS rule
+    cy.intercept('https://fonts.googleapis.com/**', "*{ }");
+
   });
 
 
@@ -35,7 +39,7 @@ describe('workspace-project App', () => {
 
 
   it('should make new workflow with mapping block', () => {
-    cy.visit('/');
+    cy.visit('/workflow-builder');
     cy.contains('menu');
     cy.get('app-root mat-toolbar').contains('menu').click();
     cy.contains('workflow builder').click();
@@ -65,6 +69,7 @@ describe('workspace-project App', () => {
     cy.get('app-workflow-sidenav').contains('Block Comment');
   });
 
+
   it('should display the comment for a generic editor block', () => {
     loadFlowCode([
       {
@@ -79,66 +84,73 @@ describe('workspace-project App', () => {
   });
 
 
-
   it('should display welcome message', () => {
+    cy.intercept('https://app.kendra.io/api/core/dashboard', { fixture: 'dashboardHomeFlow.json'});
     cy.visit('/');
-    cy.contains('Kendraio App');
+    cy.contains('Kendraio App is an open source dashboard');
   });
 
 
   it('should display saved workflows', () => {
+    
+    cy.intercept('GET', 'https://app.kendra.io/api/workflowCloud/listWorkflows', {
+      fixture: 'listWorkflowsFlow.json'
+    });
+
     cy.intercept('GET', 'https://app.kendra.io/api', {
       fixture: 'flowList.json'
-    }
-    ).as('flowList.json');
+    });
 
     cy.visit('/workflowCloud/listWorkflows');
     cy.contains('Made up flow A');
   });
 
-  it('should prevent a user from leaving the flow when it flow has been modified', () => {
-    cy.intercept('GET', 'https://app.kendra.io/api/TESTING/dummy1', {
-      fixture: 'dummyWorkflow1.json' }
-      ).as('workflow.json');
-      let count = 0;
-      // intercept the request to confirm navigation
-      // cancel the first attempt and then accept the next attemp
-      cy.on('window:confirm', (str) => {
-        count +=1
-        if (count === 1) {
-          return false;
-        } else {
-          return true;
-        }
-      })
 
-      cy.visit('/TESTING/dummy1');
-      cy.location().should((loc) => {        
-        expect(loc.pathname).to.eq('/TESTING/dummy1');
-      });      
-      cy.contains('Dummy Workflow 1').should('be.visible',{ timeout: 10000 });
-      cy.contains('settings');
-      cy.get('mat-toolbar > button mat-icon').contains('settings').click();
-      
-      cy.get('app-workflow-sidenav').contains('Add Task').click();      
-      cy.contains('Select Task');
-      cy.get('mat-dialog-container').contains('Mapping').click();
-      cy.get('app-add-block-dialog .mat-dialog-actions').contains('Add Task').click();
-      
-      cy.get('app-root mat-toolbar').contains('menu').click();
-      // click in the menu to navigate away
-      cy.contains('Dashboard').click();
-      // confirm that we're not on the dashboard
-      cy.location().should((loc) => {        
-        expect(loc.pathname).to.eq('/TESTING/dummy1');
-      });            
-      // try again
-      cy.contains('Dashboard').click();
-      // this time we got there
-      cy.location().should((loc) => {        
-        expect(loc.pathname).to.eq('/dashboard');
-      });            
-  })  
+  it('should prevent a user from leaving the flow when it flow has been modified', () => {
+    cy.intercept('https://app.kendra.io/api/core/dashboard', { fixture: 'dashboardHomeFlow.json'});
+    cy.intercept('GET', 'https://app.kendra.io/api/TESTING/dummy1', {
+      fixture: 'dummyWorkflow1.json'
+    }
+    ).as('workflow.json');
+    let count = 0;
+    // intercept the request to confirm navigation
+    // cancel the first attempt and then accept the next attemp
+    cy.on('window:confirm', (str) => {
+      count += 1;
+      if (count === 1) {
+        return false;
+      } else {
+        return true;
+      }
+    });
+
+    cy.visit('/TESTING/dummy1');
+    cy.location().should((loc) => {
+      expect(loc.pathname).to.eq('/TESTING/dummy1');
+    });
+    cy.contains('Dummy Workflow 1').should('be.visible', { timeout: 10000 });
+    cy.contains('settings');
+    cy.get('mat-toolbar > button mat-icon').contains('settings').click();
+
+    cy.get('app-workflow-sidenav').contains('Add Task').click();
+    cy.contains('Select Task');
+    cy.get('mat-dialog-container').contains('Mapping').click();
+    cy.get('app-add-block-dialog .mat-dialog-actions').contains('Add Task').click();
+
+    cy.get('app-root mat-toolbar').contains('menu').click();
+    // click in the menu to navigate away
+    cy.contains('Dashboard').click();
+    // confirm that we're not on the dashboard
+    cy.location().should((loc) => {
+      expect(loc.pathname).to.eq('/TESTING/dummy1');
+    });
+    // try again
+    cy.contains('Dashboard').click();
+    // this time we got there
+    cy.location().should((loc) => {
+      expect(loc.pathname).to.eq('/dashboard');
+    });
+  });
 
 
 });
