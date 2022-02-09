@@ -1,0 +1,23 @@
+{
+    "blocks": [
+        {
+            "type": "init"
+        },
+        {
+            "type": "mapping",
+            "mapping": "markdown(`\\nKendraio App\\n============\\n\\nKendraio App is an open source dashboard application for rights owners, music makers, managers and record labels, enabling users to manage and track their digital media assets, collaborations and associated rights.\\n\\n- Online demo: https://app.kendra.io\\n- Read the Docs: https://kendraio-app.readthedocs.io\\n- More information: https://www.kendra.io/kendraio-app\\n- Privacy policy: https://www.kendra.io/privacy\\n\\n[![vercel_deployment_tests](https://img.shields.io/github/workflow/status/kendraio/kendraio-app/vercel_deployment_tests)](https://github.com/kendraio/kendraio-app/actions/workflows/vercel_deployment_tests.yml)\\n![Uptime Robot](https://img.shields.io/uptimerobot/ratio/7/m783523815-565ba269d3dc13ded01aae34)\\n![Version](https://img.shields.io/github/package-json/v/kendraio/kendraio-app/main)\\n![License](https://img.shields.io/github/license/kendraio/kendraio-app)\\n![Dependencies Status](https://img.shields.io/librariesio/github/kendraio/kendraio-app)\\n[![Documentation Status](https://readthedocs.org/projects/kendraio-app/badge/?version=latest)](https://kendraio-app.readthedocs.io/en/latest/?badge=latest)\\n![Angular Version](https://img.shields.io/github/package-json/dependency-version/kendraio/kendraio-app/@angular/core)\\n\\n\\nContribute\\n----------\\n\\n- Read the documentation: https://kendraio-app.readthedocs.io\\n- For help and support, join the conversation on Slack: http://slack.kendra.io\\n- Kendraio Google Drive folder: https://goo.gl/Oyuli4\\n- To report bugs, suggest improvements, or request features, use the issue tracker: https://github.com/kendraio/kendraio-app/issues\\n- To download the source code, visit the repo: https://github.com/kendraio/kendraio-app\\n`)"
+        },
+        {
+            "type": "template",
+            "template": "{{{data}}}"
+        }
+    ],
+    "id": "dashboard",
+    "workflowId": "dashboard",
+    "adapterName": "core",
+    "created": "2021-11-26T16:32:35.500Z",
+    "tags": [],
+    "updated": "2021-11-26T16:32:35.500Z",
+    "modified": "2021-11-26T16:32:35.500Z",
+    "title": "App Dashboard"
+}
