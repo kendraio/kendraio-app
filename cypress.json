@@ -16,6 +16,7 @@
   },
   "watchForFileChanges":false,
   "projectId": "ebzwp1",
-  "pageLoadTimeout": 400000,
-  "defaultCommandTimeout": 30000
+  "pageLoadTimeout": 100000,
+  "defaultCommandTimeout": 30000,
+  "runMode": 2
 }
