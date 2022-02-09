@@ -9,6 +9,10 @@ describe('Subroutine workflow block', () => {
     }
     ).as('flowList.json');
 
+
+    // Prevent external network requests for fonts with empty CSS rule
+    cy.intercept('https://fonts.googleapis.com/**', "*{ }");
+
     loadFlowCode([
         {
             "type": "gosub",
