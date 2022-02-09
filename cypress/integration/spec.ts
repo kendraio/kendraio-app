@@ -85,14 +85,14 @@ describe('workspace-project App', () => {
 
 
   it('should display welcome message', () => {
-    cy.intercept('https://app.kendra.io/api/core/dashboard', { fixture: 'dashboardHomeFlow.json'});
+    cy.intercept('https://app.kendra.io/api/core/dashboard', { fixture: 'dashboardHomeFlow.json' });
     cy.visit('/');
     cy.contains('Kendraio App is an open source dashboard');
   });
 
 
   it('should display saved workflows', () => {
-    
+
     cy.intercept('GET', 'https://app.kendra.io/api/workflowCloud/listWorkflows', {
       fixture: 'listWorkflowsFlow.json'
     });
@@ -107,7 +107,7 @@ describe('workspace-project App', () => {
 
 
   it('should prevent a user from leaving the flow when it flow has been modified', () => {
-    cy.intercept('https://app.kendra.io/api/core/dashboard', { fixture: 'dashboardHomeFlow.json'});
+    cy.intercept('https://app.kendra.io/api/core/dashboard', { fixture: 'dashboardHomeFlow.json' });
     cy.intercept('GET', 'https://app.kendra.io/api/TESTING/dummy1', {
       fixture: 'dummyWorkflow1.json'
     }
