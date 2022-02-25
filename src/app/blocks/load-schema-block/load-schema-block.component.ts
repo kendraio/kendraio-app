@@ -44,6 +44,12 @@ export class LoadSchemaBlockComponent  extends BaseBlockComponent {
     }
   }
 
+  /**
+   * Returns a schemdefinitions object for the given embedded schema
+   * @param schemaDefinitions 
+   * @param schemaName 
+   * @returns 
+   */
   async resolveSchema(schemaDefinitions, schemaName) {
     if (!has(schemaDefinitions, schemaName)) {
       try {
@@ -59,6 +65,13 @@ export class LoadSchemaBlockComponent  extends BaseBlockComponent {
     return schemaDefinitions[schemaName];
   }
 
+  /**
+   * Converts a schema dataset to a json schema. Recursively calls itself to resolve embedded schemas. 
+   * @param schemaDefinitions 
+   * @param inputSchema 
+   * @param inputSchemaName 
+   * @returns {object} Json schema
+   */
   async mapSchema(schemaDefinitions, inputSchema, inputSchemaName) {
     const outputSchema = {
       title: get(inputSchema, 'name', ''),

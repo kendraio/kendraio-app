@@ -267,9 +267,10 @@ export const BLOCK_TYPES = [
     hasEditor: true,
     defaultConfig: {
       type: 'db',
-      operation: 'put',
+      operation: 'add',
       adapterName: 'UNKNOWN',
-      schema: 'none'
+      schema: 'none',
+      skipFirst: true,
     }
   },
   {
