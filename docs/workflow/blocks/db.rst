@@ -4,6 +4,11 @@ Local Database
 The local database block implements an indexed database in the browser storage. 
 The block implements a version of Dexie.js. 
 
+All data stored using this block is written to the same local database. 
+To manage subsets of the database, we segment data based on the combination
+of "adapterName" and "schemaName".  Individual items can be loaded with just a 
+uuid, while dataset of items can be loaded by providing schemaName and adapterName.
+
 For more information about how data is stored in the local database, see the section at the end of this document. 
 
 
