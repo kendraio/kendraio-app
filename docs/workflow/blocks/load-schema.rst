@@ -2,7 +2,7 @@ Load schema
 ===========
 
 The Load Schema block is used to load a schema from the "metadata" database and 
-transform it to a jsonSchema which can be used to define a dynamic form. 
+transform it to a JSON schema which can be used to define a dynamic form. 
 
 Typical usage
 -------------
@@ -50,9 +50,9 @@ Supported properties
 
 
 
-Schema data structure (jsonSchema)
+Schema data structure (JSON schema)
 -----------------------------------
-This block will only work with data conforming to the structure below. 
+This block expects data in a structure like the example below:
 
 
 
