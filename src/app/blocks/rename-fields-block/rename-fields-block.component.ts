@@ -13,13 +13,11 @@ export class RenameFieldsBlockComponent  extends BaseBlockComponent {
   mapping = [];
   mappingGetter = undefined;
   inputGetter = 'data';
-  direction = 'sourceToTarget'; // options: "sourceToTarget" | "targetToSource" 
 
   onConfigUpdate(config: any) {
     this.mapping = get(config, 'mapping', []);
     this.mappingGetter = get(config, 'mappingGetter');
     this.inputGetter = get(config, 'inputGetter', 'data');
-    this.direction = get(config, 'direction', 'sourceToTarget');
   }
 
   onData(data: any, firstChange: boolean) {
@@ -43,15 +41,7 @@ export class RenameFieldsBlockComponent  extends BaseBlockComponent {
   mapItem(item, fieldMapping) {
     const output = {};
     (fieldMapping || []).forEach(({ source, target }) => {
-      //set default mapping direction to sourceToTarget
-      let from = source;
-      let to = target;
-      if (this.direction == 'targetToSource') {
-        // reverse mapping direction
-        from = target;
-        to = source;          
-      }
-      output[to] = item[from];
+      output[target] = item[source];
     });
     return output;
   }
