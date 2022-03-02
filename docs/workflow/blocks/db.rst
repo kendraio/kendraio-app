@@ -4,11 +4,13 @@ Local Database
 The local database block implements an indexed database in the browser storage. 
 The block implements a version of Dexie.js. 
 
+For more information about how data is stored in the local database, see the section at the end of this document. 
+
 
 Default config
 --------------
 
-.. code-block:: json
+.. code-block:: javascript
 
     {
       type: 'db',
@@ -18,26 +20,31 @@ Default config
       skipFirst: true,
     }
 
-Supported properties
---------------------
-- **operation** - the database operation to undertake (See below)
-- **adapterName**  - the name of the adapter
-- **schema** -  the name of the schema
-- **schemaGetter** - A JMESPath expression to resolve the schema name
-- **skipFirst** - skip the first call (defaults to true)
-- **uuidGetter** - A JMESPath expression to resolve the uuid to use (required for fetch operations)
-
-
 
 Available operations    
 ---------------------
 
-* fetch - load a single item from the database
-* get - load multiple items from the database
-* update - modify a single item in the database
-* add - add a new item
-* delete - delete an item
+- **fetch** - load a single item from the database
+- **get** - load multiple items from the database
+- **update** - modify a single item in the database
+- **add** - add a new item
+- **delete** - delete an item
 
+Supported properties  
+---------------------
+- **operation** -  the database operation to undertake (required)
+  
+  - for **fetch** or **delete**
+    **uuidGetter**  A JMESPath expression to resolve the uuid of the item.
+  
+  - for **add** or **get**
+    **adapterName**  - The name of the adapter to use (required)
+    **schema** -  the name of the schema 
+    **schemaGetter** - A JMESPath expression to resolve the schema name 
+  
+  - for **update** there are no properties required, simply the data
+   
+- **skipFirst** - (defaults = true) don't act during the block's initialisation phase
 
 
 
@@ -49,7 +56,8 @@ if stored in a single table - "metadata".
 
 Internally, all data in the "metadata" table uses this format:
 
-.. code-block:: json    
+.. code-block:: json
+
     {
         "uuid": "",
         "schemaName": "",
