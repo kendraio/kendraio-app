@@ -9,6 +9,10 @@
   <button mat-flat-button (click)="onCancel()">Cancel</button>
 </div>
 
+<div>
+  <button mat-flat-button color="primary" (click)="saveToAdapter()" style="margin-right: 1em;">Save to local store</button>  
+</div>
+
 <ng-template #notLoggedIn>
   <div class="mat-typography">
     <p>
