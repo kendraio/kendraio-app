@@ -564,10 +564,8 @@ export const BLOCK_TYPES = [
     hasEditor: true,
     defaultConfig: {
       type: 'load-schema',
-      adapterName: 'schemas',
-      '//comment': 'use either schema or schemaGetter',
-      schema: 'schema',
-      schemaGetter: 'data.schema',
+      adapterName: 'schemas',      
+      schema: 'schema'      
     }
   },
   {
