@@ -19,7 +19,7 @@ Used as a sub-block of the "Form" schemaGetter definition.
             {
                 "type": "load-schema",
                 "adapterName": "schemas",
-                "schemaGetter": "context.schema && context.schema.name"
+                "schemaGetter": "context.schema.name"
             }
         ]
     }
@@ -32,11 +32,8 @@ Default config
 .. code-block:: javascript
 
     {
-      "type": "load-schema",
-      adapterName: 'schemas',
-      '//comment': 'use either schema or schemaGetter',
-      schema: 'schema',
-      schemaGetter: 'data.schema',
+      "type": "load-schema",      
+      "schema": 'schema'      
     }
 
 
