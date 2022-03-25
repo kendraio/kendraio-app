@@ -67,7 +67,7 @@ export class AdapterInstallService {
       });
   }
 
-  async exportAdapter(adapterConfig) {
+  async compileAdapter(adapterConfig) {
     // console.log({adapterConfig});
     const {adapterName} = adapterConfig;
     // const compressed = LZS.compressToEncodedURIComponent(JSON.stringify(adapterConfig));
@@ -95,7 +95,14 @@ export class AdapterInstallService {
     });
 
     const exportData = {...adapterConfig, workflow, database, forms, attachments};
-    this.downloadData(exportData, adapterName);
+    return exportData;
+  }
+
+  async exportAdapter(adapterConfig) {
+    const {adapterName} = adapterConfig;
+    this.compileAdapter(adapterConfig).then(exportData => {
+      this.downloadData(exportData, adapterName);
+    });
   }
 
   downloadData(outputData, fileName) {
@@ -112,6 +119,114 @@ export class AdapterInstallService {
       document.body.removeChild(link);
     }
   }
+
+  async commitAdapter(adapterCommitConfig) {
+    const {adapterConfig, repositoryUrl, branch, commitMessage, token} = adapterCommitConfig;
+    const {adapterName} = adapterConfig;
+    this.compileAdapter(adapterConfig).then(exportData => {
+      this.commitData(exportData, adapterName, repositoryUrl, branch, commitMessage, token);
+    });
+  }
+   
+  /**
+   * Returns the latest commit hash for the given branch
+   * @param repositoryUrl github repository "owner/repo"
+   * @param branch 
+   * @param token 
+   */
+  async getLatestCommitOid(repositoryUrl, branch, token) {
+    // split repositoryUrl to get the owner and name
+    const [owner, name] = repositoryUrl.split('/').slice(-2);
+    // use the github graphql api to get the latest commit hash
+    const query = `
+      query {
+        repository(owner: "${owner}", name: "${name}") {
+          ... on Repository{
+            ref(qualifiedName: "${branch}") {
+                       target {
+                         ... on Commit {
+                           oid
+                         }
+                       }
+                     }      
+                }
+          }
+        }
+    `;      
+    const response = await fetch(`https://api.github.com/graphql`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ query }),
+    });
+    const data = await response.json();
+    const commitOid = get(data, 'data.repository.ref.target.oid', '');
+    return commitOid;
+  }
+  /**
+   *  Commit data to github repository
+   * @param outputData 
+   * @param fileName 
+   * @param repositoryUrl 
+   * @param branch 
+   * @param commitMessage 
+   * @param token 
+   */
+  commitData(outputData, fileName, repositoryUrl, branch, commitMessage, token) {
+    // encode data to base64
+    const content = btoa(JSON.stringify(outputData, null, 2));
+       // get the latest commit hash
+    this.getLatestCommitOid(repositoryUrl, branch, token).then(commitOid => {
+      // use the github graphql api to create a new commit
+      const query = `        
+          mutation MyQuery($input: CreateCommitOnBranchInput!) 
+          { 
+            createCommitOnBranch(input: $input) { 
+          commit { 
+            url 
+          } 
+    }`
+      const variables = `{
+        "input": {
+          "branch": {
+            "repositoryNameWithOwner": "${repositoryUrl}",
+            "branchName": "${branch}"
+          },
+          "message": {
+            "headline": "${commitMessage}",
+          },
+          "fileChanges": {
+            "additions": [
+              {
+                "path": "${fileName}.json",
+                "contents": "${content}"
+              }
+            ]
+          },
+          "expectedHeadOid": "${commitOid}"
+        }
+      }`;
+      // call the graphql api
+      const response = fetch(`https://api.github.com/graphql`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query: query, variables: variables }), 
+      });
+      // handle the response
+      response.then(res => {
+        res.json().then(data => {
+          console.log(data);
+        });
+      }); 
+    });
+  }
+
+
 
   importAdapter({ attachments, ...adapterConfig }) {
     // const decompressed = LZS.decompressFromEncodedURIComponent(data);

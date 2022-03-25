@@ -3,6 +3,7 @@ import {BaseBlockComponent} from '../base-block/base-block.component';
 import {HttpClient} from '@angular/common/http';
 import { get, isObject } from 'lodash';
 import {mappingUtility} from '../mapping-block/mapping-util';
+import { SharedStateService } from 'src/app/services/shared-state.service';
 
 @Component({
   selector: 'app-graphql-block',
@@ -20,7 +21,7 @@ export class GraphqlBlockComponent extends BaseBlockComponent {
   errorMessage = '';
   isLoading = false;
 
-  constructor(private readonly http: HttpClient) {
+  constructor(private readonly http: HttpClient, private readonly stateService: SharedStateService) {
     super();
   }
 
@@ -49,12 +50,13 @@ export class GraphqlBlockComponent extends BaseBlockComponent {
       payload = {
         query: this.query,
         variables: Object.keys(this.variableGetters).reduce((a, key) => {
-          a[key] = mappingUtility({ data, context: this.context }, this.variableGetters[key]);
+          a[key] = mappingUtility({ data, context: this.context, state:this.stateService.state }, this.variableGetters[key]);
           return a;
         }, {})
       };
+      console.log('payload', payload);
       headers = Object.keys(this.headers).reduce((a, key) => {
-        a[key] = mappingUtility({ data, context: this.context }, this.headers[key]);
+        a[key] = mappingUtility({ data, context: this.context, state:this.stateService.state }, this.headers[key]);
         return a;
       }, {});
     } catch (e) {
