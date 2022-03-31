@@ -31,7 +31,7 @@ Contribute
 - Kendraio Google Drive folder: <https://goo.gl/Oyuli4>
 - To report bugs, suggest improvements, or request features, use the issue tracker: <https://github.com/kendraio/kendraio-app/issues>
 - To download the source code, visit the repo: <https://github.com/kendraio/kendraio-app>
-- Sponsored by [▲ Vercel](https://vercel.com?utm_source=kendraio&utm_campaign=oss)
+- Sponsored by [▲ Vercel](https://vercel.com?utm_source=kendraio&utm_campaign=oss), [Mailgun](https://www.mailgun.com), [Atlassian](https://www.atlassian.com), [Auth0](https://auth0.com)
 
 Setting up a local development environment
 ------------------------------------------
