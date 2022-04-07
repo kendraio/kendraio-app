@@ -122,6 +122,7 @@ const search = decorate({
     _signature: [{types: [TYPE_STRING]}]
   },
   base64encode: {
+    // btoa is not compatible with UTF-8, to safely manage the base64encoding
     _func: ([s]) => Buffer.from(s).toString('base64'),
     _signature: [{types: [TYPE_STRING]}]
   },

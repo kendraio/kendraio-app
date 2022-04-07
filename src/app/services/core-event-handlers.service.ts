@@ -23,8 +23,9 @@ export class CoreEventHandlersService {
     private readonly adapterInstall: AdapterInstallService,
     private readonly translate: TranslateService
   ) {
+    
     this.formSubmit.actions$
-      .pipe(
+      .pipe(        
         filter(({ form }) => form === 'core')
       )
       .subscribe(({ action, payload }) => {
@@ -89,10 +90,16 @@ export class CoreEventHandlersService {
     this.formSubmit.actions$
       .pipe(
       )
-      .subscribe(({ action }) => {
-        // console.log(`process action ${action}`);
+      .subscribe(({action, payload}) => {         
         if (action === 'refreshWorkflow') {
           this.workflow.refresh();
+          return;
+        }
+        /**
+         * Allow adapters to be installed by non-core flows?
+         */
+        if (action === 'installAdapter'){          
+          this.adapterInstall.install(payload);
           return;
         }
       });

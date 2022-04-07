@@ -4,7 +4,6 @@ import {BaseBlockComponent} from '../base-block/base-block.component';
 import {get} from 'lodash-es';
 import {mappingUtility} from '../mapping-block/mapping-util';
 import { AdapterInstallService } from 'src/app/services/adapter-install.service';
-import { GridColumnStyleBuilder } from '@angular/flex-layout';
 
 @Component({
   selector: 'app-adapter-info-block',
@@ -50,9 +49,10 @@ export class AdapterInfoBlockComponent extends BaseBlockComponent {
     
     this.localData['adapters'].get({ adapterName: this.adapterName })
       .then(adapterData => {
+        // if we are looking for the full, "compiled" adapter, then we need to get the adapter from the adapter install service
+        // otherwise we just return the content we loaded from the adapters db
         if (this.compileAdapter) {
-          this.adapterInstallService.compileAdapter(adapterData).then((compiledAdapter) => {
-            console.log(compiledAdapter);
+          this.adapterInstallService.compileAdapter(adapterData).then((compiledAdapter) => {            
             this.isLoading = false;
             this.output.emit(compiledAdapter);
           });
