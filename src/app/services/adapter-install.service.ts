@@ -67,7 +67,7 @@ export class AdapterInstallService {
       });
   }
 
-  async compileAdapter(adapterConfig) {
+  async packageAdapter(adapterConfig) {
     // console.log({adapterConfig});
     const {adapterName} = adapterConfig;
     // const compressed = LZS.compressToEncodedURIComponent(JSON.stringify(adapterConfig));
@@ -100,7 +100,7 @@ export class AdapterInstallService {
 
   async exportAdapter(adapterConfig) {
     const {adapterName} = adapterConfig;
-    this.compileAdapter(adapterConfig).then(exportData => {
+    this.packageAdapter(adapterConfig).then(exportData => {
       this.downloadData(exportData, adapterName);
     });
   }
