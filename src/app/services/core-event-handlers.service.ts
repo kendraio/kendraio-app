@@ -8,6 +8,7 @@ import {WorkflowService} from './workflow.service';
 import {LocalDatabaseService} from './local-database.service';
 import {AdapterInstallService} from './adapter-install.service';
 import {TranslateService} from '@ngx-translate/core';
+import { AppSettingsService } from './app-settings.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,12 +22,13 @@ export class CoreEventHandlersService {
     private readonly workflow: WorkflowService,
     private readonly localData: LocalDatabaseService,
     private readonly adapterInstall: AdapterInstallService,
-    private readonly translate: TranslateService
+    private readonly translate: TranslateService,
+    private readonly settings: AppSettingsService
   ) {
-    
+    const expose = this.settings.get('exposeCoreActions', false);
     this.formSubmit.actions$
       .pipe(        
-        filter(({ form }) => form === 'core')
+        filter(({ form }) => (form === 'core') || expose)
       )
       .subscribe(({ action, payload }) => {
         switch (action) {
@@ -95,13 +97,8 @@ export class CoreEventHandlersService {
           this.workflow.refresh();
           return;
         }
-        /**
-         * Allow adapters to be installed by non-core flows?
-         */
-        if (action === 'installAdapter'){          
-          this.adapterInstall.install(payload);
-          return;
-        }
+        
+        
       });
   }
 }

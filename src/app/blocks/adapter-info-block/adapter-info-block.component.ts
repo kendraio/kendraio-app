@@ -19,7 +19,7 @@ export class AdapterInfoBlockComponent extends BaseBlockComponent {
   adapterName;
   adapterNameGetter;
 
-  compileAdapter = false; 
+  packageAdapter = false; 
 
   constructor(
     private readonly localData: LocalDatabaseService,
@@ -31,7 +31,7 @@ export class AdapterInfoBlockComponent extends BaseBlockComponent {
   onConfigUpdate(config: any) {
     this.adapterName = get(config, 'adapterName');
     this.adapterNameGetter = get(config, 'adapterNameGetter');
-    this.compileAdapter = get(config, 'compileAdapter', false);
+    this.packageAdapter = get(config, 'packageAdapter', false);
   }
 
   onData(data: any, firstChange: boolean) {
@@ -51,8 +51,8 @@ export class AdapterInfoBlockComponent extends BaseBlockComponent {
       .then(adapterData => {
         // if we are looking for the full, "compiled" adapter, then we need to get the adapter from the adapter install service
         // otherwise we just return the content we loaded from the adapters db
-        if (this.compileAdapter) {
-          this.adapterInstallService.compileAdapter(adapterData).then((compiledAdapter) => {            
+        if (this.packageAdapter) {
+          this.adapterInstallService.packageAdapter(adapterData).then((compiledAdapter) => {            
             this.isLoading = false;
             this.output.emit(compiledAdapter);
           });

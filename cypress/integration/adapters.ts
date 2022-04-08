@@ -19,10 +19,14 @@ describe('Adapter install', () => {
   });
 
   it('Export a packaged adapter with attachments', () => {
+    // first go to settings and allow core actions in flows
+        cy.visit('/core/settings');
+        cy.get('#formly_16_boolean_exposeCoreActions_5 .mat-checkbox-inner-container').click();        
+        cy.contains('Save settings').click({force:true});        
         loadFlowCode([
           {
             "type": "init"
-          },
+          },         
           {
             "type": "mapping",
             "mapping": "{repoUrl:`https://kendraio-adapter.kendraio.now.sh/`, name:`bloomen`}"
@@ -30,10 +34,10 @@ describe('Adapter install', () => {
             {
                 "type": "dispatch",
                 "action": "installAdapter"
-            } ,
-        {
-          "type":"debug"
-        },
+            } 
+        ]);
+        cy.wait(1000); // give the adapter time to install.
+        loadFlowCode([        
         {
           "type":"adapter-info",
           "adapterName":"bloomen",
