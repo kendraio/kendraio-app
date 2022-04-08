@@ -18,7 +18,7 @@ describe('Adapter install', () => {
 
   });
 
-  it('Export compiled adapter with attachments', () => {
+  it('Export a packaged adapter with attachments', () => {
         loadFlowCode([
           {
             "type": "init"
@@ -37,7 +37,7 @@ describe('Adapter install', () => {
         {
           "type":"adapter-info",
           "adapterName":"bloomen",
-          "compileAdapter":true
+          "packageAdapter":true
         },
         {
           "type":"debug",
