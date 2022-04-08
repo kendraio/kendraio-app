@@ -53,8 +53,7 @@ export class GraphqlBlockComponent extends BaseBlockComponent {
           a[key] = mappingUtility({ data, context: this.context, state:this.stateService.state }, this.variableGetters[key]);
           return a;
         }, {})
-      };
-      console.log('payload', payload);
+      };      
       headers = Object.keys(this.headers).reduce((a, key) => {
         a[key] = mappingUtility({ data, context: this.context, state:this.stateService.state }, this.headers[key]);
         return a;
