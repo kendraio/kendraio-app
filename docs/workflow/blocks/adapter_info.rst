@@ -32,3 +32,19 @@ information about a specific adapter:
       "type": "adapter-info",
       "adapterNameGetter": "context.queryParams.adapterName"
     }
+
+
+Packaged Adapters
+-----------------
+
+To access all flows and config related to an adapter, it is possible to request the entire "packaged adapter". 
+With this option set, the adapter will include an "attachments" section, containing the source of all flows, 
+schemas, forms and config.
+
+.. code-block:: json
+
+    {
+      "type": "adapter-info",
+      "adapterNameGetter": "context.queryParams.adapterName",
+      "packagedAdapter": true
+    }

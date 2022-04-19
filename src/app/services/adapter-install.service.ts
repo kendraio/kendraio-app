@@ -67,7 +67,7 @@ export class AdapterInstallService {
       });
   }
 
-  async exportAdapter(adapterConfig) {
+  async packageAdapter(adapterConfig) {
     // console.log({adapterConfig});
     const {adapterName} = adapterConfig;
     // const compressed = LZS.compressToEncodedURIComponent(JSON.stringify(adapterConfig));
@@ -95,7 +95,14 @@ export class AdapterInstallService {
     });
 
     const exportData = {...adapterConfig, workflow, database, forms, attachments};
-    this.downloadData(exportData, adapterName);
+    return exportData;
+  }
+
+  async exportAdapter(adapterConfig) {
+    const {adapterName} = adapterConfig;
+    this.packageAdapter(adapterConfig).then(exportData => {
+      this.downloadData(exportData, adapterName);
+    });
   }
 
   downloadData(outputData, fileName) {
@@ -112,6 +119,8 @@ export class AdapterInstallService {
       document.body.removeChild(link);
     }
   }
+
+
 
   importAdapter({ attachments, ...adapterConfig }) {
     // const decompressed = LZS.decompressFromEncodedURIComponent(data);
