@@ -48,6 +48,11 @@ describe('Adapter install', () => {
           "open":4
         },
       ]);
+      // When an adapter is exported in "packaged mode", 
+      // it will contain all additional elements as "attachments".
+      // This key does not exist in the default data, 
+      // so is an effective test
+
      cy.contains("attachments").should('exist');
   });
 

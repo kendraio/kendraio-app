@@ -25,9 +25,14 @@ export class CoreEventHandlersService {
     private readonly translate: TranslateService,
     private readonly settings: AppSettingsService
   ) {
+    // The main settings page now has an option to "Expose core actions". 
+    // If this is enabled, we allow workflows to the core actions.
+    // Without this setting, only core workflows can do this
     const expose = this.settings.get('exposeCoreActions', false);
     this.formSubmit.actions$
-      .pipe(        
+      .pipe( 
+        // Filter events that don't come from core workflows, unless we have explicitly exposed these actions
+      
         filter(({ form }) => (form === 'core') || expose)
       )
       .subscribe(({ action, payload }) => {
