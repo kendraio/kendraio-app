@@ -24,8 +24,7 @@ Supported properties
     - **mapping**  an array of objects defining a mapping of from -> to fields {source: <string>, target: <string>}
     - **mappingGetter**  a JMESPath expression to get the mapping from the input data
     - **inputGetter**  (required) a JMESPath expression to get the source data
-    - **direction**  (default = ''sourceToTarget) the direction of the mapping:  'sourceToTarget' or 'targetToSource' 
-
+   
     mappingGetter overrides mapping. 
 
 
