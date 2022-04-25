@@ -1,0 +1,3866 @@
+{
+  "name": "bloomen",
+  "label": "Bloomen",
+  "description": "Integration with the Bloomen project",
+  "version": "0.0.0",
+  "infoUrl": "http://bloomen.io/",
+  "maintainer": "Kendraio",
+  "supportUrl": "http://kendra.io",
+  "database": [
+    {
+      "name": "user",
+      "schema": "schemas/undefined.json"
+    },
+    {
+      "name": "photo",
+      "schema": "schemas/undefined.json"
+    }
+  ],
+  "dashboard": {
+    "icon": "brightness_5",
+    "label": "Bloomen",
+    "workflowId": "users"
+  },
+  "services": [
+    {
+      "label": "Login",
+      "icon": "person",
+      "workflowId": "login"
+    },
+    {
+      "label": "Users",
+      "icon": "people",
+      "workflowId": "users"
+    },
+    {
+      "label": "Content Search",
+      "icon": "search",
+      "workflowId": "search"
+    },
+    {
+      "label": "Import File",
+      "icon": "file_copy",
+      "workflowId": "importFromFile"
+    },
+    {
+      "label": "Musical Works",
+      "icon": "music_note",
+      "workflowId": "listWorks"
+    },
+    {
+      "label": "Sound Recordings",
+      "icon": "music_note",
+      "workflowId": "listSoundRecordings"
+    },
+    {
+      "label": "Bulk Import",
+      "icon": "music_note",
+      "workflowId": "importRecordings"
+    }
+  ],
+  "workflow": [
+    {
+      "title": "Edit user",
+      "workflowId": "editUser",
+      "config": "configs/editUser.json"
+    },
+    {
+      "title": "Edit work",
+      "workflowId": "editWork",
+      "config": "configs/editWork.json"
+    },
+    {
+      "title": "View Musical Work",
+      "workflowId": "viewWork",
+      "config": "configs/viewWork.json"
+    },
+    {
+      "title": "Musical Work (Versions)",
+      "workflowId": "workVersions",
+      "config": "configs/workVersions.json"
+    },
+    {
+      "title": "Export works",
+      "workflowId": "exportWorks",
+      "config": "configs/exportWorks.json"
+    },
+    {
+      "title": "Import from file",
+      "workflowId": "importFromFile",
+      "config": "configs/importFromFile.json"
+    },
+    {
+      "title": "Import works",
+      "workflowId": "importWorks",
+      "config": "configs/importWorks.json"
+    },
+    {
+      "title": "List works",
+      "workflowId": "listWorks",
+      "config": "configs/listWorks.json"
+    },
+    {
+      "title": "Login",
+      "workflowId": "login",
+      "config": "configs/login.json"
+    },
+    {
+      "title": "Register",
+      "workflowId": "register",
+      "config": "configs/register.json"
+    },
+    {
+      "title": "Search",
+      "workflowId": "search",
+      "config": "configs/search.json"
+    },
+    {
+      "title": "Users",
+      "workflowId": "users",
+      "config": "configs/users.json"
+    },
+    {
+      "title": "List of Sound Recordings",
+      "workflowId": "listSoundRecordings",
+      "config": "configs/listSoundRecordings.json"
+    },
+    {
+      "title": "List Musical Works",
+      "workflowId": "listMusicalWorks",
+      "config": "configs/listMusicalWorks.json"
+    },
+    {
+      "title": "Chart of releases per work",
+      "config": "configs/chartReleases.json",
+      "workflowId": "chartReleases"
+    },
+    {
+      "title": "Edit Sound Recording",
+      "workflowId": "editSoundRecording",
+      "config": "configs/editSoundRecording.json"
+    },
+    {
+      "title": "Message block example",
+      "workflowId": "messageExample",
+      "config": "configs/messageExample.json"
+    },
+    {
+      "title": "Query and template example",
+      "workflowId": "templateExample",
+      "config": "configs/templateExample.json"
+    },
+    {
+      "title": "Musical works (Dialog view)",
+      "workflowId": "dialogExample",
+      "config": "configs/dialogExample.json"
+    },
+    {
+      "title": "List works (Bloomen API)",
+      "workflowId": "bloomenApiJwt-musicalWorks",
+      "config": "configs/bloomenApiJwt-musicalWorks.json"
+    },
+    {
+      "title": "List recordings (Bloomen API)",
+      "workflowId": "bloomenApiJwt-soundRecordings",
+      "config": "configs/bloomenApiJwt-soundRecordings.json"
+    },
+    {
+      "workflowId": "bloomenApiJwt-exportMusicalWorks",
+      "title": "Export works CSV (Bloomen API)",
+      "config": "configs/bloomenApiJwt-exportMusicalWorks.json"
+    },
+    {
+      "title": "Photo search (Bloomen API)",
+      "workflowId": "photo-search-example",
+      "config": "configs/photo-search-example.json"
+    },
+    {
+      "title": "Import works (Bloomen API)",
+      "workflowId": "importMusicalWorks",
+      "config": "configs/importMusicalWorks.json"
+    },
+    {
+      "title": "Import recordings (Bloomen API)",
+      "workflowId": "importRecordings",
+      "config": "configs/importRecordings.json"
+    },
+    {
+      "title": "List of Sound Recordings (view/edit)",
+      "workflowId": "listSoundRecordings-view-edit",
+      "config": "configs/listSoundRecordings-view-edit.json"
+    },
+    {
+      "title": "Bulk Import",
+      "workflowId": "bulkImport",
+      "config": "configs/bulkImport.json"
+    },
+    {
+      "title": "Select Organisation",
+      "workflowId": "selectOrganisation",
+      "config": "configs/selectOrganisation.json"
+    }
+  ],
+  "forms": [
+    {
+      "formId": "musicalWork",
+      "title": "Bloomen MusicalWork",
+      "jsonSchema": "jsonSchema/musicalWork.json",
+      "uiSchema": "uiSchema/musicalWork.json"
+    },
+    {
+      "formId": "soundRecording",
+      "title": "Bloomen SoundRecording",
+      "jsonSchema": "jsonSchema/soundRecording.json",
+      "uiSchema": "uiSchema/soundRecording.json"
+    },
+    {
+      "formId": "user",
+      "title": "Bloomen User",
+      "jsonSchema": "jsonSchema/user.json",
+      "uiSchema": "uiSchema/user.json"
+    },
+    {
+      "formId": "photo",
+      "title": "Bloomen Photo",
+      "jsonSchema": "jsonSchema/photo.json",
+      "uiSchema": "uiSchema/photo.json"
+    }
+  ],
+  "upload": {
+    "enabled": true
+  },
+  "apis": [
+    "swagger/api-docs.json"
+  ],
+  "tags": [
+    "music",
+    "b2b",
+    "photos",
+    "webtv",
+    "demo"
+  ],
+  "adapterName": "bloomen",
+  "modified": false,
+  "attachments": {
+    "schemas/user.json": {
+      "title": "Bloomen User",
+      "description": "User metadata from the Bloomen project",
+      "type": "object",
+      "version": 0,
+      "name": "bloomen_User",
+      "properties": {
+        "username": {
+          "title": "Username",
+          "type": "string"
+        },
+        "organisation": {
+          "title": "Organisation",
+          "type": "string"
+        },
+        "createdATUTC": {
+          "title": "Created at",
+          "type": "string",
+          "format": "datetime"
+        },
+        "email": {
+          "title": "Email",
+          "type": "string",
+          "format": "email"
+        },
+        "id": {
+          "title": "Bloomen ID",
+          "type": "string"
+        },
+        "hash": {
+          "title": "Hash ID",
+          "type": "string"
+        },
+        "role": {
+          "title": "Role",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "photographer",
+              "publisher",
+              "admin"
+            ]
+          }
+        },
+        "reputation": {
+          "title": "Reputation",
+          "type": "object",
+          "properties": {
+            "positive": {
+              "title": "Positive",
+              "type": "integer"
+            },
+            "negative": {
+              "title": "Negative",
+              "type": "integer"
+            }
+          }
+        },
+        "kyc": {
+          "title": "KYC",
+          "type": "object",
+          "properties": {
+            "address": {
+              "title": "Address",
+              "type": "string"
+            },
+            "phone": {
+              "title": "Address",
+              "type": "string"
+            },
+            "firstname": {
+              "title": "Address",
+              "type": "string"
+            },
+            "lastname": {
+              "title": "Address",
+              "type": "string"
+            },
+            "id1": {
+              "title": "id1",
+              "type": "string",
+              "format": "uri"
+            },
+            "id2": {
+              "title": "id2",
+              "type": "string",
+              "format": "uri"
+            },
+            "status": {
+              "title": "Status",
+              "type": "integer"
+            },
+            "reviewdBy": {
+              "title": "Reviewed by",
+              "type": "string"
+            }
+          }
+        }
+      },
+      "schemaName": "user",
+      "adapterName": "bloomen"
+    },
+    "schemas/photo.json": {
+      "title": "Bloomen Photo",
+      "description": "Photo metadata from the Bloomen project",
+      "type": "object",
+      "version": 0,
+      "name": "bloomen_Photo",
+      "properties": {
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "price": {
+          "title": "Price",
+          "type": "number"
+        },
+        "attribution": {
+          "title": "Attribution",
+          "type": "boolean"
+        },
+        "keywords": {
+          "title": "Keywords",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "url": {
+          "title": "URL",
+          "type": "string",
+          "format": "uri"
+        },
+        "rightsRegion": {
+          "title": "Rights region",
+          "format": "string"
+        },
+        "ownerUser": {
+          "title": "Owner (User)",
+          "type": "object",
+          "properties": {
+            "id": {
+              "title": "User ID",
+              "type": "string"
+            },
+            "username": {
+              "title": "Username",
+              "type": "string"
+            }
+          }
+        },
+        "owner": {
+          "title": "Owner",
+          "type": "string"
+        },
+        "geo": {
+          "title": "Geolocation",
+          "type": "object",
+          "properties": {
+            "lat": {
+              "title": "lat",
+              "type": "string"
+            },
+            "long": {
+              "title": "long",
+              "type": "string"
+            }
+          }
+        },
+        "createdAtUTC": {
+          "title": "Created at",
+          "type": "string",
+          "format": "datetime"
+        },
+        "rightsTime": {
+          "title": "Rights time",
+          "type": "string",
+          "format": "datetime"
+        },
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "enum": [
+            "photo"
+          ]
+        }
+      },
+      "schemaName": "photo",
+      "adapterName": "bloomen"
+    },
+    "configs/editUser.json": {
+      "title": "Edit user",
+      "blocks": [
+        {
+          "type": "init"
+        },
+        {
+          "type": "variable-get",
+          "name": "bloomenAuth"
+        },
+        {
+          "type": "context-save",
+          "contextKey": "bloomenAuth"
+        },
+        {
+          "type": "http",
+          "method": "get",
+          "notify": false,
+          "endpoint": {
+            "protocol": "https:",
+            "host": "bloomen.herokuapp.com",
+            "valueGetters": {
+              "pathname": "join('', ['/users/', context.queryParams.hash, '/kyc'])"
+            }
+          },
+          "authentication": {
+            "type": "bearer",
+            "valueGetters": {
+              "jwt": "context.bloomenAuth"
+            }
+          }
+        },
+        {
+          "type": "form",
+          "label": "Save",
+          "adapter": "bloomen",
+          "formId": "user"
+        },
+        {
+          "type": "mapping",
+          "mapping": "data.omit(@, ['_id', '__v'])"
+        },
+        {
+          "type": "http",
+          "method": "put",
+          "notify": true,
+          "skipInit": true,
+          "firstChange": true,
+          "endpoint": {
+            "protocol": "https:",
+            "host": "bloomen.herokuapp.com",
+            "valueGetters": {
+              "pathname": "join('', ['/users/', context.queryParams.hash])"
+            }
+          },
+          "authentication": {
+            "type": "bearer",
+            "valueGetters": {
+              "jwt": "context.bloomenAuth"
+            }
+          }
+        }
+      ],
+      "id": "editUser",
+      "adapterName": "bloomen",
+      "workflowId": "editUser",
+      "modified": false
+    },
+    "configs/editWork.json": {
+      "title": "Edit work",
+      "blocks": [
+        {
+          "type": "init"
+        },
+        {
+          "type": "variable-get",
+          "name": "bloomenAuth"
+        },
+        {
+          "type": "context-save",
+          "contextKey": "bloomenAuth"
+        },
+        {
+          "type": "http",
+          "method": "get",
+          "notify": false,
+          "endpoint": {
+            "protocol": "https:",
+            "host": "bloomen.herokuapp.com",
+            "valueGetters": {
+              "pathname": "join('', ['/sound/music/', context.queryParams.id])"
+            }
+          },
+          "authentication": {
+            "type": "bearer",
+            "valueGetters": {
+              "jwt": "context.bloomenAuth"
+            }
+          }
+        },
+        {
+          "type": "form",
+          "label": "Save",
+          "adapter": "bloomen",
+          "formId": "musicalWork"
+        },
+        {
+          "type": "http",
+          "method": "put",
+          "notify": true,
+          "firstChange": true,
+          "skipInit": true,
+          "endpoint": {
+            "protocol": "https:",
+            "host": "bloomen.herokuapp.com",
+            "valueGetters": {
+              "pathname": "join('', ['/sound/music/', context.queryParams.id])"
+            }
+          },
+          "authentication": {
+            "type": "bearer",
+            "valueGetters": {
+              "jwt": "context.bloomenAuth"
+            }
+          }
+        },
+        {
+          "type": "launch",
+          "adapter": "bloomen",
+          "workflowId": "listWorks"
+        }
+      ],
+      "id": "editWork",
+      "adapterName": "bloomen",
+      "workflowId": "editWork",
+      "modified": false
+    },
+    "configs/viewWork.json": {
+      "title": "View Musical Work",
+      "blocks": [
+        {
+          "type": "init"
+        },
+        {
+          "type": "variable-get",
+          "name": "bloomenAuth"
+        },
+        {
+          "type": "context-save",
+          "contextKey": "bloomenAuth"
+        },
+        {
+          "type": "http",
+          "method": "get",
+          "notify": false,
+          "endpoint": {
+            "protocol": "https:",
+            "host": "bloomen.herokuapp.com",
+            "valueGetters": {
+              "pathname": "join('', ['/sound/music/', context.queryParams.id])"
+            }
+          },
+          "authentication": {
+            "type": "bearer",
+            "valueGetters": {
+              "jwt": "context.bloomenAuth"
+            }
+          }
+        },
+        {
+          "type": "debug",
+          "open": 2
+        },
+        {
+          "type": "actions",
+          "buttons": [
+            {
+              "label": "Cancel",
+              "blocks": [
+                {
+                  "type": "launch",
+                  "adapter": "bloomen",
+                  "workflowId": "listWorks"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "id": "viewWork",
+      "adapterName": "bloomen",
+      "workflowId": "viewWork",
+      "modified": false
+    },
+    "configs/workVersions.json": {
+      "title": "Musical Work (Versions)",
+      "blocks": [
+        {
+          "type": "init"
+        },
+        {
+          "type": "variable-get",
+          "name": "bloomenAuth"
+        },
+        {
+          "type": "context-save",
+          "contextKey": "bloomenAuth"
+        },
+        {
+          "type": "http",
+          "method": "get",
+          "notify": false,
+          "endpoint": {
+            "protocol": "https:",
+            "host": "bloomen.herokuapp.com",
+            "valueGetters": {
+              "pathname": "join('', ['/sound/music/', context.queryParams.id])"
+            }
+          },
+          "authentication": {
+            "type": "bearer",
+            "valueGetters": {
+              "jwt": "context.bloomenAuth"
+            }
+          }
+        },
+        {
+          "type": "debug",
+          "open": 0
+        },
+        {
+          "type": "mapping",
+          "mapping": "data.versions || []"
+        },
+        {
+          "type": "grid",
+          "gridOptions": {},
+          "columnDefs": [
+            {
+              "headerName": "Title",
+              "field": "value.originalTitle"
+            },
+            {
+              "headerName": "ISWC",
+              "field": "value.ISWC"
+            },
+            {
+              "headerName": "Modified at",
+              "field": "modifiedAtUTC"
+            },
+            {
+              "headerName": "Operations",
+              "cellRenderer": "workflowRenderer",
+              "cellRendererParams": {
+                "blocks": [
+                  {
+                    "type": "actions",
+                    "buttons": [
+                      {
+                        "label": "View",
+                        "blocks": [
+                          {
+                            "type": "dialog",
+                            "blocks": [
+                              {
+                                "type": "mapping",
+                                "mapping": "data.value.omit(@, ['_id', '__v', 'versions'])"
+                              },
+                              {
+                                "type": "debug"
+                              },
+                              {
+                                "type": "actions",
+                                "buttons": [
+                                  {
+                                    "label": "OK",
+                                    "blocks": [
+                                      {
+                                        "type": "init"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Revert",
+                        "blocks": [
+                          {
+                            "type": "mapping",
+                            "mapping": "data.value.omit(@, ['_id', '__v', 'versions'])"
+                          },
+                          {
+                            "type": "http",
+                            "method": "put",
+                            "notify": true,
+                            "firstChange": true,
+                            "skipInit": true,
+                            "endpoint": {
+                              "protocol": "https:",
+                              "host": "bloomen.herokuapp.com",
+                              "valueGetters": {
+                                "pathname": "join('', ['/sound/music/', context.queryParams.id])"
+                              }
+                            },
+                            "authentication": {
+                              "type": "bearer",
+                              "valueGetters": {
+                                "jwt": "context.bloomenAuth"
+                              }
+                            }
+                          },
+                          {
+                            "type": "launch",
+                            "adapter": "bloomen",
+                            "workflowId": "listWorks"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "actions",
+          "buttons": [
+            {
+              "label": "Cancel",
+              "blocks": [
+                {
+                  "type": "launch",
+                  "adapter": "bloomen",
+                  "workflowId": "listWorks"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "id": "workVersions",
+      "adapterName": "bloomen",
+      "workflowId": "workVersions",
+      "modified": false
+    },
+    "configs/exportWorks.json": {
+      "title": "Export works",
+      "blocks": [
+        {
+          "type": "init"
+        },
+        {
+          "type": "http",
+          "method": "get",
+          "notify": false,
+          "endpoint": "https://fake-api.now32.now.sh/musicalWork"
+        },
+        {
+          "type": "grid",
+          "gridOptions": {
+            "rowSelection": "multiple"
+          },
+          "columnDefs": [
+            {
+              "checkboxSelection": true,
+              "width": 70,
+              "suppressSizeToFit": true
+            },
+            {
+              "headerName": "Title",
+              "field": "originalTitle"
+            },
+            {
+              "headerName": "ISWC",
+              "field": "ISWC"
+            }
+          ]
+        }
+      ],
+      "workflowId": "exportWorks",
+      "adapterName": "bloomen",
+      "modified": false
+    },
+    "configs/importFromFile.json": {
+      "title": "Import from file",
+      "blocks": [
+        {
+          "type": "init"
+        },
+        {
+          "type": "variable-get",
+          "name": "bloomenAuth"
+        },
+        {
+          "type": "context-save",
+          "contextKey": "bloomenAuth"
+        },
+        {
+          "type": "message",
+          "title": "Import items",
+          "message": "Select file to import items into Bloomen API."
+        },
+        {
+          "type": "file-input",
+          "label": "Load file",
+          "accept": [
+            "json"
+          ]
+        },
+        {
+          "type": "parse-data"
+        },
+        {
+          "type": "grid",
+          "gridOptions": {
+            "rowSelection": "multiple"
+          },
+          "columnDefs": [
+            {
+              "checkboxSelection": true,
+              "width": 70,
+              "suppressSizeToFit": true
+            },
+            {
+              "headerName": "Title",
+              "field": "originalTitle"
+            },
+            {
+              "headerName": "ISWC",
+              "field": "ISWC"
+            }
+          ]
+        },
+        {
+          "type": "mapping",
+          "mapping": "{ data: data }"
+        },
+        {
+          "type": "actions",
+          "buttons": [
+            {
+              "label": "Import",
+              "color": "primary",
+              "blocks": [
+                {
+                  "type": "http",
+                  "skipInit": false,
+                  "method": "post",
+                  "endpoint": {
+                    "protocol": "https:",
+                    "host": "bloomen.herokuapp.com",
+                    "pathname": "/sound/bulk"
+                  },
+                  "authentication": {
+                    "type": "bearer",
+                    "valueGetters": {
+                      "jwt": "context.bloomenAuth"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "id": "importFromFile",
+      "adapterName": "bloomen",
+      "workflowId": "importFromFile",
+      "modified": false
+    },
+    "configs/importWorks.json": {
+      "title": "Import works",
+      "blocks": [
+        {
+          "type": "init"
+        },
+        {
+          "type": "http",
+          "method": "get",
+          "notify": false,
+          "endpoint": "https://fake-api.now32.now.sh/musicalWork"
+        },
+        {
+          "type": "message",
+          "title": "Copy items",
+          "message": "Select items from Kendraio API to import into Bloomen API."
+        },
+        {
+          "type": "grid",
+          "gridOptions": {
+            "rowSelection": "multiple"
+          },
+          "columnDefs": [
+            {
+              "checkboxSelection": true,
+              "width": 70,
+              "suppressSizeToFit": true
+            },
+            {
+              "headerName": "Title",
+              "field": "originalTitle"
+            },
+            {
+              "headerName": "ISWC",
+              "field": "ISWC"
+            }
+          ]
+        },
+        {
+          "type": "actions",
+          "buttons": [
+            {
+              "label": "Import",
+              "color": "primary",
+              "blocks": [
+                {
+                  "type": "batch",
+                  "blocks": [
+                    {
+                      "type": "context",
+                      "contextPath": "bloomenAuth",
+                      "contextBlocks": [
+                        {
+                          "type": "variable-get",
+                          "name": "bloomenAuth"
+                        }
+                      ],
+                      "blocks": [
+                        {
+                          "type": "http",
+                          "skipInit": false,
+                          "method": "post",
+                          "endpoint": {
+                            "protocol": "https:",
+                            "host": "bloomen.herokuapp.com",
+                            "pathname": "/sound/music"
+                          },
+                          "authentication": {
+                            "type": "bearer",
+                            "valueGetters": {
+                              "jwt": "context.bloomenAuth"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "id": "importWorks",
+      "workflowId": "importWorks",
+      "adapterName": "bloomen",
+      "modified": false
+    },
+    "configs/listWorks.json": {
+      "title": "List works",
+      "blocks": [
+        {
+          "type": "message",
+          "title": "List of Musical Works (Bloomen API)"
+        },
+        {
+          "type": "init"
+        },
+        {
+          "type": "variable-get",
+          "name": "bloomenAuth"
+        },
+        {
+          "type": "context-save",
+          "contextKey": "bloomenAuth"
+        },
+        {
+          "type": "http",
+          "method": "get",
+          "endpoint": {
+            "protocol": "https:",
+            "host": "bloomen.herokuapp.com",
+            "pathname": "/sound/music"
+          },
+          "authentication": {
+            "type": "bearer",
+            "valueGetters": {
+              "jwt": "context.bloomenAuth"
+            }
+          }
+        },
+        {
+          "type": "grid",
+          "gridOptions": {
+            "pagination": true,
+            "paginationPageSize": 10
+          },
+          "columnDefs": [
+            {
+              "headerName": "Title",
+              "field": "originalTitle"
+            },
+            {
+              "headerName": "ISWC",
+              "field": "ISWC"
+            },
+            {
+              "headerName": "Operations",
+              "cellRenderer": "workflowRenderer",
+              "cellRendererParams": {
+                "blocks": [
+                  {
+                    "type": "actions",
+                    "buttons": [
+                      {
+                        "label": "View",
+                        "blocks": [
+                          {
+                            "type": "dialog",
+                            "blocks": [
+                              {
+                                "type": "mapping",
+                                "mapping": "data.omit(@, ['_id', '__v', 'versions'])"
+                              },
+                              {
+                                "type": "debug"
+                              },
+                              {
+                                "type": "actions",
+                                "buttons": [
+                                  {
+                                    "label": "OK",
+                                    "blocks": [
+                                      {
+                                        "type": "init"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Edit",
+                        "blocks": [
+                          {
+                            "type": "launch",
+                            "adapter": "bloomen",
+                            "workflowId": "editWork",
+                            "context": {
+                              "id": "data.id"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Versions",
+                        "blocks": [
+                          {
+                            "type": "launch",
+                            "adapter": "bloomen",
+                            "workflowId": "workVersions",
+                            "context": {
+                              "id": "data.id"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Delete",
+                        "blocks": [
+                          {
+                            "type": "dialog",
+                            "blocks": [
+                              {
+                                "type": "message",
+                                "title": "Are you sure you want to delete {{originalTitle}}?",
+                                "message": "This action cannot be undone."
+                              },
+                              {
+                                "type": "actions",
+                                "buttons": [
+                                  {
+                                    "label": "Delete",
+                                    "color": "warn",
+                                    "blocks": [
+                                      {
+                                        "type": "context",
+                                        "contextPath": "bloomenAuth",
+                                        "contextBlocks": [
+                                          {
+                                            "type": "variable-get",
+                                            "name": "bloomenAuth"
+                                          }
+                                        ],
+                                        "blocks": [
+                                          {
+                                            "type": "http",
+                                            "method": "delete",
+                                            "notify": true,
+                                            "endpoint": {
+                                              "protocol": "https:",
+                                              "host": "bloomen.herokuapp.com",
+                                              "valueGetters": {
+                                                "pathname": "join('', ['/sound/music/', data.id])"
+                                              }
+                                            },
+                                            "authentication": {
+                                              "type": "bearer",
+                                              "valueGetters": {
+                                                "jwt": "context.bloomenAuth"
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "label": "Cancel",
+                                    "blocks": [
+                                      {
+                                        "type": "init"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "id": "listWorks",
+      "adapterName": "bloomen",
+      "workflowId": "listWorks",
+      "modified": false
+    },
+    "configs/login.json": {
+      "title": "Login",
+      "blocks": [
+        {
+          "type": "form",
+          "label": "Login",
+          "jsonSchema": {
+            "type": "object",
+            "properties": {
+              "username": {
+                "type": "string",
+                "title": "Username"
+              },
+              "password": {
+                "type": "string",
+                "title": "Password"
+              }
+            }
+          },
+          "uiSchema": {
+            "password": {
+              "ui:widget": "password"
+            }
+          }
+        },
+        {
+          "type": "http",
+          "method": "post",
+          "notify": false,
+          "endpoint": "https://bloomen.herokuapp.com/auth/login"
+        },
+        {
+          "type": "mapping",
+          "mapping": "data.token"
+        },
+        {
+          "type": "debug",
+          "open": 1,
+          "showContext": false
+        },
+        {
+          "type": "switch",
+          "eval": "data",
+          "cases": [
+            {
+              "value": "",
+              "blocks": []
+            },
+            {
+              "value": null,
+              "blocks": []
+            }
+          ],
+          "default": {
+            "blocks": [
+              {
+                "type": "variable-set",
+                "name": "bloomenAuth",
+                "firstChange": true
+              }
+            ]
+          }
+        }
+      ],
+      "id": "login",
+      "adapterName": "bloomen",
+      "workflowId": "login",
+      "modified": false
+    },
+    "configs/register.json": {
+      "title": "Register",
+      "blocks": [
+        {
+          "type": "form",
+          "adapter": "bloomen",
+          "formId": "user"
+        }
+      ],
+      "workflowId": "register",
+      "adapterName": "bloomen",
+      "modified": false
+    },
+    "configs/search.json": {
+      "title": "Search",
+      "blocks": [
+        {
+          "type": "form",
+          "label": "Search",
+          "jsonSchema": {
+            "properties": {
+              "term": {
+                "title": "Search",
+                "type": "string"
+              }
+            }
+          },
+          "uiSchema": {}
+        },
+        {
+          "type": "context",
+          "contextPath": "bloomenAuth",
+          "contextBlocks": [
+            {
+              "type": "variable-get",
+              "name": "bloomenAuth"
+            }
+          ],
+          "blocks": [
+            {
+              "type": "http",
+              "method": "post",
+              "notify": false,
+              "endpoint": {
+                "protocol": "https:",
+                "host": "bloomen.herokuapp.com",
+                "pathname": "/photos/search"
+              },
+              "authentication": {
+                "type": "bearer",
+                "valueGetters": {
+                  "jwt": "context.bloomenAuth"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "batch",
+          "flex": true,
+          "blocks": [
+            {
+              "type": "card",
+              "blocks": [
+                {
+                  "type": "template",
+                  "template": "<p>{{data.description}}</p><img width=\"200\" src=\"{{data.url}}\">"
+                },
+                {
+                  "type": "debug",
+                  "showContext": false,
+                  "open": 0
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "id": "search",
+      "adapterName": "bloomen",
+      "workflowId": "search",
+      "modified": false
+    },
+    "configs/users.json": {
+      "title": "Users",
+      "blocks": [
+        {
+          "type": "multi",
+          "batches": [
+            {
+              "blocks": [
+                {
+                  "type": "actions",
+                  "buttons": [
+                    {
+                      "label": "Create User",
+                      "blocks": [
+                        {
+                          "type": "launch",
+                          "adapter": "bloomen",
+                          "workflowId": "register"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "blocks": [
+                {
+                  "type": "message",
+                  "title": "Users (Bloomen API)"
+                },
+                {
+                  "type": "init"
+                },
+                {
+                  "type": "variable-get",
+                  "name": "bloomenAuth"
+                },
+                {
+                  "type": "context-save",
+                  "contextKey": "bloomenAuth"
+                },
+                {
+                  "type": "http",
+                  "method": "get",
+                  "endpoint": {
+                    "protocol": "https:",
+                    "host": "bloomen.herokuapp.com",
+                    "pathname": "/users/all"
+                  },
+                  "authentication": {
+                    "type": "bearer",
+                    "valueGetters": {
+                      "jwt": "context.bloomenAuth"
+                    }
+                  }
+                },
+                {
+                  "type": "grid",
+                  "gridOptions": {
+                    "pagination": true,
+                    "paginationPageSize": 10,
+                    "rowSelection": "multiple"
+                  },
+                  "columnDefs": [
+                    {
+                      "width": 50,
+                      "resizable": false,
+                      "checkboxSelection": true
+                    },
+                    {
+                      "headerName": "ID",
+                      "field": "id"
+                    },
+                    {
+                      "headerName": "Username",
+                      "field": "username"
+                    },
+                    {
+                      "headerName": "Roles",
+                      "field": "role"
+                    },
+                    {
+                      "headerName": "First name",
+                      "field": "kyc.firstname"
+                    },
+                    {
+                      "headerName": "Last name",
+                      "field": "kyc.lastname"
+                    },
+                    {
+                      "headerName": "Operations",
+                      "cellRenderer": "workflowRenderer",
+                      "cellRendererParams": {
+                        "blocks": [
+                          {
+                            "type": "actions",
+                            "buttons": [
+                              {
+                                "label": "View",
+                                "blocks": [
+                                  {
+                                    "type": "dialog",
+                                    "blocks": [
+                                      {
+                                        "type": "debug"
+                                      },
+                                      {
+                                        "type": "actions",
+                                        "buttons": [
+                                          {
+                                            "label": "OK",
+                                            "blocks": [
+                                              {
+                                                "type": "init"
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "label": "Edit",
+                                "blocks": [
+                                  {
+                                    "type": "launch",
+                                    "adapter": "bloomen",
+                                    "workflowId": "editUser",
+                                    "context": {
+                                      "id": "data.id",
+                                      "hash": "data.hash"
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "id": "users",
+      "adapterName": "bloomen",
+      "workflowId": "users",
+      "modified": false
+    },
+    "configs/listSoundRecordings.json": {
+      "title": "List of Sound Recordings",
+      "blocks": [
+        {
+          "type": "message",
+          "title": "List of Sound Recordings (Bloomen API)"
+        },
+        {
+          "type": "init"
+        },
+        {
+          "type": "variable-get",
+          "name": "bloomenAuth"
+        },
+        {
+          "type": "context-save",
+          "contextKey": "bloomenAuth"
+        },
+        {
+          "type": "http",
+          "method": "get",
+          "endpoint": {
+            "protocol": "https:",
+            "host": "bloomen.herokuapp.com",
+            "pathname": "/sound/recordings"
+          },
+          "authentication": {
+            "type": "bearer",
+            "valueGetters": {
+              "jwt": "context.bloomenAuth"
+            }
+          }
+        },
+        {
+          "type": "grid",
+          "gridOptions": {},
+          "columnDefs": [
+            {
+              "headerName": "Title",
+              "field": "title"
+            },
+            {
+              "headerName": "ISRC",
+              "field": "ISRC"
+            },
+            {
+              "headerName": "Operations",
+              "cellRenderer": "workflowRenderer",
+              "cellRendererParams": {
+                "blocks": [
+                  {
+                    "type": "actions",
+                    "buttons": [
+                      {
+                        "label": "View",
+                        "blocks": [
+                          {
+                            "type": "dialog",
+                            "blocks": [
+                              {
+                                "type": "debug"
+                              },
+                              {
+                                "type": "actions",
+                                "buttons": [
+                                  {
+                                    "label": "OK",
+                                    "blocks": [
+                                      {
+                                        "type": "init"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Edit",
+                        "blocks": [
+                          {
+                            "type": "launch",
+                            "adapter": "bloomen",
+                            "workflowId": "editWork",
+                            "context": {
+                              "id": "data.id"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Delete",
+                        "blocks": [
+                          {
+                            "type": "dialog",
+                            "blocks": [
+                              {
+                                "type": "message",
+                                "title": "Are you sure you want to delete {{originalTitle}}?",
+                                "message": "This action cannot be undone."
+                              },
+                              {
+                                "type": "actions",
+                                "buttons": [
+                                  {
+                                    "label": "Delete",
+                                    "color": "warn",
+                                    "blocks": [
+                                      {
+                                        "type": "context",
+                                        "contextPath": "bloomenAuth",
+                                        "contextBlocks": [
+                                          {
+                                            "type": "variable-get",
+                                            "name": "bloomenAuth"
+                                          }
+                                        ],
+                                        "blocks": [
+                                          {
+                                            "type": "http",
+                                            "method": "delete",
+                                            "notify": true,
+                                            "endpoint": {
+                                              "protocol": "https:",
+                                              "host": "bloomen.herokuapp.com",
+                                              "valueGetters": {
+                                                "pathname": "join('', ['/sound/recordings/', data.id])"
+                                              }
+                                            },
+                                            "authentication": {
+                                              "type": "bearer",
+                                              "valueGetters": {
+                                                "jwt": "context.bloomenAuth"
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "label": "Cancel",
+                                    "blocks": [
+                                      {
+                                        "type": "init"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "id": "listWorks",
+      "adapterName": "bloomen",
+      "workflowId": "listSoundRecordings",
+      "modified": false
+    },
+    "configs/listMusicalWorks.json": {
+      "title": "List Musical Works",
+      "blocks": [
+        {
+          "type": "init"
+        },
+        {
+          "type": "query",
+          "dataSource": {
+            "type": "remote",
+            "endpoint": "https://fake-api.now32.now.sh/musicalWork"
+          }
+        },
+        {
+          "type": "grid",
+          "columnDefs": [
+            {
+              "headerName": "Title",
+              "field": "originalTitle"
+            },
+            {
+              "headerName": "ISWC",
+              "field": "ISWC"
+            }
+          ]
+        }
+      ],
+      "workflowId": "listMusicalWorks",
+      "adapterName": "bloomen",
+      "modified": false
+    },
+    "configs/chartReleases.json": {
+      "title": "Chart of releases per work",
+      "blocks": [
+        {
+          "type": "init"
+        },
+        {
+          "type": "query",
+          "dataSource": {
+            "type": "remote",
+            "endpoint": "https://fake-api.now32.now.sh/musicalWork"
+          }
+        },
+        {
+          "type": "mapping",
+          "mapping": "data[].{ label: originalTitle, value: length(associatedISRCs) }"
+        },
+        {
+          "type": "chart",
+          "columnDefs": [
+            {
+              "headerName": "Title",
+              "field": "label"
+            },
+            {
+              "headerName": "Releases",
+              "field": "value"
+            }
+          ]
+        }
+      ],
+      "workflowId": "chartReleases",
+      "adapterName": "bloomen",
+      "modified": false
+    },
+    "configs/editSoundRecording.json": {
+      "title": "Edit Sound Recording",
+      "blocks": [
+        {
+          "type": "form",
+          "jsonSchema": {
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            }
+          },
+          "uiSchema": {
+            "id": {
+              "ui:placeholder": "ID"
+            }
+          }
+        },
+        {
+          "type": "query",
+          "dataSource": {
+            "type": "remote",
+            "endpoint": {
+              "protocol": "https:",
+              "host": "fake-api.now32.now.sh",
+              "valueGetters": {
+                "pathname": "join('', ['/soundRecording/', model.id])"
+              }
+            }
+          }
+        },
+        {
+          "type": "debug"
+        },
+        {
+          "type": "form",
+          "adapter": "bloomen",
+          "formId": "soundRecording"
+        },
+        {
+          "type": "http",
+          "method": "put",
+          "endpoint": {
+            "protocol": "https:",
+            "host": "fake-api.now32.now.sh",
+            "valueGetters": {
+              "pathname": "join('', ['/soundRecording/', to_string(model.id)])"
+            }
+          }
+        },
+        {
+          "type": "debug"
+        }
+      ],
+      "workflowId": "editSoundRecording",
+      "adapterName": "bloomen",
+      "modified": false
+    },
+    "configs/messageExample.json": {
+      "title": "Message block example",
+      "blocks": [
+        {
+          "type": "init"
+        },
+        {
+          "type": "query",
+          "dataSource": {
+            "type": "remote",
+            "endpoint": "https://fake-api.now32.now.sh/soundRecording"
+          }
+        },
+        {
+          "type": "mapping",
+          "mapping": "result[0]"
+        },
+        {
+          "type": "message",
+          "title": "{{title}}",
+          "message": "by {{mainArtist}} ({{yearOfRecording}})"
+        }
+      ],
+      "workflowId": "messageExample",
+      "adapterName": "bloomen",
+      "modified": false
+    },
+    "configs/templateExample.json": {
+      "title": "Query and template example",
+      "blocks": [
+        {
+          "type": "init"
+        },
+        {
+          "type": "query",
+          "dataSource": {
+            "type": "remote",
+            "endpoint": "https://fake-api.now32.now.sh/musicalWork"
+          }
+        },
+        {
+          "type": "mapping",
+          "mapping": "result[0]"
+        },
+        {
+          "type": "template",
+          "template": "<h1>{{originalTitle}}</h1><p>This musical work has ISWC {{ISWC}} and {{associatedISRCs.length}} related recordings.</p><p>Performers:</p><ul>{{#each associatedPerformers}}<li>{{this}}</li>{{/each}}</ul><p>Associated ISRCs:</p><ul>{{#each associatedISRCs}}<li>{{this}}</li>{{/each}}</ul>"
+        }
+      ],
+      "workflowId": "templateExample",
+      "adapterName": "bloomen",
+      "modified": false
+    },
+    "configs/dialogExample.json": {
+      "title": "Musical works (Dialog view)",
+      "blocks": [
+        {
+          "type": "init"
+        },
+        {
+          "type": "query",
+          "dataSource": {
+            "type": "remote",
+            "endpoint": "https://fake-api.now32.now.sh/musicalWork"
+          }
+        },
+        {
+          "type": "grid",
+          "columnDefs": [
+            {
+              "headerName": "ISWC",
+              "field": "ISWC",
+              "checkboxSelection": true
+            },
+            {
+              "headerName": "Title",
+              "field": "originalTitle"
+            }
+          ]
+        },
+        {
+          "type": "mapping",
+          "mapping": "[0]"
+        },
+        {
+          "type": "button",
+          "label": "View",
+          "blocks": [
+            {
+              "type": "template",
+              "template": "<h1>{{originalTitle}}</h1><p>This musical work has ISWC {{ISWC}} and {{associatedISRCs.length}} related recordings.</p><p>Performers:</p><ul>{{#each associatedPerformers}}<li>{{this}}</li>{{/each}}</ul><p>Associated ISRCs:</p><ul>{{#each associatedISRCs}}<li>{{this}}</li>{{/each}}</ul>"
+            },
+            {
+              "type": "form",
+              "label": "Save",
+              "jsonSchema": {
+                "type": "object"
+              },
+              "uiSchema": {}
+            }
+          ]
+        },
+        {
+          "type": "debug"
+        }
+      ],
+      "workflowId": "dialogExample",
+      "adapterName": "bloomen",
+      "modified": false
+    },
+    "configs/bloomenApiJwt-musicalWorks.json": {
+      "title": "List works (Bloomen API)",
+      "blocks": [
+        {
+          "type": "init"
+        },
+        {
+          "type": "context",
+          "contextPath": "bloomenAuth",
+          "contextBlocks": [
+            {
+              "type": "variable-get",
+              "name": "bloomenAuth"
+            }
+          ],
+          "blocks": [
+            {
+              "type": "http",
+              "method": "get",
+              "endpoint": {
+                "protocol": "https:",
+                "host": "bloomen.herokuapp.com",
+                "pathname": "/sound/music"
+              },
+              "authentication": {
+                "type": "bearer",
+                "valueGetters": {
+                  "jwt": "context.bloomenAuth"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "columnDefs": [
+            {
+              "headerName": "ISWC",
+              "field": "ISWC"
+            },
+            {
+              "headerName": "Title",
+              "valueGetter": "originalTitle"
+            },
+            {
+              "headerName": "Creators",
+              "valueGetter": "creators[].name"
+            },
+            {
+              "headerName": "Alternative titles",
+              "valueGetter": "alternativeTitles"
+            }
+          ]
+        }
+      ],
+      "workflowId": "bloomenApiJwt-musicalWorks",
+      "adapterName": "bloomen",
+      "modified": false
+    },
+    "configs/bloomenApiJwt-soundRecordings.json": {
+      "title": "List recordings (Bloomen API)",
+      "blocks": [
+        {
+          "type": "init"
+        },
+        {
+          "type": "context",
+          "contextPath": "bloomenAuth",
+          "contextBlocks": [
+            {
+              "type": "variable-get",
+              "name": "bloomenAuth"
+            }
+          ],
+          "blocks": [
+            {
+              "type": "http",
+              "method": "get",
+              "endpoint": {
+                "protocol": "https:",
+                "host": "bloomen.herokuapp.com",
+                "pathname": "/sound/recordings"
+              },
+              "authentication": {
+                "type": "bearer",
+                "valueGetters": {
+                  "jwt": "context.bloomenAuth"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "columnDefs": [
+            {
+              "headerName": "ISRC",
+              "field": "ISRC"
+            },
+            {
+              "headerName": "Title",
+              "valueGetter": "title"
+            },
+            {
+              "headerName": "Artist",
+              "valueGetter": "mainArtist"
+            },
+            {
+              "headerName": "Year",
+              "valueGetter": "yearOfRecording"
+            },
+            {
+              "headerName": "Featured artists",
+              "valueGetter": "featuredArtists"
+            }
+          ]
+        }
+      ],
+      "workflowId": "bloomenApiJwt-soundRecordings",
+      "adapterName": "bloomen",
+      "modified": false
+    },
+    "configs/bloomenApiJwt-exportMusicalWorks.json": {
+      "title": "Export works CSV (Bloomen API)",
+      "blocks": [
+        {
+          "type": "init"
+        },
+        {
+          "type": "context",
+          "contextPath": "bloomenAuth",
+          "contextBlocks": [
+            {
+              "type": "variable-get",
+              "name": "bloomenAuth"
+            }
+          ],
+          "blocks": [
+            {
+              "type": "http",
+              "method": "get",
+              "endpoint": {
+                "protocol": "https:",
+                "host": "bloomen.herokuapp.com",
+                "pathname": "/sound/music"
+              },
+              "authentication": {
+                "type": "bearer",
+                "valueGetters": {
+                  "jwt": "context.bloomenAuth"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "mapping",
+          "mapping": "data[].{ id: id, title: originalTitle, creators: creators[].name, alternativeTitles: alternativeTitles, performers: associatedPerformers, isrcs: associatedISRCs, ISWC: ISWC }"
+        },
+        {
+          "type": "csv-export",
+          "header": true,
+          "skipEmptyLines": true
+        }
+      ],
+      "workflowId": "bloomenApiJwt-exportMusicalWorks",
+      "adapterName": "bloomen",
+      "modified": false
+    },
+    "configs/photo-search-example.json": {
+      "title": "Photo search (Bloomen API)",
+      "blocks": [
+        {
+          "type": "form",
+          "hasSubmit": false,
+          "jsonSchema": {
+            "properties": {
+              "term": {
+                "title": "Search",
+                "type": "string"
+              }
+            }
+          },
+          "uiSchema": {}
+        },
+        {
+          "type": "context",
+          "contextPath": "bloomenAuth",
+          "contextBlocks": [
+            {
+              "type": "variable-get",
+              "name": "bloomenAuth"
+            }
+          ],
+          "blocks": [
+            {
+              "type": "http",
+              "method": "post",
+              "notify": false,
+              "endpoint": {
+                "protocol": "https:",
+                "host": "bloomen.herokuapp.com",
+                "pathname": "/photos/search"
+              },
+              "authentication": {
+                "type": "bearer",
+                "valueGetters": {
+                  "jwt": "context.bloomenAuth"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "batch",
+          "flex": true,
+          "blocks": [
+            {
+              "type": "card",
+              "blocks": [
+                {
+                  "type": "template",
+                  "template": "<p>{{description}}</p><img width=\"200\" src=\"{{url}}\">"
+                },
+                {
+                  "type": "debug",
+                  "showContext": false,
+                  "open": 0
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "workflowId": "photo-search-example",
+      "adapterName": "bloomen",
+      "modified": false
+    },
+    "configs/importMusicalWorks.json": {
+      "title": "Import works (Bloomen API)",
+      "blocks": [
+        {
+          "type": "csv-import",
+          "header": true,
+          "skipEmptyLines": true
+        },
+        {
+          "type": "grid",
+          "gridOptions": {
+            "rowSelection": "multiple"
+          },
+          "columnDefs": [
+            {
+              "headerName": "id",
+              "field": "id",
+              "checkboxSelection": true
+            },
+            {
+              "headerName": "title",
+              "field": "title"
+            },
+            {
+              "headerName": "creators",
+              "field": "creators"
+            },
+            {
+              "headerName": "alternativeTitles",
+              "field": "alternativeTitles"
+            },
+            {
+              "headerName": "performers",
+              "field": "performers"
+            },
+            {
+              "headerName": "ISRCs",
+              "field": "isrcs"
+            },
+            {
+              "headerName": "ISWC",
+              "field": "ISWC"
+            }
+          ]
+        },
+        {
+          "type": "debug"
+        }
+      ],
+      "workflowId": "importMusicalWorks",
+      "adapterName": "bloomen",
+      "modified": false
+    },
+    "configs/importRecordings.json": {
+      "title": "Import recordings (Bloomen API)",
+      "blocks": [
+        {
+          "type": "init"
+        },
+        {
+          "type": "variable-get",
+          "name": "bloomenAuth"
+        },
+        {
+          "type": "context-save",
+          "contextKey": "bloomenAuth"
+        },
+        {
+          "type": "http",
+          "method": "get",
+          "endpoint": {
+            "protocol": "https:",
+            "host": "bloomen.herokuapp.com",
+            "pathname": "/organisations/groups"
+          },
+          "authentication": {
+            "type": "bearer",
+            "valueGetters": {
+              "jwt": "context.bloomenAuth"
+            }
+          }
+        },
+        {
+          "type": "mapping",
+          "mapping": "data[].{ value: @, label: @ }"
+        },
+        {
+          "type": "context-save",
+          "contextKey": "groups"
+        },
+        {
+          "type": "mapping",
+          "mapping": "context.groups"
+        },
+        {
+          "type": "reference",
+          "fieldLabel": "Group",
+          "valueField": "value"
+        },
+        {
+          "type": "context-save",
+          "contextKey": "selectedGroup"
+        },
+        {
+          "type": "csv-import",
+          "header": true,
+          "skipEmptyLines": true
+        },
+        {
+          "type": "grid",
+          "gridOptions": {
+            "pagination": true,
+            "paginationPageSize": 25,
+            "rowSelection": "multiple"
+          },
+          "columnDefs": [
+            {
+              "headerCheckboxSelection": true,
+              "checkboxSelection": true
+            },
+            {
+              "headerName": "Title",
+              "field": "title"
+            },
+            {
+              "headerName": "Artist",
+              "field": "mainArtist"
+            },
+            {
+              "headerName": "ISRC",
+              "field": "ISRC"
+            }
+          ]
+        },
+        {
+          "type": "mapping",
+          "mapping": "{ data: data[].merge(@, { group: _(&context.selectedGroup) }) }"
+        },
+        {
+          "type": "form",
+          "label": "Import",
+          "jsonSchema": {},
+          "uiSchema": {}
+        },
+        {
+          "type": "debug",
+          "open": 0
+        },
+        {
+          "type": "http",
+          "skipInit": false,
+          "method": "post",
+          "endpoint": {
+            "protocol": "https:",
+            "host": "bloomen.herokuapp.com",
+            "pathname": "/sound/bulk"
+          },
+          "authentication": {
+            "type": "bearer",
+            "valueGetters": {
+              "jwt": "context.bloomenAuth"
+            }
+          }
+        }
+      ],
+      "id": "importRecordings",
+      "adapterName": "bloomen",
+      "workflowId": "importRecordings",
+      "modified": false
+    },
+    "configs/listSoundRecordings-view-edit.json": {
+      "title": "List of Sound Recordings (view/edit)",
+      "blocks": [
+        {
+          "type": "init"
+        },
+        {
+          "type": "query",
+          "dataSource": {
+            "type": "remote",
+            "endpoint": "https://fake-api.now32.now.sh/soundRecording"
+          }
+        },
+        {
+          "type": "grid",
+          "columnDefs": [
+            {
+              "headerName": "Title",
+              "field": "title"
+            },
+            {
+              "headerName": "Artist",
+              "field": "mainArtist"
+            },
+            {
+              "headerName": "ISRC",
+              "field": "ISRC"
+            },
+            {
+              "headerName": "Operations",
+              "cellRenderer": "workflowRenderer",
+              "cellRendererParams": {
+                "blocks": [
+                  {
+                    "type": "actions",
+                    "buttons": [
+                      {
+                        "label": "View",
+                        "blocks": [
+                          {
+                            "type": "dialog",
+                            "blocks": [
+                              {
+                                "type": "message",
+                                "message": "Viewing {{title}}"
+                              },
+                              {
+                                "type": "debug"
+                              },
+                              {
+                                "type": "actions",
+                                "buttons": [
+                                  {
+                                    "label": "OK",
+                                    "blocks": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Edit",
+                        "blocks": [
+                          {
+                            "type": "dialog",
+                            "blocks": [
+                              {
+                                "type": "form",
+                                "adapter": "bloomen",
+                                "formId": "soundRecording"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "workflowId": "listSoundRecordings-view-edit",
+      "adapterName": "bloomen",
+      "modified": false
+    },
+    "configs/bulkImport.json": {
+      "title": "Bulk Import",
+      "blocks": [
+        {
+          "type": "file-input",
+          "label": "Import",
+          "accept": [
+            "csv",
+            "json",
+            "xml"
+          ]
+        },
+        {
+          "type": "parse-data",
+          "csvOptions": {
+            "header": true,
+            "skipEmptyLines": true,
+            "dynamicTyping": false,
+            "transform": false
+          },
+          "xmlOptions": {}
+        },
+        {
+          "type": "mapping",
+          "mapping": "data[:10]"
+        },
+        {
+          "type": "debug",
+          "open": 0,
+          "showContext": false
+        },
+        {
+          "type": "grid",
+          "gridOptions": {
+            "pagination": true,
+            "rowSelection": "multiple"
+          }
+        },
+        {
+          "type": "mapping",
+          "mapping": "{ items: data }"
+        },
+        {
+          "type": "form",
+          "label": "Import",
+          "jsonSchema": {
+            "properties": {
+              "organisation": {
+                "type": "string",
+                "title": "Organisation"
+              }
+            }
+          },
+          "uiSchema": {
+            "organisation": {
+              "ui:widget": "blocks",
+              "blocksConfig": {
+                "blocks": [
+                  {
+                    "type": "gosub",
+                    "adapterName": "bloomen",
+                    "workflowId": "selectOrganisation"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "type": "debug",
+          "open": 1,
+          "showContext": false
+        }
+      ],
+      "id": "bulkImport",
+      "adapterName": "bloomen",
+      "workflowId": "bulkImport",
+      "modified": false
+    },
+    "configs/selectOrganisation.json": {
+      "title": "Select Organisation",
+      "blocks": [
+        {
+          "type": "mapping",
+          "mapping": "['digit', 'test', 'another']"
+        },
+        {
+          "type": "mapping",
+          "mapping": "data[].{ value: @, label: @ }"
+        },
+        {
+          "type": "reference",
+          "fieldLabel": "Organisation",
+          "valueField": "value"
+        }
+      ],
+      "id": "selectOrganisation",
+      "adapterName": "bloomen",
+      "workflowId": "selectOrganisation",
+      "modified": false
+    },
+    "jsonSchema/musicalWork.json": {
+      "title": "Bloomen MusicalWork",
+      "description": "Representation of a MusicalWork for the Bloomen Project",
+      "type": "object",
+      "properties": {
+        "ISWC": {
+          "title": "ISWC",
+          "$ref": "#/definitions/ISWC"
+        },
+        "originalTitle": {
+          "title": "originalTitle",
+          "type": "string"
+        },
+        "group": {
+          "title": "group",
+          "type": "string"
+        },
+        "creators": {
+          "title": "creators",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/creator"
+          }
+        },
+        "alternativeTitles": {
+          "type": "array",
+          "title": "Alternative titles",
+          "items": {
+            "type": "string"
+          }
+        },
+        "associatedPerformers": {
+          "type": "array",
+          "title": "Associated performers",
+          "items": {
+            "type": "string"
+          }
+        },
+        "associatedISRCs": {
+          "type": "array",
+          "title": "Associated ISRCs",
+          "items": {
+            "$ref": "#/definitions/ISRC"
+          }
+        },
+        "rights": {
+          "type": "array",
+          "title": "Rights",
+          "items": {
+            "$ref": "#/definitions/right"
+          }
+        }
+      },
+      "definitions": {
+        "IPINameNumber": {
+          "type": "string",
+          "pattern": "^[0-9]{11}$"
+        },
+        "ISWC": {
+          "type": "string",
+          "pattern": "^T-?[0-9]{3}\\.?[0-9]{3}\\.?[0-9]{3}-?[0-9]$"
+        },
+        "ISRC": {
+          "type": "string",
+          "pattern": "^[A-Z0-9]{2}-?[A-Z0-9]{3}-?[0-9]{2}-?[0-9]{5}$"
+        },
+        "creator": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "title": "Name",
+              "type": "string"
+            },
+            "IPINameNumber": {
+              "title": "IPI Name Number",
+              "$ref": "#/definitions/IPINameNumber"
+            },
+            "role": {
+              "type": "string",
+              "title": "Role",
+              "$ref": "#/definitions/creatorsRole"
+            }
+          }
+        },
+        "creatorsRole": {
+          "type": "string",
+          "enum": [
+            "Adapter",
+            "Arranger",
+            "Lyricist",
+            "Composer",
+            "ComposerLyricist",
+            "SubArranger",
+            "SubAuthor",
+            "Translator",
+            "IncomeParticipant"
+          ]
+        },
+        "right": {
+          "type": "object",
+          "properties": {
+            "rightsHolder": {
+              "title": "Rights holder",
+              "$ref": "#/definitions/rightsholder"
+            },
+            "rightsHolderOriginalPublisher": {
+              "title": "Rights holder original publisher",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "title": "Name",
+                  "type": "string"
+                },
+                "IPINameNumber": {
+                  "title": "IPI Name Number",
+                  "$ref": "#/definitions/IPINameNumber"
+                }
+              }
+            },
+            "rightsHolderProprietaryId": {
+              "title": "Name",
+              "type": "string"
+            },
+            "territories": {
+              "title": "Territories",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/rightsTerritories"
+              }
+            },
+            "startDate": {
+              "title": "Start date",
+              "type": "string",
+              "format": "date"
+            },
+            "endDate": {
+              "title": "End date",
+              "type": "string",
+              "format": "date"
+            },
+            "mechanical": {
+              "title": "Mechanical",
+              "$ref": "#/definitions/split"
+            },
+            "performance": {
+              "title": "Performance",
+              "$ref": "#/definitions/split"
+            },
+            "synchronisation": {
+              "title": "Synchronisation",
+              "$ref": "#/definitions/split"
+            }
+          }
+        },
+        "split": {
+          "type": "object",
+          "properties": {
+            "affiliationSociety": {
+              "title": "Affiliation society",
+              "$ref": "#/definitions/affiliationSociety"
+            },
+            "ownershipSplit": {
+              "title": "Ownership split",
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "collectionSplit": {
+              "title": "Collection split",
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            }
+          }
+        },
+        "rightsholder": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "title": "Name",
+              "type": "string"
+            },
+            "IPINameNumber": {
+              "title": "IPI Name Number",
+              "$ref": "#/definitions/IPINameNumber"
+            },
+            "role": {
+              "type": "string",
+              "title": "Role",
+              "$ref": "#/definitions/creatorsRole"
+            }
+          }
+        },
+        "rightsholderRole": {
+          "type": "string",
+          "enum": [
+            "Writer",
+            "OriginalPublisher",
+            "SubPublisher",
+            "RoyaltyAdministrator"
+          ]
+        },
+        "rightsTerritories": {
+          "type": "string",
+          "enum": [
+            "AF",
+            "AL",
+            "DZ",
+            "AS",
+            "AD",
+            "AO",
+            "AI",
+            "AQ",
+            "AG",
+            "AR",
+            "AM",
+            "AW",
+            "AU",
+            "AT",
+            "AZ",
+            "BS",
+            "BH",
+            "BD",
+            "BB",
+            "BY",
+            "BE",
+            "BZ",
+            "BJ",
+            "BM",
+            "BT",
+            "BO",
+            "BQ",
+            "BA",
+            "BW",
+            "BV",
+            "BR",
+            "IO",
+            "BN",
+            "BG",
+            "BF",
+            "BI",
+            "CV",
+            "KH",
+            "CM",
+            "CA",
+            "KY",
+            "CF",
+            "TD",
+            "CL",
+            "CN",
+            "CX",
+            "CC",
+            "CO",
+            "KM",
+            "CD",
+            "CG",
+            "CK",
+            "CR",
+            "HR",
+            "CU",
+            "CW",
+            "CY",
+            "CZ",
+            "CI",
+            "DK",
+            "DJ",
+            "DM",
+            "DO",
+            "EC",
+            "EG",
+            "SV",
+            "GQ",
+            "ER",
+            "EE",
+            "SZ",
+            "ET",
+            "FK",
+            "FO",
+            "FJ",
+            "FI",
+            "FR",
+            "GF",
+            "PF",
+            "TF",
+            "GA",
+            "GM",
+            "GE",
+            "DE",
+            "GH",
+            "GI",
+            "GR",
+            "GL",
+            "GD",
+            "GP",
+            "GU",
+            "GT",
+            "GG",
+            "GN",
+            "GW",
+            "GY",
+            "HT",
+            "HM",
+            "VA",
+            "HN",
+            "HK",
+            "HU",
+            "IS",
+            "IN",
+            "ID",
+            "IR",
+            "IQ",
+            "IE",
+            "IM",
+            "IL",
+            "IT",
+            "JM",
+            "JP",
+            "JE",
+            "JO",
+            "KZ",
+            "KE",
+            "KI",
+            "KP",
+            "KR",
+            "KW",
+            "KG",
+            "LA",
+            "LV",
+            "LB",
+            "LS",
+            "LR",
+            "LY",
+            "LI",
+            "LT",
+            "LU",
+            "MO",
+            "MG",
+            "MW",
+            "MY",
+            "MV",
+            "ML",
+            "MT",
+            "MH",
+            "MQ",
+            "MR",
+            "MU",
+            "YT",
+            "MX",
+            "FM",
+            "MD",
+            "MC",
+            "MN",
+            "ME",
+            "MS",
+            "MA",
+            "MZ",
+            "MM",
+            "NA",
+            "NR",
+            "NP",
+            "NL",
+            "NC",
+            "NZ",
+            "NI",
+            "NE",
+            "NG",
+            "NU",
+            "NF",
+            "MP",
+            "NO",
+            "OM",
+            "PK",
+            "PW",
+            "PS",
+            "PA",
+            "PG",
+            "PY",
+            "PE",
+            "PH",
+            "PN",
+            "PL",
+            "PT",
+            "PR",
+            "QA",
+            "MK",
+            "RO",
+            "RU",
+            "RW",
+            "RE",
+            "BL",
+            "SH",
+            "KN",
+            "LC",
+            "MF",
+            "PM",
+            "VC",
+            "WS",
+            "SM",
+            "ST",
+            "SA",
+            "SN",
+            "RS",
+            "SC",
+            "SL",
+            "SG",
+            "SX",
+            "SK",
+            "SI",
+            "SB",
+            "SO",
+            "ZA",
+            "GS",
+            "SS",
+            "ES",
+            "LK",
+            "SD",
+            "SR",
+            "SJ",
+            "SE",
+            "CH",
+            "SY",
+            "TW",
+            "TJ",
+            "TZ",
+            "TH",
+            "TL",
+            "TG",
+            "TK",
+            "TO",
+            "TT",
+            "TN",
+            "TR",
+            "TM",
+            "TC",
+            "TV",
+            "UG",
+            "UA",
+            "AE",
+            "GB",
+            "UM",
+            "US",
+            "UY",
+            "UZ",
+            "VU",
+            "VE",
+            "VN",
+            "VG",
+            "VI",
+            "WF",
+            "EH",
+            "YE",
+            "ZM",
+            "ZW",
+            "AX"
+          ]
+        },
+        "affiliationSociety": {
+          "type": "string",
+          "enum": [
+            "ACUM",
+            "ADDAF",
+            "AEPI",
+            "AGADU",
+            "AKM",
+            "BUCUDA",
+            "APDAYC",
+            "APRA",
+            "ARTISJUS",
+            "ASCAP",
+            "AUSTRO-MECHANA",
+            "AMCOS",
+            "AWA",
+            "ARGENTORES",
+            "APA",
+            "BUMDA",
+            "AMRA",
+            "BGDA",
+            "BMDA",
+            "SODRAC",
+            "BMI",
+            "MCSN",
+            "BUMA",
+            "BURIDA",
+            "BSDA",
+            "CASH",
+            "CAPAC",
+            "LITA",
+            "SCD",
+            "AMAR",
+            "DILIA",
+            "FILSCAP",
+            "OMDA",
+            "HARRY FOX AGENCY",
+            "GEMA",
+            "IPRS",
+            "BUBEDRA",
+            "JASRAC",
+            "MUSICAUTOR",
+            "KODA",
+            "LITERAR-MECHANA",
+            "LVG",
+            "MCSK",
+            "MCPS",
+            "BBDA",
+            "MRS",
+            "BCDA",
+            "NCB",
+            "ONDA",
+            "OSA",
+            "PROLITTERIS",
+            "PRS",
+            "PROCAN",
+            "ALCS",
+            "SABAM",
+            "SACD",
+            "SACERAU",
+            "SACEM",
+            "SACM",
+            "SACVEN",
+            "SADAIC",
+            "SADEMBRA",
+            "SAMRO",
+            "SOKOJ",
+            "SAYCE",
+            "SBACEM",
+            "SBAT",
+            "SPA",
+            "SOGEM",
+            "SESAC",
+            "SGAE",
+            "SCAM",
+            "SIAE",
+            "SUISSIMAGE",
+            "ACEMLA",
+            "STEF",
+            "STEMRA",
+            "STIM",
+            "SUISA",
+            "SARRAL",
+            "OTPDA",
+            "SONECA",
+            "SAYCO",
+            "SOZA",
+            "SICAM",
+            "SPACEMF",
+            "CMRRA",
+            "TEOSTO",
+            "TONO",
+            "SSA",
+            "SOCINADA",
+            "UBC",
+            "RAO",
+            "VG WORT",
+            "COTT",
+            "ZAIKS",
+            "ZIMRA",
+            "NS",
+            "SOCAN",
+            "NASCAM",
+            "ACDAM",
+            "MACP",
+            "MASA",
+            "COMPASS",
+            "ACAM",
+            "CHA",
+            "KCI",
+            "LATGA-A",
+            "HDS-ZAMP",
+            "SAZAS",
+            "LAA",
+            "AGAYC",
+            "UCMR-ADA",
+            "EAU",
+            "MESAM",
+            "KOMCA",
+            "MCSC",
+            "LIRA",
+            "VDFS",
+            "AKKA/LAA",
+            "COSGA",
+            "COSOMA",
+            "BNDA",
+            "MCT",
+            "ALBAUTOR",
+            "IMRO",
+            "SOBODAYCOM",
+            "BUTODRA",
+            "SADA",
+            "BILD-KUNST",
+            "ZAMCOPS",
+            "SLPRS",
+            "SADH",
+            "ZAMP",
+            "SOFAM",
+            "KOPIOSTO",
+            "COPY-DAN BILLEDKUNST",
+            "UACRR",
+            "ATN",
+            "DALRO",
+            "TEATERAUTOR",
+            "HAA",
+            "DPRS",
+            "SPAC",
+            "FILMAUTOR",
+            "ADAGP",
+            "ARS",
+            "BEELDRECHT",
+            "BONO",
+            "BUS",
+            "DACS",
+            "HUNGART",
+            "SOMAAP",
+            "VAGA",
+            "VBK",
+            "VEGAP",
+            "VISCOPY",
+            "RUPIS",
+            "MUST",
+            "AMPAL",
+            "APG-JAPAN",
+            "APSAV",
+            "AUTORARTE",
+            "BURAFO",
+            "CAL",
+            "COSCAP",
+            "CPSN",
+            "CREAIMAGEN",
+            "DGA",
+            "DIRECTORES",
+            "FLIM JUS",
+            "COPYRO",
+            "JACAP",
+            "KAZAK",
+            "KOSA",
+            "KUVASTO",
+            "MUSIKEDITION",
+            "NMPA",
+            "PAPPRI",
+            "SACK",
+            "SARTEC",
+            "SESAM",
+            "SGDL",
+            "SNAC",
+            "SOCIETE DE L’IMAGE",
+            "SOCINPRO",
+            "SOPE",
+            "SPACQ",
+            "SFF",
+            "THE SOCIETY OF AUTHORS",
+            "UFFICIO LEGALE",
+            "VEVAM",
+            "WGA",
+            "WGJ",
+            "ZAPA",
+            "MSG",
+            "ABRAMUS",
+            "ASDAC",
+            "AWGACS",
+            "SAS",
+            "SODART",
+            "SUOMEN KIRJAILIJALIITTO",
+            "THE AUTHOR'S REGISTRY INC.",
+            "SGA",
+            "ARMAUTHOR",
+            "ACCESS",
+            "CSCS",
+            "DRCC",
+            "HMS",
+            "KYRGYZPATENT",
+            "SQN",
+            "ABRAC",
+            "ANACIM",
+            "ASSIM",
+            "ATIDA",
+            "SABEM",
+            "FONOPERU",
+            "COSOTA",
+            "SOMAS",
+            "SAIF",
+            "AACIMH",
+            "SGACEDOM",
+            "ROMS",
+            "ICG",
+            "ADAVIS",
+            "AUTVIS",
+            "GESTOR",
+            "SACEMLUXEMBOURG",
+            "UCOSO",
+            "SACENC",
+            "WID CENTRE",
+            "GESAC",
+            "LATINAUTOR",
+            "NORD-DOC",
+            "SONGCODE",
+            "IMJV",
+            "CCL",
+            "MISASIA",
+            "ECAD",
+            "LATINNET",
+            "DIVA"
+          ]
+        }
+      }
+    },
+    "uiSchema/musicalWork.json": {
+      "rights": {
+        "items": {
+          "startDate": {
+            "ui:widget": "datepicker"
+          },
+          "endDate": {
+            "ui:widget": "datepicker"
+          }
+        }
+      }
+    },
+    "jsonSchema/soundRecording.json": {
+      "title": "Bloomen SoundRecording",
+      "description": "Representation of a SoundRecording for the Bloomen Project",
+      "type": "object",
+      "properties": {
+        "ISRC": {
+          "title": "ISRC",
+          "$ref": "#/definitions/ISRC"
+        },
+        "mainArtist": {
+          "title": "Main artist",
+          "type": "string"
+        },
+        "group": {
+          "title": "group",
+          "type": "string"
+        },
+        "featuredArtists": {
+          "title": "Featured artists",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "versionTitle": {
+          "title": "Version title",
+          "type": "string"
+        },
+        "duration": {
+          "title": "Duration",
+          "type": "integer"
+        },
+        "yearOfRecording": {
+          "title": "Year of recording",
+          "type": "integer"
+        },
+        "territoryOfRecording": {
+          "title": "Territory of recording",
+          "$ref": "#/definitions/territory"
+        },
+        "languageOfPerformance": {
+          "title": "Language of performance",
+          "$ref": "#/definitions/languageOfPerformance"
+        },
+        "originalReleaseDate": {
+          "title": "Original release date",
+          "type": "string",
+          "format": "date"
+        },
+        "originalReleaseLabel": {
+          "title": "Original release label",
+          "type": "string"
+        },
+        "creators": {
+          "title": "Creators",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "isVideo": {
+          "title": "Is video?",
+          "type": "boolean"
+        },
+        "releases": {
+          "title": "Releases",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/release"
+          }
+        },
+        "rights": {
+          "title": "Rights",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/right"
+          }
+        }
+      },
+      "definitions": {
+        "release": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string"
+            },
+            "artist": {
+              "title": "Artist",
+              "type": "string"
+            },
+            "ICPN": {
+              "title": "ICPN",
+              "type": "string",
+              "pattern": "^[0-9]{0,13}$"
+            },
+            "numberOfTracks": {
+              "title": "Number of tracks",
+              "type": "integer"
+            },
+            "label": {
+              "title": "Label",
+              "type": "string"
+            },
+            "duration": {
+              "title": "Duration",
+              "type": "integer"
+            },
+            "isCompilation": {
+              "title": "Is compilation?",
+              "type": "boolean"
+            }
+          }
+        },
+        "right": {
+          "type": "object",
+          "properties": {
+            "rightsHolder": {
+              "title": "Rightsholder",
+              "type": "string"
+            },
+            "rightsHolderProprietaryId": {
+              "title": "Rightsholder proprietary ID",
+              "type": "string"
+            },
+            "rightsOwner": {
+              "title": "Rights owner",
+              "type": "string"
+            },
+            "rightsOwnerProprietaryId": {
+              "title": "Rights owner proprietary ID",
+              "type": "string"
+            },
+            "territories": {
+              "title": "Territories",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/territory"
+              }
+            },
+            "startDate": {
+              "title": "Start date",
+              "type": "string",
+              "format": "date"
+            },
+            "endDate": {
+              "title": "End date",
+              "type": "string",
+              "format": "date"
+            },
+            "split": {
+              "title": "Split",
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "useTypes": {
+              "title": "Use types",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/useTypes"
+              }
+            }
+          }
+        },
+        "ISRC": {
+          "type": "string",
+          "pattern": "^[A-Z0-9]{2}-?[A-Z0-9]{3}-?[0-9]{2}-?[0-9]{5}$"
+        },
+        "useTypes": {
+          "type": "string",
+          "enum": [
+            "PublicPerformance",
+            "Airlines",
+            "RadioBroadcasting",
+            "RadioDubbing",
+            "TVBroadcasting",
+            "TVDubbing",
+            "BackgroundMusic",
+            "BackgroundMusicDubbing",
+            "KaraokePublicPerformance",
+            "KaraokeDubbing",
+            "KaraokeOnDemand",
+            "KaraokeOnDemandDubbing",
+            "CableRetransmission",
+            "RadioSimulcast",
+            "Webcast",
+            "TVSimulcast",
+            "CatchUpTV",
+            "PrivateCopying",
+            "RingbackTones"
+          ]
+        },
+        "territory": {
+          "type": "string",
+          "enum": [
+            "AF",
+            "AL",
+            "DZ",
+            "AS",
+            "AD",
+            "AO",
+            "AI",
+            "AQ",
+            "AG",
+            "AR",
+            "AM",
+            "AW",
+            "AU",
+            "AT",
+            "AZ",
+            "BS",
+            "BH",
+            "BD",
+            "BB",
+            "BY",
+            "BE",
+            "BZ",
+            "BJ",
+            "BM",
+            "BT",
+            "BO",
+            "BQ",
+            "BA",
+            "BW",
+            "BV",
+            "BR",
+            "IO",
+            "BN",
+            "BG",
+            "BF",
+            "BI",
+            "CV",
+            "KH",
+            "CM",
+            "CA",
+            "KY",
+            "CF",
+            "TD",
+            "CL",
+            "CN",
+            "CX",
+            "CC",
+            "CO",
+            "KM",
+            "CD",
+            "CG",
+            "CK",
+            "CR",
+            "HR",
+            "CU",
+            "CW",
+            "CY",
+            "CZ",
+            "CI",
+            "DK",
+            "DJ",
+            "DM",
+            "DO",
+            "EC",
+            "EG",
+            "SV",
+            "GQ",
+            "ER",
+            "EE",
+            "SZ",
+            "ET",
+            "FK",
+            "FO",
+            "FJ",
+            "FI",
+            "FR",
+            "GF",
+            "PF",
+            "TF",
+            "GA",
+            "GM",
+            "GE",
+            "DE",
+            "GH",
+            "GI",
+            "GR",
+            "GL",
+            "GD",
+            "GP",
+            "GU",
+            "GT",
+            "GG",
+            "GN",
+            "GW",
+            "GY",
+            "HT",
+            "HM",
+            "VA",
+            "HN",
+            "HK",
+            "HU",
+            "IS",
+            "IN",
+            "ID",
+            "IR",
+            "IQ",
+            "IE",
+            "IM",
+            "IL",
+            "IT",
+            "JM",
+            "JP",
+            "JE",
+            "JO",
+            "KZ",
+            "KE",
+            "KI",
+            "KP",
+            "KR",
+            "KW",
+            "KG",
+            "LA",
+            "LV",
+            "LB",
+            "LS",
+            "LR",
+            "LY",
+            "LI",
+            "LT",
+            "LU",
+            "MO",
+            "MG",
+            "MW",
+            "MY",
+            "MV",
+            "ML",
+            "MT",
+            "MH",
+            "MQ",
+            "MR",
+            "MU",
+            "YT",
+            "MX",
+            "FM",
+            "MD",
+            "MC",
+            "MN",
+            "ME",
+            "MS",
+            "MA",
+            "MZ",
+            "MM",
+            "NA",
+            "NR",
+            "NP",
+            "NL",
+            "NC",
+            "NZ",
+            "NI",
+            "NE",
+            "NG",
+            "NU",
+            "NF",
+            "MP",
+            "NO",
+            "OM",
+            "PK",
+            "PW",
+            "PS",
+            "PA",
+            "PG",
+            "PY",
+            "PE",
+            "PH",
+            "PN",
+            "PL",
+            "PT",
+            "PR",
+            "QA",
+            "MK",
+            "RO",
+            "RU",
+            "RW",
+            "RE",
+            "BL",
+            "SH",
+            "KN",
+            "LC",
+            "MF",
+            "PM",
+            "VC",
+            "WS",
+            "SM",
+            "ST",
+            "SA",
+            "SN",
+            "RS",
+            "SC",
+            "SL",
+            "SG",
+            "SX",
+            "SK",
+            "SI",
+            "SB",
+            "SO",
+            "ZA",
+            "GS",
+            "SS",
+            "ES",
+            "LK",
+            "SD",
+            "SR",
+            "SJ",
+            "SE",
+            "CH",
+            "SY",
+            "TW",
+            "TJ",
+            "TZ",
+            "TH",
+            "TL",
+            "TG",
+            "TK",
+            "TO",
+            "TT",
+            "TN",
+            "TR",
+            "TM",
+            "TC",
+            "TV",
+            "UG",
+            "UA",
+            "AE",
+            "GB",
+            "UM",
+            "US",
+            "UY",
+            "UZ",
+            "VU",
+            "VE",
+            "VN",
+            "VG",
+            "VI",
+            "WF",
+            "EH",
+            "YE",
+            "ZM",
+            "ZW",
+            "AX"
+          ]
+        },
+        "languageOfPerformance": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$",
+          "description": "alpha-3/ISO 639-2 codes"
+        }
+      }
+    },
+    "uiSchema/soundRecording.json": {},
+    "jsonSchema/user.json": {
+      "title": "Bloomen User",
+      "description": "User metadata from the Bloomen project",
+      "type": "object",
+      "version": 0,
+      "name": "bloomen_User",
+      "properties": {
+        "username": {
+          "title": "Username",
+          "type": "string"
+        },
+        "organisation": {
+          "title": "Organisation",
+          "type": "string"
+        },
+        "createdATUTC": {
+          "title": "Created at",
+          "type": "string",
+          "format": "datetime"
+        },
+        "email": {
+          "title": "Email",
+          "type": "string",
+          "format": "email"
+        },
+        "id": {
+          "title": "Bloomen ID",
+          "type": "string"
+        },
+        "hash": {
+          "title": "Hash ID",
+          "type": "string"
+        },
+        "role": {
+          "title": "Role",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "photographer",
+              "publisher",
+              "admin"
+            ]
+          }
+        },
+        "reputation": {
+          "title": "Reputation",
+          "type": "object",
+          "properties": {
+            "positive": {
+              "title": "Positive",
+              "type": "integer"
+            },
+            "negative": {
+              "title": "Negative",
+              "type": "integer"
+            }
+          }
+        },
+        "kyc": {
+          "title": "KYC",
+          "type": "object",
+          "properties": {
+            "address": {
+              "title": "Address",
+              "type": "string"
+            },
+            "phone": {
+              "title": "Address",
+              "type": "string"
+            },
+            "firstname": {
+              "title": "Address",
+              "type": "string"
+            },
+            "lastname": {
+              "title": "Address",
+              "type": "string"
+            },
+            "id1": {
+              "title": "id1",
+              "type": "string",
+              "format": "uri"
+            },
+            "id2": {
+              "title": "id2",
+              "type": "string",
+              "format": "uri"
+            },
+            "status": {
+              "title": "Status",
+              "type": "integer"
+            },
+            "reviewdBy": {
+              "title": "Reviewed by",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "uiSchema/user.json": {},
+    "jsonSchema/photo.json": {
+      "title": "Bloomen Photo",
+      "description": "Photo metadata from the Bloomen project",
+      "type": "object",
+      "version": 0,
+      "name": "bloomen_Photo",
+      "properties": {
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "price": {
+          "title": "Price",
+          "type": "number"
+        },
+        "attribution": {
+          "title": "Attribution",
+          "type": "boolean"
+        },
+        "keywords": {
+          "title": "Keywords",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "url": {
+          "title": "URL",
+          "type": "string",
+          "format": "uri"
+        },
+        "rightsRegion": {
+          "title": "Rights region",
+          "format": "string"
+        },
+        "ownerUser": {
+          "title": "Owner (User)",
+          "type": "object",
+          "properties": {
+            "id": {
+              "title": "User ID",
+              "type": "string"
+            },
+            "username": {
+              "title": "Username",
+              "type": "string"
+            }
+          }
+        },
+        "owner": {
+          "title": "Owner",
+          "type": "string"
+        },
+        "geo": {
+          "title": "Geolocation",
+          "type": "object",
+          "properties": {
+            "lat": {
+              "title": "lat",
+              "type": "string"
+            },
+            "long": {
+              "title": "long",
+              "type": "string"
+            }
+          }
+        },
+        "createdAtUTC": {
+          "title": "Created at",
+          "type": "string",
+          "format": "datetime"
+        },
+        "rightsTime": {
+          "title": "Rights time",
+          "type": "string",
+          "format": "datetime"
+        },
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "enum": [
+            "photo"
+          ]
+        }
+      }
+    },
+    "uiSchema/photo.json": {
+      "url": {
+        "ui:widget": "remote-image"
+      }
+    }
+  },
+  "commitMessage": "Updated via kendraio flow"
+}
