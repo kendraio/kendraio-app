@@ -9,7 +9,12 @@ describe('workspace-project App', () => {
     cy.intercept('GET', 'https://kendraio.github.io/kendraio-adapter/config.json', {
       fixture: 'adapterConfig.json'
     }
-    ).as('adapterConfig.json');
+    ).as('adapterConfig.json');    
+    // Prevent external network request for adapter config
+    cy.intercept('GET', 'https://app.kendra.io/api/workflowCloud/listWorkflows', {
+      fixture: 'workflow-cloud.json'
+    }
+    ).as('workflow-cloud.json');
   });
 
 

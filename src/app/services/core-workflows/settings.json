@@ -52,7 +52,8 @@
                 "adapterRepoUrl": "https://kendraio.github.io/kendraio-adapter/",
                 "showHelp": true,
                 "debugMode": false,
-                "disablePreview": true
+                "disablePreview": true,
+                "exposeCoreActions":false
               }
             },
             {
@@ -88,7 +89,14 @@
                     "title": "Disable prototypes and features under development",
                     "type": "boolean",
                     "default": false
+                  },
+                  "exposeCoreActions": {
+                    "title": "Expose core actions to flows",
+                    "description": "This will expose the core actions to custom flows, enabling the dynamic installation and modification of adapters.",
+                    "type": "boolean",
+                    "default": false
                   }
+
                 }
               },
               "uiSchema": {}

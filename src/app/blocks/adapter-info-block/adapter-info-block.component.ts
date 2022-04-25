@@ -3,6 +3,7 @@ import {LocalDatabaseService} from '../../services/local-database.service';
 import {BaseBlockComponent} from '../base-block/base-block.component';
 import {get} from 'lodash-es';
 import {mappingUtility} from '../mapping-block/mapping-util';
+import { AdapterInstallService } from 'src/app/services/adapter-install.service';
 
 @Component({
   selector: 'app-adapter-info-block',
@@ -18,8 +19,11 @@ export class AdapterInfoBlockComponent extends BaseBlockComponent {
   adapterName;
   adapterNameGetter;
 
+  packageAdapter = false; 
+
   constructor(
-    private readonly localData: LocalDatabaseService
+    private readonly localData: LocalDatabaseService,
+    private readonly adapterInstallService: AdapterInstallService
   ) {
     super();
   }
@@ -27,6 +31,7 @@ export class AdapterInfoBlockComponent extends BaseBlockComponent {
   onConfigUpdate(config: any) {
     this.adapterName = get(config, 'adapterName');
     this.adapterNameGetter = get(config, 'adapterNameGetter');
+    this.packageAdapter = get(config, 'packageAdapter', false);
   }
 
   onData(data: any, firstChange: boolean) {
@@ -41,10 +46,20 @@ export class AdapterInfoBlockComponent extends BaseBlockComponent {
 
     this.hasError = false;
     this.isLoading = true;
+    
     this.localData['adapters'].get({ adapterName: this.adapterName })
-      .then(value => {
-        this.isLoading = false;
-        this.output.emit(value);
+      .then(adapterData => {
+        // if we are looking for the full, "compiled" adapter, then we need to get the adapter from the adapter install service
+        // otherwise we just return the content we loaded from the adapters db
+        if (this.packageAdapter) {
+          this.adapterInstallService.packageAdapter(adapterData).then((compiledAdapter) => {            
+            this.isLoading = false;
+            this.output.emit(compiledAdapter);
+          });
+        } else {
+          this.isLoading = false;
+          this.output.emit(adapterData);
+        }
       })
       .catch(err => {
         this.hasError = true;
