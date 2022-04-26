@@ -34,8 +34,7 @@ export class DbBlockComponent extends BaseBlockComponent {
     this.adapterName = get(config, 'adapterName', 'UNKNOWN');
     this.schema = get(config, 'schema', 'none');
     this.schemaGetter = get(config, 'schemaGetter');
-    this.operation = get(config, 'operation', 'none');
-    this.idField = get(config, 'idField', 'uuid');
+    this.operation = get(config, 'operation', 'none');    
     this.skipFirst = get(config, 'skipFirst', true);
     this.uuidGetter = get(config, 'uuidGetter');
   }
@@ -85,7 +84,7 @@ export class DbBlockComponent extends BaseBlockComponent {
       case 'update': {
         // TODO: To update value must have a UUID
         this.localDatabase.update({
-          uuid: data.uuid,
+          uuid: data.uuid, 
           data
         }).then(function(result){
           this.isLoading = false;
@@ -116,8 +115,7 @@ export class DbBlockComponent extends BaseBlockComponent {
           : this.schema;
         this.localDatabase.get({
           adapterName: this.adapterName,
-          schema,
-          idField: this.idField,
+          schema          
         }).then(function(result) {
           this.isLoading = false;
           this.output.emit(result);
