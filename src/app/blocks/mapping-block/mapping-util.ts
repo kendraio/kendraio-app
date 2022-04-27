@@ -8,6 +8,7 @@ import {DateTime} from 'luxon';
 import {parse as parseQueryString, stringify as asQueryString} from 'qs';
 import stringify from 'json-stringify-safe';
 import * as showdown from 'showdown';
+import { Buffer } from 'buffer';
 
 // Type constants used to define functions.
 const TYPE_NUMBER = 0;
@@ -118,6 +119,11 @@ const search = decorate({
   },
   btoa: {
     _func: ([s]) => btoa(s),
+    _signature: [{types: [TYPE_STRING]}]
+  },
+  base64encode: {
+    // btoa is not compatible with UTF-8, to safely manage the base64encoding
+    _func: ([s]) => Buffer.from(s).toString('base64'),
     _signature: [{types: [TYPE_STRING]}]
   },
   pairwise: {

@@ -11,6 +11,13 @@ describe('workspace-project App', () => {
     }
     ).as('adapterConfig.json');
 
+    // Prevent external network requests for Workflow cloud 
+    cy.intercept('GET', 'https://app.kendra.io/api/workflowCloud/listWorkflows', {
+      fixture: 'workflow-cloud.json'
+    }
+    ).as('workflow-cloud.json');
+
+
     // Prevent external network requests for fonts with empty CSS rule
     cy.intercept('https://fonts.googleapis.com/**', "*{ }");
 
@@ -84,6 +91,7 @@ describe('workspace-project App', () => {
   });
 
 
+
   it('should display welcome message', () => {
     cy.intercept('https://app.kendra.io/api/core/dashboard', { fixture: 'dashboardHomeFlow.json' });
     cy.visit('/');
@@ -99,7 +107,8 @@ describe('workspace-project App', () => {
 
     cy.intercept('GET', 'https://app.kendra.io/api', {
       fixture: 'flowList.json'
-    });
+    }
+    ).as('flowList.json');
 
     cy.visit('/workflowCloud/listWorkflows');
     cy.contains('Made up flow A');
@@ -150,7 +159,7 @@ describe('workspace-project App', () => {
     cy.location().should((loc) => {
       expect(loc.pathname).to.eq('/dashboard');
     });
-  });
+  })  
 
 
 });

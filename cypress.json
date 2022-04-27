@@ -18,5 +18,6 @@
   "projectId": "ebzwp1",
   "pageLoadTimeout": 100000,
   "defaultCommandTimeout": 30000,
-  "runMode": 2
+  "runMode": 2,
+  "experimentalStudio" : true
 }
