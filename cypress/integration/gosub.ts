@@ -19,11 +19,8 @@ describe('Subroutine workflow block', () => {
     cy.get('mat-toolbar > button mat-icon').contains('settings').click();
     cy.get("#mat-expansion-panel-header-0").click();
     //cy.pause();
-    cy.get("#mat-input-0").clear().type("s");
-    cy.get(".mat-option-text").contains("someAdapterB")
-    cy.get("#mat-input-0").clear().type("someAdapterB");
-    cy.get("#mat-input-1").clear();
-    cy.get(".mat-option-text").contains("madeUpFlowIDB")
+    cy.get("#mat-input-0").clear().type("s").type("o").get(".mat-option-text", {timeout: 1000}).contains("someAdapterB")
+    cy.get("#mat-input-0").clear().type("someAdapterB").get("#mat-input-1").clear().get(".mat-option-text", {timeout: 1000}).contains("madeUpFlowIDB")
     });
 
 });
