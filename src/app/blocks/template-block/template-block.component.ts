@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
-import {clone, get} from 'lodash-es';
+import {clone, get, set} from 'lodash-es';
 import { compile } from 'handlebars/dist/handlebars.js';
 import DOMPurify from './dom-sanitiser';
 import { SharedStateService } from 'src/app/services/shared-state.service';
@@ -16,7 +16,7 @@ export class TemplateBlockComponent implements OnChanges {
   @Input() model: any = {};
 
   @Output() output = new EventEmitter();
-
+  
   innerHtml = '';
 
   constructor(private stateService: SharedStateService) {        
@@ -28,14 +28,20 @@ export class TemplateBlockComponent implements OnChanges {
   ngOnChanges(changes) {
     // TODO: Allow loading template from Adapter    
     this.render();
-    this.output.emit(clone(this.model));
+    this.output.emit(clone(this.model));  
   }
 
   render(){
     try {
-      this.innerHtml = DOMPurify.sanitize(        
+      let renderedHtml = DOMPurify.sanitize(        
           compile(get(this.config, 'template', ''))({ context: this.context, data: this.model, state: this.stateService.state })      
       );
+      // Store rendered html in data
+      set(this.model,get(this.config, 'key', 'renderedHtml'), renderedHtml);
+      // if we want to display the html too, set the value of the innerHtml property
+      if (get(this.config, 'renderToScreen', true)) {
+        this.innerHtml = renderedHtml;
+      }
     } catch {
     // hide errors for now
     }

@@ -21,7 +21,7 @@ export class LocalDatabaseService extends Dexie {
 
   configureDefaultSettings() {
     localStorage.setItem('core.variables.adapterRepos', JSON.stringify({ repos: [
-      'https://kendraio-adapter.kendraio.now.sh/'
+      'https://kendraio-adapter.kendraio.vercel.app/'
     ]}));
   }
 
@@ -46,23 +46,47 @@ export class LocalDatabaseService extends Dexie {
     });
   }
 
+  /**
+   * Add a single item to the database. 
+   * If a uuid is provided, the add will fail if the uuid already exists.
+   * @param itemObject {object} - the item to add, including the adapterName and schemaName.  T
+   *                              
+   * @returns a promise that resolves to the uuid of the item
+   */
   add({adapterName, schema: schemaName, data}) {
     const uuid =  _get(data, 'uuid', v4());
     const label = _get(data, '_label', _get(data, 'name'));
     return this['metadata'].add({uuid, adapterName, schemaName, data, label});
   }
 
-  get({adapterName, schema: schemaName, idField}) {
+  /**
+   * Load the content of a local datset (schema+adapter). 
+   * 
+   * @param dataset {object} - the dataset to load, including the adapterName and schemaName.  
+   * @returns dataset content as an array of objects
+   */
+  get({adapterName, schema: schemaName}) {
     return this['metadata']
       .where({adapterName, schemaName})
       .toArray()
       .then(items => items.map(({uuid, data}) => ({uuid, ...data})));
   }
+
+  /**
+   * Update an item in the database. 
+   * @param item {object} - the item to update, including the uuid
+   * @returns a promise that resolves to the number of updated items (0 or 1)
+   */
   update({data, uuid}) {
     const label = _get(data, '_label', _get(data, 'name'));
     return this['metadata'].update(uuid, { data, label });
   }
 
+  /**
+   * Load a specific item from the database.
+   * @param uuid {string} - the uuid of the item to load   
+   * @returns A promise that resolves to the item
+   */
   fetch({ uuid }) {
     return this['metadata']
       .where({ uuid })
@@ -70,6 +94,12 @@ export class LocalDatabaseService extends Dexie {
       .then(items => items.map(({ data }) => ({ uuid, ...data })));
   }
 
+  /**
+   * Delete an item from the database.
+   * @param uuid {string} - the uuid of the item to delete
+   * @returns an undefined promise
+   */
+    
   deleteItem({ uuid }) {
     console.log('delete', uuid);
     return this['metadata'].delete(uuid);

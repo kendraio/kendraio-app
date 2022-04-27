@@ -267,9 +267,10 @@ export const BLOCK_TYPES = [
     hasEditor: true,
     defaultConfig: {
       type: 'db',
-      operation: 'put',
+      operation: 'add',
       adapterName: 'UNKNOWN',
-      schema: 'none'
+      schema: 'none',
+      skipFirst: true,
     }
   },
   {
@@ -563,10 +564,8 @@ export const BLOCK_TYPES = [
     hasEditor: true,
     defaultConfig: {
       type: 'load-schema',
-      adapterName: 'schemas',
-      '//comment': 'use either schema or schemaGetter',
-      schema: 'schema',
-      schemaGetter: 'data.schema',
+      adapterName: 'schemas',      
+      schema: 'schema'      
     }
   },
   {

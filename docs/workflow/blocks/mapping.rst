@@ -152,7 +152,7 @@ In this example, we merge two object arrays, and look up a unique key from a lis
 
 .. code-block:: text
 
-find($.data.licensor, 'name', "LICENSOR NAME").id,   
+  find($.data.licensor, 'name', "LICENSOR NAME").id,   
 
 
 
@@ -165,6 +165,25 @@ For example, if you want to combine information from a form with data you've pre
 .. code-block:: text
 
   [context.saved, [data]][]
+
+
+Creating an object from two arrays - spreadsheet import
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+To import from a spreadsheet, converting each row into an object with keys in the first row, 
+you need a combination of actions.
+
+
+.. code-block:: text
+
+  data && data.Sheet1[1:].[$.data.Sheet1[0], @].map(&fromPairs(zip([0], [1])), @)
+
+- 'data.Sheet1[1:]'  skips the first row, which is the header row
+- '[$.data.Sheet1[0], @]'  for each row, take the first row and the current row
+- 'map([expression],[elements])' apply an expression to every row, passing in the current row (@)
+- '&fromPairs(..)'  convert an array of arrays into an object
+- 'zip([0], [1])' zip the first row and the current row together, 
+   creating an array of arrays with each column converted to [key, value] arrays
+
 
 
 
