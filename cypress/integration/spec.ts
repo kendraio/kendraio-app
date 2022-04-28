@@ -45,11 +45,8 @@ describe('workspace-project App', () => {
     cy.get('app-root mat-toolbar').contains('menu').click();
     cy.contains('workflow builder').click();
     cy.contains('settings');
-    cy.get('mat-toolbar > button mat-icon').contains('settings').click();
-    cy.get('app-workflow-sidenav').contains('delete_forever').click().get('app-workflow-sidenav').contains('Mapping').should('not.exist');
-    cy.get('app-workflow-sidenav').contains('Add Task').click();
-    cy.contains('Select Task');
-    cy.get('mat-dialog-container').contains('Mapping').click();
+    cy.get('mat-toolbar > button mat-icon').contains('settings').click().get('app-workflow-sidenav').contains('delete_forever').click().get('app-workflow-sidenav').contains('Mapping').should('not.exist').pause();
+    cy.get('app-workflow-sidenav').contains('Add Task').click().contains('Select Task').get('mat-dialog-container').contains('Mapping').click();
     cy.get('app-add-block-dialog .mat-dialog-actions').contains('Add Task').click();
     cy.get('app-workflow-sidenav').contains('Mapping');
   });
