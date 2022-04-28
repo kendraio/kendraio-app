@@ -158,7 +158,7 @@ describe('workspace-project App', () => {
     cy.location().should((loc) => {
       expect(loc.pathname).to.eq('/dashboard');
     });
-  })  
+  })
 
 
 });
