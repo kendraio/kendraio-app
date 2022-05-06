@@ -32,15 +32,16 @@ export class LoadSchemaBlockComponent  extends BaseBlockComponent {
     const baseSchema = (!!this.schemaGetter)
       ? mappingUtility({ context: this.context, data: this.model }, this.schemaGetter)
       : this.schema;
-
-    const schemaDefinitions = {};
-    schemaDefinitions[baseSchema] = await this.resolveSchema(schemaDefinitions, baseSchema);
-    const jsonSchema = {
-      definitions: schemaDefinitions,
-      '$ref': `#/definitions/${baseSchema}`
-    };
-    // TODO: some fields may need uiSchema (eg widget overrides)
-    this.output.emit({ jsonSchema, uiSchema: {} });
+    if((typeof baseSchema === 'string') && (baseSchema.length > 0)) {
+      let schemaDefinitions = {};
+      schemaDefinitions[baseSchema] = await this.resolveSchema(schemaDefinitions, baseSchema);
+      const jsonSchema = {
+        definitions: schemaDefinitions,
+        '$ref': `#/definitions/${baseSchema}`
+      };
+      // TODO: some fields may need uiSchema (eg widget overrides)
+      this.output.emit({ jsonSchema, uiSchema: {} });
+    }
   }
 
   /**
