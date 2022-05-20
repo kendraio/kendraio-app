@@ -119,7 +119,10 @@ export class LoadSchemaBlockComponent  extends BaseBlockComponent {
           break;
         }
         case 'Reference': {
-          // TODO: use reference widget to link to data items (eg autocomplete)
+          // TODO: not fully implemented.
+          // You might use a reference widget to link to data items,
+          // See https://app.kendra.io/culturebanked/editWork
+          // Or a mapping that can splice in values using the 'set' method
           outputSchema.properties[get(p, 'key', '')] = {
             type: 'array',
             items: {
