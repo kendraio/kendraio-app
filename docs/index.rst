@@ -60,6 +60,7 @@ Kendraio App
    workflow/blocks/http
    workflow/blocks/init
    workflow/blocks/launch_block
+   workflow/blocks/load_schema
    workflow/blocks/map
    workflow/blocks/mapping
    workflow/blocks/message
