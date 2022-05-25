@@ -29,22 +29,27 @@ export class LoadSchemaBlockComponent  extends BaseBlockComponent {
   }
 
   async onData(data: any, firstChange: boolean) {
+    // schemaGetter config can reference the location of a "schema", which we turn into a JSON schema, if defined. 
+    // If not, we use the schema config value.
     const baseSchema = (!!this.schemaGetter)
       ? mappingUtility({ context: this.context, data: this.model }, this.schemaGetter)
       : this.schema;
 
     const schemaDefinitions = {};
+    // Resolve the schema and its embedded schemas
     schemaDefinitions[baseSchema] = await this.resolveSchema(schemaDefinitions, baseSchema);
+    // Create the JSON schema object
     const jsonSchema = {
       definitions: schemaDefinitions,
       '$ref': `#/definitions/${baseSchema}`
     };
-    // TODO: some fields may need uiSchema (eg widget overrides)
+    // TODO: some fields may need uiSchema (eg widget overrides),
+    // but for now, we just return an empty uiSchema object.
     this.output.emit({ jsonSchema, uiSchema: {} });
   }
 
   /**
-   * Returns a schemdefinitions object for the given embedded schema
+   * Returns a schemaDefinitions object for the given embedded schema
    * @param schemaDefinitions 
    * @param schemaName 
    * @returns 
@@ -65,19 +70,26 @@ export class LoadSchemaBlockComponent  extends BaseBlockComponent {
   }
 
   /**
-   * Converts a schema dataset to a json schema. Recursively calls itself to resolve embedded schemas. 
+   * Converts a schema dataset to a JSON schema. Recursively calls itself to resolve embedded schemas.
+   * 
+   * The schemaDefinitions object is used to store the embedded schemas.
+   * List or Object items that have schemas specified are resolved as needed,
+   * they are added to the definitions, and are then referenced
+   * 
    * @param schemaDefinitions 
    * @param inputSchema 
    * @param inputSchemaName 
    * @returns {object} Json schema
    */
   async mapSchema(schemaDefinitions, inputSchema, inputSchemaName) {
+    // Create the base schema object
     const outputSchema = {
       title: get(inputSchema, 'name', ''),
       description: get(inputSchema, 'description', ''),
       type: 'object',
       properties: {},
     };
+    // Loop through the properties of the schema, and add them to the output schema
 
     for (const p of get(inputSchema, 'properties', [])) {
       switch (get(p, 'type')) {
@@ -107,7 +119,10 @@ export class LoadSchemaBlockComponent  extends BaseBlockComponent {
           break;
         }
         case 'Reference': {
-          // TODO: use reference widget to link to data items
+          // TODO: not fully implemented.
+          // You might use a reference widget to link to data items,
+          // See https://app.kendra.io/culturebanked/editWork
+          // Or a mapping that can splice in values using the 'set' method
           outputSchema.properties[get(p, 'key', '')] = {
             type: 'array',
             items: {
@@ -119,7 +134,16 @@ export class LoadSchemaBlockComponent  extends BaseBlockComponent {
           break;
         }
         case 'Object': {
+          // Example input:
+          // {
+          //   "type": "Object",
+          //   "key": "person",
+          //   "title": "Person",
+          //   "config": "person"
+          // }
+          // The config value is the name of the embedded schema
           const embedSchemaName = get(p, 'config', '');
+          // If the embedded schema has not been resolved, resolve it:
           if (!has(schemaDefinitions, embedSchemaName) && embedSchemaName !== inputSchemaName) {
             schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName);
           }
@@ -129,7 +153,16 @@ export class LoadSchemaBlockComponent  extends BaseBlockComponent {
           break;
         }
         case 'List': {
+          // Example input:
+          // {
+          //   "type": "List",
+          //   "key": "people",
+          //   "title": "People",
+          //   "config": "person"
+          // }
+          // The config value is the name of the embedded schema
           const embedSchemaName = get(p, 'config', '');
+          // If the embedded schema has not been resolved, resolve it:
           if (!has(schemaDefinitions, embedSchemaName) && embedSchemaName !== inputSchemaName) {
             schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName);
           }
