@@ -124,3 +124,35 @@ If a schema has already been loaded, then a mapping block could be used to grab 
           ]
       }
   }
+
+Using data saved from context blocks
+------------------------------------
+
+JSON Schema supports references to transclude content.
+Context is injected into a definitions section, that references can use.
+In the example below, a mapping has a default value, which is saved using the context block, and the default value is set to "injected". 
+
+.. code-block:: javascript
+
+  [
+      {
+        "type": "mapping",
+        "mapping": "`{ \"type\": \"string\",\n    \"default\":\"injected\"\n}`"
+      },
+      {
+        "type": "context-save",
+        "key": "saved"
+      },
+      {
+        "type": "form",
+        "jsonSchema": {
+          "type": "object",
+          "properties": {
+            "test_property": {
+              "$ref": "#/definitions/context/saved"
+            }
+          }
+        },
+        "uiSchema": {}
+      }
+    ]
