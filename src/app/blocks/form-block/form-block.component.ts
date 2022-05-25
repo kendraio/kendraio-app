@@ -109,6 +109,7 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
     } else if (has(this.config,  'schemaGetter')) {
       this.fields = [];
       this.schemaBlocks = get(this.config, 'schemaGetter.blocks', []);
+      // onSchemaBlocksComplete is triggered later via the components view
     } else {
       this.fields = [];
     }
