@@ -4,7 +4,7 @@ import {FormGroup} from '@angular/forms';
 import {FormlyFieldConfig, FormlyFormOptions} from '@ngx-formly/core';
 import {Subject} from 'rxjs';
 import {debounceTime, distinctUntilChanged, filter, tap} from 'rxjs/operators';
-import {clone, get, has, isUndefined} from 'lodash-es';
+import {clone, get, has, isUndefined, set} from 'lodash-es';
 import {mappingUtility} from '../mapping-block/mapping-util';
 
 @Component({
@@ -89,6 +89,12 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
     this.options['context'] = this.context;
   }
 
+  injectContextToJsonSchema(jsonSchema: any) {
+    let mutatedJsonSchema = clone(jsonSchema);
+    mutatedJsonSchema = set(mutatedJsonSchema, 'definitions.context', this.context);
+    return mutatedJsonSchema;
+  }
+  
   updateForm() {
     if (has(this.config, 'adapter') && has(this.config, 'formId')) {
       this.formService.getJSONSchemaForm(this.config.adapter, this.config.formId)
@@ -96,18 +102,22 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
           this.fields = fields;
         });
     } else if (has(this.config, 'jsonSchema') && has(this.config, 'uiSchema')) {
-      const { jsonSchema, uiSchema } = this.config;
+      const { uiSchema } = this.config;
+      let { jsonSchema } = this.config;
+      jsonSchema = this.injectContextToJsonSchema(jsonSchema);
       this.fields = this.formService.schemasToFieldConfig(jsonSchema, uiSchema);
     } else if (has(this.config,  'schemaGetter')) {
       this.fields = [];
       this.schemaBlocks = get(this.config, 'schemaGetter.blocks', []);
+      // onSchemaBlocksComplete is triggered later via the components view
     } else {
       this.fields = [];
     }
   }
 
   onSchemaBlocksComplete(result) {
-    const jsonSchema = get(result, 'jsonSchema', {});
+    let jsonSchema = get(result, 'jsonSchema', {});
+    jsonSchema = this.injectContextToJsonSchema(jsonSchema);
     const uiSchema = get(result, 'uiSchema', {});
     this.fields = this.formService.schemasToFieldConfig(jsonSchema, uiSchema);
   }

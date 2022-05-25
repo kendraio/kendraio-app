@@ -149,4 +149,35 @@ describe('Kendraio context and state', () => {
     cy.contains('Devel Mode File Import').should('exist');
   }
   );
+
+  it('should be possible to reference context variables in a form', () => {
+    loadFlowCode([
+      {
+        "type": "mapping",
+        "mapping": "`{\"type\": \"string\", \"enum\":[\"test\", \"injected\"], \"default\":\"injected\"}`",
+        "blockComment": ""
+      },
+      {
+        "type": "context-save",
+        "key": "saved"
+      },
+      {
+        "type": "form",
+        "jsonSchema": {
+          "type": "object",
+          "properties": {
+            "test_property": {
+              "$ref": "#/definitions/context/saved"
+            }
+          }
+        },
+        "uiSchema": {}
+      }
+    ]);
+
+    cy.contains("injected").should('exist');
+  }
+  );
+
+
 });
