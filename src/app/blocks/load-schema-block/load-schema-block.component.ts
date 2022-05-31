@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
-import {BaseBlockComponent} from '../base-block/base-block.component';
-import {get, has} from 'lodash-es';
-import {mappingUtility} from '../mapping-block/mapping-util';
-import {LocalDatabaseService} from '../../services/local-database.service';
+import { BaseBlockComponent } from '../base-block/base-block.component';
+import { get, has } from 'lodash-es';
+import { mappingUtility } from '../mapping-block/mapping-util';
+import { LocalDatabaseService } from '../../services/local-database.service';
+import { validate as isValidUUID } from 'uuid';
 
 @Component({
   selector: 'app-load-schema-block',
   templateUrl: './load-schema-block.component.html',
   styleUrls: ['./load-schema-block.component.scss']
 })
-export class LoadSchemaBlockComponent  extends BaseBlockComponent {
+export class LoadSchemaBlockComponent extends BaseBlockComponent {
 
   isLoading = false;
   adapterName = 'schemas';
@@ -23,6 +24,7 @@ export class LoadSchemaBlockComponent  extends BaseBlockComponent {
   }
 
   onConfigUpdate(config: any) {
+    window['localDatabase'] = this.localDatabase;
     this.adapterName = get(config, 'adapterName', 'schemas');
     this.schema = get(config, 'schema', '');
     this.schemaGetter = get(config, 'schemaGetter', '');
@@ -81,6 +83,7 @@ export class LoadSchemaBlockComponent  extends BaseBlockComponent {
    * @param inputSchemaName 
    * @returns {object} Json schema
    */
+
   async mapSchema(schemaDefinitions, inputSchema, inputSchemaName) {
     // Create the base schema object
     const outputSchema = {
@@ -94,11 +97,35 @@ export class LoadSchemaBlockComponent  extends BaseBlockComponent {
     for (const p of get(inputSchema, 'properties', [])) {
       switch (get(p, 'type')) {
         case 'Text': {
-          outputSchema.properties[get(p, 'key', '')] = {
+          let textValue = {
             type: 'string',
             title: get(p, 'title', ''),
             description: get(p, 'description', ''),
           };
+          // if config is set, populate an enumerated list with records from the database
+          if (get(p, 'config', false)) {
+            // Config may provide a UUID or a schemaName for now.
+            if (!isValidUUID(get(p, 'config', ''))) {
+              // if config is not a UUID, assume it is a schemaName:
+              let results = await this.localDatabase['metadata'].where({ 'schemaName': get(p, 'config', '') }).toArray();
+              // e.g: [{
+              //      "label": "bob"
+              //    }, {
+              //      "label": "dave"
+              //    }]
+              // Just make an array of the names from the label property:
+              results = results.map(r => get(r, 'label', ''));
+              // e.g: ["bob", "dave"]
+              textValue['enum'] = results;
+            } else {
+              console.error("UUID not yet supported for config");
+              // let result = await this.localDatabase['metadata'].where({ 'uuid': get(p, 'config', '') }).toArray();
+              // result = get(result, '[0].data', {});
+              // textValue['enum'] = result;
+            }
+
+          }
+          outputSchema.properties[get(p, 'key', '')] = textValue;
           break;
         }
         case 'Number': {
