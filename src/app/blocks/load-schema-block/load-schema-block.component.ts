@@ -146,18 +146,37 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
           break;
         }
         case 'Reference': {
-          // TODO: not fully implemented.
-          // You might use a reference widget to link to data items,
-          // See https://app.kendra.io/culturebanked/editWork
-          // Or a mapping that can splice in values using the 'set' method
-          outputSchema.properties[get(p, 'key', '')] = {
-            type: 'array',
-            items: {
-              type: 'string',
-              title: [get(p, 'title', ''), 'ID'].join(' '),
-              description: get(p, 'description', ''),
-            }
+          const embedSchemaName = get(p, 'config', '');
+          // Injects a list of records from the given schema for selection
+          // If the embedded schema has not been resolved, resolve it:
+          if (!has(schemaDefinitions, embedSchemaName) && embedSchemaName !== inputSchemaName) {
+            schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName);
+          }
+          // Gets the records array for this schema:
+          const records = await this.localDatabase['metadata'].where({ 'schemaName': embedSchemaName }).toArray();
+          // Generate the schema for this reference
+          let injectedRecord = {
+            type: 'object',
+            oneOf: records.map(record => {
+              let item = {
+                title: record.label,
+                properties: {}
+              };
+              for (const property in record.data) {
+                if (record.data.hasOwnProperty(property)) {
+                  const value = record.data[property];
+                  // we get the type property from the schema at schemaDefinitions[embedSchemaName]
+                  item.properties[property] = {
+                    type: get(schemaDefinitions[embedSchemaName], 'properties.' + property + '.type', 'string'),
+                    readOnly: true,
+                    default: value
+                  };
+                }
+              }
+              return item;
+            })
           };
+          outputSchema.properties[get(p, 'key', '')] = injectedRecord;
           break;
         }
         case 'Object': {
