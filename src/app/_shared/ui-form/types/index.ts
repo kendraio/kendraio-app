@@ -19,3 +19,4 @@ export * from './timepicker.type';
 export * from './null.type';
 export * from './formgroup.type';
 export * from './image-viewer.type';
+export * from './multischema.type';
