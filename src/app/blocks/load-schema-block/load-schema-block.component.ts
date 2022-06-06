@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BaseBlockComponent } from '../base-block/base-block.component';
-import { get, has } from 'lodash-es';
+import { get, has, clone } from 'lodash-es';
 import { mappingUtility } from '../mapping-block/mapping-util';
 import { LocalDatabaseService } from '../../services/local-database.service';
 import { validate as isValidUUID } from 'uuid';
@@ -165,12 +165,10 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
               for (const property in record.data) {
                 if (record.data.hasOwnProperty(property)) {
                   const value = record.data[property];
+                  item.properties[property] = clone(get(schemaDefinitions[embedSchemaName], `properties.${property}`, {}));
+                  item.properties[property].readOnly = true;
+                  item.properties[property].default = clone(value);
                   // we get the type property from the schema at schemaDefinitions[embedSchemaName]
-                  item.properties[property] = {
-                    type: get(schemaDefinitions[embedSchemaName], 'properties.' + property + '.type', 'string'),
-                    readOnly: true,
-                    default: value
-                  };
                 }
               }
               return item;
