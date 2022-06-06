@@ -64,7 +64,7 @@
     "camel-case": "^4.1.2",
     "chart.js": "^2.9.4",
     "core-js": "^3.19.1",
-    "dexie": "^3.0.3",
+    "dexie": "^3.2.2",
     "dompurify": "^2.3.3",
     "faker": "^5.5.3",
     "handlebars": "4.7.7",
