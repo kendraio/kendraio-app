@@ -145,9 +145,11 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
           };
           break;
         }
-        case 'Reference': {
+        case 'ObjectReference': {
+          // This form property is an object type that conforms to a schema,
+          // with a list of possible values for the object to be populated from the metadata records
+          // for the schema specified in the config.
           const embedSchemaName = get(p, 'config', '');
-          // Injects a list of records from the given schema for selection
           // If the embedded schema has not been resolved, resolve it:
           if (!has(schemaDefinitions, embedSchemaName) && embedSchemaName !== inputSchemaName) {
             schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName);
@@ -175,6 +177,47 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
             })
           };
           outputSchema.properties[get(p, 'key', '')] = injectedRecord;
+          break;
+        }
+        case 'ListReference': {
+          // This form property is a list of objects that confirm to a schema,
+          // with a list of possible values for the objects to be populated from the metadata records
+          // for the schema specified in the config.
+          // The user can add as many new referenced record objects as they want.
+          const embedSchemaName = get(p, 'config', '');
+          // If the embedded schema has not been resolved, resolve it:
+          if (!has(schemaDefinitions, embedSchemaName) && embedSchemaName !== inputSchemaName) {
+            schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName);
+          }
+          // Gets the records array for this schema:
+          const records = await this.localDatabase['metadata'].where({ 'schemaName': embedSchemaName }).toArray();
+
+          // Generate the schema for a single referenced object first
+          let injectedRecord = {
+            type: 'object',
+            oneOf: records.map(record => {
+              let item = {
+                title: record.label,
+                properties: {}
+              };
+              for (const property in record.data) {
+                if (record.data.hasOwnProperty(property)) {
+                  const value = record.data[property];
+                  item.properties[property] = clone(get(schemaDefinitions[embedSchemaName], `properties.${property}`, {}));
+                  item.properties[property].readOnly = true;
+                  item.properties[property].default = clone(value);
+                  // we get the type property from the schema at schemaDefinitions[embedSchemaName]
+                }
+              }
+              return item;
+            })
+          };
+          outputSchema.properties[get(p, 'key', '')] = {
+            type: 'array',
+            title: get(p, 'title', ''),
+            description: get(p, 'description', ''),
+            items: injectedRecord,
+          };
           break;
         }
         case 'Object': {
