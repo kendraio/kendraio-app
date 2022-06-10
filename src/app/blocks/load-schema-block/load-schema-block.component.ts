@@ -191,13 +191,20 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
           }
           // Gets the records array for this schema:
           const records = await this.localDatabase['metadata'].where({ 'schemaName': embedSchemaName }).toArray();
-
+          const rawSchema = await this.localDatabase['metadata'].where({ 'label': embedSchemaName }).toArray();
+          // if rawSchema is empty, then the schema has not been loaded yet and we should break
+          if (rawSchema.length === 0) {
+            break;
+          }
+          // The label may be missing, so we find which property is the label key on the rawSchema:
+          const labelKey = 'data.' + get(rawSchema, '[0].data.label', 'Missing label');
+          // Then we get the label property from each record's properties
           // Generate the schema for a single referenced object first
           let injectedRecord = {
             type: 'object',
             oneOf: records.map(record => {
               let item = {
-                title: record.label,
+                title: get(record, labelKey, record.label||'Missing label!'),
                 properties: {}
               };
               for (const property in record.data) {
