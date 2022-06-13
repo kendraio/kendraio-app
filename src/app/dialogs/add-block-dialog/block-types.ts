@@ -232,6 +232,16 @@ export const BLOCK_TYPES = [
     }
   },
   {
+    type: 'mermaid',
+    label: 'Mermaid',
+    description: 'Mermaid graph.',
+    icon: 'fa-image',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'mermaid',      
+    }
+  },
+  {
     type: 'multi',
     label: 'Multiplex',
     description: 'Display and process multiple workflows concurrently.',

@@ -155,6 +155,29 @@ In this example, we merge two object arrays, and look up a unique key from a lis
   find($.data.licensor, 'name', "LICENSOR NAME").id,   
 
 
+Extracting content from different levels in a nested array
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+This example looks through an array of objects, extracts the "name", at the top level
+and then pulls out all the "config" values from an array of properties  
+
+.. code-block:: text
+
+  data[*].[name, @.properties[*].[config][] ]
+
+
+This can also filter content based on properties
+
+.. code-block:: text
+
+  data[*].[name, properties[?type==`Object` || type==`List` || type==`ObjectReference` || type==`ListReference`].[config][]]
+
+And this version will return an array of objects
+
+.. code-block:: text
+
+  data[*].{parent: name, children: properties[?type==`Object` || type==`List` || type==`ObjectReference` || type==`ListReference`].[config][]}
+
 
 Merging two arrays
 ^^^^^^^^^^^^^^^^^^^
