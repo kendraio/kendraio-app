@@ -19,15 +19,33 @@ describe('Mermaid block type', () => {
             "svgId": "mermaid-svg-test-1"
         },
         {
+            "type": "mapping",
+            "mapping": "{graph: `A --> D --> C`}",
+          },
+        {
             "type": "mermaid",
-            "graphGetter": "data",
+            "graphGetter": "data.graph",
             "diagramType": "graph",
             "diagramDirection": "RL",
             "svgId": "mermaid-svg-test-2"
-        }    
+        },
+        {
+            "type": "mermaid",
+            "graphGetter": "state.local.graph",
+            "diagramType": "graph",
+            "diagramDirection": "TB",
+            "svgId": "mermaid-svg-test-3"
+        },
+        {
+            "type":"context-save",
+            "key":"state.local.graph",
+            "valueGetter":"`A --> B --> C; D --> B --> A`"
+        }
+
     ]);
-        cy.get('#mermaid-svg-test-1').should('exist');
-        cy.get('#mermaid-svg-test-2').should('exist');
+        cy.get('#mermaid-svg-test-1').should('exist'); // defaults
+        cy.get('#mermaid-svg-test-2').should('exist'); // custom getter
+        cy.get('#mermaid-svg-test-3').should('exist'); // dynamic context changes
 
     });
 

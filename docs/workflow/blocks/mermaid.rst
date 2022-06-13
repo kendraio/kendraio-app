@@ -24,6 +24,6 @@ Supported properties
 --------------------
 
 - **graphGetter** - a JMESPath expression specifying where to look for graph data
-- **diagrmType** - the type of diagram to create, one of `graph`, `flow`, `class`, `sequence`
-- **diagrmDirection** - the direction of the diagram, one of `TB`, `LR`, `BT`, `RL`
+- **diagramType** - the type of diagram to create, one of `graph`, `flow`, `class`, `sequence`
+- **diagramDirection** - the direction of the diagram, one of `TB`, `LR`, `BT`, `RL`
 - **svgId** - the ID of the SVG element to render to, required if there are multiple diagrams in the same page

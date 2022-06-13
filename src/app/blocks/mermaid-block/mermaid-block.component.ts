@@ -15,7 +15,8 @@ import { control } from 'leaflet';
   styleUrls: ['./mermaid-block.component.scss']
 })
 export class MermaidBlockComponent extends BaseBlockComponent {
-
+  
+  // Mermaid object config. 
   mermaidConfig = {
     startOnLoad: false,
     flowchart: {
@@ -23,13 +24,14 @@ export class MermaidBlockComponent extends BaseBlockComponent {
       curve: 'basis'
     }
   }
-  diagramType: string = "graph";
-  diagramDirection: string = "TB";
-
-  graphGetter = "data"; // where to look for the graph definition in the model
-  graph = "";
+  // properties
+  diagramType: string;  // type of mermaid diagram
+  diagramDirection: string; // direction of diagram
+  graphGetter:string  // where to look for the graph definition in the model
+  svgId:string // ID of svg element
+  
   svg: SafeHtml; // allow the svg data through sanitizer
-  svgId: "mermaid-svg";
+
 
   constructor(private stateService: SharedStateService, private sanitizer: DomSanitizer) {
     super()
@@ -73,24 +75,24 @@ export class MermaidBlockComponent extends BaseBlockComponent {
    * @returns {string} the graph definition
    */
   getGraphDefinition() {
-    let graphDefinition = this.diagramType + " " + this.diagramDirection + " \n";    
+    let graphDefinition = null;
+    let graphHeader = this.diagramType + " " + this.diagramDirection + " \n";    
     let graph = mappingUtility({ data: this.model, context: this.context, state: this.stateService.state }, this.graphGetter);      
     // compile our graph from the data
     if (isArray(graph)) {      
       // if we have an array, just join it
-      graphDefinition += graph.join("\n");
+      graphDefinition = graphHeader + graph.join("\n");
     } else if (isObject(graph)) {      
       // if we have an object, join the values
-      graphDefinition += Object.values(graph).join("\n");
-    } else {
-      graphDefinition += graph+";\n";
-    }    
-    console.log(graphDefinition);
+      graphDefinition = graphHeader + Object.values(graph).join("\n");
+    } else if (graph){
+      graphDefinition = graphHeader + graph+";\n";
+    }        
     return graphDefinition;
   }
   
   /** 
-   * render the memmad graph 
+   * renders the mermaid graph 
    */
   renderMermaid() {
     const graphDefinition = this.getGraphDefinition();    
