@@ -28,7 +28,8 @@ export class MermaidBlockComponent extends BaseBlockComponent {
 
   graphGetter = "data.graph"; // wheer to look for the graph definition in the model
   graph = "A --> B";
-  svg: SafeHtml;
+  svg: SafeHtml; // allow the svg data through sanitizer
+  svgId: "mermaid-svg";
 
   constructor(private stateService: SharedStateService, private sanitizer: DomSanitizer) {
     super()
@@ -51,13 +52,17 @@ export class MermaidBlockComponent extends BaseBlockComponent {
     this.graphGetter = get(config, 'graphGetter', 'data.graph');
     this.diagramType = get(config, 'diagramType', 'graph');
     this.diagramDirection = get(config, 'diagramDirection', 'TB');
+    this.svgId = get(config, 'svgId', 'mermaid-svg');
   }
 
 
   onData(data: any, firstChange: boolean) {
-    this.graph = mappingUtility({ data, context: this.context, state: this.stateService.state }, this.graphGetter);
-    this.renderMermaid();
+    if (!firstChange) {
+      this.graph = mappingUtility({ data, context: this.context, state: this.stateService.state }, this.graphGetter);
+      this.renderMermaid();
+    }
     this.output.emit(clone(data));
+
   }
 
   /**
@@ -85,9 +90,11 @@ export class MermaidBlockComponent extends BaseBlockComponent {
    */
   renderMermaid() {
     const graphDefinition = this.getGraphDefinition();    
-    mermaid.render("pic", graphDefinition, (svgCode) => {
-      this.svg = this.sanitizer.bypassSecurityTrustHtml(svgCode);
-    });
+    if (graphDefinition) {
+      mermaid.render(this.svgId, graphDefinition, (svgCode) => {
+        this.svg = this.sanitizer.bypassSecurityTrustHtml(svgCode);
+      });
+    }
   }
 
 }
