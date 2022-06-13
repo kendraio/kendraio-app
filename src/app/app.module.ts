@@ -183,6 +183,7 @@ import { AppLayoutBlockComponent } from './blocks/app-layout-block/app-layout-bl
 import { ReadonlyInputComponent } from './form-controls/readonly-input/readonly-input.component';
 import { RenameFieldsBlockComponent } from './blocks/rename-fields-block/rename-fields-block.component';
 import { BlockGosubBuilderBoxComponent } from './components/block-gosub-builder-box/block-gosub-builder-box.component';
+import { MermaidBlockComponent } from './blocks/mermaid-block/mermaid-block.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -341,7 +342,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppLayoutBlockComponent,
     ReadonlyInputComponent,
     RenameFieldsBlockComponent,
-    BlockGosubBuilderBoxComponent
+    BlockGosubBuilderBoxComponent,
+    MermaidBlockComponent
   ],
   imports: [
     FormlyModule.forRoot({}),
