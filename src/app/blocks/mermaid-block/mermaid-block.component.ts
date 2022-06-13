@@ -1,13 +1,10 @@
-import { ConstantPool } from '@angular/compiler';
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-//import { Component, OnInit } from '@angular/core';
-import { clone, cloneDeep, get, isArray, isObject, isString } from 'lodash-es';
+import {Component} from '@angular/core';
+import { clone, get, isArray, isObject } from 'lodash-es';
 import mermaid from 'mermaid';
 import { BaseBlockComponent } from '../base-block/base-block.component';
 import { mappingUtility } from '../mapping-block/mapping-util';
 import { SharedStateService } from 'src/app/services/shared-state.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { control } from 'leaflet';
 
 @Component({
   selector: 'app-mermaid-block',
