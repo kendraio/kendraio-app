@@ -26,8 +26,8 @@ export class MermaidBlockComponent extends BaseBlockComponent {
   diagramType: string = "graph";
   diagramDirection: string = "TB";
 
-  graphGetter = "data.graph"; // wheer to look for the graph definition in the model
-  graph = "A --> B";
+  graphGetter = "data"; // where to look for the graph definition in the model
+  graph = "";
   svg: SafeHtml; // allow the svg data through sanitizer
   svgId: "mermaid-svg";
 
@@ -49,16 +49,19 @@ export class MermaidBlockComponent extends BaseBlockComponent {
   }
 
   onConfigUpdate(config: any) {
-    this.graphGetter = get(config, 'graphGetter', 'data.graph');
+    this.graphGetter = get(config, 'graphGetter', 'data');
     this.diagramType = get(config, 'diagramType', 'graph');
     this.diagramDirection = get(config, 'diagramDirection', 'TB');
-    this.svgId = get(config, 'svgId', 'mermaid-svg');
+    this.svgId = get(config, 'svgId', 'mermaid-svg');    
+    if (this.model) {
+      // only attempt to render if data exists
+      this.renderMermaid();
+    }
   }
 
 
   onData(data: any, firstChange: boolean) {
-    if (!firstChange) {
-      this.graph = mappingUtility({ data, context: this.context, state: this.stateService.state }, this.graphGetter);
+    if (!firstChange) {      
       this.renderMermaid();
     }
     this.output.emit(clone(data));
@@ -70,8 +73,8 @@ export class MermaidBlockComponent extends BaseBlockComponent {
    * @returns {string} the graph definition
    */
   getGraphDefinition() {
-    let graphDefinition = this.diagramType + " " + this.diagramDirection + " \n";
-    let graph = this.graph;    
+    let graphDefinition = this.diagramType + " " + this.diagramDirection + " \n";    
+    let graph = mappingUtility({ data: this.model, context: this.context, state: this.stateService.state }, this.graphGetter);      
     // compile our graph from the data
     if (isArray(graph)) {      
       // if we have an array, just join it
@@ -80,8 +83,9 @@ export class MermaidBlockComponent extends BaseBlockComponent {
       // if we have an object, join the values
       graphDefinition += Object.values(graph).join("\n");
     } else {
-      graphDefinition += graph;
+      graphDefinition += graph+";\n";
     }    
+    console.log(graphDefinition);
     return graphDefinition;
   }
   

@@ -239,7 +239,11 @@ export const BLOCK_TYPES = [
     hasEditor: true,
     defaultConfig: {
       type: 'mermaid',      
-    }
+      graphGetter: 'data',
+      diagramType: 'graph',
+      diagramDirection:'TB'
+      
+    },
   },
   {
     type: 'multi',
