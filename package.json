@@ -25,6 +25,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-devkit/core": "^14.0.1",
     "@angular/animations": "^13.0.0",
     "@angular/cdk": "^13.0.0",
     "@angular/common": "^13.0.0",
@@ -100,7 +101,6 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^13.0.1",
-    "@angular-devkit/build-ng-packagr": "^0.1100.0-next.5",
     "@angular-devkit/schematics": "^13.0.1",
     "@angular/cli": "^13.0.1",
     "@angular/compiler-cli": "^13.0.0",
