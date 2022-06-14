@@ -15,7 +15,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@master
       - name: Install Dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
       - name: Build
         run: npm run build:prod
       - name: Archive Production Artifact
@@ -36,7 +36,7 @@ jobs:
           name: dist
           path: dist
       - name: Install Functions Dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
         working-directory: functions
       - name: Copy index.html file
         run: mv dist/index.html functions/
