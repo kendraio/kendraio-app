@@ -83,8 +83,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "10mb",
-                  "maximumError": "10mb"
+                  "maximumWarning": "25mb",
+                  "maximumError": "25mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -216,30 +216,8 @@
           }
         }
       }
-    },
-    "ngx-image-tagger": {
-      "projectType": "library",
-      "root": "projects/ngx-image-tagger",
-      "sourceRoot": "projects/ngx-image-tagger/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/ngx-image-tagger/tsconfig.lib.json",
-            "project": "projects/ngx-image-tagger/ng-package.json"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/ngx-image-tagger/src/test.ts",
-            "tsConfig": "projects/ngx-image-tagger/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-image-tagger/karma.conf.js"
-          }
-        }
-      }
     }
+  
   },
   "defaultProject": "kendraio-app",
   "cli": {
