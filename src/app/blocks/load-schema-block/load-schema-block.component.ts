@@ -159,6 +159,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
           // Generate the schema for this reference
           let injectedRecord = {
             type: 'object',
+            title: get(p, 'title', ''),
             oneOf: records.map(record => {
               let item = {
                 title: record.label,
