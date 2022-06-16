@@ -165,6 +165,18 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
                 title: record.label,
                 properties: {}
               };
+
+              // we add the uuid property to the item properties
+              // when editing existing saved data,
+              // we use a regex pattern to validate that record matches any provided data object
+              // since the uuid is unique, we can use it to identify the record as a match
+              item.properties['uuid'] = {
+                type: 'string',
+                readOnly: true,
+                default: record.uuid,
+                pattern:"^"+record.uuid+"$"
+              };
+
               for (const property in record.data) {
                 if (record.data.hasOwnProperty(property)) {
                   const value = record.data[property];
@@ -208,13 +220,24 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
                 title: get(record, labelKey, record.label||'Missing label!'),
                 properties: {}
               };
+
+              // we add the uuid property to the item properties
+              // when editing existing saved data,
+              // we use a regex pattern to validate that record matches any provided data object
+              // since the uuid is unique, we can use it to identify the record as a match
+              item.properties['uuid'] = {
+                type: 'string',
+                readOnly: true,
+                default: record.uuid,
+                pattern:"^"+record.uuid+"$"
+              };
+
               for (const property in record.data) {
                 if (record.data.hasOwnProperty(property)) {
                   const value = record.data[property];
                   item.properties[property] = clone(get(schemaDefinitions[embedSchemaName], `properties.${property}`, {}));
                   item.properties[property].readOnly = true;
                   item.properties[property].default = clone(value);
-                  // we get the type property from the schema at schemaDefinitions[embedSchemaName]
                 }
               }
               return item;
