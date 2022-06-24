@@ -36,18 +36,17 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
     const baseSchema = (!!this.schemaGetter)
       ? mappingUtility({ context: this.context, data: this.model }, this.schemaGetter)
       : this.schema;
-
-    const schemaDefinitions = {};
-    // Resolve the schema and its embedded schemas
-    schemaDefinitions[baseSchema] = await this.resolveSchema(schemaDefinitions, baseSchema);
-    // Create the JSON schema object
-    const jsonSchema = {
-      definitions: schemaDefinitions,
-      '$ref': `#/definitions/${baseSchema}`
-    };
-    // TODO: some fields may need uiSchema (eg widget overrides),
-    // but for now, we just return an empty uiSchema object.
-    this.output.emit({ jsonSchema, uiSchema: {} });
+      
+      if((typeof baseSchema === 'string') && (baseSchema.length > 0)) {
+        let schemaDefinitions = {};
+        schemaDefinitions[baseSchema] = await this.resolveSchema(schemaDefinitions, baseSchema);
+        const jsonSchema = {
+          definitions: schemaDefinitions,
+          '$ref': `#/definitions/${baseSchema}`
+        };
+        // TODO: some fields may need uiSchema (eg widget overrides)
+        this.output.emit({ jsonSchema, uiSchema: {} });
+      }
   }
 
   /**
@@ -146,6 +145,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
           break;
         }
         case 'ObjectReference': {
+          console.error("Unexpected execution of ObjectReference case");
           // This form property is an object type that conforms to a schema,
           // with a list of possible values for the object to be populated from the metadata records
           // for the schema specified in the config.
@@ -213,6 +213,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
           const labelKey = 'data.' + get(rawSchema, '[0].data.label', 'Missing label');
           // Then we get the label property from each record's properties
           // Generate the schema for a single referenced object first
+          console.error("About to construct schema for list reference");
           let injectedRecord = {
             type: 'object',
             oneOf: records.map(record => {
@@ -238,6 +239,13 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
                   item.properties[property] = clone(get(schemaDefinitions[embedSchemaName], `properties.${property}`, {}));
                   item.properties[property].readOnly = true;
                   item.properties[property].default = clone(value);
+                  // If we have an object with a UUID, we add a pattern to validate that the UUID is correct
+                  if (property === 'uuid') {
+                    item.properties[property].pattern = "^"+value+"$";
+                    console.log("Adding pattern: " + item.properties[property].pattern);
+                  }
+
+                  
                 }
               }
               return item;
