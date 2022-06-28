@@ -50,7 +50,7 @@ export class AuthService {
 
   public handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {
-      // console.log({ authResult });
+       console.log({ authResult });
       if (authResult && authResult.accessToken && authResult.idToken) {
         window.location.hash = '';
 
@@ -65,6 +65,9 @@ export class AuthService {
         this.router.navigate(['/user']);
       } else if (err) {
         console.log(err);
+        this.router.navigate(['/user']);
+      } else {
+        // if we get no auth data, redirect to old user page
         this.router.navigate(['/user']);
       }
     });
