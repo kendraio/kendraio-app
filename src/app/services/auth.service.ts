@@ -66,6 +66,9 @@ export class AuthService {
       } else if (err) {
         console.log(err);
         this.router.navigate(['/user']);
+      } else {
+        // if we get no auth data, redirect to old user page
+        this.router.navigate(['/user']);
       }
     });
   }
