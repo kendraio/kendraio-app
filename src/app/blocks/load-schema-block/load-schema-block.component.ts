@@ -36,17 +36,17 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
     const baseSchema = (!!this.schemaGetter)
       ? mappingUtility({ context: this.context, data: this.model }, this.schemaGetter)
       : this.schema;
-      
-      if((typeof baseSchema === 'string') && (baseSchema.length > 0)) {
-        let schemaDefinitions = {};
-        schemaDefinitions[baseSchema] = await this.resolveSchema(schemaDefinitions, baseSchema);
-        const jsonSchema = {
-          definitions: schemaDefinitions,
-          '$ref': `#/definitions/${baseSchema}`
-        };
-        // TODO: some fields may need uiSchema (eg widget overrides)
-        this.output.emit({ jsonSchema, uiSchema: {} });
-      }
+
+    if ((typeof baseSchema === 'string') && (baseSchema.length > 0)) {
+      let schemaDefinitions = {};
+      schemaDefinitions[baseSchema] = await this.resolveSchema(schemaDefinitions, baseSchema, 0);
+      const jsonSchema = {
+        definitions: schemaDefinitions,
+        '$ref': `#/definitions/${baseSchema}`
+      };
+      // TODO: some fields may need uiSchema (eg widget overrides)
+      this.output.emit({ jsonSchema, uiSchema: {} });
+    }
   }
 
   /**
@@ -55,11 +55,11 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
    * @param schemaName 
    * @returns 
    */
-  async resolveSchema(schemaDefinitions, schemaName) {
+  async resolveSchema(schemaDefinitions, schemaName, depth) {
     if (!has(schemaDefinitions, schemaName)) {
       try {
         const result = await this.localDatabase['metadata'].where({ 'label': schemaName }).toArray();
-        schemaDefinitions[schemaName] = await this.mapSchema(schemaDefinitions, get(result, '[0].data', {}), schemaName);
+        schemaDefinitions[schemaName] = await this.mapSchema(schemaDefinitions, get(result, '[0].data', {}), schemaName, depth);
       } catch (e) {
         // TODO: handle error
         console.log('error loading schema:', e);
@@ -82,8 +82,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
    * @param inputSchemaName 
    * @returns {object} Json schema
    */
-
-  async mapSchema(schemaDefinitions, inputSchema, inputSchemaName) {
+  async mapSchema(schemaDefinitions, inputSchema, inputSchemaName, depth) {
     // Create the base schema object
     const outputSchema = {
       title: get(inputSchema, 'name', ''),
@@ -135,7 +134,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
           const embedSchemaName = get(p, 'config', '');
           // If the embedded schema has not been resolved, resolve it:
           if (!has(schemaDefinitions, embedSchemaName) && embedSchemaName !== inputSchemaName) {
-            schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName);
+            schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName, depth + 1);
           }
           // Gets the records array for this schema:
           const records = await this.localDatabase['metadata'].where({ 'schemaName': embedSchemaName }).toArray();
@@ -147,56 +146,81 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
           // The label may be missing, so we find which property is the label key on the rawSchema:
           const labelKey = 'data.' + get(rawSchema, '[0].data.label', 'Missing label');
           // Then we get the label property from each record's properties
-          // Generate the schema for a single referenced object first
-          console.error("About to construct schema for list reference");
-          let injectedRecord = {
-            type: 'object',
-            oneOf: records.map(record => {
-              let item = {
-                title: get(record, labelKey, record.label||'Missing label!'),
-                properties: {}
-              };
+          if (depth == 0) {
+            let injectedRecordSelectionList = {
+              type: 'object',
+              oneOf: records.map(record => {
+                let item = {
+                  title: get(record, labelKey, 'fallback:' + record.label || 'Missing label!'),
+                  properties: {}
+                };
+                const title = item.title;
+                // we add the uuid property to the item properties
+                // when editing an existing and non-nested record,
+                // we use a regex pattern to validate that record matches any provided data object
+                // since the uuid is unique, we can use it to identify the record as a match
+                item.properties['uuid'] = {
+                  type: 'string',
+                  readOnly: true,
+                  default: record.uuid,
+                  pattern: "^" + record.uuid + "$"
+                };
 
-              // we add the uuid property to the item properties
-              // when editing existing saved data,
-              // we use a regex pattern to validate that record matches any provided data object
-              // since the uuid is unique, we can use it to identify the record as a match
-              item.properties['uuid'] = {
-                type: 'string',
-                readOnly: true,
-                default: record.uuid,
-                pattern:"^"+record.uuid+"$"
-              };
-
-              for (const property in record.data) {
-                if (record.data.hasOwnProperty(property)) {
-                  const value = record.data[property];
-                  item.properties[property] = clone(get(schemaDefinitions[embedSchemaName], `properties.${property}`, {}));
-                  item.properties[property].readOnly = true;
-                  item.properties[property].default = clone(value);
-                  // If we have an object with a UUID, we add a pattern to validate that the UUID is correct
-                  if (property === 'uuid') {
-                    item.properties[property].pattern = "^"+value+"$";
-                    console.log("Adding pattern: " + item.properties[property].pattern);
+                for (const property in record.data) {
+                  if (record.data.hasOwnProperty(property)) {
+                    const value = record.data[property];
+                    item.properties[property] = clone(get(schemaDefinitions[embedSchemaName], `properties.${property}`, {}));
+                    item.properties[property].readOnly = true;
+                    item.properties[property].default = clone(value);
+                    // If we have an object with a UUID, we add a pattern to validate that the UUID is correct
+                    if (property === 'uuid') {
+                      item.properties[property].pattern = "^" + value + "$";
+                    }
                   }
-
-                  
                 }
+
+                item.properties['uuid'].default = record.uuid;
+                return item;
+              })
+            };
+            outputSchema.properties[get(p, 'key', '')] = {
+              type: 'array',
+              title: get(p, 'title', ''),
+              description: get(p, 'description', ''),
+              items: injectedRecordSelectionList,
+            };
+          } else {
+            // if we have a nested record - a record that is referenced by another record,
+            // instead of injecting a selectable list of records, we inject a single record,
+            // with an array of one record object that conforms to the schema, with the uuid property added
+
+            const plain_schema = get(schemaDefinitions[embedSchemaName], 'properties', {});
+            let schema_with_uuid = clone(plain_schema);
+
+            // Since the UUID is part of every schema, it is not a configurable property in our custom
+            // schema editor, so we add it here.
+            schema_with_uuid['uuid'] = {
+              type: 'string',
+              readOnly: true,
+              title: "UUID"
+            }
+
+            outputSchema.properties[get(p, 'key', '')] = {
+              type: 'array',
+              title: get(p, 'title', ''),
+              description: get(p, 'description', ''),
+              items: {
+                type: 'object',
+                properties: schema_with_uuid
               }
-              return item;
-            })
-          };
-          outputSchema.properties[get(p, 'key', '')] = {
-            type: 'array',
-            title: get(p, 'title', ''),
-            description: get(p, 'description', ''),
-            items: injectedRecord,
-          };
+            };
+          }
+
           break;
         }
       }
     }
-
+    console.log("Output schema:", JSON.stringify(outputSchema));
     return outputSchema;
   }
 
