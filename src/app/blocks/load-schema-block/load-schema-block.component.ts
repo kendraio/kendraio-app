@@ -110,12 +110,12 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
           outputSchema = await this.mapSchemaObject(outputSchema, p, schemaDefinitions, inputSchemaName, depth);
           break;
         }
-        case 'ObjectReference': {
-          outputSchema = await this.mapSchemaObjectReference(outputSchema, p, schemaDefinitions, inputSchemaName, depth);
-          break;
-        }
         case 'List': {
           outputSchema = await this.mapSchemaList(outputSchema, p, schemaDefinitions, inputSchemaName, depth);
+          break;
+        }
+        case 'ObjectReference': {
+          outputSchema = await this.mapSchemaObjectReference(outputSchema, p, schemaDefinitions, inputSchemaName, depth);
           break;
         }
         case 'ListReference': {
@@ -200,6 +200,31 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
     return outputSchema;
   }
 
+  private async mapSchemaList(outputSchema, p, schemaDefinitions, inputSchemaName, depth) {
+    // Example input:
+    // {
+    //   "type": "List",
+    //   "key": "people",
+    //   "title": "People",
+    //   "config": "person"
+    // }
+    // The config value is the name of the embedded schema
+    const embedSchemaName = get(p, 'config', '');
+    // If the embedded schema has not been resolved, resolve it:
+    if (!has(schemaDefinitions, embedSchemaName) && embedSchemaName !== inputSchemaName) {
+      schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName, depth + 1);
+    }
+    outputSchema.properties[get(p, 'key', '')] = {
+      type: 'array',
+      title: get(p, 'title', ''),
+      description: get(p, 'description', ''),
+      'items': {
+        '$ref': `#/definitions/${embedSchemaName}`
+      }
+    };
+    return outputSchema;
+  }
+
   private async mapSchemaObjectReference(outputSchema, p, schemaDefinitions, inputSchemaName, depth) {
     // This form property is an object type that conforms to a schema,
     // with a list of possible values for the object to be populated from the metadata records
@@ -245,31 +270,6 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
       })
     };
     outputSchema.properties[get(p, 'key', '')] = injectedRecord;
-    return outputSchema;
-  }
-  
-  private async mapSchemaList(outputSchema, p, schemaDefinitions, inputSchemaName, depth) {
-    // Example input:
-    // {
-    //   "type": "List",
-    //   "key": "people",
-    //   "title": "People",
-    //   "config": "person"
-    // }
-    // The config value is the name of the embedded schema
-    const embedSchemaName = get(p, 'config', '');
-    // If the embedded schema has not been resolved, resolve it:
-    if (!has(schemaDefinitions, embedSchemaName) && embedSchemaName !== inputSchemaName) {
-      schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName, depth + 1);
-    }
-    outputSchema.properties[get(p, 'key', '')] = {
-      type: 'array',
-      title: get(p, 'title', ''),
-      description: get(p, 'description', ''),
-      'items': {
-        '$ref': `#/definitions/${embedSchemaName}`
-      }
-    };
     return outputSchema;
   }
 
