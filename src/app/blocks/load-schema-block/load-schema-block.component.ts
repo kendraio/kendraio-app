@@ -92,11 +92,30 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
     };
 
     // Loop through the properties of the schema, and add them to the output schema
-
     for (const p of get(inputSchema, 'properties', [])) {
       switch (get(p, 'type')) {
+        case 'Number': {
+          outputSchema = await this.mapSchemaNumber(outputSchema, p);
+          break;
+        }
         case 'Text': {
           outputSchema = await this.mapSchemaText(outputSchema, p);
+          break;
+        }
+        case 'Date': {
+          outputSchema = await this.mapSchemaDate(outputSchema, p);
+          break;
+        }
+        case 'Object': {
+          outputSchema = await this.mapSchemaObject(outputSchema, p, schemaDefinitions, inputSchemaName, depth);
+          break;
+        }
+        case 'ObjectReference': {
+          outputSchema = await this.mapSchemaObjectReference(outputSchema, p, schemaDefinitions, inputSchemaName, depth);
+          break;
+        }
+        case 'List': {
+          outputSchema = await this.mapSchemaList(outputSchema, p, schemaDefinitions, inputSchemaName, depth);
           break;
         }
         case 'ListReference': {
@@ -110,7 +129,17 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
   }
 
 
-  async mapSchemaText(outputSchema, p) {
+
+  private async mapSchemaNumber(outputSchema, p) {
+    outputSchema.properties[get(p, 'key', '')] = {
+      type: 'number',
+      title: get(p, 'title', ''),
+      description: get(p, 'description', ''),
+    };
+    return outputSchema;
+  }
+
+  private async mapSchemaText(outputSchema, p) {
     let textValue = {
       type: 'string',
       title: get(p, 'title', ''),
@@ -141,7 +170,110 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
     return outputSchema;
   }
 
-  async mapSchemaListReference(outputSchema, p, schemaDefinitions, inputSchemaName, depth) {
+  private async mapSchemaDate(outputSchema, p) {
+    outputSchema.properties[get(p, 'key', '')] = {
+      type: 'string',
+      format: 'date',
+      title: get(p, 'title', ''),
+      description: get(p, 'description', ''),
+    };
+    return outputSchema;
+  }
+
+  private async mapSchemaObject(outputSchema, p, schemaDefinitions, inputSchemaName, depth) {
+    // Example input:
+    // {
+    //   "type": "Object",
+    //   "key": "person",
+    //   "title": "Person",
+    //   "config": "person"
+    // }
+    // The config value is the name of the embedded schema
+    const embedSchemaName = get(p, 'config', '');
+    // If the embedded schema has not been resolved, resolve it:
+    if (!has(schemaDefinitions, embedSchemaName) && embedSchemaName !== inputSchemaName) {
+      schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName, depth + 1);
+    }
+    outputSchema.properties[get(p, 'key', '')] = {
+      '$ref': `#/definitions/${embedSchemaName}`
+    };
+    return outputSchema;
+  }
+
+  private async mapSchemaObjectReference(outputSchema, p, schemaDefinitions, inputSchemaName, depth) {
+    // This form property is an object type that conforms to a schema,
+    // with a list of possible values for the object to be populated from the metadata records
+    // for the schema specified in the config.
+    const embedSchemaName = get(p, 'config', '');
+    // If the embedded schema has not been resolved, resolve it:
+    if (!has(schemaDefinitions, embedSchemaName) && embedSchemaName !== inputSchemaName) {
+      schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName, depth + 1);
+    }
+    // Gets the records array for this schema:
+    const records = await this.localDatabase['metadata'].where({ 'schemaName': embedSchemaName }).toArray();
+    // Generate the schema for this reference
+    let injectedRecord = {
+      type: 'object',
+      title: get(p, 'title', ''),
+      oneOf: records.map(record => {
+        let item = {
+          title: record.label,
+          properties: {}
+        };
+
+        // we add the uuid property to the item properties
+        // when editing existing saved data,
+        // we use a regex pattern to validate that record matches any provided data object
+        // since the uuid is unique, we can use it to identify the record as a match
+        item.properties['uuid'] = {
+          type: 'string',
+          readOnly: true,
+          default: record.uuid,
+          pattern: "^" + record.uuid + "$"
+        };
+
+        for (const property in record.data) {
+          if (record.data.hasOwnProperty(property)) {
+            const value = record.data[property];
+            item.properties[property] = clone(get(schemaDefinitions[embedSchemaName], `properties.${property}`, {}));
+            item.properties[property].readOnly = true;
+            item.properties[property].default = clone(value);
+            // we get the type property from the schema at schemaDefinitions[embedSchemaName]
+          }
+        }
+        return item;
+      })
+    };
+    outputSchema.properties[get(p, 'key', '')] = injectedRecord;
+    return outputSchema;
+  }
+  
+  private async mapSchemaList(outputSchema, p, schemaDefinitions, inputSchemaName, depth) {
+    // Example input:
+    // {
+    //   "type": "List",
+    //   "key": "people",
+    //   "title": "People",
+    //   "config": "person"
+    // }
+    // The config value is the name of the embedded schema
+    const embedSchemaName = get(p, 'config', '');
+    // If the embedded schema has not been resolved, resolve it:
+    if (!has(schemaDefinitions, embedSchemaName) && embedSchemaName !== inputSchemaName) {
+      schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName, depth + 1);
+    }
+    outputSchema.properties[get(p, 'key', '')] = {
+      type: 'array',
+      title: get(p, 'title', ''),
+      description: get(p, 'description', ''),
+      'items': {
+        '$ref': `#/definitions/${embedSchemaName}`
+      }
+    };
+    return outputSchema;
+  }
+
+  private async mapSchemaListReference(outputSchema, p, schemaDefinitions, inputSchemaName, depth) {
     // This form property is a list of objects that confirm to a schema,
     // with a list of possible values for the objects to be populated from the metadata records
     // for the schema specified in the config.
