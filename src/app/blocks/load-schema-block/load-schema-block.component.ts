@@ -128,8 +128,6 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
     return outputSchema;
   }
 
-
-
   private async mapSchemaNumber(outputSchema, p) {
     outputSchema.properties[get(p, 'key', '')] = {
       type: 'number',
