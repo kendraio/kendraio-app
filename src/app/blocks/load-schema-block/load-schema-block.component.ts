@@ -84,144 +84,177 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
    */
   async mapSchema(schemaDefinitions, inputSchema, inputSchemaName, depth) {
     // Create the base schema object
-    const outputSchema = {
+    let outputSchema = {
       title: get(inputSchema, 'name', ''),
       description: get(inputSchema, 'description', ''),
       type: 'object',
       properties: {},
     };
+
     // Loop through the properties of the schema, and add them to the output schema
 
     for (const p of get(inputSchema, 'properties', [])) {
       switch (get(p, 'type')) {
         case 'Text': {
-          let textValue = {
-            type: 'string',
-            title: get(p, 'title', ''),
-            description: get(p, 'description', ''),
-          };
-          // if config is set, populate an enumerated list with records from the database
-          if (get(p, 'config', false)) {
-            // Config may provide a UUID or a schemaName for now.
-            if (!isValidUUID(get(p, 'config', ''))) {
-              // if config is not a UUID, assume it is a schemaName:
-              let results = await this.localDatabase['metadata'].where({ 'schemaName': get(p, 'config', '') }).toArray();
-              // e.g: [{
-              //      "label": "bob"
-              //    }, {
-              //      "label": "dave"
-              //    }]
-              // Just make an array of the names from the label property:
-              results = results.map(r => get(r, 'label', ''));
-              // e.g: ["bob", "dave"]
-              textValue['enum'] = results;
-            } else {
-              console.error("UUID not yet supported for config");
-              // let result = await this.localDatabase['metadata'].where({ 'uuid': get(p, 'config', '') }).toArray();
-              // result = get(result, '[0].data', {});
-              // textValue['enum'] = result;
-            }
-
-          }
-          outputSchema.properties[get(p, 'key', '')] = textValue;
+          outputSchema = await this.mapSchemaText(outputSchema, p);
           break;
         }
         case 'ListReference': {
-          // This form property is a list of objects that confirm to a schema,
-          // with a list of possible values for the objects to be populated from the metadata records
-          // for the schema specified in the config.
-          // The user can add as many new referenced record objects as they want.
-          const embedSchemaName = get(p, 'config', '');
-          // If the embedded schema has not been resolved, resolve it:
-          if (!has(schemaDefinitions, embedSchemaName) && embedSchemaName !== inputSchemaName) {
-            schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName, depth + 1);
-          }
-          // Gets the records array for this schema:
-          const records = await this.localDatabase['metadata'].where({ 'schemaName': embedSchemaName }).toArray();
-          const rawSchema = await this.localDatabase['metadata'].where({ 'label': embedSchemaName }).toArray();
-          // if rawSchema is empty, then the schema has not been loaded yet and we should break
-          if (rawSchema.length === 0) {
-            break;
-          }
-          // The label may be missing, so we find which property is the label key on the rawSchema:
-          const labelKey = 'data.' + get(rawSchema, '[0].data.label', 'Missing label');
-          // Then we get the label property from each record's properties
-          if (depth == 0) {
-            let injectedRecordSelectionList = {
-              type: 'object',
-              oneOf: records.map(record => {
-                let item = {
-                  title: get(record, labelKey, 'fallback:' + record.label || 'Missing label!'),
-                  properties: {}
-                };
-                const title = item.title;
-                // we add the uuid property to the item properties
-                // when editing an existing and non-nested record,
-                // we use a regex pattern to validate that record matches any provided data object
-                // since the uuid is unique, we can use it to identify the record as a match
-                item.properties['uuid'] = {
-                  type: 'string',
-                  readOnly: true,
-                  default: record.uuid,
-                  pattern: "^" + record.uuid + "$"
-                };
-
-                for (const property in record.data) {
-                  if (record.data.hasOwnProperty(property)) {
-                    const value = record.data[property];
-                    item.properties[property] = clone(get(schemaDefinitions[embedSchemaName], `properties.${property}`, {}));
-                    item.properties[property].readOnly = true;
-                    item.properties[property].default = clone(value);
-                    // If we have an object with a UUID, we add a pattern to validate that the UUID is correct
-                    if (property === 'uuid') {
-                      item.properties[property].pattern = "^" + value + "$";
-                    }
-                  }
-                }
-
-                item.properties['uuid'].default = record.uuid;
-                return item;
-              })
-            };
-            outputSchema.properties[get(p, 'key', '')] = {
-              type: 'array',
-              title: get(p, 'title', ''),
-              description: get(p, 'description', ''),
-              items: injectedRecordSelectionList,
-            };
-          } else {
-            // if we have a nested record - a record that is referenced by another record,
-            // instead of injecting a selectable list of records, we inject a single record,
-            // with an array of one record object that conforms to the schema, with the uuid property added
-
-            const plain_schema = get(schemaDefinitions[embedSchemaName], 'properties', {});
-            let schema_with_uuid = clone(plain_schema);
-
-            // Since the UUID is part of every schema, it is not a configurable property in our custom
-            // schema editor, so we add it here.
-            schema_with_uuid['uuid'] = {
-              type: 'string',
-              readOnly: true,
-              title: "UUID"
-            }
-
-            outputSchema.properties[get(p, 'key', '')] = {
-              type: 'array',
-              title: get(p, 'title', ''),
-              description: get(p, 'description', ''),
-              items: {
-                type: 'object',
-                properties: schema_with_uuid
-              }
-            };
-          }
-
+          outputSchema = await this.mapSchemaListReference(outputSchema, p, schemaDefinitions, inputSchemaName, depth);
           break;
         }
       }
     }
-    console.log("Output schema:", JSON.stringify(outputSchema));
+
     return outputSchema;
   }
 
+
+  async mapSchemaText(outputSchema, p) {
+    let textValue = {
+      type: 'string',
+      title: get(p, 'title', ''),
+      description: get(p, 'description', ''),
+    };
+
+    // if config is set, populate an enumerated list with records from the database
+    if (get(p, 'config', false)) {
+      // Config may provide a UUID or a schemaName for now.
+      if (!isValidUUID(get(p, 'config', ''))) {
+        // if config is not a UUID, assume it is a schemaName:
+        let results = await this.localDatabase['metadata'].where({ 'schemaName': get(p, 'config', '') }).toArray();
+        // e.g: [{
+        //      "label": "bob"
+        //    }, {
+        //      "label": "dave"
+        //    }]
+
+        // Just make an array of the names from the label property:
+        results = results.map(r => get(r, 'label', ''));
+        // e.g: ["bob", "dave"]
+        textValue['enum'] = results;
+      } else {
+        console.error("UUID not yet supported for config");
+      }
+    }
+    outputSchema.properties[get(p, 'key', '')] = textValue;
+    return outputSchema;
+  }
+
+  async mapSchemaListReference(outputSchema, p, schemaDefinitions, inputSchemaName, depth) {
+    // This form property is a list of objects that confirm to a schema,
+    // with a list of possible values for the objects to be populated from the metadata records
+    // for the schema specified in the config.
+    // The user can add as many new referenced record objects as they want.
+    const embedSchemaName = get(p, 'config', '');
+
+    // If the embedded schema has not been resolved, resolve it:
+    if (!has(schemaDefinitions, embedSchemaName) && embedSchemaName !== inputSchemaName) {
+      schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName, depth + 1);
+    }
+
+    // Gets the records array for this schema:
+    const records = await this.localDatabase['metadata'].where({ 'schemaName': embedSchemaName }).toArray();
+
+    const rawSchema = await this.localDatabase['metadata'].where({ 'label': embedSchemaName }).toArray();
+    // if rawSchema is empty, then the schema has not been loaded yet and we should return
+    if (rawSchema.length === 0) {
+      return outputSchema;
+    }
+
+    // The label may be missing, so we find which property is the label key on the rawSchema:
+    const labelKey = 'data.' + get(rawSchema, '[0].data.label', 'Missing label');
+
+    // Then we get the label property from each record's properties
+    if (depth == 0) {
+      let injectedRecordSelectionList = {
+        type: 'object',
+        oneOf: records.map(record => {
+          let item = {
+            title: get(record, labelKey, 'fallback:' + record.label || 'Missing label!'),
+            properties: {}
+          };
+
+          const title = item.title;
+          console.log("Title 156 origin data:", { title, labelKey, record, rawSchema });
+
+          // we add the uuid property to the item properties
+          // when editing an existing and non-nested record,
+          // we use a regex pattern to validate that record matches any provided data object
+          // since the uuid is unique, we can use it to identify the record as a match
+          item.properties['uuid'] = {
+            type: 'string',
+            readOnly: true,
+            default: record.uuid,
+            pattern: "^" + record.uuid + "$"
+          };
+
+          for (const property in record.data) {
+            if (record.data.hasOwnProperty(property)) {
+              const value = record.data[property];
+
+              item.properties[property] = clone(get(schemaDefinitions[embedSchemaName], `properties.${property}`, {}));
+              item.properties[property].readOnly = true;
+              item.properties[property].default = clone(value);
+
+              // If we have an object with a UUID, we add a pattern to validate that the UUID is correct
+              if (property === 'uuid') {
+                item.properties[property].pattern = "^" + value + "$";
+                console.log("Adding pattern: " + item.properties[property].pattern);
+              }
+
+              // if the property type is string, add a pattern for it:
+              if (item.properties[property].type === 'string') {
+                item.properties[property].pattern = "^" + value + "$";
+                console.log("Adding pattern: " + item.properties[property].pattern + " to " + property + " of " + embedSchemaName + "." + record.label);
+              }
+
+            }
+          }
+
+          item.properties['uuid'].default = record.uuid;
+
+          return item;
+        })
+      };
+
+      outputSchema.properties[get(p, 'key', '')] = {
+        type: 'array',
+        title: get(p, 'title', ''),
+        description: get(p, 'description', ''),
+        items: injectedRecordSelectionList,
+      };
+
+    } else {
+
+      // if we have a nested record - a record that is referenced by another record,
+      // instead of injecting a selectable list of records, we inject a single record,
+      // with an array of one record object that conforms to the schema, with the uuid property added
+
+      const plain_schema = get(schemaDefinitions[embedSchemaName], 'properties', {});
+      let schema_with_uuid = clone(plain_schema);
+
+      // Since the UUID is part of every schema, it is not a configurable property in our custom
+      // schema editor, so we add it here.
+      schema_with_uuid['uuid'] = {
+        type: 'string',
+        readOnly: true,
+        title: "UUID"
+      }
+
+      outputSchema.properties[get(p, 'key', '')] = {
+        type: 'array',
+        title: get(p, 'title', ''),
+        description: get(p, 'description', ''),
+        items: {
+          type: 'object',
+          properties: schema_with_uuid
+        }
+      };
+
+    }
+
+    return outputSchema;
+
+  }
 }
