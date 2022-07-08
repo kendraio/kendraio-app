@@ -179,6 +179,7 @@ export const config: ConfigOption = {
     { name: 'string', extends: 'input' },
     // { name: 'object', extends: 'formly-group' },
     { name: 'object', component: types.ObjectTypeComponent },
+    { name: 'multischema', component: types.MultiSchemaTypeComponent },
     { name: 'formgroup', component: types.FormGroupTypeComponent },
 
     { name: 'boolean', extends: 'checkbox',

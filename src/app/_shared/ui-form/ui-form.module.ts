@@ -101,7 +101,8 @@ import {FormlyModule} from '@ngx-formly/core';
     types.TimePickerComponent,
     types.ImageViewerComponent,
     types.NullTypeComponent,
-    FormlyFieldFileComponent
+    FormlyFieldFileComponent,
+    types.MultiSchemaTypeComponent
   ]
 })
 export class UiFormModule {}
