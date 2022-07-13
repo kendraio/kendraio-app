@@ -1,0 +1,5 @@
+{
+    "name":"kendraio-app",
+    "forwardPorts": [4200]
+
+}
