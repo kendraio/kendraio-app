@@ -124,6 +124,49 @@ Similarly, a "rental agreement" schema could define a owner field and a leasehol
         }
     ]
 
+Transclusion of selected record objects
+---------------------------------------
+
+ObjectReference accepts a schema config name, and populates a list of records from the database for selection by the user.
+E.g: If a list of person records were stored in the database, a ObjectReference
+can be used to transclude a single selected person record for selection.
+
+.. code-block:: json
+
+    [
+        {
+            "type": "ObjectReference",
+            "key": "owner",
+            "title": "Owner",
+            "config": "person"
+        },
+        {
+            "type": "ObjectReference",
+            "key": "leaseholder",
+            "title": "Leaseholder",
+            "config": "person"
+        }
+    ]
+
+To select a list of multiple record objects, use the ListReference type.
+E.g: A list of team members could be populated.
+Note that the UUID of the object is also stored to uniquely identify the object.
+
+.. code-block:: json
+
+    [
+        {
+            "type": "ListReference",
+            "title": "Team Members",
+            "config": "person"
+        },{
+            "type": "text",
+            "key": "name",
+            "title": "Team name"
+        }
+    ]
+
+
 Supported block properties
 ---------------------------
 
