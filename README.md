@@ -33,6 +33,21 @@ Contribute
 - To download the source code, visit the repo: <https://github.com/kendraio/kendraio-app>
 - Sponsored by [▲ Vercel](https://vercel.com?utm_source=kendraio&utm_campaign=oss), [Mailgun](https://www.mailgun.com), [Atlassian](https://www.atlassian.com), [Auth0](https://auth0.com)
 
+Instant Development with Github Codespaces
+------------------------------------------
+
+If you have access to github codespaces, you can start developing on Kendraio immediately.
+The "code" button on our github page (https://github.com/kendraio/kendraio-app) will offer you
+the opportunity to launch a codespace.
+
+All the required configuration is already in the repostitory, so when you boot a codespace, you'll
+be taken to a web version of Visual Studio Code. All you need to do is start the development server.
+
+VSCode provides a terminal, run `npm run serve:dev`. Once the server is up, it will output a link
+to "localhost:4200", click on this link to open the running Kndraio app in a new window.
+
+You now have a live development environment. Create yourself a branch and you're off.
+
 Setting up a local development environment
 ------------------------------------------
 
