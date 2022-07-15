@@ -67,7 +67,7 @@
     this.debug = !!options.debug;
     this.query = options.query || '';
     this.orderby = options.orderby;
-    this.endpoint = options.endpoint || 'https://spreadsheets.google.com';
+    this.endpoint = options.endpoint || 'https://sheets.googleapis.com/v4';
     this.singleton = !!options.singleton;
     this.simpleUrl = !!(options.simpleUrl || options.simple_url); //jshint ignore:line
     this.authkey = options.authkey;
