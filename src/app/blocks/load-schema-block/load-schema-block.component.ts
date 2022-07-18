@@ -58,7 +58,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
   async resolveSchema(schemaDefinitions, schemaName, depth) {
     if (!has(schemaDefinitions, schemaName)) {
       try {
-        const result = await this.localDatabase['metadata'].where({ 'label': schemaName }).toArray();
+        const result = await this.loadSchemaFromDatabase(schemaName);
         schemaDefinitions[schemaName] = await this.mapSchema(schemaDefinitions, get(result, '[0].data', {}), schemaName, depth);
       } catch (e) {
         // TODO: handle error
@@ -70,6 +70,14 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
     return schemaDefinitions[schemaName];
   }
 
+  async loadSchemaFromDatabase(schemaName: string) {
+    return await this.localDatabase['metadata'].where({ 'label': schemaName }).toArray();
+  }
+
+  async loadRecords(embedSchemaName: string) {
+    console.log('loading records for schema:', embedSchemaName);
+    return await this.localDatabase['metadata'].where({ 'schemaName': embedSchemaName }).toArray();
+  }
   /**
    * Converts a schema dataset to a JSON schema. Recursively calls itself to resolve embedded schemas.
    * 
@@ -147,12 +155,12 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
       description: get(p, 'description', ''),
     };
 
-    
+
     if (get(p, 'config', false)) {
       // Config may provide a UUID or a schemaName for now.
       if (!isValidUUID(get(p, 'config', ''))) {
         // if config is not a UUID, assume it is a schemaName:
-        let results = await this.localDatabase['metadata'].where({ 'schemaName': get(p, 'config', '') }).toArray();
+        let results = await this.loadSchemaFromDatabase(get(p, 'config', ''));
         // e.g: [{
         //      "label": "bob"
         //    }, {
@@ -248,7 +256,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
       schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName, depth + 1);
     }
     // Gets the records array for this schema:
-    const records = await this.localDatabase['metadata'].where({ 'schemaName': embedSchemaName }).toArray();
+    const records = await this.loadRecords(embedSchemaName);
     // Generate the schema for this reference
     let injectedRecord = {
       type: 'object',
@@ -305,9 +313,9 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
     }
 
     // Gets the records array for this schema:
-    const records = await this.localDatabase['metadata'].where({ 'schemaName': embedSchemaName }).toArray();
+    const records = await this.loadRecords(embedSchemaName);
 
-    const rawSchema = await this.localDatabase['metadata'].where({ 'label': embedSchemaName }).toArray();
+    const rawSchema = await this.loadSchemaFromDatabase(embedSchemaName);
     // if rawSchema is empty, then the schema has not been loaded yet and we should return
     if (rawSchema.length === 0) {
       return outputSchema;
