@@ -89,8 +89,8 @@ If the above is loaded in (using a database / DB block, like the "editItem" flow
     }
 
 
-Reference transclusion
-----------------------
+Referencing / transcluding other schemas (via array / object config)
+---------------------------------------------------------------------
 
 Supplied schemas can transclude other schemas by using an "Array" or "Object" type, which has the name of the schema specified in the config property.
 E.g: a "team" schema could have a people list specified with a property like this:  
@@ -124,8 +124,8 @@ Similarly, a "rental agreement" schema could define a owner field and a leasehol
         }
     ]
 
-Transclusion of selected record objects
----------------------------------------
+Transclusion of selectable record objects (ObjectReference)
+-----------------------------------------------------------
 
 ObjectReference accepts a schema config name, and populates a list of records from the database for selection by the user.
 E.g: If a list of person records were stored in the database, a ObjectReference
@@ -148,6 +148,8 @@ can be used to transclude a single selected person record for selection.
         }
     ]
 
+Transclusion of multiple selectable record objects (ListReference)
+------------------------------------------------------------------
 To select a list of multiple record objects, use the ListReference type.
 E.g: A list of team members could be populated.
 Note that the UUID of the object is also stored to uniquely identify the object.
