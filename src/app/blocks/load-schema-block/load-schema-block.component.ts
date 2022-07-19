@@ -16,6 +16,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
   adapterName = 'schemas';
   schema = '';
   schemaGetter = '';
+  lastOutput = {};
 
   constructor(
     private readonly localDatabase: LocalDatabaseService
@@ -45,7 +46,8 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
         '$ref': `#/definitions/${baseSchema}`
       };
       // TODO: some fields may need uiSchema (eg widget overrides)
-      this.output.emit({ jsonSchema, uiSchema: {} });
+      this.lastOutput = { jsonSchema, uiSchema: {} };
+      this.output.emit(this.lastOutput);
     }
   }
 
@@ -71,12 +73,13 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
   }
 
   async loadSchemaFromDatabase(schemaName: string) {
-    return await this.localDatabase['metadata'].where({ 'label': schemaName }).toArray();
+    const schema = await this.localDatabase['metadata'].where({ 'label': schemaName }).toArray();
+    return schema;
   }
 
   async loadRecords(embedSchemaName: string) {
-    console.log('loading records for schema:', embedSchemaName);
-    return await this.localDatabase['metadata'].where({ 'schemaName': embedSchemaName }).toArray();
+    const records = await this.localDatabase['metadata'].where({ 'schemaName': embedSchemaName }).toArray();
+    return records;
   }
   /**
    * Converts a schema dataset to a JSON schema. Recursively calls itself to resolve embedded schemas.
@@ -335,7 +338,6 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
           };
 
           const title = item.title;
-          console.log("Title 156 origin data:", { title, labelKey, record, rawSchema });
 
           // we add the uuid property to the item properties
           // when editing an existing and non-nested record,
@@ -359,13 +361,11 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
               // If we have an object with a UUID, we add a pattern to validate that the UUID is correct
               if (property === 'uuid') {
                 item.properties[property].pattern = "^" + value + "$";
-                console.log("Adding pattern: " + item.properties[property].pattern);
               }
 
               // if the property type is string, add a pattern for it:
               if (item.properties[property].type === 'string') {
                 item.properties[property].pattern = "^" + value + "$";
-                console.log("Adding pattern: " + item.properties[property].pattern + " to " + property + " of " + embedSchemaName + "." + record.label);
               }
 
             }
