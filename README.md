@@ -48,6 +48,12 @@ to "localhost:4200", click on this link to open the running Kndraio app in a new
 
 You now have a live development environment. Create yourself a branch and you're off.
 
+The Devcontainer.json file
+===========================
+A devcontainer.json file in your project tells Visual Studio Code (and other services and tools that support the format) how to access (or create) a development container with a well-defined tool and runtime stack. This file is used to automatically configure Codespaces, and it will also allow for local development using containers. 
+
+
+
 Setting up a local development environment
 ------------------------------------------
 
