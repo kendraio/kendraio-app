@@ -7,11 +7,11 @@
   "scripts": {
     "start:dev": "npm-run-all serve:dev",
     "serve:dev": "ng serve",
-    "build:local": "ng build",    
+    "build:local": "ng build",
     "build:dev": "ng build --configuration=dev",
-    "build:prod": "ng build --configuration production",    
+    "build:prod": "ng build --configuration production",
     "now-build": "ng build --configuration=dev",
-    "docs:autobuild": "sphinx-autobuild docs/ docs/_build/html",    
+    "docs:autobuild": "sphinx-autobuild docs/ docs/_build/html",
     "update:function:cache": "mv dist/index.html functions/index.html",
     "//comment1": "NB: Dynamic index html generation (SSO)",
     "//comment2": "Before deploy, do prod build, and move index.html to functions folder",
@@ -97,7 +97,7 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^13.3.7",
+    "@angular-devkit/build-angular": "^13.3.9",
     "@angular-devkit/core": "^14.0.1",
     "@angular-devkit/schematics": "^13.0.1",
     "@angular/cli": "^13.3.7",
@@ -127,7 +127,7 @@
     "@types/uuid": "^8.3.1",
     "@types/wavesurfer.js": "^2.0.2",
     "codelyzer": "^6.0.2",
-    "cypress": "^9.0.0",
+    "cypress": "^9.7.0",
     "electron": "^15.3.5",
     "jasmine-core": "~3.10.1",
     "jasmine-spec-reporter": "~7.0.0",
