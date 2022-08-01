@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  kendraiongximagetagger:
+    image: kendraiongximagetagger
+    build:
+      context: projects/ngx-image-tagger
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - 4200:4200
