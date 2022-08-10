@@ -122,6 +122,43 @@ export class DbBlockComponent extends BaseBlockComponent {
         }.bind(this));
         return;
       }
+      case 'upsert': {
+        // upsert does not exist on LocalDatabaseService, we check if data already exists. If it does we update it, otherwise we add it:
+        if (!isUndefined(data) && !isNull(data)) {
+          console.log("upsert has data", data);
+        } else {
+          console.log("upsert has no data");
+          return;
+        }
+        const schema = this.schemaGetter
+          ? mappingUtility({ data: this.model, context: this.context }, this.schemaGetter)
+          : this.schema;
+        this.localDatabase.fetch({ uuid: data.uuid }).then(function(result) {
+          if (result.length > 0) {
+            console.log('upsert is updating from:', result, 'to:', data);
+            this.localDatabase.update({
+              uuid: data.uuid, 
+              data
+            }).then(function(result){
+              this.isLoading = false;
+              this.output.emit(result);
+              console.log('upsert update complete');
+            }.bind(this));
+          } else {
+            console.log('upsert is inserting:', data);
+            this.localDatabase.add({
+              adapterName: this.adapterName,
+              schema,
+              data
+            }).then(function(result) {
+              this.isLoading = false;
+              this.output.emit(result);
+              console.log('upsert insert complete');
+            }.bind(this));
+          }
+        }.bind(this));
+        return;
+      }
       default:
         this.isLoading = false;
         console.log(`Unknown or unsupported database operation ${this.operation}`);
