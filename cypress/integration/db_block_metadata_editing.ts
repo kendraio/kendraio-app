@@ -63,7 +63,6 @@ describe('Kendraio context and state', () => {
           "showState": false
         }
       ]);
-      //cy.wait(5000);
       cy.contains('Loaded.').wait(2000).then(async () => {
         // check that 1 item exists in the metadata table
         const db_check = new dexie('kendraio-db');
@@ -71,9 +70,6 @@ describe('Kendraio context and state', () => {
         // check that metadata table exists and get a object of the metadata table
         const metadata = await db_check.table('metadata').toArray();
         expect(metadata.length).to.equal(1);
-        
-        
-        
       });
 
     });
