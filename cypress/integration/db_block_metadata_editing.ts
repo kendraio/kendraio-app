@@ -22,15 +22,16 @@ describe('Kendraio context and state', () => {
   });
 
 
-  describe('Ensure metadata table has no rows', () => {
-    it('should not have any data yet', async () => {
+  describe('Ensure unpsert can insert and update records in the metadata table', () => {
+    it('should be able to insert a record into a blank table', async () => {
       let db = new dexie('kendraio-db');
-      // if kendraio-db exists, we delete it then create it again
+      // ensure database is blank:
       await db.delete();
 
-
+      // TODO: if we use init the flow runs twice, is this expected? Will Dixie raise any errors? 
+      // I might have seen one, I suspected the flow was interrupted before it can finish, this needs investigation.
       loadFlowCode([
-        //{
+        //{ 
         //  "type": "init"
         //},
         {
@@ -39,7 +40,7 @@ describe('Kendraio context and state', () => {
         },
         {
           "type": "mapping",
-          "mapping": "{ uuid: uuid('test')}"
+          "mapping": "{ uuid: uuid('test'), name: 'test' }"
         },
         {
           "type": "db",
@@ -63,13 +64,15 @@ describe('Kendraio context and state', () => {
           "showState": false
         }
       ]);
-      cy.contains('Loaded.').wait(2000).then(async () => {
+      cy.contains('Loaded.').wait(1000).then(async () => {
         // check that 1 item exists in the metadata table
-        const db_check = new dexie('kendraio-db');
-        await db_check.open();
-        // check that metadata table exists and get a object of the metadata table
-        const metadata = await db_check.table('metadata').toArray();
+        db = new dexie('kendraio-db');
+        await db.open();
+        // assert metadata table has one record:
+        const metadata = await db.table('metadata').toArray();
         expect(metadata.length).to.equal(1);
+        // assert that "test" is in the metadata table:
+        expect(metadata[0].data.name).to.equal('test');
       });
 
     });
