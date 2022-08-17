@@ -9,5 +9,5 @@ import * as LZS from 'lz-string';
 export function loadFlowCode(blocks: Array<{ [key: string]: any }>): void {
   const compressed = LZS.compressToEncodedURIComponent(JSON.stringify(blocks));
   const url = `/workflow-builder?data=${compressed}`;
-  cy.visit(url);
+  cy.visit(url).contains('Workflow');
 }
