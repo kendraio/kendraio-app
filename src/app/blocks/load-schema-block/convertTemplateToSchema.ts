@@ -1,3 +1,4 @@
+// convertTemplateToSchema.spec.ts
 import { get, clone } from 'lodash-es';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -24,17 +25,34 @@ import { v4 as uuidv4 } from 'uuid';
 // TODO: write tests with different kinds of templates.
 
 export function convertTemplateToSchema(template, config) {
-  // We are provided with a template object, and a config object.
-  // The config should contain an object with two keys: blockTypeDefaults, and convertables
-  // blockTypeDefaults defines JSON to inject (and where to inject it).
-  // convertables defines simple key renamings to use to transform the template.
-  // The template is transformed into a schema object.
+  let converter = new Converter(template, config);
+  return converter.convert();
+}
 
-  let blockTypeDefaults = get(config, 'blockTypeDefaults', {});
-  // blockTypeDefaults defines object keys and values. 
-  // When the keys are found in the template, they are replaced with the values.  
-  // e.g:
-  `{
+export class Converter {
+  blockTypeDefaults;
+  convertables;
+  template;
+  constructor(template, config) {
+    this.blockTypeDefaults = get(config, 'blockTypeDefaults', {});
+    this.convertables = get(config, 'convertables', {});
+    this.template = template;
+    return this;
+  }
+
+
+  convert() {
+    // We are provided with a template object, and a config object.
+    // The config should contain an object with two keys: blockTypeDefaults, and convertables
+    // blockTypeDefaults defines JSON to inject (and where to inject it).
+    // convertables defines simple key renamings to use to transform the template.
+    // The template is transformed into a schema object.
+
+
+    // blockTypeDefaults defines object keys and values. 
+    // When the keys are found in the template, they are replaced with the values.  
+    // e.g:
+    `{
     "c5bfac02-f0b6-4c31-8fdf-18de02667ee9": {
       "type": "object",
       "properties": {
@@ -51,29 +69,46 @@ export function convertTemplateToSchema(template, config) {
       }
     }
   }`;
-  // Convertables are basic mappings for converting renaming keys in the template.
-  let convertables = get(config, 'convertables', {});
-  // e.g:
-  `{
+    // Convertables are basic mappings for converting renaming keys in the template.
+    // e.g:
+    `{
     "websitemodel": "website-content"
   }`;
 
-  function convertKeys(object) {
+    // First we rename the templates keys using convertKeys,
+    // then inject default values for objects with matching keys specified in blockTypeDefaults,
+    // we change the array of objects to a dictionary with UUIDs as keys,
+    // then we convert the dictionary properties to readOnly JSON schema properties, except for the default values,
+    // returning a JSON schema object.
+    return this.convertToValidJSONSchema(
+      this.arrayOfUUIDsToDict(
+        this.applyBlockTypeDefaults(
+          this.convertKeys(this.template)
+        )
+      )
+    );
+  }
+
+  uuid() {
+    return uuidv4();
+  }
+
+  convertKeys(object) {
     // Convert keys in the template using the convertables.
     var newObject = clone(object);
     for (var key in object) {
-      if (convertables[key]) {
-        newObject[convertables[key]] = convertKeys(object[key]);
+      if (this.convertables[key]) {
+        newObject[this.convertables[key]] = this.convertKeys(object[key]);
         delete newObject[key];
       } else {
         if (typeof object[key] === "object") { // Recurse into objects, but not arrays.  Arrays are handled below.  This is a little hacky, but it works for now.  We could also check the type of the value at each level and handle it accordingly.  
-          newObject[key] = convertKeys(object[key]); // Recurse into objects, but not arrays.  Arrays are handled below.  
+          newObject[key] = this.convertKeys(object[key]); // Recurse into objects, but not arrays.  Arrays are handled below.  
         }
         // now we handle arrays:
         if (Array.isArray(object[key])) {
           newObject[key] = []; // Create a new array to hold the converted objects.  
           for (var i = 0; i < object[key].length; i++) { // Loop through the original array of objects.  
-            var convertedObject = convertKeys(object[key][i]); // Recursively convert each object in the array, and store it in a variable.  
+            var convertedObject = this.convertKeys(object[key][i]); // Recursively convert each object in the array, and store it in a variable.  
             newObject[key].push(convertedObject); // Push the converted object into the new array.  
           }
         }
@@ -83,25 +118,26 @@ export function convertTemplateToSchema(template, config) {
     return newObject; // Return a copy of the original object with all keys converted.  
   }
 
-  function applyBlockTypeDefaults(object) {
+  applyBlockTypeDefaults(object) {
     // We recursively loop through the object and apply blockTypeDefaults to each block-content key. 
     // This means that when we find an object with a UUID matching an expected key, we replace it's contents entirely with a copy of the defaults.
 
+    const targetKeyName = "block-content"; // TODO: depreciate this hardcoded CMS specific property.
     var newObject = clone(object); // Make a copy of the original object.  
 
     // First we get the UUID keys of the blockTypeDefaults, then we recurse for matches, changing parents where found.  
-    var blockTypeDefaultKeys = Object.keys(blockTypeDefaults); // Get the keys of the blockTypeDefaults object.  These are UUIDs, and we will use them to match against our template's UUIDs.  
+    var blockTypeDefaultKeys = Object.keys(this.blockTypeDefaults); // Get the keys of the blockTypeDefaults object.  These are UUIDs, and we will use them to match against our template's UUIDs.  
     for (var key in object) { // Loop through each key in the original object:
       if (typeof object[key] === "object") { // If it is an array or an object, recurse into it: 
-        newObject[key] = applyBlockTypeDefaults(object[key]); // Recursively call this function on any objects found within this one, replacing them with their converted versions as they are returned from recursion.  
+        newObject[key] = this.applyBlockTypeDefaults(object[key]); // Recursively call this function on any objects found within this one, replacing them with their converted versions as they are returned from recursion.  
 
-        if (Array.isArray(newObject[key]) && newObject["block-content"]) { // If we have a block-content array that contains objects with uuids matching those of our defaults...  This is a little hacky because I'm not sure how to handle arrays at each level without checking for specific keys like this... but it works for now! :)
+        if (Array.isArray(newObject[key]) && newObject[targetKeyName]) { // If we have a block-content array that contains objects with uuids matching those of our defaults...  This is a little hacky because I'm not sure how to handle arrays at each level without checking for specific keys like this... but it works for now! :)
 
           var tempArray = [];
           for (var i = 0; i < newObject[key].length; i++) { // Loop through the array of objects.  
             if (blockTypeDefaultKeys.indexOf(newObject[key][i]["uuid"]) > -1) { // If we find a UUID that matches one of our defaults... 
-              tempArray.push(clone(blockTypeDefaults[newObject[key][i]["uuid"]])); // Push a copy of the default object into our temporary array, replacing it's contents entirely with those from blockTypeDefaults.  
-              tempArray[tempArray.length - 1]["uuid"] = uuidv4(); // Add a new UUID v4 property to each item.  
+              tempArray.push(clone(this.blockTypeDefaults[newObject[key][i]["uuid"]])); // Push a copy of the default object into our temporary array, replacing it's contents entirely with those from blockTypeDefaults.  
+              tempArray[tempArray.length - 1]["uuid"] = this.uuid(); // Add a new UUID v4 property to each item.  
             } else {
               tempArray.push(newObject[key][i]); // Otherwise just push the original object into our temporary array as is, without modification or replacement by defaults: 
 
@@ -109,7 +145,7 @@ export function convertTemplateToSchema(template, config) {
 
           }
 
-          newObject["block-content"] = tempArray; // Replace this key's value with an entirely new version containing only converted objects and no originals: 
+          newObject[targetKeyName] = tempArray; // Replace this key's value with an entirely new version containing only converted objects and no originals: 
 
         }
       }
@@ -118,7 +154,8 @@ export function convertTemplateToSchema(template, config) {
     return newObject; // Return a copy of the original object with all keys converted and replaced by their default values where applicable!
   }
 
-  function arrayOfUUIDsToDict(object) {
+
+  arrayOfUUIDsToDict(object) {
     // Converts arrays containing UUIDs to dictionaries with UUIDs as keys:
     function arrayChildrenAllHaveUUIDs(array) {
       for (var i = 0; i < array.length; i++) {
@@ -133,7 +170,7 @@ export function convertTemplateToSchema(template, config) {
     var newObject = clone(object); // Make a copy of the original object.  
     for (var key in newObject) { // Loop through each key in the original object:        
       if (typeof newObject[key] === "object") { // If it is an array or an object, recurse into it: 
-        newObject[key] = arrayOfUUIDsToDict(newObject[key]); // Recursively call this function on any objects found within this one, replacing them with their converted versions as they are returned from recursion.  
+        newObject[key] = this.arrayOfUUIDsToDict(newObject[key]); // Recursively call this function on any objects found within this one, replacing them with their converted versions as they are returned from recursion.  
 
         if (Array.isArray(newObject[key]) && arrayChildrenAllHaveUUIDs(newObject[key])) {
           var tempObj = {};
@@ -150,7 +187,7 @@ export function convertTemplateToSchema(template, config) {
     return newObject; // Return a copy of the original object with all arrays converted to objects where applicable!
   }
 
-  function convertToValidJSONSchema(template) {
+  convertToValidJSONSchema(template) {
     // Converts the template to a valid JSON Schema.
     let schema = {
       "type": "object",
@@ -160,7 +197,7 @@ export function convertTemplateToSchema(template, config) {
       if (typeof template[key] === "object") {
         // Only modify invalid JSON schema fragments
         if (template[key].type === undefined) {
-          schema.properties[key] = convertToValidJSONSchema(template[key]);
+          schema.properties[key] = this.convertToValidJSONSchema(template[key]);
         } else {
           schema.properties[key] = template[key];
         }
@@ -176,16 +213,4 @@ export function convertTemplateToSchema(template, config) {
     return schema;
   }
 
-  // First we rename the templates keys using convertKeys,
-  // then inject default values for objects with matching keys specified in blockTypeDefaults,
-  // we change the array of objects to a dictionary with UUIDs as keys,
-  // then we convert the dictionary properties to readOnly JSON schema properties, except for the default values,
-  // returning a JSON schema object.
-  return convertToValidJSONSchema(
-    arrayOfUUIDsToDict(
-      applyBlockTypeDefaults(
-        convertKeys(template)
-      )
-    )
-  );
 }
