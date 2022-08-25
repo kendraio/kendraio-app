@@ -24,8 +24,15 @@ import { v4 as uuidv4 } from 'uuid';
 // TODO: write tests with different kinds of templates.
 
 export function convertTemplateToSchema(template, config) {
-  // config should contain an object with two keys: blockTypeDefaults, and convertables
+  // We are provided with a template object, and a config object.
+  // The config should contain an object with two keys: blockTypeDefaults, and convertables
+  // blockTypeDefaults defines JSON to inject (and where to inject it).
+  // convertables defines simple key renamings to use to transform the template.
+  // The template is transformed into a schema object.
+
   let blockTypeDefaults = get(config, 'blockTypeDefaults', {});
+  // blockTypeDefaults defines object keys and values. 
+  // When the keys are found in the template, they are replaced with the values.  
   // e.g:
   `{
     "c5bfac02-f0b6-4c31-8fdf-18de02667ee9": {
@@ -44,7 +51,7 @@ export function convertTemplateToSchema(template, config) {
       }
     }
   }`;
-  // We convert these defined object keys:
+  // Convertables are basic mappings for converting renaming keys in the template.
   let convertables = get(config, 'convertables', {});
   // e.g:
   `{
@@ -52,6 +59,7 @@ export function convertTemplateToSchema(template, config) {
   }`;
 
   function convertKeys(object) {
+    // Convert keys in the template using the convertables.
     var newObject = clone(object);
     for (var key in object) {
       if (convertables[key]) {
@@ -76,11 +84,12 @@ export function convertTemplateToSchema(template, config) {
   }
 
   function applyBlockTypeDefaults(object) {
-    // We need to recursively loop through the object and apply blockTypeDefaults to each block-content key. 
+    // We recursively loop through the object and apply blockTypeDefaults to each block-content key. 
     // This means that when we find an object with a UUID matching an expected key, we replace it's contents entirely with a copy of the defaults.
+
     var newObject = clone(object); // Make a copy of the original object.  
 
-    // first we get the UUID keys of the blockTypeDefaults, then we recurse for matches, changing parents where found.  
+    // First we get the UUID keys of the blockTypeDefaults, then we recurse for matches, changing parents where found.  
     var blockTypeDefaultKeys = Object.keys(blockTypeDefaults); // Get the keys of the blockTypeDefaults object.  These are UUIDs, and we will use them to match against our template's UUIDs.  
     for (var key in object) { // Loop through each key in the original object:
       if (typeof object[key] === "object") { // If it is an array or an object, recurse into it: 
@@ -110,6 +119,7 @@ export function convertTemplateToSchema(template, config) {
   }
 
   function arrayOfUUIDsToDict(object) {
+    // Converts arrays containing UUIDs to dictionaries with UUIDs as keys:
     function arrayChildrenAllHaveUUIDs(array) {
       for (var i = 0; i < array.length; i++) {
         if (!array[i]["uuid"])
@@ -141,6 +151,7 @@ export function convertTemplateToSchema(template, config) {
   }
 
   function convertToValidJSONSchema(template) {
+    // Converts the template to a valid JSON Schema.
     let schema = {
       "type": "object",
       "properties": {}
@@ -164,5 +175,17 @@ export function convertTemplateToSchema(template, config) {
     }
     return schema;
   }
-  return convertToValidJSONSchema(arrayOfUUIDsToDict(applyBlockTypeDefaults(convertKeys(template))));
+
+  // First we rename the templates keys using convertKeys,
+  // then inject default values for objects with matching keys specified in blockTypeDefaults,
+  // we change the array of objects to a dictionary with UUIDs as keys,
+  // then we convert the dictionary properties to readOnly JSON schema properties, except for the default values,
+  // returning a JSON schema object.
+  return convertToValidJSONSchema(
+    arrayOfUUIDsToDict(
+      applyBlockTypeDefaults(
+        convertKeys(template)
+      )
+    )
+  );
 }
