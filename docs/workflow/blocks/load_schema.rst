@@ -180,6 +180,10 @@ A schema must be supplied via the schema property, or via the schemaGetter.
 - **schemaGetter** - Optional, a JMESPath mapping can be specified. It is evaluated to get the schema.
 
 
+Schema templates
+----------------
+- :ref:`load_schema_template`
+
 Related blocks
 --------------
 - :ref:`db` - the local database block
