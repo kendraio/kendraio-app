@@ -21,8 +21,9 @@ import { v4 as uuidv4 } from 'uuid';
 // We convert template objects so further information can be added to the form.
 // We make new JSON schemas for the Form block to use to fill extra details in, 
 
-// TODO: depreciate hardcoded CMS specific properties and methods including "blockTypeDefaults", "block-content-type", "block-content".
-// TODO: write tests with different kinds of templates.
+// TODO: depreciate / rename CMS related config key name: "blockTypeDefaults",
+// TODO: generalise applyBlockTypeDefaults to perform default injection in multiple object types
+// as applyBlockTypeDefaults currently operates only on objects within a "block-content" key.
 
 export function convertTemplateToSchema(template, config) {
   let converter = new Converter(template, config);
