@@ -34,6 +34,7 @@ Available operations
 - **update** - modify a single item in the database
 - **add** - add a new item
 - **delete** - delete an item
+- **upsert** - adds or updates an item. (Must have a UUID specified in the data)
 
 Supported properties  
 ---------------------
