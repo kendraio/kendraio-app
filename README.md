@@ -73,7 +73,7 @@ Running End-to-end tests with the development environment
 
 `npm run e2e:autorun` is good for automatically running unit and E2E tests ONCE, using an already running server.
 
-`npm run e2e:serve_and_test` will start the dev server, and run unit and E2E headless tests once automatically and stop. It this is configured to work automatically in a headless environment, and will run in a container, producing a HTML report file and JSON file at `cypress/results/mochawesome.json` on first run.
+`npm run e2e:serve_and_test` will start the dev server, and run unit and E2E headless tests once automatically and stop, producing a HTML report file and JSON file at `cypress/results/mochawesome.json` on first run.
 
 The existing `npx ng e2e` Angular command works too, but requires clicking on the set of tests that need running. It builds and runs the server then runs E2E tests once.
 
