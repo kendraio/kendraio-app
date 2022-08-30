@@ -59,7 +59,7 @@ export class Converter {
    * @memberof Converter
    */
   convert() {
-    // We are provided with a template object, and a config object.
+    // Uses the template object, and config object.
     // The config should contain an object with two keys: blockTypeDefaults, and convertables
     // blockTypeDefaults defines JSON to inject (and where to inject it).
     // convertables defines simple key renamings to use to transform the template.
@@ -130,7 +130,7 @@ export class Converter {
         newObject[this.convertables[key]] = this.convertKeys(object[key]);
         delete newObject[key];
       } else {
-        if (typeof object[key] === "object") { // Recurse into objects, but not arrays.  Arrays are handled below.  This is a little hacky, but it works for now.  We could also check the type of the value at each level and handle it accordingly.  
+        if (typeof object[key] === "object") { // Recurse into objects, but not arrays.  Arrays are handled below. We could also check the type of the value at each level and handle it accordingly.  
           newObject[key] = this.convertKeys(object[key]); // Recurse into objects, but not arrays.  Arrays are handled below.  
         }
         // now we handle arrays:
@@ -168,7 +168,7 @@ export class Converter {
       if (typeof object[key] === "object") { // If it is an array or an object, recurse into it: 
         newObject[key] = this.applyBlockTypeDefaults(object[key]); // Recursively call this function on any objects found within this one, replacing them with their converted versions as they are returned from recursion.  
 
-        if (Array.isArray(newObject[key]) && newObject[targetKeyName]) { // If we have a block-content array that contains objects with uuids matching those of our defaults...  This is a little hacky because I'm not sure how to handle arrays at each level without checking for specific keys like this... but it works for now! :)
+        if (Array.isArray(newObject[key]) && newObject[targetKeyName]) { // If we have a block-content array that contains objects with uuids matching those of our defaults... 
 
           var tempArray = [];
           for (var i = 0; i < newObject[key].length; i++) { // Loop through the array of objects.  
