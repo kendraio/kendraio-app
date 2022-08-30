@@ -19,7 +19,7 @@
     "e2e:serve_and_retest_on_change": "start-server-and-test serve:dev http://localhost:4200 'npm run e2e:retest_on_change'",
     "e2e:retest_on_change": "nodemon -e js,jsx,ts,tsx,css,scss --exec 'ng test -- --watch=false; cypress run --headed --no-exit'",
     "e2e:autorun": "ng test -- --watch=false; cypress run --headed --no-exit",
-    "e2e:serve_and_test": "npx cypress install; start-server-and-test serve:dev http://localhost:4200 'ng test -- --watch=false; cypress run'"
+    "e2e:serve_and_test": "npx cypress install; xvfb-maybe start-server-and-test serve:dev http://localhost:4200 'ng test -- --watch=false; cypress run'"
   },
   "private": true,
   "dependencies": {
@@ -128,7 +128,7 @@
     "@types/wavesurfer.js": "^2.0.2",
     "codelyzer": "^6.0.2",
     "cypress": "^9.7.0",
-    "electron": "^15.3.5",
+    "electron": "^15.5.7",
     "jasmine-core": "~3.10.1",
     "jasmine-spec-reporter": "~7.0.0",
     "karma": "^6.3.16",
@@ -148,7 +148,8 @@
     "tslint": "^6.1.3",
     "typescript": "4.4.4",
     "webpack": "^5.61.0",
-    "webpack-dev-server": "^4.4.0"
+    "webpack-dev-server": "^4.4.0",
+    "xvfb-maybe": "^0.2.1"
   },
   "browser": {
     "crypto": false
