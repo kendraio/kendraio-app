@@ -65,11 +65,11 @@ describe('Kendraio context and state', () => {
           "template": "Loaded."
         }
       ]);
-
-      cy.window().should('have.property', 'databaseInit', true);
+    
 
       cy.get('mat-spinner').should('not.exist');
       cy.get('body').contains('Loaded.');
+      cy.window().should('have.property', 'databaseInit', true);
       cy.wrap(getMetadataTable()).then((metadata) => {
         // check that 1 item exists in the metadata table
         expect(metadata.length).to.equal(1);
@@ -139,11 +139,10 @@ describe('Kendraio context and state', () => {
         }
       ]);
 
-      cy.window().should('have.property', 'databaseInit', true);
-
 
       cy.get('mat-spinner').should('not.exist');
       cy.get('body').contains('Loaded.');
+      cy.window().should('have.property', 'databaseInit', true);
       cy.contains('name:"test"');
       cy.contains('name:"test2"');
       cy.wrap(getMetadataTable()).then((metadata) => {
