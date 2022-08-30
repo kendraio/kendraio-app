@@ -53,13 +53,14 @@ The Devcontainer.json file
 A devcontainer.json file in your project tells Visual Studio Code (and other services and tools that support the format) how to access (or create) a development container with a well-defined tool and runtime stack. This file is used to automatically configure Codespaces, and it will also allow for local development using containers. 
 
 
-
 Setting up a local development environment
 ------------------------------------------
 
-You will need to install node, npm, and the Angular CLI.
-Clone the repo.
-Run `npm install`
+If you are not running inside a container, you will need to install node, npm, and the Angular CLI.
+
+* Clone the repo.
+* Run `npm install`
+
 You can start the development server using `npm run serve:dev` or use `npm run e2e:serve_and_retest_on_change`, which will run the dev server and tests upon changes.
 
 
@@ -72,9 +73,20 @@ Running End-to-end tests with the development environment
 
 `npm run e2e:autorun` is good for automatically running unit and E2E tests ONCE, using an already running server.
 
-`npm run e2e:serve_and_test` will start the dev server, and run unit and E2E headless tests once automatically and stop. It might even work in CI, producing a HTML report file and JSON file at `cypress/results/mochawesome.json` on first run.
+`npm run e2e:serve_and_test` will start the dev server, and run unit and E2E headless tests once automatically and stop. It this is configured to work automatically in a headless environment, and will run in a container, producing a HTML report file and JSON file at `cypress/results/mochawesome.json` on first run.
 
 The existing `npx ng e2e` Angular command works too, but requires clicking on the set of tests that need running. It builds and runs the server then runs E2E tests once.
+
+Running tests in a container
+============================
+The predefined npm test commands have all been configured to run in a container, but if you are using alternative testing commands, you may find that testing fails due to the lack of a display. To get around this, use **xvfb-maybe**, which will set up a virtual display if one is needed. 
+
+To use xvfb-maybe, prefix any commandline with `npx xvfb-maybe`
+eg: 
+* `npx xvfb-maybe ng test`
+
+
+
 
 
 Adding a "Block" (i.e. Task for the Flow editor)
