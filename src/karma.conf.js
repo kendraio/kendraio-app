@@ -35,13 +35,6 @@ module.exports = function (config) {
             contextIsolation: false
           }
         }
-      },
-      ChromeHeadlessNoSandbox: {
-        base: "ChromeHeadless",
-        flags: [
-          "--no-sandbox",
-          "--disable-setuid-sandbox"
-        ]
       }
     },
     browsers: ['CustomElectron'],
