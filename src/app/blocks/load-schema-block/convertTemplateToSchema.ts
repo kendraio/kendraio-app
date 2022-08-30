@@ -1,39 +1,50 @@
-// convertTemplateToSchema.spec.ts
 import { get, clone } from 'lodash-es';
 import { v4 as uuidv4 } from 'uuid';
 
-// Makes form schemas from existing JSON data as a template 
-// Rather than record schemas being fixed in stone with no way to add new properties, 
-// we enable dynamic form creation, that allows building upon existing data.
-// Using existing JSON records as a template, we allow creating new records by using 
-// configurable transformations, adding new fields, generating new UUIDs etc.
-// By transforming existing JSON record objects using user defined templates.
-// Data is changed into templates using configurable rules.
-// 
-// Background context:
-// ===================
-// Users can make schemas using the schema builder, and make records for the schemas.
-// The records can themselves be templates for other forms.
-// Users can make records with the Form block and save them as records for use as templates.
-// Example use-case: a Content Management System (CMS) can have templates for different blocks of content, text, images, videos etc.
-// Using this, the CMS can then use the templates to create new content.
-// The load-schema block can allow adding new JSON properties to these records.
-// We convert template objects so further information can be added to the form.
-// We make new JSON schemas for the Form block to use to fill extra details in, 
-
-// TODO: depreciate / rename CMS related config key name: "blockTypeDefaults",
-// TODO: generalise applyBlockTypeDefaults to perform default injection in multiple object types
-// as applyBlockTypeDefaults currently operates only on objects within a "block-content" key.
-
+/**
+ * Makes form schemas from existing JSON data as a template 
+ * Rather than record schemas being fixed in stone with no way to add new properties, 
+ * we enable dynamic form creation, that allows building upon existing data.
+ * Using existing JSON records as a template, we allow creating new records by using 
+ * configurable transformations, adding new fields, generating new UUIDs etc.
+ * By transforming existing JSON record objects using user defined templates.
+ * Data is changed into templates using configurable rules.
+ * 
+ * Background context:
+ * ===================
+ * Users can make schemas using the schema builder, and make records for the schemas.
+ * The records can themselves be templates for other forms.
+ * Users can make records with the Form block and save them as records for use as templates.
+ * Example use-case: a Content Management System (CMS) can have templates for different blocks of content, text, images, videos etc.
+ * Using this, the CMS can then use the templates to create new content.
+ * The load-schema block can allow adding new JSON properties to these records.
+ * We convert template objects so further information can be added to the form.
+ * We make new JSON schemas for the Form block to use to fill extra details in, 
+ * 
+ * @param {object} template - The template object to convert.
+ * @param {object} config - The config object to use for conversion.
+ * @returns {object} - A JSON schema object.
+ */
 export function convertTemplateToSchema(template, config) {
   let converter = new Converter(template, config);
   return converter.convert();
 }
 
+/**
+ * The converter class.
+ * 
+ * @class Converter
+ */
 export class Converter {
   blockTypeDefaults;
   convertables;
   template;
+  /**
+   * Creates an instance of Converter.
+   * @param {object} template - The template object to convert.
+   * @param {object} config - The config object to use for conversion.
+   * @memberof Converter
+   */
   constructor(template, config) {
     this.blockTypeDefaults = get(config, 'blockTypeDefaults', {});
     this.convertables = get(config, 'convertables', {});
@@ -41,7 +52,12 @@ export class Converter {
     return this;
   }
 
-
+  /**
+   * Converts the template to a valid JSON schema.
+   * 
+   * @returns {object} - A JSON schema object.
+   * @memberof Converter
+   */
   convert() {
     // We are provided with a template object, and a config object.
     // The config should contain an object with two keys: blockTypeDefaults, and convertables
@@ -90,12 +106,24 @@ export class Converter {
     );
   }
 
+  /**
+   * Generates a UUID v4.
+   * 
+   * @returns {string} - A UUID v4 string.
+   * @memberof Converter
+   */
   uuid() {
     return uuidv4();
   }
 
+  /**
+   * Converts keys in the template using the convertables.
+   * 
+   * @param {object} object - The object to convert.
+   * @returns {object} - A copy of the original object with all keys converted.
+   * @memberof Converter
+   */
   convertKeys(object) {
-    // Convert keys in the template using the convertables.
     var newObject = clone(object);
     for (var key in object) {
       if (this.convertables[key]) {
@@ -119,6 +147,14 @@ export class Converter {
     return newObject; // Return a copy of the original object with all keys converted.  
   }
 
+  /**
+   * Applies blockTypeDefaults to each block-content key. 
+   * This means that when we find an object with a UUID matching an expected key, we replace it's contents entirely with a copy of the defaults.
+   * 
+   * @param {object} object - The object to apply blockTypeDefaults to.
+   * @returns {object} - A copy of the original object with all keys converted and replaced by their default values where applicable!
+   * @memberof Converter
+   */
   applyBlockTypeDefaults(object) {
     // We recursively loop through the object and apply blockTypeDefaults to each block-content key. 
     // This means that when we find an object with a UUID matching an expected key, we replace it's contents entirely with a copy of the defaults.
@@ -156,6 +192,13 @@ export class Converter {
   }
 
 
+  /**
+   * Converts arrays containing UUIDs to dictionaries with UUIDs as keys.
+   * 
+   * @param {object} object - The object to convert.
+   * @returns {object} - A copy of the original object with all arrays converted to objects where applicable!
+   * @memberof Converter
+   */
   arrayOfUUIDsToDict(object) {
     // Converts arrays containing UUIDs to dictionaries with UUIDs as keys:
     function arrayChildrenAllHaveUUIDs(array) {
@@ -188,6 +231,13 @@ export class Converter {
     return newObject; // Return a copy of the original object with all arrays converted to objects where applicable!
   }
 
+  /**
+   * Converts the template to a valid JSON Schema.
+   * 
+   * @param {object} template - The template object to convert.
+   * @returns {object} - A JSON schema object.
+   * @memberof Converter
+   */
   convertToValidJSONSchema(template) {
     // Converts the template to a valid JSON Schema.
     let schema = {
