@@ -22,5 +22,5 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
         libxtst6 xauth xvfb
 
 
-# [Optional] Uncomment if you want to install more global node packages
+# Install more global node packages
 RUN su node -c "npm install -g @angular/cli --legacy-peer-deps"
