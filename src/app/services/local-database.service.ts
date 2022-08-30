@@ -17,6 +17,7 @@ export class LocalDatabaseService extends Dexie {
       installCoreWorkflows(this);
       this.configureDefaultSettings();
     });
+    window['databaseInit'] = true;
   }
 
   configureDefaultSettings() {

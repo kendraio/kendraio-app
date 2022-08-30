@@ -89,10 +89,9 @@ If the above is loaded in (using a database / DB block, like the "editItem" flow
     }
 
 
-Referencing / transcluding other schemas (via array / object config)
+Allowing input of list objects using existing schemas (in List / Object config)
 ---------------------------------------------------------------------
-
-Supplied schemas can transclude other schemas by using an "Array" or "Object" type, which has the name of the schema specified in the config property.
+If you already have a schema you want to use for a form field, or list of fields, you can reference the schema name in the "config" property of an "Array" or "Object".
 E.g: a "team" schema could have a people list specified with a property like this:  
 
 .. code-block:: json
@@ -103,7 +102,7 @@ E.g: a "team" schema could have a people list specified with a property like thi
         "title": "People",
         "config": "person"
     }
-This would allow a form to capture a list of people without having to redefine what properties a person list may be composed of. This is especially helpful given that the schema editor does not supported nested items.
+This would transclude the "person" schema and allow a form to capture a list of people without having to redefine what properties a "person" list may be composed of. This is especially helpful given that the schema editor does not supported nested items.
 
 Similarly, a "rental agreement" schema could define a owner field and a leaseholder field, both using a person object.
 
@@ -124,12 +123,13 @@ Similarly, a "rental agreement" schema could define a owner field and a leasehol
         }
     ]
 
-Transclusion of selectable record objects (ObjectReference)
+Selecting existing records (ObjectReference)
 -----------------------------------------------------------
+List records from a schema, and allow the user to select one of them.
+E.g: If a list of person records were stored in the database, a ObjectReference
+can be used to select a single selected person record, transcluded from "person" records.
 
 ObjectReference accepts a schema config name, and populates a list of records from the database for selection by the user.
-E.g: If a list of person records were stored in the database, a ObjectReference
-can be used to transclude a single selected person record for selection.
 
 .. code-block:: json
 
@@ -148,10 +148,10 @@ can be used to transclude a single selected person record for selection.
         }
     ]
 
-Transclusion of multiple selectable record objects (ListReference)
+Allowing selection of multiple record objects (ListReference)
 ------------------------------------------------------------------
 To select a list of multiple record objects, use the ListReference type.
-E.g: A list of team members could be populated.
+E.g: A list of multiple team members could be selected from the "person" records (see below).
 Note that the UUID of the object is also stored to uniquely identify the object.
 
 .. code-block:: json
@@ -179,6 +179,10 @@ A schema must be supplied via the schema property, or via the schemaGetter.
 - **schema** - Optional, a schema can be directly specified.
 - **schemaGetter** - Optional, a JMESPath mapping can be specified. It is evaluated to get the schema.
 
+
+Schema templates
+----------------
+- :ref:`load_schema_template`
 
 Related blocks
 --------------

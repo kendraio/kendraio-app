@@ -4,6 +4,7 @@ import { get, has, clone } from 'lodash-es';
 import { mappingUtility } from '../mapping-block/mapping-util';
 import { LocalDatabaseService } from '../../services/local-database.service';
 import { validate as isValidUUID } from 'uuid';
+import { convertTemplateToSchema } from './convertTemplateToSchema';
 
 @Component({
   selector: 'app-load-schema-block',
@@ -18,6 +19,8 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
   schemaGetter = '';
   lastOutput = {};
 
+  templateToSchema = {};
+
   constructor(
     private readonly localDatabase: LocalDatabaseService
   ) {
@@ -29,9 +32,21 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
     this.adapterName = get(config, 'adapterName', 'schemas');
     this.schema = get(config, 'schema', '');
     this.schemaGetter = get(config, 'schemaGetter', '');
+    this.templateToSchema = get(config, 'templateToSchema', '');
   }
 
   async onData(data: any, firstChange: boolean) {
+
+    if (this.templateToSchema) {
+      const jsonSchema = convertTemplateToSchema(data, this.templateToSchema);
+      //this.lastOutput = jsonSchema;
+      this.lastOutput = {
+        "jsonSchema": jsonSchema, "uiSchema": {}
+      };
+      this.output.emit(this.lastOutput);
+      console.log('Emitting new templateToSchema schema:', JSON.stringify(this.lastOutput, null, 2));
+      return;
+    }
     // schemaGetter config can reference the location of a "schema", which we turn into a JSON schema, if defined. 
     // If not, we use the schema config value.
     const baseSchema = (!!this.schemaGetter)
@@ -49,6 +64,8 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
       this.lastOutput = { jsonSchema, uiSchema: {} };
       this.output.emit(this.lastOutput);
     }
+
+
   }
 
   /**
