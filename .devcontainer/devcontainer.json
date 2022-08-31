@@ -1,0 +1,7 @@
+{
+    "name":"kendraio-app",
+    "forwardPorts": [4200],
+
+    "image": "mcr.microsoft.com/vscode/devcontainers/typescript-node:0-16"
+
+}
