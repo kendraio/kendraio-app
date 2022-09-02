@@ -19,8 +19,8 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
         libnss3 \
         libxss1 \
         libasound2 \
-        libxtst6 xauth xvfb
-
+        libxtst6 xauth xvfb \
+        openssh-server
 
 # Install more global node packages
 RUN su node -c "npm install -g @angular/cli --legacy-peer-deps"
