@@ -68,6 +68,8 @@ In the below example, Dropbox uploads are listed. The contextBlocks sub-flow get
     ]
 
 
+The above example is from: https://app.kendra.io/dropbox/listUploads
+
 Config properties
 -----------------
 
