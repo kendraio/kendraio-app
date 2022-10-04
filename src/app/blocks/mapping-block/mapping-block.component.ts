@@ -20,17 +20,18 @@ export class MappingBlockComponent implements OnInit, OnChanges {
   skipFirst = false;
   runOnce = false;
   hasRun = false;
-  lastState = null;
-
   hasError = false;
   errorMessage = '';
-  ignoreState = false;
-  stateChangeInitTimestamps = [];
-  stateDeferTime = 100;
+
+  ignoreState = false; // Config can be set to ignore state changes
+  lastState = null; // Records prior state
+  slowMode = false; // Reactions are throttled if there are multiple state changes in a short time
+  stateChangeInitTimestamps = []; // Records how often state changes occur to enable throttling
+  scheduledRuns = 0; // How many delayed runs are scheduled.
 
   constructor(
     private stateService: SharedStateService
-  ) {    
+  ) {
     stateService.state$.subscribe({next: (result:any) => this.handleStateChange(), error: () =>{}})
   }
   handleStateChange(): void {
@@ -42,12 +43,14 @@ export class MappingBlockComponent implements OnInit, OnChanges {
     if (mappingUsesState === false) {
       return;
     }
-    // extract the state keys used in the mapping, they are in the format of state.[global/local].[key]
+    // Extract the state keys used in the mapping, they are in the format of state.[global/local].[key]
     const stateKeys = this.mapping.match(/state\.(global|local)\.[a-zA-Z0-9_]+/g);
-    // does the state differ for the any state keys that are used in the mapping?
+    // Does the state differ for the any state keys that are used in the mapping?
     const lastStateJSON = JSON.parse(this.lastState);
-    let differingKeys = []; 
-    const stateKeyDiffers = stateKeys && stateKeys.length > 0 && stateKeys.some(key => {
+    let differingKeys = [];
+
+    // We detect if any of the state key values are different in the mapping we are using
+    const watchedStateDiffers = stateKeys && stateKeys.length > 0 && stateKeys.some(key => {
       // we strip "state." from the key to get the actual key name:
       const stateKey = key.replace('state.', '');
       const latestStateValue = get(this.stateService.state, stateKey);
@@ -60,50 +63,73 @@ export class MappingBlockComponent implements OnInit, OnChanges {
       return changed;
     });
 
-    if (stateKeyDiffers) {
-      //console.log('mapping state change', JSON.stringify(differingKeys), this.stateDeferTime, window['stateLoopRisks']);
+    if (watchedStateDiffers) {
+      // Set some defaults that are used for delaying the execution of the mapping blocks 
+      window['stateDeferTime'] = window['stateDeferTime'] || 10;
+      window['queuedStateReaction'] = window['queuedStateReaction'] || [];
+      window['stateLoopRisks'] = window['stateLoopRisks'] || [];
+
+      // Makes a global queue worker if not found.
+      // Instead of setIntervals we use setTimeouts to allow variable delays
+      if (window['queuedStateReactionWorker'] === undefined) {
+        window['queuedStateReactionWorkerFunction'] = () => {
+          // We just run the first item in the queue, rather than all of them.
+          // This avoids running reactions to lots of state changes in a short time, which can cause performance issues.
+          // However this also will slow some things down, so we need to find a balance while we have this band-aide in place.
+          if (window['queuedStateReaction'].length > 0) {
+            const next = window['queuedStateReaction'].shift();
+            next();
+          }
+          window['queuedStateReactionWorker'] = setTimeout(window['queuedStateReactionWorkerFunction'], window['stateDeferTime']);
+        };
+        window['queuedStateReactionWorker'] = setTimeout(window["queuedStateReactionWorkerFunction"], window['stateDeferTime']);
+      }
+
+      // Tracks our rate of changes over time.
+      // If there are more than 2 state changes in 1 second we will slow down.
       const now = new Date().getTime();
       this.stateChangeInitTimestamps.push(now);
       const lastSecond = now - 1000;
       const stateChangesInLastSecond = this.stateChangeInitTimestamps.filter(t => t > lastSecond);
-      if (stateChangesInLastSecond.length > 2) {
-        // We probably are in a loop, so we ignore most of the state changes
-        // Just in case we are not in a loop, we assign a single defered state change using setTimeout if there is not already one pending then return to ignore the current change for now
-        
-        // we multiply stateDeferTime each time we get a state change
-        this.stateDeferTime = Math.min(Math.floor(this.stateDeferTime * 1.2), 3000);
+      const tooFast = stateChangesInLastSecond.length > 2;
+      // If we have been too fast, we slow down.
+      if (tooFast || this.slowMode) {
+        // We probably are in a loop, so we delay reactions to state changes
+        this.slowMode = true;
 
-        // there can be multiple mapping blocks on the page, so we need to make sure we only have one defered state change pending
-        // we use window['stateDeferedTimer'] to make sure we only have one defered state change pending
-        // to track possible loops, we use an array at window['stateLoopRisks'] to append the current mapping block info
-        
-        window['stateLoopRisks'] = window['stateLoopRisks'] || [];
-        // we add our mapping string to the stateLoopRisks array with a timestamp
-        window['stateLoopRisks'].push({mapping: this.mapping, timestamp: now});
+        // We multiply stateDeferTime each time we get a state change
+        window['stateDeferTime'] = Math.min(Math.floor(window['stateDeferTime'] * 1.28), 4000);
+
+        if (tooFast) {
+          // to track possible loops, add our mapping string to the stateLoopRisks array
+          window['stateLoopRisks'].push({ mapping: this.mapping, timestamp: now });
+        }
 
         // we look for fellow loop risks, identify the chain structure and log it:
         const loopRisks = window['stateLoopRisks'];
 
         if (loopRisks.length > 1) {
           const loopRiskChains = loopRisks.map(r => r.mapping);
-          console.log('loop risk chain', loopRiskChains);
+          //console.log('loop risk chain', loopRiskChains, 'stateDeferTime', window['stateDeferTime'], 'queuedStateReaction count', window['queuedStateReaction'].length, 'scheduledRuns', this.scheduledRuns);
         }
-        if (window['stateDeferedTimer'] === null) {
 
-          if (loopRisks.length > 1) {
-            const loopRiskChains = loopRisks.map(r => r.mapping);
-            console.log('loop risk chain', loopRiskChains);
-          }
-
-          window['stateDeferedTimer'] = setTimeout(() => {
-            window['stateDeferedTimer'] = null;
-            // now we trigger the state change
+        // Queues up a reaction to the state event if we do not have a reaction scheduled yet:
+        if (this.scheduledRuns < 1) {
+          window['queuedStateReaction'].push(() => {
+            // Now we trigger the state change
+            console.log("Running throttled state change for mapping", this.mapping);
             this.ngOnChanges({});
-          }, this.stateDeferTime);
+            // Decrement the scheduled runs, but never go below 0
+            this.scheduledRuns = Math.max(this.scheduledRuns - 1, 0);
+          });
+        } else {
+          // We already have reactions scheduled. We don't need to queue up another one.
+          console.log(this.scheduledRuns, 'state changes have occured for', this.mapping, 'but we are waiting to process them.')
         }
         return;
 
       }
+      // If we did not bail out already, we trigger the mapping block evaluation immediately:
       this.ngOnChanges({});
 
     }
