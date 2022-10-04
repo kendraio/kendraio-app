@@ -19,8 +19,6 @@ export class GsheetBlockComponent extends BaseBlockComponent {
   isLoading = false;
 
   onConfigUpdate(config: any) {
-    //this.key = get(config, 'key', '');
-    //this.simple = get(config, 'simple', '');
     this.shareUrl = get(config, 'shareUrl');
   }
 

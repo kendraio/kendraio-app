@@ -18,7 +18,7 @@
     "deploy": "mv dist/index.html functions/ && firebase deploy --only functions,hosting",
     "e2e:serve_and_retest_on_change": "xvfb-maybe start-server-and-test serve:dev http://localhost:4200 'npm run e2e:retest_on_change'",
     "e2e:retest_on_change": "xvfb-maybe nodemon -e js,jsx,ts,tsx,css,scss --exec 'ng test -- --watch=false; cypress run --headed --no-exit'",
-    "e2e:autorun": "xvfb-maybe ng test -- --watch=false; xvfb-maybe cypress run --headed --no-exit",
+    "e2e:autorun": "xvfb-maybe ng test -- --watch=false; xvfb-maybe cypress run --headed",
     "e2e:serve_and_test": "npx cypress install; xvfb-maybe start-server-and-test serve:dev http://localhost:4200 'ng test -- --watch=false; cypress run'"
   },
   "private": true,
@@ -127,7 +127,7 @@
     "@types/uuid": "^8.3.1",
     "@types/wavesurfer.js": "^2.0.2",
     "codelyzer": "^6.0.2",
-    "cypress": "^9.0.0",
+    "cypress": "9.0.0",
     "electron": "^15.3.5",
     "jasmine-core": "~3.10.1",
     "jasmine-spec-reporter": "~7.0.0",
