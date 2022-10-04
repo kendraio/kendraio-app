@@ -118,7 +118,7 @@ export class MappingBlockComponent implements OnInit, OnChanges {
         if (this.scheduledRuns < 1) {
           window['queuedStateReaction'].push(() => {
             // Now we trigger the state change
-            console.log("Running throttled state change for mapping", this.mapping);
+            console.log("Running throttled state change for mapping", this.mapping, 'after waiting', window['stateDeferTime']/1000, 'seconds');
             this.ngOnChanges({});
             // Decrement the scheduled runs, but never go below 0
             this.scheduledRuns = Math.max(this.scheduledRuns - 1, 0);
