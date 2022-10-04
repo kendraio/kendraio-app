@@ -76,6 +76,7 @@ export class MappingBlockComponent implements OnInit, OnChanges {
           // We just run the first item in the queue, rather than all of them.
           // This avoids running reactions to lots of state changes in a short time, which can cause performance issues.
           // However this also will slow some things down, so we need to find a balance while we have this band-aide in place.
+          // TODO: Ensure one item in the queue from each mapping block, so we can run all throttled mapping responses at the same time for good response times and minimal performance impact.
           if (window['queuedStateReaction'].length > 0) {
             const next = window['queuedStateReaction'].shift();
             next();
