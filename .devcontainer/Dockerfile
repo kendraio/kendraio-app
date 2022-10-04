@@ -23,4 +23,4 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
         openssh-server
 
 # Install more global node packages
-RUN su node -c "npm install -g @angular/cli cypress --legacy-peer-deps"
+RUN su node -c "npm install -g @angular/cli --legacy-peer-deps"
