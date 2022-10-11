@@ -36,6 +36,7 @@ export class MappingBlockComponent implements OnInit, OnChanges {
   }
   handleStateChange(): void {
     if (this.ignoreState) {
+      console.log("Ignoring state change due to flag")
       return;
     }
     const stateDiffers = this.lastState !== JSON.stringify(this.stateService.state);
