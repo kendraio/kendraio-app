@@ -4,15 +4,13 @@ import { loadFlowCode } from '../support/helper';
 
 
 describe('Google sheets import', () => {
-  beforeEach(() => {
-    cy.intercept('GET', 'http://example.com/sheet1.csv', {
-        fixture: 'googleSheet.csv'
-      } ).as('googleSheet.csv');
-  });
-
     
+  
     it('should extract shared CSV data from a published google sheet', () => {
-        loadFlowCode([          
+      cy.intercept('GET', 'http://example.com/sheet1.csv', {
+        fixture: 'googleSheet.csv'
+      } ).as('googleSheet');
+      loadFlowCode([          
           {
             "type": "init",            
           },
@@ -24,9 +22,9 @@ describe('Google sheets import', () => {
             "type":"debug",
             "open":3
           }
-    ]);
-        cy.contains("Adobe Cabernet Sauvignon Reserva").should('exist'); // defaults
-
+      ]);
+      cy.wait(['@googleSheet']);
+      cy.contains("Adobe Cabernet Sauvignon Reserva").should('exist'); // defaults
     });
 
 });
