@@ -133,7 +133,7 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
   shareForm() {
     const JSONSchema = JSON.parse(this.JSONSchema);
     const UISchema = JSON.parse(this.UISchema);
-    this.shareLinks.shareLink('form-builder', {JSONSchema, UISchema});
+    this.shareLinks.shareFlowLink('form-builder', {JSONSchema, UISchema});
   }
 
   onChange() {

@@ -8,7 +8,9 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class ShowShareLinkDialogComponent implements OnInit {
 
-  shareLink = '';
+  flowShareLink = '';
+  dbShareLink = '';
+  shareMode = '';
 
   @ViewChild('textBox') textBox;
 
@@ -18,13 +20,16 @@ export class ShowShareLinkDialogComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.shareLink = this.data.shareLink;
+    this.flowShareLink = this.data.flowShareLink;
+    this.dbShareLink = this.data.dbShareLink;
   }
 
   copyText() {
     this.textBox.nativeElement.focus();
     this.textBox.nativeElement.select();
     window.document.execCommand('copy');
+    // TODO: consider the more new API:
+    // navigator.clipboard.writeText(this.shareLink);
   }
 
 }

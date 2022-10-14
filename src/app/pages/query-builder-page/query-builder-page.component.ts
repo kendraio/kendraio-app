@@ -246,6 +246,6 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
 
   shareQuery() {
     const Q = JSON.parse(this.queryModelText);
-    this.shareLinks.shareLink('query-builder', {Q});
+    this.shareLinks.shareFlowLink('query-builder', {Q});
   }
 }
