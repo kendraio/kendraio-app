@@ -1,6 +1,6 @@
 <ng-container *ngFor="let b of buttons; let i = index">
-  <button [attr.id]="b.id" type="button" class="actions-button" *ngIf="b.enabled && (!b.color || b.color !== 'link')"
-          mat-flat-button [color]="b.color" (click)="onSubmit(b)">{{ getLabel(b) }}</button>
+  <button [attr.id]="b.id" type="button" class="actions-button" *ngIf="(!b.color || b.color !== 'link')"
+          mat-flat-button [color]="b.color" (click)="onSubmit(b)"  [disabled]="! b.enabled"  >{{ getLabel(b) }}</button>
   <a [attr.id]="b.id" class="actions-button" *ngIf="b.enabled && b.color === 'link'"
      mat-button color="link" (click)="onSubmit(b)">{{ getLabel(b) }}</a>
 </ng-container>
