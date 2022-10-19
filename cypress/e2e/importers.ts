@@ -15,15 +15,28 @@ describe('Google sheets import', () => {
             "type": "init",            
           },
           {
-            "type": "gsheet",
-            "shareUrl": "http://example.com/sheet1.csv"
-          },
+            "type": "actions",
+            "buttons": [
+                {
+                    "label": "Import Sheet",
+                    "color": "default",
+                    "blocks": [
+                      {
+                        "type": "gsheet",
+                        "shareUrl": "http://example.com/sheet1.csv"
+                      }
+                    ],
+                    "enabled": true
+                }
+            ]
+        },
+          
           {
             "type":"debug",
             "open":3
           }
       ]);
-      cy.wait(['@googleSheet']);
+      cy.contains('Import Sheet').click().wait(['@googleSheet']);
       cy.contains("Adobe Cabernet Sauvignon Reserva").should('exist'); // defaults
     });
 
