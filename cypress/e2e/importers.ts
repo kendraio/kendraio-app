@@ -7,7 +7,7 @@ describe('Google sheets import', () => {
     
   
     it('should extract shared CSV data from a published google sheet', () => {
-      cy.intercept('GET', 'http://example.com/sheet1.csv', {
+      cy.intercept('GET', 'http://google-sheets-example.com/sheet1.csv', {
         fixture: 'googleSheet.csv'
       } ).as('googleSheet');
       loadFlowCode([          
@@ -23,7 +23,7 @@ describe('Google sheets import', () => {
                     "blocks": [
                       {
                         "type": "gsheet",
-                        "shareUrl": "http://example.com/sheet1.csv"
+                        "shareUrl": "http://google-sheets-example.com/sheet1.csv"
                       }
                     ],
                     "enabled": true
