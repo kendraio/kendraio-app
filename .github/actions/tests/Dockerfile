@@ -1,4 +1,4 @@
-FROM cypress/included:8.4.1
+FROM cypress/included:10.9.0
 
 # https://docs.cypress.io/guides/continuous-integration/introduction#Machine-requirements
 RUN apt-get update && apt-get install -y curl jq
