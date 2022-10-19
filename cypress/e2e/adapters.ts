@@ -36,7 +36,7 @@ describe('Adapter install', () => {
         "action": "installAdapter"
       }
     ]);
-    cy.wait(1000); // give the adapter time to install.
+    cy.wait(2000); // give the adapter time to install.
     loadFlowCode([
       {
         "type": "adapter-info",
