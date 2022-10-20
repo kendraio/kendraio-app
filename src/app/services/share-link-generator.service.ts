@@ -16,24 +16,20 @@ export class ShareLinkGeneratorService {
   ) { }
 
   async shareFlowLink(path, flowData) {
-
     //environment.urlPrefix = 'http://127.0.0.1:4200/';
+    const compressed_flow = LZS.compressToEncodedURIComponent(JSON.stringify(flowData));
+    const flowShareLink = `${environment.urlPrefix}${path}?data=${compressed_flow}`;
 
-    
-      const compressed_flow = LZS.compressToEncodedURIComponent(JSON.stringify(flowData));
-      const flowShareLink = `${environment.urlPrefix}${path}?data=${compressed_flow}`;
+    const json_metadata_string = await this.localDatabase.exportMetadataTable();
+    const compressed_database = LZS.compressToEncodedURIComponent(json_metadata_string);
+    const dbShareLink = `${environment.urlPrefix}${path}?metadata=${compressed_database}`;
 
-      const json_metadata_string = await this.localDatabase.exportMetadataTable();
-      const compressed_database = LZS.compressToEncodedURIComponent(json_metadata_string);
-      const dbShareLink = `${environment.urlPrefix}${path}?metadata=${compressed_database}`;
-
-      const _dialogRef = this.dialog.open(ShowShareLinkDialogComponent, {
-        data: { flowShareLink: flowShareLink,
-                dbShareLink: dbShareLink }
-      });
-    
-
-  
+    this.dialog.open(ShowShareLinkDialogComponent, {
+      data: {
+        flowShareLink: flowShareLink,
+        dbShareLink: dbShareLink
+      }
+    });
   }
 
   getData() {
@@ -60,11 +56,8 @@ export class ShareLinkGeneratorService {
       else {
         return false;
       }
-
-
     }
-
     return false;
   }
-
+  
 }
