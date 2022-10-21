@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from "@angular/forms";
+import { ControlValueAccessor, UntypedFormControl, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 
@@ -19,7 +19,7 @@ export class TextInputFormControlComponent implements OnDestroy, ControlValueAcc
 
   @Input() placeholder: string;
 
-  formControl = new FormControl();
+  formControl = new UntypedFormControl();
 
   _changed = (v) => {};
 

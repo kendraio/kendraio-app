@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { KendraioFormService } from '../../_shared/ui-form/services/kendraio.form.service';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { get } from 'lodash-es';
 import { FormSubmitHandlerService } from '../../services/form-submit-handler.service';
@@ -12,7 +12,7 @@ import { FormSubmitHandlerService } from '../../services/form-submit-handler.ser
 })
 export class UserIpnFormComponent implements OnInit {
 
-  form = new FormGroup({});
+  form = new UntypedFormGroup({});
   options: FormlyFormOptions = {};
   model = {};
 

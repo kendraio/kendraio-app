@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FieldType } from '@ngx-formly/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-formly-audio-input',
@@ -9,7 +9,7 @@ import {FormControl} from '@angular/forms';
 })
 export class FormlyAudioInputComponent extends FieldType implements OnInit {
 
-  clipControl = new FormControl([]);
+  clipControl = new UntypedFormControl([]);
 
   ngOnInit() {
   }
