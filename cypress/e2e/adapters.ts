@@ -46,10 +46,7 @@ describe('Adapter install', () => {
               }]
           }]
       }
-    ]);
-    
-    let currentConfig=localStorage.getItem('core.variables.settings');
-    cy.log("Local:").log(currentConfig);
+    ]);   
     cy.contains('Import Adapter').click().wait(['@bloomen']).wait(2000); // make sure that the data is downloaded and give the adapter time to install.
     loadFlowCode([
       {
