@@ -1,4 +1,5 @@
 import { loadFlowCode } from '../support/helper';
+import "cypress-localstorage-commands";
 // tslint:disable: quotemark
 /// <reference types="Cypress" />
 
@@ -16,13 +17,13 @@ describe('Adapter install', () => {
     }
     ).as('bloomen');
 
+    // Alter settings to allow adapters to be installed from flows
+    let localStorageConfig = JSON.stringify( {adapterRepoUrl:"https://kendraio.github.io/kendraio-adapter/", exposeCoreActions:true});
+    cy.setLocalStorage('core.variables.settings',localStorageConfig);
   });
 
   it('Export a packaged adapter with attachments', () => {
-    // first go to settings and allow core actions in flows
-    cy.visit('/core/settings');
-    cy.get('#formly_16_boolean_exposeCoreActions_5 .mat-checkbox-inner-container').click();
-    cy.contains('Save settings').click({ force: true });
+  
     loadFlowCode([
       {
         "type": "init"
@@ -34,17 +35,21 @@ describe('Adapter install', () => {
       {
         "type": "actions",
         "buttons": [
-            {
-                "label": "Import Adapter",
-                "color": "default",
-                "blocks": [
-  
-      {
-        "type": "dispatch",
-        "action": "installAdapter"
-      }]
-    }]}
+          {
+            "label": "Import Adapter",
+            "color": "default",
+            "blocks": [
+
+              {
+                "type": "dispatch",
+                "action": "installAdapter"
+              }]
+          }]
+      }
     ]);
+    
+    let currentConfig=localStorage.getItem('core.variables.settings');
+    cy.log("Local:").log(currentConfig);
     cy.contains('Import Adapter').click().wait(['@bloomen']).wait(2000); // make sure that the data is downloaded and give the adapter time to install.
     loadFlowCode([
       {
