@@ -8,13 +8,13 @@ describe('Adapter install', () => {
   beforeEach(() => {
     // Prevent external network request for adapter config
     cy.intercept('GET', 'https://kendraio.github.io/kendraio-adapter/config.json', {
-      fixture: 'adapterConfig.json'
+      fixture: 'adapterConfig'
     }
-    ).as('adapterConfig.json');
+    ).as('adapterConfig');
     cy.intercept('GET', 'https://kendraio-adapter.kendraio.now.sh/bloomen.json', {
       fixture: 'bloomen.json'
     }
-    ).as('bloomen.json');
+    ).as('bloomen');
 
   });
 
@@ -32,11 +32,20 @@ describe('Adapter install', () => {
         "mapping": "{repoUrl:`https://kendraio-adapter.kendraio.now.sh/`, name:`bloomen`}"
       },
       {
+        "type": "actions",
+        "buttons": [
+            {
+                "label": "Import Adapter",
+                "color": "default",
+                "blocks": [
+  
+      {
         "type": "dispatch",
         "action": "installAdapter"
-      }
+      }]
+    }]}
     ]);
-    cy.wait(1000); // give the adapter time to install.
+    cy.contains('Import Adapter').click().wait(['@bloomen']).wait(2000); // make sure that the data is downloaded and give the adapter time to install.
     loadFlowCode([
       {
         "type": "adapter-info",
@@ -58,4 +67,3 @@ describe('Adapter install', () => {
 
 
 });
-
