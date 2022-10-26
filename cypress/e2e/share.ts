@@ -21,7 +21,7 @@ describe('Share functionality', () => {
     });
 
     it('should assert a shared database loads as expected using given URL', () => {
-        const databaseUrl = "/workflow-builder?metadata=NobwRArhCWAmYC4wBYAMBWdAzVB2AzALS4CMApgJyHIAcJJhNuATAMaFmr4HquoUA2SmAA0YAIaxxABwAuZAE4A5cQFsyiMAGdWACzKrxW0dr0HxK9ZukLo6gPqroAO2hb5C42KmzxicM5qGkgAQgD2tsYAvmIANuIARmSxmuGRYDHgUHCapMwJ6JTsyLhkuNQU4uiMNMgChFwU+KhksLjIdfBikjIelsGm+oZeg+b91rYOTq7uiiM+fggBQZoAMtAAXhlxiclrm9tZMPBIZeLM9PiwhEll1Kiw1xSY1eKCAshYNPhYJAl+3SkckU4yQOiGRhM4LGKzBZmGJgW-kgx00ZwuJCuNzIdzQj0Iz0whDeAg+Xx+fwBYBsYWkilk0DIxgQoDAAGsyABPTSBKxiBmyWIDcb8zl0zQAFTIAA9ZBkALpiXkDGx2MiOFxuDzzJmsWxyaBhZyaAAKAFkAASxLUmeJJFJIZXbMB2vZIVVTTWzTwKoA";
+        const databaseUrl = "/workflow-builder?metadata=NobwRArhCWAmYC4wGZkEMAsAOWBTADALT4BsAjLoRgKwCcAZobbWbYblgEwDGJyJnarGTwANGDSw0ABwAuuAE4A5NAFtciMAGduAC1yq0WsOJ37DK9ZukLo6gPqroAO2hb5C4+Kmy0icM5qGkgASm660GAAvuIANmgARrixmmFaEdGi4FBwmhj41NT0+ADsyIQlFGzYZGSEWCU87PjIZdTc+LQkuLQmElJyipbB2noGRn1m48PWtg5Oru6KXmA+fggBQZoAQgD2tsYxYPFJKUh7B5nZMPBIlZwJ1D3cVCW4JVS0aNT1WBgkxGQtGQ+FwsBKGH+Yn6Mg8MyQU0MK0RaHhYBsdlwjhcbg8KzW-jAgSsSAAMtAAF6ZY6JZKaclUmLXXJId5oTi1ESEJLvKj4WCwJiFH5oLokDD0LDIehkBJ+cSSWFDLYIsZIyZq1Eq0bmCbeNC+Qk5W5gNkcshcnkffICoWFQiikjiyXS2Xy9EKXbSRSyaC4YwIUBgADWuAAnppiRpxL7ZLERjMY2HvZoACq4AAesmiAF1xFHZpjsYs8X08DpbHJoLtnJoAAoAWQABLFcX0TnSkAWjh2zh6iwtcctc0A";
         const flowUrl = "/workflow-builder?data=NobwRALgngDgpmAXGA5gewM4FcBGYA0YAhgCZEwRwBOAckQLYLIYDGAFnPURgWAO5oqAawBmAGzR8AkiSRhWHLj0I4JLIQGE09RgDsIcgDJpSAAgWduYAL75w0eHICWupwdv3YTSJxhiilLyU9H4B3gA8bABMAHwAIgFEONxwpixo nD6GOEA9NExNnaQXnJcMDAuKLzllbrVyGQQRMAA-FhYTiQAvN0ABnAA7ERRAIyjAMwkALQ4cEPTACwADCQzAJwArNvTROsAbPuLIgAcEyKjyX0AuqYAPqbAy9e8qmjqWjpZBsgAYk5iShUczsSymCBoUxYKhiUwwIhUBhFTyOZDpTIADwg0wwRAAbghCOjKFiANJwKByCxcV5qTTaPQ-eT41JoaHmeAsJwiJwsEGKIjIkqosCMDC4lCEyBuMTeQxODAQUxuTgYUwiKjafmWRCmEAgNIZEkQAB01KIJt0DFS1msQoc3hIeEIaHgiIgTgycklBkIpHIQLojCpoKUvHNAHE4BAgXJiXAsWbQxarcGVHTPoyjCYSKYmkR1Zr6NqaR5hd5alUauQ6g0wPngNcTYwqJKABQAAXwetM-jmYl1Ps73YAJCb44nzSa 3AxABKaxz2nvelffRyKNKiAcUwAHWlEFl 9M9tKjTgOCw1Rd8F0SFGhAwbEkCWaSAgVCwcEfz74WkxPwiEQYgYN 8i-gAys0gSIEBIFwGWDrelQXS8CgKEkAA8hQnq6DwiDgPCKAuAEuHvp YFESRHoZAACkQkoQU4ABeTArLYYDpGIWD0LocRwCI GgGAHCkNQQZykks68Dys6yMgM5iEKokkOJ1pyNh1CkRkyicbOYgAEpZKpVDUHIAjCOIkhGboJlmUS k2XZVD0Yi9D4eAbzqEJKLeEQLA0XhrxYDGOlIMJilyAAoiQbjLt54W XI-hYLo7C8P6FBmcwya6RZogSNI8lgHAsUQFIwS8BOPzgOaMhxkaCamgAjl VBQK5DAYEmAr1YQqGNIkJodKhtrXIQWRJLK8kfl 1jXPNtrFCpanBsgUhxDJThyXII2yPN6Yrpm3xyKeIr YFumXqFQWIBFUlKcgACCaymBVnBVWgEhUHIqlAVggLxUIPnlslRCpelfpkFlP05QKeWCAVkj1cgpVuO99CfQBSC1cmKOcY1iatdQHUIl1PWWH1YADWAe1tkuY0TVaqileRc3FJFyDyoqpjAbC5pXXSINIQp4NpWwGXQ7GcOWAjlmFfjYgKu440lcz01swhqteauWbIGd3joNgzrEFLq3eE4ISCLGhD5VZRVyCIaBoDbYA68d65-M7QK7ne81AA";
 
         cy.visit(databaseUrl)
@@ -31,8 +31,9 @@ describe('Share functionality', () => {
         cy.wait(3000);
 
         cy.visit(flowUrl)
-            .contains('Boris');
+          .contains('Boris');
         cy.contains('Liz');
+        cy.contains('Rishi');
 
         // Now we press the share button, and select share database:
         cy.get('mat-icon').contains("settings").click();
