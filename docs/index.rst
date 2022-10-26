@@ -77,3 +77,8 @@ Kendraio App
    workflow/blocks/variable_set
    workflow/blocks/web_money
    workflow/blocks/wallet
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Automated testing
+   testing/tips
