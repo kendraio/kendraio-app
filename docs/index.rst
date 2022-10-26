@@ -44,6 +44,7 @@ Kendraio App
    workflow/blocks/card
    workflow/blocks/chart
    workflow/blocks/context_block
+   workflow/blocks/context_runner_block
    workflow/blocks/csv_export
    workflow/blocks/csv_import
    workflow/blocks/db
