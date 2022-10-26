@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {YoutubeDataService} from '../../services/youtube-data.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 
 /*
 {
@@ -22,7 +22,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class YoutubeUploadComponent implements OnInit {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   categories$;
   progress$;
@@ -30,7 +30,7 @@ export class YoutubeUploadComponent implements OnInit {
   isUploading = false;
 
   constructor(
-    private readonly fb: FormBuilder,
+    private readonly fb: UntypedFormBuilder,
     private readonly yt: YoutubeDataService
   ) { }
 

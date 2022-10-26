@@ -27,6 +27,11 @@ export class ContextBlockComponent extends BaseBlockComponent {
   }
 
   onConfigUpdate(config: any) {
+    /**
+     * The Context block config accepts a list of blocks, contextBlocks, a contextPath
+     * The contextBlocks are ran first (until they produce output), once they output data, the data is saved to the contextPath
+     * The flows from the "blocks" config are then ran, and can access the contextPath value
+     */
     this.blocks = get(config, 'blocks', []);
     this.skipFirst = get(config, 'skipFirst', false);
     this.contextPath = get(config, 'contextPath', 'temp');
@@ -60,12 +65,19 @@ export class ContextBlockComponent extends BaseBlockComponent {
   }
 
   onContextComplete(value) {
+    /**
+     * Executes when the contextBlocks have produced an output, with a workflowComplete event
+     */
     this.contextOutput = value;
+    // setTimeout is used to run the flow after Angular has finished updating the DOM
     setTimeout(() => {
       this.zone.run(() => {
+        // The contextOutput is saved to the contextPath
         set(this.newContext, this.contextPath, this.contextOutput);
         this.gotContextValue = true;
+        // Now output has been saved to the contextPath, the blocks are ran
         this.models = [clone(this.model)];
+        // The blocks can access the contextPath value
       });
     }, 0);
   }

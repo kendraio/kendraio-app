@@ -173,7 +173,7 @@ export class WorkflowService {
   }
 
   shareConfig() {
-    this.shareLinks.shareLink('workflow-builder', this.blocks);
+    this.shareLinks.shareFlowLink('workflow-builder', this.blocks);
   }
 
   loadFromAdapter() {

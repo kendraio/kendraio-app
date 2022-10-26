@@ -44,6 +44,7 @@ Kendraio App
    workflow/blocks/card
    workflow/blocks/chart
    workflow/blocks/context_block
+   workflow/blocks/context_runner_block
    workflow/blocks/csv_export
    workflow/blocks/csv_import
    workflow/blocks/db
@@ -77,3 +78,8 @@ Kendraio App
    workflow/blocks/variable_set
    workflow/blocks/web_money
    workflow/blocks/wallet
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Automated testing
+   testing/tips

@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {from, of, Subject} from 'rxjs';
 import {catchError, debounceTime, distinctUntilChanged, map, switchMap, takeUntil} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
@@ -13,7 +13,7 @@ export class BloomenSearchPageComponent implements OnInit, OnDestroy {
 
   destroy$ = new Subject();
   bloomenAuth = '';
-  searchControl = new FormControl();
+  searchControl = new UntypedFormControl();
   errorMessage = '';
 
   url = 'https://bloomen.herokuapp.com/photos/search/';
