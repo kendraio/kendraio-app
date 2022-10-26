@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {get} from 'lodash-es';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-block-graphql-builder-box',
@@ -39,7 +39,7 @@ export class BlockGraphqlBuilderBoxComponent implements OnInit {
   headerModel = '';
   allowEmpty = false;
   allowFirst = false;
-  endpointFormControl = new FormControl();
+  endpointFormControl = new UntypedFormControl();
 
   constructor() { }
 

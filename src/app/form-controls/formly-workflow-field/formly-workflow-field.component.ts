@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FieldArrayType, FormlyFieldConfig, FormlyFormBuilder} from '@ngx-formly/core';
 import {AddBlockDialogComponent} from '../../dialogs/add-block-dialog/add-block-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import {FormArray} from '@angular/forms';
+import {UntypedFormArray} from '@angular/forms';
 import {EDITOR_OPTIONS} from '../../components/block-builder-box/editor-options';
 
 export class WorkflowType {
@@ -46,7 +46,7 @@ export class FormlyWorkflowFieldComponent extends FieldArrayType<WorkflowFieldCo
   }
 
   drop({ previousIndex, currentIndex }) {
-    const item = (this.formControl as FormArray).at(previousIndex).value;
+    const item = (this.formControl as UntypedFormArray).at(previousIndex).value;
     this.remove(previousIndex);
     this.add(currentIndex, item);
   }
