@@ -27,7 +27,7 @@ describe('Share functionality', () => {
         cy.visit(databaseUrl)
             .contains("Workflow");
 
-        cy.wait(1000);
+        cy.wait(3000);
 
         cy.visit(flowUrl)
             .contains('Boris');
