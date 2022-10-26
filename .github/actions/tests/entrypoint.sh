@@ -14,7 +14,7 @@ FAILURE_COUNT=0
 echo "::group::Karma unit tests"
 echo "Starting Karma unit tests"
 echo '::echo::on'
-xvfb-run --auto-servernum npx ng test -- --watch=false
+xvfb-run --auto-servernum npx ng test --watch=false
 if [ $? -ne 0 ]; then
   echo "::error::Karma unit tests failed"
   FAILURE_COUNT=$((FAILURE_COUNT+1))

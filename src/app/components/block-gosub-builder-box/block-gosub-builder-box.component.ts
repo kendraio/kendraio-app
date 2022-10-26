@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {get} from 'lodash-es';
-import { FormControl} from '@angular/forms';
+import { UntypedFormControl} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
@@ -21,9 +21,9 @@ export class BlockGosubBuilderBoxComponent implements OnInit {
   filteredAdapters : Observable<String[]>
   filteredWorkflows : Observable<string[]>
 
-  adapterNameFormControl: FormControl = new FormControl();
-  workflowIdFormControl:  FormControl = new FormControl();  
-  blockCommentFormControl = new FormControl(); 
+  adapterNameFormControl: UntypedFormControl = new UntypedFormControl();
+  workflowIdFormControl:  UntypedFormControl = new UntypedFormControl();  
+  blockCommentFormControl = new UntypedFormControl(); 
 
 
 

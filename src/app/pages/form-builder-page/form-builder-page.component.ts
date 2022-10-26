@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 import {FormlyFieldConfig, FormlyFormOptions} from '@ngx-formly/core';
 import {KendraioFormService} from '../../_shared/ui-form/services/kendraio.form.service';
 import {FormSubmitHandlerService} from '../../services/form-submit-handler.service';
@@ -31,7 +31,7 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
   UISchema = '{}';
   uiModel: NgxEditorModel;
 
-  form = new FormGroup({});
+  form = new UntypedFormGroup({});
   fields: FormlyFieldConfig[];
   options: FormlyFormOptions = {};
   model = {};
