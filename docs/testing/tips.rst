@@ -1,7 +1,7 @@
 Notes for Cypress testing
 =========================
 
-Https not Https
+"https" not "http"
 ---------------
 
 When tests are run within GitHub's environments, calls to external urls must be https, otherwise they will not run. 
