@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FieldType } from '@ngx-formly/core';
 import { MatRadioChange } from '@angular/material/radio';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { Animations } from '../../animations';
 import { UserProfile } from '../../services/google/user-profile.service';
@@ -37,8 +37,8 @@ Playlists: any = [];
 
   val: string;
   showSchedulue: boolean;
-  newPlaylistForm = new FormGroup({});
-  myform = new FormGroup({});
+  newPlaylistForm = new UntypedFormGroup({});
+  myform = new UntypedFormGroup({});
   valueChanges$: Observable<any>;
   playListValueChanges$: Observable<any>;
   subscription: Subscription;
@@ -46,7 +46,7 @@ Playlists: any = [];
   selectedOptions: string[];
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private  userProfile: UserProfile,
     private yt: YoutubeDataService
     ) {

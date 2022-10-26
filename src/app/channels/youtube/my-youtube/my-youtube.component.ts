@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { KendraioFormService } from 'src/app/_shared/ui-form/services/kendraio.form.service';
@@ -14,7 +14,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./my-youtube.component.scss']
 })
 export class MyYoutubeComponent {
-  form = new FormGroup({});
+  form = new UntypedFormGroup({});
   model: any = {
     title: 'Kendraio App live demo with Daniel and Liam 2030',
     description: 'Kendraio App live demo with Daniel and Liam 2019',
@@ -70,7 +70,7 @@ export class MyYoutubeComponent {
   loadExample() {
     this.http.get<any>(`assets/YouTube/arrays.json`).pipe(
       tap(({ schema, model }) => {
-        this.form = new FormGroup({});
+        this.form = new UntypedFormGroup({});
         this.options = {};
         this.fields = [this.formService.toFieldConfig(schema)];
         this.model = model;

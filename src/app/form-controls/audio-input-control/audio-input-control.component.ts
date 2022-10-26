@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, UntypedFormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { blobToDataURL } from 'blob-util';
 import { MatDialog } from '@angular/material/dialog';
@@ -31,7 +31,7 @@ export class AudioInputControlComponent implements OnInit, OnDestroy, ControlVal
   src;
   file: Blob;
 
-  @Input() clipControl: FormControl;
+  @Input() clipControl: UntypedFormControl;
 
   @ViewChild('player') player: WaveformComponent;
   isPlaying = false;
