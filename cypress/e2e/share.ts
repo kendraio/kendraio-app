@@ -26,6 +26,7 @@ describe('Share functionality', () => {
 
         cy.visit(databaseUrl)
             .contains("Workflow");
+        cy.on('window:confirm', () => true);
 
         cy.wait(3000);
 
