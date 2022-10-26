@@ -221,8 +221,10 @@
     }
   
   },
-  "defaultProject": "kendraio-app",
   "cli": {
-    "defaultCollection": "@ngrx/schematics"
+    "analytics": false,
+    "schematicCollections": [
+      "@ngrx/schematics"
+    ]
   }
 }

@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {clone} from 'lodash-es';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
 @Component({
@@ -12,7 +12,7 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 })
 export class EditWorkflowMetadataDialogComponent implements OnInit {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   visible = true;
   selectable = true;
   removable = true;
@@ -20,13 +20,13 @@ export class EditWorkflowMetadataDialogComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   get tags() {
-    return (this.form.get('tags') as FormArray);
+    return (this.form.get('tags') as UntypedFormArray);
   }
 
   constructor(
     public dialogRef: MatDialogRef<EditWorkflowMetadataDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
-    private readonly fb: FormBuilder
+    private readonly fb: UntypedFormBuilder
   ) { }
 
   ngOnInit() {

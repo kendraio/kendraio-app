@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output} from '@angular/core';
 import {KendraioFormService} from '../../_shared/ui-form/services/kendraio.form.service';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 import {FormlyFieldConfig, FormlyFormOptions} from '@ngx-formly/core';
 import {Subject} from 'rxjs';
 import {debounceTime, distinctUntilChanged, filter, tap} from 'rxjs/operators';
@@ -21,7 +21,7 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
   @Output() output = new EventEmitter();
   _changes = new Subject();
 
-  form = new FormGroup({});
+  form = new UntypedFormGroup({});
   fields: FormlyFieldConfig[];
   options: FormlyFormOptions = {};
 

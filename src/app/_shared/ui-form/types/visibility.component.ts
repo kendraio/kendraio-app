@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FieldType } from '@ngx-formly/core';
 import { MatRadioChange } from '@angular/material/radio';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { Animations } from '../../animations';
 
@@ -16,11 +16,11 @@ import { Animations } from '../../animations';
 export class FieldInputVisibilityComponent  extends FieldType implements OnInit {
   val: string;
   showSchedulue: boolean;
-  visabilityForm = new FormGroup({});
+  visabilityForm = new UntypedFormGroup({});
   valueChanges$: Observable<any>;
   subscription: Subscription;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: UntypedFormBuilder) {
     super();
   }
 
