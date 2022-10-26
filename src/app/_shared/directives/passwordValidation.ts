@@ -1,4 +1,4 @@
-import {AbstractControl, FormControl, ValidationErrors} from '@angular/forms';
+import {AbstractControl, UntypedFormControl, ValidationErrors} from '@angular/forms';
 export class PasswordValidation {
     static MatchPassword(AC: AbstractControl) {
        let password = AC.get('password').value; // to get value in input tag
@@ -13,7 +13,7 @@ export class PasswordValidation {
 }
 
 
-export function matchPasswords(control: FormControl): {[s: string]: boolean} {
+export function matchPasswords(control: UntypedFormControl): {[s: string]: boolean} {
     const password = control.get('password');
     const confirmPassword = control.get('confirmPassword');
     if (password.value !== confirmPassword.value) {
@@ -35,7 +35,7 @@ export interface ValidationResult {
 
 export class PasswordStrength {
 
-    public static strong(control: FormControl): ValidationResult {
+    public static strong(control: UntypedFormControl): ValidationResult {
         const isStrong = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!+_#\-&$£*])(?=.*[0-9]).{8,24}?$/g.test(control.value);
         const hasNumber = /\d/.test(control.value);
         const hasUpper = /[A-Z]/.test(control.value);

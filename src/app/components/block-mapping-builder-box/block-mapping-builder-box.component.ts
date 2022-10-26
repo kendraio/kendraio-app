@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {get} from 'lodash-es';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-block-mapping-builder-box',
@@ -24,7 +24,7 @@ export class BlockMappingBuilderBoxComponent implements OnInit {
   @Input() block;
   @Output() updateBlock = new EventEmitter();
   mappingModel = '';  
-  blockCommentFormControl = new FormControl(); 
+  blockCommentFormControl = new UntypedFormControl(); 
 
 
 
