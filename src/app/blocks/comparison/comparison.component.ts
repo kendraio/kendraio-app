@@ -27,11 +27,12 @@ export class ComparisonComponent extends BaseBlockComponent {
     '<': function (a: any, b: any) { return a < b },
     '<=': function (a: any, b: any) { return a <= b },
 
+    'typeof': function (a: any, b: any) { return typeof a == b },
     // these are single value operators, b is ignored
-    'is null': function (a: any, b: any) { return a === null },
-    'is not null': function (a: any, b: any) { return a !== null },
-    'is empty': function (a: any, b: any) { return a == '' },
-    'is not empty': function (a: any, b: any) { return a != '' }
+    'null': function (a: any, b: any) { return a === null },
+    'not null': function (a: any, b: any) { return a !== null },
+    'empty': function (a: any, b: any) { return a == '' },
+    'not empty': function (a: any, b: any) { return a != '' }
   }
 
 
@@ -45,9 +46,9 @@ export class ComparisonComponent extends BaseBlockComponent {
   comparisons: [{
     operator: string,
     target: string,
-    targetType: comparisonType,
+    targetType?: comparisonType,
     output: string
-    outputType: comparisonType,
+    outputType?: comparisonType,
   }];
 
   constructor(
