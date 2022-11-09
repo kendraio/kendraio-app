@@ -185,6 +185,7 @@ import { RenameFieldsBlockComponent } from './blocks/rename-fields-block/rename-
 import { BlockGosubBuilderBoxComponent } from './components/block-gosub-builder-box/block-gosub-builder-box.component';
 import { MermaidBlockComponent } from './blocks/mermaid-block/mermaid-block.component';
 import { ComparisonComponent } from './blocks/comparison/comparison.component';
+import { BlockComparisonBuilderBoxComponent } from './components/block-comparison-builder-box/block-comparison-builder-box.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -345,7 +346,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         RenameFieldsBlockComponent,
         BlockGosubBuilderBoxComponent,
         MermaidBlockComponent,
-        ComparisonComponent
+        ComparisonComponent,
+        BlockComparisonBuilderBoxComponent
     ],
     imports: [
         FormlyModule.forRoot({}),

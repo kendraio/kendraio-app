@@ -4,9 +4,64 @@ import { mappingUtility } from '../mapping-block/mapping-util';
 import { SharedStateService } from 'src/app/services/shared-state.service';
 import { clone, get } from 'lodash-es';
 
-// define our comparison types 
-enum comparisonType { value = "value", jmespath = "jmespath" }
+// define our types 
+export type comparisonDefinition = {
+  operator: string,
+  target: string,
+  targetType?: string,
+  output: string
+  outputType?: string,
+}
+export const comparisonTypes = [ "value", "jmespath"];
+export var comparisonOperators = {
+  '==': {
+    'test': function (a: any, b: any): boolean { console.log(`a: ${a}  b:${b}`); return a == b },
+    'paramcount': 2
+  }, 
+  '!=': {
+    'test': function (a: any, b: any) { return a != b },
+    'paramcount' : 2
+  },
+  '>': {
+    'test' : function (a: any, b: any) { return a > b },
+    'paramcount' : 2
+  },
+  '>=': {
+    'test': function (a: any, b: any) { return a >= b },
+    'paramcount' : 2,
+  }, 
+  '<': {
+    'test': function (a: any, b: any) { return a < b },
+    'paramcount':2
+  },
+  '<=': {
+    'test': function (a: any, b: any) { return a <= b },
+    'paramcount': 2,
+  },
+   
+  'typeof': {
+    'test': function (a: any, b: any) { return typeof a == b },
+    'paramcount': 2,
+  },
+  // these are single value operators, b is ignored
+  'null': {
+    'test' : function (a: any, b: any) { return a === null },
+    'paramcount' : 1
+  },
+  'not null': {
+    'test': function (a: any, b: any) { return a !== null },
+    'paramcount' : 1
+  },
+  'empty': {
+    'test': function (a: any, b: any) { return a == '' },
+    'paramcount' : 1
+  },
+  'not empty' : {
+    'test': function (a: any, b: any) { return a != '' },
+    'paramcount': 1
+  }
 
+} 
 
 @Component({
   selector: 'app-comparison',
@@ -14,42 +69,15 @@ enum comparisonType { value = "value", jmespath = "jmespath" }
   styleUrls: ['./comparison.component.scss']
 })
 
-
-
 export class ComparisonComponent extends BaseBlockComponent {
-
-  // These are the available operators, and their operating functions 
-  operators = {
-    '==': function (a: any, b: any): boolean { console.log(`a: ${a}  b:${b}`); return a == b },
-    '!=': function (a: any, b: any) { return a != b },
-    '>': function (a: any, b: any) { return a > b },
-    '>=': function (a: any, b: any) { return a >= b },
-    '<': function (a: any, b: any) { return a < b },
-    '<=': function (a: any, b: any) { return a <= b },
-
-    'typeof': function (a: any, b: any) { return typeof a == b },
-    // these are single value operators, b is ignored
-    'null': function (a: any, b: any) { return a === null },
-    'not null': function (a: any, b: any) { return a !== null },
-    'empty': function (a: any, b: any) { return a == '' },
-    'not empty': function (a: any, b: any) { return a != '' }
-  }
-
-
   // where to look for incoming data
   valueGetter: string = 'data';
   default = false;
-  defaultType: comparisonType = comparisonType.value;
+  defaultType = comparisonTypes[0];
 
 
   // store the set of comparisons
-  comparisons: [{
-    operator: string,
-    target: string,
-    targetType?: comparisonType,
-    output: string
-    outputType?: comparisonType,
-  }];
+  comparisons:comparisonDefinition[]=[];
 
   constructor(
     private stateService: SharedStateService
@@ -94,9 +122,9 @@ export class ComparisonComponent extends BaseBlockComponent {
       if (check.targetType == 'jmespath') {
         target = mappingUtility({ data, context: this.context, state: this.stateService.state }, check.target);
       }
-      if (check.operator in this.operators) {
+      if (check.operator in comparisonOperators) {
         console.log(`got operator: ${check.operator}`);
-        const op = this.operators[check.operator];
+        const op = comparisonOperators[check.operator].test;
         console.log(op);
         console.log(typeof op);
         if (op(value, target)) {
