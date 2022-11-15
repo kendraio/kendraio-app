@@ -64,17 +64,19 @@
                             </mat-form-field>
                         </div>
                         <button mat-flat-button (click)="removeComparison(i)">
-                            <mat-icon>subtract</mat-icon>
+                            <mat-icon>remove</mat-icon>
                             <span class="button-label">Remove comparison</span>
                         </button>
                     </div>
                 </mat-expansion-panel>
             </ng-container>
         </mat-accordion>
+        <div><hr>
         <button mat-flat-button (click)="insertComparison()">
             <mat-icon>add</mat-icon>
             <span class="button-label">Add comparison</span>
         </button>
+        </div>
 
     </ng-container>
     <ng-container>

@@ -11,6 +11,11 @@ import {moveItemInArray} from '@angular/cdk/drag-drop';
   templateUrl: './block-comparison-builder-box.component.html',
   styleUrls: ['./block-comparison-builder-box.component.scss']
 })
+
+/**
+ * Defines an editor form for the comparison block type 
+ */
+
 export class BlockComparisonBuilderBoxComponent implements OnInit {
 
   @Input() block;
@@ -29,9 +34,6 @@ export class BlockComparisonBuilderBoxComponent implements OnInit {
     comparisons: new FormArray([])
   })
 
-
-  constructor() { }
-
   ngOnInit() {
     this.form.controls['valueGetter'].setValue(get(this.block, 'valueGetter', this.valueGetter));
     this.form.controls['default'].setValue(get(this.block, 'default', this.default));
@@ -39,7 +41,7 @@ export class BlockComparisonBuilderBoxComponent implements OnInit {
     this.operators = Object.keys(comparisonOperators);  
     this.targetTypes = comparisonTypes;  
     this.comparisons = get(this.block,'comparisons',[]);
-    //console.log(this.comparisons);
+  
     this.comparisons.forEach((comparison) => {
       this.form.controls['comparisons'].push(new FormGroup({
         operator: new FormControl(comparison.operator),
@@ -51,19 +53,21 @@ export class BlockComparisonBuilderBoxComponent implements OnInit {
     })
   }
 
-  getUpdatedModel() {
+  /**
+   * Converts the form into a block config object 
+   * @returns the new data model
+   */
+  getUpdatedModel():any {
     let comparisons:comparisonDefinition[] = [];
     for (let comparisonGroup of this.form.controls.comparisons.controls) {
-      console.log(comparisonGroup);
-       comparisons.push(
-        {
+       let comparison = {
           operator: comparisonGroup.get('operator').value,
           target: comparisonGroup.get('target').value,
           targetType: comparisonGroup.get('targetType').value,
           output: comparisonGroup.get('output').value,
-          outputType: comparisonGroup.get('outputType').value,
-        }
-       )
+          outputType: comparisonGroup.get('outputType').value
+       }  
+       comparisons.push(comparison);
     }
       
 
@@ -76,14 +80,21 @@ export class BlockComparisonBuilderBoxComponent implements OnInit {
     };
   }
    
-  opMultiParam(op) {
+  /**
+   * Tests to see if multiple parameters are required
+   * @param op The selected operation
+   * @returns Returns true if the provided operator requires multiple parameters
+   */
+  opMultiParam(op:string):boolean {
     //console.log("o"+op)
     return comparisonOperators[op].paramcount == 2;
   }
 
 
-
-  insertComparison() {
+  /**
+   * Insert a new comparison object into the form 
+   */
+  insertComparison():void {
     this.form.controls['comparisons'].push(new FormGroup({
       operator: new FormControl('=='),
       target: new FormControl(''),
@@ -93,12 +104,20 @@ export class BlockComparisonBuilderBoxComponent implements OnInit {
     }))
   }
 
+  /**
+   * Remove a comparison when a user clicks the button
+   * @param index 
+   */ 
   removeComparison(index) {
     let formArray = this.form.get('comparisons') as FormArray;
     formArray.removeAt(index);
   }
   
-  drop(event) {
+  /**
+   * Handle the drad drop 
+   * @param event 
+   */
+  drop(event):void {
    this.moveComparison(event.previousIndex,event.currentIndex);
   }
 
@@ -108,10 +127,7 @@ export class BlockComparisonBuilderBoxComponent implements OnInit {
  * @param toIndex Index to which he item should be moved.
  */
 
- moveComparison(  
-  fromIndex: number,
-  toIndex: number
-  ): void {
+ moveComparison(fromIndex: number, toIndex: number): void {
   const dir = toIndex > fromIndex ? 1 : -1;
   let formArray = this.form.get('comparisons') as FormArray;
 
