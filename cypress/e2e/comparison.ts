@@ -174,4 +174,25 @@ it('ignores badly formed comparisons', () =>{
     cy.contains('null');
  });   
 
+ it('allows jmespath default values', () =>{
+  loadFlowCode([
+      {
+        "type": "mapping",
+        "mapping": "{ source:`two`, one:`first`, two:`second`  }"
+      },
+      {
+        "type":"comparison",
+        "valueGetter":'data.source',
+        "default":'data.two',
+        "defaultType:":'jmespath',
+        "comparisons": [         
+        ]
+      },
+      {
+        "type":'debug'
+      }
+  ]);
+  cy.contains('second');
+});   
+
 });

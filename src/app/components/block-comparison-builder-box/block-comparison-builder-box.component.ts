@@ -114,7 +114,7 @@ export class BlockComparisonBuilderBoxComponent implements OnInit {
   }
   
   /**
-   * Handle the drad drop 
+   * Handle the drag drop 
    * @param event 
    */
   drop(event):void {

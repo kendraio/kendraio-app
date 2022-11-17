@@ -136,6 +136,7 @@ export class ComparisonComponent extends BaseBlockComponent {
     this.valueGetter = get(config, 'valueGetter', 'data');
     this.comparisons = get(config, 'comparisons', []);
     this.default = get(config,'default',false);
+    this.default = get(config,'defaultType','value');
   }
 
   onData(data: any, firstChange: boolean) {    
@@ -144,7 +145,7 @@ export class ComparisonComponent extends BaseBlockComponent {
   }
 
   /**
-   * Validates a comparison dfinition
+   * Validates a comparison definition
    * @param comparison a comparison object 
    * @returns true if valid
    */
