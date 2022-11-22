@@ -136,7 +136,7 @@ export class ComparisonComponent extends BaseBlockComponent {
     this.valueGetter = get(config, 'valueGetter', 'data');
     this.comparisons = get(config, 'comparisons', []);
     this.default = get(config,'default',false);
-    this.default = get(config,'defaultType','value');
+    this.defaultType = get(config,'defaultType','value');
   }
 
   onData(data: any, firstChange: boolean) {    
@@ -188,8 +188,14 @@ export class ComparisonComponent extends BaseBlockComponent {
     
     let found = false;
     let checkCount = 0;
-    let output: any = this.default; // set the default, in case we don't find anything
-
+    let output: any;
+    console.log("d:"+this.defaultType);
+    if (this.defaultType == 'jmespath') {
+      output = mappingUtility({ data, context: this.context, state: this.stateService.state }, this.default);
+    } else {
+      output = this.default; // set the default, in case we don't find anything
+    }
+ 
     // work through our comparisons one by one, stopping at the first match
     while (checkCount < this.comparisons.length && !found) {
       let check = this.comparisons[checkCount++];
@@ -202,9 +208,7 @@ export class ComparisonComponent extends BaseBlockComponent {
         if (check.operator in comparisonOperators) {          
           // the operators object provides the test function
           const op = comparisonOperators[check.operator].test;          
-          // 
-
-          console.log("op:"+check.operator+" target:"+target);
+          
           if (op(value, target)) {            
             found = true;
             output = check.output;

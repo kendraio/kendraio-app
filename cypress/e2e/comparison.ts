@@ -181,11 +181,18 @@ it('ignores badly formed comparisons', () =>{
         "mapping": "{ source:`two`, one:`first`, two:`second`  }"
       },
       {
-        "type":"comparison",
-        "valueGetter":'data.source',
-        "default":'data.two',
-        "defaultType:":'jmespath',
-        "comparisons": [         
+        "type": "comparison",
+        "valueGetter": "data.source",
+        "default": "data.two",
+        "defaultType": "jmespath",
+        "comparisons": [
+          {
+            "operator": "typeof",
+            "target": "array",
+            "targetType": "value",
+            "output": "one",
+            "outputType": "value"
+          }
         ]
       },
       {
