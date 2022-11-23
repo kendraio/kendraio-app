@@ -56,6 +56,7 @@
     <app-app-layout-block class="block-wrapper" *ngSwitchCase="'app-layout'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-app-layout-block>
     <app-rename-fields-block class="block-wrapper" *ngSwitchCase="'rename-fields'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-rename-fields-block>
     <app-mermaid-block class="block-wrapper" *ngSwitchCase="'mermaid'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-mermaid-block>
+    <app-comparison class="block-wrapper" *ngSwitchCase="'comparison'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-comparison>
   </ng-container>
 </ng-container>
 <!-- <pre>workblock: {{ context | json }}</pre> -->

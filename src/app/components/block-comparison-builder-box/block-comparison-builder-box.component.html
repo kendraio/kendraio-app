@@ -1,0 +1,100 @@
+<div [formGroup]="form" class="example-container">
+    <mat-form-field class="example-full-width">
+        <mat-label>Value source (jmespath)</mat-label>
+        <input type="text" placeholder="valueGetter" aria-label="valueGetter" matInput formControlName="valueGetter">
+    </mat-form-field>
+    <ng-container formArrayName="comparisons">
+        <mat-accordion cdkDropList (cdkDropListDropped)="drop($event)">
+            <ng-container *ngFor="let comparison of form.controls.comparisons.controls; let i = index">
+                <mat-divider></mat-divider>
+                <mat-expansion-panel cdkDrag>
+                    <mat-expansion-panel-header>
+                        <mat-icon class="drag-handle" cdkDragHandle>reorder</mat-icon>
+                        <div *ngIf="opMultiParam(comparison.get('operator').value) then double else single"></div>
+                        <ng-template #double>
+                            <mat-panel-title>
+                                If [&nbsp;<span class="value"> {{ comparison.get('operator').value }}</span>&nbsp;] :
+                                [&nbsp;<span class="value">{{ comparison.get('target').value | slice:0:12
+                                    }}</span>&nbsp; ] then
+                                [&nbsp;<span class="value">{{ comparison.get('output').value |
+                                    slice:0:12}}</span>&nbsp;]
+                            </mat-panel-title>
+                        </ng-template>
+                        <ng-template #single>
+                            <mat-panel-title>
+                                If [&nbsp;<span class="value"> {{ comparison.get('operator').value }}</span>&nbsp;] then
+                                [&nbsp;<span class="value">{{ comparison.get('output').value | slice:0:30
+                                    }}</span>&nbsp;]
+                            </mat-panel-title>
+                        </ng-template>
+
+                    </mat-expansion-panel-header>
+
+                    <div [formGroup]="comparison">
+
+                        <div>
+                            <mat-form-field class="minor">
+                                <mat-label>Operator</mat-label>
+                                <mat-select formControlName="operator">
+                                    <mat-option *ngFor="let op of operators" [value]="op">{{op}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field class="main" *ngIf="opMultiParam(comparison.get('operator').value)">
+                                <mat-label>Target</mat-label><input type="text" placeholder="target" aria-label="target"
+                                    matInput formControlName="target">
+                            </mat-form-field>
+                            <mat-form-field class="minor" *ngIf="opMultiParam(comparison.get('operator').value)">
+                                <mat-label>Target type</mat-label>
+                                <mat-select formControlName="targetType">
+                                    <mat-option value="value">value</mat-option>
+                                    <mat-option value="jmespath">jmespath</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field class="major">
+                                <mat-label>Output</mat-label>
+                                <input type="text" placeholder="output" aria-label="output" matInput
+                                    formControlName="output">
+                            </mat-form-field>
+                            <mat-form-field class="minor">
+                                <mat-label>Output type</mat-label>
+                                <mat-select formControlName="outputType">
+                                    <mat-option value="value">value</mat-option>
+                                    <mat-option value="jmespath">jmespath</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <button mat-flat-button (click)="removeComparison(i)">
+                            <mat-icon>remove</mat-icon>
+                            <span class="button-label">Remove comparison</span>
+                        </button>
+                    </div>
+                </mat-expansion-panel>
+            </ng-container>
+        </mat-accordion>
+        <div><hr>
+        <button mat-flat-button (click)="insertComparison()">
+            <mat-icon>add</mat-icon>
+            <span class="button-label">Add comparison</span>
+        </button>
+        </div>
+
+    </ng-container>
+    <ng-container>
+        <mat-form-field appearance="fill" class="major">
+            <mat-label>Default</mat-label>
+            <input type="text" placeholder="Default result" aria-label="default" matInput formControlName="default">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="minor">
+            <mat-label>Default type</mat-label>
+            <mat-select formControlName="defaultType">
+                <mat-option value="value">value</mat-option>
+                <mat-option value="jmespath">jmespath</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <!-- <ng-container><textarea disabled> {{block | json}}</textarea>  </ng-container>-->
+
+
+        
+    </ng-container>
+
+</div>

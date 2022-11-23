@@ -94,6 +94,15 @@ Adding a "Block" (i.e. Task for the Flow editor)
 
 Use the Angular CLI to scaffold a new block: `npx ng g c blocks/my-block`
 Edit the generated my-block.component.ts to make it a sub-class of BaseBlock.
+
+
+Start by setting up your initial imports. 
+
+```javascript 
+import { BaseBlockComponent } from '../base-block/base-block.component';
+import {get} from 'lodash-es';
+```
+
 Take a look at one of the more recent blocks as an example, eg the AudioPlayer:
 
 ```javascript
@@ -124,3 +133,13 @@ To make the block show up in the App:
 This is needed for the flow to show up in rendered workflows.
 - Add a definition, and default configuration, for the block to the block types so it can appear in the "Add Task" dialog:
 [src/app/dialogs/add-block-dialog/block-types.ts](src/app/dialogs/add-block-dialog/block-types.ts)
+
+
+Adding a custom block editor interface
+--------------------------------------
+
+The block editor is implemented using the blocks-editor component. 
+In order to create a custom editor, you will need to create a new component, 
+and call it via [blocks-editor.component.html](/src/app/components/blocks-editor/blocks-editor.component.html)
+
+
