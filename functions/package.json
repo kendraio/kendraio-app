@@ -20,7 +20,7 @@
     "express": "^4.17.1",
     "firebase-admin": "^9.6.0",
     "firebase-functions": "^3.3.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "jwks-rsa": "^1.8.0",
     "lodash": "^4.17.15"
   },
