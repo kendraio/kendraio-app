@@ -79,7 +79,7 @@
     "leaflet": "^1.7.1",
     "leaflet.markercluster": "^1.5.3",
     "lodash-es": "^4.17.21",
-    "luxon": "^1.28.0",
+    "luxon": "^2.5.2",
     "lz-string": "^1.4.4",
     "mermaid": "^9.1.7",
     "ngx-material-timepicker": "^5.5.3",
