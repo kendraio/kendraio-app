@@ -123,10 +123,14 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           console.log('Unknown authentication type');
       }
     }
-
+    
     // TODO: decide what to do with response when error condition
     switch (toUpper(method)) {
       case 'GET':
+        // force the service worker bypass. 
+        // When calls are passed to the service worker, they can be invisibly cached
+        // by forcing a bypass, we have more control to force a call to take place
+        headers = headers.append('ngsw-bypass','true');
         this.http.get(url, {headers, responseType: this.responseType})
           .pipe(
             catchError(error => {
