@@ -3,6 +3,7 @@ HTTP Request
 
 Get, put or post data to an external HTTP endpoint.
 
+
 Default config
 --------------
 
@@ -19,15 +20,19 @@ Default config
           "userId": 1
         }
       }
+      "useProxy": false
     }
 
 Supported properties
 --------------------
 
 - **method** - REQUIRED - allowed values are get, put, post, and delete.
-- **notify** (boolean) (default = true): Show a notification message if the request is successful. This message is not
+- **useProxy** (boolean) (default = false) - Set to true to use a proxy. Useful for CORS. Proxy setting are set at https://app.kendra.io/core/settings
+- **notify** (boolean) (default = true) -  Show a notification message if the request is successful. This message is not
   sent when the HTTP method is GET, but can be turned on and off for POST, PUT, and DELETE requests by using this
   property.
+- **headers** - A set of headers with header name as object key. Values are processed by JMESpath
+- **endpoint** - The request endpoint. Can take multiple forms. See below. 
 
 
 Examples
@@ -40,7 +45,8 @@ For simple requests, the ``endpoint`` can just be a simple string:
     {
         "type": "http",
         "method": "get",
-        "endpoint": "https://covid19.mathdro.id/api"
+        "endpoint": "https://covid19.mathdro.id/api",
+        "useProxy" : true
     }
 
 
