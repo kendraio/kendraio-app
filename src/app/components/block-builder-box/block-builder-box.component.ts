@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {EDITOR_OPTIONS} from './editor-options';
 import {BLOCK_TYPES} from '../../dialogs/add-block-dialog/block-types';
 import { find, get, unset, clone } from 'lodash-es';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-block-builder-box',
@@ -20,7 +20,7 @@ export class BlockBuilderBoxComponent implements OnInit {
 
   @Input() block;
   blockModel = '';  
-  blockCommentFormControl = new FormControl(); 
+  blockCommentFormControl = new UntypedFormControl(); 
   blockTitle = '';
 
   @Output() updateBlock = new EventEmitter();

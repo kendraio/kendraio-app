@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { KendraioFormService } from '../../_shared/ui-form/services/kendraio.form.service';
 import { FormSubmitHandlerService } from '../../services/form-submit-handler.service';
@@ -15,7 +15,7 @@ export class GenericFormComponent implements OnInit, OnChanges {
   @Input() formId: string;
   @Input() model: any = {};
 
-  form = new FormGroup({});
+  form = new UntypedFormGroup({});
   fields: FormlyFieldConfig[];
   options: FormlyFormOptions = {};
 

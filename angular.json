@@ -84,7 +84,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "25mb",
-                  "maximumError": "25mb"
+                  "maximumError": "30mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -116,8 +116,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "10mb",
-                  "maximumError": "25mb"
+                  "maximumWarning": "20mb",
+                  "maximumError": "30mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -221,8 +221,10 @@
     }
   
   },
-  "defaultProject": "kendraio-app",
   "cli": {
-    "defaultCollection": "@ngrx/schematics"
+    "analytics": false,
+    "schematicCollections": [
+      "@ngrx/schematics"
+    ]
   }
 }

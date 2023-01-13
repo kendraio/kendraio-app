@@ -105,4 +105,21 @@ export class LocalDatabaseService extends Dexie {
     console.log('delete', uuid);
     return this['metadata'].delete(uuid);
   }
+
+  /**
+   * Export the entire metadata table as JSON
+   * @returns a promise that resolves to the JSON string
+   */
+  exportMetadataTable() {
+    return this['metadata'].toArray().then(items => JSON.stringify(items));
+  }
+
+  /**
+   * Imports the entire metadata table from a JSON object array, overwriting the existing table
+   * @param items {string} - the JSON object array to import
+   * @returns a promise that resolves to the number of items imported
+   */
+  importMetadataTable(items) {
+    return this['metadata'].clear().then(_ => this['metadata'].bulkAdd(items));
+  }
 }

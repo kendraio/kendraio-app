@@ -50,6 +50,28 @@ export const BLOCK_TYPES = [
     }
   },
   {
+    type: 'comparison',
+    label: 'Comparision',
+    description: 'Compare two values',
+    icon: 'fa-equals',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'comparison',
+      valueGetter: 'data',
+      default: 'NO',
+      defaultType: 'value',
+      comparisons: [
+        {
+          operator: '==',
+          target:'OK',
+          targetType:'value',
+          output:'YES',
+          outputType:'value'
+        }
+      ]
+    }
+  },
+  {
     type: 'csv-export',
     label: 'CSV Export',
     description: 'Export data to a CSV file',
