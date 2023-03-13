@@ -48,7 +48,7 @@ import {MessagesModule} from './messages/messages.module';
 import {AppSettingsService} from './services/app-settings.service';
 import {DebugOnlyDirective} from './directives/debug-only.directive';
 import {TextMaskModule} from 'angular2-text-mask';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatLegacyAutocompleteModule as MatAutocompleteModule} from '@angular/material/legacy-autocomplete';
 
 import {YoutubePageComponent} from './pages/youtube-page/youtube-page.component';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';

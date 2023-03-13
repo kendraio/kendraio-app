@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {get, isArray, isObject} from 'lodash-es';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import {BlocksDialogComponent} from '../../dialogs/blocks-dialog/blocks-dialog.component';
 import { RepositionScrollStrategy } from '@angular/cdk/overlay';
 
