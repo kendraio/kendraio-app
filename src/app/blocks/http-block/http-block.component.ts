@@ -6,7 +6,7 @@ import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack
 import {catchError} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {mappingUtility} from '../mapping-block/mapping-util';
-import {settings} from 'cluster';
+import settings from 'cluster';
 
 @Component({
   selector: 'app-http-block',

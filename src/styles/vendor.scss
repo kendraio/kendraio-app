@@ -8,23 +8,23 @@
 // Our own variables that override bootstrap
 @import "_variables";
 // // Core variables and mixins
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/_variables";
-@import "~bootstrap/scss/_mixins";
+//@import "~bootstrap/scss/functions";
+//@import "~bootstrap/scss/_variables";
+//@import "~bootstrap/scss/_mixins";
 // Reset and dependencies
 // @import "~bootstrap/scss/normalize";
 // @import "~bootstrap/scss/print";
 // Core CSS
-@import "~bootstrap/scss/_reboot";
+//@import "~bootstrap/scss/_reboot";
  // @import "~bootstrap/scss/_type";
-@import "~bootstrap/scss/_images";
-@import "~bootstrap/scss/_code";
-@import "~bootstrap/scss/_grid";
- @import "~bootstrap/scss/_tables";
- @import "~bootstrap/scss/forms";
+//@import "~bootstrap/scss/_images";
+//@import "~bootstrap/scss/_code";
+//@import "~bootstrap/scss/_grid";
+ //@import "~bootstrap/scss/_tables";
+ //@import "~bootstrap/scss/forms";
 //  @import "~bootstrap/scss/_buttons";
 // Components
-@import "~bootstrap/scss/transitions";
+//@import "~bootstrap/scss/transitions";
 // @import "~bootstrap/scss/dropdown";
 // @import "~bootstrap/scss/button-group";
 //  @import "~bootstrap/scss/input-group";
@@ -48,7 +48,7 @@
 // @import "~bootstrap/scss/popover";
 // @import "~bootstrap/scss/carousel";
 // Utility classes
-@import "~bootstrap/scss/utilities";
+//@import "~bootstrap/scss/utilities";
 @import "progress-bar";
 // @import '@angular/material/prebuilt-themes/purple-green.css';
 //  @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
