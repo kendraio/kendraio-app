@@ -132,7 +132,7 @@
     "@types/tus-js-client": "^1.8.0",
     "@types/uuid": "^8.3.1",
     "@types/wavesurfer.js": "^2.0.2",
-    "codelyzer": "^6.0.2",
+    "codelyzer": "^0.0.28",
     "cypress": "^10.10.0",
     "cypress-localstorage-commands": "^2.2.1",
     "electron": "^23.1.3",
