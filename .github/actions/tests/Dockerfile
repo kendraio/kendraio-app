@@ -1,7 +1,7 @@
 FROM cypress/included:8.4.1
 
-# Install Node 16
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
+# Install Node 18
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
     apt-get install -y nodejs && \
     npm install -g npm@latest && \
     node --version && npm --version
