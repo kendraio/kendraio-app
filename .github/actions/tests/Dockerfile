@@ -6,6 +6,8 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
     npm install -g npm@latest && \
     node --version && npm --version
 
+RUN export PATH=/usr/bin:$PATH
+
 # https://docs.cypress.io/guides/continuous-integration/introduction#Machine-requirements
 RUN apt-get update && apt-get install -y curl jq
 # Copies your code file from your action repository to the filesystem path `/` of the container
