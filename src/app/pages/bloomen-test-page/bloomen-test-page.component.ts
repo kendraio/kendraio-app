@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {tap} from 'rxjs/operators';
 import {TestImportDialogComponent} from '../../dialogs/test-import-dialog/test-import-dialog.component';
 import {PageTitleService} from '../../services/page-title.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import {Router} from '@angular/router';
 import {omit} from 'lodash-es';
 
