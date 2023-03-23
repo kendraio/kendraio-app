@@ -11,7 +11,7 @@
     "experimentalDecorators": true,
     "resolveJsonModule": true,
     "importHelpers": true,
-    "target": "es2020",
+    "target": "ES2022",
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -21,13 +21,16 @@
     ],
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "@env/*": ["./src/environments/*"],
+      "@env/*": [
+        "./src/environments/*"
+      ],
       "ngx-image-tagger": [
         "dist/ngx-image-tagger"
       ],
       "ngx-image-tagger/*": [
         "dist/ngx-image-tagger/*"
       ]
-    }
+    },
+    "useDefineForClassFields": false
   }
 }

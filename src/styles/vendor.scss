@@ -5,50 +5,13 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 
+ @import "~bootstrap/dist/css/bootstrap.css";
+
 // Our own variables that override bootstrap
 @import "_variables";
-// // Core variables and mixins
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/_variables";
-@import "~bootstrap/scss/_mixins";
-// Reset and dependencies
-// @import "~bootstrap/scss/normalize";
-// @import "~bootstrap/scss/print";
-// Core CSS
-@import "~bootstrap/scss/_reboot";
- // @import "~bootstrap/scss/_type";
-@import "~bootstrap/scss/_images";
-@import "~bootstrap/scss/_code";
-@import "~bootstrap/scss/_grid";
- @import "~bootstrap/scss/_tables";
- @import "~bootstrap/scss/forms";
-//  @import "~bootstrap/scss/_buttons";
-// Components
-@import "~bootstrap/scss/transitions";
-// @import "~bootstrap/scss/dropdown";
-// @import "~bootstrap/scss/button-group";
-//  @import "~bootstrap/scss/input-group";
-// @import "~bootstrap/scss/custom-forms";
-// @import "~bootstrap/scss/nav";
-// @import "~bootstrap/scss/navbar";
-// @import "~bootstrap/scss/card";
-// @import "~bootstrap/scss/breadcrumb";
-// @import "~bootstrap/scss/pagination";
-// @import "~bootstrap/scss/badge";
-// @import "~bootstrap/scss/jumbotron";
-// @import "~bootstrap/scss/alert";
-// // @import "~bootstrap/scss/progress"; // Not going to use progress yet, so I've commented it out
-// @import "~bootstrap/scss/media";
-// @import "~bootstrap/scss/list-group";
-// //  @import "~bootstrap/scss/responsive-embed";
-// @import "~bootstrap/scss/close";
-// Components w/ JavaScript
-// @import "~bootstrap/scss/modal";
-// @import "~bootstrap/scss/tooltip";
-// @import "~bootstrap/scss/popover";
-// @import "~bootstrap/scss/carousel";
+
 // Utility classes
-@import "~bootstrap/scss/utilities";
+//@import "~bootstrap/scss/utilities";
 @import "progress-bar";
 // @import '@angular/material/prebuilt-themes/purple-green.css';
 //  @import '@angular/material/prebuilt-themes/deeppurple-amber.css';

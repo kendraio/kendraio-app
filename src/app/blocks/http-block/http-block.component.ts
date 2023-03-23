@@ -2,11 +2,11 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angula
 import {get, has, includes, isString, toUpper} from 'lodash-es';
 import {ContextDataService} from '../../services/context-data.service';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import {catchError} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {mappingUtility} from '../mapping-block/mapping-util';
-import {settings} from 'cluster';
+import settings from 'cluster';
 
 @Component({
   selector: 'app-http-block',

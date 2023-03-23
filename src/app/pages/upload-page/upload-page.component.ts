@@ -3,7 +3,7 @@ import { PageTitleService } from '../../services/page-title.service';
 import {from, interval} from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 
 @Component({
   selector: 'app-upload-page',
