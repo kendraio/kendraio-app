@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-import {get, has, includes, isString, toUpper} from 'lodash-es';
-import {ContextDataService} from '../../services/context-data.service';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { get, has, includes, isString, toUpper } from 'lodash-es';
+import { ContextDataService } from '../../services/context-data.service';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
-import {catchError} from 'rxjs/operators';
-import {of} from 'rxjs';
-import {mappingUtility} from '../mapping-block/mapping-util';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { mappingUtility } from '../mapping-block/mapping-util';
 import settings from 'cluster';
 
 @Component({
@@ -105,17 +105,17 @@ export class HttpBlockComponent implements OnInit, OnChanges {
 
     if (has(this.config, 'authentication.type')) {
       const valueGetters = get(this.config, 'authentication.valueGetters', {});
-      const context = {...this.config.authentication, ...this.contextData.getGlobalContext(valueGetters, this.context, this.model)};
+      const context = { ...this.config.authentication, ...this.contextData.getGlobalContext(valueGetters, this.context, this.model) };
       switch (get(this.config, 'authentication.type')) {
         case 'basic-auth':
           if (has(context, 'username') && has(context, 'password')) {
-            const {username, password} = context;
+            const { username, password } = context;
             headers = headers.append('Authorization', 'Basic ' + btoa(`${username}:${password}`));
           }
           break;
         case 'bearer':
           if (has(context, 'jwt')) {
-            const {jwt} = context;
+            const { jwt } = context;
             headers = headers.append('Authorization', `Bearer ${jwt}`);
           }
           break;
@@ -123,15 +123,15 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           console.log('Unknown authentication type');
       }
     }
-    
+
     // TODO: decide what to do with response when error condition
     switch (toUpper(method)) {
       case 'GET':
         // force the service worker bypass. 
         // When calls are passed to the service worker, they can be invisibly cached
         // by forcing a bypass, we have more control to force a call to take place
-        headers = headers.append('ngsw-bypass','true');
-        this.http.get(url, {headers, responseType: this.responseType})
+        headers = headers.append('ngsw-bypass', 'true');
+        this.http.get(url, { headers, responseType: this.responseType })
           .pipe(
             catchError(error => {
               this.hasError = true;
@@ -148,7 +148,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           });
         break;
       case 'DELETE':
-        this.http.delete(url, {headers, responseType: this.responseType})
+        this.http.delete(url, { headers, responseType: this.responseType })
           .pipe(
             catchError(error => {
               this.hasError = true;
@@ -176,7 +176,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
 
           return;
         }
-        this.http.put(url, payloadB, {headers, responseType: this.responseType})
+        this.http.put(url, payloadB, { headers, responseType: this.responseType })
           .pipe(
             catchError(error => {
               this.hasError = true;
@@ -219,10 +219,10 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           return;
         }
         const sub = (toUpper(method) === 'PUT')
-          ? this.http.put(url, payload, {headers, responseType: this.responseType})
+          ? this.http.put(url, payload, { headers, responseType: this.responseType })
           : (toUpper(method) === 'PATCH') ?
-            this.http.patch(url, payload, {headers, responseType: this.responseType})
-            : this.http.post(url, payload, {headers, responseType: this.responseType});
+            this.http.patch(url, payload, { headers, responseType: this.responseType })
+            : this.http.post(url, payload, { headers, responseType: this.responseType });
         sub
           .pipe(
             catchError(error => {
@@ -259,7 +259,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   getPayloadHeaders() {
     const headers = get(this.config, 'headers', {});
     return Object.keys(headers).reduce((a, key) => {
-      a[key] = mappingUtility({data: this.model, context: this.context}, headers[key]);
+      a[key] = mappingUtility({ data: this.model, context: this.context }, headers[key]);
       return a;
     }, {});
   }
@@ -267,7 +267,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   getPayload() {
     const payloadMapping = get(this.config, 'payload');
     if (payloadMapping) {
-      return mappingUtility({data: this.model, context: this.context}, payloadMapping);
+      return mappingUtility({ data: this.model, context: this.context }, payloadMapping);
     }
     return this.model;
   }
