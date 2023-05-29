@@ -126,7 +126,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           console.log('Unknown authentication type');
       }
     }
-    
+
     // TODO: decide what to do with response when error condition
     switch (toUpper(method)) {
       case 'GET':
@@ -154,106 +154,106 @@ export class HttpBlockComponent implements OnInit, OnChanges {
             });
         }
         break;
-        case 'DELETE':
-          this.http.delete(url, { headers, responseType: this.responseType })
-            .pipe(
-              catchError(error => {
-                this.hasError = true;
-                this.errorMessage = error.message;
-                this.errorData = error;
-                // TODO: need to prevent errors for triggering subsequent blocks
-                return of([]);
-              })
-            )
-            .subscribe(response => {
-              this.isLoading = false;
-              this.hasError = false;
-              this.outputResult(response);
-            });
-          break;
-        case 'BPUT': // binary PUT
-          const isArrayBufferWithContent = obj => (obj instanceof ArrayBuffer) && obj.byteLength > 0;
-          const payloadB = get(this.model, 'content');
-          if (!isArrayBufferWithContent(payloadB)) {
+      case 'DELETE':
+        this.http.delete(url, { headers, responseType: this.responseType })
+          .pipe(
+            catchError(error => {
+              this.hasError = true;
+              this.errorMessage = error.message;
+              this.errorData = error;
+              // TODO: need to prevent errors for triggering subsequent blocks
+              return of([]);
+            })
+          )
+          .subscribe(response => {
             this.isLoading = false;
-            this.hasError = true;
-            this.errorMessage = `${toUpper(method)} of empty payload prevented in http block`;
-            this.errorData = {};
-            this.errorBlocks = [];
-        
-            return;
-          }
-          this.http.put(url, payloadB, { headers, responseType: this.responseType })
-            .pipe(
-              catchError(error => {
-                this.hasError = true;
-                this.errorMessage = error.message;
-                this.errorData = error;
-                // TODO: need to prevent errors for triggering subsequent blocks
-                return of([]);
-              })
-            )
-            .subscribe(response => {
-              this.isLoading = false;
-              this.hasError = false;
-              this.outputResult(response);
-              const notify = get(this.config, 'notify', true);
-              if (notify) {
-                const message = 'API update successful';
-                this.notify.open(message, 'OK', {
-                  duration: 2000,
-                  verticalPosition: 'top'
-                });
-              }
-            });
-          break;
-        case 'PUT':
-        case 'POST':
-        case 'PATCH':
-          const isEmptyObject = obj => (obj instanceof Object && Object.keys(obj).length === 0);
-          let payload = this.getPayload();
-          if ('application/x-www-form-urlencoded' === get(this.config, 'requestType', 'application/json')) {
-            payload = (new HttpParams({ fromObject: payload })).toString();
-            headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
-          }
-          if (isEmptyObject(payload)) {
+            this.hasError = false;
+            this.outputResult(response);
+          });
+        break;
+      case 'BPUT': // binary PUT
+        const isArrayBufferWithContent = obj => (obj instanceof ArrayBuffer) && obj.byteLength > 0;
+        const payloadB = get(this.model, 'content');
+        if (!isArrayBufferWithContent(payloadB)) {
+          this.isLoading = false;
+          this.hasError = true;
+          this.errorMessage = `${toUpper(method)} of empty payload prevented in http block`;
+          this.errorData = {};
+          this.errorBlocks = [];
+
+          return;
+        }
+        this.http.put(url, payloadB, { headers, responseType: this.responseType })
+          .pipe(
+            catchError(error => {
+              this.hasError = true;
+              this.errorMessage = error.message;
+              this.errorData = error;
+              // TODO: need to prevent errors for triggering subsequent blocks
+              return of([]);
+            })
+          )
+          .subscribe(response => {
             this.isLoading = false;
-            this.hasError = true;
-            this.errorMessage = `${toUpper(method)} of empty payload prevented in http block`;
-            this.errorData = {};
-            this.errorBlocks = [];
-        
-            return;
-          }
-          const sub = (toUpper(method) === 'PUT')
-            ? this.http.put(url, payload, { headers, responseType: this.responseType })
-            : (toUpper(method) === 'PATCH') ?
-              this.http.patch(url, payload, { headers, responseType: this.responseType })
-              : this.http.post(url, payload, { headers, responseType: this.responseType });
-          sub
-            .pipe(
-              catchError(error => {
-                this.hasError = true;
-                this.errorMessage = error.message;
-                this.errorData = error;
-                // TODO: need to prevent errors for triggering subsequent blocks
-                return of([]);
-              })
-            )
-            .subscribe(response => {
-              this.isLoading = false;
-              this.hasError = false;
-              this.outputResult(response);
-              const notify = get(this.config, 'notify', true);
-              if (notify) {
-                const message = 'API update successful';
-                this.notify.open(message, 'OK', {
-                  duration: 2000,
-                  verticalPosition: 'top'
-                });
-              }
-            });
-          break;
+            this.hasError = false;
+            this.outputResult(response);
+            const notify = get(this.config, 'notify', true);
+            if (notify) {
+              const message = 'API update successful';
+              this.notify.open(message, 'OK', {
+                duration: 2000,
+                verticalPosition: 'top'
+              });
+            }
+          });
+        break;
+      case 'PUT':
+      case 'POST':
+      case 'PATCH':
+        const isEmptyObject = obj => (obj instanceof Object && Object.keys(obj).length === 0);
+        let payload = this.getPayload();
+        if ('application/x-www-form-urlencoded' === get(this.config, 'requestType', 'application/json')) {
+          payload = (new HttpParams({ fromObject: payload })).toString();
+          headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
+        }
+        if (isEmptyObject(payload)) {
+          this.isLoading = false;
+          this.hasError = true;
+          this.errorMessage = `${toUpper(method)} of empty payload prevented in http block`;
+          this.errorData = {};
+          this.errorBlocks = [];
+
+          return;
+        }
+        const sub = (toUpper(method) === 'PUT')
+          ? this.http.put(url, payload, { headers, responseType: this.responseType })
+          : (toUpper(method) === 'PATCH') ?
+            this.http.patch(url, payload, { headers, responseType: this.responseType })
+            : this.http.post(url, payload, { headers, responseType: this.responseType });
+        sub
+          .pipe(
+            catchError(error => {
+              this.hasError = true;
+              this.errorMessage = error.message;
+              this.errorData = error;
+              // TODO: need to prevent errors for triggering subsequent blocks
+              return of([]);
+            })
+          )
+          .subscribe(response => {
+            this.isLoading = false;
+            this.hasError = false;
+            this.outputResult(response);
+            const notify = get(this.config, 'notify', true);
+            if (notify) {
+              const message = 'API update successful';
+              this.notify.open(message, 'OK', {
+                duration: 2000,
+                verticalPosition: 'top'
+              });
+            }
+          });
+        break;
     }
   }
 
@@ -338,15 +338,15 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       // and return an object with the URL and relation type.
 
       const matches = /<(.*)>; rel="(.*)"/.exec(link.trim());
-      if (matches && matches.length === 3) {
+      if (matches?.length === 3) {
         return { url: matches[1], rel: matches[2] };
       }
     });
 
     // Get the first link that matches the condition:
-    const nextPageLink = links.find(link => link && link.rel === 'next');
+    const nextPageLink = links.find(link => link?.rel === 'next');
     // We return the URL of the next page if it exists, or null otherwise.
-    return nextPageLink ? nextPageLink.url : null;
+    return nextPageLink?.url || null;
   }
 
   outputResult(data) {
