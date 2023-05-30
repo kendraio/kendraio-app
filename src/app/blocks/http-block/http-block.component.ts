@@ -1,12 +1,11 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-import {get, has, includes, isString, toUpper} from 'lodash-es';
-import {ContextDataService} from '../../services/context-data.service';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { get, has, includes, isString, toUpper } from 'lodash-es';
+import { ContextDataService } from '../../services/context-data.service';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
-import {catchError} from 'rxjs/operators';
-import {of} from 'rxjs';
-import {mappingUtility} from '../mapping-block/mapping-util';
-import settings from 'cluster';
+import { catchError, expand, reduce, takeWhile } from 'rxjs/operators';
+import { of, EMPTY } from 'rxjs';
+import { mappingUtility } from '../mapping-block/mapping-util';
 
 @Component({
   selector: 'app-http-block',
@@ -67,6 +66,10 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     this.makeRequest();
   }
 
+  /**
+   * Makes an HTTP request based on the provided configuration and handles the response.
+   * It also supports pagination by calling the getAllPages method when followPaginationLinksMerged option is enabled.
+   */
   makeRequest() {
     this.hasError = false;
     this.isLoading = true;
@@ -105,17 +108,17 @@ export class HttpBlockComponent implements OnInit, OnChanges {
 
     if (has(this.config, 'authentication.type')) {
       const valueGetters = get(this.config, 'authentication.valueGetters', {});
-      const context = {...this.config.authentication, ...this.contextData.getGlobalContext(valueGetters, this.context, this.model)};
+      const context = { ...this.config.authentication, ...this.contextData.getGlobalContext(valueGetters, this.context, this.model) };
       switch (get(this.config, 'authentication.type')) {
         case 'basic-auth':
           if (has(context, 'username') && has(context, 'password')) {
-            const {username, password} = context;
+            const { username, password } = context;
             headers = headers.append('Authorization', 'Basic ' + btoa(`${username}:${password}`));
           }
           break;
         case 'bearer':
           if (has(context, 'jwt')) {
-            const {jwt} = context;
+            const { jwt } = context;
             headers = headers.append('Authorization', `Bearer ${jwt}`);
           }
           break;
@@ -123,32 +126,36 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           console.log('Unknown authentication type');
       }
     }
-    
+
     // TODO: decide what to do with response when error condition
     switch (toUpper(method)) {
       case 'GET':
         // force the service worker bypass. 
         // When calls are passed to the service worker, they can be invisibly cached
         // by forcing a bypass, we have more control to force a call to take place
-        headers = headers.append('ngsw-bypass','true');
-        this.http.get(url, {headers, responseType: this.responseType})
-          .pipe(
-            catchError(error => {
-              this.hasError = true;
-              this.errorMessage = error.message;
-              this.errorData = error;
-              // TODO: need to prevent errors for triggering subsequent blocks
-              return of([]);
-            })
-          )
-          .subscribe(response => {
-            this.isLoading = false;
-            this.hasError = false;
-            this.outputResult(response);
-          });
+        headers = headers.append('ngsw-bypass', 'true');
+        if (get(this.config, 'followPaginationLinksMerged', false)) {
+          this.getAllPages(url, headers, this.responseType);
+        } else {
+          this.http.get(url, { headers, responseType: this.responseType })
+            .pipe(
+              catchError(error => {
+                this.hasError = true;
+                this.errorMessage = error.message;
+                this.errorData = error;
+                // TODO: need to prevent errors for triggering subsequent blocks
+                return of([]);
+              })
+            )
+            .subscribe(response => {
+              this.isLoading = false;
+              this.hasError = false;
+              this.outputResult(response);
+            });
+        }
         break;
       case 'DELETE':
-        this.http.delete(url, {headers, responseType: this.responseType})
+        this.http.delete(url, { headers, responseType: this.responseType })
           .pipe(
             catchError(error => {
               this.hasError = true;
@@ -176,7 +183,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
 
           return;
         }
-        this.http.put(url, payloadB, {headers, responseType: this.responseType})
+        this.http.put(url, payloadB, { headers, responseType: this.responseType })
           .pipe(
             catchError(error => {
               this.hasError = true;
@@ -219,10 +226,10 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           return;
         }
         const sub = (toUpper(method) === 'PUT')
-          ? this.http.put(url, payload, {headers, responseType: this.responseType})
+          ? this.http.put(url, payload, { headers, responseType: this.responseType })
           : (toUpper(method) === 'PATCH') ?
-            this.http.patch(url, payload, {headers, responseType: this.responseType})
-            : this.http.post(url, payload, {headers, responseType: this.responseType});
+            this.http.patch(url, payload, { headers, responseType: this.responseType })
+            : this.http.post(url, payload, { headers, responseType: this.responseType });
         sub
           .pipe(
             catchError(error => {
@@ -247,9 +254,99 @@ export class HttpBlockComponent implements OnInit, OnChanges {
             }
           });
         break;
+    }
+  }
 
+
+  /**
+   * Fetches paginated API results by recursively getting each page and merging the results.
+   * @param {string} url - The endpoint URL.
+   * @param {HttpHeaders} headers - The HttpHeaders for the request.
+   * @param {string} responseType - The type of response expected from the server.
+   */
+  getAllPages(url, headers, responseType) {
+    // Expands through pages recursively based on nextPageUrl
+    this.http.get(url, { headers, responseType, observe: 'response' })
+      .pipe(
+        expand((response: HttpResponse<any>) => {
+          const linkHeader = response.headers.get('link');
+          const nextPageUrl = this.extractNextPageUrl(linkHeader);
+
+          if (nextPageUrl) {
+            if (get(this.config, 'useProxy', false)) {
+              headers = headers.delete('Target-URL');
+              headers = headers.append('Target-URL', nextPageUrl);
+            } else {
+              url = nextPageUrl;
+            }
+            return this.http.get(url, { headers, responseType, observe: 'response' });
+          } else {
+            return EMPTY;
+          }
+        }),
+        takeWhile(response => response.status === 200), // Stop when there's an error or nextPageUrl is null
+        catchError(error => {
+          this.hasError = true;
+          this.errorMessage = error.message;
+          this.errorData = error;
+          return of([]);
+        }),
+        reduce((accumlated_results: any[], response: HttpResponse<any>) => accumlated_results.concat(response.body || []), [])
+      )
+      .subscribe(results => {
+        this.isLoading = false;
+        this.hasError = false;
+        this.outputResult(results);
+      });
+  }
+
+  /**
+   * Extracts the next page URL from the link header in the HttpResponse.
+   * @param {string} linkHeader - The link header string from HttpResponse.
+   * @return {string|null} - The next page URL if it exists, or null otherwise.
+   */
+  extractNextPageUrl(linkHeader) {
+    /**
+     * The `link` header should follow the format outlined by RFC 5988 Web Linking. 
+     * It should contain a list of link relations and their respective URLs, separated 
+     * by commas. Each link consists of the URL enclosed in angle brackets `< >` 
+     * followed by a semicolon and the relation type specified as `rel="relation-type"`.
+     * 
+     * Example of a link header:
+     * `<linkHeader> = '<https://example.com/data?page=2>; rel="next", 
+     *                 <https://example.com/data?page=5>; rel="last"'`
+     * 
+     * In this example, there is a "next" relation pointing to the second page of results,
+     * and a "last" relation pointing to the fifth (and final) page of results.
+     * 
+     * The `extractNextPageUrl` method will specifically look for a link with the `rel="next"` 
+     * attribute and return its URL. In case there's no "next" relation, the method will 
+     * return null, which is considered the stop condition for pagination. 
+     */
+    if (!linkHeader) {
+      return null;
     }
 
+
+    // We use a regex to extract the URL and relation type from each link,
+    // and return an object with the URL and relation type.
+    const links = linkHeader.split(',').map(link => {
+      // The regex will match the first pair of angle brackets enclosing the URL,
+      // and the first pair of double quotes enclosing the relation type.
+      // Example: `<https://example.com/data?page=2>; rel="next"`
+      // The regex will match `<https://example.com/data?page=2>` and `next`
+      // and return an object with the URL and relation type.
+
+      const matches = /<(.*)>; rel="(.*)"/.exec(link.trim());
+      if (matches?.length === 3) {
+        return { url: matches[1], rel: matches[2] };
+      }
+    });
+
+    // Get the first link that matches the condition:
+    const nextPageLink = links.find(link => link?.rel === 'next');
+    // We return the URL of the next page if it exists, or null otherwise.
+    return nextPageLink?.url || null;
   }
 
   outputResult(data) {
@@ -259,7 +356,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   getPayloadHeaders() {
     const headers = get(this.config, 'headers', {});
     return Object.keys(headers).reduce((a, key) => {
-      a[key] = mappingUtility({data: this.model, context: this.context}, headers[key]);
+      a[key] = mappingUtility({ data: this.model, context: this.context }, headers[key]);
       return a;
     }, {});
   }
@@ -267,7 +364,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   getPayload() {
     const payloadMapping = get(this.config, 'payload');
     if (payloadMapping) {
-      return mappingUtility({data: this.model, context: this.context}, payloadMapping);
+      return mappingUtility({ data: this.model, context: this.context }, payloadMapping);
     }
     return this.model;
   }
