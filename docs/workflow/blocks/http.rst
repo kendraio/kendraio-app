@@ -100,3 +100,18 @@ It is possible to query a GraphQL endpoint using the HTTP block.
   }
 
 
+Pagination
+----------
+
+If a HTTP API returns paginated results with a standard link header, to fetch paginated API results, set the followPaginationLinksMerged option to true. This will fetch all pages of results and return the combined set of results from all the pages.
+
+With a proxy:
+```json
+{
+  "type": "http",
+  "method": "GET",
+  "endpoint": "https://example.com/paginated",
+  "useProxy": true,
+  "followPaginationLinksMerged": true
+}
+```
