@@ -242,7 +242,19 @@ const search = decorate({
       return null;
     },
     _signature: [{types: [TYPE_NUMBER, TYPE_STRING, TYPE_NULL]}]
-  }
+  },
+  parseUnixTimestamp: {
+    _func: ([n]) => {
+      if (isNull(n)) {
+        return null;
+      }
+      if (isNumber(n)) {
+        return DateTime.fromSeconds(n).toISO();
+      }
+      return null;
+    },
+    _signature: [{ types: [TYPE_NUMBER, TYPE_NULL] }]
+  },
 });
 
 
