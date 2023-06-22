@@ -257,5 +257,9 @@ formly-array-type {
   margin-bottom: 1rem;
 }
 
+// Fix for cut-off Formly Material label
+.mdc-text-field--filled::before{
+  content: "" !important;
+}
 
 // Kendraio3ca31f6bcb87c68721363847192dbd57
