@@ -38,5 +38,21 @@ describe('MappingUtil', () => {
         expect(mappingUtility(data, expr1)).toBe(expected1);
         expect(mappingUtility(data, expr2)).toBe(expected2);
     });
+
+    it('should parse Unix millisecond timestamp and return date string', () => {
+        const data = { data: { timestamp: 1589756000000, nothing: 0 } };
+        const expr1 = "parseUnixTimestamp(data.timestamp, 'ms')";
+        const expected1 = DateTime.fromMillis(data.data.timestamp).toISO();
+      
+        expect(mappingUtility(data, expr1)).toBe(expected1);
+      });
+      
+      it('should parse Unix millisecond timestamp and return date string with format argument', () => {
+        const data = { data: { timestamp: 1589756000000, nothing: 0 } };
+        const expr1 = "parseUnixTimestamp(data.timestamp, 'milliseconds')";
+        const expected1 = DateTime.fromMillis(data.data.timestamp).toISO();
+      
+        expect(mappingUtility(data, expr1)).toBe(expected1); 
+      });
 });
 
