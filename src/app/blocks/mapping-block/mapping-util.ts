@@ -246,14 +246,14 @@ const search = decorate({
   parseUnixTimestamp: {
     _func: ([n, format]) => {
       if (format === 'ms' || format === 'milliseconds') {
-        n *= 1000;
+        n =  n / 1000;
       }
       if (isNumber(n)) {
         return DateTime.fromSeconds(n).toISO();
       }
       return null;
     },
-    _signature: [{ types: [TYPE_NUMBER, TYPE_NULL] }, { types: [TYPE_STRING, TYPE_NULL], optional: true }]
+    _signature: [{ types: [TYPE_NUMBER, TYPE_NULL] }, { types: [TYPE_NUMBER, TYPE_STRING], optional: true }]
   },
 });
 
