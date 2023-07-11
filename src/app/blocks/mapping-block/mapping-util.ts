@@ -244,16 +244,16 @@ const search = decorate({
     _signature: [{types: [TYPE_NUMBER, TYPE_STRING, TYPE_NULL]}]
   },
   parseUnixTimestamp: {
-    _func: ([n]) => {
-      if (isNull(n)) {
-        return null;
+    _func: ([n, format]) => {
+      if (format === 'ms' || format === 'milliseconds') {
+        n =  n / 1000;
       }
       if (isNumber(n)) {
         return DateTime.fromSeconds(n).toISO();
       }
       return null;
     },
-    _signature: [{ types: [TYPE_NUMBER, TYPE_NULL] }]
+    _signature: [{ types: [TYPE_NUMBER, TYPE_NULL] }, { types: [TYPE_NUMBER, TYPE_STRING], optional: true }]
   },
 });
 

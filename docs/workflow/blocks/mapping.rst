@@ -702,9 +702,13 @@ Parses a Unix timestamp and returns an ISO 8601 date string.
 
 .. code-block:: javascript
 
-    parseUnixTimestamp(`0`)
+    parseUnixTimestamp(`0`)  // Seconds
 
 Output: "1970-01-01T01:00:00.000+01:00"
 
+.. code-block:: javascript
 
+    parseUnixTimestamp(`1589756000000`, `ms`) // Milliseconds 
+
+Output: "2020-05-19T03:00:00.000+01:00"
 
