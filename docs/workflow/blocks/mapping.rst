@@ -376,6 +376,8 @@ Examples:
 
    formatDate('2020-01-01', 'dd/MM/yyyy')  // Output: "01/01/2020"
 
+   formatDate('2020-01-01T14:50:00.000+01:00', 'dd/MM/yyyy') // Output: "01/01/2020"
+
 10. omit
 --------
 
