@@ -58,13 +58,13 @@ export class WorkflowService {
     const urlData = this.shareLinks.getData();
     if (urlData && isArray(urlData)) {
       this.blocks = urlData;
-      this.initWorkflow({ title: 'Workflow', blocks: urlData, context: {}, tags: [] }, true);
+      this.initWorkflow({ title: 'Flow', blocks: urlData, context: {}, tags: [] }, true);
     }
   }
 
   loadState() {
     const state = JSON.parse(localStorage.getItem('kendraio-workflow-state'));
-    const title = get(state, 'title', 'Workflow');
+    const title = get(state, 'title', 'Flow');
     const blocks = get(state, 'blocks', []);
     const context = get(state, 'context', {});
     const tags = get(state, 'tags', []);
@@ -100,7 +100,7 @@ export class WorkflowService {
   clearBlocks() {
     this.blocks = [];
     this.id = '';
-    this.title = 'Workflow';
+    this.title = 'Flow';
     set(this.context, 'app.adapterName', undefined);
     this.saveState();
     this.router.navigate(['/workflow-builder']);
@@ -231,7 +231,7 @@ export class WorkflowService {
         // console.log(values);
         const blocks = get(values, 'blocks', []);
         const tags = get(values, 'tags', []);
-        const title = get(values, 'title', 'Workflow');
+        const title = get(values, 'title', 'Flow');
         this.initWorkflow({ title, blocks, context: {}, tags });
         this.id = get(values, 'id');
         this.tags = get(values, 'tags', []);
@@ -249,7 +249,7 @@ export class WorkflowService {
     });
     dialogRef.afterClosed().subscribe(values => {
       if (!!values) {
-        this.title = get(values, 'title', 'Workflow');
+        this.title = get(values, 'title', 'Flow');
         this.id = get(values, 'id');
         this.tags = get(values, 'tags');
         set(this.context, 'app.adapterName', get(values, 'adapterName', this.getAdapterName()));
