@@ -58,13 +58,13 @@ export class WorkflowService {
     const urlData = this.shareLinks.getData();
     if (urlData && isArray(urlData)) {
       this.blocks = urlData;
-      this.initWorkflow({ title: 'Flow', blocks: urlData, context: {}, tags: [] }, true);
+      this.initWorkflow({ title: 'Flow name', blocks: urlData, context: {}, tags: [] }, true);
     }
   }
 
   loadState() {
     const state = JSON.parse(localStorage.getItem('kendraio-workflow-state'));
-    const title = get(state, 'title', 'Flow');
+    const title = get(state, 'title', 'Flow name');
     const blocks = get(state, 'blocks', []);
     const context = get(state, 'context', {});
     const tags = get(state, 'tags', []);
