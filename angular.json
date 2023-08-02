@@ -15,7 +15,7 @@
         "@schematics/angular:application": {
           "strict": true
         }
-      },      
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",
@@ -224,7 +224,7 @@
         }
       }
     }
-  
+
   },
   "cli": {
     "analytics": false,
