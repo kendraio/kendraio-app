@@ -15,7 +15,7 @@
         "@schematics/angular:application": {
           "strict": true
         }
-      },      
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -219,7 +219,7 @@
         }
       }
     }
-  
+
   },
   "cli": {
     "analytics": false,
