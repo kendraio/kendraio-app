@@ -21,6 +21,8 @@ import { camelCase } from 'lodash-es';
 import {ConnectionManagerService} from './connection-manager.service';
 import {WorkflowRepoService} from './workflow-repo.service';
 
+const UNKNOWN = 'Adapter name';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -138,7 +140,7 @@ export class WorkflowService {
                   tags: get(config, 'tags', [])
                 });
                 this.id = get(config, 'id');
-                set(this.context, 'app.adapterName', get(config, 'adapterName', 'UNKNOWN'));
+                set(this.context, 'app.adapterName', get(config, 'adapterName', UNKNOWN));
                 this.saveState();
               });
             }
@@ -191,7 +193,7 @@ export class WorkflowService {
   saveToAdapter() {
     this.localData['workflows']
       .where('[adapterName+workflowId]')
-      .equals([this.getAdapterName() || 'UNKNOWN', this.id])
+      .equals([this.getAdapterName() || UNKNOWN, this.id])
       .modify({ blocks: this.blocks, title: this.title, workflowId: this.id, modified: true })
       .then(() => {
         this.localData['adapters'].get(this.getAdapterName()).then(adapter => {
