@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
-import { FieldType } from '@ngx-formly/core';
+import {Component} from '@angular/core';
+import {FieldType} from '@ngx-formly/core';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
-
 
 @Component({
   selector: 'formly-field-input-money',
@@ -10,7 +9,7 @@ import createNumberMask from 'text-mask-addons/dist/createNumberMask';
      <mat-form-field appearance="standard" style="width:100%">
      <mat-label>  {{ to.label }} </mat-label>
      <input matInput type="text"
-     [textMask]="{mask: numberMask}"
+     [maskito]="{mask: numberMask}"
      [formControl]="formControl"
      [formlyAttributes]="field">
      <mat-error>{{to.errMessage}}</mat-error>

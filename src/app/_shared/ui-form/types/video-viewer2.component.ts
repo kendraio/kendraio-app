@@ -17,9 +17,9 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browse
 <iframe *ngIf="formControl.value"
 class="e2e-iframe-trusted-src"
 [src]="videoUrl"
-width="800" height="600" 
-frameborder="0" 
-allow="autoplay; fullscreen; gyroscope; accelerometer" 
+width="800" height="600"
+frameborder="0"
+allow="autoplay; fullscreen; gyroscope; accelerometer"
 allowfullscreen title="Bali Blue"></iframe>
 
 {{formControl.value}}
@@ -33,7 +33,13 @@ allowfullscreen title="Bali Blue"></iframe>
 
 export class FormlyFieldVideoViewer2 extends FieldType {
   @Input()
-  formControl;
+  private _formControl: any;
+  public get formControl() {
+        return this._formControl;
+    }
+    public set formControl(value) {
+        this._formControl = value;
+    }
   videoId: any;
   videoUrl: any;
 
@@ -45,7 +51,7 @@ export class FormlyFieldVideoViewer2 extends FieldType {
 
   ngOnInit() {
     this.videoId = this.formControl.value;
-    this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://player.vimeo.com/video/' 
+    this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://player.vimeo.com/video/'
     + this.formControl.value + '?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=16166');
   }
 

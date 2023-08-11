@@ -1,7 +1,7 @@
 import {Component, NgZone, OnInit} from '@angular/core';
 import {JSON_EDITOR_OPTIONS} from './json-editor-options';
 import {KQL_EDITOR_OPTIONS} from './kql-editor-options';
-import {NgxEditorModel} from 'ngx-monaco-editor';
+import {MonacoEditorModule} from '@materia-ui/ngx-monaco-editor';
 import {mappingUtility} from '../../blocks/mapping-block/mapping-util';
 import {HttpClient} from '@angular/common/http';
 import {map, take} from 'rxjs/operators';
@@ -48,12 +48,12 @@ export class KqlBuilderComponent implements OnInit {
       }
     }
   }, null, 2);
-  dataInModel: NgxEditorModel;
+  dataInModel: MonacoEditorModule;
 
   dataOut = {};
 
   queryTxt = 'data';
-  queryModel: NgxEditorModel;
+  queryModel: MonacoEditorModule;
 
   errorMessage = '';
 

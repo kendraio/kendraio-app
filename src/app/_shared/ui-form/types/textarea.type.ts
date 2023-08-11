@@ -49,7 +49,7 @@ import { MatLegacyInput as MatInput } from '@angular/material/legacy-input';
   `
 })
 
-export class TextareaComponent extends FieldType {
+export class TextareaComponent extends FieldType<any> {
 //   defaultOptions = {
 //     hideExpression: () => true,
 //     // defaultValue: {},
@@ -67,7 +67,7 @@ export class TextareaComponent extends FieldType {
   get placeholderOrLabel(): string {return this.to.placeholder ||  this.to.label; }
   get description(): string {return this.to.description; }
   get test(): string {return this.formControl.getError('maxLength'); }
-  
+
 }
 
 // Form blocks have may labels may be defined like this:

@@ -6,19 +6,25 @@ import { indexOf } from 'lodash-es';
     selector: 'app-null-type',
     template: `
   <div>
-  <label style="margin-right:16px" *ngIf="to.label && formControl.value?.toString()">{{ to.label }}</label> 
+  <label style="margin-right:16px" *ngIf="to.label && formControl.value?.toString()">{{ to.label }}</label>
 
    <b><span *ngIf="!isUrl" [innerHtml]="text"></span></b>
 
-    <a *ngIf="isUrl" target="_blank" [href]="text">{{cleanUrl(text)}}</a> 
+    <a *ngIf="isUrl" target="_blank" [href]="text">{{cleanUrl(text)}}</a>
 
-    <p class="small" small *ngIf="to.description && formControl.value">{{ to.description }}</p> 
+    <p class="small" small *ngIf="to.description && formControl.value">{{ to.description }}</p>
     </div>
   `,
 })
 export class NullTypeComponent extends FieldType implements OnInit {
     @Input()
-    formControl;
+    private _formControl: any;
+    public get formControl() {
+        return this._formControl;
+    }
+    public set formControl(value) {
+        this._formControl = value;
+    }
     imgId: any;
     text: any;
     imgProps: {};

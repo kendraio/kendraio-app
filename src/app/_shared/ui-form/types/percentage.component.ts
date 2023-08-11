@@ -6,7 +6,7 @@ import { FieldType } from '@ngx-formly/core';
   template: `
   <mat-form-field appearance="standard">
   <mat-label>  {{ to.label }} </mat-label>
-     <input matInput type="text"  [textMask]="{mask: limitToHundred}" [formControl]="formControl" [formlyAttributes]="field">
+     <input matInput type="text"  [maskito]="{mask: limitToHundred}" [formControl]="formControl" [formlyAttributes]="field">
      <mat-error></mat-error>
      <mat-hint> {{ to.description }} </mat-hint>
    </mat-form-field>

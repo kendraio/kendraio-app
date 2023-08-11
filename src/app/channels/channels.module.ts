@@ -5,7 +5,6 @@ import { ChannelsRoutingModule } from './channels-routing.module';
 import { ChannelsComponent } from './channels.component';
 import { SharedModule } from '../_shared/shared.module';
 import { ChannelComponent } from './channel/channel.component';
-// import { YoutubeModule } from './youtube/youtube.module';
 
 @NgModule({
   declarations: [ChannelsComponent, ChannelComponent],
