@@ -8,7 +8,7 @@
                    [(ngModel)]="queryTxt"></ngx-monaco-editor>
 <div class="bottom-editor-wrapper">
   <ngx-monaco-editor class="data-input" [options]="jsonEditorOptions"
-                     [model]="dataInModel"
+                     [ngModelGroup]="dataInModel"
                      (ngModelChange)="dataInModelChange()"
                      [(ngModel)]="dataInTxt"></ngx-monaco-editor>
 
