@@ -1,35 +1,26 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TextMaskModule } from 'angular2-text-mask';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import { PanelWrapperComponent, CheckBoxWrapperComponent,
-} from './wrappers';
+import {CheckBoxWrapperComponent, PanelWrapperComponent,} from './wrappers';
 
 import * as types from './types/';
 
-import { MatNativeDateModule, ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
+import {ErrorStateMatcher, MatNativeDateModule, ShowOnDirtyErrorStateMatcher} from '@angular/material/core';
+import {NgSelectModule} from '@ng-select/ng-select';
+import {FormlyMatDatepickerModule} from '@ngx-formly/material/datepicker';
 
-import { NgSelectModule } from '@ng-select/ng-select';
-import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
-
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import {  MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
-import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
-import { MatLegacyListModule as MatListModule } from '@angular/material/legacy-list';
-import { MatLegacyRadioModule as MatRadioModule } from '@angular/material/legacy-radio';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
-import { MatLegacySliderModule as MatSliderModule } from '@angular/material/legacy-slider';
-import { FormlyMaterialModule } from '@ngx-formly/material';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatIconModule} from '@angular/material/icon';
+import {FormlyMaterialModule} from '@ngx-formly/material';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import {FlexLayoutModule} from '@angular/flex-layout';
 import {FormlyFieldFileComponent} from './types/file-type.component';
 import {FormlyModule} from '@ngx-formly/core';
-
+import {MatCardModule} from '@angular/material/card';
+import {MatInputModule} from '@angular/material/input';
+import {MaskitoModule} from '@maskito/angular';
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
   providers: [
@@ -39,40 +30,25 @@ import {FormlyModule} from '@ngx-formly/core';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    TextMaskModule,
     FlexLayoutModule,
     NgSelectModule,
     FormlyMaterialModule,
     MatButtonToggleModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatFormFieldModule,
     MatIconModule,
-    MatInputModule,
-    MatRadioModule,
-    MatListModule,
-    MatSelectModule,
-    MatCardModule,
-    MatSliderModule,
     FormlyMatDatepickerModule,
     NgxMaterialTimepickerModule,
-    FormlyModule.forChild()
+    FormlyModule.forChild(),
+    MatCardModule,
+    MatInputModule,
+    MaskitoModule,
+    MatRadioModule
   ],
   exports: [
     FormsModule,
     ReactiveFormsModule,
     MatButtonToggleModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatFormFieldModule,
     MatIconModule,
-    MatInputModule,
-    MatRadioModule,
-    MatListModule,
-    MatSelectModule,
-    MatSliderModule,
     NgSelectModule,
-    MatCardModule,
     MatNativeDateModule,
     FormlyMatDatepickerModule,
     NgxMaterialTimepickerModule
