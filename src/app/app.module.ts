@@ -362,7 +362,7 @@ const monacoConfig: NgxMonacoEditorConfig = {
         AppRoutingModule,
         BrowserAnimationsModule,
         AppMaterialModule,
-        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+        ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
