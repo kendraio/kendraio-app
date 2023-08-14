@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angu
 import { get, has, includes, isString, toUpper } from 'lodash-es';
 import { ContextDataService } from '../../services/context-data.service';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, expand, reduce, takeWhile } from 'rxjs/operators';
 import { of, EMPTY } from 'rxjs';
 import { mappingUtility } from '../mapping-block/mapping-util';
@@ -130,7 +130,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     // TODO: decide what to do with response when error condition
     switch (toUpper(method)) {
       case 'GET':
-        // force the service worker bypass. 
+        // force the service worker bypass.
         // When calls are passed to the service worker, they can be invisibly cached
         // by forcing a bypass, we have more control to force a call to take place
         headers = headers.append('ngsw-bypass', 'true');
@@ -307,21 +307,21 @@ export class HttpBlockComponent implements OnInit, OnChanges {
    */
   extractNextPageUrl(linkHeader) {
     /**
-     * The `link` header should follow the format outlined by RFC 5988 Web Linking. 
-     * It should contain a list of link relations and their respective URLs, separated 
-     * by commas. Each link consists of the URL enclosed in angle brackets `< >` 
+     * The `link` header should follow the format outlined by RFC 5988 Web Linking.
+     * It should contain a list of link relations and their respective URLs, separated
+     * by commas. Each link consists of the URL enclosed in angle brackets `< >`
      * followed by a semicolon and the relation type specified as `rel="relation-type"`.
-     * 
+     *
      * Example of a link header:
-     * `<linkHeader> = '<https://example.com/data?page=2>; rel="next", 
+     * `<linkHeader> = '<https://example.com/data?page=2>; rel="next",
      *                 <https://example.com/data?page=5>; rel="last"'`
-     * 
+     *
      * In this example, there is a "next" relation pointing to the second page of results,
      * and a "last" relation pointing to the fifth (and final) page of results.
-     * 
-     * The `extractNextPageUrl` method will specifically look for a link with the `rel="next"` 
-     * attribute and return its URL. In case there's no "next" relation, the method will 
-     * return null, which is considered the stop condition for pagination. 
+     *
+     * The `extractNextPageUrl` method will specifically look for a link with the `rel="next"`
+     * attribute and return its URL. In case there's no "next" relation, the method will
+     * return null, which is considered the stop condition for pagination.
      */
     if (!linkHeader) {
       return null;
