@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ShareLinkGeneratorService} from '../../services/share-link-generator.service';
 import {AdaptersService} from '../../services/adapters.service';
 import {filter, take} from 'rxjs/operators';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import {AdapterBlocksConfigSelectDialogComponent} from
     '../../dialogs/adapter-blocks-config-select-dialog/adapter-blocks-config-select-dialog.component';
 import {ExportConfigDialogComponent} from '../../dialogs/export-config-dialog/export-config-dialog.component';

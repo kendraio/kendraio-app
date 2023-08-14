@@ -346,34 +346,35 @@ export function HttpLoaderFactory(http: HttpClient) {
         BlockComparisonBuilderBoxComponent,
         LinkActionComponent
     ],
-    imports: [
-        FormlyModule.forRoot({}),
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        AppMaterialModule,
-        ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpClient]
-            }
-        }),
-        HttpClientModule,
-        ReactiveFormsModule,
-        FormsModule,
-        NgxTaggerModule,
-        MessagesModule,
-        DragDropModule,
-        LeafletModule,
-        LeafletMarkerClusterModule,
-        FormlyModule.forRoot(config),
-        FormlyMaterialModule,
-        MonacoEditorModule,
-        MatAutocompleteModule,
-        AgGridModule
-    ],
+  imports: [
+    FormlyModule.forRoot({}),
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    AppMaterialModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgxTaggerModule,
+    MessagesModule,
+    DragDropModule,
+    LeafletModule,
+    LeafletMarkerClusterModule,
+    FormlyModule.forRoot(config),
+    FormlyMaterialModule,
+    MonacoEditorModule,
+    MatAutocompleteModule,
+    AgGridModule,
+    MatChipsModule
+  ],
     providers: [
         // This service is from old legacy code and no longer used,
         // so I'm commenting out the init() function and the whole thing

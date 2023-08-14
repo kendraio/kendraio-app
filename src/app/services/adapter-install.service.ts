@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import {LocalDatabaseService} from './local-database.service';
 import {get, has} from 'lodash-es';
 import {AppSettingsService} from './app-settings.service';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import * as LZS from 'lz-string';
 
 @Injectable({
