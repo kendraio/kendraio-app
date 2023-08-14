@@ -9,7 +9,7 @@
     <input matInput placeholder="Workflow ID" formControlName="id" name="id">
   </mat-form-field>
   <mat-form-field class="example-chip-list">
-    <mat-chip-list #chipList aria-label="Fruit selection">
+    <mat-chip-listbox #chipList aria-label="Fruit selection">
       <mat-chip *ngFor="let tag of tags.getRawValue()" [selectable]="selectable"
                 [removable]="removable" (removed)="removeTag(tag)">
         {{tag}}
@@ -20,7 +20,7 @@
              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
              [matChipInputAddOnBlur]="addOnBlur"
              (matChipInputTokenEnd)="addTag($event)">
-    </mat-chip-list>
+    </mat-chip-listbox>
   </mat-form-field>
 </form>
 
