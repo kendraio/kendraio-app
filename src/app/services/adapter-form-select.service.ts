@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import {FormSelectDialogComponent} from '../dialogs/form-select-dialog/form-select-dialog.component';
 import {map, switchMap} from 'rxjs/operators';
 import {has} from 'lodash-es';

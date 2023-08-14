@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AdaptersService} from '../../services/adapters.service';
-import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import {map, switchMap, tap} from 'rxjs/operators';
 import {has, pickBy} from 'lodash-es';
 import {forkJoin} from 'rxjs';
