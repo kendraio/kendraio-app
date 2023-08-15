@@ -30,7 +30,7 @@ export class BlocksBuilderPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.pageTitle.setTitle('Workflow', true);
+    this.pageTitle.setTitle('Flow', true);
     this.adapters.adaptersReady$.pipe(
       filter(Boolean),
       take(1)
