@@ -26,7 +26,7 @@ Kendraio App
 
 .. toctree::
    :maxdepth: 2
-   :caption: Workflow Builder
+   :caption: Flow Builder (previously Workflow Builder)
 
    workflow/intro
    workflow/sharing
@@ -35,7 +35,7 @@ Kendraio App
 
 .. toctree::
    :maxdepth: 1
-   :caption: Workflow Blocks Reference
+   :caption: Flow Blocks Reference (previously Workflow Blocks Reference)
 
    workflow/blocks/actions
    workflow/blocks/adapter_info

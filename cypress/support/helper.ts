@@ -9,7 +9,7 @@ import dexie from 'dexie';
 export function loadFlowCode(blocks: Array<{ [key: string]: any }>): void {
   const compressed = LZS.compressToEncodedURIComponent(JSON.stringify(blocks));
   const url = `/workflow-builder?data=${compressed}`;
-  cy.visit(url).contains('Workflow');
+  cy.visit(url).contains('Flow');
 }
 
 /**

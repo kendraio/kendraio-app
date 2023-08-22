@@ -55,10 +55,10 @@
 	"upload": {
 		"title": "Upload"
 	},
-	"wfBuilder": "workflow builder",
+	"wfBuilder": "Flow Builder",
   "workflowCloud": {
-    "menuTitle": "Workflow Cloud",
-    "pageTitle": "Build Your Workflow"
+    "menuTitle": "Flow Cloud",
+    "pageTitle": "Build Your Flow"
   },
   "queryBuilder": {
     "menuTitle": "Query Builder",
