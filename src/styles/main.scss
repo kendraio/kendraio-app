@@ -267,6 +267,10 @@ formly-array-type {
   color: black !important;
 }
 
+.mdc-text-field--disabled .mdc-floating-label {
+  color: rgba(0, 0, 0, 0.6)
+}
+
 .mdc-text-field--disabled mat-label::after {
   content: "(disabled)";
 }
