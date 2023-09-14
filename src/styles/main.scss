@@ -262,7 +262,9 @@ formly-array-type {
   content: "" !important;
 }
 
-.mdc-text-field--disabled, .mdc-text-field--disabled .mdc-floating-label {
+.mdc-text-field--disabled, 
+.mdc-text-field--disabled .mat-mdc-input-element, 
+.mdc-text-field--disabled .mdc-floating-label {
   color: black !important;
 }
 
