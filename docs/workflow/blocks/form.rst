@@ -44,7 +44,7 @@ not dependent on the form, then it is best to place them before the form in the 
 
 Config init
 -----------
-If can often be beneficial to initialiase the form data by creating an mapping of the default data. 
+It can often be beneficial to initialiase the form data by creating a mapping of the default data. 
 
 .. code-block:: json 
 
@@ -52,13 +52,75 @@ If can often be beneficial to initialiase the form data by creating an mapping o
     "confirm": false
   }
 
-
 Examples
 ---------
 
+Read-only
+^^^^^^^^^
+Display a field in read-only mode (not editable)
+
+.. code-block:: json
+
+  {
+    "type": "form",
+    "label": "Search",
+    "jsonSchema": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string",
+                "title": "Artist name",
+                "readOnly": true
+            }
+        }
+    },
+    "uiSchema": {}
+  }
+
+Form validation
+^^^^^^^^^^^^^^^
+
+Dynamic field title
+^^^^^^^^^^^^^^^^^^^
+Using dynamic data as title for the form field
+
+.. code-block:: json
+  
+
+  // data
+  {
+    "name": `John`,
+    "surname": `Doe`
+  }
+
+  // Form config
+  {
+    "type": "form",
+    "jsonSchema": {
+        "type": "object",
+        "properties": {
+            "title": {
+                "type": "string",
+                "title": "I am harcoded text"
+            },
+            "user_name": {
+                "type": "string",
+                "title": "name",
+                "default": "titlte of this field come from dynamic data"
+            },
+            "user_surname": {
+                "type": "string",
+                "title": "surname",
+                "default": "titlte of this field come from dynamic data"
+            }
+        }
+    },
+    "uiSchema": {}
+}
+
+
 No submit button
 ^^^^^^^^^^^^^^^^
-
 A simple search form without a submit button. 
 
 .. code-block:: json
