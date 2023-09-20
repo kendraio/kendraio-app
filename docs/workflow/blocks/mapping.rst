@@ -53,9 +53,31 @@ read from *filter*. Reading from  *state.global.workflowCloud.listWorkflows.filt
 Handy JMESPath patterns
 -----------------------
 
+Using string as value
+^^^^^^^^^^^^^^^^^^^^
+When manually creating data, a string will be passed as value.
+Usually keys and values are wrapped in double quotes, to be valid JMESPath.
+In the case of an hardcoded string, the value must be wrapped in backtick, otherwise it will result `null`
+
+.. code-block:: json
+  {
+    "name": `John`,
+    "surname": `Doe`,
+    "iAmNull": "not showing"
+  }
+
+Output will be:
+
+.. code-block:: text
+
+  name:"John"
+  surname:"Doe"
+  iAmNull:null
+
+
+
 Not
 ^^^
-
 When your data structuture holds the value that you wish to negate, you need to enclose the 
 path of your data in parentheses before you NOT it. 
 
