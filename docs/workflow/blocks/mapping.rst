@@ -74,6 +74,14 @@ Output will be:
   surname:"Doe"
   iAmNull:null
 
+Is also possible to wrap the whole expression in backtick. The output will be the same:
+
+.. code-block:: json
+  `{
+    "name": "John",
+    "surname": "Doe",
+    "iAmNotNull": "now this value is visible too"
+  }`
 
 
 Not
