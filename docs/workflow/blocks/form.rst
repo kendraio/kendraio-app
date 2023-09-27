@@ -157,4 +157,115 @@ In the example below, a mapping has a default value, which is saved using the co
         },
         "uiSchema": {}
       }
-    ]
+  ]
+
+Dynamic Form Fields
+-------------------
+
+If you want to vary a field according to user input, you can achieve this with uiSchema.
+uiSchema enables dynamic fields through the insertion of flows into other flows to be used as gosubs.
+
+Any flow can be used as a gosub. As with the main flow, a gosub flow can be edited directly by Kendraio App if opened from the Flow Cloud. Any saved changes will be reflected immediately when the main flow is refreshed.
+
+The schema is defined in the form task with the key “uiSchema”.
+Each dynamic field in the jsonSchema must be defined in the uiSchema using the corresponding key, in order to import the correct functionality into the form.
+
+Supported Properties
+^^^^^^^^^^^^^^^^^^^^
+
+**items**: Allows input of more than 1 item when wrapped around all other properties.
+**ui:widget**: Wrapper for the schema.
+**blocksConfig**: Defines the layout of the dynamic form field.
+**adapterName**: The Flow Cloud group containing the required gosub flow.
+**blocks**: The content to display in the field. This should be expressed as an array.
+**type**: The type of content being displayed e.g. “message” displays the text defined with the “title” key.
+**workflowId**: The ID of the required gosub flow.
+
+Example
+^^^^^^^
+
+This example flow allows the user to search and select from a menu based on returned data. 
+The Venue Name field expects a single value and the Lineup field can handle several values.
+
+.. code-block:: json
+  
+  {
+    "type": "form",
+    "title": "Update Event",
+    "label": "Update Event",
+    "jsonSchema": {
+      "type": "object",
+      "properties": {
+        "venue_name": {
+          "type": "string",
+          "title": "Venue Name"
+        },
+        "lineup": {
+          "type": "array",
+          "title": "Lineup",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "bio": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "uiSchema": {
+      "venue_name": {
+        "ui:widget": "blocks",
+        "blocksConfig": {
+          "adapterName": "bandsintown",
+          "blocks": [
+            {
+              "type": "card",
+              "blocks": [
+                {
+                  "type": "message",
+                  "title": "Search and select venue:"
+                },
+                {
+                  "type": "gosub",
+                  "adapterName": "bandsintown",
+                  "workflowId": "findVenue"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "lineup": {
+        "items": {
+          "ui:widget": "blocks",
+          "blocksConfig": {
+            "adapterName": "bandsintown",
+            "blocks": [
+              {
+                "type": "card",
+                "blocks": [
+                  {
+                    "type": "message",
+                    "title": "Search and select artist:"
+                  },
+                  {
+                    "type": "gosub",
+                    "adapterName": "bandsintown",
+                    "workflowId": "findArtist"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
