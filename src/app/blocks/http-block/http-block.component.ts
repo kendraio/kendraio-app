@@ -144,7 +144,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
                 this.errorMessage = error.message;
                 this.errorData = error;
                 // TODO: need to prevent errors for triggering subsequent blocks
-                return of([]);
+                return of({error, hasError: this.hasError, errorMessage: this.errorMessage});
               })
             )
             .subscribe(response => {
@@ -162,7 +162,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
               this.errorMessage = error.message;
               this.errorData = error;
               // TODO: need to prevent errors for triggering subsequent blocks
-              return of([]);
+              return of({error, hasError: this.hasError, errorMessage: this.errorMessage});
             })
           )
           .subscribe(response => {
@@ -190,7 +190,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
               this.errorMessage = error.message;
               this.errorData = error;
               // TODO: need to prevent errors for triggering subsequent blocks
-              return of([]);
+              return of({error, hasError: this.hasError, errorMessage: this.errorMessage});
             })
           )
           .subscribe(response => {
@@ -237,7 +237,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
               this.errorMessage = error.message;
               this.errorData = error;
               // TODO: need to prevent errors for triggering subsequent blocks
-              return of([]);
+              return of({error, hasError: this.hasError, errorMessage: this.errorMessage});
             })
           )
           .subscribe(response => {
@@ -382,6 +382,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     const pathname = get(endpoint, 'pathname', '/');
     const query = get(endpoint, 'query', []);
     const reduceQuery = _q => Object.keys(_q).map(key => `${key}=${_q[key]}`, []).join('&');
+
     return `${protocol}//${host}${pathname}?${reduceQuery(query)}`;
   }
 }
