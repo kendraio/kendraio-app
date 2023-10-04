@@ -163,9 +163,9 @@ Dynamic Form Fields
 -------------------
 
 If you want to vary a field according to user input, you can achieve this with uiSchema.
-uiSchema enables dynamic fields through the insertion of flows into other flows to be used as gosubs.
+uiSchema enables dynamic fields through the insertion or "nesting" of flows into other flows.
 
-Any flow can be used as a gosub. As with the main flow, a gosub flow can be edited directly with Kendraio App if opened from the Flow Cloud. Any saved changes will be reflected immediately when the main flow is refreshed.
+Any flow can be used in this way. As with the main flow, a nested flow can be edited directly with Kendraio App if opened from the Flow Cloud. Any saved changes will be reflected immediately when the main flow is refreshed.
 
 The schema is defined in the form task with the key “uiSchema”.
 Each dynamic field in the jsonSchema must be defined in the uiSchema using the corresponding key, in order to import the correct functionality into the form.
@@ -173,19 +173,21 @@ Each dynamic field in the jsonSchema must be defined in the uiSchema using the c
 Supported Properties
 ^^^^^^^^^^^^^^^^^^^^
 
-**items**: Allows input of more than 1 item when wrapped around all other properties.
-**ui:widget**: Wrapper for the schema.
-**blocksConfig**: Defines the layout of the dynamic form field.
-**adapterName**: The Flow Cloud group containing the required gosub flow.
-**workflowId**: The ID of the required gosub flow. Along with adapterName, this is how the main flow will find the gosub flow.
-**blocks**: The content to display in the field. This must be expressed as an array.
-**type**: The type of content being displayed e.g. “message” displays the text defined with the “title” key.
+- **items**: Allows input of more than 1 item when wrapped around all other properties.
+- **ui:widget**: Wrapper for the schema.
+- **blocksConfig**: Defines the layout of the dynamic form field.
+- **adapterName**: The Flow Cloud group containing the nested flow.
+- **workflowId**: The ID of the nested flow. Along with adapterName, this is how the main flow will find the nested flow.
+- **blocks**: The content to display in the field. This must be expressed as an array.
+- **type**: The type of content being displayed e.g. “message” displays the text defined with the “title” key.
 
 Example
 ^^^^^^^
 
 This example flow allows the user to search and select from a menu based on returned data. 
 The Venue Name field expects a single value and the Lineup field can handle several values.
+
+The nested flow is denoted by the property ``"type": "gosub"``. You can read more about gosubs :doc:`here <gosub>`.
 
 .. code-block:: json
   
