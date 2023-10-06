@@ -6,7 +6,6 @@ import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack
 import { catchError, expand, reduce, takeWhile } from 'rxjs/operators';
 import { of, EMPTY } from 'rxjs';
 import { mappingUtility } from '../mapping-block/mapping-util';
-
 @Component({
   selector: 'app-http-block',
   templateUrl: './http-block.component.html',
@@ -62,6 +61,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       return;
     }
     this.responseType = get(this.config, 'responseType', 'json');
+    console.log({config: this.config})
     this.errorBlocks = get(this.config, 'onError.blocks', []);
     this.makeRequest();
   }
@@ -73,6 +73,8 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   makeRequest() {
     this.hasError = false;
     this.isLoading = true;
+    // this.errorBlocks = [];
+    console.log({errBlocks: this.errorBlocks})
     const method = get(this.config, 'method');
     if (!method) {
       this.errorMessage = 'No HTTP method provided';
@@ -147,9 +149,11 @@ export class HttpBlockComponent implements OnInit, OnChanges {
                 return of({error, hasError: this.hasError, errorMessage: this.errorMessage});
               })
             )
-            .subscribe(response => {
+            .subscribe((response: Record<string, any>) => {
               this.isLoading = false;
               this.hasError = false;
+              if(!response.hasError) this.errorBlocks = [];
+
               this.outputResult(response);
             });
         }
@@ -165,9 +169,11 @@ export class HttpBlockComponent implements OnInit, OnChanges {
               return of({error, hasError: this.hasError, errorMessage: this.errorMessage});
             })
           )
-          .subscribe(response => {
+          .subscribe((response: Record<string, any>) => {
             this.isLoading = false;
             this.hasError = false;
+            if(!response.hasError) this.errorBlocks = [];
+            
             this.outputResult(response);
           });
         break;
@@ -193,9 +199,11 @@ export class HttpBlockComponent implements OnInit, OnChanges {
               return of({error, hasError: this.hasError, errorMessage: this.errorMessage});
             })
           )
-          .subscribe(response => {
+          .subscribe((response: Record<string, any>) => {
             this.isLoading = false;
             this.hasError = false;
+            if(!response.hasError) this.errorBlocks = [];
+
             this.outputResult(response);
             const notify = get(this.config, 'notify', true);
             if (notify) {
@@ -240,9 +248,11 @@ export class HttpBlockComponent implements OnInit, OnChanges {
               return of({error, hasError: this.hasError, errorMessage: this.errorMessage});
             })
           )
-          .subscribe(response => {
+          .subscribe((response: Record<string, any>) => {
             this.isLoading = false;
             this.hasError = false;
+            if(!response.hasError) this.errorBlocks = [];
+
             this.outputResult(response);
             const notify = get(this.config, 'notify', true);
             if (notify) {
