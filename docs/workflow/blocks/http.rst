@@ -33,12 +33,13 @@ Supported properties
   property.
 - **headers** - A set of headers with header name as object key. Values are processed by JMESpath
 - **endpoint** - The request endpoint. Can take multiple forms. See below. 
+- **onError** - It expects blocks as argument. They will be process in case of HTTP request errors. 
 
 
 Examples
 --------
 
-For simple requests, the ``endpoint`` can just be a simple string:
+**Default** For simple requests, the ``endpoint`` can just be a simple string:
 
 .. code-block:: json
 
@@ -50,7 +51,8 @@ For simple requests, the ``endpoint`` can just be a simple string:
     }
 
 
-If the endpoint needs to be constructed from data, the endpoint can be specified as an object with a "valueGetter" attribute. 
+**Dynamic data** If the endpoint needs to be constructed from data, the endpoint can be specified as an object with a "valueGetter" attribute.
+"valueGetter" get data just from context.  
 
 .. code-block:: json
 
@@ -62,15 +64,32 @@ If the endpoint needs to be constructed from data, the endpoint can be specified
         }
     }
 
+.. code-block:: json
 
+    {
+    "type": "http",
+    "method": "get",
+    "endpoint": {
+        "protocol": "https:",
+        "host": "api.harvestapp.com/api/v2",
+        "pathname": "/reports/time/tasks",
+        "valueGetters": {
+            "query": "{ from: context.savedData.from, to: context.savedData.to }"
+        }
+    }
+  }
+
+
+**Headers** 
 For advanced use cases, the payload can be constructed using a JMES Path expression.
-Custom headers can also be specified using JMES Path expressions:
+Custom headers can also be specified using JMES Path expressions.
+Be careful to write your header's value with two types of quote (double quotes + single quotes), if the value is a string.
 
 .. code-block:: json
 
   {
       "type": "http",
-      "method": "post",
+      "Defaultmethod": "post",
       "endpoint": {
           "protocol": "https:",
           "host": "accounts.spotify.com",
@@ -83,7 +102,7 @@ Custom headers can also be specified using JMES Path expressions:
       }
   }
 
-It is possible to query a GraphQL endpoint using the HTTP block.
+**GraphQL** It is possible to query a GraphQL endpoint using the HTTP block.
 
 .. code-block:: json
 
@@ -97,6 +116,41 @@ It is possible to query a GraphQL endpoint using the HTTP block.
           "pathname": "/api/graphql"
       },
       "payload": "{ query: 'query ($token: String) {  viewer(token: $token) {    allCommitments {      id      action      plannedStart      committedOn      due      committedQuantity {        numericValue        unit {          name        }      }      note      resourceClassifiedAs {        name        category      }      involves {        id        resourceClassifiedAs {          name          category        }        trackingIdentifier      }      provider {        id        name      }      receiver {        id        name      }      inputOf {        id        name      }      outputOf {        id        name      }      scope {        id        name      }      plan {        id        name      }      isPlanDeliverable      forPlanDeliverable {        id        action        outputOf {          name        }      }      isDeletable    }  }}', variables: { token: context.vfAuth } }"
+  }
+
+
+**onError** To debug and display an error message
+
+.. code-block:: json
+
+  {
+    "type": "http",
+    "method": "get",
+    "endpoint": {
+          "protocol": "https:",
+          "host": "accounts.spotify.com",
+          "pathname": "/api/token"
+    },
+    "onError": {
+        "blocks": [
+            {
+                "type": "debug",
+                "open": 1,
+                "showData": true,
+                "showContext": false,
+                "showState": false
+            },
+            {
+                "type": "card",
+                "blocks": [
+                    {
+                        "type": "template",
+                        "template": "Error with submission:<p>{{data.error.error}} - {{data.error.error_description}}</p>"
+                    }
+                ]
+            }
+        ]
+    }
   }
 
 
