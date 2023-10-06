@@ -61,7 +61,6 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       return;
     }
     this.responseType = get(this.config, 'responseType', 'json');
-    console.log({config: this.config})
     this.errorBlocks = get(this.config, 'onError.blocks', []);
     this.makeRequest();
   }
@@ -73,8 +72,6 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   makeRequest() {
     this.hasError = false;
     this.isLoading = true;
-    // this.errorBlocks = [];
-    console.log({errBlocks: this.errorBlocks})
     const method = get(this.config, 'method');
     if (!method) {
       this.errorMessage = 'No HTTP method provided';
