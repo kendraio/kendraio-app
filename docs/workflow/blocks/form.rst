@@ -165,7 +165,10 @@ Dynamic Form Fields
 If you want to vary a field according to user input, you can achieve this with uiSchema.
 uiSchema enables dynamic fields through the insertion or "nesting" of flows into other flows.
 
-Any flow can be used in this way. As with the main flow, a nested flow can be edited directly with Kendraio App if opened from the Flow Cloud. Any saved changes will be reflected immediately when the main flow is refreshed.
+Any flow can be used in this way. The nested flow has access to the main flow's data object, context and state - it can use any data stored here. 
+The nested flow's output is then passed to the main flow's data object, just like the output of a conventional task.
+
+As with the main flow, a nested flow can be edited directly with Kendraio App if opened from the Flow Cloud. Any saved changes will be reflected immediately when the main flow is refreshed.
 
 The schema is defined in the form task with the key “uiSchema”.
 Each dynamic field in the jsonSchema must be defined in the uiSchema using the corresponding key, in order to import the correct functionality into the form.
