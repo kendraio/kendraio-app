@@ -109,7 +109,14 @@ This will keep any item that has a "deleted" flag in the "tags" array. More usef
 Adding a new key to an object
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If you're wrangling data from one form to another, you may need to add new keys. 
+If you're wrangling data from one form to another, you may need to add new keys.
+
+.. code-block:: text
+
+  data.merge(@, { key: value })
+
+If your data is an array, you can iterate through its elements with ``[*]``. 
+In the below example, the new key/value pair is added to each element of the array.
 
 .. code-block:: text
 
