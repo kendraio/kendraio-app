@@ -62,6 +62,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     }
     this.responseType = get(this.config, 'responseType', 'json');
     this.errorBlocks = get(this.config, 'onError.blocks', []);
+
     this.makeRequest();
   }
 
