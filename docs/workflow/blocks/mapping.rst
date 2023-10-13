@@ -53,12 +53,10 @@ read from *filter*. Reading from  *state.global.workflowCloud.listWorkflows.filt
 Handy JMESPath patterns
 -----------------------
 
-Using string as value
-^^^^^^^^^^^^^^^^^^^^
-When manually creating data, a string will be passed as value.
-Usually keys and values are wrapped in double quotes, to be valid JMESPath.
-In the case of an hardcoded string, the value must be wrapped in backtick, otherwise it will result `null`
-
+Using a string as a value
+^^^^^^^^^^^^^^^^^^^^^^^^^
+To be valid JMESPath, keys and values must be wrapped in double quotes.
+For a hardcoded string, the value must be wrapped in backticks, otherwise it will result `null` for undefined variables.
 .. code-block:: json
   {
     "name": `John`,
@@ -70,11 +68,12 @@ Output will be:
 
 .. code-block:: text
 
-  name:"John"
-  surname:"Doe"
-  iAmNull:null
+  name: "John"
+  surname: "Doe"
+  iAmNull: null
 
-Is also possible to wrap the whole expression in backtick. The output will be the same:
+We've seen that property values of object keys can be set using backticks, and it is also possible to wrap a whole JSON object in backticks. 
+The output will be the same as this:
 
 .. code-block:: json
   `{
