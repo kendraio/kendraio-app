@@ -81,13 +81,14 @@ describe('HTTP Block Request', () => {
             },
             {
                 "type": "debug",
-                "open": 2,
+                "open": 3,
                 "showData": true
             }
         ]);
 
-        console.log
-        cy.contains('hasError');
+        cy.contains('hasError:true');
+        cy.contains('status:400');
+        cy.contains('errorMessage:"Http failure response for https://example.com/data: 400 Bad Request"');
         cy.get('app-template-block').contains('Error with submission')
     });
 
