@@ -238,19 +238,67 @@ In the example below, a mapping has a default value, which is saved using the co
       }
   ]
 
-Dynamic Form Fields
--------------------
+Nested tasks
+------------
 
-If you want to vary a field according to user input, you can achieve this with uiSchema.
-uiSchema enables dynamic fields through the insertion or "nesting" of flows into other flows.
+You can insert or "nest" another task within a form through the use of uiSchema.
+The schema is defined in the form task with the key “uiSchema”.
+Each target in the jsonSchema must be defined in the uiSchema using the corresponding key, 
+in order to import the correct functionality into the form.
 
-Any flow can be used in this way. The nested flow has access to the main flow's data object, context and state - it can use any data stored here. 
+For example, the below example inserts a card with an array of blocks into the form. In this case, each block
+displays a simple message. 
+
+  {
+      "type": "form",
+      "label": "Submit",
+      "jsonSchema": {
+          "properties": {
+              "target_property": {
+                  "type": "string",
+                  "title": "You won't see this - it will be overridden by uiSchema"
+              }
+          }
+      },
+      "uiSchema": {
+          "target_property": {
+              "ui:widget": "blocks",
+              "blocksConfig": {
+                  "adapterName": "bandsintown",
+                  "blocks": [
+                      {
+                          "type": "card",
+                          "blocks": [
+                              {
+                                  "type": "message",
+                                  "title": "Card message"
+                              },
+                              {
+                                  "type": "message",
+                                  "title": "Another card message"
+                              },
+                              {
+                                  "type": "message",
+                                  "title": "Yet another card message"
+                              }
+                          ]
+                      }
+                  ]
+              }
+          }
+      }
+  }
+
+
+Nested flows
+------------
+
+If you want to vary a field according to user input, you can achieve this with a nested flow.
+
+Any flow can be nested in any other flow. The nested flow has access to the main flow's data object, context and state - it can use any data stored here. 
 The nested flow's output is then passed to the main flow's data object, just like the output of a conventional task.
 
 As with the main flow, a nested flow can be edited directly with Kendraio App if opened from the Flow Cloud. Any saved changes will be reflected immediately when the main flow is refreshed.
-
-The schema is defined in the form task with the key “uiSchema”.
-Each dynamic field in the jsonSchema must be defined in the uiSchema using the corresponding key, in order to import the correct functionality into the form.
 
 Supported Properties
 ^^^^^^^^^^^^^^^^^^^^
