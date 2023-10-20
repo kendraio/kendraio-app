@@ -52,7 +52,7 @@ Examples
 
 
 **Dynamic data** If the endpoint needs to be constructed from data, the endpoint can be specified as an object with a "valueGetter" attribute.
-"valueGetter" get data just from context.  
+"valueGetter" can only get data from the context.
 
 .. code-block:: json
 
