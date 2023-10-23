@@ -33,7 +33,7 @@ Supported properties
   property.
 - **headers** - A set of headers with header name as object key. Values are processed by JMESpath
 - **endpoint** - The request endpoint. Can take multiple forms. See below. 
-- **onError** - It expects blocks as argument. These blocks will be visible in case of HTTP request error. 
+- **onError** - Define an array of blocks to show when there is an error processing the HTTP request. 
 
 
 Examples
@@ -83,13 +83,13 @@ Examples
 **Headers** 
 For advanced use cases, the payload can be constructed using a JMES Path expression.
 Custom headers can also be specified using JMESPath expressions.
-Be careful to write your header's value with two types of quote (double quotes + single quotes), if the value is a string.
+Caution: if the custom header value is a string, header values must use two types of quotes: double quotes and single quotes.
 
 .. code-block:: json
 
   {
       "type": "http",
-      "Defaultmethod": "post",
+      "method": "post",
       "endpoint": {
           "protocol": "https:",
           "host": "accounts.spotify.com",
