@@ -15,9 +15,10 @@
 
 let inputFilePath = 'flow-analysis/flows.json';
 let outputFilePath = 'flow-analysis/flow-block-config-analysis.json';
+
 let blockType = 'form';  // Replace with the block type you're interested in
 let propertyOfInterest = null;  // E.g: 'uiSchema' - replace with the property you're interested in or leave as null
-
+let KENDRAIO_APP_URL = 'https://app.kendra.io/';
 
 const fs = require('fs');
 const https = require('https');
@@ -51,7 +52,7 @@ const generateGroupedJson = (inputFilePath, outputFilePath, blockType, propertyO
         adapterName: flow.adapterName,
         id: flow.id,
         title: flow.title,
-        url: `https://app.kendra.io/${flow.adapterName}/${flow.id}`
+        url: `${KENDRAIO_APP_URL}${flow.adapterName}/${flow.id}`
       };
 
       // Add the blocks and metadata to the enhanced list
@@ -78,7 +79,7 @@ const generateGroupedJson = (inputFilePath, outputFilePath, blockType, propertyO
   // Check if 'flows.json' exists in the current directory
   if (!fs.existsSync(inputFilePath)) {
     // Download the JSON file using Node.js built-in https
-    const url = new URL('https://app.kendra.io/flows');
+    const url = new URL(`${KENDRAIO_APP_URL}flows`);
     const file = fs.createWriteStream(inputFilePath);
     https.get(url, (response) => {
       response.pipe(file);
