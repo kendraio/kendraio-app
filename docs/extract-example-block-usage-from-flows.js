@@ -38,9 +38,22 @@ const generateGroupedJson = (inputFilePath, outputFilePath, blockType, propertyO
   for (const flow of flowsData) {
     let flowBlocks = [];  // To store the blocks with the property of interest for this flow
 
+
     if (flow.blocks) {
       for (const block of flow.blocks) {
-        if (block.type === blockType && (!propertyOfInterest || (block[propertyOfInterest] && Object.keys(block[propertyOfInterest]).length > 0))) {
+        const hasMatchingBlock = block.type === blockType;
+        let hasPropertyOfInterest;
+        // If no property of interest is specified, so all properties are interesting!
+        if (!propertyOfInterest) {
+          hasPropertyOfInterest = true;
+        }
+
+        if (propertyOfInterest) {
+          // If the object has a specific property that matches our interest and it's not empty, then it's interesting!
+          hasPropertyOfInterest = block[propertyOfInterest] && Object.keys(block[propertyOfInterest]).length > 0;
+        }
+
+        if (hasMatchingBlock && hasPropertyOfInterest) {
           flowBlocks.push(block);
         }
       }
