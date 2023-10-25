@@ -63,5 +63,5 @@ Usage:
     cd docs
     node extract-example-block-usage-from-flows.js
 
-This will run the script and output the results to a JSON file located at 
-'flow-analysis/flow-block-config-analysis.json'.
+This will run the script and output the results to a JSON file located in 
+'/docs/flow-analysis' (or where you set it to save to).
