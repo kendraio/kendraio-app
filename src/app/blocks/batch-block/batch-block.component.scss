@@ -1,5 +1,4 @@
-.batch-block-flex {
-    background-color: black;
+:host(.batch-block-flex) {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;

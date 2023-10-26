@@ -103,16 +103,6 @@ app-workflow-cell-renderer app-actions-block.block-wrapper {
   margin: 0;
 }
 
-.batch-block-flex {
-  background-color: red;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px 20px;
-  overflow: hidden;
-}
-
 .tag-list {
   font-size: 0.8em;
   margin-bottom: 0.4em;
