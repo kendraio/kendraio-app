@@ -99,7 +99,7 @@
     "uuid": "^8.3.2",
     "wavesurfer.js": "^3.3.3",
     "x2js": "^3.4.2",
-    "xlsx": "^0.17.3",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.0/xlsx-0.20.0.tgz",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
