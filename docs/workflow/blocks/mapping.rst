@@ -53,9 +53,38 @@ read from *filter*. Reading from  *state.global.workflowCloud.listWorkflows.filt
 Handy JMESPath patterns
 -----------------------
 
+Using a string as a value
+^^^^^^^^^^^^^^^^^^^^^^^^^
+To be valid JMESPath, keys and values must be wrapped in double quotes.
+For a hardcoded string, the value must be wrapped in backticks, otherwise it will result `null` for undefined variables.
+.. code-block:: json
+  {
+    "name": `John`,
+    "surname": `Doe`,
+    "iAmNull": "not showing"
+  }
+
+Output will be:
+
+.. code-block:: text
+
+  name: "John"
+  surname: "Doe"
+  iAmNull: null
+
+We've seen that property values of object keys can be set using backticks, and it is also possible to wrap a whole JSON object in backticks. 
+The output will be the same as this:
+
+.. code-block:: json
+  `{
+    "name": "John",
+    "surname": "Doe",
+    "iAmNotNull": "now this value is visible too"
+  }`
+
+
 Not
 ^^^
-
 When your data structuture holds the value that you wish to negate, you need to enclose the 
 path of your data in parentheses before you NOT it. 
 
