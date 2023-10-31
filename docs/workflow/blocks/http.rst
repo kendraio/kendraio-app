@@ -82,8 +82,8 @@ Examples
 
 **Headers** 
 For advanced use cases, the payload can be constructed using a JMES Path expression.
-Custom headers can also be specified using JMESPath expressions.
-Caution: if the custom header value is a string, header values must use two types of quotes: double quotes and single quotes.
+JMESPath expressions can be used to dynamically set header and payload values.
+Caution: if the header value is a string, it must use two types of quotes: double and single quotes, like "payload": "'grant_type=client_credentials'".
 
 .. code-block:: json
 
