@@ -163,12 +163,14 @@ Nested tasks
 ------------
 
 You can insert or "nest" another task within a form through the use of uiSchema.
-The schema is defined in the form task with the key “uiSchema”.
-Each target in the jsonSchema must be defined in the uiSchema using the corresponding key, 
-in order to import the correct functionality into the form.
+First specify your nested task's position in the jsonSchema using the property key of your choice.
+Then you can define the schema's content in the form task with your chosen key, 
+within the enclosing “uiSchema” property.
 
-For example, the below example inserts a card with an array of blocks into the form. In this case, each block
-displays a simple message. 
+The below example inserts a card with an array of blocks into the form. Each block displays a simple message.
+
+You can see this example in action `here`_.
+.. _here: https://app.kendra.io/workflow-builder?data=NobwRALgngDgpmAXGAZgewE4FswBowA2AhgEZwFJgDKAriVgJYR5gBWAzmgHZUDGAFnCxEk4GBjTwMEBnHajIRDAHM4EAPrjJcaVAXR4ldhAwMuyljIgEEyAJpoaAAgDu3AOQQn7OHCcR+BnYnAFonJlcGAgInMic0ADcdUwATFLguWKgnGgY+QWEwAF8S-Fz8oRFEcAglVQ0tKWgFXMQXBhT6yhICNF4Aa3l8Hr7BgGFuFAYLarAiFKIYCB0AOSIsWzASIi4U9jMINBcuFhGB+URQSFhN3iUU097zpCuDTY32diJVSyYbSjG9ycHy+PyKuBqN0oIO+CHwVn+yAAglw0AEdE47hgUsC5KCEODIYZkDCfvC-ps7GonDs0YIMJigaSCQBdIps0pbJ79CZYDZcZjIYosoA
 
   {
       "type": "form",
