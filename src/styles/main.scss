@@ -172,6 +172,12 @@ dynamic-material-form-control:not(:last-child) {
   //  box-shadow: 0;
   //  background-color: #f3f3f3;
   //}
+
+  img {
+    object-fit: contain;
+    width: 100%;
+    padding: 40px;
+  }
 }
 
 
