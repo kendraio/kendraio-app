@@ -167,51 +167,44 @@ First specify your nested task's position in the jsonSchema using the property k
 Then you can define the schema's content in the form task with your chosen key, 
 within the enclosing “uiSchema” property.
 
-The below example inserts a card with an array of blocks into the form. Each block displays a simple message.
+The below example inserts an array of blocks into the form. Each block displays a simple message.
 
 You can see this example in action `here`_.
-.. _here: https://app.kendra.io/workflow-builder?data=NobwRALgngDgpmAXGAZgewE4FswBowA2AhgEZwFJgDKAriVgJYR5gBWAzmgHZUDGAFnCxEk4GBjTwMEBnHajIRDAHM4EAPrjJcaVAXR4ldhAwMuyljIgEEyAJpoaAAgDu3AOQQn7OHCcR+BnYnAFonJlcGAgInMic0ADcdUwATFLguWKgnGgY+QWEwAF8S-Fz8oRFEcAglVQ0tKWgFXMQXBhT6yhICNF4Aa3l8Hr7BgGFuFAYLarAiFKIYCB0AOSIsWzASIi4U9jMINBcuFhGB+URQSFhN3iUU097zpCuDTY32diJVSyYbSjG9ycHy+PyKuBqN0oIO+CHwVn+yAAglw0AEdE47hgUsC5KCEODIYZkDCfvC-ps7GonDs0YIMJigaSCQBdIps0pbJ79CZYDZcZjIYosoA
+.. _here: https://app.kendra.io/workflow-builder?data=NobwRALgngDgpmAXGAZgewE4FswBowA2AhgEZwFJgDKAriVgJYR5gBWAzmgHZUDGAFnCxEk4GBjTwMEBnHajIRDAHM4EAPrjJcaVAXR4ldhAwMuyljIgEEyAJpoaAAgDu3AOQQn7OHCcR+BnYnAFonJlcGAgInMic0ADcdUwATFLguWKgnGgY+QWEwAF8S-Fz8oRFEcAglVQ0tKWgFXMQXBhT6yhICNF4Aa3l8Hr7BgGFuFAYLarARgflEUEhYWzAsOXYiVUsmG0oAQScN9i2dotwa1coTs4R8K33kA640AJ1jze2EC6vDZFu3121jWdjUTiIr3eGE+pyBRQAuiULnNegMJlgNlxmMhigigA
 
   {
-      "type": "form",
-      "label": "Submit",
-      "jsonSchema": {
-          "properties": {
-              "target_property": {
-                  "type": "string",
-                  "title": "You won't see this - it will be overridden by uiSchema"
-              }
-          }
-      },
-      "uiSchema": {
-          "target_property": {
-              "ui:widget": "blocks",
-              "blocksConfig": {
-                  "adapterName": "bandsintown",
-                  "blocks": [
-                      {
-                          "type": "card",
-                          "blocks": [
-                              {
-                                  "type": "message",
-                                  "title": "Card message"
-                              },
-                              {
-                                  "type": "message",
-                                  "title": "Another card message"
-                              },
-                              {
-                                  "type": "message",
-                                  "title": "Yet another card message"
-                              }
-                          ]
-                      }
-                  ]
-              }
-          }
-      }
-  }
-
+    "type": "form",
+    "label": "Submit",
+    "jsonSchema": {
+        "properties": {
+            "target_property": {
+                "type": "string",
+                "title": "You won't see this - it will be overridden by uiSchema"
+            }
+        }
+    },
+    "uiSchema": {
+        "target_property": {
+            "ui:widget": "blocks",
+            "blocksConfig": {
+                "blocks": [
+                    {
+                        "type": "message",
+                        "title": "A message"
+                    },
+                    {
+                        "type": "message",
+                        "title": "Another message"
+                    },
+                    {
+                        "type": "message",
+                        "title": "Yet another message"
+                    }
+                ]
+            }
+        }
+    }
+}
 
 Nested flows
 ------------
