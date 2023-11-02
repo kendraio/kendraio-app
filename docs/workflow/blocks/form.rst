@@ -238,6 +238,11 @@ In the example below, a mapping has a default value, which is saved using the co
       }
   ]
 
+Default Field Content
+---------------------
+
+https://app.kendra.io/workflow-builder?data=NobwRALgngDgpmAXGAlgOxRMBfANOaeJMANwEMAnFMgIwBs4BaAczi1zDTIFsFkBnMmgAmNAPYAPAIIBXCAAsc+SLD5hhcGjOZgOY+GiQAGDv3liA7gGExaCHAlZEAMzJ1+cPAVXFnYity6YHS0cHTENmhocADG7GAAVvy2AMox8nDcZEjeRMhiNAmx8TAU+nAUEChw-DlgMh4UXLx1hGr8EFRoOhxVEAzEAKqNzQh4YDBk-PwW-sKtPgKd6D2QmAPIAApTM3M42OMyKGkZWXWT07MU84jgR4gWKMKsThM7V-MHHPRiMQDWNm4vDsxBwAF0gA
+
 Nested tasks
 ------------
 
