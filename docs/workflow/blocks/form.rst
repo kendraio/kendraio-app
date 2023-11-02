@@ -238,10 +238,47 @@ In the example below, a mapping has a default value, which is saved using the co
       }
   ]
 
-Default Field Content
----------------------
+Password Fields
+---------------
 
-https://app.kendra.io/workflow-builder?data=NobwRALgngDgpmAXGAlgOxRMBfANOaeJMANwEMAnFMgIwBs4BaAczi1zDTIFsFkBnMmgAmNAPYAPAIIBXCAAsc+SLD5hhcGjOZgOY+GiQAGDv3liA7gGExaCHAlZEAMzJ1+cPAVXFnYity6YHS0cHTENmhocADG7GAAVvy2AMox8nDcZEjeRMhiNAmx8TAU+nAUEChw-DlgMh4UXLx1hGr8EFRoOhxVEAzEAKqNzQh4YDBk-PwW-sKtPgKd6D2QmAPIAApTM3M42OMyKGkZWXWT07MU84jgR4gWKMKsThM7V-MHHPRiMQDWNm4vDsxBwAF0gA
+You can use uiSchema to designate a password field. 
+The below example will render a form that displays only * for each character entered in the "key" and "password" fields.
+You can see this in action here. https://app.kendra.io/workflow-builder?data=NobwRALgngDgpmAXGAZgewE4FswBowA2AhgEZwFJgDCaAdrXAMYR5gBWAznQMqMAWcLESTho8SmhJsmLfDAxp4GCAEs4HEWDi0AJjDQraLRKNgJkHCBkMBzVqogFzYAKK79hlgF98AazhQmmLOlta0dvgOTpQAggAKAJIABADSAWA+YACuHHAYtERY5qbiFla29iqOzgCqufmFCJkwRBwcAO6YOkFmlKEVkVXRyHGtHV0ZXplZKrwCQpr+gSbZKojtKjo2cMZgLW2dGN3NY4fdKzPrm9u7++NHk-gkBGiMvjRYRUaUGQC6QA
+
+  {
+      "type": "form",
+      "label": "Connect",
+      "jsonSchema": {
+          "type": "object",
+          "properties": {
+              "endpoint": {
+                  "type": "string",
+                  "title": "Endpoint"
+              },
+              "key": {
+                  "type": "string",
+                  "title": "API Key"
+              },
+              "username": {
+                  "type": "string",
+                  "title": "Username"
+              },
+              "password": {
+                  "type": "string",
+                  "title": "Password"
+              }
+          }
+      },
+      "uiSchema": {
+          "key": {
+              "ui:widget": "password"
+          },
+          "password": {
+              "ui:widget": "password"
+          }
+      }
+  }
+
 
 Nested tasks
 ------------
@@ -253,8 +290,10 @@ within the enclosing “uiSchema” property.
 
 The below example inserts an array of blocks into the form. Each block displays a simple message.
 
-You can see this example in action `here`_.
-.. _here: https://app.kendra.io/workflow-builder?data=NobwRALgngDgpmAXGAZgewE4FswBowA2AhgEZwFJgDKAriVgJYR5gBWAzmgHZUDGAFnCxEk4GBjTwMEBnHajIRDAHM4EAPrjJcaVAXR4ldhAwMuyljIgEEyAJpoaAAgDu3AOQQn7OHCcR+BnYnAFonJlcGAgInMic0ADcdUwATFLguWKgnGgY+QWEwAF8S-Fz8oRFEcAglVQ0tKWgFXMQXBhT6yhICNF4Aa3l8Hr7BgGFuFAYLarARgflEUEhYWzAsOXYiVUsmG0oAQScN9i2dotwa1coTs4R8K33kA640AJ1jze2EC6vDZFu3121jWdjUTiIr3eGE+pyBRQAuiULnNegMJlgNlxmMhigigA
+You can see this example working `here
+<https://app.kendra.io/workflow-builder?data=NobwRALgngDgpmAXGAZgewE4FswBowA2AhgEZwFJgDKAriVgJYR5gBWAzmgHZUDGAFnCxEk4GBjTwMEBnHajIRDAHM4EAPrjJcaVAXR4ldhAwMuyljIgEEyAJpoaAAgDu3AOQQn7OHCcR+BnYnAFonJlcGAgInMic0ADcdUwATFLguWKgnGgY+QWEwAF8S-Fz8oRFEcAglVQ0tKWgFXMQXBhT6yhICNF4Aa3l8Hr7BgGFuFAYLarARgflEUEhYWzAsOXYiVUsmG0oAQScN9i2dotwa1coTs4R8K33kA640AJ1jze2EC6vDZFu3121jWdjUTiIr3eGE+pyBRQAuiULnNegMJlgNlxmMhigigA>`_.
+
+.. code-block:: json
 
   {
     "type": "form",
@@ -295,24 +334,12 @@ Nested flows
 
 If you want to vary a field according to user input, you can achieve this with a nested flow.
 
-Any flow can be nested in any other flow. The nested flow has access to the main flow's data object, context and state - it can use any data stored here. 
+Any flow can be nested in any other flow. The nested flow has access to the main flow's data object, 
+context and state - it can use any data stored here. 
 The nested flow's output is then passed to the main flow's data object, just like the output of a conventional task.
 
-As with the main flow, a nested flow can be edited directly with Kendraio App if opened from the Flow Cloud. Any saved changes will be reflected immediately when the main flow is refreshed.
-
-Supported Properties
-^^^^^^^^^^^^^^^^^^^^
-
-- **items**: Allows input of more than 1 item when wrapped around all other properties.
-- **ui:widget**: Wrapper for the schema.
-- **blocksConfig**: Defines the layout of the dynamic form field.
-- **adapterName**: The Flow Cloud group containing the nested flow.
-- **workflowId**: The ID of the nested flow. Along with adapterName, this is how the main flow will find the nested flow.
-- **blocks**: The content to display in the field. This must be expressed as an array.
-- **type**: The type of content being displayed e.g. “message” displays the text defined with the “title” key.
-
-Example
-^^^^^^^
+As with the main flow, a nested flow can be edited directly with Kendraio App if opened from the Flow Cloud. 
+Any saved changes will be reflected immediately when the main flow is refreshed.
 
 This example flow allows the user to search and select from a menu based on returned data. 
 The Venue Name field expects a single value and the Lineup field can handle several values.
@@ -401,3 +428,17 @@ The nested flow is denoted by the property ``"type": "gosub"``. You can read mor
       }
     }
   }
+
+
+Supported Properties
+^^^^^^^^^^^^^^^^^^^^
+
+- **items**: Allows input of more than 1 item when wrapped around all other properties.
+- **ui:widget**: Wrapper for the schema.
+- **blocksConfig**: Defines the layout of the dynamic form field.
+- **adapterName**: The Flow Cloud group containing the nested flow.
+- **workflowId**: The ID of the nested flow. Along with adapterName, this is how the main flow will find the nested flow.
+- **blocks**: The content to display in the field. This must be expressed as an array.
+- **type**: The type of content being displayed e.g. “message” displays the text defined with the “title” key.
+
+
