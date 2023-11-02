@@ -243,7 +243,8 @@ Password Fields
 
 You can use uiSchema to designate a password field. 
 The below example will render a form that displays only * for each character entered in the "key" and "password" fields.
-You can see this in action here. https://app.kendra.io/workflow-builder?data=NobwRALgngDgpmAXGAZgewE4FswBowA2AhgEZwFJgDCaAdrXAMYR5gBWAznQMqMAWcLESTho8SmhJsmLfDAxp4GCAEs4HEWDi0AJjDQraLRKNgJkHCBkMBzVqogFzYAKK79hlgF98AazhQmmLOlta0dvgOTpQAggAKAJIABADSAWA+YACuHHAYtERY5qbiFla29iqOzgCqufmFCJkwRBwcAO6YOkFmlKEVkVXRyHGtHV0ZXplZKrwCQpr+gSbZKojtKjo2cMZgLW2dGN3NY4fdKzPrm9u7++NHk-gkBGiMvjRYRUaUGQC6QA
+You can see this working `here
+<https://app.kendra.io/workflow-builder?data=NobwRALgngDgpmAXGAZgewE4FswBowA2AhgEZwFJgDCaAdrXAMYR5gBWAznQMqMAWcLESTho8SmhJsmLfDAxp4GCAEs4HEWDi0AJjDQraLRKNgJkHCBkMBzVqogFzYAKK79hlgF98AazhQmmLOlta0dvgOTpQAggAKAJIABADSAWA+YACuHHAYtERY5qbiFla29iqOzgCqufmFCJkwRBwcAO6YOkFmlKEVkVXRyHGtHV0ZXplZKrwCQpr+gSbZKojtKjo2cMZgLW2dGN3NY4fdKzPrm9u7++NHk-gkBGiMvjRYRUaUGQC6QA>`_.
 
   {
       "type": "form",
@@ -428,17 +429,3 @@ The nested flow is denoted by the property ``"type": "gosub"``. You can read mor
       }
     }
   }
-
-
-Supported Properties
-^^^^^^^^^^^^^^^^^^^^
-
-- **items**: Allows input of more than 1 item when wrapped around all other properties.
-- **ui:widget**: Wrapper for the schema.
-- **blocksConfig**: Defines the layout of the dynamic form field.
-- **adapterName**: The Flow Cloud group containing the nested flow.
-- **workflowId**: The ID of the nested flow. Along with adapterName, this is how the main flow will find the nested flow.
-- **blocks**: The content to display in the field. This must be expressed as an array.
-- **type**: The type of content being displayed e.g. “message” displays the text defined with the “title” key.
-
-
