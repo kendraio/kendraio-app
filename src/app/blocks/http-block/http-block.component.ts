@@ -6,7 +6,6 @@ import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack
 import { catchError, expand, reduce, takeWhile } from 'rxjs/operators';
 import { of, EMPTY } from 'rxjs';
 import { mappingUtility } from '../mapping-block/mapping-util';
-
 @Component({
   selector: 'app-http-block',
   templateUrl: './http-block.component.html',
@@ -63,6 +62,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     }
     this.responseType = get(this.config, 'responseType', 'json');
     this.errorBlocks = get(this.config, 'onError.blocks', []);
+
     this.makeRequest();
   }
 
@@ -144,12 +144,14 @@ export class HttpBlockComponent implements OnInit, OnChanges {
                 this.errorMessage = error.message;
                 this.errorData = error;
                 // TODO: need to prevent errors for triggering subsequent blocks
-                return of([]);
+                return of({error, hasError: this.hasError, errorMessage: this.errorMessage});
               })
             )
-            .subscribe(response => {
+            .subscribe((response: Record<string, any>) => {
               this.isLoading = false;
               this.hasError = false;
+              if(!response.hasError) this.errorBlocks = [];
+
               this.outputResult(response);
             });
         }
@@ -162,12 +164,14 @@ export class HttpBlockComponent implements OnInit, OnChanges {
               this.errorMessage = error.message;
               this.errorData = error;
               // TODO: need to prevent errors for triggering subsequent blocks
-              return of([]);
+              return of({error, hasError: this.hasError, errorMessage: this.errorMessage});
             })
           )
-          .subscribe(response => {
+          .subscribe((response: Record<string, any>) => {
             this.isLoading = false;
             this.hasError = false;
+            if(!response.hasError) this.errorBlocks = [];
+            
             this.outputResult(response);
           });
         break;
@@ -190,12 +194,14 @@ export class HttpBlockComponent implements OnInit, OnChanges {
               this.errorMessage = error.message;
               this.errorData = error;
               // TODO: need to prevent errors for triggering subsequent blocks
-              return of([]);
+              return of({error, hasError: this.hasError, errorMessage: this.errorMessage});
             })
           )
-          .subscribe(response => {
+          .subscribe((response: Record<string, any>) => {
             this.isLoading = false;
             this.hasError = false;
+            if(!response.hasError) this.errorBlocks = [];
+
             this.outputResult(response);
             const notify = get(this.config, 'notify', true);
             if (notify) {
@@ -237,12 +243,14 @@ export class HttpBlockComponent implements OnInit, OnChanges {
               this.errorMessage = error.message;
               this.errorData = error;
               // TODO: need to prevent errors for triggering subsequent blocks
-              return of([]);
+              return of({error, hasError: this.hasError, errorMessage: this.errorMessage});
             })
           )
-          .subscribe(response => {
+          .subscribe((response: Record<string, any>) => {
             this.isLoading = false;
             this.hasError = false;
+            if(!response.hasError) this.errorBlocks = [];
+
             this.outputResult(response);
             const notify = get(this.config, 'notify', true);
             if (notify) {
@@ -382,6 +390,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     const pathname = get(endpoint, 'pathname', '/');
     const query = get(endpoint, 'query', []);
     const reduceQuery = _q => Object.keys(_q).map(key => `${key}=${_q[key]}`, []).join('&');
+
     return `${protocol}//${host}${pathname}?${reduceQuery(query)}`;
   }
 }
