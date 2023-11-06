@@ -3,7 +3,101 @@ import { loadFlowCode } from '../support/helper';
 // tslint:disable: quotemark
 /// <reference types="Cypress" />
 
-describe('HTTP Block Integration Tests', () => {
+
+describe('HTTP Block Request', () => {
+
+    beforeEach(() => {
+        // Prevent external network request for adapter config
+        cy.intercept('GET', 'https://kendraio.github.io/kendraio-adapter/config.json', {
+            fixture: 'adapterConfig.json'
+        });
+
+        // Prevent external network requests for Workflow cloud
+        cy.intercept('GET', 'https://app.kendra.io/api/workflowCloud/listWorkflows', {
+            fixture: 'workflow-cloud.json'
+        });
+
+        // Prevent external network requests for fonts with empty CSS rule 
+        cy.intercept('https://fonts.googleapis.com/\*\*', "\*{ }");
+    });
+
+    it('should return a single set of results. Without pagination', () => {
+        cy.intercept({
+            url: 'https://example.com/data'
+        }, {
+            statusCode: 200,
+            body: '["hippo", "giraffe"]'
+        });
+
+        loadFlowCode([
+            { "type": "init" },
+            {
+                "type": "http",
+                "method": "GET",
+                "endpoint": "https://example.com/data"
+            },
+            {
+                "type": "debug",
+                "open": 2,
+                "showData": true
+            }
+        ]);
+        cy.contains('hippo');
+        cy.contains('giraffe');
+    });
+
+    it('should return an error', () => {
+        cy.intercept({
+            url: 'https://example.com/data'
+        }, {
+            statusCode: 400,
+            body: { error: {
+                        error: "Http failure 400 Bad request",
+                        error_description: "There was a problem with your request" 
+                    }   
+                }
+        });
+
+        loadFlowCode([
+            { "type": "init" },
+            {
+                "type": "http",
+                "method": "GET",
+                "endpoint": "https://example.com/data",
+                "onError": {
+                    "blocks": [
+                        {
+                            "type": "card",
+                            "blocks": [
+                                {
+                                    "type": "template",
+                                    "template": "Error with submission:<p>{{data.error.error}} - {{data.error.error_description}}</p>"
+                                }
+                            ]
+                        }
+                    ]
+                }
+
+            },
+            {
+                "type": "debug",
+                "open": 3,
+                "showData": true
+            }
+        ]);
+
+        cy.contains('hasError:true');
+        cy.contains('status:400');
+        cy.contains('errorMessage:"Http failure response for https://example.com/data: 400 Bad Request"');
+        cy.get('app-template-block').contains('Error with submission')
+    });
+
+
+});
+
+
+
+describe('HTTP Block Follow Pagination', () => {
 
     beforeEach(() => {
         // Prevent external network request for adapter config
@@ -119,31 +213,6 @@ describe('HTTP Block Integration Tests', () => {
         cy.contains('birds');
     });
 
-    it('should return a single set of results if response is not paginated', () => {
-        cy.intercept({
-            url: 'https://example.com/data'
-        }, {
-            statusCode: 200,
-            body: '["hippo", "giraffe"]'
-        });
-
-        loadFlowCode([
-            { "type": "init" },
-            {
-                "type": "http",
-                "method": "GET",
-                "endpoint": "https://example.com/data"
-            },
-            {
-                "type": "debug",
-                "open": 2,
-                "showData": true
-            }
-        ]);
-        cy.contains('hippo');
-        cy.contains('giraffe');
-    });
-
     it('should return first results only if not paginated, with proxy', () => {
         cy.intercept({
             url: 'https://proxy.kendra.io/',
@@ -191,6 +260,4 @@ describe('HTTP Block Integration Tests', () => {
         // we check it does not contain a second page result:
         cy.get('body').should('not.contain', 'fish');
     });
-
-
 });
