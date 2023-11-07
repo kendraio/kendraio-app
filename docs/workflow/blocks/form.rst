@@ -242,42 +242,36 @@ Password Fields
 ---------------
 
 You can use uiSchema to designate a password field. 
-The below example will render a form that displays only * for each character entered in the "key" and "password" fields.
+The below example will render a form that displays only * for each character entered in the "password" field.
+
 You can see this working `here
-<https://app.kendra.io/workflow-builder?data=NobwRALgngDgpmAXGAZgewE4FswBowA2AhgEZwFJgDCaAdrXAMYR5gBWAznQMqMAWcLESTho8SmhJsmLfDAxp4GCAEs4HEWDi0AJjDQraLRKNgJkHCBkMBzVqogFzYAKK79hlgF98AazhQmmLOlta0dvgOTpQAggAKAJIABADSAWA+YACuHHAYtERY5qbiFla29iqOzgCqufmFCJkwRBwcAO6YOkFmlKEVkVXRyHGtHV0ZXplZKrwCQpr+gSbZKojtKjo2cMZgLW2dGN3NY4fdKzPrm9u7++NHk-gkBGiMvjRYRUaUGQC6QA>`_.
+<https://app.kendra.io/bandsintown/connect>`_.
+
+.. code-block:: json
 
   {
-      "type": "form",
-      "label": "Connect",
-      "jsonSchema": {
-          "type": "object",
-          "properties": {
-              "endpoint": {
-                  "type": "string",
-                  "title": "Endpoint"
-              },
-              "key": {
-                  "type": "string",
-                  "title": "API Key"
-              },
-              "username": {
-                  "type": "string",
-                  "title": "Username"
-              },
-              "password": {
-                  "type": "string",
-                  "title": "Password"
-              }
-          }
-      },
-      "uiSchema": {
-          "key": {
-              "ui:widget": "password"
-          },
-          "password": {
-              "ui:widget": "password"
-          }
-      }
+    "type": "form",
+    "label": "Connect",
+    "jsonSchema": {
+        "type": "object",
+        "properties": {
+            "username": {
+                "type": "string",
+                "title": "Username",
+                "default": ""
+            },
+            "password": {
+                "type": "string",
+                "title": "Password",
+                "default": ""
+            }
+        }
+    },
+    "uiSchema": {
+        "password": {
+            "ui:widget": "password"
+        }
+    }
   }
 
 
