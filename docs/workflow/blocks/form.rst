@@ -248,7 +248,7 @@ You can see this example working `here
 Nested flows
 ------------
 
-If you want to vary a field according to user input, you can achieve this with a nested flow.
+If you want to update a field value according to a user action, you can achieve this with a nested flow.
 
 Any flow can be nested in any other flow. The nested flow has access to the main flow's data object, 
 context and state - it can use any data stored here. 
