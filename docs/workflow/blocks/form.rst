@@ -254,7 +254,8 @@ Any flow can be nested in any other flow. The nested flow has access to the main
 context and state - it can use any data stored here. 
 The nested flow's output is then passed to the main flow's data object, just like the output of a conventional task.
 
-As with the main flow, a nested flow can be edited directly with Kendraio App if opened from the Flow Cloud. 
+The nested flow's configuration does not appear within the main flow. 
+Instead, it can be edited directly with Kendraio App if opened from the Flow Cloud, just as you would edit the main flow.
 Any saved changes will be reflected immediately when the main flow is refreshed.
 
 This example flow allows the user to search and select from a menu based on returned data. 
