@@ -245,7 +245,7 @@ You can use uiSchema to designate a password field.
 The below example will render a form that displays only * for each character entered in the "password" field.
 
 You can see this working `here
-<https://app.kendra.io/bandsintown/connect>`_.
+<https://app.kendra.io/workflow-builder?data=NobwRALgngDgpmAXGAlgOxRMBfANOaeJMANwEMAnFMgIwBs4BaAczi1zDTIFsFkBnMmgAmNAPYAPAIIBXCAAsc+SLD5huZGDHTMwHDVp3FhZCGQAEAH0vmABiGy2lBVcQBmYitz1g6tOHTEAMJiaGhwAMbsYABW-KEAyhHycBpILkTIYjQxkdEwFGLwFBAocPzpYDL8cBRcvJWEavwQVGi6HKUQDMQAqjV1PAgcwnBuZDJ0WMhKYDBk-PwA7p7Cja4CrUadmD3IAAoLy6s+o+OT02A42HhVKEkpaYjg84srFGvPd4hLKMKsl1exw+1zwGTUEVCEDgEggjEEJGGYEhaGhsIA0nAoMQEXA1mCVJkwPIIBAYD5eAoxJ85mIWj40GJSm5sYhxnQahw4CIYGJ0JcSWT+IgAPQigDW3OEFDIKDEjBomEYBUkUAAdIiKBEAmrNDARRMFD55lA6GIyDSQOZqrV6nBEOYTGY1TbBrxcOYge9hA6nWQ1V7Vh6mg6AOQAUQAslIAJIAGVD5mwPnoYgi4pC3F4qOIzkJagM2naFL1RmQvAorAAFH6PSi0RA1bjhABKPNNYjkOh-UyeHzQ+nIRkQAD6aEmdBrpn9EDEkrQbf05UErGIADUyN2nXK0OYAGKyhj45Qd5DkKi0BjwtgMoY4oSiSSyI3YAC6QA>`_.
 
 .. code-block:: json
 
