@@ -1,3 +1,11 @@
+/*********
+Global style guide
+_ If a block is nested or the HTML is generated, the style will not be applicable to the component style and will need to be written here
+_ There are some Helpers class among this file. Search for "HELPER CLASS" to find them.
+_ The style attribute does not work on the HTML block, as the HTML is sanitize. If is needed to style a specific HTML tag, is possible to add a class and add the style here.
+*********/
+
+
 @import "~@ng-select/ng-select/themes/material.theme.css";
 // @import '../../app/ng-select-theme';
 
@@ -170,6 +178,14 @@ dynamic-material-form-control:not(:last-child) {
   }
 }
 
+// HELPER CLASS
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 90%;
+  display: inline-block;
+}
 
 .ng-dropdown-panel-items {
   font-size: 1rem;
