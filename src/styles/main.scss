@@ -1,3 +1,13 @@
+/*********
+Global Style Guide:
+- Styles not applicable directly within component styles should go here.
+- Helper classes are listed below. They are usable within sanitised
+  HTML and are marked as "HELPER CLASS" for easy identification.
+- Helper classes are particularly useful with the Template block, 
+  where the style attribute is sanitised, but CSS classes are allowed.
+*********/
+
+
 @import "~@ng-select/ng-select/themes/material.theme.css";
 // @import '../../app/ng-select-theme';
 
@@ -163,23 +173,21 @@ dynamic-material-form-control:not(:last-child) {
 }
 
 .mat-card {
-  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
-  display: block;
-  position: relative;
-  padding: 1em;
-  //border-radius: 4px;
-  //&:hover {
-  //  box-shadow: 0;
-  //  background-color: #f3f3f3;
-  //}
-
   img {
-    object-fit: contain;
+    object-fit: cover;
     width: 100%;
-    padding: 40px;
+    margin-top: 20px;
   }
 }
 
+// HELPER CLASS
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 90%;
+  display: inline-block;
+}
 
 .ng-dropdown-panel-items {
   font-size: 1rem;
