@@ -1,8 +1,13 @@
 /*********
 Global style guide
-_ If a block is nested or the HTML is generated, the style will not be applicable to the component style and will need to be written here
-_ There are some Helpers class among this file. Search for "HELPER CLASS" to find them.
-_ The style attribute does not work on the HTML block, as the HTML is sanitize. If is needed to style a specific HTML tag, is possible to add a class and add the style here.
+/*********
+Global Style Guide:
+- Styles not applicable directly within component styles should go here.
+- Helper classes are listed below. They are usable within sanitised
+  HTML and are marked as "HELPER CLASS" for easy identification.
+- Helper classes are particularly useful with the Template block, 
+  where the style attribute is sanitised, but CSS classes are allowed.
+*********/
 *********/
 
 
