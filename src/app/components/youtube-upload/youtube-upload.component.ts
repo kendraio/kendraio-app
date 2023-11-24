@@ -40,7 +40,7 @@ export class YoutubeUploadComponent implements OnInit {
       description: ['', [Validators.required]],
       category: ['', [Validators.required]],
       file: [null, [Validators.required]],
-      isPrivate: [true]
+      privacySetting: ['unlisted', [Validators.required]]
     });
     this.categories$ = this.yt.getCategories();
     this.progress$ = this.yt.progress$;
