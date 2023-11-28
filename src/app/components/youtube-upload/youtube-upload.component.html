@@ -26,7 +26,11 @@
 
         <input type="file" placeholder="Select file" (change)="onFileChange($event)">
 
-        <mat-checkbox formControlName="isPrivate">Private</mat-checkbox>
+        <mat-radio-group formControlName="privacySetting">
+          <mat-radio-button value="private">Private</mat-radio-button>
+          <mat-radio-button value="public">Public</mat-radio-button>
+          <mat-radio-button value="unlisted">Unlisted</mat-radio-button>
+        </mat-radio-group>
       </form>
     </ng-container>
 
