@@ -159,8 +159,8 @@ export class YoutubeDataService {
     );
   }
 
-  uploadVideo({ title, description, category, file, isPrivate}) {
-    console.log({ title, description, category, file, isPrivate});
+  uploadVideo({ title, description, category, file, privacySetting}) {
+    console.log({ title, description, category, file, privacySetting});
     const url = 'https://www.googleapis.com/upload/youtube/v3/videos';
     this.getAccessToken().pipe(
       switchMap(access_token => {
@@ -171,8 +171,7 @@ export class YoutubeDataService {
             categoryId: category
           },
           status: {
-            // TODO: Always private for testing
-            privacyStatus: isPrivate ? 'private' : 'private'
+            privacyStatus: privacySetting
           }
         }, {
           params: {
