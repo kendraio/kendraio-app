@@ -18,8 +18,8 @@
 # -- Project information -----------------------------------------------------
 
 project = 'Kendraio App'
-copyright = '2021, Kendraio Developers'
-author = 'Kendraio Developers'
+copyright = '2023, Kendraio Foundation (UK), Kendraio Foundation MTÜ (Estonia)'
+author = 'Kendraio'
 
 master_doc = 'index'
 
