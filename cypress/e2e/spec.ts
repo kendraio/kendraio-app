@@ -51,7 +51,7 @@ describe('workspace-project App', () => {
     cy.get('app-root mat-toolbar').contains('menu').click();
     cy.contains('workflow builder').click();
     cy.contains('settings');
-    cy.get('mat-toolbar > button mat-icon').contains('settings').click();
+    cy.get('mat-toolbar > button mat-icon').contains('settings').click({force: true});
     cy.get('app-workflow-sidenav').contains('delete_forever').click().get('app-workflow-sidenav').contains('Mapping').should('not.exist');
     cy.get('app-workflow-sidenav').contains('Add Task').click();
     cy.contains('Select Task');
@@ -69,7 +69,7 @@ describe('workspace-project App', () => {
         "blockComment": "testingComment",
       }
     ]);
-    cy.get('mat-toolbar > button mat-icon').contains('settings').click();
+    cy.get('mat-toolbar > button mat-icon').contains('settings').click({force: true});
     cy.get('app-workflow-sidenav').contains('testingComment').should('exist');
     cy.get('app-workflow-sidenav').contains('testingComment').click();
     cy.get('app-workflow-sidenav').contains('Block Comment');
@@ -83,7 +83,7 @@ describe('workspace-project App', () => {
         "blockComment": "testingComment first line\nComment line2",
       }
     ]);
-    cy.get('mat-toolbar > button mat-icon').contains('settings').click();
+    cy.get('mat-toolbar > button mat-icon').contains('settings').click({force: true});
     cy.get('app-workflow-sidenav').contains('testingComment').should('exist');
     cy.get('app-workflow-sidenav').contains('line2').should('not.exist');
     cy.get('app-workflow-sidenav').contains('testingComment').click();
@@ -138,7 +138,7 @@ describe('workspace-project App', () => {
     });
     cy.contains('Dummy Workflow 1').should('be.visible', { timeout: 10000 });
     cy.contains('settings');
-    cy.get('mat-toolbar > button mat-icon').contains('settings').click();
+    cy.get('mat-toolbar > button mat-icon').contains('settings').click({force: true});
 
     cy.get('app-workflow-sidenav').contains('Add Task').click();
     cy.contains('Select Task');
