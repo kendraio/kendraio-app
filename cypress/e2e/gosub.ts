@@ -24,7 +24,7 @@ describe('Subroutine workflow block', () => {
                 "workflowId": "madeUpFlowIDA"
             }
         ]);
-        cy.get('mat-toolbar > button mat-icon').contains('settings').click();
+        cy.get('mat-toolbar > button mat-icon').contains('settings').click({force: true});
         cy.get("#mat-expansion-panel-header-0").click();
         // cy.pause();
         cy.get("#mat-input-0")
