@@ -31,14 +31,14 @@ describe('Subroutine workflow block', () => {
             .clear()
             .type("s")
             .type("o")
-            .get(".mat-option-text", { timeout: 1000 })
+            .get("mat-option", { timeout: 1000 })
             .contains("someAdapterB");
         cy.get("#mat-input-0")
             .clear()
             .type("someAdapterB")
             .get("#mat-input-1")
             .clear()
-            .get(".mat-option-text", { timeout: 1000 })
+            .get("mat-option", { timeout: 1000 })
             .contains("madeUpFlowIDB");
     });
 
