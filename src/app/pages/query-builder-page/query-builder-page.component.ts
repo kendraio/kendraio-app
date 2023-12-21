@@ -103,6 +103,7 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
   }
 
   initEditor() {
+    const monaco = (window as any).monaco;
     monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
       validate: true,
       schemas: [{

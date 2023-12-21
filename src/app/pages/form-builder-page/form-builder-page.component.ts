@@ -8,7 +8,7 @@ import {Subject} from 'rxjs';
 import {debounceTime, takeUntil} from 'rxjs/operators';
 import JSONFormatter from 'json-formatter-js';
 import {JSON_SCHEMA} from './jsonschema';
-import {MonacoEditorModule} from '@materia-ui/ngx-monaco-editor';
+import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 import {UI_SCHEMA} from './uischema';
 import {EDITOR_OPTIONS} from './editor-options';
 import {AdapterFormSelectService} from '../../services/adapter-form-select.service';
@@ -112,6 +112,7 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
   }
 
   initJson() {
+    const monaco = (window as any).monaco;
     monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
       validate: true,
       schemas: [{
