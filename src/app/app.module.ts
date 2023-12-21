@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {APP_INITIALIZER, ErrorHandler, NgModule} from '@angular/core';
-import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
+import { MonacoEditorModule, NgxMonacoEditorConfig } from 'ngx-monaco-editor-v2';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -192,6 +192,11 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
+const monacoConfig: NgxMonacoEditorConfig = {
+  baseUrl: 'assets', 
+  requireConfig: { preferScriptTags: true },
+  monacoRequire: (window as any).monacoRequire
+};
 
 @NgModule({
     declarations: [
@@ -374,7 +379,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     LeafletMarkerClusterModule,
     FormlyModule.forRoot(config),
     FormlyMaterialModule,
-    MonacoEditorModule.forRoot(),
+    MonacoEditorModule.forRoot(monacoConfig),
     MatAutocompleteModule,
     AgGridModule,
     MatChipsModule
