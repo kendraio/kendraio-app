@@ -79,5 +79,13 @@ describe('MappingUtil', () => {
     expect(mappingUtility(data, expr1)).toBe(expected1);
   });
 
+  it('should replace every string instance within a larger string', () => {
+    const data = { string: "before test string before" };
+    const expr1 = "replaceAll(string, 'before', 'after')";
+    const expected1 = "after test string after";
+
+    expect(mappingUtility(data, expr1)).toBe(expected1);
+  });
+
 });
 
