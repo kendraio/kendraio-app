@@ -63,5 +63,13 @@ describe('MappingUtil', () => {
     expect(mappingUtility(data, expr1)).toBe(expected1);
   });
 
+  it('should return an upper case string when requested', () => {
+    const data = { string: "test string" };
+    const expr1 = "toUpper(string)";
+    const expected1 = "TEST STRING";
+
+    expect(mappingUtility(data, expr1)).toBe(expected1);
+  });
+
 });
 
