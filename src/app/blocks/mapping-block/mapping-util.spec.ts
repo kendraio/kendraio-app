@@ -41,50 +41,49 @@ describe('MappingUtil', () => {
 
   it('should parse Unix millisecond timestamp and return date string', () => {
     const data = { data: { timestamp: 1589756000000, nothing: 0 } };
-    const expr1 = "parseUnixTimestamp(data.timestamp, 'ms')";
-    const expected1 = DateTime.fromMillis(data.data.timestamp).toISO();
+    const expr = "parseUnixTimestamp(data.timestamp, 'ms')";
+    const expected = DateTime.fromMillis(data.data.timestamp).toISO();
   
-    expect(mappingUtility(data, expr1)).toBe(expected1);
+    expect(mappingUtility(data, expr)).toBe(expected);
   });
     
   it('should parse Unix millisecond timestamp and return date string with format argument', () => {
     const data = { data: { timestamp: 1589756000000, nothing: 0 } };
-    const expr1 = "parseUnixTimestamp(data.timestamp, 'milliseconds')";
-    const expected1 = DateTime.fromMillis(data.data.timestamp).toISO();
+    const expr = "parseUnixTimestamp(data.timestamp, 'milliseconds')";
+    const expected = DateTime.fromMillis(data.data.timestamp).toISO();
   
-    expect(mappingUtility(data, expr1)).toBe(expected1); 
+    expect(mappingUtility(data, expr)).toBe(expected); 
   });
 
   it('should return a lower case string when requested', () => {
     const data = { string: "TEST STRING" };
-    const expr1 = "toLower(string)";
-    const expected1 = "test string";
+    const expr = "toLower(string)";
+    const expected = "test string";
 
-    expect(mappingUtility(data, expr1)).toBe(expected1);
+    expect(mappingUtility(data, expr)).toBe(expected);
   });
 
   it('should return an upper case string when requested', () => {
     const data = { string: "test string" };
-    const expr1 = "toUpper(string)";
-    const expected1 = "TEST STRING";
+    const expr = "toUpper(string)";
+    const expected = "TEST STRING";
 
-    expect(mappingUtility(data, expr1)).toBe(expected1);
+    expect(mappingUtility(data, expr)).toBe(expected);
   });
 
   it('should replace one string instance within a larger string', () => {
     const data = { string: "test string original original" };
-    const expr1 = "replace(string, 'original', 'replaced')";
-    const expected1 = "test string replaced original";
+    const expr = "replace(string, 'original', 'replaced')";
+    const expected = "test string replaced original";
 
-    expect(mappingUtility(data, expr1)).toBe(expected1);
+    expect(mappingUtility(data, expr)).toBe(expected);
   });
 
   it('should replace every string instance within a larger string', () => {
     const data = { string: "test string original original" };
-    const expr1 = "replaceAll(string, 'original', 'replaced')";
-    const expected1 = "test string replaced replaced";
+    const expr = "replaceAll(string, 'original', 'replaced')";
+    const expected = "test string replaced replaced";
 
-    expect(mappingUtility(data, expr1)).toBe(expected1);
+    expect(mappingUtility(data, expr)).toBe(expected);
   });
 });
-
