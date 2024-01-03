@@ -273,31 +273,33 @@ Available Extensions
 3. findIndex
 4. uuid
 5. toLower
-6. replace
-7. trim
-8. now
-9. formatDate
-10. omit
-11. pick
-12. split
-13. find
-14. compact
-15. qs
-16. parseQs
-17. zip
-18. debug
-19. json
-20. markdown
-21. btoa
-22. base64encode
-23. pairwise
-24. numDiff
-25. percentChange
-26. groupByKeys
-27. all
-28. parseDate
-29. parseDuration
-30. parseUnixTimestamp
+6. toUpper
+7. replace
+8. replaceAll
+9. trim
+10. now
+11. formatDate
+12. omit
+13. pick
+14. split
+15. find
+16. compact
+17. qs
+18. parseQs
+19. zip
+20. debug
+21. json
+22. markdown
+23. btoa
+24. base64encode
+25. pairwise
+26. numDiff
+27. percentChange
+28. groupByKeys
+29. all
+30. parseDate
+31. parseDuration
+32. parseUnixTimestamp
 
 Each of these extensions is detailed below with example usages.
 
@@ -360,19 +362,42 @@ Examples:
 
    toLower(data.name)  // Output: "john doe"
 
-6. replace
------------
+6. toUpper
+----------
 
-Replaces a part of a string with another string.
+Converts a string to uppercase.
 
 Examples:
 
 .. code-block:: javascript
 
-   replace(data.name, ' ', '-')        // Output: "John-Doe"
+   toUpper(data.name)  // Output: "JOHN DOE"
+
+7. replace
+-----------
+
+Returns a string replacing the first instance of a substring with another substring.
+
+Examples:
+
+.. code-block:: javascript
+
+   replace(data.name, 'o', '-')        // Output: "J-hn Doe"
    replace(data.email, '.', '')        // Output: "johndoe@example.com"
 
-7. trim
+8. replaceAll
+-----------
+
+Returns a string replacing all instances of a substring with another substring.
+
+Examples:
+
+.. code-block:: javascript
+
+   replaceAll(data.name, 'o', '-')        // Output: "J-hn D-e"
+   replaceAll(data.email, '.', '')        // Output: "johndoe@examplecom"
+
+9. trim
 -------
 
 Removes whitespace from both ends of a string.
@@ -383,7 +408,7 @@ Examples:
 
    trim('  John Doe  ')  // Output: "John Doe"
 
-8. now
+10. now
 ------
 
 Returns the current UTC timestamp in ISO 8601 format.
@@ -394,7 +419,7 @@ Examples:
 
    now()  // Output: "Wed, 07 Jun 2023 17:10:40"
 
-9. formatDate
+11. formatDate
 --------------
 
 Formats a date string using a format string.
@@ -407,7 +432,7 @@ Examples:
 
    formatDate('2020-01-01T14:50:00.000+01:00', 'dd/MM/yyyy') // Output: "01/01/2020"
 
-10. omit
+12. omit
 --------
 
 Creates an object composed of enumerable properties from the input objects omitting the properties named in the *names array.
@@ -428,7 +453,7 @@ Examples:
    //   ]
    // }
 
-11. pick
+13. pick
 --------
 
 Creates an object composed of the picked enumerable properties of the input object.
@@ -455,7 +480,7 @@ Examples:
    //   "name": "John Doe"
    // }
 
-12. split
+14. split
 ---------
 
 Splits a string into an array of strings by separating it on a specified separator string.
@@ -466,7 +491,7 @@ Examples:
 
    split(data.tags[0], 'e')  // Output: ["front", "nd"]
 
-13. find
+15. find
 --------
 
 Returns the first element in an array that passes a truth test.
@@ -477,7 +502,7 @@ Examples:
 
    find(data.projects, `title`, `Project A`)  // Output: {"id": 1, "title": "Project A"}
 
-14. compact
+16. compact
 -----------
 
 Creates an array with non-null values.
@@ -494,7 +519,7 @@ Examples:
    //   "email": "john.doe@example.com"
    // }
 
-15. qs
+17. qs
 ------
 
 Stringifies an object into a query string.
@@ -507,7 +532,7 @@ Examples:
 
    // Output: "name=John%20Doe&age=35&email=john.doe%40example.com&tags%5B0%5D=frontend&tags%5B1%5D=ui&projects%5B0%5D%5Bid%5D=1&projects%5B0%5D%5Btitle%5D=Project%20A&projects%5B1%5D%5Bid%5D=2&projects%5B1%5D%5Btitle%5D=Project%20B"
 
-16. parseQs
+18. parseQs
 -----------
 
 Parses a query string into an object.
@@ -523,7 +548,7 @@ Examples:
    //     "name": "John Doe"
    // }
 
-17. zip
+19. zip
 -------
 
 Creates an array of elements from two arrays.
@@ -534,7 +559,7 @@ Examples:
 
    zip(`["a", "b", "c"]`, `[1, 2, 3]`)  // Output: [["a", 1], ["b", 2], ["c", 3]]
 
-18. debug
+20. debug
 ---------
 
 Logs a value to the JavaScript console for debugging and also returns the answer. Check the browser console for the logged value.
@@ -566,7 +591,7 @@ Examples:
    //     ]
    // }
 
-19. json
+21. json
 --------
 
 Converts a value to a JSON string.
@@ -579,7 +604,7 @@ Examples:
 
    // Output: "{\"name\":\"John Doe\",\"age\":35,\"email\":\"john.doe@example.com\",\"tags\":[\"frontend\",\"ui\"],\"projects\":[{\"id\":1,\"title\":\"Project A\"},{\"id\":2,\"title\":\"Project B\"}]}"
 
-20. markdown
+22. markdown
 ------------
 
 Converts a markdown string to HTML.
@@ -590,7 +615,7 @@ Examples:
 
    markdown('## Header')  // Output: "<h2 id=\"header\">Header</h2>"
 
-21. btoa
+23. btoa
 -------
 
 Encodes a string in base-64.
@@ -601,7 +626,7 @@ Examples:
 
    btoa(data.name)  // Output: "Sm9obiBEb2U="
 
-22. base64encode
+24. base64encode
 ----------------
 
 Safely encodes a string in base-64.
@@ -612,7 +637,7 @@ Examples:
 
    base64encode(data.name)  // Output: "Sm9obiBEb2U="
 
-23. pairwise
+25. pairwise
 ------------
 
 Groups the elements of an array into pairs. The function outputs an array containing objects, where each object consists of two properties: "current" and "next". The "current" property refers to the current element of the input array, while the "next" property refers to the next element in the input array. If there is no next element, the "next" property will be set to null.
@@ -648,7 +673,7 @@ Output:
         }
     ]
 
-24. numDiff
+26. numDiff
 -----------
 
 Subtracts two numbers.
@@ -659,7 +684,7 @@ Subtracts two numbers.
 
 Output: 1
 
-25. percentChange
+27. percentChange
 -----------------
 
 Calculates the percent change between two numbers.
@@ -670,7 +695,7 @@ Calculates the percent change between two numbers.
 
 Output: 100
 
-26. groupByKeys
+28. groupByKeys
 ----------------
 
 Groups the values of an array of objects by key.
@@ -694,7 +719,7 @@ Output:
         ]
     }
 
-27. all
+29. all
 -------
 
 Checks if all elements in an array pass a test (i.e., are truthy).
@@ -711,7 +736,7 @@ Output: true
 
 Output: false
 
-28. parseDate
+30. parseDate
 -------------
 
 Parses a date string in various formats and returns a date string.
@@ -722,7 +747,7 @@ Parses a date string in various formats and returns a date string.
 
 Output: "2020-01-01T00:00:00.000+00:00"
 
-29. parseDuration
+31. parseDuration
 -----------------
 
 Parses a duration string and returns the number of seconds.
@@ -733,7 +758,7 @@ Parses a duration string and returns the number of seconds.
 
 Output: "6030"
 
-30. parseUnixTimestamp
+32. parseUnixTimestamp
 ----------------------
 
 Parses a Unix timestamp and returns an ISO 8601 date string.
