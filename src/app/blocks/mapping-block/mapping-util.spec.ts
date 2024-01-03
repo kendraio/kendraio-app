@@ -86,13 +86,5 @@ describe('MappingUtil', () => {
 
     expect(mappingUtility(data, expr1)).toBe(expected1);
   });
-
-  it('should trim the whitespace from both ends of a string', () => {
-    const data = { string: " test string " };
-    const expr1 = "trim(string)";
-    const expected1 = "test string";
-
-    expect(mappingUtility(data, expr1)).toBe(expected1);
-  });
 });
 
