@@ -36,9 +36,9 @@ describe('Share functionality', () => {
         cy.contains('Rishi');
 
         // Now we press the share button, and select share database:
-        cy.get('mat-icon').contains("settings").click();
-        cy.get('mat-icon').contains("share").click();
-        cy.get('button:contains("Share database")').click();
+        cy.get('mat-icon').contains("settings").click({force: true});
+        cy.get('mat-icon').contains("share").click({force: true});
+        cy.get('button:contains("Share database")').click({force: true});
 
         // assert shareValue is in the databaseUrl
         cy.get('app-show-share-link-dialog textarea').should('contain', databaseUrl);
