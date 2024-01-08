@@ -13,7 +13,7 @@ export class ValidationService {
       'required': 'Required field',
       // 'invalidEmailAddress': 'Invalid email address',
       'invalidPassword': 'Invalid password. Password must be at least 6 characters long, and contain a number.',
-      'minlength': `Min. length ${validatorValue.requiredLength}`,
+      'minLength': `Min. length ${validatorValue.requiredLength}`,
       'badword' : 'Ilegal word',
       'invalid' : 'Ilegal word',
       'pattern' : 'Invalid entry'
