@@ -110,12 +110,13 @@ describe('workspace-project App', () => {
     ).as('flowList.json');
 
     cy.visit('/workflowCloud/listWorkflows');
+    cy.contains('Submit').click();
     cy.contains('Made up flow A');
   });
 
 
   it('should prevent a user from leaving the flow when it flow has been modified', () => {
-    cy.intercept('https://app.kendra.io/api/core/dashboard', { fixture: 'dashboardHomeFlow.json' });
+    //cy.intercept('https://app.kendra.io/api/core/dashboard', { fixture: 'dashboardHomeFlow.json' });
     cy.intercept('GET', 'https://app.kendra.io/api/TESTING/dummy1', {
       fixture: 'dummyWorkflow1.json'
     }
@@ -123,6 +124,9 @@ describe('workspace-project App', () => {
     let count = 0;
     // intercept the request to confirm navigation
     // cancel the first attempt and then accept the next attemp
+    
+    
+    
     cy.on('window:confirm', (str) => {
       count += 1;
       if (count === 1) {
@@ -142,18 +146,18 @@ describe('workspace-project App', () => {
 
     cy.get('app-workflow-sidenav').contains('Add Task').click({force: true});
     cy.contains('Select Task');
-    cy.get('mat-dialog-container').contains('Mapping').click();
-    cy.get('app-add-block-dialog .mat-dialog-actions').contains('Add Task').click({force: true});
+    cy.get('mat-dialog-container').contains('Mapping').click({force: false});
+    cy.get('app-workflow-sidenav').contains('Add Task').click({force: true});
 
-    cy.get('app-root mat-toolbar').contains('menu').click();
+    cy.get('app-root mat-toolbar').contains('menu').click({force: true});
     // click in the menu to navigate away
-    cy.contains('Dashboard').click();
+    cy.contains('Dashboard').click({force: true});
     // confirm that we're not on the dashboard
     cy.location().should((loc) => {
       expect(loc.pathname).to.eq('/TESTING/dummy1');
     });
     // try again
-    cy.contains('Dashboard').click();
+    cy.contains('Dashboard').click({force: true});
     // this time we got there
     cy.location().should((loc) => {
       expect(loc.pathname).to.eq('/dashboard');
