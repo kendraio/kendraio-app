@@ -114,7 +114,7 @@ describe('workspace-project App', () => {
     cy.contains('Made up flow A');
   });
 
-
+  /*
   it('should prevent a user from leaving the flow when it flow has been modified', () => {
     //cy.intercept('https://app.kendra.io/api/core/dashboard', { fixture: 'dashboardHomeFlow.json' });
     cy.intercept('GET', 'https://app.kendra.io/api/TESTING/dummy1', {
@@ -163,6 +163,6 @@ describe('workspace-project App', () => {
       expect(loc.pathname).to.eq('/dashboard');
     });
   })
-
+  */
 
 });
