@@ -20,6 +20,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "allowedCommonJsDependencies": [
+                "lodash"
+            ],
             "outputPath": "dist",
             "index": "src/index.html",
             "polyfills": [
