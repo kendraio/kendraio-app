@@ -19,7 +19,7 @@ describe('workspace-project App', () => {
 
 
     // Prevent external network requests for fonts with empty CSS rule
-    cy.intercept('https://fonts.googleapis.com/**', "*{ }");
+    cy.intercept('https://fonts.googleapis.com/**', "*{ }").as('emptyFonts');
 
   });
 
