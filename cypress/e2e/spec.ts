@@ -102,7 +102,7 @@ describe('workspace-project App', () => {
 
     cy.intercept('GET', 'https://app.kendra.io/api/workflowCloud/listWorkflows', {
       fixture: 'listWorkflowsFlow.json'
-    });
+    }).as('listWorkflowsFlow.json');
 
     cy.intercept('GET', 'https://app.kendra.io/api', {
       fixture: 'flowList.json'
