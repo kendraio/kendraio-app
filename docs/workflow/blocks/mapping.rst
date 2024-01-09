@@ -53,9 +53,38 @@ read from *filter*. Reading from  *state.global.workflowCloud.listWorkflows.filt
 Handy JMESPath patterns
 -----------------------
 
+Using a string as a value
+^^^^^^^^^^^^^^^^^^^^^^^^^
+To be valid JMESPath, keys and values must be wrapped in double quotes.
+For a hardcoded string, the value must be wrapped in backticks, otherwise it will result `null` for undefined variables.
+.. code-block:: json
+  {
+    "name": `John`,
+    "surname": `Doe`,
+    "iAmNull": "not showing"
+  }
+
+Output will be:
+
+.. code-block:: text
+
+  name: "John"
+  surname: "Doe"
+  iAmNull: null
+
+We've seen that property values of object keys can be set using backticks, and it is also possible to wrap a whole JSON object in backticks. 
+The output will be the same as this:
+
+.. code-block:: json
+  `{
+    "name": "John",
+    "surname": "Doe",
+    "iAmNotNull": "now this value is visible too"
+  }`
+
+
 Not
 ^^^
-
 When your data structuture holds the value that you wish to negate, you need to enclose the 
 path of your data in parentheses before you NOT it. 
 
@@ -109,7 +138,14 @@ This will keep any item that has a "deleted" flag in the "tags" array. More usef
 Adding a new key to an object
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If you're wrangling data from one form to another, you may need to add new keys. 
+If you're wrangling data from one form to another, you may need to add new keys.
+
+.. code-block:: text
+
+  data.merge(@, { key: value })
+
+If your data is an array, you can iterate through its elements with ``[*]``. 
+In the below example, the new key/value pair is added to each element of the array.
 
 .. code-block:: text
 
@@ -368,6 +404,8 @@ Examples:
 .. code-block:: javascript
 
    formatDate('2020-01-01', 'dd/MM/yyyy')  // Output: "01/01/2020"
+
+   formatDate('2020-01-01T14:50:00.000+01:00', 'dd/MM/yyyy') // Output: "01/01/2020"
 
 10. omit
 --------
