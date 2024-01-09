@@ -15,7 +15,7 @@
         "@schematics/angular:application": {
           "strict": true
         }
-      },      
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -161,15 +161,9 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
-            "styles": [
-              "src/styles.scss"
-            ],
+            "styles": ["src/styles.scss"],
             "scripts": [],
-            "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/manifest.json"
-            ]
+            "assets": ["src/favicon.ico", "src/assets", "src/manifest.json"]
           }
         },
         "cypress-run": {
@@ -177,8 +171,7 @@
           "options": {
             "devServerTarget": "kendraio-app:serve"
           },
-          "configurations": {
-          }
+          "configurations": {}
         },
         "cypress-open": {
           "builder": "@cypress/schematic:cypress",
@@ -194,8 +187,7 @@
             "watch": true,
             "headless": false
           },
-          "configurations": {
-          }
+          "configurations": {}
         }
       }
     },
@@ -219,12 +211,9 @@
         }
       }
     }
-  
   },
   "cli": {
     "analytics": false,
-    "schematicCollections": [
-      "@ngrx/schematics"
-    ]
+    "schematicCollections": ["@ngrx/schematics"]
   }
 }

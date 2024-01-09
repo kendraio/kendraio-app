@@ -1,16 +1,22 @@
-import { Component } from '@angular/core';
-import { FieldType } from '@ngx-formly/core';
+import { Component } from "@angular/core";
+import { FieldType } from "@ngx-formly/core";
 
 @Component({
-  selector: 'formly-field-input-percentage',
+  selector: "formly-field-input-percentage",
   template: `
-  <mat-form-field appearance="standard">
-  <mat-label>  {{ to.label }} </mat-label>
-     <input matInput type="text"  [textMask]="{mask: limitToHundred}" [formControl]="formControl" [formlyAttributes]="field">
-     <mat-error></mat-error>
-     <mat-hint> {{ to.description }} </mat-hint>
-   </mat-form-field>
- `
+    <mat-form-field appearance="standard">
+      <mat-label> {{ to.label }} </mat-label>
+      <input
+        matInput
+        type="text"
+        [textMask]="{ mask: limitToHundred }"
+        [formControl]="formControl"
+        [formlyAttributes]="field"
+      />
+      <mat-error></mat-error>
+      <mat-hint> {{ to.description }} </mat-hint>
+    </mat-form-field>
+  `,
 })
 export class KendraFieldInputPercentage extends FieldType {
   public limitToHundred(rawValue) {
@@ -18,10 +24,10 @@ export class KendraFieldInputPercentage extends FieldType {
 
     if (value < 100) {
       if (value < 10) {
-        return [/\d/, ' %'];
-      } else return [/\d/, /\d/, ' %'];
+        return [/\d/, " %"];
+      } else return [/\d/, /\d/, " %"];
     } else {
-      return ['100 %'];
+      return ["100 %"];
     }
   }
 }

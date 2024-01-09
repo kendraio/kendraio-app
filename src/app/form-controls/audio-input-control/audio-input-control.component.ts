@@ -1,61 +1,65 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ControlValueAccessor, UntypedFormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { blobToDataURL } from 'blob-util';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { EditClipDialogComponent } from '../../dialogs/edit-clip-dialog/edit-clip-dialog.component';
-import { ConfirmDeleteDialogComponent } from '../../dialogs/confirm-delete-dialog/confirm-delete-dialog.component';
-import { WaveformComponent } from '../../components/waveform/waveform.component';
-import {map, startWith} from 'rxjs/operators';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import {
+  ControlValueAccessor,
+  UntypedFormControl,
+  NG_VALUE_ACCESSOR,
+} from "@angular/forms";
+import { Subject } from "rxjs";
+import { blobToDataURL } from "blob-util";
+import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
+import { EditClipDialogComponent } from "../../dialogs/edit-clip-dialog/edit-clip-dialog.component";
+import { ConfirmDeleteDialogComponent } from "../../dialogs/confirm-delete-dialog/confirm-delete-dialog.component";
+import { WaveformComponent } from "../../components/waveform/waveform.component";
+import { map, startWith } from "rxjs/operators";
 
 @Component({
-  selector: 'app-audio-input-control',
-  templateUrl: './audio-input-control.component.html',
-  styleUrls: ['./audio-input-control.component.scss'],
+  selector: "app-audio-input-control",
+  templateUrl: "./audio-input-control.component.html",
+  styleUrls: ["./audio-input-control.component.scss"],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: AudioInputControlComponent,
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
-export class AudioInputControlComponent implements OnInit, OnDestroy, ControlValueAccessor {
-
+export class AudioInputControlComponent
+  implements OnInit, OnDestroy, ControlValueAccessor
+{
   @Input() placeholder: string;
   destroy$ = new Subject();
 
-  data = [
-  ];
+  data = [];
 
   src;
   file: Blob;
 
   @Input() clipControl: UntypedFormControl;
 
-  @ViewChild('player') player: WaveformComponent;
+  @ViewChild("player") player: WaveformComponent;
   isPlaying = false;
 
   clipValues;
 
-  constructor(
-    private readonly dialog: MatDialog
-  ) { }
+  constructor(private readonly dialog: MatDialog) {}
 
   ngOnInit() {
     this.clipValues = this.clipControl.valueChanges.pipe(
       startWith(this.clipControl.value),
-      map(this.chartData)
+      map(this.chartData),
     );
   }
 
   chartData(clips) {
     return {
-      datasets: [{
-        data: clips.map(({ start, end }) => end - start),
-        backgroundColor: ['red', 'yellow', 'pink', 'blue', 'green', 'purple']
-      }],
-      labels: clips.map(({ name }) => name)
+      datasets: [
+        {
+          data: clips.map(({ start, end }) => end - start),
+          backgroundColor: ["red", "yellow", "pink", "blue", "green", "purple"],
+        },
+      ],
+      labels: clips.map(({ name }) => name),
     };
   }
 
@@ -66,11 +70,11 @@ export class AudioInputControlComponent implements OnInit, OnDestroy, ControlVal
     }
   }
 
-  _onValueChanged = v => {};
+  _onValueChanged = (v) => {};
 
   valueChanged(file) {
     this.file = file;
-    blobToDataURL(file).then(dataUrl => this.src = dataUrl);
+    blobToDataURL(file).then((dataUrl) => (this.src = dataUrl));
     this._onValueChanged(file);
   }
 
@@ -89,21 +93,19 @@ export class AudioInputControlComponent implements OnInit, OnDestroy, ControlVal
     this._onValueChanged = fn;
   }
 
-  registerOnTouched(fn: any): void {
-  }
+  registerOnTouched(fn: any): void {}
 
-  setDisabledState(isDisabled: boolean): void {
-  }
+  setDisabledState(isDisabled: boolean): void {}
 
   writeValue(file: any): void {
     this.file = file;
     if (file) {
-      blobToDataURL(file).then(dataUrl => this.src = dataUrl);
+      blobToDataURL(file).then((dataUrl) => (this.src = dataUrl));
     }
   }
 
   add(name) {
-    if (name.trim() !== '') {
+    if (name.trim() !== "") {
       this.data.push({ name, start: 0, end: 100 });
       const clips = this.clipControl.value as Array<any>;
       clips.push({ name, start: 0, end: 100 });
@@ -121,12 +123,12 @@ export class AudioInputControlComponent implements OnInit, OnDestroy, ControlVal
     const dialogRef = this.dialog.open(ConfirmDeleteDialogComponent, {
       data: {
         item: {
-          type: 'Clip',
-          name: (this.clipControl.value as Array<any>)[i].name
-        }
-      }
+          type: "Clip",
+          name: (this.clipControl.value as Array<any>)[i].name,
+        },
+      },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         const clips = this.clipControl.value as Array<any>;
         clips.splice(i, 1);
@@ -139,10 +141,10 @@ export class AudioInputControlComponent implements OnInit, OnDestroy, ControlVal
     const clip = (this.clipControl.value as Array<any>)[i];
     const dialogRef = this.dialog.open(EditClipDialogComponent, {
       data: {
-        clip
-      }
+        clip,
+      },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         const clips = this.clipControl.value as Array<any>;
         clips[i] = result;

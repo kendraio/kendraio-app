@@ -1,45 +1,50 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-import {get, isArray, isObject} from 'lodash-es';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import {BlocksDialogComponent} from '../../dialogs/blocks-dialog/blocks-dialog.component';
-import { RepositionScrollStrategy } from '@angular/cdk/overlay';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+} from "@angular/core";
+import { get, isArray, isObject } from "lodash-es";
+import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
+import { BlocksDialogComponent } from "../../dialogs/blocks-dialog/blocks-dialog.component";
+import { RepositionScrollStrategy } from "@angular/cdk/overlay";
 
 @Component({
-  selector: 'app-dialog-block',
-  templateUrl: './dialog-block.component.html',
-  styleUrls: ['./dialog-block.component.scss']
+  selector: "app-dialog-block",
+  templateUrl: "./dialog-block.component.html",
+  styleUrls: ["./dialog-block.component.scss"],
 })
 export class DialogBlockComponent implements OnInit, OnChanges {
-
   @Input() config;
   @Input() context;
   @Input() model: any = {};
 
   @Output() output = new EventEmitter();
 
-  constructor(
-    private readonly dialog: MatDialog
-  ) { }
+  constructor(private readonly dialog: MatDialog) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngOnChanges(changes) {
-    if (get(changes, 'model.firstChange', false)) {
+    if (get(changes, "model.firstChange", false)) {
       return;
     }
     const dialogRef = this.dialog.open(BlocksDialogComponent, {
-      maxHeight: '90vh',
+      maxHeight: "90vh",
       // TODO: Add other dialog options to config
       data: {
-        blocks: get(this.config, 'blocks', []),
+        blocks: get(this.config, "blocks", []),
         model: this.model,
-        context: this.context
-      }
+        context: this.context,
+      },
     });
-    dialogRef.afterClosed().subscribe(value => {
+    dialogRef.afterClosed().subscribe((value) => {
       // TODO: replace this shallow copy code with _.clone() or similar
-      this.output.emit(isArray(value) ? [ ...value ] : isObject(value) ? { ...value } : value);
+      this.output.emit(
+        isArray(value) ? [...value] : isObject(value) ? { ...value } : value,
+      );
     });
   }
 }

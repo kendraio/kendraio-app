@@ -1,19 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { ConfirmAppResetDialogComponent } from '../../dialogs/confirm-app-reset-dialog/confirm-app-reset-dialog.component';
-import { PageTitleService } from '../../services/page-title.service';
-import { AdaptersService } from '../../services/adapters.service';
-import { DocumentRepositoryService } from '../../services/document-repository.service';
-import {AppSettingsService} from '../../services/app-settings.service';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
+import { ConfirmAppResetDialogComponent } from "../../dialogs/confirm-app-reset-dialog/confirm-app-reset-dialog.component";
+import { PageTitleService } from "../../services/page-title.service";
+import { AdaptersService } from "../../services/adapters.service";
+import { DocumentRepositoryService } from "../../services/document-repository.service";
+import { AppSettingsService } from "../../services/app-settings.service";
 
 @Component({
-  selector: 'app-settings-page',
-  templateUrl: './settings-page.component.html',
-  styleUrls: ['./settings-page.component.scss']
+  selector: "app-settings-page",
+  templateUrl: "./settings-page.component.html",
+  styleUrls: ["./settings-page.component.scss"],
 })
 export class SettingsPageComponent implements OnInit {
-
   isDebug = false;
   showHelp = true;
 
@@ -23,37 +22,36 @@ export class SettingsPageComponent implements OnInit {
     private readonly pageTitle: PageTitleService,
     private readonly adapters: AdaptersService,
     private readonly database: DocumentRepositoryService,
-    private readonly settings: AppSettingsService
-  ) { }
+    private readonly settings: AppSettingsService,
+  ) {}
 
   ngOnInit() {
-    this.pageTitle.setTitle('App settings');
-    this.isDebug = this.settings.get('debugMode', false);
-     this.showHelp = this.settings.getTmp('showHelp', true);
+    this.pageTitle.setTitle("App settings");
+    this.isDebug = this.settings.get("debugMode", false);
+    this.showHelp = this.settings.getTmp("showHelp", true);
   }
 
   // TODO: Remove any other data added to localStorage
   resetApp() {
     const dialogRef = this.dialog.open(ConfirmAppResetDialogComponent, {
-      width: '300px'
+      width: "300px",
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.adapters.resetApp();
         this.database.resetApp();
-        this.router.navigate(['/']);
+        this.router.navigate(["/"]);
       }
     });
   }
 
   toggleDebugMode() {
     this.isDebug = !this.isDebug;
-    this.settings.set('debugMode', this.isDebug);
+    this.settings.set("debugMode", this.isDebug);
   }
 
   toggleShowHelp() {
     this.showHelp = !this.showHelp;
-    this.settings.set('showHelp', this.showHelp);
+    this.settings.set("showHelp", this.showHelp);
   }
-
 }

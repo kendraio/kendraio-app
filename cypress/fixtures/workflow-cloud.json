@@ -1,157 +1,155 @@
 {
-    "blocks": [
+  "blocks": [
+    {
+      "type": "init"
+    },
+    {
+      "type": "variable-get",
+      "name": "filterTag"
+    },
+    {
+      "type": "mapping",
+      "mapping": "(type(data)=='string' && data!='--none--') && data"
+    },
+    {
+      "type": "template",
+      "template": "{{#if data}}Filtering by tag: <strong>{{data}}</strong>{{/if}}"
+    },
+    {
+      "type": "context-save",
+      "contextKey": "filterTag"
+    },
+    {
+      "type": "mapping",
+      "mapping": "{ \"term\":\" \", \"displayHidden\":false}"
+    },
+    {
+      "type": "form",
+      "hasSubmit": false,
+      "emitOnInit": true,
+      "jsonSchema": {
+        "type": "object",
+        "properties": {
+          "term": {
+            "type": "string",
+            "title": "Search term",
+            "default": ""
+          },
+          "displayHidden": {
+            "type": "boolean",
+            "title": "Show hidden",
+            "default": false
+          }
+        }
+      },
+      "uiSchema": {}
+    },
+    {
+      "type": "context-save",
+      "contextKey": "search"
+    },
+    {
+      "type": "http",
+      "method": "get",
+      "endpoint": "https://app.kendra.io/api"
+    },
+    {
+      "type": "mapping",
+      "mapping": "context.search.term!=null && data[?contains(toLower(title), toLower(trim($.context.search.term))) || contains(toLower(adapterName), toLower(trim($.context.search.term)))] || data"
+    },
+    {
+      "type": "mapping",
+      "mapping": "data[?$.context.search.displayHidden || !(tags[?@ == 'hidden'])]"
+    },
+    {
+      "type": "mapping",
+      "mapping": "context.filterTag && data[?(tags[?@ == $.context.filterTag])] || data"
+    },
+    {
+      "type": "grid",
+      "passThrough": true,
+      "gridOptions": {
+        "pagination": true,
+        "paginationPageSize": 15,
+        "defaultColDef": {
+          "sortable": true,
+          "resizable": true
+        }
+      },
+      "columnDefs": [
         {
-            "type": "init"
+          "headerName": "Title",
+          "field": "title",
+          "width": 300,
+          "filter": true
         },
         {
-            "type": "variable-get",
-            "name": "filterTag"
-        },
-        {
-            "type": "mapping",
-            "mapping": "(type(data)=='string' && data!='--none--') && data"
-        },
-        {
-            "type": "template",
-            "template": "{{#if data}}Filtering by tag: <strong>{{data}}</strong>{{/if}}"
-        },
-        {
-            "type": "context-save",
-            "contextKey": "filterTag"
-        },
-        {
-            "type": "mapping",
-            "mapping": "{ \"term\":\" \", \"displayHidden\":false}"
-        },
-        {
-            "type": "form",
-            "hasSubmit": false,
-            "emitOnInit": true,
-            "jsonSchema": {
-                "type": "object",
-                "properties": {
-                    "term": {
-                        "type": "string",
-                        "title": "Search term",
-                        "default": ""
-                    },
-                    "displayHidden": {
-                        "type": "boolean",
-                        "title": "Show hidden",
-                        "default": false
-                    }
-                }
-            },
-            "uiSchema": {}
-        },
-        {
-            "type": "context-save",
-            "contextKey": "search"
-        },
-        {
-            "type": "http",
-            "method": "get",
-            "endpoint": "https://app.kendra.io/api"
-        },
-        {
-            "type": "mapping",
-            "mapping": "context.search.term!=null && data[?contains(toLower(title), toLower(trim($.context.search.term))) || contains(toLower(adapterName), toLower(trim($.context.search.term)))] || data"
-        },
-        {
-            "type": "mapping",
-            "mapping": "data[?$.context.search.displayHidden || !(tags[?@ == 'hidden'])]"
-        },
-        {
-            "type": "mapping",
-            "mapping": "context.filterTag && data[?(tags[?@ == $.context.filterTag])] || data"
-        },
-        {
-            "type": "grid",
-            "passThrough": true,
-            "gridOptions": {
-                "pagination": true,
-                "paginationPageSize": 15,
-                "defaultColDef": {
-                    "sortable": true,
-                    "resizable": true
-                }
-            },
-            "columnDefs": [
-                {
-                    "headerName": "Title",
-                    "field": "title",
-                    "width": 300,
-                    "filter": true
-                },
-                {
-                    "headerName": "Operations",
-                    "cellRenderer": "workflowRenderer",
-                    "cellRendererParams": {
-                        "blocks": [
-                            {
-                                "type": "actions",
-                                "buttons": [
-                                    {
-                                        "label": "Launch",
-                                        "blocks": [
-                                            {
-                                                "type": "launch",
-                                                "valueGetters": {
-                                                    "adapter": "data.adapterName",
-                                                    "workflowId": "data.id"
-                                                }
-                                            }
-                                        ],
-                                        "enabled": true
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                },
-                {
-                    "headerName": "Workflow ID",
-                    "field": "id"
-                },
-                {
-                    "headerName": "Adapter",
-                    "field": "adapterName",
-                    "filter": true
-                },
-                {
-                    "headerName": "Modified",
-                    "field": "modified",
-                    "sort": "desc",
-                    "valueFormatter": "formatDate(value, 'ff')"
-                },
-                {
-                    "headerName": "tags",
-                    "field": "tags"
-                }
+          "headerName": "Operations",
+          "cellRenderer": "workflowRenderer",
+          "cellRendererParams": {
+            "blocks": [
+              {
+                "type": "actions",
+                "buttons": [
+                  {
+                    "label": "Launch",
+                    "blocks": [
+                      {
+                        "type": "launch",
+                        "valueGetters": {
+                          "adapter": "data.adapterName",
+                          "workflowId": "data.id"
+                        }
+                      }
+                    ],
+                    "enabled": true
+                  }
+                ]
+              }
             ]
+          }
         },
         {
-            "type": "mapping",
-            "mapping": "data && uniq(data[*].tags[])"
+          "headerName": "Workflow ID",
+          "field": "id"
         },
         {
-            "type": "mapping",
-            "mapping": "[data,['--none--']][]"
+          "headerName": "Adapter",
+          "field": "adapterName",
+          "filter": true
         },
         {
-            "type": "mapping",
-            "mapping": "data && { form: set(`{\r\n    \"type\": \"form\",\r\n    \"jsonSchema\": {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n            \"tag\": {\r\n                \"title\": \"🏷️ Tag\",\r\n                \"description\": \"Select a tag to filter by\",\r\n                \"type\": \"string\",\r\n                \"enum\": [\"1\"]             \r\n            }\r\n        }\r\n    },\r\n    \"uiSchema\": {     \r\n    }\r\n}`, 'jsonSchema.properties.tag.enum', data) }",
-            "blockComment": ""
-        }                
-           ],
-    "id": "listWorkflows",
-    "workflowId": "listWorkflows",
-    "adapterName": "workflowCloud",
-    "created": "2022-03-01T11:37:56.041Z",
-    "tags": [
-        "start"
-    ],
-    "updated": "2022-03-01T11:37:55.957Z",
-    "modified": "2022-03-01T11:37:55.957Z",
-    "title": "List Workflows"
+          "headerName": "Modified",
+          "field": "modified",
+          "sort": "desc",
+          "valueFormatter": "formatDate(value, 'ff')"
+        },
+        {
+          "headerName": "tags",
+          "field": "tags"
+        }
+      ]
+    },
+    {
+      "type": "mapping",
+      "mapping": "data && uniq(data[*].tags[])"
+    },
+    {
+      "type": "mapping",
+      "mapping": "[data,['--none--']][]"
+    },
+    {
+      "type": "mapping",
+      "mapping": "data && { form: set(`{\r\n    \"type\": \"form\",\r\n    \"jsonSchema\": {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n            \"tag\": {\r\n                \"title\": \"🏷️ Tag\",\r\n                \"description\": \"Select a tag to filter by\",\r\n                \"type\": \"string\",\r\n                \"enum\": [\"1\"]             \r\n            }\r\n        }\r\n    },\r\n    \"uiSchema\": {     \r\n    }\r\n}`, 'jsonSchema.properties.tag.enum', data) }",
+      "blockComment": ""
+    }
+  ],
+  "id": "listWorkflows",
+  "workflowId": "listWorkflows",
+  "adapterName": "workflowCloud",
+  "created": "2022-03-01T11:37:56.041Z",
+  "tags": ["start"],
+  "updated": "2022-03-01T11:37:55.957Z",
+  "modified": "2022-03-01T11:37:55.957Z",
+  "title": "List Workflows"
 }

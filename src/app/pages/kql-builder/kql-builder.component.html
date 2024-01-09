@@ -1,16 +1,22 @@
-<div style="display:flex;margin-bottom:0.5rem;">
+<div style="display: flex; margin-bottom: 0.5rem">
   <button mat-flat-button color="primary" (click)="runMapping()">Run</button>
-  <div style="margin-left:1rem;margin-top: 0.5rem;color: red;">
-    {{errorMessage}}
+  <div style="margin-left: 1rem; margin-top: 0.5rem; color: red">
+    {{ errorMessage }}
   </div>
 </div>
-<ngx-monaco-editor class="kql-query" [options]="kqlEditorOptions"
-                   [(ngModel)]="queryTxt"></ngx-monaco-editor>
+<ngx-monaco-editor
+  class="kql-query"
+  [options]="kqlEditorOptions"
+  [(ngModel)]="queryTxt"
+></ngx-monaco-editor>
 <div class="bottom-editor-wrapper">
-  <ngx-monaco-editor class="data-input" [options]="jsonEditorOptions"
-                     [model]="dataInModel"
-                     (ngModelChange)="dataInModelChange()"
-                     [(ngModel)]="dataInTxt"></ngx-monaco-editor>
+  <ngx-monaco-editor
+    class="data-input"
+    [options]="jsonEditorOptions"
+    [model]="dataInModel"
+    (ngModelChange)="dataInModelChange()"
+    [(ngModel)]="dataInTxt"
+  ></ngx-monaco-editor>
 
   <div>
     <app-debug-block [config]="{ open: 1 }" [model]="dataOut"></app-debug-block>
@@ -20,7 +26,9 @@
 <div>
   <label>
     <select (change)="updateBlockOptions($event.target.value)">
-      <option *ngFor="let o of flows; let i = index" [value]="i">{{ o.title }} ({{o.adapterName}}/{{o.workflowId}})</option>
+      <option *ngFor="let o of flows; let i = index" [value]="i">
+        {{ o.title }} ({{ o.adapterName }}/{{ o.workflowId }})
+      </option>
     </select>
   </label>
   <label>
@@ -31,9 +39,21 @@
     </select>
   </label>
   <button mat-flat-button (click)="runBlocks()">Load</button>
-  <button style="margin-left: 1rem;" mat-flat-button *ngIf="selectedBlockType === 'mapping'" (click)="saveBlocks()">Save</button>
+  <button
+    style="margin-left: 1rem"
+    mat-flat-button
+    *ngIf="selectedBlockType === 'mapping'"
+    (click)="saveBlocks()"
+  >
+    Save
+  </button>
 </div>
 
 <div>
-  <app-blocks-workflow [context]="context" [blocks]="blockExec" [models]="startModels" (workflowComplete)="loadNewData($event)"></app-blocks-workflow>
+  <app-blocks-workflow
+    [context]="context"
+    [blocks]="blockExec"
+    [models]="startModels"
+    (workflowComplete)="loadNewData($event)"
+  ></app-blocks-workflow>
 </div>
