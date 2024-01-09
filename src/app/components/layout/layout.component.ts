@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatLegacyMenu as MatMenu } from '@angular/material/legacy-menu';
+import { MatMenu } from '@angular/material/menu';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Observable } from 'rxjs';
 import {SharedModule} from '../../_shared/shared.module';
