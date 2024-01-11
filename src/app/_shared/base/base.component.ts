@@ -1,14 +1,14 @@
-import {Injectable} from '@angular/core';
-import {RouteData} from 'src/app/_models/classes/common';
-import {ActivatedRoute, Router} from '@angular/router';
-import {PageTitleService} from 'src/app/services/page-title.service';
-import {MatDialog} from '@angular/material/dialog';
+import { Injectable } from '@angular/core';
+import { RouteData } from 'src/app/_models/classes/common';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PageTitleService } from 'src/app/services/page-title.service';
+import { MatDialog } from '@angular/material/dialog';
 
-import {TestDataService} from 'src/app/services/test-data.service';
-import {GridOptions} from 'ag-grid-community';
-import {HelpTextService} from '../services/help-text.service';
-import {AppConfigService} from '../services/config.service';
-import {TranslateService} from '@ngx-translate/core';
+import { TestDataService } from 'src/app/services/test-data.service';
+import { GridOptions } from 'ag-grid-community';
+import { HelpTextService } from '../services/help-text.service';
+import { AppConfigService } from '../services/config.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export abstract class BaseComponent {
