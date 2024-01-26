@@ -115,6 +115,7 @@
     "@angular/compiler": "^15.2.1",
     "@angular/compiler-cli": "^15.2.2",
     "@angular/language-service": "^15.2.1",
+    "@compodoc/compodoc": "^1.1.23",
     "@cypress/schematic": "^1.6.0",
     "@ngrx/schematics": "^12.5.1",
     "@types/blob-util": "^1.3.3",
