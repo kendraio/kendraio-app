@@ -19,7 +19,7 @@
     "test:serve_and_retest_on_change": "xvfb-maybe start-server-and-test serve:dev http://localhost:4200 'npm run test:retest_on_change'",
     "test:retest_on_change": "xvfb-maybe nodemon -e js,jsx,ts,tsx,css,scss --exec 'ng test --watch=false; cypress open --config watchForFileChanges=true'",
     "test:autorun": "xvfb-maybe ng test --watch=false; xvfb-maybe cypress run --headed",
-    "Compodoc": "npx cypress install; xvfb-maybe start-server-and-test serve:dev http://localhost:4200 'ng test --watch=false; cypress run'",
+    "test:serve_and_test": "npx cypress install; xvfb-maybe start-server-and-test serve:dev http://localhost:4200 'ng test --watch=false; cypress run'",
     "lint": "ng lint"
   },
   "private": true,
