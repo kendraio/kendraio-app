@@ -14,6 +14,8 @@ Default config
         {
           "label": "Action",
           "color": "default",
+          "enabledGetter": true,
+          "enabled:" true,
           "blocks": []
         }
       ]

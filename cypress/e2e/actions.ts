@@ -21,29 +21,58 @@ describe('Actions block type', () => {
     //     cy.intercept('https://fonts.googleapis.com/\*\*', "\*{ }");
     // });
 
-    it('should return a single set of results. Without pagination', () => {
-        cy.intercept({
-            url: 'https://example.com/data'
-        }, {
-            statusCode: 200,
-            body: '["hippo", "giraffe"]'
-        });
+    it('should display a button with label, id and default color', () => {
 
         loadFlowCode([
-            { "type": "init" },
             {
-                "type": "http",
-                "method": "GET",
-                "endpoint": "https://example.com/data"
-            },
-            {
-                "type": "debug",
-                "open": 2,
-                "showData": true
-            }
+                "type": "actions",
+                "buttons": [
+                  {
+                    "label": "OK",
+                    "color": "primary",
+                    "id": "button-primary",
+                    "blocks": [
+                      {
+                        "type": "dispatch",
+                        "action": "resetApp"
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Cancel",
+                    "id": "button-cancel",
+                    "blocks": [
+                      {
+                        "type": "init"
+                      }
+                    ]
+                  }
+                ]
+              }
         ]);
-        cy.contains('hippo');
-        cy.contains('giraffe');
+        cy.get("#button-primary").should('exist');
+        cy.get("#button-primary").contains('OK');
+        cy.get("#button-primary").should('have.attr', 'ng-reflect-color', 'primary');
+        cy.get("#button-cancel").should('exist');
+        cy.get("#button-cancel").contains('Cancel');
+    });
+
+    it('should display a disabled button', () => {
+        loadFlowCode([
+            {
+                "type": "actions",
+                "buttons": [
+                  {
+                    "label": "Disabled",
+                    "id": "button-disabled",
+                    "blocks": [],
+                    "enabledGetter": false
+                  }
+                ]
+              }
+        ]);
+        cy.get("#button-disabled").should('exist');
+        cy.get("#button-disabled").should('have.attr', 'ng-reflect-disabled');
     });
 });
 
