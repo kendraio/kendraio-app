@@ -32,9 +32,9 @@ Supported properties
   - **color** (string) - passed as the “color” attribute to the material button. Use one of the supported
     Material color values, such as “primary”, “warn”, “accent”. Leave as “default” to use the default button styling for a plain button.
   - **enabledGetter** (string) - A value from the state or context. Based on this value, it generates an "enabled" property on the button.
-  The button will be shown as disabled (grey out) or enabled accordingly. The default value of this property is `true`. After 
+  The button will be shown as disabled (greyed out) or enabled accordingly. The default value of this property is `true`. After 
   the block is loaded, it will automatically add a property to the block json: `"enabled": true`.
-  If `enabledGetter` is set to `false` the automatic property will be then shown as following: `"enabled": false`.
+  If `enabledGetter` is set to `false` the automatic property will be then shown as `"enabled": false`.
   - **valueGetters** (string) - A value that will be pass as context to whichever action is being executed.
   - **blocks** (array) - the list of workflow items to run when this button is pressed.
 
@@ -99,11 +99,12 @@ You can find this example on the `Flow Cloud <https://app.kendra.io/workflowClou
 enabledGetter
 ++++++++++++++++++++++
 `enabledGetter` determines if the button is enabled or disabled. This is mostly referring to the UI of the button. 
-If case the button is disabled, it will be displayed as grey out, and it will not be clickable.
+If the button is disabled, it will be displayed as greyed out and it will not be clickable.
 `enabledGetter` requires a JMESPath mapping value that should return `true` or `false`.
 The value can be added manually or taken from the state or the context.
 In this example we want to display two different buttons, one enabled and another disabled.
-To do so we take values we have saved in the state and assign it to the `enabledGetter` property:
+To do so we take values we have saved in the state and assign them to the `enabledGetter` property.
+
 
 .. code-block:: json
 
@@ -139,7 +140,6 @@ After the block as loaded, the `enabled` property will be set on the button:
           "blocks": [],
           "enabledGetter": "state.global.enabled",
           "enabled": true
-
         },
         {
           "label": "Disabled",

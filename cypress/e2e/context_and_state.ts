@@ -217,7 +217,7 @@ describe('Kendraio context and state', () => {
           "id": "button-enabled"
         },
         {
-          "label": "Visible and disable",
+          "label": "Visible and disabled",
           "color": "default",
           "blocks": [],
           "enabledGetter": "state.global.disabled",
