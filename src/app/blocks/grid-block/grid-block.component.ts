@@ -34,7 +34,7 @@ export class GridBlockComponent implements OnInit, OnChanges {
   valueGetter = null; 
 
 
-  frameworkComponents = {
+  components = {
     workflowRenderer: WorkflowCellRendererComponent,
     connectionStatusRenderer: ConnectionStatusRendererComponent,
   };
