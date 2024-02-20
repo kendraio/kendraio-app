@@ -49,7 +49,7 @@ describe('workspace-project App', () => {
     cy.visit('/workflow-builder');
     cy.contains('menu');
     cy.get('app-root mat-toolbar').contains('menu').click();
-    cy.contains('workflow builder').click();
+    cy.contains('Flow Builder').click();
     cy.contains('settings');
     cy.get('mat-toolbar > button mat-icon').contains('settings').click({force: true});
     cy.get('app-workflow-sidenav').contains('delete_forever').click().get('app-workflow-sidenav').contains('Mapping').should('not.exist');

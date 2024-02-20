@@ -21,6 +21,8 @@ import { camelCase } from 'lodash-es';
 import {ConnectionManagerService} from './connection-manager.service';
 import {WorkflowRepoService} from './workflow-repo.service';
 
+const DEFAULT_ADAPTER_NAME = 'Adapter name';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -58,13 +60,13 @@ export class WorkflowService {
     const urlData = this.shareLinks.getData();
     if (urlData && isArray(urlData)) {
       this.blocks = urlData;
-      this.initWorkflow({ title: 'Workflow', blocks: urlData, context: {}, tags: [] }, true);
+      this.initWorkflow({ title: 'Flow', blocks: urlData, context: {}, tags: [] }, true);
     }
   }
 
   loadState() {
     const state = JSON.parse(localStorage.getItem('kendraio-workflow-state'));
-    const title = get(state, 'title', 'Workflow');
+    const title = get(state, 'title', 'Flow');
     const blocks = get(state, 'blocks', []);
     const context = get(state, 'context', {});
     const tags = get(state, 'tags', []);
@@ -100,7 +102,7 @@ export class WorkflowService {
   clearBlocks() {
     this.blocks = [];
     this.id = '';
-    this.title = 'Workflow';
+    this.title = 'Flow';
     set(this.context, 'app.adapterName', undefined);
     this.saveState();
     this.router.navigate(['/workflow-builder']);
@@ -138,7 +140,7 @@ export class WorkflowService {
                   tags: get(config, 'tags', [])
                 });
                 this.id = get(config, 'id');
-                set(this.context, 'app.adapterName', get(config, 'adapterName', 'UNKNOWN'));
+                set(this.context, 'app.adapterName', get(config, 'adapterName', DEFAULT_ADAPTER_NAME));
                 this.saveState();
               });
             }
@@ -191,7 +193,7 @@ export class WorkflowService {
   saveToAdapter() {
     this.localData['workflows']
       .where('[adapterName+workflowId]')
-      .equals([this.getAdapterName() || 'UNKNOWN', this.id])
+      .equals([this.getAdapterName() || DEFAULT_ADAPTER_NAME, this.id])
       .modify({ blocks: this.blocks, title: this.title, workflowId: this.id, modified: true })
       .then(() => {
         this.localData['adapters'].get(this.getAdapterName()).then(adapter => {
@@ -231,7 +233,7 @@ export class WorkflowService {
         // console.log(values);
         const blocks = get(values, 'blocks', []);
         const tags = get(values, 'tags', []);
-        const title = get(values, 'title', 'Workflow');
+        const title = get(values, 'title', 'Flow');
         this.initWorkflow({ title, blocks, context: {}, tags });
         this.id = get(values, 'id');
         this.tags = get(values, 'tags', []);
@@ -249,7 +251,7 @@ export class WorkflowService {
     });
     dialogRef.afterClosed().subscribe(values => {
       if (!!values) {
-        this.title = get(values, 'title', 'Workflow');
+        this.title = get(values, 'title', 'Flow');
         this.id = get(values, 'id');
         this.tags = get(values, 'tags');
         set(this.context, 'app.adapterName', get(values, 'adapterName', this.getAdapterName()));
@@ -260,7 +262,7 @@ export class WorkflowService {
   }
 
   getAdapterName() {
-    return get(this.context, 'app.adapterName', 'UNKNOWN');
+    return get(this.context, 'app.adapterName', DEFAULT_ADAPTER_NAME);
   }
 
   getWorkflowId() {

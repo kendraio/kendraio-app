@@ -4,6 +4,8 @@ import { userHash } from '../utils/get-hash';
 
 const crypto = require('crypto');
 
+const DEFAULT_ADAPTER_NAME = 'Adapter name';
+
 const makeHash = (secret,  salt) => {
   return new Promise((resolve, reject) => {
     crypto.scrypt(secret, salt, 64, (err, derivedKey) => {
@@ -51,7 +53,7 @@ function appFactory({db, auth}: { db: any, auth: admin.auth.Auth }) {
     const now = new Date().toISOString();
     return await db
       .collection('adapters')
-      .doc(adapterName || 'UNKNOWN')
+      .doc(adapterName || DEFAULT_ADAPTER_NAME)
       .collection('workflows')
       .doc(workflowId || fakeId())
       .set({
@@ -83,7 +85,7 @@ function appFactory({db, auth}: { db: any, auth: admin.auth.Auth }) {
         workflowId: doc.id,
         tags: doc.data().tags,
         title: doc.data().title,
-        adapterName: doc.data().adapterName || 'UNKNOWN',
+        adapterName: doc.data().adapterName || DEFAULT_ADAPTER_NAME,
         created: doc.data().created,
         updated: doc.data().updated,
         modified: doc.data().updated
@@ -144,7 +146,7 @@ function appFactory({db, auth}: { db: any, auth: admin.auth.Auth }) {
         workflowId: doc.id,
         title: doc.data().title,
         tags: doc.data().tags,
-        adapterName: doc.data().adapterName || 'UNKNOWN',
+        adapterName: doc.data().adapterName || DEFAULT_ADAPTER_NAME,
         created: doc.data().created,
         updated: doc.data().updated,
         modified: doc.data().updated
@@ -165,7 +167,7 @@ function appFactory({db, auth}: { db: any, auth: admin.auth.Auth }) {
         workflowId: doc.id,
         title: doc.data().title,
         tags: doc.data().tags,
-        adapterName: doc.data().adapterName || 'UNKNOWN',
+        adapterName: doc.data().adapterName || DEFAULT_ADAPTER_NAME,
         created: doc.data().created,
         updated: doc.data().updated,
         modified: doc.data().updated
