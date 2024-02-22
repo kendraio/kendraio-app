@@ -21,10 +21,10 @@
   </button>
 
   <ng-container *ngIf="pageTitle$ | async as pageTitleData">
-        <span>
-          {{ pageTitleData.title | translate }}
-        </span>
-<!--    <app-bookmark-button *ngIf="pageTitleData.isWorkflow"></app-bookmark-button>-->
+      <span>
+        {{ pageTitleData.title | translate }}
+      </span>
+    <!--<app-bookmark-button *ngIf="pageTitleData.isWorkflow"></app-bookmark-button>-->
     <button *ngIf="pageTitleData.isWorkflow" mat-icon-button (click)="onRefresh()">
       <mat-icon style="color: #999999;">refresh</mat-icon>
     </button>
@@ -32,7 +32,7 @@
   <span class="spacer"></span>
 
   <button mat-icon-button routerLink="/workflowCloud/listWorkflows"><mat-icon>list</mat-icon></button>
-<!--  <button mat-icon-button routerLink="/core/collection"><mat-icon>collections_bookmark</mat-icon></button>-->
+  <!--<button mat-icon-button routerLink="/core/collection"><mat-icon>collections_bookmark</mat-icon></button>-->
 
   <button mat-icon-button routerLink="/connect"><mat-icon>person</mat-icon> </button>
   <button mat-icon-button routerLink="/notifications"><mat-icon [matBadge]="notificationCount">notifications</mat-icon></button>
@@ -56,26 +56,14 @@
 </mat-toolbar>
 
 <mat-sidenav-container class="app-container" style="height:100vh">
-
   <mat-sidenav #sidenav mode="side" (keydown.escape)="sidenav.close()" style="width: 260px;">
-
     <app-main-menu></app-main-menu>
-
   </mat-sidenav>
 
   <mat-sidenav-content>
 
-
-
-
     <div class="page-content" style="margin-bottom: 4rem;">
-
-
-
-
-
-
-<!--      <app-breadcrumb [locale]="locale"></app-breadcrumb>-->
+    <!--<app-breadcrumb [locale]="locale"></app-breadcrumb>-->
       <router-outlet name="popup"></router-outlet>
       <router-outlet></router-outlet>
 
@@ -86,12 +74,8 @@
 
   </mat-sidenav-content>
 
-
-
   <mat-sidenav #blocksSidePane position="end" mode="side">
     <app-workflow-sidenav (closeSidenav)="blocksSidePane.close()"></app-workflow-sidenav>
   </mat-sidenav>
-
-
 
 </mat-sidenav-container>

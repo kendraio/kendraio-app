@@ -13,13 +13,13 @@
 </div>
 
 <div *ngIf="results && results.length > 0">
-  <mat-card *ngFor="let r of results">
+  <mat-card appearance="outlined" *ngFor="let r of results">
     <pre style="font-size: 0.75em">{{ r | json }}</pre>
   </mat-card>
 </div>
 
 <ng-template #noAuth>
-  <mat-card>
+  <mat-card appearance="outlined">
     <p>
       No authorisation found for Bloomen API. Please enter Auth on <a routerLink="/user">account page</a>.
     </p>

@@ -10,6 +10,7 @@ Global Style Guide:
 
 @import "~@ng-select/ng-select/themes/material.theme.css";
 
+/*   TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
 .formFieldWidth380 .mat-form-field-infix {
   width: 380px;
 }
@@ -76,7 +77,7 @@ button.active {
   background-color: whitesmoke;
 }
 
-.mat-menu-item {
+.mat-mdc-menu-item {
   padding: 10px 16px;
 }
 
@@ -147,15 +148,17 @@ button.active {
   right: 0;
 }
 
-.mat-menu-item {
-  text-transform: capitalize;
+.mat-drawer-side {
+  margin-left: 10px;
 }
 
-//  .mat-drawer,  .mat-sidenav {
-//    min-width:200px;
-//    transition: all 3s ease-in-out;
-//    position: relative!important;
-//  }
+.mat-drawer-side li .mat-icon {
+  margin-right: 10px;
+}
+
+.mat-mdc-menu-item {
+  text-transform: capitalize;
+}
 
 .form-container>* {
   width: 100%;
@@ -165,8 +168,8 @@ dynamic-material-form-control:not(:last-child) {
   margin-right: 40px;
 }
 
-.mat-menu-item .mat-icon-no-color,
-.mat-menu-item-submenu-trigger::after {
+.mat-mdc-menu-item .mat-icon-no-color,
+.mat-mdc-menu-item-submenu-trigger::after {
   color: rgba(0, 0, 0, 1);
 }
 
@@ -227,6 +230,7 @@ formly-field {
 }
 
 
+/*   TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
 .mat-form-field-type-boolean .mat-form-field-wrapper {
   padding-bottom: 0 !important;
   height: 44px;
@@ -250,23 +254,24 @@ formly-array-type {
   //   flex-wrap: wrap;
   //   align-content: space-around ;
   //   align-items: flex-end;
-    .mat-card {
+    .mat-mdc-card {
       margin-right: 16px;
     }
   // }
+  /*   TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version.*/
   mat-card-header {
     font-size: 1.5rem;
   }
-
-  mat-card {
-    margin-bottom: 16px
-  }
+  /*   TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version.*/
+  // mat-card {
+  //   margin-bottom: 16px
+  // }
 
 }
 
-.mat-form-field{
-  margin-bottom: 1rem;
-}
+// .mat-mdc-form-field{
+//   margin-bottom: 1rem;
+// }
 
 // Fix for cut-off Formly Material label
 .mdc-text-field--filled::before{
