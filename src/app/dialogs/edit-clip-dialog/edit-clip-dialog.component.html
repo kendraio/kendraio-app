@@ -6,23 +6,13 @@
   <input matInput placeholder="Name" formControlName="name">
 </mat-form-field>
 
-  <mat-form-field>
-    <mat-select placeholder="Add rights group" formControlName="right">
-      <mat-option *ngFor="let group of rightsGroups" [value]="group">
-        {{group}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-
-<mat-form-field>
-  <input matInput placeholder="Role" formControlName="role">
-</mat-form-field>
-<mat-form-field>
-  <input matInput placeholder="Contributor" formControlName="contributor">
-</mat-form-field>
-
-
-</form>
+    <mat-form-field>
+      <input matInput placeholder="Role" formControlName="role">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Contributor" formControlName="contributor">
+    </mat-form-field>
+  </form>
 </div>
 
 <div mat-dialog-actions>
