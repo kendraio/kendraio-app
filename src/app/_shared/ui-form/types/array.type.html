@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card appearance="outlined">
   <div class="mat-typography">
     <h2 *ngIf="to.label">{{ to.label }}</h2>
     <p *ngIf="to.description">{{ to.description }}</p>
@@ -8,7 +8,7 @@
     <formly-validation-message [field]="field"></formly-validation-message>
   </div>
 
-  <mat-card *ngFor="let field of field.fieldGroup;let i = index;">
+  <mat-card appearance="outlined" *ngFor="let field of field.fieldGroup;let i = index;">
     <formly-field [field]="field"></formly-field>
     <div>
       <button mat-raised-button color="warn" type="button" (click)="remove(i)">Remove</button>
