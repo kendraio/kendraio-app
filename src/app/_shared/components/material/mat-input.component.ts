@@ -7,7 +7,7 @@ import { ICellEditorAngularComp } from 'ag-grid-angular';
     template: `
         <mat-card appearance="outlined">
         <form class="container" tabindex="0" (keydown)="onKeyDown($event)">
-            <mat-form-field class="example-full-width">            
+            <mat-form-field class="block-comment-container">            
                 <input #input matInput [(ngModel)]="Title" placeholder="Title"
                        [ngModelOptions]="{standalone: true}">
             </mat-form-field>
