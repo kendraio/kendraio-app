@@ -37,12 +37,6 @@ Global Style Guide:
   overflow: hidden;
 }
 
-.ken-tree li>ul>.mat-tree-node li,
-.mat-nested-tree-node li {
-  //   background: rgba(0, 0, 0, 0.04);
-  //  font-size: 12px
-}
-
 .mat-nested-tree-node ul li {
   min-height: 28px !important;
 }
@@ -62,18 +56,12 @@ button:focus {
   padding: 16px;
 }
 
-.mat-tree-node {
-  // padding-left: 16px;
-}
-
 button.active {
-  // background-color: silver!important;
   opacity: 0.4;
   cursor: default;
 }
 
 .menu-item--active {
-  // background: rgba(0, 0, 0, 0.2);
   background-color: whitesmoke;
 }
 
@@ -229,49 +217,18 @@ formly-field {
   }
 }
 
-
 /*   TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
 .mat-form-field-type-boolean .mat-form-field-wrapper {
   padding-bottom: 0 !important;
   height: 44px;
 }
 
-formly-object-type formly-object-type>formly-field {
-  //margin-left: 40px
-}
-
-formly-object-type legend {
-  //margin-left: 20px
-}
-
-formly-object-type {
-  // background-color: blue;
-}
-
 formly-array-type {
-  // >.mat-card {
-  //   display: flex;
-  //   flex-wrap: wrap;
-  //   align-content: space-around ;
-  //   align-items: flex-end;
     .mat-mdc-card {
       margin-right: 16px;
     }
-  // }
-  /*   TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version.*/
-  mat-card-header {
-    font-size: 1.5rem;
-  }
-  /*   TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version.*/
-  // mat-card {
-  //   margin-bottom: 16px
-  // }
 
 }
-
-// .mat-mdc-form-field{
-//   margin-bottom: 1rem;
-// }
 
 // Fix for cut-off Formly Material label
 .mdc-text-field--filled::before{
@@ -290,5 +247,3 @@ formly-array-type {
 .mdc-text-field--disabled mat-label::after {
   content: "(read-only)";
 }
-
-// Kendraio3ca31f6bcb87c68721363847192dbd57
