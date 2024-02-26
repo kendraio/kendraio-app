@@ -1,18 +1,11 @@
-
-
 <div *ngIf="isLoading">
   <p>Loading...</p>
 </div>
 <app-grid-block *ngIf="!isLoading" [config]="config" [model]="connectionManager.flows"></app-grid-block>
 
-
 <div class="preview-message">
-  <!--link to previous version of user page-->
-<!--  <p>-->
-<!--    You are viewing a preview of the new connect page-->
-<!--  </p>-->
-  <div>
-    <button mat-icon-button routerLink="/user"><mat-icon>person</mat-icon>
-      click here for the old account page</button>
-  </div>
+    <a routerLink="/user">
+      <mat-icon>person</mat-icon>
+      <span>click here for the old account page</span>
+    </a>
 </div>

@@ -1,13 +1,12 @@
-.preview-message {
-  font-size: 0.75rem;
-  margin-bottom: 1rem;
-  margin-top: 1rem;
-  padding: 0.5rem;
-  background-color: #f7fafc;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+.preview-message a {
+  color: black;
+  text-decoration: none;
 }
-.preview-message p {
-  margin: 0 1rem 0 0;
+
+.preview-message .mat-icon {
+  padding-top: 2px;
+}
+
+.preview-message span {
+  padding-left: 10px;
 }
