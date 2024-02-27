@@ -1,16 +1,10 @@
 .dialog-buttons > button {
   margin-right: 1em;
 }
+
 .button-selections {
   margin-bottom: 1em;
 }
-
-/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
-mat-card {
-  height: 150px;
-  // margin-bottom: 1em;
-}
-
 
 .mat-mdc-unelevated-button {
   display: inline-block;
