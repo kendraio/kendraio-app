@@ -10,11 +10,6 @@ Global Style Guide:
 
 @import "~@ng-select/ng-select/themes/material.theme.css";
 
-/*   TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-.formFieldWidth380 .mat-form-field-infix {
-  width: 380px;
-}
-
 .ken-tree-invisible {
   display: none;
   opacity: 0;
@@ -215,12 +210,6 @@ formly-field {
       border: 2px solid black;
     }
   }
-}
-
-/*   TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-.mat-form-field-type-boolean .mat-form-field-wrapper {
-  padding-bottom: 0 !important;
-  height: 44px;
 }
 
 formly-array-type {
