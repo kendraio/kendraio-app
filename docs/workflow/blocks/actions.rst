@@ -35,7 +35,8 @@ Supported properties
   The button will be shown as disabled (greyed out) or enabled accordingly. The default value of this property is `true`. After 
   the block is loaded, it will automatically add a property to the block json: `"enabled": true`.
   If `enabledGetter` is set to `false` the automatic property will be then shown as `"enabled": false`.
-  - **valueGetters** (string) - A value that will be pass as context to whichever action is being executed.
+  - **valueGetters** (string) - A value that will be pass as context to whichever action is being executed. 
+  This is a JMESPath mapping.
   - **blocks** (array) - the list of workflow items to run when this button is pressed.
 
 Example
