@@ -1,7 +1,7 @@
 Initialisation
 ==============
 
-Initialise workflow processing on page load.
+Initialise Flow processing on page load.
 
 Default config
 --------------
