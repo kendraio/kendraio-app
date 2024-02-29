@@ -28,14 +28,14 @@ Supported properties
   - **label** (string) - the text for the button label
   - **color** (string) - passed as the “color” attribute to the material button. Use one of the supported
     Material color values, such as “primary”, “warn”, “accent”. Leave as “default” to use the default button styling for a plain button.
-  - **blocks** (array) - the list of workflow items to run when this button is pressed.
+  - **blocks** (array) - the list of Flow items to run when this button is pressed.
 
 Example
 -------
 
 This example shows two buttons. The first one dispatches an asynchronous command using the
 :doc:`Event Dispatch <dispatch>` bloc, the second one does nothing, but includes an ``init``
-block in order to start the inner workflow so that it runs and signals completion to the outer workflow.
+block in order to start the inner Flow so that it runs and signals completion to the outer Flow.
 
 .. code-block:: json
 
