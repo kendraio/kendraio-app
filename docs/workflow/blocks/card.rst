@@ -16,4 +16,4 @@ Default config
 Supported properties
 --------------------
 
-- **blocks** - the list of workflow blocks that make up the display within the card
+- **blocks** - the list of Flow Blocks that make up the display within the card

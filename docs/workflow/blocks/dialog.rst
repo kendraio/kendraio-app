@@ -1,7 +1,7 @@
 Dialog
 ======
 
-Launch a modal dialog in which to run an embedded workflow.
+Launch a modal dialog in which to run an embedded Flow.
 
 Default config
 --------------
@@ -13,8 +13,8 @@ Default config
       "blocks": []
     }
 
-**NB:** The modal dialog will close as soon as the inner workflow completes.
-Therefore you probably want to include at least one workflow item that requires interaction
+**NB:** The modal dialog will close as soon as the inner Flow completes.
+Therefore you probably want to include at least one Flow item that requires interaction
 from the user, for example, ``actions`` buttons or a ``form``.
 
 Example
