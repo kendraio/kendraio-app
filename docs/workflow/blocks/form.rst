@@ -24,7 +24,7 @@ Supported properties
 - **adapter** and **formId**: if these two properties are provided they are used to fetch the JSON schema and UI Schema from the adapter config repository.
 - **label** (default = “Submit): customise the label displayed on the submit button
 - **hasSubmit** (default = true): this allows you to remove the submit button from the form. If this is set to true the submit button is not displayed and the form will output all changes.
-- **debounceTime** (default = 400): the number of milliseconds to debounce form output when not using a submit button. Multiple changes within this time will be ignored, and only the last change is emitted. This is a useful option to prevent unnecessary execution of multiple tasks within the workflow, for example if the form feeds into a HTTP block to pull data from an API (such as in an autocomplete) then the debounce will limit the number of requests that are sent while the user is entering input.
+- **debounceTime** (default = 400): the number of milliseconds to debounce form output when not using a submit button. Multiple changes within this time will be ignored, and only the last change is emitted. This is a useful option to prevent unnecessary execution of multiple tasks within the Flow, for example if the form feeds into a HTTP block to pull data from an API (such as in an autocomplete) then the debounce will limit the number of requests that are sent while the user is entering input.
 - **emitOnInit** (boolean) (default = false): enable this to emit the form values when the block is initialised. This is useful if you need to pass on default values.
 - **schemaGetter**: Form schemas can be made dynamic by providing a set of blocks that will generate a schema. 
 - **contextErrorKey** (default = null): the key used to store the error message in the context. This is useful if you want to display the error message in a different block.
@@ -40,16 +40,16 @@ uiSchema properties
 - **blocks**: The blocks to nest in the form field. This should be an array, even if it is a single item.
 - **type**: The type of block to be used.
 
-Important notes on creating flows with forms
+Important notes on creating Flows with forms
 --------------------------------------------
 
-When a form is submitted, it will trigger the execution of the next block in the flow, passing through any new data.
-Blocks will continue to pass processing through the flow, until a block emits the same data as it did previously - 
-at which point the change detection will stop the flow. 
+When a form is submitted, it will trigger the execution of the next block in the Flow, passing through any new data.
+Blocks will continue to pass processing through the Flow, until a block emits the same data as it did previously - 
+at which point the change detection will stop the Flow. 
 
-If you are creating flows that need to respond to new data from the forms, you will need to pay attention to the blocks
+If you are creating Flows that need to respond to new data from the forms, you will need to pay attention to the blocks
 that follow the form, making sure that every block emits changes to that processing continues. If you have blocks that are 
-not dependent on the form, then it is best to place them before the form in the flow. 
+not dependent on the form, then it is best to place them before the form in the Flow. 
 
 
 
