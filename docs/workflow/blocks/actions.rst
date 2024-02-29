@@ -44,7 +44,7 @@ Example
 
 This example shows two buttons. The first one dispatches an asynchronous command using the
 :doc:`Event Dispatch <dispatch>` bloc, the second one does nothing, but includes an ``init``
-block in order to start the inner workflow so that it runs and signals completion to the outer workflow.
+block in order to start the inner Flow so that it runs and signals completion to the outer Flow.
 
 .. code-block:: json
   {
