@@ -1,4 +1,4 @@
-How flows get executed
+How Flows get executed
 ======================
 
 Flows are implemented using Angular's built-in execution chaining. 
@@ -11,24 +11,24 @@ works.
 
 |step1|   
 
-The first time a flow is run, each of the blocks is initialised, but 
+The first time a Flow is run, each of the blocks is initialised, but 
 does not receive any data. This is the "firstRun", and some blocks will have an option to skip execution on this step.
 
 
 |step2|
 
-Processing then begins a second time,and this time round, the output from 
-a block is passed to the next block in the flow. 
+Processing then begins a second time, and this time round, the output from 
+a block is passed to the next block in the Flow. 
 
 |step3|
 
 Many blocks are asynchronous. This means that they will have two different outputs to 
 pass on to the block that follows them. The first output will essentially be blank. No actual processing 
 has happened yet, as the internal work has been "forked" off. This blank output will pass through the 
-flow once, triggering every block to run. 
+Flow once, triggering every block to run. 
 
 Once the asynchronous block has completed it's work, it will sent it's output to the next block. This will
-then trigger the next processing of the flow. 
+then trigger the next processing of the Flow. 
 
 |step4|
 
@@ -41,7 +41,7 @@ will need to change, and so stops processing the chain.
 
 |step5|
 
-When building flows, we need to be aware of this change
+When building Flows, we need to be aware of this change
 detection behaviour. If any of our blocks, mapping blocks 
 in particular, emit a result that is unchanged from a 
 previous run, processing will stop. 
@@ -50,13 +50,13 @@ previous run, processing will stop.
 Implications when working with forms
 ------------------------------------
 
-This is particularly important if a flow contains a form that 
+This is particularly important if a Flow contains a form that 
 gathers input from the user. When a form is submitted, the 
-next block in the flow is triggered and passed the data from
+next block in the Flow is triggered and passed the data from
 the form. This will then pass on execution to it's child - until 
 any block emits the same output as it did before the form 
 was submitted. The moment output does not change, 
-processing will stop and no more blocks in the flow will run. 
+processing will stop and no more blocks in the Flow will run. 
 
 
 
