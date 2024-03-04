@@ -233,7 +233,7 @@ describe('Kendraio context and state', () => {
     loadFlowCode([
       {
         "type": "context-save",
-        "valueGetter": "`true`",
+        "valueGetter": "`false`",
         "contextKey": "state.global.disabled",
       },
       {
