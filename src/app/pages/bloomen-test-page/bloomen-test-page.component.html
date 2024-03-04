@@ -2,7 +2,7 @@
   <h2>Import from Bloomen API</h2>
 </div>
 
-<mat-card>
+<mat-card appearance="outlined">
   <mat-form-field style="margin-right: 1em;">
     <mat-select placeholder="Example user" [(ngModel)]="activeUser">
       <mat-option [value]="'Publisher'">Publisher</mat-option>
@@ -12,7 +12,7 @@
   <button mat-flat-button (click)="login()" color="primary" type="button">Login as selected user</button>
 </mat-card>
 
-<mat-card *ngIf="userInfo$">
+<mat-card appearance="outlined" *ngIf="userInfo$">
   <button class="button-row-item" mat-flat-button color="primary" type="button" (click)="importPhotos()">Import Photos</button>
   <button *ngIf="activeUser == 'Publisher'" mat-flat-button color="primary" type="button" (click)="importUsers()">Import Users</button>
   <pre>{{ userInfo$ | async | json }}</pre>

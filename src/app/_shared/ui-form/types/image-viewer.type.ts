@@ -6,7 +6,7 @@ import { FieldType } from '@ngx-formly/core';
   selector: 'app-thumbnail-viewer',
   template: `
 
-  <mat-card *ngIf="formControl.value" style="float:left;margin-right:32px" >
+  <mat-card appearance="outlined" *ngIf="formControl.value" style="float:left;margin-right:32px" >
   <mat-card-header>
     <mat-label>{{to.label}}</mat-label>
   </mat-card-header>

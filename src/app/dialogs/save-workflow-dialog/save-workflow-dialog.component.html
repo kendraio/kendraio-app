@@ -1,21 +1,29 @@
 <div *ngIf="isLoggedIn; else notLoggedIn">
-  <div *ngIf="hasId" class="mat-typography">
-    <p>
-      Workflow ID: {{ data.adapterName }}/{{ data.id }}
-    </p>
-  </div>
-  <button mat-flat-button color="primary" (click)="onSave()" style="margin-right: 1em;">Save as new</button>
-  <button mat-flat-button color="primary" [disabled]="!hasId" (click)="onUpdate()" style="margin-right: 1em;">Update existing</button>
-  <button mat-flat-button (click)="onCancel()">Cancel</button>
+  <mat-dialog-content>
+    <div *ngIf="hasId" class="mat-typography">
+      <p>
+        Workflow ID: {{ data.adapterName }}/{{ data.id }}
+      </p>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-flat-button color="primary" (click)="onSave()" style="margin-right: 1em;">Save as new</button>
+    <button mat-flat-button color="primary" [disabled]="!hasId" (click)="onUpdate()" style="margin-right: 1em;">Update existing</button>
+    <button mat-flat-button (click)="onCancel()">Cancel</button>
+  </mat-dialog-actions>
 </div>
 
 <ng-template #notLoggedIn>
-  <div class="mat-typography">
-    <p>
-      Please login to save workflows.
-    </p>
-  </div>
-  <button mat-flat-button (click)="onCancel()">Cancel</button>
+  <mat-dialog-content>
+    <div class="mat-typography">
+      <p>
+        Please login to save workflows.
+      </p>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-flat-button (click)="onCancel()">Cancel</button>
+  </mat-dialog-actions>
 </ng-template>
 
 <mat-spinner *ngIf="isLoading"></mat-spinner>
