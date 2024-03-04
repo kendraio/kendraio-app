@@ -12,9 +12,15 @@
 .adapter-metadata {
   margin-bottom: 1em;
 }
-.metadata-edit {
-  float: right;
+
+.adapter-metadata-edit{
+  display: flex;
 }
+
+.adapter-metadata-edit-text {
+  flex: 1;
+}
+
 app-blocks-editor {
   display: block;
   margin-bottom: 4rem;
