@@ -1,30 +1,32 @@
-<form [formGroup]="form">
-  <mat-form-field>
-    <input matInput placeholder="Title" formControlName="title" name="title">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Adapter name" formControlName="adapterName" name="adapterName">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Workflow ID" formControlName="id" name="id">
-  </mat-form-field>
-  <mat-form-field class="example-chip-list">
-    <mat-chip-listbox #chipList aria-label="Fruit selection">
-      <mat-chip *ngFor="let tag of tags.getRawValue()" [selectable]="selectable"
-                [removable]="removable" (removed)="removeTag(tag)">
-        {{tag}}
-        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-      </mat-chip>
-      <input placeholder="Add tag..."
-             [matChipInputFor]="chipList"
-             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-             [matChipInputAddOnBlur]="addOnBlur"
-             (matChipInputTokenEnd)="addTag($event)">
-    </mat-chip-listbox>
-  </mat-form-field>
-</form>
+<mat-dialog-content>
+  <form [formGroup]="form">
+    <mat-form-field>
+      <input matInput placeholder="Title" formControlName="title" name="title">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Adapter name" formControlName="adapterName" name="adapterName">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Workflow ID" formControlName="id" name="id">
+    </mat-form-field>
+    <mat-form-field class="example-chip-list">
+      <mat-chip-listbox #chipList aria-label="Fruit selection">
+        <mat-chip-option *ngFor="let tag of tags.getRawValue()" [selectable]="selectable"
+                  [removable]="removable" (removed)="removeTag(tag)">
+          {{tag}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip-option>
+        <input placeholder="Add tag..."
+              [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              [matChipInputAddOnBlur]="addOnBlur"
+              (matChipInputTokenEnd)="addTag($event)">
+      </mat-chip-listbox>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-flat-button color="primary" (click)="onSave()" style="margin-right: 1em;">Save</button>
+  <button mat-flat-button (click)="onCancel()">Cancel</button>
+</mat-dialog-actions>
 
-<br>
-<button mat-flat-button color="primary" (click)="onSave()" style="margin-right: 1em;">Save</button>
-<button mat-flat-button (click)="onCancel()">Cancel</button>
-<br>

@@ -1,6 +1,9 @@
-<p class="mat-typography">Paste config:</p>
-<textarea #textBox class="config-text-box">
-</textarea>
-<br>
-<button mat-flat-button (click)="dialogRef.close()">Cancel</button>
-<button mat-flat-button color="primary" (click)="dialogRef.close(textBox.value)">Import...</button>
+<mat-dialog-content>
+    <p class="mat-typography">Paste config:</p>
+    <textarea #textBox class="config-text-box">
+    </textarea>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-flat-button (click)="dialogRef.close()">Cancel</button>
+    <button mat-flat-button color="primary" (click)="dialogRef.close(textBox.value)">Import...</button>
+</mat-dialog-actions>
