@@ -1,79 +1,82 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {clone} from 'lodash-es';
+import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+
+import { FormBlockComponent } from 'src/app/blocks/form-block/form-block.component';
+import { DebugBlockComponent } from 'src/app/blocks/debug-block/debug-block.component';
+import { QueryBlockComponent } from 'src/app/blocks/query-block/query-block.component';
+// Add other imports for other block components here
+
+// Simple interface to describe the expected structure of dynamically loaded block components
+interface DynamicBlockComponent {
+  output?: EventEmitter<any>;
+  // TODO: Add other common properties and methods here
+}
+
+// Mapping from block types to component classes
+const blockComponentMapping = {
+  'form': FormBlockComponent,
+  'debug': DebugBlockComponent,
+  'query': QueryBlockComponent,
+  // TODO: Add other block types here
+};
 
 @Component({
   selector: 'app-blocks-workflow',
   templateUrl: './blocks-workflow.component.html',
-  styleUrls: ['./blocks-workflow.component.scss']
+  styleUrls: ['./blocks-workflow.component.scss'],
 })
-export class BlocksWorkflowComponent implements OnInit {
+export class BlocksWorkflowComponent implements OnInit, OnChanges {
+  @ViewChild('blockHost', { read: ViewContainerRef }) blockHost: ViewContainerRef;
 
   @Input() blocks = [];
   @Input() models = [];
   @Input() context = {};
 
   @Output() workflowComplete = new EventEmitter();
+  // TODO: Use output events to emit data so that if this component is used in a parent component, the parent component can listen to the output events and get the data from the blocks
 
-  constructor() { }
+  constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
 
   ngOnInit() {
-    // Logging the blocks array for debugging purposes
-    console.log('BlocksWorkflowComponent init blocks:', this.blocks);
+    this.loadBlocks();
+    // let's log the blocks, models and context to see if they are being passed correctly
+    console.log('blocks:',this.blocks);
+    console.log('models:',this.models);
+    console.log('context:',this.context);
   }
-
-  /**
-   * 🚨 AI generated documentation, TO BE VERIFIED:
-   * 
-   * Purpose: Update the model state within the BlocksWorkflowComponent, 
-   * essential for maintaining the application's current state as it processes various blocks.
-   * 
-   * Parameters:
-   * - modelNumber (type: number): Index of the model to be updated (zero-based).
-   * - value (type: any): New value for the model at the specified index (modelNumber).
-   * 
-   * Functionality:
-   * 1. Update Models Array: Creates a new array with updated model values using spread operator.
-   *    - this.models.slice(0, modelNumber) creates a shallow copy up to the index modelNumber.
-   *    - Adds 'value' at position modelNumber.
-   *    - Adds the rest of the array elements after modelNumber.
-   * 2. Force Change Detection: Reassigns this.blocks to force Angular change detection.
-   * 3. Emit Workflow Completion: Emits workflowComplete event if updating process reaches final block.
-   */
-  updateModel(modelNumber, value) {
-    // Logging the model index and new value for debugging purposes
-    console.log('BlocksWorkflowComponent updating modelNumber with value:', { modelNumber, value });
-    console.log('BlocksWorkflowComponent models:', this.models);
-
-    // Update the specified model in the models array:
-    // 1. Keep all models up to the specified index (modelNumber) unchanged.
-    // 2. Replace the model at the specified index (modelNumber) with the new value.
-    // 3. Retain all models after the specified index (modelNumber).
-    this.models = [
-      ...this.models.slice(0, modelNumber), // Copy elements before modelNumber
-      value,                                // Insert the new value
-      ...this.models.slice(modelNumber + 1) // Copy elements after modelNumber
-    ];
-
-    // Force a change detection cycle in Angular by creating a new reference for the blocks array.
-    // This is necessary as Angular may not detect changes to the contents of an array.
-    this.blocks = [...this.blocks];
-
-    // Check if the current model update is for the final block in the workflow.
-    // If it is the final block, emit an event to signify the completion of the workflow.
-    if (modelNumber >= this.blocks.length) {
-      console.log('Emitting workflowComplete with value:', value);
-      this.workflowComplete.emit(value); // Emit workflow completion event
+  
+  ngOnChanges(changes) {
+    if (changes.blocks || changes.models || changes.context) {
+      this.loadBlocks();
     }
   }
+  loadBlocks(this) {
+    console.log('loadBlocks is running with blocks:',this.blocks);
+    window['data'] = {"blocks": this.blocks, "models": this.models, "context":this.context};
+    this.blocks.forEach((block, index) => {
+      console.log('loadBlocks block:',block, 'index',index);
+      const blockComponent = blockComponentMapping[block.type];
+      if (blockComponent) {
+        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(blockComponent);
+        const componentRef = this.blockHost.createComponent(componentFactory);
+        console.log('loadBlocks blockComponent:',blockComponent, componentRef);
 
+        // Assign inputs to the component instance, adjust according to your block component's inputs
+        if (block.config) {
+          Object.assign(componentRef.instance, block.config);
+        }
 
-  // This function seems to be no longer used!
-  // src/app/blocks/actions-block/actions-block.component.ts does a similar thing though
-  // TODO: Verify that runWorkflow is no longer used and remove it
+        // Use type assertion with the DynamicBlockComponent interface so that TypeScript knows the type of the component instance
+        const instance = componentRef.instance as DynamicBlockComponent;
 
-  runWorkflow() {
-    if (this.models.length > 0) {
-      this.models[0] = clone(this.models[0]);
-    }
+        console.log(`Loading block: ${block.type}`, { config: block.config });
+
+        // Subscribe to the output EventEmitter if it exists
+        instance.output?.subscribe(output => {
+          console.log(`Output from block: ${block.type}`, output);
+        });
+      } else {
+        console.log(`No component mapped for type: ${block.type}`);
+      }
+    });
   }
 }
