@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, Input, Output, EventEmitter, OnChanges, Injector } from '@angular/core';
 
 import { FormBlockComponent } from 'src/app/blocks/form-block/form-block.component';
 import { DebugBlockComponent } from 'src/app/blocks/debug-block/debug-block.component';
@@ -49,31 +49,31 @@ export class BlocksWorkflowComponent implements OnInit, OnChanges {
       this.loadBlocks();
     }
   }
-  loadBlocks(this) {
-    console.log('loadBlocks is running with blocks:',this.blocks);
-    window['data'] = {"blocks": this.blocks, "models": this.models, "context":this.context};
+loadBlocks() {
+  window['componentRefs'] = [];
+    console.log('loadBlocks is running with blocks:', this.blocks);
+    window['data'] = {"blocks": this.blocks, "models": this.models, "context": this.context};
     this.blocks.forEach((block, index) => {
-      console.log('loadBlocks block:',block, 'index',index);
+      console.log('loadBlocks block:', block.type, 'index', index);
       const blockComponent = blockComponentMapping[block.type];
       if (blockComponent) {
-        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(blockComponent);
-        const componentRef = this.blockHost.createComponent(componentFactory);
-        console.log('loadBlocks blockComponent:',blockComponent, componentRef);
-
-        // Assign inputs to the component instance, adjust according to your block component's inputs
-        if (block.config) {
-          Object.assign(componentRef.instance, block.config);
-        }
-
-        // Use type assertion with the DynamicBlockComponent interface so that TypeScript knows the type of the component instance
-        const instance = componentRef.instance as DynamicBlockComponent;
-
-        console.log(`Loading block: ${block.type}`, { config: block.config });
-
-        // Subscribe to the output EventEmitter if it exists
-        instance.output?.subscribe(output => {
-          console.log(`Output from block: ${block.type}`, output);
+        // Create a new injector that provides the block configuration
+        const blockInjector = Injector.create({
+          providers: [{ provide: 'config', useValue: block }],
+          parent: this.blockHost.injector,
         });
+
+        // Use the new injector when creating the component
+        const componentRef = this.blockHost.createComponent(blockComponent, { injector: blockInjector });
+        console.log('loadBlocks blockComponent:', blockComponent, componentRef);
+        
+        window['componentRefs'][index] = componentRef;
+        if (componentRef.instance && componentRef.instance['config']){
+          // We tell the component to update its display to reflect the new configuration by calling ngOnChanges
+          // now we call ngOnChanges on the component instance right away:
+          componentRef.instance['ngOnChanges']({config: block});
+        }
+        
       } else {
         console.log(`No component mapped for type: ${block.type}`);
       }
