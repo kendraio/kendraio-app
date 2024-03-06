@@ -1,6 +1,6 @@
 <mat-dialog-actions>
   <button mat-flat-button (click)="shareMode='flow'">Share flow</button>
-  <button mat-flat-button (click)="shareMode='database'">Share database</button>
+  <button mat-flat-button (click)="shareMode='database'" data-cy="dialog-share-shareDatabase">Share database</button>
 </mat-dialog-actions>
 
 <div *ngIf="shareMode=='flow'">

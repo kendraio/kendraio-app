@@ -1,4 +1,3 @@
-
 <mat-accordion cdkDropList (cdkDropListDropped)="drop($event)">
   <mat-expansion-panel *ngFor="let block of blocks; let i = index" cdkDrag>
     <mat-expansion-panel-header>
@@ -115,7 +114,7 @@
 </mat-accordion>
 
 <br>
-<button mat-flat-button (click)="addBlock()">
+<button mat-flat-button (click)="addBlock()" data-cy="blocks-editor-add-task">
   <mat-icon>add</mat-icon>
   <span class="button-label">Add Task</span>
 </button>
