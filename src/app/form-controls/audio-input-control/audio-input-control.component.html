@@ -14,7 +14,7 @@
 <ul>
   <li *ngFor="let d of clipControl.value; index as i">
     <div class="dragging-container" [appTrackClip]="d" (clipUpdate)="onClipUpdate(i, $event)">
-      {{ d.name }}
+      <span>{{ d.name }}</span>
       <div class="clip-buttons">
         <button (click)="editClip(i)" type="button" mat-icon-button>
           <mat-icon aria-label="Edit clip">settings</mat-icon>
@@ -27,10 +27,9 @@
   </li>
 </ul>
 
-<br>
 <mat-form-field>
-<input matInput type="text" (keydown.enter)="add(name.value); name.value = ''" #name placeholder="Add clip">
-<mat-icon matSuffix (click)="add(name.value); name.value = ''">add_box</mat-icon>
+  <input matInput type="text" (keydown.enter)="add(name.value); name.value = ''" #name placeholder="Add clip">
+  <mat-icon matSuffix (click)="add(name.value); name.value = ''">add_box</mat-icon>
 </mat-form-field>
 
 <div style="display: block;">
