@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, Input, Output, EventEmitter, OnChanges, Injector } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef, ChangeDetectorRef, ComponentFactoryResolver, SimpleChange, Input, Output, EventEmitter, OnChanges, Injector, NgZone } from '@angular/core';
 
 import { FormBlockComponent } from 'src/app/blocks/form-block/form-block.component';
 import { DebugBlockComponent } from 'src/app/blocks/debug-block/debug-block.component';
@@ -34,7 +34,11 @@ export class BlocksWorkflowComponent implements OnInit, OnChanges {
   @Output() workflowComplete = new EventEmitter();
   // TODO: Use output events to emit data so that if this component is used in a parent component, the parent component can listen to the output events and get the data from the blocks
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
+  constructor(
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private readonly cd: ChangeDetectorRef,
+    private readonly zone: NgZone
+    ) { }
 
   ngOnInit() {
     this.loadBlocks();
@@ -46,6 +50,7 @@ export class BlocksWorkflowComponent implements OnInit, OnChanges {
   
   ngOnChanges(changes) {
     if (changes.blocks || changes.models || changes.context) {
+      console.log('ngOnChanges ran with changes:', changes);
       this.loadBlocks();
     }
   }
@@ -57,20 +62,15 @@ loadBlocks() {
       console.log('loadBlocks block:', block.type, 'index', index);
       const blockComponent = blockComponentMapping[block.type];
       if (blockComponent) {
-        // Create a new injector that provides the block configuration
-        const blockInjector = Injector.create({
-          providers: [{ provide: 'config', useValue: block }],
-          parent: this.blockHost.injector,
-        });
 
-        // Use the new injector when creating the component
-        const componentRef = this.blockHost.createComponent(blockComponent, { injector: blockInjector });
+        const componentRef = this.blockHost.createComponent(blockComponent);
         console.log('loadBlocks blockComponent:', blockComponent, componentRef);
         
-        window['componentRefs'][index] = componentRef;
-        if (componentRef.instance && componentRef.instance['config']){
-          // We tell the component to update its display to reflect the new configuration by calling ngOnChanges
-          // now we call ngOnChanges on the component instance right away:
+        window['componentRefs'][index] = componentRef; // For debugging investigation in the browser console
+        if (componentRef.instance) {
+          componentRef.instance['config'] = block;
+          componentRef.instance['context'] = {}; // TODO: Pass the context to the block component
+          console.log('loadBlocks config and context set, running ngOnChanges');
           componentRef.instance['ngOnChanges']({config: block});
         }
         
