@@ -54,15 +54,19 @@ Handy JMESPath patterns
 -----------------------
 
 Using a string as a value
-^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------
+
+
 To be valid JMESPath, keys and values must be wrapped in double quotes.
 For a hardcoded string, the value must be wrapped in backticks, otherwise it will result `null` for undefined variables.
+
 .. code-block:: json
-  {
-    "name": `John`,
-    "surname": `Doe`,
-    "iAmNull": "not showing"
-  }
+
+   {
+      "name": `John`,
+      "surname": `Doe`,
+      "iAmNull": "not showing"
+   }
 
 Output will be:
 
@@ -76,15 +80,16 @@ We've seen that property values of object keys can be set using backticks, and i
 The output will be the same as this:
 
 .. code-block:: json
-  `{
-    "name": "John",
-    "surname": "Doe",
-    "iAmNotNull": "now this value is visible too"
-  }`
+
+   {
+      "name": "John",
+      "surname": "Doe",
+      "iAmNotNull": "now this value is visible too"
+   }
 
 
 Not
-^^^
+---
 When your data structuture holds the value that you wish to negate, you need to enclose the 
 path of your data in parentheses before you NOT it. 
 
@@ -110,7 +115,7 @@ If you want to combine a NOT statement like this with additional logic, you need
 
 
 Default values
-^^^^^^^^^^^^^^^
+--------------
 
 Set default values by using "||" (or) 
 
@@ -118,7 +123,7 @@ Set default values by using "||" (or)
 
 
 Filtering data
-^^^^^^^^^^^^^^
+--------------
 
 Filter by the existence of a flag
 
@@ -216,7 +221,7 @@ And this version will return an array of objects
 
 
 Merging two arrays
-^^^^^^^^^^^^^^^^^^^
+------------------
 
 If you have two arrays, and want to combine them, you can use the flatten operator "[]". 
 For example, if you want to combine information from a form with data you've previously saved to context, you can merge the two arrays like this. 
@@ -227,7 +232,7 @@ For example, if you want to combine information from a form with data you've pre
 
 
 Creating an object from two arrays - spreadsheet import
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------------------------------------
 To import from a spreadsheet, converting each row into an object with keys in the first row, 
 you need a combination of actions.
 
@@ -247,7 +252,7 @@ you need a combination of actions.
 
 
 Kendraio Mapping extensions
-----------------------------
+---------------------------
 
 Kendraio is using a version of JMESPath that supports extensions to provide additional functionality. You can find these in our repository: 
 
@@ -266,7 +271,7 @@ These extensions are a set of additional functions that complement the standard 
     }
 
 Available Extensions
----------------------
+--------------------
 
 1. get
 2. set
