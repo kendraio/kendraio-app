@@ -58,7 +58,7 @@ Using a string as a value
 
 
 To be valid JMESPath, keys and values must be wrapped in double quotes.
-For a hardcoded string, the value must be wrapped in backticks, otherwise it will result `null` for undefined variables.
+Hardcoded string's value must be wrapped in backticks, otherwise it will result `null` for undefined variables.
 
 .. code-block:: json
 
@@ -76,16 +76,15 @@ Output will be:
   surname: "Doe"
   iAmNull: null
 
-We've seen that property values of object keys can be set using backticks, and it is also possible to wrap a whole JSON object in backticks. 
-The output will be the same as this:
+Is also possible to wrap a whole JSON object in backticks:
 
 .. code-block:: json
 
-   {
+   `{
       "name": "John",
       "surname": "Doe",
       "iAmNotNull": "now this value is visible too"
-   }
+   }`
 
 
 Not
@@ -119,7 +118,9 @@ Default values
 
 Set default values by using "||" (or) 
 
-- value || '[default]'
+.. code-block:: text
+
+  data || {}
 
 
 Filtering data
