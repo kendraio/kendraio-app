@@ -29,7 +29,7 @@
 
 <mat-form-field>
   <input matInput type="text" (keydown.enter)="add(name.value); name.value = ''" #name placeholder="Add clip">
-  <mat-icon matSuffix (click)="add(name.value); name.value = ''">add_box</mat-icon>
+  <mat-icon matSuffix (click)="add(name.value); name.value = ''" class="add-icon">add_box</mat-icon>
 </mat-form-field>
 
 <div style="display: block;">

@@ -17,10 +17,23 @@ li {
   margin-bottom: 0.3em;
 }
 
+.clip-buttons {
+  margin-right: 20px
+}
+
+.add-icon {
+  margin-right: 20px;
+}
+
 .dragging-container {
   display: flex;
   justify-content: space-between;
   align-items: center;  
   background-color: #ccf;
   padding: 6px 0px 6px 18px;
+
+  // Suggested rules from interactjs documentation
+  // https://github.com/taye/interact.js/blob/824037570b88a2df84b5fcfc9600c19e332f89a9/docs/resizable.md?plain=1#L65
+  touch-action: none;
+  box-sizing: border-box;
 }
