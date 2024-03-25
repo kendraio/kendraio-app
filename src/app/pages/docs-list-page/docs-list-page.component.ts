@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DocumentRepositoryService } from "../../services/document-repository.service";
 import { PageTitleService } from '../../services/page-title.service';
 import { Router } from '@angular/router';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDeleteDialogComponent } from '../../dialogs/confirm-delete-dialog/confirm-delete-dialog.component';
 
 @Component({

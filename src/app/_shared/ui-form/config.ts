@@ -39,8 +39,8 @@ export const config: ConfigOption = {
   validationMessages: [
     { name: 'required', message: requiredValidationMessage},
     { name: 'pattern', message: patternMatchMessage },
-    { name: 'minlength', message: minlengthValidationMessage },
-    { name: 'maxlength', message: maxlengthValidationMessage },
+    { name: 'minLength', message: minlengthValidationMessage },
+    { name: 'maxLength', message: maxlengthValidationMessage },
     { name: 'min', message: minValidationMessage },
     { name: 'max', message: maxValidationMessage },
     { name: 'passwordMatchValidation', message: passwordMatchValidationMessage },

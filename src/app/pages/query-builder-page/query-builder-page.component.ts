@@ -7,8 +7,8 @@ import { EDITOR_OPTIONS } from './editor-options';
 import JSONFormatter from 'json-formatter-js';
 import {get, has, isString} from 'lodash-es';
 import {BehaviorSubject} from 'rxjs';
+import '@angular/material/tooltip';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import {AdapterQuerySelectDialogComponent} from '../../dialogs/adapter-query-select-dialog/adapter-query-select-dialog.component';
 import {ShareLinkGeneratorService} from '../../services/share-link-generator.service';
 import { search } from 'jmespath';
@@ -16,6 +16,7 @@ import {DocumentRepositoryService} from '../../services/document-repository.serv
 import {QUERY_SCHEMA} from './query.schema';
 import {map, tap} from 'rxjs/operators';
 import {ContextDataService} from '../../services/context-data.service';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-query-builder-page',
@@ -102,6 +103,7 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
   }
 
   initEditor() {
+    const monaco = (window as any).monaco;
     monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
       validate: true,
       schemas: [{
