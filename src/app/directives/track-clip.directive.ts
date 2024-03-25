@@ -14,7 +14,7 @@ const interact = interact_ as any;
 @Directive({
   selector: '[appTrackClip]'
 })
-export class TrackClipDirective implements AfterViewInit {
+export class TrackClipDirective {
   @HostBinding('style.margin-left.%')
   _start = 0;
 
@@ -25,7 +25,7 @@ export class TrackClipDirective implements AfterViewInit {
 
   constructor(private el: ElementRef) { }
   
-  ngAfterViewInit() {
+  ngOnInit() {
     interact(this.el.nativeElement)
       .draggable({
         axis: 'x',
@@ -35,8 +35,11 @@ export class TrackClipDirective implements AfterViewInit {
         },
         listeners: {
           move: event => {
-            let { rect } = (event as any)
-            event.target.style.transform = `translate(${rect.left}px, 0)`
+            let { target, delta } = (event as any)
+            const x = (parseFloat(target.getAttribute('data-x')) || 0) + delta.x;
+            target.style.transform = `translate(${x}px)`;
+            
+            target.setAttribute('data-x', x.toString());
           }
         }
       } as any)
@@ -53,9 +56,8 @@ export class TrackClipDirective implements AfterViewInit {
   
             Object.assign((event as any).target.style, {
               width: `${(event as any).rect.width}px`,
-              transform: `translate(${x}px`
+              transform: `translate(${x}px, 0)`
             })
-    
             Object.assign(event.target.dataset, { x })
           }
         }
