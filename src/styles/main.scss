@@ -186,7 +186,6 @@ ng-select {
 }
 
 .ng-select {
-
   .ng-select-container {
     overflow: visible !important;
   }
@@ -241,4 +240,16 @@ formly-array-type {
   width: 95%;
   margin-left: 2%;
   position: relative;
+}
+
+.mat-mdc-progress-spinner,
+.spinner-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+.spinner-wrapper-allpage {
+  height: 100vh;
 }
