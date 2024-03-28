@@ -58,7 +58,7 @@ Using a string as a value
 
 
 To be valid JMESPath, keys and values must be wrapped in double quotes.
-Hardcoded string's value must be wrapped in backticks, otherwise it will result `null` for undefined variables.
+A hardcoded string's value must be wrapped in backticks, otherwise it will result in `null` for undefined variables.
 
 .. code-block:: json
 
@@ -76,7 +76,7 @@ Output will be:
   surname: "Doe"
   iAmNull: null
 
-Is also possible to wrap a whole JSON object in backticks:
+It is also possible to wrap a whole JSON object in backticks:
 
 .. code-block:: json
 
