@@ -82,4 +82,5 @@ Kendraio App
 .. toctree::
    :maxdepth: 2
    :caption: Automated testing
+   
    testing/tips

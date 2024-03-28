@@ -18,11 +18,13 @@ Supported properties
 --------------------
 
 - **adapter** - The adapter of the flow to launch
-- **workflowId** - The workflow to launch
+- **workflowId** - The flow to launch
 - **valueGetters** - An onbject containing JMESPath to evaluate for adapter and workflowId.
+- **context** - Data that will be pass to the flow to launch
 
 Dynamic config
 --------------
+
 .. code-block:: json
 
     {
@@ -32,6 +34,20 @@ Dynamic config
          "workflowId": "data.id"
       }   
     }
+
+With context
+------------
+
+.. code-block:: json
+
+  {
+      "type": "launch",
+      "adapter": "schemas",
+      "workflowId": "edit",
+      "context": {
+          "id": "data.uuid"
+      }
+  }
 
 
   
