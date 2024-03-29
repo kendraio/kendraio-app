@@ -20,7 +20,7 @@ Supported properties
 - **adapter** - The adapter of the flow to launch
 - **workflowId** - The flow to launch
 - **valueGetters** - An onbject containing JMESPath to evaluate for adapter and workflowId.
-- **context** - Data that will be pass to the flow to launch
+- **context** - Data that will be passed to the flow to launch
 
 Dynamic config
 --------------
