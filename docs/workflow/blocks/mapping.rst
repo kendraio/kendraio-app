@@ -417,7 +417,7 @@ Examples:
 10. now
 ------
 
-Returns the current UTC timestamp in ISO 8601 format.
+Returns the current UTC timestamp in RFC 7231 format.
 
 Examples:
 
