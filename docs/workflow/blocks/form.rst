@@ -196,12 +196,12 @@ You can see this working `here
   }
 
 
-Nested tasks
+Nested blocks
 ------------
 
-You can insert or "nest" another task within a form through the use of uiSchema.
-First specify your nested task's position in the jsonSchema using the property key of your choice.
-Then you can define the schema's content in the form task with your chosen key, 
+You can insert or "nest" another block within a form through the use of uiSchema.
+First specify your nested block's position in the jsonSchema using the property key of your choice.
+Then you can define the schema's content in the form block with your chosen key, 
 within the enclosing “uiSchema” property.
 
 The below example inserts an array of blocks into the form. Each block displays a simple message.
@@ -252,7 +252,7 @@ If you want to update a field value according to a user action, you can achieve 
 
 Any flow can be nested in any other flow. The nested flow has access to the main flow's data object, 
 context and state - it can use any data stored here. 
-The nested flow's output is then passed to the main flow's data object, just like the output of a conventional task.
+The nested flow's output is then passed to the main flow's data object, just like the output of a conventional block.
 
 The nested flow's configuration does not appear within the main flow. 
 Instead, it can be edited directly with Kendraio App if opened from the Flow Cloud, just as you would edit the main flow.
