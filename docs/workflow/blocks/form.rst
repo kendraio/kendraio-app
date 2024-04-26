@@ -44,21 +44,100 @@ not dependent on the form, then it is best to place them before the form in the 
 
 Config init
 -----------
-If can often be beneficial to initialiase the form data by creating an mapping of the default data. 
+The initial configuration will result in an empty form.
+The fields of the form can be populated in two ways: manually writing fields or dynamically generating fields from given data.
 
-.. code-block:: json 
+Here's an example of creating a form by manually writing fields and configuring it:
+
+.. code-block:: json
+  {
+    "type": "form",
+    "hasSubmit": "true", 
+    "label": "Click to submit",
+    "jsonSchema": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string",
+                "title": "Name",
+                "default": ""
+            },
+            "lastname": {
+                "type": "string",
+                "title": "Last name",
+                "default": ""
+            }
+        }
+    },
+    "uiSchema": {}
+}
+
+Dynamic data and field titles
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+To generate fields form given data, the data needs to be in a format readable by the form block.
+It is possible to transform the data into the format that the form expects with the help of a mapping block.
+Is also possible to use generated data to dynamically display the title of a field
+
+.. code-block:: json
+  
+
+  // generated data
+  {
+    "name": `John`,
+    "surname": `Doe`
+  }
+
+  // Form config
+  {
+    "type": "form",
+    "jsonSchema": {
+        "type": "object",
+        "properties": {
+            "title": {
+                "type": "string",
+                "title": "I am harcoded text"
+            },
+            "user_name": {
+                "type": "string",
+                "title": "name",
+                "default": "The title of this field comes from dynamic data"
+            },
+            "user_surname": {
+                "type": "string",
+                "title": "surname",
+                "default": "The title of this field comes from dynamic data"
+            }
+        }
+    },
+    "uiSchema": {}
+}
+
+
+Read-only
+^^^^^^^^^
+Display a field in read-only mode (not editable)
+
+.. code-block:: json
 
   {
-    "confirm": false
+    "type": "form",
+    "label": "Search",
+    "jsonSchema": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string",
+                "title": "Artist name",
+                "readOnly": true
+            }
+        }
+    },
+    "uiSchema": {}
   }
 
 
-Examples
----------
-
 No submit button
 ^^^^^^^^^^^^^^^^
-
 A simple search form without a submit button. 
 
 .. code-block:: json
