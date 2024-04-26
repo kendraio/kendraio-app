@@ -29,6 +29,17 @@ Supported properties
 - **schemaGetter**: Form schemas can be made dynamic by providing a set of blocks that will generate a schema. 
 - **contextErrorKey** (default = null): the key used to store the error message in the context. This is useful if you want to display the error message in a different block.
 
+uiSchema properties
+--------------------
+
+- **items**: Wrapped round a field's properties to denote that it accepts input of more than one value.
+- **ui:widget**: The functionality that uiSchema will provide, for example “blocks” for a nested Flow or “password” to hide user input with asterisks.
+- **blocksConfig**: A container for a nested block or Flow.
+- **adapterName**: The adapter of the Flow to be used as a gosub.
+- **workflowId**: The ID of the Flow to be used as a gosub.
+- **blocks**: The blocks to nest in the form field. This should be an array, even if it is a single item.
+- **type**: The type of block to be used.
+
 Important notes on creating flows with forms
 --------------------------------------------
 
