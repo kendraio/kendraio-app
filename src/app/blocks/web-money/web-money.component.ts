@@ -271,9 +271,26 @@ export class WebMoneyComponent extends BaseBlockComponent {
       }
 
     }
-    if (document['monetization']) {
-      document['monetization'].addEventListener('monetizationprogress', monetizationprogressHandler);
+
+    // Coil's web monetization API is down because they have stopped their service.
+    //
+    //if (document['monetization']) {
+    //  document['monetization'].addEventListener('monetizationprogress', monetizationprogressHandler);
+    //}
+    
+    // We are using a mock event to simulate the web monetization progress event:
+    function dispatchMockMonetizationProgressEvent() {
+      monetizationprogressHandler({
+        detail: {
+          amount: '1', 
+          assetCode: 'XRP', 
+          assetScale: 2,
+        },
+      });
     }
+    
+    setInterval(dispatchMockMonetizationProgressEvent, 1000);
+
   }
 
   onData(data: any, _firstChange: boolean) {
