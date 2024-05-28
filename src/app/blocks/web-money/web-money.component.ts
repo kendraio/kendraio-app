@@ -273,11 +273,6 @@ export class WebMoneyComponent extends BaseBlockComponent {
     }
 
     // Coil's web monetization API is down because they have stopped their service.
-    //
-    //if (document['monetization']) {
-    //  document['monetization'].addEventListener('monetizationprogress', monetizationprogressHandler);
-    //}
-    
     // We are using a mock event to simulate the web monetization progress event:
     function dispatchMockMonetizationProgressEvent() {
       monetizationprogressHandler({
