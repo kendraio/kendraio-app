@@ -29,6 +29,17 @@ Supported properties
 - **schemaGetter**: Form schemas can be made dynamic by providing a set of blocks that will generate a schema. 
 - **contextErrorKey** (default = null): the key used to store the error message in the context. This is useful if you want to display the error message in a different block.
 
+uiSchema properties
+--------------------
+
+- **items**: Wrapped round a field's properties to denote that it accepts input of more than one value.
+- **ui:widget**: The functionality that uiSchema will provide, for example “blocks” for a nested Flow or “password” to hide user input with asterisks.
+- **blocksConfig**: A container for a nested block or Flow.
+- **adapterName**: The adapter of the Flow to be used as a gosub.
+- **workflowId**: The ID of the Flow to be used as a gosub.
+- **blocks**: The blocks to nest in the form field. This should be an array, even if it is a single item.
+- **type**: The type of block to be used.
+
 Important notes on creating flows with forms
 --------------------------------------------
 
@@ -236,4 +247,191 @@ In the example below, a mapping has a default value, which is saved using the co
         },
         "uiSchema": {}
       }
-    ]
+  ]
+
+Password Fields
+---------------
+
+You can use uiSchema to designate a password field. 
+The below example will render a form that displays only * for each character entered in the "password" field.
+
+You can see this working `here
+<https://app.kendra.io/workflow-builder?data=NobwRALgngDgpmAXGAlgOxRMBfANOaeJMANwEMAnFMgIwBs4BaAczi1zDTIFsFkBnMmgAmNAPYAPAIIBXCAAsc+SLD5huZGDHTMwHDVp3FhZCGQAEAH0vmABiGy2lBVcQBmYitz1g6tOHTEAMJiaGhwAMbsYABW-KEAyhHycBpILkTIYjQxkdEwFGLwFBAocPzpYDL8cBRcvJWEavwQVGi6HKUQDMQAqjV1PAgcwnBuZDJ0WMhKYDBk-PwA7p7Cja4CrUadmD3IAAoLy6s+o+OT02A42HhVKEkpaYjg84srFGvPd4hLKMKsl1exw+1zwGTUEVCEDgEggjEEJGGYEhaGhsIA0nAoMQEXA1mCVJkwPIIBAYD5eAoxJ85mIWj40GJSm5sYhxnQahw4CIYGJ0JcSWT+IgAPQigDW3OEFDIKDEjBomEYBUkUAAdIiKBEAmrNDARRMFD55lA6GIyDSQOZqrV6nBEOYTGY1TbBrxcOYge9hA6nWQ1V7Vh6mg6AOQAUQAslIAJIAGVD5mwPnoYgi4pC3F4qOIzkJagM2naFL1RmQvAorAAFH6PSi0RA1bjhABKPNNYjkOh-UyeHzQ+nIRkQAD6aEmdBrpn9EDEkrQbf05UErGIADUyN2nXK0OYAGKyhj45Qd5DkKi0BjwtgMoY4oSiSSyI3YAC6QA>`_.
+
+.. code-block:: json
+
+  {
+    "type": "form",
+    "label": "Connect",
+    "jsonSchema": {
+        "type": "object",
+        "properties": {
+            "username": {
+                "type": "string",
+                "title": "Username",
+                "default": ""
+            },
+            "password": {
+                "type": "string",
+                "title": "Password",
+                "default": ""
+            }
+        }
+    },
+    "uiSchema": {
+        "password": {
+            "ui:widget": "password"
+        }
+    }
+  }
+
+
+Nested blocks
+------------
+
+You can insert or "nest" another block within a form through the use of uiSchema.
+First specify your nested block's position in the jsonSchema using the property key of your choice.
+Then you can define the schema's content in the form block with your chosen key, 
+within the enclosing “uiSchema” property.
+
+The below example inserts an array of blocks into the form. Each block displays a simple message.
+
+You can see this example working `here
+<https://app.kendra.io/workflow-builder?data=NobwRALgngDgpmAXGAZgewE4FswBowA2AhgEZwFJgDKAriVgJYR5gBWAzmgHZUDGAFnCxEk4GBjTwMEBnHajIRDAHM4EAPrjJcaVAXR4ldhAwMuyljIgEEyAJpoaAAgDu3AOQQn7OHCcR+BnYnAFonJlcGAgInMic0ADcdUwATFLguWKgnGgY+QWEwAF8S-Fz8oRFEcAglVQ0tKWgFXMQXBhT6yhICNF4Aa3l8Hr7BgGFuFAYLarARgflEUEhYWzAsOXYiVUsmG0oAQScN9i2dotwa1coTs4R8K33kA640AJ1jze2EC6vDZFu3121jWdjUTiIr3eGE+pyBRQAuiULnNegMJlgNlxmMhigigA>`_.
+
+.. code-block:: json
+
+  {
+    "type": "form",
+    "label": "Submit",
+    "jsonSchema": {
+        "properties": {
+            "target_property": {
+                "type": "string",
+                "title": "You won't see this - it will be overridden by uiSchema"
+            }
+        }
+    },
+    "uiSchema": {
+        "target_property": {
+            "ui:widget": "blocks",
+            "blocksConfig": {
+                "blocks": [
+                    {
+                        "type": "message",
+                        "title": "A message"
+                    },
+                    {
+                        "type": "message",
+                        "title": "Another message"
+                    },
+                    {
+                        "type": "message",
+                        "title": "Yet another message"
+                    }
+                ]
+            }
+        }
+    }
+}
+
+Nested flows
+------------
+
+If you want to update a field value according to a user action, you can achieve this with a nested flow.
+
+Any flow can be nested in any other flow. The nested flow has access to the main flow's data object, 
+context and state - it can use any data stored here. 
+The nested flow's output is then passed to the main flow's data object, just like the output of a conventional block.
+
+The nested flow's configuration does not appear within the main flow. 
+Instead, it can be edited directly with Kendraio App if opened from the Flow Cloud, just as you would edit the main flow.
+Any saved changes will be reflected immediately when the main flow is refreshed.
+
+This example flow allows the user to search and select from a menu based on returned data. 
+The Venue Name field expects a single value and the Lineup field can handle several values.
+
+The nested flow is denoted by the property ``"type": "gosub"``. You can read more about gosubs :doc:`here <gosub>`.
+
+.. code-block:: json
+  
+  {
+    "type": "form",
+    "title": "Update Event",
+    "label": "Update Event",
+    "jsonSchema": {
+      "type": "object",
+      "properties": {
+        "venue_name": {
+          "type": "string",
+          "title": "Venue Name"
+        },
+        "lineup": {
+          "type": "array",
+          "title": "Lineup",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "bio": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "uiSchema": {
+      "venue_name": {
+        "ui:widget": "blocks",
+        "blocksConfig": {
+          "adapterName": "bandsintown",
+          "blocks": [
+            {
+              "type": "card",
+              "blocks": [
+                {
+                  "type": "message",
+                  "title": "Search and select venue:"
+                },
+                {
+                  "type": "gosub",
+                  "adapterName": "bandsintown",
+                  "workflowId": "findVenue"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "lineup": {
+        "items": {
+          "ui:widget": "blocks",
+          "blocksConfig": {
+            "adapterName": "bandsintown",
+            "blocks": [
+              {
+                "type": "card",
+                "blocks": [
+                  {
+                    "type": "message",
+                    "title": "Search and select artist:"
+                  },
+                  {
+                    "type": "gosub",
+                    "adapterName": "bandsintown",
+                    "workflowId": "findArtist"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
