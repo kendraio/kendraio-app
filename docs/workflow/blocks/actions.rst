@@ -77,6 +77,7 @@ In this example, we are specifying which flow to load when the button is clicked
 You can find this example on the `Flow Cloud <https://app.kendra.io/workflowCloud/listWorkflows>`, in the list of workflows.
 
 .. code-block:: json
+
   {
     "type": "actions",
     "buttons": [
@@ -94,7 +95,7 @@ You can find this example on the `Flow Cloud <https://app.kendra.io/workflowClou
             "enabled": true
         }
     ]
-}
+  }
 
 
 enabledGetter
@@ -130,6 +131,7 @@ To do so we take values we have saved in the state and assign them to the `enabl
 
 
 After the block as loaded, the `enabled` property will be set on the button:
+
 .. code-block:: json
 
   {
