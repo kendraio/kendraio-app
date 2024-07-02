@@ -31,6 +31,9 @@
         "dist/ngx-image-tagger/*"
       ]
     },
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "strict": false,
+    "noImplicitAny": false,
+    "suppressImplicitAnyIndexErrors": true
   }
 }
