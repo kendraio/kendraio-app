@@ -59,3 +59,48 @@ describe('Actions block type', () => {
     });
 });
 
+
+describe('LinkActionComponent', () => {
+  it('should generate the correct link URL from plain strings', () => {
+    // Tests with hardcoded values
+    loadFlowCode([
+      {
+        "type": "link-action",
+        "label": "Test Link",
+        "adapterName": "myAdapter",
+        "workflowId": "myWorkflow"
+      }
+    ]);
+    cy.get('app-link-action a').should('have.attr', 'href', '/myAdapter/myWorkflow');
+  });
+
+  it('should generate the correct link URL using object mappings', () => {
+    // Test with JMESPath expressions
+    loadFlowCode([
+      {
+        "type": "mapping",
+        "mapping": "{ adapter: `testAdapter`, workflow: `testWorkflow` }"
+      },
+      {
+        "type": "link-action",
+        "label": "Dynamic Link",
+        "adapterNameGetter": "data.adapter",
+        "workflowIdGetter": "data.workflow"
+      }
+    ]);
+    cy.get('app-link-action a').should('have.attr', 'href', '/testAdapter/testWorkflow');
+  });
+
+  it('should open the link with a blank target', () => {
+    loadFlowCode([
+      {
+        "type": "link-action",
+        "label": "Test Link",
+        "adapterName": "myAdapter",
+        "workflowId": "myWorkflow"
+      }
+    ]);
+    cy.get('app-link-action a').should('have.attr', 'target', '_blank');
+  });
+
+});
