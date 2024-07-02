@@ -653,5 +653,18 @@ export const BLOCK_TYPES = [
     defaultConfig: {
       type: 'wallet'
     }
+  },
+  {
+    type: 'link-action',
+    label: 'Link Action',
+    description: 'Open a Flow as a link (works with new tab / window)',
+    icon: 'link',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'link-action',
+      label: 'Open Workflow', 
+      adapterName: 'adapterName', 
+      workflowId: 'workflowId', 
+    }
   }
 ];
