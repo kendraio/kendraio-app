@@ -186,7 +186,7 @@ import { BlockGosubBuilderBoxComponent } from './components/block-gosub-builder-
 import { MermaidBlockComponent } from './blocks/mermaid-block/mermaid-block.component';
 import { ComparisonComponent } from './blocks/comparison/comparison.component';
 import { BlockComparisonBuilderBoxComponent } from './components/block-comparison-builder-box/block-comparison-builder-box.component';
-
+import { LinkActionComponent } from './blocks/link-action-block/link-action.component';
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -347,7 +347,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         BlockGosubBuilderBoxComponent,
         MermaidBlockComponent,
         ComparisonComponent,
-        BlockComparisonBuilderBoxComponent
+        BlockComparisonBuilderBoxComponent,
+        LinkActionComponent
     ],
     imports: [
         FormlyModule.forRoot({}),
