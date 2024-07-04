@@ -55,6 +55,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
 
     if ((typeof baseSchema === 'string') && (baseSchema.length > 0)) {
       let schemaDefinitions = {};
+      // @ts-ignore: Relax checks due to dynamic schemas
       schemaDefinitions[baseSchema] = await this.resolveSchema(schemaDefinitions, baseSchema, 0);
       const jsonSchema = {
         definitions: schemaDefinitions,
@@ -78,6 +79,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
     if (!has(schemaDefinitions, schemaName)) {
       try {
         const result = await this.loadSchemaFromDatabase(schemaName);
+        // @ts-ignore: Relax checks due to dynamic schemas
         schemaDefinitions[schemaName] = await this.mapSchema(schemaDefinitions, get(result, '[0].data', {}), schemaName, depth);
       } catch (e) {
         // TODO: handle error
@@ -86,6 +88,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
         this.isLoading = false;
       }
     }
+    // @ts-ignore: Relax checks due to dynamic schemas
     return schemaDefinitions[schemaName];
   }
 
@@ -226,6 +229,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
     const embedSchemaName = get(p, 'config', '');
     // If the embedded schema has not been resolved, resolve it:
     if (!has(schemaDefinitions, embedSchemaName) && embedSchemaName !== inputSchemaName) {
+      // @ts-ignore: Relax checks due to dynamic schemas
       schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName, depth + 1);
     }
     outputSchema.properties[get(p, 'key', '')] = {
@@ -251,6 +255,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
     const embedSchemaName = get(p, 'config', '');
     // If the embedded schema has not been resolved, resolve it:
     if (!has(schemaDefinitions, embedSchemaName) && embedSchemaName !== inputSchemaName) {
+      // @ts-ignore: Relax checks due to dynamic schemas
       schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName, depth + 1);
     }
     outputSchema.properties[get(p, 'key', '')] = {
@@ -273,6 +278,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
     const embedSchemaName = get(p, 'config', '');
     // If the embedded schema has not been resolved, resolve it:
     if (!has(schemaDefinitions, embedSchemaName) && embedSchemaName !== inputSchemaName) {
+      // @ts-ignore: Relax checks due to dynamic schemas
       schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName, depth + 1);
     }
     // Gets the records array for this schema:
@@ -301,6 +307,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
         for (const property in record.data) {
           if (record.data.hasOwnProperty(property)) {
             const value = record.data[property];
+            // @ts-ignore: Relax checks due to dynamic schemas
             item.properties[property] = clone(get(schemaDefinitions[embedSchemaName], `properties.${property}`, {}));
             item.properties[property].readOnly = true;
             item.properties[property].default = clone(value);
@@ -329,6 +336,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
 
     // If the embedded schema has not been resolved, resolve it:
     if (!has(schemaDefinitions, embedSchemaName) && embedSchemaName !== inputSchemaName) {
+      // @ts-ignore: Relax checks due to dynamic schemas
       schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName, depth + 1);
     }
 
@@ -370,7 +378,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
           for (const property in record.data) {
             if (record.data.hasOwnProperty(property)) {
               const value = record.data[property];
-
+              // @ts-ignore: Relax checks due to dynamic schemas
               item.properties[property] = clone(get(schemaDefinitions[embedSchemaName], `properties.${property}`, {}));
               item.properties[property].readOnly = true;
               item.properties[property].default = clone(value);
@@ -406,7 +414,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
       // if we have a nested record - a record that is referenced by another record,
       // instead of injecting a selectable list of records, we inject a single record,
       // with an array of one record object that conforms to the schema, with the uuid property added
-
+      // @ts-ignore: Relax checks due to dynamic schemas
       const plain_schema = get(schemaDefinitions[embedSchemaName], 'properties', {});
       let schema_with_uuid = clone(plain_schema);
 
