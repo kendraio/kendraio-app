@@ -131,26 +131,26 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "kendraio-app:build",
             "host": "0.0.0.0",
-            "disableHostCheck": true
+            "disableHostCheck": true,
+            "buildTarget": "kendraio-app:build"
           },
           "configurations": {
             "de": {
-              "browserTarget": "kendraio-app:build:de"
+              "buildTarget": "kendraio-app:build:de"
             },
             "fr": {
-              "browserTarget": "kendraio-app:build:fr"
+              "buildTarget": "kendraio-app:build:fr"
             },
             "production": {
-              "browserTarget": "kendraio-app:build:production"
+              "buildTarget": "kendraio-app:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "kendraio-app:build"
+            "buildTarget": "kendraio-app:build"
           }
         },
         "test": {
