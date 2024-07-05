@@ -91,7 +91,9 @@ describe('LinkActionComponent', () => {
     cy.get('app-link-action a').should('have.attr', 'href', '/testAdapter/testWorkflow');
   });
 
-  it('should open the link with a blank target', () => {
+  it('should not have no link target by default', () => {
+    // The default behavior should be to open the link in the same tab,
+    // it's up to the user and their user-agent to decide how to handle the link.
     loadFlowCode([
       {
         "type": "link-action",
@@ -100,7 +102,7 @@ describe('LinkActionComponent', () => {
         "workflowId": "myWorkflow"
       }
     ]);
-    cy.get('app-link-action a').should('have.attr', 'target', '_blank');
+    cy.get('app-link-action a').should('not.have.attr', 'target');
   });
 
 });
