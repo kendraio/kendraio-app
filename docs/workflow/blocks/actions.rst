@@ -1,7 +1,7 @@
 Actions
 =======
 
-Use the actions block to add a row of buttons for one or more sub-tasks.
+Use the Actions block to add a row of buttons for one or more sub-tasks.
 
 Default config
 --------------
@@ -152,4 +152,8 @@ After the block as loaded, the `enabled` property will be set on the button:
       ]
     }
 
-Buttons do not work for external links. Consider the :doc:`Template Block <template>` for external links.
+Alternative blocks
+++++++++++++++++++++++
+For external links, the :doc:`Template Block <template>` can be used to create links using a subset of HTML, though it is not styled as a button by default.
+
+For links to other Flows, the :doc:`Link Action Block <link_action_block>` allows opening links in another window or tab, with only one block needed, which is styled as a button (just like an Actions block).
