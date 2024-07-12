@@ -49,7 +49,7 @@
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
     "ag-grid-angular": "^26.1.0",
-    "ag-grid-community": "^26.1.0",
+    "ag-grid-community": "^32.0.1",
     "ajv": "^8.12.0",
     "ajv-errors": "^3.0.0",
     "ajv-formats": "^2.1.1",
