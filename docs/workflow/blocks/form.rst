@@ -96,7 +96,9 @@ Here's an example of creating a form by manually writing fields and configuring 
 Dynamic data and field titles
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 To generate fields form given data, the data needs to be in a format readable by the form block.
+
 It is possible to transform the data into the format that the form expects with the help of a mapping block.
+
 Is also possible to use generated data to dynamically display the title of a field
 
 .. code-block:: json
@@ -130,12 +132,14 @@ Is also possible to use generated data to dynamically display the title of a fie
         }
     },
     "uiSchema": {}
-}
+  }
 
 Select Input
 ^^^^^^^^^^^^
 Display a field as select with several options.
+
 The options have to be listed in a property called `enum` as array.
+
 To have a label, the `default` property can be used. To prefill the select with a specific option, 
 a string with same name property and same value, as to be passed in as data.
 
@@ -192,7 +196,49 @@ To pass a list of dynamic data to select input, is also possible to use the :doc
         }
     },
     "uiSchema": {}
-  } 
+  }
+
+Special UI: Card to add and remove items dynamically
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+`type: array` display a special UI which allow to add/delete dynamically
+the specified field with the specified properties. 
+
+In the below example, the form will allow the user to create a group of 
+two fields: A number and a string. 
+
+Clicking on the add button the user will be able to add more of these group of items,
+or remove the already created one.
+
+An example of the array type in action is `here <https://app.kendra.io/bandsintown/editEvent>`_
+
+.. code-block:: json
+
+  {
+    "type": "form",
+      "label": "Search",
+      "jsonSchema": {
+          "type": "object",
+          "properties": {
+            "lineup": {
+                "type": "array",
+                "title": "Lineup",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "number"
+                        },
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+          }
+      },
+    "uiSchema": {}
+  }
+
 
 
 Read-only
@@ -292,7 +338,9 @@ Using data saved from context blocks
 ------------------------------------
 
 JSON Schema supports references to transclude content.
+
 Context is injected into a definitions section, that references can use.
+
 In the example below, a mapping has a default value, which is saved using the context block, and the default value is set to "injected". 
 
 .. code-block:: javascript
