@@ -142,8 +142,7 @@ The options have to be listed in a property called `enum` as array.
 
 To have a label, the `default` property can be used. To prefill the select with a specific option, 
 a string with same name property and same value, as to be passed in as data.
-
-To pass a list of dynamic data to select input, is also possible to use the :doc:`reference <reference>`
+The `enum` property works just with hardcoded data, as per example.
 
 .. code-block:: json
 
@@ -197,6 +196,115 @@ To pass a list of dynamic data to select input, is also possible to use the :doc
     },
     "uiSchema": {}
   }
+
+Select with Dynamic data
+^^^^^^^^^^^^^^^^^^^^^^^^
+If the  options that have to be displayed in the select input are coming dynamically (maybe from a mapping block or from an API), 
+then we will need to use the `$ref` property and the passed data must have a specific structure: with `anyOf`, `title` and `const`.
+It is also possible to use the :doc:`reference <reference>`
+
+.. code-block:: json
+
+  // data
+  {
+    "name": `John`,
+    "status": {
+        "anyOf": 
+        [
+            {
+                "title": `Single`,
+                "const": `1`
+            },
+            {
+                "title": `Divorce`,
+                "const": `2`
+            }
+        ]
+    }
+  }
+
+  // Save these data to a context, under the name `civilStatusData`
+
+  // Form config
+  {
+    "type": "form",
+    "hasSubmit": "true", 
+    "label": "Click to submit",
+    "jsonSchema": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string",
+                "title": "Name",
+                "default": ""
+            },
+            "status": {
+              "title": "Civil Status",
+              "$ref": "#/definitions/context/civilStatusData"
+        }
+    },
+    "uiSchema": {}
+  }
+
+If you want to prefill the field with a specific option, you will need to pass the equivalente of the `const` value 
+as data, right before the Form block.
+
+.. code-block:: json
+
+  // data
+  {
+    "name": `John`,
+    "status": {
+        "anyOf": 
+        [
+            {
+                "title": `Single`,
+                "const": `1`
+            },
+            {
+                "title": `Divorce`,
+                "const": `2`
+            }
+        ]
+    }
+  }
+
+  // Save these data to a context, under the name `civilStatusData`
+  {
+      "type": "context-save",
+      "key": "civilStatusData"
+  }
+
+  // Pass the selected option
+  {
+    "status": `2`
+  }
+
+
+  // Form config
+  {
+    "type": "form",
+    "hasSubmit": "true", 
+    "label": "Click to submit",
+    "jsonSchema": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string",
+                "title": "Name",
+                "default": ""
+            },
+            "status": {
+              "title": "Civil Status",
+              "$ref": "#/definitions/context/civilStatusData"
+        }
+    },
+    "uiSchema": {}
+  }
+
+In the above example, as soon as the Flow is open, it should show a select input with `Divorce` already selected, and the option to change it to `Single`.
+
+
 
 Special UI: Card to add and remove items dynamically
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
