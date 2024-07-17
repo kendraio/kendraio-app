@@ -4,6 +4,7 @@ Form
 Display a form for data entry or editing.
 
 Forms are displayed based on the UI Schema and JSON Schema provided. These can be provided inline within the block configuration, or loaded from an adapter.
+Kendrai Form is build on top of Angular Formly https://formly.dev/. Most of the form property and functionality can be looked up in Formly.
 
 Default config
 --------------
@@ -61,6 +62,15 @@ The fields of the form can be populated in two ways: manually writing fields or 
 Here's an example of creating a form by manually writing fields and configuring it:
 
 .. code-block:: json
+
+
+  // data
+  {
+    "name": `John`,
+    "lastname": `Doe`
+  }
+
+  // Form config
   {
     "type": "form",
     "hasSubmit": "true", 
@@ -81,7 +91,7 @@ Here's an example of creating a form by manually writing fields and configuring 
         }
     },
     "uiSchema": {}
-}
+  }
 
 Dynamic data and field titles
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -91,8 +101,7 @@ Is also possible to use generated data to dynamically display the title of a fie
 
 .. code-block:: json
   
-
-  // generated data
+  // data
   {
     "user_name": `John`,
     "user_surname": `Doe`
@@ -122,6 +131,68 @@ Is also possible to use generated data to dynamically display the title of a fie
     },
     "uiSchema": {}
 }
+
+Select Input
+^^^^^^^^^^^^
+Display a field as select with several options.
+The options have to be listed in a property called `enum` as array.
+To have a label, the `default` property can be used. To prefill the select with a specific option, 
+a string with same name property and same value, as to be passed in as data.
+
+To pass a list of dynamic data to select input, is also possible to use the :doc:`reference <reference>`
+
+.. code-block:: json
+
+  // data
+  {
+    "name": `John`,
+    "lastname": `Doe`,
+    "age": `+21`
+  }
+
+  // Form config
+  {
+    "type": "form",
+    "hasSubmit": "true", 
+    "label": "Click to submit",
+    "jsonSchema": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string",
+                "title": "Name",
+                "default": ""
+            },
+            "lastname": {
+                "type": "string",
+                "title": "Last name",
+                "default": ""
+            },
+            "age": {
+              "type": "string",
+              "title": "Age",
+              "enum": [
+                "0-16",
+                "16-18",
+                "18-21",
+                "+21"
+              ]
+            },
+            "status": {
+              "type": "string",
+              "title": "Civil Status",
+              "default": "Pick a status"
+              "enum": [
+                "single",
+                "married",
+                "window",
+                "divorced"
+              ]
+            }
+        }
+    },
+    "uiSchema": {}
+  } 
 
 
 Read-only
