@@ -36,7 +36,7 @@ export class LinkActionComponent extends BaseBlockComponent {
   }
   
   onConfigUpdate(config: any) {
-    this.label = get(config, 'label', 'Link');
+    this.label = get(config, 'label', 'Open Flow');
     this.adapterNameGetter = get(config, 'adapterNameGetter', '');
     this.workflowIdGetter = get(config, 'workflowIdGetter', '');
     this.config = config;
