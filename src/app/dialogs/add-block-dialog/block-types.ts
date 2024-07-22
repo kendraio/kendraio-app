@@ -662,7 +662,7 @@ export const BLOCK_TYPES = [
     hasEditor: true,
     defaultConfig: {
       type: 'link-action',
-      label: 'Open Workflow', 
+      label: 'Open Flow', 
       adapterName: 'adapterName', 
       workflowId: 'workflowId', 
     }
