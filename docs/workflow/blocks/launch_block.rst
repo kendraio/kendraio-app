@@ -1,7 +1,9 @@
 Launch
 ======
 
-Jump to a new workflow. This block is not available to be added to a flow directly, but is instead for use from within other blocks. 
+Useful to jump to a different Flow. This block is not available to be added to a flow directly, but is instead for use from within other blocks.
+
+If you want to jump to a different Flow from a button the :doc:`Link Action Block <link_action_block>`, allows opening Flows in a new tab or window as an alternative to an :doc:`Actions block button <actions>` being used with a Launch block.
 
 Default config
 --------------
