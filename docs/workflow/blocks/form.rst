@@ -4,6 +4,7 @@ Form
 Display a form for data entry or editing.
 
 Forms are displayed based on the UI Schema and JSON Schema provided. These can be provided inline within the block configuration, or loaded from an adapter.
+Kendrai Form is build on top of Angular Formly https://formly.dev/. Most of the form property and functionality can be looked up in Formly.
 
 Default config
 --------------
@@ -61,6 +62,15 @@ The fields of the form can be populated in two ways: manually writing fields or 
 Here's an example of creating a form by manually writing fields and configuring it:
 
 .. code-block:: json
+
+
+  // data
+  {
+    "name": `John`,
+    "lastname": `Doe`
+  }
+
+  // Form config
   {
     "type": "form",
     "hasSubmit": "true", 
@@ -81,21 +91,22 @@ Here's an example of creating a form by manually writing fields and configuring 
         }
     },
     "uiSchema": {}
-}
+  }
 
 Dynamic data and field titles
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 To generate fields form given data, the data needs to be in a format readable by the form block.
+
 It is possible to transform the data into the format that the form expects with the help of a mapping block.
+
 Is also possible to use generated data to dynamically display the title of a field
 
 .. code-block:: json
   
-
-  // generated data
+  // data
   {
-    "name": `John`,
-    "surname": `Doe`
+    "user_name": `John`,
+    "user_surname": `Doe`
   }
 
   // Form config
@@ -111,17 +122,231 @@ Is also possible to use generated data to dynamically display the title of a fie
             "user_name": {
                 "type": "string",
                 "title": "name",
-                "default": "The title of this field comes from dynamic data"
+                "default": "The value of this field comes from dynamic data"
             },
             "user_surname": {
                 "type": "string",
                 "title": "surname",
-                "default": "The title of this field comes from dynamic data"
+                "default": "The value of this field comes from dynamic data"
             }
         }
     },
     "uiSchema": {}
-}
+  }
+
+Select Input
+^^^^^^^^^^^^
+Display a field as select with several options.
+
+The options have to be listed in a property called `enum` as array.
+
+To have a label, the `default` property can be used. To prefill the select with a specific option, 
+a string with same name property and same value, as to be passed in as data.
+The `enum` property works just with hardcoded data, as per example.
+
+.. code-block:: json
+
+  // data
+  {
+    "name": `John`,
+    "lastname": `Doe`,
+    "age": `+21`
+  }
+
+  // Form config
+  {
+    "type": "form",
+    "hasSubmit": "true", 
+    "label": "Click to submit",
+    "jsonSchema": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string",
+                "title": "Name",
+                "default": ""
+            },
+            "lastname": {
+                "type": "string",
+                "title": "Last name",
+                "default": ""
+            },
+            "age": {
+              "type": "string",
+              "title": "Age",
+              "enum": [
+                "0-16",
+                "16-18",
+                "18-21",
+                "+21"
+              ]
+            },
+            "status": {
+              "type": "string",
+              "title": "Civil Status",
+              "default": "Pick a status"
+              "enum": [
+                "single",
+                "married",
+                "window",
+                "divorced"
+              ]
+            }
+        }
+    },
+    "uiSchema": {}
+  }
+
+Select with Dynamic data
+^^^^^^^^^^^^^^^^^^^^^^^^
+If the  options that have to be displayed in the select input are coming dynamically (maybe from a mapping block or from an API), 
+then we will need to use the `$ref` property and the passed data must have a specific structure: with `anyOf`, `title` and `const`.
+It is also possible to use the :doc:`reference <reference>`
+
+.. code-block:: json
+
+  // data
+  {
+    "name": `John`,
+    "status": {
+        "anyOf": 
+        [
+            {
+                "title": `Single`,
+                "const": `1`
+            },
+            {
+                "title": `Divorce`,
+                "const": `2`
+            }
+        ]
+    }
+  }
+
+  // Save these data to a context, under the name `civilStatusData`
+
+  // Form config
+  {
+    "type": "form",
+    "hasSubmit": "true", 
+    "label": "Click to submit",
+    "jsonSchema": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string",
+                "title": "Name",
+                "default": ""
+            },
+            "status": {
+              "title": "Civil Status",
+              "$ref": "#/definitions/context/civilStatusData"
+        }
+    },
+    "uiSchema": {}
+  }
+
+If you want to prefill the field with a specific option, you will need to pass the equivalente of the `const` value 
+as data, right before the Form block.
+
+.. code-block:: json
+
+  // data
+  {
+    "name": `John`,
+    "status": {
+        "anyOf": 
+        [
+            {
+                "title": `Single`,
+                "const": `1`
+            },
+            {
+                "title": `Divorce`,
+                "const": `2`
+            }
+        ]
+    }
+  }
+
+  // Save these data to a context, under the name `civilStatusData`
+  {
+      "type": "context-save",
+      "key": "civilStatusData"
+  }
+
+  // Pass the selected option
+  {
+    "status": `2`
+  }
+
+
+  // Form config
+  {
+    "type": "form",
+    "hasSubmit": "true", 
+    "label": "Click to submit",
+    "jsonSchema": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string",
+                "title": "Name",
+                "default": ""
+            },
+            "status": {
+              "title": "Civil Status",
+              "$ref": "#/definitions/context/civilStatusData"
+        }
+    },
+    "uiSchema": {}
+  }
+
+In the above example, as soon as the Flow is open, it should show a select input with `Divorce` already selected, and the option to change it to `Single`.
+
+
+
+Special UI: Card to add and remove items dynamically
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+`type: array` display a special UI which allow to add/delete dynamically
+the specified field with the specified properties. 
+
+In the below example, the form will allow the user to create a group of 
+two fields: A number and a string. 
+
+Clicking on the add button the user will be able to add more of these group of items,
+or remove the already created one.
+
+An example of the array type in action is `here <https://app.kendra.io/bandsintown/editEvent>`_
+
+.. code-block:: json
+
+  {
+    "type": "form",
+      "label": "Search",
+      "jsonSchema": {
+          "type": "object",
+          "properties": {
+            "lineup": {
+                "type": "array",
+                "title": "Lineup",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "number"
+                        },
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+          }
+      },
+    "uiSchema": {}
+  }
+
 
 
 Read-only
@@ -179,9 +404,9 @@ A simple search form without a submit button.
 
 Using a schemaGetter
 ^^^^^^^^^^^^^^^^^^^^
-The simplest way to use a schemaGetter is the load-schema block.
-:ref:`load_schema`
-The load-schema block can turn an object generated by the schema builder into a JSON schema, and can combine multiple existing schemas. 
+The simplest way to use a schemaGetter is the :doc:`load_schema` block.
+
+The load-schema block can turn an object generated by the `schema builder <https://app.kendra.io/importer/start>`_ into a JSON schema, and can combine multiple existing schemas. 
 
 .. code-block:: javascript
 
@@ -221,7 +446,9 @@ Using data saved from context blocks
 ------------------------------------
 
 JSON Schema supports references to transclude content.
+
 Context is injected into a definitions section, that references can use.
+
 In the example below, a mapping has a default value, which is saved using the context block, and the default value is set to "injected". 
 
 .. code-block:: javascript
@@ -338,7 +565,7 @@ You can see this example working `here
 Nested flows
 ------------
 
-If you want to update a field value according to a user action, you can achieve this with a nested flow.
+If you want fixedto update a field value according to a user action, you can achieve this with a nested flow.
 
 Any flow can be nested in any other flow. The nested flow has access to the main flow's data object, 
 context and state - it can use any data stored here. 
