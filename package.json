@@ -45,7 +45,7 @@
     "@maskito/core": "^1.4.0",
     "@ng-select/ng-select": "^11.1.1",
     "@ngrx/store": "^16.1.0",
-    "@ngtools/webpack": "^16.1.6",
+    "@ngtools/webpack": "^17.3.8",
     "@ngx-formly/core": "^6.3.5",
     "@ngx-formly/material": "^6.3.5",
     "@ngx-translate/core": "^14.0.0",
