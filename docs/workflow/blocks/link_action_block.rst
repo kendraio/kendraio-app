@@ -20,7 +20,7 @@ Default configuration
 Supported Properties
 --------------------
 
-- **label** (string): The text displayed on the button-like link. Defaults to "Link".
+- **label** (string): The text displayed on the button-like link. Defaults to "Open Flow".
 - **adapterName** (string): The adapter name of the target workflow. This property is ignored if a value is specified by `adapterNameGetter` instead.
 - **adapterNameGetter** (string): A JMESPath expression that resolves to the adapter name of the target workflow. This allows for dynamic resolution of the adapter name from the data and context. If not set, will use the `adapterName` property instead.
 - **workflowId** (string): The workflow ID of the target workflow. This property is ignored if a value is specified by `workflowIdGetter` instead.
