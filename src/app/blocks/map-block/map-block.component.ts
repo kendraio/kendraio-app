@@ -98,10 +98,12 @@ contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA
             shadowUrl: '/assets/marker-shadow.png'
           });
         }
-  
-        this.layers.push(
-          marker(latLng(lat, long), { icon: markerIcon }).bindPopup(label)
-        );
+        
+        if (lat && long) {
+          this.layers.push(
+            marker(latLng(lat, long), { icon: markerIcon }).bindPopup(label)
+          );
+        }
   
         if (country) {
           const countryCode = country.toUpperCase();
