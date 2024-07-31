@@ -7,6 +7,11 @@ import {debounceTime, distinctUntilChanged, filter, tap} from 'rxjs/operators';
 import {clone, get, has, isUndefined, set} from 'lodash-es';
 import {mappingUtility} from '../mapping-block/mapping-util';
 
+interface BaseJsonSchema {
+  properties?: any,
+  type?: string;
+}
+
 @Component({
   selector: 'app-form-block',
   templateUrl: './form-block.component.html',
@@ -89,9 +94,8 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
     this.options['context'] = this.context;
   }
 
-  injectContextToJsonSchema<T>(jsonSchema: T) {
+  injectContextToJsonSchema<T extends BaseJsonSchema>(jsonSchema: T): T {
     let mutatedJsonSchema = clone(jsonSchema);
-    //@ts-ignore
     mutatedJsonSchema = set(mutatedJsonSchema, 'definitions.context', this.context);
     return mutatedJsonSchema as T;
   }
