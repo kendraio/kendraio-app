@@ -89,10 +89,11 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
     this.options['context'] = this.context;
   }
 
-  injectContextToJsonSchema(jsonSchema: any) {
+  injectContextToJsonSchema<T>(jsonSchema: T) {
     let mutatedJsonSchema = clone(jsonSchema);
+    //@ts-ignore
     mutatedJsonSchema = set(mutatedJsonSchema, 'definitions.context', this.context);
-    return mutatedJsonSchema;
+    return mutatedJsonSchema as T;
   }
   
   updateForm() {
@@ -104,6 +105,7 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
     } else if (has(this.config, 'jsonSchema') && has(this.config, 'uiSchema')) {
       const { uiSchema } = this.config;
       let { jsonSchema } = this.config;
+      console.log('jsonSchema', jsonSchema)
       jsonSchema = this.injectContextToJsonSchema(jsonSchema);
       this.fields = this.formService.schemasToFieldConfig(jsonSchema, uiSchema);
     } else if (has(this.config,  'schemaGetter')) {
