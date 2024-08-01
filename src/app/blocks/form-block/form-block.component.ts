@@ -3,7 +3,7 @@ import {KendraioFormService} from '../../_shared/ui-form/services/kendraio.form.
 import {UntypedFormGroup} from '@angular/forms';
 import {FormlyFieldConfig, FormlyFormOptions} from '@ngx-formly/core';
 import {Subject} from 'rxjs';
-import {debounceTime, distinctUntilChanged, filter, tap} from 'rxjs/operators';
+import {debounceTime, filter} from 'rxjs/operators';
 import {clone, get, has, isUndefined, set} from 'lodash-es';
 import {mappingUtility} from '../mapping-block/mapping-util';
 
@@ -109,7 +109,6 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
     } else if (has(this.config, 'jsonSchema') && has(this.config, 'uiSchema')) {
       const { uiSchema } = this.config;
       let { jsonSchema } = this.config;
-      console.log('jsonSchema', jsonSchema)
       jsonSchema = this.injectContextToJsonSchema(jsonSchema);
       this.fields = this.formService.schemasToFieldConfig(jsonSchema, uiSchema);
     } else if (has(this.config,  'schemaGetter')) {

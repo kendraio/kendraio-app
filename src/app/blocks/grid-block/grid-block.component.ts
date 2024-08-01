@@ -1,6 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
-import { clone, get, has, isArray, isObject, toPairs } from 'lodash-es';
-import { search } from 'jmespath';
+import { clone, get, has, isArray, toPairs } from 'lodash-es';
 import { WorkflowCellRendererComponent } from '../../components/workflow-cell-renderer/workflow-cell-renderer.component';
 import { mappingUtility } from '../mapping-block/mapping-util';
 import { ConnectionStatusRendererComponent } from '../../components/connection-status-renderer/connection-status-renderer.component';
