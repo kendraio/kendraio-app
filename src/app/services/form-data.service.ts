@@ -7,7 +7,7 @@ import {DocumentRepositoryService} from './document-repository.service';
 import {map, switchMap, tap} from 'rxjs/operators';
 import {get, has} from 'lodash-es';
 import {ApiDataSelectDialogComponent} from '../dialogs/api-data-select-dialog/api-data-select-dialog.component';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'

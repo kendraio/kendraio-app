@@ -13,7 +13,7 @@ import {AdaptersPageComponent} from './pages/adapters-page/adapters-page.compone
 import {SettingsPageComponent} from './pages/settings-page/settings-page.component';
 import {UserPageComponent} from './pages/user-page/user-page.component';
 import {ConfirmAppResetDialogComponent} from './dialogs/confirm-app-reset-dialog/confirm-app-reset-dialog.component';
-import {HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { HttpClient, HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {ObjectKeysPipe} from './pipes/object-keys.pipe';
 import {ImportProgressDialogComponent} from './dialogs/import-progress-dialog/import-progress-dialog.component';
 import {AddNewNodeDialogComponent} from './dialogs/add-new-node-dialog/add-new-node-dialog.component';
@@ -193,8 +193,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 
-@NgModule({
-    declarations: [
+@NgModule({ declarations: [
         AppComponent,
         LayoutComponent,
         DocsListPageComponent,
@@ -412,9 +411,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         {
             provide: ErrorHandler,
             useClass: GlobalErrorHandlerService
-        }
-    ],
-    bootstrap: [AppComponent]
-})
+        },
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule {
 }

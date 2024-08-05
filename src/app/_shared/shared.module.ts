@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, LowerCasePipe, DatePipe } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule, NG_VALIDATORS } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';

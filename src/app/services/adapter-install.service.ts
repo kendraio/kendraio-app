@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {LocalDatabaseService} from './local-database.service';
 import {findIndex, get, has} from 'lodash-es';
 import {AppSettingsService} from './app-settings.service';
