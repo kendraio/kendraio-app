@@ -3,7 +3,7 @@ import {AdaptersService} from './adapters.service';
 import {catchError, map, switchMap, tap} from 'rxjs/operators';
 import {get} from 'lodash-es';
 import {from, of} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {LocalDatabaseService} from './local-database.service';
 import {environment} from '../../environments/environment';
 import {camelCase} from 'camel-case';

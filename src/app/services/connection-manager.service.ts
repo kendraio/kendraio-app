@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { set } from 'lodash';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {environment} from '@env/environment';
 import {tap} from 'rxjs/operators';
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {map, tap} from 'rxjs/operators';
 import {omit} from 'lodash-es';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 const BLOOMEN_URL = 'https://bloomen.herokuapp.com'; // no trailing slash
 
