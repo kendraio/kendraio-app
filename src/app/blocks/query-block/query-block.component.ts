@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, NgZone, OnChanges, OnInit, Output} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {get, has, isString} from 'lodash-es';
 import {DocumentRepositoryService} from '../../services/document-repository.service';
 import {ContextDataService} from '../../services/context-data.service';

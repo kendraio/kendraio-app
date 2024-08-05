@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
 import {from, of, Subject} from 'rxjs';
 import {catchError, debounceTime, distinctUntilChanged, map, switchMap, takeUntil} from 'rxjs/operators';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-bloomen-search-page',

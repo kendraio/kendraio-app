@@ -13,7 +13,7 @@ import {AdaptersPageComponent} from './pages/adapters-page/adapters-page.compone
 import {SettingsPageComponent} from './pages/settings-page/settings-page.component';
 import {UserPageComponent} from './pages/user-page/user-page.component';
 import {ConfirmAppResetDialogComponent} from './dialogs/confirm-app-reset-dialog/confirm-app-reset-dialog.component';
-import {HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { HttpClient, HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {ObjectKeysPipe} from './pipes/object-keys.pipe';
 import {ImportProgressDialogComponent} from './dialogs/import-progress-dialog/import-progress-dialog.component';
 import {AddNewNodeDialogComponent} from './dialogs/add-new-node-dialog/add-new-node-dialog.component';
@@ -197,8 +197,7 @@ const monacoConfig: NgxMonacoEditorConfig = {
   monacoRequire: (window as any).monacoRequire
 };
 
-@NgModule({
-    declarations: [
+@NgModule({ declarations: [
         AppComponent,
         LayoutComponent,
         DocsListPageComponent,
@@ -353,36 +352,32 @@ const monacoConfig: NgxMonacoEditorConfig = {
         ComparisonComponent,
         BlockComparisonBuilderBoxComponent,
     ],
-  imports: [
-    FormlyModule.forRoot({}),
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    AppMaterialModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-    HttpClientModule,
-    ReactiveFormsModule,
-    FormsModule,
-    NgxTaggerModule,
-    MessagesModule,
-    DragDropModule,
-    LeafletModule,
-    LeafletMarkerClusterModule,
-    FormlyModule.forRoot(config),
-    FormlyMaterialModule,
-    MonacoEditorModule.forRoot(monacoConfig),
-    MatAutocompleteModule,
-    AgGridModule,
-    MatChipsModule
-  ],
-    providers: [
+    bootstrap: [AppComponent], imports: [FormlyModule.forRoot({}),
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        AppMaterialModule,
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
+        ReactiveFormsModule,
+        FormsModule,
+        NgxTaggerModule,
+        MessagesModule,
+        DragDropModule,
+        LeafletModule,
+        LeafletMarkerClusterModule,
+        FormlyModule.forRoot(config),
+        FormlyMaterialModule,
+        MonacoEditorModule.forRoot(monacoConfig),
+        MatAutocompleteModule,
+        AgGridModule,
+        MatChipsModule], providers: [
         // This service is from old legacy code and no longer used,
         // so I'm commenting out the init() function and the whole thing
         // can be removed once confirmed nothing is still using it.
@@ -412,9 +407,8 @@ const monacoConfig: NgxMonacoEditorConfig = {
         {
             provide: ErrorHandler,
             useClass: GlobalErrorHandlerService
-        }
-    ],
-    bootstrap: [AppComponent]
-})
+        },
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule {
 }
