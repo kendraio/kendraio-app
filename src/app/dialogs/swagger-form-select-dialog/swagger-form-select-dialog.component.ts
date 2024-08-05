@@ -4,7 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import {map, switchMap, tap} from 'rxjs/operators';
 import {has, pickBy} from 'lodash-es';
 import {forkJoin} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 
 @Component({

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {AuthService} from './auth.service';
 import {BehaviorSubject, from, of} from 'rxjs';
 import {catchError, map, switchMap, tap} from 'rxjs/operators';
-import {HttpClient, HttpEventType, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AdaptersService} from '../../services/adapters.service';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {MatDialogRef } from '@angular/material/dialog';
 import {map, tap} from 'rxjs/operators';
 import {get, has, pickBy} from 'lodash-es';
