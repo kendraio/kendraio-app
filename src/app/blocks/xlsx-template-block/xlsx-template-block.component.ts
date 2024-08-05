@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import * as XLSX from 'xlsx';
 import {map} from 'rxjs/operators';
 import {get, isArray, isString} from 'lodash-es';
