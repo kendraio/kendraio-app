@@ -9,8 +9,6 @@ Kendraio App is an open source dashboard application for rights owners, music ma
 
 ![Tests](https://img.shields.io/github/checks-status/kendraio/kendraio-app/main)
 
-![Uptime Robot](https://img.shields.io/uptimerobot/ratio/7/m783523815-565ba269d3dc13ded01aae34)
-
 ![Version](https://img.shields.io/github/package-json/v/kendraio/kendraio-app/main)
 
 ![License](https://img.shields.io/github/license/kendraio/kendraio-app)
