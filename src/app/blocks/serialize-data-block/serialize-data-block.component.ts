@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
-import * as serialize from 'json-stringify-safe';
-import * as X2JS from 'x2js';
+import serialize from 'json-stringify-safe';
+import X2JS from 'x2js';
 import {unparse} from 'papaparse';
 import {get, isArray, isNull, isObject} from 'lodash-es';
 
