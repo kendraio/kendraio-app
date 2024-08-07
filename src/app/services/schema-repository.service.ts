@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
-import { safeLoad as YamlLoad } from 'js-yaml';
+const yaml = require('js-yaml');
 import { forkJoin } from 'rxjs';
 
 @Injectable({
@@ -26,7 +26,7 @@ export class SchemaRepositoryService {
     return forkJoin(enabledSchemas.map(schemaName => this.http
       .get(`assets/schemas/${ schemaName }.yaml`, {responseType: 'text'})
       .pipe(
-        map(text => YamlLoad(text)),
+        map(text => yaml.load(text)),
         tap(schema => this.schemas[schemaName] = schema)
       )))
       .toPromise();

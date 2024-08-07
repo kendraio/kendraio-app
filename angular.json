@@ -28,7 +28,9 @@
             },
             "index": "src/index.html",
             "polyfills": [
-              "src/polyfills.ts"
+              "src/polyfills.ts",
+              "zone.js",
+              "@angular/localize/init"
             ],
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
@@ -95,7 +97,7 @@
                   "maximumWarning": "6kb"
                 }
               ],
-              "serviceWorker": "true"
+              "serviceWorker": "ngsw-config.json"
             },
             "dev": {
               "fileReplacements": [
@@ -126,7 +128,7 @@
                   "maximumWarning": "6kb"
                 }
               ],
-              "serviceWorker": "true"
+              "serviceWorker": "ngsw-config.json"
             }
           },
           "defaultConfiguration": "dev"

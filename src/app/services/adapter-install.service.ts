@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {LocalDatabaseService} from './local-database.service';
-import {findIndex, get, has} from 'lodash-es';
+import {get, has} from 'lodash-es';
 import {AppSettingsService} from './app-settings.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import * as LZS from 'lz-string';
 
 @Injectable({
   providedIn: 'root'
