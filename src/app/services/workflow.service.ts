@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
-import {filter, take, tap, withLatestFrom} from 'rxjs/operators';
+import {filter, take, withLatestFrom} from 'rxjs/operators';
 import {ExportConfigDialogComponent} from '../dialogs/export-config-dialog/export-config-dialog.component';
-import * as stringify from 'json-stringify-safe';
+import stringify from 'json-stringify-safe';
 import {PasteConfigDialogComponent} from '../dialogs/paste-config-dialog/paste-config-dialog.component';
 import {clone, findIndex, get, has, isArray, pick, set} from 'lodash-es';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
