@@ -94,7 +94,7 @@
                   "maximumWarning": "6kb"
                 }
               ],
-              "serviceWorker": true
+              "serviceWorker": "true"
             },
             "dev": {
               "fileReplacements": [
@@ -125,7 +125,7 @@
                   "maximumWarning": "6kb"
                 }
               ],
-              "serviceWorker": true
+              "serviceWorker": "true"
             }
           },
           "defaultConfiguration": "dev"
