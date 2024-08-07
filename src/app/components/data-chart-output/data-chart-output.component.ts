@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import * as Chart from 'chart.js';
+import Chart from 'chart.js';
 import {get} from 'lodash-es';
 
 @Component({

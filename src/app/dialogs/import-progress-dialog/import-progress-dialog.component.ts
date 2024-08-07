@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { interval } from 'rxjs';
 import { startWith, take } from 'rxjs/operators';
-import * as X2JS from 'x2js';
+import X2JS from 'x2js';
 import { DocumentRepositoryService } from '../../services/document-repository.service';
 
 @Component({
