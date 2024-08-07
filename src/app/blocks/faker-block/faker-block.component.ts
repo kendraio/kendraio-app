@@ -1,5 +1,5 @@
-import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
-import {get, has} from 'lodash-es';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
+import {get} from 'lodash-es';
 import {KendraioFormService} from '../../_shared/ui-form/services/kendraio.form.service';
 import * as faker from 'faker/locale/en_GB';
 

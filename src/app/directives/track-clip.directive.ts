@@ -1,10 +1,8 @@
 import { 
-  AfterViewInit, 
   Directive, 
   ElementRef, 
   EventEmitter, 
   HostBinding, 
-  Input, 
   Output 
 } from '@angular/core';
 import * as interact_ from 'interactjs';
