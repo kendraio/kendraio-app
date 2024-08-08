@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
-const yaml = require('js-yaml');
+import * as yaml from 'js-yaml';
 import { forkJoin } from 'rxjs';
 
 @Injectable({

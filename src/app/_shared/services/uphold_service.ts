@@ -3,7 +3,8 @@ import { search } from '@daz.is/jmespath';
 
 import { environment } from '../../../environments/environment';
 import * as uuid from 'uuid';
-const axios = require('axios').default;
+// const axios = require('axios').default;
+import axios from 'axios';
 
 const UPHOLD_OAUTH_PROXY_URL = environment.uphold.proxy + 'api/login?code=';
 const UPHOLD_SITE_ROOT = environment.uphold.siteRoot;
