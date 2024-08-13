@@ -195,14 +195,14 @@ export class QueryBuilderPageComponent implements OnInit, AfterViewInit {
   preprocessColumnDefinition(def: Array<any>) {
     return def.map(item => ({
       ...item,
-      ...has(item, 'valueGetter') ? { valueGetter: ({ data }) => {
+      ...(has(item, 'valueGetter') ? { valueGetter: ({ data }) => {
         // console.log({ data, item });
         try {
           return search(data, item['valueGetter']);
         } catch (e) {
           return e.message;
         }
-      }} : {}
+      }} : {})
     }));
   }
 

@@ -121,7 +121,7 @@ export class GridBlockComponent implements OnInit, OnChanges {
   preprocessColumnDefinition(def: Array<any>) {
     return def.map(item => ({
       ...item,
-      ...has(item, 'valueGetter') ? {
+      ...(has(item, 'valueGetter') ? {
         valueGetter: ({ data }) => {          
           try {
             return mappingUtility(data, item['valueGetter']);
@@ -129,8 +129,8 @@ export class GridBlockComponent implements OnInit, OnChanges {
             return e.message;
           }
         }
-      } : {},
-      ...has(item, 'valueFormatter') ? {
+      } : {}),
+      ...(has(item, 'valueFormatter') ? {
         valueFormatter: (params) => {          
           try {
             return mappingUtility(params, item['valueFormatter']);
@@ -138,10 +138,8 @@ export class GridBlockComponent implements OnInit, OnChanges {
             return e.message;
           }
         }
-      } : {},
-      ...has(item, 'cellRendererParams')
-        ? { cellRendererParams: { ...item.cellRendererParams, context: this.context } }
-        : {}
+      } : {}),
+      ...(has(item, 'cellRendererParams') ? { cellRendererParams: { ...item.cellRendererParams, context: this.context } } : {})
     }));
   }
 
