@@ -18,6 +18,7 @@ export class EditWorkflowMetadataDialogComponent implements OnInit {
   removable = true;
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  
 
   get tags() {
     return (this.form.get('tags') as UntypedFormArray);
