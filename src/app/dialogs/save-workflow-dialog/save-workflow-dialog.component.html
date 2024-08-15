@@ -18,6 +18,6 @@
   <button mat-flat-button (click)="onCancel()">Cancel</button>
 </ng-template>
 
-<div class="spinner-wrapper">
-  <mat-spinner *ngIf="isLoading"></mat-spinner>
+<div class="spinner-wrapper" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
 </div>

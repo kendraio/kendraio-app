@@ -29,14 +29,14 @@
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
+// hue. Available color palettes up to vM2: https://material.io/design/color/ 
 $kendraio-app-primary: mat.m2-define-palette(mat.$m2-green-palette);
 $kendraio-app-accent: mat.m2-define-palette(mat.$m2-orange-palette, A200, A100, A400);
-
-// The warn palette is optional (defaults to red).
 $kendraio-app-warn: mat.m2-define-palette(mat.$m2-red-palette);
 
-// Create the theme object (a Sass map containing all of the palettes).
+$container-padding: 20px;
+
+// Create custom MUI theme.
 $kendraio-app-theme: mat.m2-define-light-theme((
   color: (
     primary: $kendraio-app-primary,
@@ -55,8 +55,13 @@ $kendraio-app-theme: mat.m2-define-light-theme((
 @include angular-material-theme($kendraio-app-theme);
 
 
+// Global style, not part of the custom theme.
 html, body { height: 100%; overflow: hidden; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-mdc-dialog-container .mat-mdc-dialog-actions {
+  padding: 10px 20px 20px;
+}
 
 .mb-1 {
   margin-bottom: 1em;
@@ -80,18 +85,16 @@ dynamic-material-form-control .mat-form-field {
 }
 
 .schedule-popup{
-  // display:none;
   position: absolute;
   box-shadow: 3px 3px 3px rgba(55,3, 3, .5);
   padding: 16px;
   background-color: silver;
-transform: translatey(-80px);
-transition: all 2s ease;
-z-index: 9;
-&.in{
-  display: block;
-//  transform: translate(80px,-80px);
-}
+  transform: translatey(-80px);
+  transition: all 2s ease;
+  z-index: 9;
+  &.in{
+    display: block;
+  }
 }
 
 .editor-config-column .mat-expansion-panel-body {
