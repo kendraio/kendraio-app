@@ -4,6 +4,7 @@
 
 <mat-card *ngIf="entityTypes$ | async as entityTypeList">
   <mat-form-field style="margin-right: 1em;">
+    <mat-label>Entity type</mat-label>
     <mat-select placeholder="Entity type" (valueChange)="changeEntityType($event)">
       <mat-option *ngFor="let type of entityTypeList" [value]="type">
         {{ type }}
@@ -15,6 +16,7 @@
 
 <mat-card *ngIf="entityList$ | async as entityList">
   <mat-form-field style="margin-right: 0.5em;">
+    <mat-label>Entity ID.</mat-label>
     <mat-select placeholder="Entity ID" (valueChange)="changeEntity($event)">
       <mat-option *ngFor="let entity of entityList" [value]="entity.id">
         {{ entity['id'] }}
