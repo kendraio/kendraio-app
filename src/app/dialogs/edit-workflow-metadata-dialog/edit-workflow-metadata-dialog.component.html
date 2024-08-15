@@ -1,15 +1,19 @@
 <mat-dialog-content>
   <form [formGroup]="form">
     <mat-form-field>
+      <mat-label>Title</mat-label>
       <input matInput placeholder="Title" formControlName="title" name="title">
     </mat-form-field>
     <mat-form-field>
+      <mat-label>Adapter name</mat-label>
       <input matInput placeholder="Adapter name" formControlName="adapterName" name="adapterName">
     </mat-form-field>
     <mat-form-field>
+      <mat-label>Workflow ID</mat-label>
       <input matInput placeholder="Workflow ID" formControlName="id" name="id">
     </mat-form-field>
     <mat-form-field class="chip-list">
+      <mat-label>Add tag...</mat-label>
       <mat-chip-grid #chipList aria-label="tags">
         <mat-chip-row *ngFor="let tag of tags.getRawValue()" [selectable]="selectable"
                   [removable]="removable" (removed)="removeTag(tag)">
