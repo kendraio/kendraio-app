@@ -52,11 +52,11 @@ Examples
 
 
 **Dynamic data** If the endpoint needs to be constructed from data, the endpoint can be specified as an object with a "valueGetter" attribute.
-"valueGetter" can only get data from the context, it does not work with a static data. If values come from context, they must be specify inside the "valueGetter"
-property. If contect is used in other property of the "endpoint", it will not grab any context value.
+"valueGetter" can only get data from the context, it does not work with static data. If the values come from the context, they must be specified inside the "valueGetter"
+property. You cannot retrieve any values from the context in any other property of the endpoint.
 There are two ways of using "valueGetter".
-- **valueGetter** - Grab one value from the context that create the whole endpoint.
-- **valueGetters** - Grab different values from context that spcify property like "pathname" or "query" and all together will create the final endpoint.
+- **valueGetter** - Grab one value from the context that creates the whole endpoint.
+- **valueGetters** - Grab different values from the context that specify properties like "pathname" or "query", which together will create the final endpoint.
 
 .. code-block:: json
 

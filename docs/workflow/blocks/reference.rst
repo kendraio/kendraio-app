@@ -28,5 +28,5 @@ input data items have a field called ``label`` you can omit these options.
 You can also set the ``required`` status of the input select list. This defaults
 to ``false``.
 
-At the moment it does not seems possible to prefill the field with a selected value.
+At the moment, it does not seem possible to prefill the field with a selected value.
 There is a property called `defaultValue` which currently doesn't seems to work.

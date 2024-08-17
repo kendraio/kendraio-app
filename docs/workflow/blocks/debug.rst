@@ -32,8 +32,8 @@ Supported properties
 Debug in nested blocks or Flows
 --------------------------------
 
-Is possible to use the Debug block also in nested Flows or nested blocks. 
-For example while working with the :doc:`uiSchema <uiSchema>`, is possible to use the debugger inside of the list of items as the following example
+It is possible to use the Debug block in nested Flows or nested blocks. 
+For example while working with the :doc:`uiSchema <uiSchema>`, it is possible to use the debugger within the list of items as seen in the following example.
 
 .. code-block:: json
 

@@ -130,7 +130,7 @@ To do so we take values we have saved in the state and assign them to the `enabl
     }
 
 
-After the block as loaded, the `enabled` property will be set on the button:
+After the block is loaded, the `enabled` property will be set on the button:
 
 .. code-block:: json
 

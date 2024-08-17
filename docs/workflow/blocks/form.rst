@@ -4,7 +4,7 @@ Form
 Display a form for data entry or editing.
 
 Forms are displayed based on the UI Schema and JSON Schema provided. These can be provided inline within the block configuration, or loaded from an adapter.
-Kendrai Form is build on top of Angular Formly https://formly.dev/. Most of the form property and functionality can be looked up in Formly.
+Kendraio Form is built on top of Angular Formly https://formly.dev/. Most of the form properties and functionalities can be found in Formly.
 
 Default config
 --------------
@@ -95,7 +95,7 @@ Here's an example of creating a form by manually writing fields and configuring 
 
 Dynamic data and field titles
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-To generate fields form given data, the data needs to be in a format readable by the form block.
+To generate fields form given data, the data must be in a format that the form block can read.
 
 It is possible to transform the data into the format that the form expects with the help of a mapping block.
 
@@ -141,7 +141,7 @@ Display a field as select with several options.
 The options have to be listed in a property called `enum` as array.
 
 To have a label, the `default` property can be used. To prefill the select with a specific option, 
-a string with same name property and same value, as to be passed in as data.
+a string with the same name property and same value has to be passed in as data.
 The `enum` property works just with hardcoded data, as per example.
 
 .. code-block:: json
@@ -188,7 +188,7 @@ The `enum` property works just with hardcoded data, as per example.
               "enum": [
                 "single",
                 "married",
-                "window",
+                "widow",
                 "divorced"
               ]
             }
@@ -199,7 +199,7 @@ The `enum` property works just with hardcoded data, as per example.
 
 Select with Dynamic data
 ^^^^^^^^^^^^^^^^^^^^^^^^
-If the  options that have to be displayed in the select input are coming dynamically (maybe from a mapping block or from an API), 
+If the options displayed in the select input come dynamically (maybe from a mapping block or from an API), 
 then we will need to use the `$ref` property and the passed data must have a specific structure: with `anyOf`, `title` and `const`.
 It is also possible to use the :doc:`reference <reference>`
 
@@ -246,8 +246,9 @@ It is also possible to use the :doc:`reference <reference>`
     "uiSchema": {}
   }
 
-If you want to prefill the field with a specific option, you will need to pass the equivalente of the `const` value 
+If you want to prefill the field with a specific option, you need to pass the corresponding `const` value 
 as data, right before the Form block.
+
 
 .. code-block:: json
 
