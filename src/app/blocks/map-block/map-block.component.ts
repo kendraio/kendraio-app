@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
-import {icon, latLng, marker, tileLayer, divIcon, geoJSON} from 'leaflet';
+import {icon, latLng, marker, tileLayer, divIcon, geoJSON, Marker} from 'leaflet';
 import {get, isArray, set} from 'lodash-es';
 import * as DOMPurify from 'dompurify';
 
@@ -26,7 +26,7 @@ contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA
     center: latLng(51.505, -0.09)
   };
   layers = [];
-  markerClusterData = [];
+  markerClusterData: Marker[] = [];
   markerClusterOptions = {};
 
   // Country GeoJSON provider base URL
@@ -78,6 +78,19 @@ contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA
   }
 
   onData(data: any, firstChange: boolean) {
+    console.log('hello', data)
+    // if (isArray(data)) {
+    //   this.layers = data.map(({ lat, long, label }) => 
+    //     marker(latLng(lat, long), {
+    //       icon: icon({
+    //         iconSize: [ 25, 41 ],
+    //         iconAnchor: [ 13, 41 ],
+    //         iconUrl: '/assets/marker-icon.png',
+    //         shadowUrl: '/assets/marker-shadow.png'
+    //       })
+    //     }).bindPopup(label));
+    // }
+
     if (isArray(data)) {
       this.layers = [];
       
