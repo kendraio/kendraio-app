@@ -41,6 +41,15 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   padding: 10px 20px 20px;
 }
 
+.mdc-button.mat-mdc-button > .mat-icon, 
+.mdc-button.mat-mdc-unelevated-button > .mat-icon, 
+.mdc-button.mat-mdc-raised-button > .mat-icon, 
+.mdc-button.mat-mdc-outlined-button > .mat-icon {
+  font-size: 1.5rem;
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
 .mb-1 {
   margin-bottom: 1em;
 }

@@ -150,8 +150,8 @@ import {JsonViewPageComponent} from './pages/json-view-page/json-view-page.compo
 import {GosubBlockComponent} from './blocks/gosub-block/gosub-block.component';
 import {GsheetBlockComponent} from './blocks/gsheet-block/gsheet-block.component';
 import {MapBlockComponent} from './blocks/map-block/map-block.component';
-import {LeafletModule} from '@asymmetrik/ngx-leaflet';
-import {LeafletMarkerClusterModule} from '@asymmetrik/ngx-leaflet-markercluster';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
 import {DashboardPageComponent} from './pages/dashboard-page/dashboard-page.component';
 import {config} from './_shared/ui-form/config';
 import {FormlyMaterialModule} from '@ngx-formly/material';
@@ -198,7 +198,8 @@ const monacoConfig: NgxMonacoEditorConfig = {
   monacoRequire: (window as any).monacoRequire
 };
 
-@NgModule({ declarations: [
+@NgModule({ 
+    declarations: [
         AppComponent,
         LayoutComponent,
         DocsListPageComponent,
@@ -354,7 +355,9 @@ const monacoConfig: NgxMonacoEditorConfig = {
         BlockComparisonBuilderBoxComponent,
         LinkActionComponent
     ],
-    bootstrap: [AppComponent], imports: [FormlyModule.forRoot({}),
+    bootstrap: [AppComponent], 
+    imports: [
+        FormlyModule.forRoot({}),
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
@@ -379,16 +382,9 @@ const monacoConfig: NgxMonacoEditorConfig = {
         MonacoEditorModule.forRoot(monacoConfig),
         MatAutocompleteModule,
         AgGridModule,
-        MatChipsModule], providers: [
-        // This service is from old legacy code and no longer used,
-        // so I'm commenting out the init() function and the whole thing
-        // can be removed once confirmed nothing is still using it.
-        // {
-        //   provide: APP_INITIALIZER,
-        //   multi: true,
-        //   useFactory: (schemaRepo: SchemaRepositoryService) => () => schemaRepo.init(),
-        //   deps: [SchemaRepositoryService]
-        // },
+        MatChipsModule
+    ], 
+    providers: [
         {
             provide: APP_INITIALIZER,
             multi: true,
