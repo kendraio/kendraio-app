@@ -1,16 +1,15 @@
 import {Component} from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
-import {icon, latLng, marker, tileLayer, divIcon, geoJSON, } from 'leaflet';
+import {icon, latLng, marker, tileLayer, divIcon, geoJSON, Marker, markerClusterGroup } from 'leaflet';
 import {get, isArray, set} from 'lodash-es';
 import * as DOMPurify from 'dompurify';
-
+import 'leaflet.markercluster';
 @Component({
   selector: 'app-map-block',
   templateUrl: './map-block.component.html',
   styleUrls: ['./map-block.component.scss']
 })
 export class MapBlockComponent extends BaseBlockComponent {
-
   height = 500;
   options = {
     layers: [
@@ -26,6 +25,7 @@ contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA
     center: latLng(51.505, -0.09)
   };
   layers = [];
+  markerClusterGroup: any;
   markerClusterData: Marker[] = [];
   markerClusterOptions = {};
 
@@ -44,6 +44,10 @@ contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA
 
   // In-memory cache for country GeoJSON data
   countryCache: { [key: string]: any } = {};
+  constructor() {
+    super()
+    this.markerClusterGroup = markerClusterGroup();
+  }
 
   onConfigUpdate(config: any) {
     this.height = get(config, 'height', 500);
@@ -78,7 +82,6 @@ contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA
   }
 
   onData(data: any, firstChange: boolean) {
-    console.log('hello', data)
     if (isArray(data)) {
       this.layers = [];
       
@@ -115,6 +118,9 @@ contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA
             this.layers.push(geojsonLayer);
           });
         }
+
+        this.markerClusterGroup.clearLayers();
+        this.markerClusterGroup.addLayers(this.markerClusterData);
       });
     }
   }
