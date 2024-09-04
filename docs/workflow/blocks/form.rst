@@ -136,7 +136,7 @@ Is also possible to use generated data to dynamically display the title of a fie
 
 Select Input
 ^^^^^^^^^^^^
-Display a field as select with several options.
+Display a field that allows the user to select an item from a list of options.
 
 The options have to be listed in a property called `enum` as array.
 
