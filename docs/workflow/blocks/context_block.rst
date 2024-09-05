@@ -1,12 +1,11 @@
 Context & State
 ===============
 
-Context and state are in-memory, temporary datastores. Use the context block to save data into the flow context or global state to make it available for all
- tasks. 
+Context and state are in-memory, temporary datastores. Use the context block to save data into the flow context or global state to make it available for all tasks. 
 
 There are two top level storage domains that can be accessed with this block. 
 
-**Context** is passed from block to block. When processing data in parrallel - during a batch or multiplex flow - context will be different in each branch.
+**Context** is passed from block to block. When processing data in parallel - during a batch or multiplex flow - context will be different in each branch.
 Blocks will only have access to values written by another block in the same branch. 
 
 **State** is shared by all blocks. The content of state is stored in memory and is available to any subsequent flows - but only on the same tab until that tab is closed or reloaded. There are two possible ways to address the content of state:
@@ -115,6 +114,13 @@ Security and access control
 There is currently no access control or protection in state. Any path in the global state is accessible (read and write) to any flow. 
 In the future some form of restriction may be implemented. 
 
+Subroutines
++++++++++++
+
+Subroutines are Flows that are configured separately and used within a parent Flow.
+All data saved in a subroutine is stored in the context or state of the parent Flow.
+Therefore it is vital to avoid duplicating keys between the parent Flow and any of its subroutines, 
+in order to prevent conflicts and unexpected behaviour.
 
 See also
 --------
