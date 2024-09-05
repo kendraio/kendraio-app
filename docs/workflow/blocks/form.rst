@@ -95,7 +95,7 @@ Here's an example of creating a form by manually writing fields and configuring 
 
 Dynamic data and field titles
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-To generate fields form given data, the data must be in a format that the form block can read.
+To generate fields from given data, the data must be in a format that the form block can read.
 
 It is possible to transform the data into the format that the form expects with the help of a mapping block.
 
