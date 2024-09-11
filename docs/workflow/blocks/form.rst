@@ -309,14 +309,11 @@ In the above example, as soon as the Flow is open, it should show a select input
 
 Special UI: Card to add and remove items dynamically
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-`type: array` display a special UI which allow to add/delete dynamically
-the specified field with the specified properties. 
+type: array displays a special UI that allows the user to dynamically add or delete the specified field with the specified properties.
 
-In the below example, the form will allow the user to create a group of 
-two fields: A number and a string. 
+In the example below, two fields are created: a number and a string. Since we are using type: array, these two fields are grouped together and treated as one unit. Each unit has a remove button.
 
-Clicking on the add button the user will be able to add more of these group of items,
-or remove the already created one.
+The UI card also displays an add button. Clicking on it will add a new unit containing the two fields.
 
 An example of the array type in action is `here <https://app.kendra.io/bandsintown/editEvent>`_
 
@@ -566,7 +563,7 @@ You can see this example working `here
 Nested flows
 ------------
 
-If you want fixedto update a field value according to a user action, you can achieve this with a nested flow.
+If you want to update a field value according to a user action, you can achieve this with a nested flow.
 
 Any flow can be nested in any other flow. The nested flow has access to the main flow's data object, 
 context and state - it can use any data stored here. 
