@@ -2,11 +2,7 @@ How Flows get executed
 ======================
 
 Flows are implemented using Angular's built-in execution chaining. 
-<<<<<<< HEAD
-While this simplifies the whole process of running workflows, it does 
-=======
 While this simplifies the whole process of running Flows, it does 
->>>>>>> e5a07579 (Convert "Workflow" text to "Flow" (#451))
 introduce some challenges - many of which can be overcome by understanding
 a little about how flows are run, and in particular, the way change detection
 works. 

@@ -1,19 +1,15 @@
 Launch
 ======
 
-<<<<<<< HEAD
-Useful to jump to a different Flow. This block is not available to be added to a flow directly, but is instead for use from within other blocks.
+Useful to jump to a different Flow. This block is not available to be added to a Flow directly, but is instead for use from within other blocks.
 
 If you want to jump to a different Flow from a button the :doc:`Link Action Block <link_action_block>`, allows opening Flows in a new tab or window as an alternative to an :doc:`Actions block button <actions>` being used with a Launch block.
-=======
-Jump to a new Flow. This block is not available to be added to a Flow directly, but is instead for use from within other blocks. 
->>>>>>> e5a07579 (Convert "Workflow" text to "Flow" (#451))
 
 Default config
 --------------
 
 .. code-block:: json
-
+.nvmrc
     {
       "type": "launch",
       "adapter": "", 
