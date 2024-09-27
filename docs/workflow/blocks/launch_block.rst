@@ -9,7 +9,7 @@ Default config
 --------------
 
 .. code-block:: json
-.nvmrc
+
     {
       "type": "launch",
       "adapter": "", 
