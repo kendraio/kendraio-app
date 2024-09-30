@@ -12,7 +12,7 @@ export class Tracking {
 
   fake = false;
 
-  graphqlEndpoint = 'https://star-grackle-36.hasura.app/v1/graphql';
+  graphqlEndpoint = 'https://distributor.hasura.app/v1/graphql';
 
   queueWorkerTimer = setInterval(() => {
     if (this.queue.length === 0) {
