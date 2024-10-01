@@ -23,7 +23,7 @@ import { takeUntil, startWith, filter, debounceTime, distinctUntilChanged, switc
     `,
   styleUrls: ['./typeahead.component.scss'],
 })
-export class KendraFieldTypeahead extends FieldType implements OnDestroy, OnInit {
+export class KendraFieldTypeahead extends FieldType<any> implements OnDestroy, OnInit {
   get isMultiSelect(): boolean { return this.to.isMultiSelect || false; }
   get labelProp(): string { return this.to.labelProp || 'name'; }
   get valueProp(): string { return this.to.valueProp || 'id'; }

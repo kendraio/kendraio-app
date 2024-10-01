@@ -1,6 +1,6 @@
 import { HttpBlockComponent } from './http-block.component';
 import { ContextDataService } from '../../services/context-data.service';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient } from '@angular/common/http';
 
 describe('extractNextPageUrl', () => {
@@ -12,7 +12,7 @@ describe('extractNextPageUrl', () => {
     beforeEach(() => {
         contextDataServiceMock = jasmine.createSpyObj('ContextDataService', ['getGlobalContext']);
         httpClientMock = jasmine.createSpyObj('HttpClient', ['get']);
-        matSnackBarMock = jasmine.createSpyObj('MatLegacySnackBar', ['open']);
+        matSnackBarMock = jasmine.createSpyObj('MatSnackBar', ['open']);
         component = new HttpBlockComponent(contextDataServiceMock, matSnackBarMock, httpClientMock);
     });
 

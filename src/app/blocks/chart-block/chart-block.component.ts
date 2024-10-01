@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {clone, cloneDeep, get, isArray, isObject, isString} from 'lodash-es';
-import * as Chart from 'chart.js';
+import Chart from 'chart.js';
 import {BehaviorSubject, combineLatest, Subject} from 'rxjs';
 import {filter, map, takeUntil, tap} from 'rxjs/operators';
 import {mappingUtility} from '../mapping-block/mapping-util';

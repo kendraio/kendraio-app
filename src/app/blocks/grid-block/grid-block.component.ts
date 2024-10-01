@@ -1,6 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
-import { clone, get, has, isArray, isObject, toPairs } from 'lodash-es';
-import { search } from 'jmespath';
+import { clone, get, has, isArray, toPairs } from 'lodash-es';
 import { WorkflowCellRendererComponent } from '../../components/workflow-cell-renderer/workflow-cell-renderer.component';
 import { mappingUtility } from '../mapping-block/mapping-util';
 import { ConnectionStatusRendererComponent } from '../../components/connection-status-renderer/connection-status-renderer.component';
@@ -35,7 +34,7 @@ export class GridBlockComponent implements OnInit, OnChanges {
   valueGetter = null; 
 
 
-  frameworkComponents = {
+  components = {
     workflowRenderer: WorkflowCellRendererComponent,
     connectionStatusRenderer: ConnectionStatusRendererComponent,
   };
@@ -122,7 +121,7 @@ export class GridBlockComponent implements OnInit, OnChanges {
   preprocessColumnDefinition(def: Array<any>) {
     return def.map(item => ({
       ...item,
-      ...has(item, 'valueGetter') ? {
+      ...(has(item, 'valueGetter') ? {
         valueGetter: ({ data }) => {          
           try {
             return mappingUtility(data, item['valueGetter']);
@@ -130,8 +129,8 @@ export class GridBlockComponent implements OnInit, OnChanges {
             return e.message;
           }
         }
-      } : {},
-      ...has(item, 'valueFormatter') ? {
+      } : {}),
+      ...(has(item, 'valueFormatter') ? {
         valueFormatter: (params) => {          
           try {
             return mappingUtility(params, item['valueFormatter']);
@@ -139,10 +138,8 @@ export class GridBlockComponent implements OnInit, OnChanges {
             return e.message;
           }
         }
-      } : {},
-      ...has(item, 'cellRendererParams')
-        ? { cellRendererParams: { ...item.cellRendererParams, context: this.context } }
-        : {}
+      } : {}),
+      ...(has(item, 'cellRendererParams') ? { cellRendererParams: { ...item.cellRendererParams, context: this.context } } : {})
     }));
   }
 

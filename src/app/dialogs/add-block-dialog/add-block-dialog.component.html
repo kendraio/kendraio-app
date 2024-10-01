@@ -14,7 +14,7 @@
     </ng-container>
   </div>
 
-  <mat-card>
+  <mat-card appearance="outlined">
     <ng-container *ngIf="!!selectedBlockType">
       <h3>{{ selectedBlockType.label }}</h3>
       <p>{{ selectedBlockType.description }}</p>
@@ -23,6 +23,8 @@
 </div>
 
 <div mat-dialog-actions class="dialog-buttons">
-  <button mat-flat-button (click)="addBlock()" color="primary" [disabled]="!selectedBlockType">Add Task</button>
+  <button mat-flat-button (click)="addBlock()" color="primary" [disabled]="!selectedBlockType" data-cy="dialog-addBlock-addTask-button">
+    Add Task
+  </button>
   <button mat-flat-button (click)="cancel()" cdkFocusInitial>Cancel</button>
 </div>

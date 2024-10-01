@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
-import {HttpClient} from '@angular/common/http';
+import { MatDialogRef } from '@angular/material/dialog';
+import { HttpClient } from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 
 @Component({

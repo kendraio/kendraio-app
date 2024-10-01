@@ -6,6 +6,13 @@ import { LocalDatabaseService } from '../../services/local-database.service';
 import { validate as isValidUUID } from 'uuid';
 import { convertTemplateToSchema } from './convertTemplateToSchema';
 
+interface SchemaInterface {
+  title: string;
+  description: string;
+  type: string;
+  properties: { [key: string]: any }; // Replace any with a more specific type
+}
+
 @Component({
   selector: 'app-load-schema-block',
   templateUrl: './load-schema-block.component.html',
@@ -75,7 +82,8 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
    * @param schemaName 
    * @returns 
    */
-  async resolveSchema(schemaDefinitions, schemaName, depth) {
+
+  async resolveSchema(schemaDefinitions: { [key: string]: SchemaInterface }, schemaName: string, depth: number) {
     if (!has(schemaDefinitions, schemaName)) {
       try {
         const result = await this.loadSchemaFromDatabase(schemaName);
@@ -113,7 +121,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
    * @param inputSchemaName 
    * @returns {object} Json schema
    */
-  async mapSchema(schemaDefinitions, inputSchema, inputSchemaName, depth) {
+  async mapSchema(schemaDefinitions: { [key: string]: SchemaInterface }, inputSchema, inputSchemaName: string, depth: number): Promise<SchemaInterface> {
     // Create the base schema object
     let outputSchema = {
       title: get(inputSchema, 'name', ''),
@@ -213,7 +221,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
     return outputSchema;
   }
 
-  private async mapSchemaObject(outputSchema, p, schemaDefinitions, inputSchemaName, depth) {
+  private async mapSchemaObject(outputSchema, p, schemaDefinitions: { [key: string]: SchemaInterface }, inputSchemaName: string, depth: number) {
     // Object type turns into a JSON schema object, with a reference to the embedded schema
     // Loads referenced schema if not already found.
     // It does not load data from the database, it just defines a schema definition.
@@ -238,7 +246,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
     return outputSchema;
   }
 
-  private async mapSchemaList(outputSchema, p, schemaDefinitions, inputSchemaName, depth) {
+  private async mapSchemaList(outputSchema, p, schemaDefinitions: { [key: string]: SchemaInterface }, inputSchemaName: string, depth: number) {
     // List type turns into a JSON schema array, with a reference to the embedded schema
     // Loads the referenced schema if not already found.
     // It does not load data from the database, it just defines a 
@@ -269,7 +277,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
     return outputSchema;
   }
 
-  private async mapSchemaObjectReference(outputSchema, p, schemaDefinitions, inputSchemaName, depth) {
+  private async mapSchemaObjectReference(outputSchema, p, schemaDefinitions: { [key: string]: SchemaInterface }, inputSchemaName: string, depth: number) {
     // ObjectReference type injects a single record from the database into the schema,
     // with the default value set to the record's data.
     // This form property is an object type that conforms to a schema,
@@ -321,7 +329,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
     return outputSchema;
   }
 
-  private async mapSchemaListReference(outputSchema, p, schemaDefinitions, inputSchemaName, depth) {
+  private async mapSchemaListReference(outputSchema, p, schemaDefinitions: { [key: string]: SchemaInterface }, inputSchemaName: string, depth: number) {
     // ListReference type injects multiple records from the 
     // database into the schema, for selection from a list.
     //

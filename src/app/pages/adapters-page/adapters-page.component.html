@@ -6,7 +6,7 @@
 <section class="row" *ngIf="adapters$ | async as adapters">
 
   <div *ngFor="let adapter of adapters | objectKeys" class="col-sm-12 col-md-6 col-lg-4">
-    <mat-card *ngIf="adapters[adapter] as config">
+    <mat-card appearance="outlined" *ngIf="adapters[adapter] as config">
       <mat-card-title>
         {{ config.adapter.title }} [{{ config.adapter.name }}]
       </mat-card-title>

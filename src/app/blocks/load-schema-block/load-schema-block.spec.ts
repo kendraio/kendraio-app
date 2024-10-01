@@ -1,5 +1,5 @@
 // Jasmine spec tests for the LoadSchemaBlock component
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoadSchemaBlockComponent } from './load-schema-block.component';
 import get from 'lodash/get';
 

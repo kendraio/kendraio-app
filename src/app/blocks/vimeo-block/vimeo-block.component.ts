@@ -38,7 +38,7 @@ export class VimeoBlockComponent  implements OnInit, OnChanges  {
   ngOnChanges(changes) {
     this.type = get(this.config, 'type', '');
     // this.title = compile(get(this.config, 'title', ''))({ context: this.context || {}, data: this.model, ...this.model || {} });
-    this.src = compile(get(this.config, 'src', ''))({ context: this.context || {}, data: this.model, ...this.model || {} });
+    this.src = compile(get(this.config, 'src', ''))({ context: this.context || {}, data: this.model, ...(this.model || {}) });
     this.output.emit(clone(this.model));
 
 

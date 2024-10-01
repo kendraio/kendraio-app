@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import {of} from 'rxjs';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {FormDataSelectDialogComponent} from '../dialogs/form-data-select-dialog/form-data-select-dialog.component';
 import {DocumentRepositoryService} from './document-repository.service';
 import {map, switchMap, tap} from 'rxjs/operators';
 import {get, has} from 'lodash-es';
 import {ApiDataSelectDialogComponent} from '../dialogs/api-data-select-dialog/api-data-select-dialog.component';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'

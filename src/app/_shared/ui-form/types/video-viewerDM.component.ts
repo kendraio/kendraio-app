@@ -7,7 +7,7 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browse
   selector: 'formly-field-video-viewer2',
   template: `
 
-  <mat-card>
+  <mat-card appearance="outlined">
   <mat-card-header>
     <mat-label>{{to.label}}   ({{to.uiSchema.adapter}} Video Player)</mat-label>
   </mat-card-header>
@@ -17,9 +17,9 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browse
             <iframe *ngIf="formControl.value"
             class="e2e-iframe-trusted-src"
             [src]="videoUrl"
-            width="800" height="600" 
-            frameborder="0" 
-            allow="autoplay; fullscreen; gyroscope; accelerometer" 
+            width="800" height="600"
+            frameborder="0"
+            allow="autoplay; fullscreen; gyroscope; accelerometer"
             allowfullscreen title="Bali Blue"></iframe>
 
 
@@ -32,7 +32,13 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browse
 
 export class FormlyFieldVideoViewerDM extends FieldType {
   @Input()
-  formControl;
+  private _formControl: any;
+  public get formControl() {
+        return this._formControl;
+    }
+    public set formControl(value) {
+        this._formControl = value;
+    }
   videoId: any;
   videoUrl: any;
 

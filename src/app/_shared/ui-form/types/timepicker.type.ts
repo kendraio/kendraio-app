@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { FieldType } from '@ngx-formly/material';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { MatLegacyInput as MatInput } from '@angular/material/legacy-input';
+import { MatInput } from '@angular/material/input';
 
 
 
@@ -19,7 +19,7 @@ import { MatLegacyInput as MatInput } from '@angular/material/legacy-input';
   `
 })
 
-export class TimePickerComponent extends FieldType {
+export class TimePickerComponent extends FieldType<any> {
   get format(): string { return this.to.timeFormat || 12; }
   get controlOnly(): number { return this.to.hideClock || false; }
   get defaultTime(): string { return this.to.defaultTime || '7:13'; }

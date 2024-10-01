@@ -37,14 +37,14 @@ Supported properties
   If `enabledGetter` is set to `false` the automatic property will be then shown as `"enabled": false`.
   - **valueGetters** (string) - A value that will be pass as context to whichever action is being executed. 
   This is a JMESPath mapping.
-  - **blocks** (array) - the list of workflow items to run when this button is pressed.
+  - **blocks** (array) - the list of Flow items to run when this button is pressed.
 
 Example
 -------
 
 This example shows two buttons. The first one dispatches an asynchronous command using the
 :doc:`Event Dispatch <dispatch>` bloc, the second one does nothing, but includes an ``init``
-block in order to start the inner workflow so that it runs and signals completion to the outer workflow.
+block in order to start the inner Flow so that it runs and signals completion to the outer Flow.
 
 .. code-block:: json
   {

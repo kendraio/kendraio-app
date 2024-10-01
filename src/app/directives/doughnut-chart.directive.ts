@@ -1,7 +1,7 @@
 import { AfterViewInit, Directive, ElementRef, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
-import * as Chart from 'chart.js';
+import Chart from 'chart.js';
 import { Subject } from 'rxjs';
-import { map, takeUntil, tap } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 
 @Directive({
   selector: '[appDoughnutChart]'

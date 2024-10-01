@@ -10,11 +10,6 @@
                        [context]="context"></app-blocks-workflow>
 </div>
 
-<mat-spinner *ngIf="isLoading" diameter="50"></mat-spinner>
-
-<!-- <pre>httpblock-contect:{{context | json}}</pre>
-
-
-<hr>
-<pre>httpblock-config{{config | json}}</pre> -->
-
+<div class="spinner-wrapper">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+</div>

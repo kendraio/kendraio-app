@@ -1,6 +1,6 @@
 
 <ng-container *ngIf="field.fieldGroup.length > 0">
-  <mat-card *ngFor="let currentField of field.fieldGroup; let i = index;">
+  <mat-card appearance="outlined" *ngFor="let currentField of field.fieldGroup; let i = index;">
     <button mat-flat-button (click)="remove(i)">
       <mat-icon>delete</mat-icon>
       <span class="button-label">Remove {{ field.templateOptions?.uiSchema["ui:cardItemLabel"] }}</span>

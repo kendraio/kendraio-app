@@ -2,5 +2,7 @@
   <app-blocks-workflow [blocks]="workflow.blocks" [models]="workflow.models" [context]="workflow.context"></app-blocks-workflow>
 </ng-container>
 <ng-template #loadingState>
-  <mat-spinner></mat-spinner>
+  <div class="spinner-wrapper spinner-wrapper-allpage">
+    <mat-spinner></mat-spinner>
+  </div>
 </ng-template>

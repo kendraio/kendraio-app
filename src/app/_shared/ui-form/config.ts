@@ -20,7 +20,7 @@ import {
 // import { RepeatSectionComponent } from './types/repeat-section.component';
 // import { FormlyFieldInputMoney } from './types/money.component';
 import { KendraFieldInputPercentage } from './types/percentage.component';
-import { ConfigOption, FormlyFieldConfig } from '@ngx-formly/core';
+import { ConfigOption } from '@ngx-formly/core';
 
 import * as types from './types';
 import {FormlyImageInputComponent} from '../../form-controls/formly-image-input/formly-image-input.component';
@@ -30,7 +30,6 @@ import {FormlyBlocksInputComponent} from '../../form-controls/formly-blocks-inpu
 import {FormlyWorkflowFieldComponent} from '../../form-controls/formly-workflow-field/formly-workflow-field.component';
 import {FormlyCardListComponent} from '../../form-controls/formly-card-list/formly-card-list.component';
 import {FormlyTableWidgetComponent} from '../../form-controls/formly-table-widget/formly-table-widget.component';
-import {FormlyFieldFileComponent} from './types/file-type.component';
 import {FormlyFileInputComponent} from '../../form-controls/formly-file-input/formly-file-input.component';
 import {FormlyPaginatedWidgetComponent} from '../../form-controls/formly-paginated-widget/formly-paginated-widget.component';
 import {ReadonlyInputComponent} from '../../form-controls/readonly-input/readonly-input.component';
@@ -39,8 +38,8 @@ export const config: ConfigOption = {
   validationMessages: [
     { name: 'required', message: requiredValidationMessage},
     { name: 'pattern', message: patternMatchMessage },
-    { name: 'minlength', message: minlengthValidationMessage },
-    { name: 'maxlength', message: maxlengthValidationMessage },
+    { name: 'minLength', message: minlengthValidationMessage },
+    { name: 'maxLength', message: maxlengthValidationMessage },
     { name: 'min', message: minValidationMessage },
     { name: 'max', message: maxValidationMessage },
     { name: 'passwordMatchValidation', message: passwordMatchValidationMessage },
@@ -243,7 +242,6 @@ export const config: ConfigOption = {
     {
       name: 'file',
       component: FormlyFileInputComponent
-      // component: FormlyFieldFileComponent,
       // wrappers: ['form-field']
     },
   ],

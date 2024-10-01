@@ -1,20 +1,22 @@
-<p class="mat-typography">Load query from Adapter:</p>
-<ng-container *ngIf="adapters$ | async as adapters">
+<mat-dialog-content>
+  <p class="mat-typography">Load query from Adapter:</p>
+  <ng-container *ngIf="adapters$ | async as adapters">
 
-  <select [(ngModel)]="selectedAdapter" (ngModelChange)="adapterChange()">
-    <option class="row" *ngFor="let adapter of adapters | objectKeys | orderKeys" [value]="adapter">
-      <ng-container *ngIf="adapters[adapter] as config">{{ config?.adapter?.name }}</ng-container>
-    </option>
-  </select>
+    <select [(ngModel)]="selectedAdapter" (ngModelChange)="adapterChange()">
+      <option class="row" *ngFor="let adapter of adapters | objectKeys | orderKeys" [value]="adapter">
+        <ng-container *ngIf="adapters[adapter] as config">{{ config?.adapter?.name }}</ng-container>
+      </option>
+    </select>
 
-  <select *ngIf="queries.length > 0" [(ngModel)]="selectedQuery">
-    <option *ngFor="let q of queries; let i = index" [value]="i">
-      {{ q?.title || 'Untitled' }}
-    </option>
-  </select>
+    <select *ngIf="queries.length > 0" [(ngModel)]="selectedQuery">
+      <option *ngFor="let q of queries; let i = index" [value]="i">
+        {{ q?.title || 'Untitled' }}
+      </option>
+    </select>
 
-</ng-container>
-
-<br><br>
-<button mat-flat-button (click)="loadForm()" color="primary">Load Query</button>
-<button mat-flat-button (click)="cancel()">Cancel</button>
+  </ng-container>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-flat-button (click)="loadForm()" color="primary">Load Query</button>
+  <button mat-flat-button (click)="cancel()">Cancel</button>
+</mat-dialog-actions>

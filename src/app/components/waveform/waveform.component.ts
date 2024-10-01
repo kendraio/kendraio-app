@@ -9,7 +9,7 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
-import * as WaveSurfer from 'wavesurfer.js';
+import WaveSurfer from 'wavesurfer.js';
 // import RegionPlugin from 'wavesurfer.js/dist/plugin/wavesurfer.regions.min.js';
 
 @Component({

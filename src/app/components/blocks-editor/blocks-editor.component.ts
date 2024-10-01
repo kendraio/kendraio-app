@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, OnChanges, Output} from '@angular/core';
 import {AddBlockDialogComponent} from '../../dialogs/add-block-dialog/add-block-dialog.component';
 import {BLOCK_TYPES} from '../../dialogs/add-block-dialog/block-types';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import {moveItemInArray} from '@angular/cdk/drag-drop';
 import {clone} from 'lodash-es';
 
@@ -29,7 +29,7 @@ export class BlocksEditorComponent implements OnInit, OnChanges {
     private readonly dialog: MatDialog
   ) { }
 
-  ngOnInit() {    
+  ngOnInit() {
   }
 
   ngOnChanges(){
@@ -37,7 +37,7 @@ export class BlocksEditorComponent implements OnInit, OnChanges {
   }
 
   generateTitles(){
-    this.blocks.forEach((block, i) => {                  
+    this.blocks.forEach((block, i) => {
       this.blockTitles[i] = block.blockComment ? block.blockComment.split("\n")[0]: '';
     });
   }

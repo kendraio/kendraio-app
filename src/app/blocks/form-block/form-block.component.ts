@@ -3,9 +3,14 @@ import {KendraioFormService} from '../../_shared/ui-form/services/kendraio.form.
 import {UntypedFormGroup} from '@angular/forms';
 import {FormlyFieldConfig, FormlyFormOptions} from '@ngx-formly/core';
 import {Subject} from 'rxjs';
-import {debounceTime, distinctUntilChanged, filter, tap} from 'rxjs/operators';
+import {debounceTime, filter} from 'rxjs/operators';
 import {clone, get, has, isUndefined, set} from 'lodash-es';
 import {mappingUtility} from '../mapping-block/mapping-util';
+
+interface BaseJsonSchema {
+  properties?: any,
+  type?: string;
+}
 
 @Component({
   selector: 'app-form-block',
@@ -89,10 +94,10 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
     this.options['context'] = this.context;
   }
 
-  injectContextToJsonSchema(jsonSchema: any) {
+  injectContextToJsonSchema<T extends BaseJsonSchema>(jsonSchema: T): T {
     let mutatedJsonSchema = clone(jsonSchema);
     mutatedJsonSchema = set(mutatedJsonSchema, 'definitions.context', this.context);
-    return mutatedJsonSchema;
+    return mutatedJsonSchema as T;
   }
   
   updateForm() {

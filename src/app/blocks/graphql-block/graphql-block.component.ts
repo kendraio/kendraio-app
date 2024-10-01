@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { get, isObject } from 'lodash';
 import {mappingUtility} from '../mapping-block/mapping-util';
 import { SharedStateService } from 'src/app/services/shared-state.service';

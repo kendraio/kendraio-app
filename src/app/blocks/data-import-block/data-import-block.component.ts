@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
-import {parse} from 'papaparse';
 import {flatten, get} from 'lodash-es';
-import * as X2JS from 'x2js';
 
 @Component({
   selector: 'app-data-import-block',
