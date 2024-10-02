@@ -52,7 +52,11 @@ Examples
 
 
 **Dynamic data** If the endpoint needs to be constructed from data, the endpoint can be specified as an object with a "valueGetter" attribute.
-"valueGetter" can only get data from the context.
+"valueGetter" can only get data from the context, it does not work with static data. If the values come from the context, they must be specified inside the "valueGetter"
+property. You cannot retrieve any values from the context in any other property of the endpoint.
+There are two ways of using "valueGetter".
+- **valueGetter** - Retrieve one value from the context that creates the whole endpoint.
+- **valueGetters** - Retrieve different values from the context that specify properties like "pathname" or "query", which together will create the final endpoint.
 
 .. code-block:: json
 
@@ -160,12 +164,13 @@ Pagination
 If a HTTP API returns paginated results with a standard link header, to fetch paginated API results, set the followPaginationLinksMerged option to true. This will fetch all pages of results and return the combined set of results from all the pages.
 
 With a proxy:
-```json
-{
-  "type": "http",
-  "method": "GET",
-  "endpoint": "https://example.com/paginated",
-  "useProxy": true,
-  "followPaginationLinksMerged": true
-}
-```
+
+.. code-block:: json
+
+  {
+    "type": "http",
+    "method": "GET",
+    "endpoint": "https://example.com/paginated",
+    "useProxy": true,
+    "followPaginationLinksMerged": true
+  }

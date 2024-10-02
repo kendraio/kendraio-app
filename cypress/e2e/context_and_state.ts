@@ -73,7 +73,7 @@ describe('Kendraio context and state', () => {
       //  "showContext": false,
       //  "showState": false,
       //  "blockComment": ""
-      //},
+      //}, 
       {
         "type": "context-save",
         "key": "state.global.term",
