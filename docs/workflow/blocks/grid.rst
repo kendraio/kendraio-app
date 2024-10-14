@@ -64,8 +64,8 @@ Example
 Advanced features
 -----------------
 
-Adding ``"cellRenderer": "workflowRenderer"`` to a column allows to embed Flow within a cell of the table.
-The ``cellRendererParams`` should include ``blocks`` as an array of Flow tasks to be added to the cell. Examples of
+Adding ``"cellRenderer": "workflowRenderer"`` to a column allows to embed workflow within a cell of the table.
+The ``cellRendererParams`` should include ``blocks`` as an array of workflow tasks to be added to the cell. Examples of
 use include adding an "Operations" column, using the "actions" task within the cell to add a list of buttons to operate
 on the data from that row. The cell will be passed in data from that row of the grid only.
 
@@ -74,8 +74,8 @@ Examples
 
 This example shows some advanced grid features, such as customisation of the
 pagination, multiple row selection, the addition of a selectable checkbox column,
-and the use of the "workflow renderer" to embed another Flow within
-the grid cells. For example, the Flow renderer is useful for adding edit buttons
+and the use of the "workflow renderer" to embed another workflow within
+the grid cells. For example, the workflow renderer is useful for adding edit buttons
 to a content administration table.
 
 .. code-block:: json

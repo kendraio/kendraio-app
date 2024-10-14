@@ -262,7 +262,7 @@ export class WorkflowService {
   }
 
   getAdapterName() {
-    return get(this.context, 'app.adapterName', DEFAULT_ADAPTER_NAME);
+    return get(this.context, 'app.adapterName', 'Adapter name');
   }
 
   getWorkflowId() {

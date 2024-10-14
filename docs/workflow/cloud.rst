@@ -1,8 +1,8 @@
-Flow Cloud
+Workflow Cloud
 ==============
 
-Flows can be downloaded from the Flow Cloud.
+Workflows can be downloaded from the Workflow Cloud.
 
-These Flows are not specific to any adapter.
+These workflows are not specific to any adapter.
 
 This section is under active development and likely to change.
