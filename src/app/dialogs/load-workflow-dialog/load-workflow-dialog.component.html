@@ -1,4 +1,4 @@
-<mat-dialog-content>
+<div>
   <mat-form-field style="width: 450px;">
     <mat-label>Select configuration</mat-label>
     <mat-select #configSelect>
@@ -7,11 +7,9 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-</mat-dialog-content>
-
-<mat-dialog-actions>
-  <button mat-flat-button color="primary" (click)="onLoad(configSelect.value)" style="margin-right: 1em;">Load</button>
-  <button mat-flat-button (click)="onCancel()">Cancel</button>
-</mat-dialog-actions>
-
+</div>
+<br>
+<button mat-flat-button color="primary" (click)="onLoad(configSelect.value)" style="margin-right: 1em;">Load</button>
+<button mat-flat-button (click)="onCancel()">Cancel</button>
+<br>
 <mat-spinner *ngIf="isLoading"></mat-spinner>

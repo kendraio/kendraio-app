@@ -19,7 +19,7 @@ import { MatInput } from '@angular/material/input';
 
 
 
-  <mat-form-field  class="block-comment-container">
+  <mat-form-field  class="example-full-width">
 
                   <textarea matInput
                             [id]="id"

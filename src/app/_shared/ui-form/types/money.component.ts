@@ -6,7 +6,7 @@ import createNumberMask from 'text-mask-addons/dist/createNumberMask';
   selector: 'formly-field-input-money',
   template: `
 
-     <mat-form-field style="width:100%">
+     <mat-form-field appearance="standard" style="width:100%">
      <mat-label>  {{ to.label }} </mat-label>
      <input matInput type="text"
      [maskito]="{mask: numberMask}"
