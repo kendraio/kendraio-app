@@ -1,27 +1,17 @@
-<mat-dialog-actions>
-  <button mat-flat-button (click)="shareMode='flow'">Share flow</button>
-  <button mat-flat-button (click)="shareMode='database'" data-cy="dialog-share-shareDatabase">Share database</button>
-</mat-dialog-actions>
+<button mat-flat-button (click)="shareMode='flow'">Share flow</button>
+<button mat-flat-button (click)="shareMode='database'">Share database</button>
 
 <div *ngIf="shareMode=='flow'">
-  <mat-dialog-content>
-    <p class="mat-typography">Share the following flow link:</p>
-    <textarea #textBox readonly="readonly">{{flowShareLink}}</textarea><br>
-  </mat-dialog-content>
-  <mat-dialog-actions>
-    <button mat-flat-button (click)="textBox.focus();textBox.select()">Select all</button>
-    <button mat-flat-button (click)="copyText()">Copy link</button>
-  </mat-dialog-actions>
+  <p class="mat-typography">Share the following flow link:</p>
+  <textarea #textBox readonly="readonly">{{flowShareLink}}</textarea><br>
+  <button mat-flat-button (click)="textBox.focus();textBox.select()">Select all</button>
+  <button mat-flat-button (click)="copyText()">Copy link</button>
 </div>
 
 <div *ngIf="shareMode=='database'">
-  <mat-dialog-content>
-      <p class="mat-typography">Share the following database link:</p>
-      <textarea #textBox readonly="readonly">{{dbShareLink}}</textarea><br>
-    </mat-dialog-content>
-    <mat-dialog-actions>
-      <button mat-flat-button (click)="textBox.focus();textBox.select()">Select all</button>
-      <button mat-flat-button (click)="copyText()">Copy link</button>
-    </mat-dialog-actions>
+    <p class="mat-typography">Share the following database link:</p>
+    <textarea #textBox readonly="readonly">{{dbShareLink}}</textarea><br>
+    <button mat-flat-button (click)="textBox.focus();textBox.select()">Select all</button>
+    <button mat-flat-button (click)="copyText()">Copy link</button>
   </div>
   

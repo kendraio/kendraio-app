@@ -1,12 +1,17 @@
 .dialog-buttons > button {
   margin-right: 1em;
 }
-
 .button-selections {
   margin-bottom: 1em;
 }
 
-.mat-mdc-unelevated-button {
+mat-card {
+  height: 150px;
+  margin-bottom: 1em;
+}
+
+
+.mat-flat-button {
   display: inline-block;
   min-width: 12em;
   height: 3em;
