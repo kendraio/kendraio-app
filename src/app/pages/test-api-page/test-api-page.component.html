@@ -2,7 +2,7 @@
   <h2>Temporary page to test API</h2>
 </div>
 
-<mat-card appearance="outlined" *ngIf="entityTypes$ | async as entityTypeList">
+<mat-card *ngIf="entityTypes$ | async as entityTypeList">
   <mat-form-field style="margin-right: 1em;">
     <mat-label>Entity type</mat-label>
     <mat-select placeholder="Entity type" (valueChange)="changeEntityType($event)">
@@ -14,7 +14,7 @@
   <button mat-flat-button [disabled]="isLoadingAll" (click)="importEverything()" color="primary" type="button">Import all</button>
 </mat-card>
 
-<mat-card appearance="outlined" *ngIf="entityList$ | async as entityList">
+<mat-card *ngIf="entityList$ | async as entityList">
   <mat-form-field style="margin-right: 0.5em;">
     <mat-label>Entity ID.</mat-label>
     <mat-select placeholder="Entity ID" (valueChange)="changeEntity($event)">
@@ -28,10 +28,10 @@
   <button mat-flat-button (click)="importAll()" color="primary" type="button">Import all {{ selectedType }}</button>
 </mat-card>
 
-<mat-card appearance="outlined" *ngIf="selectedEntity$ | async as entity">
+<mat-card *ngIf="selectedEntity$ | async as entity">
   <pre>{{ entity | json }}</pre>
 </mat-card>
 
-<mat-card appearance="outlined" *ngIf="listAll$ | async as allItems">
+<mat-card *ngIf="listAll$ | async as allItems">
   <pre>{{ allItems | json }}</pre>
 </mat-card>

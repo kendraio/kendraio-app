@@ -3,7 +3,7 @@
 
 
 
-    <mat-card  appearance="outlined"  *ngFor="let message of messageService.messages; let i=index" (click)="closeMe(i)"  @enterAnimateUpDwn
+    <mat-card  *ngFor="let message of messageService.messages; let i=index" (click)="closeMe(i)"  @enterAnimateUpDwn
     [ngClass]="message.cssClass" >
         <mat-card-header>
           <mat-card-title i18n="@@helpdesk">Help Desk</mat-card-title>
