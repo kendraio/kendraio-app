@@ -1,66 +1,87 @@
-<div class="popup-container mt-5"
->
+<div class="popup-container mt-5">
+  <section
+    @enterAnimateUpDwn
+    style="max-width: 340px"
+    [formGroup]="visabilityForm"
+  >
+    <mat-label>{{ to.label }}</mat-label
+    ><br />
 
+    <mat-card-content>
+      <mat-radio-group
+        aria-label="Visibility"
+        (change)="radioChange($event)"
+        formControlName="privacyStatus"
+      >
+        <mat-radio-button value="public">Public</mat-radio-button>
+        <mat-radio-button value="private">Private</mat-radio-button>
+        <mat-radio-button value="unlisted">Unlisted</mat-radio-button>
+      </mat-radio-group>
 
+      <div
+        [ngClass]="val === 'private' ? 'in' : 'out'"
+        *ngIf="val === 'private'"
+        @enterAnimateUpDwn
+      >
+        <label (click)="showSchedulue = !showSchedulue">
+          <b> + Add Schedule</b></label
+        >
 
-<section @enterAnimateUpDwn style="max-width: 340px" [formGroup]="visabilityForm">
- 
-    <mat-label>{{to.label}}</mat-label><br>
-  
+        <div *ngIf="date" @enterAnimateUpDwn>
+          Date: {{ date }} <br />
+          Time: {{ time }}
+        </div>
 
-  <mat-card-content>
+        <div
+          class="schedule"
+          *ngIf="showSchedulue"
+          [ngClass]="showSchedulue ? 'in' : 'out'"
+          @enterAnimateUpDwn
+        >
+          <mat-label><b>Schedule as Public</b></mat-label
+          ><br />
 
-    <mat-radio-group aria-label="Visibility" (change)="radioChange($event)" formControlName="privacyStatus">
-      <mat-radio-button value="public">Public</mat-radio-button>
-      <mat-radio-button value="private">Private</mat-radio-button>
-      <mat-radio-button value="unlisted">Unlisted</mat-radio-button>
-    </mat-radio-group>
-
-    <div [ngClass]="val === 'private' ? 'in' : 'out'" *ngIf="val === 'private'" @enterAnimateUpDwn>
-
-      <label (click)="showSchedulue = !showSchedulue"> <b> + Add Schedule</b></label>
-
-      <div *ngIf="date" @enterAnimateUpDwn>
-        Date: {{date}} <br>
-        Time: {{time}}
-      </div>
-
-      <div class="schedule" *ngIf="showSchedulue" [ngClass]="showSchedulue ? 'in' : 'out'" @enterAnimateUpDwn>
-     <mat-label><b>Schedule as Public</b></mat-label><br>
-
-        <mat-form-field>
+          <mat-form-field>
             <mat-label>Date</mat-label>
-          <input  matInput type="date" class="pr form-control form-input" formControlName="date" />
-        </mat-form-field>
+            <input
+              matInput
+              type="date"
+              class="pr form-control form-input"
+              formControlName="date"
+            />
+          </mat-form-field>
 
-
-        <mat-form-field>
+          <mat-form-field>
             <mat-label>Time</mat-label>
-          <input  matInput class="pr form-control form-input" formControlName="time" />
-        </mat-form-field>
+            <input
+              matInput
+              class="pr form-control form-input"
+              formControlName="time"
+            />
+          </mat-form-field>
 
-        <mat-form-field>
-          <mat-label>Time zone</mat-label>
-          <mat-select>
-            <mat-option value="Public">GMT</mat-option>
-            <mat-option value="Private">HRT</mat-option>
-            <mat-option value="Unlisted">INR</mat-option>
-            <mat-option value="Unlisted">...more to come</mat-option>
-          </mat-select>
-        </mat-form-field>
-
-
+          <mat-form-field>
+            <mat-label>Time zone</mat-label>
+            <mat-select>
+              <mat-option value="Public">GMT</mat-option>
+              <mat-option value="Private">HRT</mat-option>
+              <mat-option value="Unlisted">INR</mat-option>
+              <mat-option value="Unlisted">...more to come</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
       </div>
-    </div>
-  </mat-card-content>
+    </mat-card-content>
 
-
-  <mat-card-actions>
-
-   <button type="button" *ngIf="showSchedulue" mat-button (click)="showSchedulue = false">Close</button>
-
-  </mat-card-actions>
-
-</section>
-
+    <mat-card-actions>
+      <button
+        type="button"
+        *ngIf="showSchedulue"
+        mat-button
+        (click)="showSchedulue = false"
+      >
+        Close
+      </button>
+    </mat-card-actions>
+  </section>
 </div>

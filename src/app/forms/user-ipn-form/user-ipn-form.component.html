@@ -1,8 +1,15 @@
 <mat-card *ngIf="isFormLoaded">
-<!--  <h3>{{ formLabel }}</h3>-->
-<!--  <p>{{ formDescription }}</p>-->
+  <!--  <h3>{{ formLabel }}</h3>-->
+  <!--  <p>{{ formDescription }}</p>-->
 
-  <formly-form [fields]="fields" [options]="options" [model]="model" [form]="form"></formly-form>
+  <formly-form
+    [fields]="fields"
+    [options]="options"
+    [model]="model"
+    [form]="form"
+  ></formly-form>
 
-  <button type="button" mat-flat-button color="primary" (click)="addIPN()">Add IPN</button>
+  <button type="button" mat-flat-button color="primary" (click)="addIPN()">
+    Add IPN
+  </button>
 </mat-card>

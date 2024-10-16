@@ -14,36 +14,36 @@
   id: ISWC
   label: ISWC
   autoComplete: off
-  defaultValue: ''
+  defaultValue: ""
 - type: INPUT
   id: Date
   label: Date
   autoComplete: off
-  defaultValue: ''
+  defaultValue: ""
 - type: INPUT
   id: Country
   label: Country
   autoComplete: off
-  defaultValue: ''
+  defaultValue: ""
 - type: INPUT
   id: Owner
   label: Owner
   autoComplete: off
-  defaultValue: ''
+  defaultValue: ""
 - type: INPUT
   id: Collective
   label: Collective
   autoComplete: off
-  defaultValue: ''
+  defaultValue: ""
 - type: INPUT
   id: Submitted to
   label: Submitted to
   autoComplete: off
-  defaultValue: ''
+  defaultValue: ""
 - type: INPUT
   id: Status
   label: Status
   autoComplete: off
-  defaultValue: ''
+  defaultValue: ""
 - type: JSON_DEBUG
   id: json_debug

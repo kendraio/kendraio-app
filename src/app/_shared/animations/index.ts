@@ -1,2 +1,2 @@
-export * from './animations';
+export * from "./animations";
 //export * from './slide-in-out.animation';

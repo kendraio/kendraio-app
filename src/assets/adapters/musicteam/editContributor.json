@@ -31,12 +31,7 @@
           "role": {
             "title": "Role",
             "type": "string",
-            "enum": [
-              "artist",
-              "publisher",
-              "collaborator",
-              "creator"
-            ]
+            "enum": ["artist", "publisher", "collaborator", "creator"]
           },
           "isni_number": {
             "title": "ISNI",

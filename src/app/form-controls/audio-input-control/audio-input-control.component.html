@@ -1,10 +1,15 @@
-<input type="file" #filePicker (change)="onFileChange($event)">
-<button class="mb-1" type="button" mat-stroked-button (click)="filePicker.click()">
-  {{ file ? 'Replace' : 'Add' }} file
+<input type="file" #filePicker (change)="onFileChange($event)" />
+<button
+  class="mb-1"
+  type="button"
+  mat-stroked-button
+  (click)="filePicker.click()"
+>
+  {{ file ? "Replace" : "Add" }} file
 </button>
 
 <button type="button" mat-icon-button (click)="playPause()">
-  <mat-icon>{{ isPlaying ? 'pause' : 'play_arrow' }}</mat-icon>
+  <mat-icon>{{ isPlaying ? "pause" : "play_arrow" }}</mat-icon>
 </button>
 
 <div class="audio-wrapper" *ngIf="!!file">
@@ -13,7 +18,11 @@
 
 <ul>
   <li *ngFor="let d of clipControl.value; index as i">
-    <div class="dragging-container" [appTrackClip]="d" (clipUpdate)="onClipUpdate(i, $event)">
+    <div
+      class="dragging-container"
+      [appTrackClip]="d"
+      (clipUpdate)="onClipUpdate(i, $event)"
+    >
       {{ d.name }}
       <div class="clip-buttons">
         <button (click)="editClip(i)" type="button" mat-icon-button>
@@ -27,12 +36,20 @@
   </li>
 </ul>
 
-<br>
+<br />
 <mat-form-field>
-<input matInput type="text" (keydown.enter)="add(name.value); name.value = ''" #name placeholder="Add clip">
-<mat-icon matSuffix (click)="add(name.value); name.value = ''">add_box</mat-icon>
+  <input
+    matInput
+    type="text"
+    (keydown.enter)="add(name.value); name.value = ''"
+    #name
+    placeholder="Add clip"
+  />
+  <mat-icon matSuffix (click)="add(name.value); name.value = ''"
+    >add_box</mat-icon
+  >
 </mat-form-field>
 
-<div style="display: block;">
+<div style="display: block">
   <canvas [appDoughnutChart]="clipValues"></canvas>
 </div>

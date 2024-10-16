@@ -1,18 +1,14 @@
-import { Field } from '../helpers/fields';
-import { USERNAME,
-EMAIL,
-PASSWORD,
-PASSWORDCONFIRM,
-// MONEY_INPUT, TYPEAHEAD
-} from './form-elements';
-import { FormlyFormOptions } from '@ngx-formly/core';
-
-
-
-
+import { Field } from "../helpers/fields";
+import {
+  USERNAME,
+  EMAIL,
+  PASSWORD,
+  PASSWORDCONFIRM,
+  // MONEY_INPUT, TYPEAHEAD
+} from "./form-elements";
+import { FormlyFormOptions } from "@ngx-formly/core";
 
 export const LOGIN_FORM = (disabled = false, hidden = false) => ({
-
   // options: FormlyFormOptions = {
   //   formState: {
   //     formModel: this.model,
@@ -20,33 +16,36 @@ export const LOGIN_FORM = (disabled = false, hidden = false) => ({
   //   },
   // },
 
-  id: 'LOGIN',
+  id: "LOGIN",
   template: [
     {
-      key: 'password',
+      key: "password",
       validators: {
-        fieldMatch: { // TODO: refactor in validators.ts
+        fieldMatch: {
+          // TODO: refactor in validators.ts
           expression: (control) => {
             const value = control.value;
-            const boo = value.passwordconfirm === value.password || (!value.passwordconfirm || !value.password);
+            const boo =
+              value.passwordconfirm === value.password ||
+              !value.passwordconfirm ||
+              !value.password;
             return boo;
           },
-          message: 'Passwords do not Match',
-          errorPath: 'passwordconfirm',
+          message: "Passwords do not Match",
+          errorPath: "passwordconfirm",
         },
       },
-      wrappers: ['panel'],
+      wrappers: ["panel"],
       templateOptions: {
-        label: 'Login Form',
+        label: "Login Form",
       },
-
 
       fieldGroup: [
         USERNAME(disabled),
-        EMAIL(disabled, 'boo2@boo2.com'),
+        EMAIL(disabled, "boo2@boo2.com"),
         PASSWORD(disabled),
-        PASSWORDCONFIRM(true)
-      ]
-    }
-  ]
+        PASSWORDCONFIRM(true),
+      ],
+    },
+  ],
 });

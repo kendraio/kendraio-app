@@ -1,44 +1,44 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import * as pages from './';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
+import * as pages from "./";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: pages.YoutubeIndexComponent,
     data: {
-      breadcrumb: '',
-      menuLabel: ''
-    }
+      breadcrumb: "",
+      menuLabel: "",
+    },
   },
   {
-    path: 'myyoutube',
+    path: "myyoutube",
     component: pages.MyYoutubeComponent,
     data: {
-      breadcrumb: 'My YouTube',
-      menuLabel: 'My YouTube'
-    }
+      breadcrumb: "My YouTube",
+      menuLabel: "My YouTube",
+    },
   },
   {
-    path: 'basic',
+    path: "basic",
     component: pages.MyYoutubeComponent,
     data: {
-      breadcrumb: 'YouTube',
-      menuLabel: 'Basic Form'
-    }
+      breadcrumb: "YouTube",
+      menuLabel: "Basic Form",
+    },
   },
   {
-    path: 'advanced',
+    path: "advanced",
     component: pages.MyYoutubeComponent,
     data: {
-      breadcrumb: 'My YouTube',
-      menuLabel: 'Advanced Form'
-    }
-  }
+      breadcrumb: "My YouTube",
+      menuLabel: "Advanced Form",
+    },
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class YoutubeRoutingModule { }
+export class YoutubeRoutingModule {}

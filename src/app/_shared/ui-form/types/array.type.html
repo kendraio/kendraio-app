@@ -11,7 +11,9 @@
   <mat-card *ngFor="let field of field.fieldGroup;let i = index;">
     <formly-field [field]="field"></formly-field>
     <div>
-      <button mat-raised-button color="warn" type="button" (click)="remove(i)">Remove</button>
+      <button mat-raised-button color="warn" type="button" (click)="remove(i)">
+        Remove
+      </button>
     </div>
   </mat-card>
 

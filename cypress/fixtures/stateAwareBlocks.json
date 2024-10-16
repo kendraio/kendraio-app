@@ -1,82 +1,77 @@
 {
-    "title": "Workflow",
-    "description": "This is a standard testing workflow fixture to use as the basis of testing for 'state aware' blocks.", 
-    "blocks": [
-      {
-            "type": "context-save",
-            "valueGetter": "`false`",
-            "contextKey": "state.flags.devel",
-            "blockComment": "Set the devel flag to false to start. The action block in this flow makes it easy to switch states."
+  "title": "Workflow",
+  "description": "This is a standard testing workflow fixture to use as the basis of testing for 'state aware' blocks.",
+  "blocks": [
+    {
+      "type": "context-save",
+      "valueGetter": "`false`",
+      "contextKey": "state.flags.devel",
+      "blockComment": "Set the devel flag to false to start. The action block in this flow makes it easy to switch states."
+    },
+    {
+      "type": "context-save",
+      "valueGetter": "`true`",
+      "contextKey": "state.flags.verbose"
+    },
+    {
+      "type": "template",
+      "template": "{{#unless state.flags.devel}}Not in Develop mode{{/unless}}{{#if state.flags.devel}}Develop mode{{/if}}",
+      "blockComment": ""
+    },
+    {
+      "type": "actions",
+      "blockComment": "Action buttons for controlling devel state flag",
+      "buttons": [
+        {
+          "label": "Disable Devel Mode",
+          "color": "default",
+          "enabledGetter": "state.flags.devel",
+          "blocks": [
+            {
+              "type": "context-save",
+              "valueGetter": "`false`",
+              "contextKey": "state.flags.devel"
+            }
+          ]
         },
         {
-            "type": "context-save",
-            "valueGetter": "`true`",
-            "contextKey": "state.flags.verbose"
-        },
-      {
-        "type": "template",
-        "template": "{{#unless state.flags.devel}}Not in Develop mode{{/unless}}{{#if state.flags.devel}}Develop mode{{/if}}",
-        "blockComment": ""
-      },
-      {
-        "type": "actions",
-        "blockComment": "Action buttons for controlling devel state flag",
-        "buttons": [
-          {
-            "label": "Disable Devel Mode",
-            "color": "default",
-            "enabledGetter": "state.flags.devel",
-            "blocks": [
-                {
-                    "type": "context-save",
-                    "valueGetter": "`false`",
-                    "contextKey": "state.flags.devel"
-                }
-            ]          
-          },
-          {
-            "label": "Enable Devel Mode",
-            "color": "default",
-            "enabledGetter": "!(state.flags.devel)",
-            "blocks": [
-                {
-                    "type": "context-save",
-                    "valueGetter": "`true`",
-                    "contextKey": "state.flags.devel"
-                }
-            ]           
-          }
-        ]
-         },
-      {
-        "type": "debug",
-        "open": 1,
-        "showData": true,
-        "showContext": false,
-        "showState": false,
-        "enabledGetter": "state.flags.devel",
-        "blockComment": ""
-      },
-      
-      {
-        "type": "file-input",
-        "label": "Devel Mode File Import",        
-        "accept": [
-          "csv",
-          "json",
-          "xml"
-        ],
-        "enabledGetter": "state.flags.devel",
-        "blockComment": ""
-      },
-      {
-        "type": "gosub",
-        "adapterName": "devel",
-        "workflowId": "flagsDisplay",
-        "blockComment": ""
-      }
-    ],
-    "id": "stateAwareBlocks",
-    "adapterName": "TESTING"
-  }
-  
+          "label": "Enable Devel Mode",
+          "color": "default",
+          "enabledGetter": "!(state.flags.devel)",
+          "blocks": [
+            {
+              "type": "context-save",
+              "valueGetter": "`true`",
+              "contextKey": "state.flags.devel"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "debug",
+      "open": 1,
+      "showData": true,
+      "showContext": false,
+      "showState": false,
+      "enabledGetter": "state.flags.devel",
+      "blockComment": ""
+    },
+
+    {
+      "type": "file-input",
+      "label": "Devel Mode File Import",
+      "accept": ["csv", "json", "xml"],
+      "enabledGetter": "state.flags.devel",
+      "blockComment": ""
+    },
+    {
+      "type": "gosub",
+      "adapterName": "devel",
+      "workflowId": "flagsDisplay",
+      "blockComment": ""
+    }
+  ],
+  "id": "stateAwareBlocks",
+  "adapterName": "TESTING"
+}

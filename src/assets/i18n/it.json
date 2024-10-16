@@ -1,68 +1,68 @@
 {
-	"HOME": "Benvenuti nell'app Kendraio",
-	"adapters": "Adattatori",
-	"assets": "Risorse",
-	"bloomen": {
-		"intro": "",
-		"registerFail": "Registrazione utente non riuscita!",
-		"registerSuccess": "Il tuo utente è stato registrato con successo",
-		"title": "Bloomen"
-	},
-	"claims": "reclami",
-	"contacts": {
-		"organisations": "organizzazioni",
-		"people": "persone",
-		"title": "Contatti"
-	},
-	"dashboard": "Cruscotto",
-	"database": "Banca dati",
-	"files": {
-		"intro": "Questa è la Pagina dei File",
-		"title": "file"
-	},
-	"formBuilder": {
-		"menuTitle": "Form Builder",
-		"pageTitle": "Form Builder"
-	},
-	"help": {
-		"1": "Questo è un esempio di testo di aiuto. È qui solo per il tuo piacere di visione e per dare agli sviluppatori un'idea di come realmente appare il testo in diverse lingue. Ehi ehi?",
-		"tmp2": "Questo testo non è altro che roba da collocamento fittizio."
-	},
-	"home": {
-		"title": "Casa",
-		"welcome": "Benvenuti nell'app Kendraio"
-	},
-	"import": "Importare",
-	"importPage": {
-		"pageTitle": "Importa dati"
-	},
-	"pageTitle": "",
-	"recordings": {
-		"btnAddNew": "Registra nuova registrazione",
-		"intro": "Registrazioni musicali Ciò consentirà all'utente di gestire i dati dei diritti e altri metadati relativi alle registrazioni. Queste registrazioni potrebbero non essere pubblicate o rilasciate.",
-		"title": "registrazioni"
-	},
-	"releases": {
-		"title": "Uscite"
-	},
-	"reports": {
-		"intro": "Questa pagina ti consente di gestire i tuoi rapporti",
-		"title": "rapporti"
-	},
-	"services": "Servizi",
-	"settings": "impostazioni",
-	"tasks": "compiti",
-	"upload": {
-		"title": "CARICARE"
-	},
-	"wfBuilder": "generatore di flusso di lavoro",
-	"workflowCloud": {
-		"menuTitle": "Workflow Cloud",
-		"pageTitle": "Crea il tuo flusso di lavoro"
-	},
-	"works": {
-		"intro": "Questa è la pagina che ti consente di gestire i tuoi lavori",
-		"registerNew": "Registrati New Work",
-		"title": "Lavori"
-	}
+  "HOME": "Benvenuti nell'app Kendraio",
+  "adapters": "Adattatori",
+  "assets": "Risorse",
+  "bloomen": {
+    "intro": "",
+    "registerFail": "Registrazione utente non riuscita!",
+    "registerSuccess": "Il tuo utente è stato registrato con successo",
+    "title": "Bloomen"
+  },
+  "claims": "reclami",
+  "contacts": {
+    "organisations": "organizzazioni",
+    "people": "persone",
+    "title": "Contatti"
+  },
+  "dashboard": "Cruscotto",
+  "database": "Banca dati",
+  "files": {
+    "intro": "Questa è la Pagina dei File",
+    "title": "file"
+  },
+  "formBuilder": {
+    "menuTitle": "Form Builder",
+    "pageTitle": "Form Builder"
+  },
+  "help": {
+    "1": "Questo è un esempio di testo di aiuto. È qui solo per il tuo piacere di visione e per dare agli sviluppatori un'idea di come realmente appare il testo in diverse lingue. Ehi ehi?",
+    "tmp2": "Questo testo non è altro che roba da collocamento fittizio."
+  },
+  "home": {
+    "title": "Casa",
+    "welcome": "Benvenuti nell'app Kendraio"
+  },
+  "import": "Importare",
+  "importPage": {
+    "pageTitle": "Importa dati"
+  },
+  "pageTitle": "",
+  "recordings": {
+    "btnAddNew": "Registra nuova registrazione",
+    "intro": "Registrazioni musicali Ciò consentirà all'utente di gestire i dati dei diritti e altri metadati relativi alle registrazioni. Queste registrazioni potrebbero non essere pubblicate o rilasciate.",
+    "title": "registrazioni"
+  },
+  "releases": {
+    "title": "Uscite"
+  },
+  "reports": {
+    "intro": "Questa pagina ti consente di gestire i tuoi rapporti",
+    "title": "rapporti"
+  },
+  "services": "Servizi",
+  "settings": "impostazioni",
+  "tasks": "compiti",
+  "upload": {
+    "title": "CARICARE"
+  },
+  "wfBuilder": "generatore di flusso di lavoro",
+  "workflowCloud": {
+    "menuTitle": "Workflow Cloud",
+    "pageTitle": "Crea il tuo flusso di lavoro"
+  },
+  "works": {
+    "intro": "Questa è la pagina che ti consente di gestire i tuoi lavori",
+    "registerNew": "Registrati New Work",
+    "title": "Lavori"
+  }
 }

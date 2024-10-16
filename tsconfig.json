@@ -12,24 +12,13 @@
     "resolveJsonModule": true,
     "importHelpers": true,
     "target": "ES2022",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2018",
-      "dom"
-    ],
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2018", "dom"],
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "@env/*": [
-        "./src/environments/*"
-      ],
-      "ngx-image-tagger": [
-        "dist/ngx-image-tagger"
-      ],
-      "ngx-image-tagger/*": [
-        "dist/ngx-image-tagger/*"
-      ]
+      "@env/*": ["./src/environments/*"],
+      "ngx-image-tagger": ["dist/ngx-image-tagger"],
+      "ngx-image-tagger/*": ["dist/ngx-image-tagger/*"]
     },
     "useDefineForClassFields": false
   }

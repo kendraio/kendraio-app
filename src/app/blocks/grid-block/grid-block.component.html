@@ -7,15 +7,16 @@
 
 </pre> -->
 
-<ag-grid-angular *ngIf="enabled"
-                 #gridAngular style="width: 100%;"
-                 class="ag-theme-alpine"
-                 domLayout="autoHeight"
-                 [rowData]="rowData"
-                 [defaultColDef]="defaultColDef"
-                 [gridOptions]="gridOptions"
-                 [frameworkComponents]="frameworkComponents"
-                 (selectionChanged)="onSelectionChanged($event)"
-                 [columnDefs]="columnDefs"></ag-grid-angular>
-
-
+<ag-grid-angular
+  *ngIf="enabled"
+  #gridAngular
+  style="width: 100%"
+  class="ag-theme-alpine"
+  domLayout="autoHeight"
+  [rowData]="rowData"
+  [defaultColDef]="defaultColDef"
+  [gridOptions]="gridOptions"
+  [frameworkComponents]="frameworkComponents"
+  (selectionChanged)="onSelectionChanged($event)"
+  [columnDefs]="columnDefs"
+></ag-grid-angular>

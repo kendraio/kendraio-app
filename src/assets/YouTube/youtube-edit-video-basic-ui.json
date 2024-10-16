@@ -14,7 +14,7 @@
     "ui:widget": "k-textarea",
     "ui:rows": 8,
     "ui:cols": 3,
-    "ui:errMessage":{
+    "ui:errMessage": {
       "required": "Excuse me, this field is required!!",
       "minLength": "Please enter more Characters",
       "maxLength": "This field cannot except that many Characters. ",

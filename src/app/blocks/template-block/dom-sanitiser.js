@@ -9,9 +9,10 @@ DOMPurify.addHook("afterSanitizeAttributes", (node) => {
     node.setAttribute("rel", "noopener noreferrer");
   }
   // set non-HTML/MathML links to xlink:show=new
-  if (!node.hasAttribute("target")
-    && (node.hasAttribute("xlink:href")
-      || node.hasAttribute("href"))) {
+  if (
+    !node.hasAttribute("target") &&
+    (node.hasAttribute("xlink:href") || node.hasAttribute("href"))
+  ) {
     node.setAttribute("xlink:show", "new");
   }
 });

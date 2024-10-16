@@ -1,95 +1,99 @@
-<mat-toolbar *ngIf="(isAppLayout$ | async)">
-
+<mat-toolbar *ngIf="isAppLayout$ | async">
   <ng-container *ngIf="pageTitle$ | async as pageTitleData">
-        <span>
-          {{ pageTitleData.title | translate }}
-        </span>
-    <button *ngIf="pageTitleData.isWorkflow" mat-icon-button (click)="onRefresh()">
-      <mat-icon style="color: #999999;">refresh</mat-icon>
+    <span>
+      {{ pageTitleData.title | translate }}
+    </span>
+    <button
+      *ngIf="pageTitleData.isWorkflow"
+      mat-icon-button
+      (click)="onRefresh()"
+    >
+      <mat-icon style="color: #999999">refresh</mat-icon>
     </button>
   </ng-container>
 
   <span class="spacer"></span>
 
-  <button style="color: #999999;" mat-icon-button (click)="toggleAppMode()"><mat-icon>more_vert</mat-icon></button>
-
+  <button style="color: #999999" mat-icon-button (click)="toggleAppMode()">
+    <mat-icon>more_vert</mat-icon>
+  </button>
 </mat-toolbar>
 <mat-toolbar *ngIf="!(isAppLayout$ | async)">
-
   <button mat-icon-button (click)="sidenav.toggle()">
-    <mat-icon style="color: #999999;">menu</mat-icon>
+    <mat-icon style="color: #999999">menu</mat-icon>
   </button>
 
   <ng-container *ngIf="pageTitle$ | async as pageTitleData">
-        <span>
-          {{ pageTitleData.title | translate }}
-        </span>
-<!--    <app-bookmark-button *ngIf="pageTitleData.isWorkflow"></app-bookmark-button>-->
-    <button *ngIf="pageTitleData.isWorkflow" mat-icon-button (click)="onRefresh()">
-      <mat-icon style="color: #999999;">refresh</mat-icon>
+    <span>
+      {{ pageTitleData.title | translate }}
+    </span>
+    <!--    <app-bookmark-button *ngIf="pageTitleData.isWorkflow"></app-bookmark-button>-->
+    <button
+      *ngIf="pageTitleData.isWorkflow"
+      mat-icon-button
+      (click)="onRefresh()"
+    >
+      <mat-icon style="color: #999999">refresh</mat-icon>
     </button>
   </ng-container>
   <span class="spacer"></span>
 
-  <button mat-icon-button routerLink="/workflowCloud/listWorkflows"><mat-icon>list</mat-icon></button>
-<!--  <button mat-icon-button routerLink="/core/collection"><mat-icon>collections_bookmark</mat-icon></button>-->
+  <button mat-icon-button routerLink="/workflowCloud/listWorkflows">
+    <mat-icon>list</mat-icon>
+  </button>
+  <!--  <button mat-icon-button routerLink="/core/collection"><mat-icon>collections_bookmark</mat-icon></button>-->
 
-  <button mat-icon-button routerLink="/connect"><mat-icon>person</mat-icon> </button>
-  <button mat-icon-button routerLink="/notifications"><mat-icon [matBadge]="notificationCount">notifications</mat-icon></button>
+  <button mat-icon-button routerLink="/connect">
+    <mat-icon>person</mat-icon>
+  </button>
+  <button mat-icon-button routerLink="/notifications">
+    <mat-icon [matBadge]="notificationCount">notifications</mat-icon>
+  </button>
 
   <ng-container *ngIf="pageTitle$ | async as pageTitleData">
-      <button mat-icon-button
-              (click)="blocksSidePane.close()"
-              *ngIf="blocksSidePane.opened">
-        <mat-icon>settings</mat-icon>
-      </button>
-      <button mat-icon-button
-              (click)="blocksSidePane.open()"
-              [disabled]="!pageTitleData.isWorkflow"
-              *ngIf="!blocksSidePane.opened">
-        <mat-icon>settings</mat-icon>
-      </button>
+    <button
+      mat-icon-button
+      (click)="blocksSidePane.close()"
+      *ngIf="blocksSidePane.opened"
+    >
+      <mat-icon>settings</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      (click)="blocksSidePane.open()"
+      [disabled]="!pageTitleData.isWorkflow"
+      *ngIf="!blocksSidePane.opened"
+    >
+      <mat-icon>settings</mat-icon>
+    </button>
   </ng-container>
-
 </mat-toolbar>
 
-<mat-sidenav-container class="app-container" style="height:100vh">
-
-  <mat-sidenav #sidenav mode="side" (keydown.escape)="sidenav.close()" style="width: 260px;">
-
+<mat-sidenav-container class="app-container" style="height: 100vh">
+  <mat-sidenav
+    #sidenav
+    mode="side"
+    (keydown.escape)="sidenav.close()"
+    style="width: 260px"
+  >
     <app-main-menu></app-main-menu>
-
   </mat-sidenav>
 
   <mat-sidenav-content>
-
-
-
-
-    <div class="page-content" style="margin-bottom: 4rem;">
-
-
-
-
-
-
-<!--      <app-breadcrumb [locale]="locale"></app-breadcrumb>-->
+    <div class="page-content" style="margin-bottom: 4rem">
+      <!--      <app-breadcrumb [locale]="locale"></app-breadcrumb>-->
       <router-outlet name="popup"></router-outlet>
       <router-outlet></router-outlet>
 
-      <div style="min-height: 6rem;" *ngIf="(isAppLayout$ | async)">
+      <div style="min-height: 6rem" *ngIf="isAppLayout$ | async">
         <!-- spacer to overlap of bottom tab menu when on app layout -->
       </div>
     </div>
-
   </mat-sidenav-content>
 
-
-
   <mat-sidenav #blocksSidePane position="end" mode="side">
-    <app-workflow-sidenav (closeSidenav)="blocksSidePane.close()"></app-workflow-sidenav>
+    <app-workflow-sidenav
+      (closeSidenav)="blocksSidePane.close()"
+    ></app-workflow-sidenav>
   </mat-sidenav>
-
-
-
 </mat-sidenav-container>

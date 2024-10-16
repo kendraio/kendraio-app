@@ -1,13 +1,20 @@
-import {Component, EventEmitter, HostBinding, Input, OnChanges, OnInit, Output} from '@angular/core';
-import {clone, every, get, isArray, isObject} from 'lodash-es';
+import {
+  Component,
+  EventEmitter,
+  HostBinding,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+} from "@angular/core";
+import { clone, every, get, isArray, isObject } from "lodash-es";
 
 @Component({
-  selector: 'app-batch-block',
-  templateUrl: './batch-block.component.html',
-  styleUrls: ['./batch-block.component.scss']
+  selector: "app-batch-block",
+  templateUrl: "./batch-block.component.html",
+  styleUrls: ["./batch-block.component.scss"],
 })
 export class BatchBlockComponent implements OnInit, OnChanges {
-
   @Input() config;
   @Input() context;
   @Input() model: any = [];
@@ -21,24 +28,27 @@ export class BatchBlockComponent implements OnInit, OnChanges {
   completed = [];
 
   hasError = false;
-  errorMessage = '';
+  errorMessage = "";
 
-  @HostBinding('class.batch-block-flex')
+  @HostBinding("class.batch-block-flex")
   flex: boolean = false;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngOnChanges(changes) {
     this.hasError = false;
-    this.flex = get(this.config, 'flex', false);
-    this.blocks = get(this.config, 'blocks', []);
+    this.flex = get(this.config, "flex", false);
+    this.blocks = get(this.config, "blocks", []);
     // FORCE the model to be an array
-    this.modelList = isArray(this.model) ? this.model : isObject(this.model) ? Object.keys(this.model) : [];
-    this.completed = this.modelList.map(_ => false);
-    this.results = this.modelList.map(_ => ({}));
+    this.modelList = isArray(this.model)
+      ? this.model
+      : isObject(this.model)
+        ? Object.keys(this.model)
+        : [];
+    this.completed = this.modelList.map((_) => false);
+    this.results = this.modelList.map((_) => ({}));
   }
 
   onWorkflowComplete(i, event) {
@@ -48,5 +58,4 @@ export class BatchBlockComponent implements OnInit, OnChanges {
       this.output.emit(clone(this.results));
     }
   }
-
 }

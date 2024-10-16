@@ -3,11 +3,9 @@
   <mat-select [value]="defaultValue" (valueChange)="onValueChange($event)">
     <mat-option *ngIf="!required"></mat-option>
     <mat-option *ngFor="let v of values" [value]="v[valueField]">
-      {{ labelGetter ? (v | mapping:labelGetter) : v[labelField] }}
+      {{ labelGetter ? (v | mapping: labelGetter) : v[labelField] }}
     </mat-option>
   </mat-select>
 </mat-form-field>
-
-
 
 <!--{{ defaultValue }}-->

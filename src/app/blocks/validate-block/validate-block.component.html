@@ -2,8 +2,16 @@
   <p>No validator loaded. Check if schema has loaded.</p>
 </div>
 <div *ngIf="errors && !useGoSub">
-  <app-blocks-workflow [blocks]="errorBlocks" [models]="[errors]" [context]="context"></app-blocks-workflow>
+  <app-blocks-workflow
+    [blocks]="errorBlocks"
+    [models]="[errors]"
+    [context]="context"
+  ></app-blocks-workflow>
 </div>
 <div *ngIf="errors && useGoSub">
-  <app-gosub-block [context]="context" [model]="errors" [config]="goSubConfig"></app-gosub-block>
+  <app-gosub-block
+    [context]="context"
+    [model]="errors"
+    [config]="goSubConfig"
+  ></app-gosub-block>
 </div>

@@ -1,4 +1,3 @@
-
 {
   "id": "YOUTUBE",
   "template": [
@@ -7,9 +6,7 @@
       "templateOptions": {
         "label": "YouTube"
       },
-      "fieldGroup": [
-        "FULLNAME(false)"
-      ]
+      "fieldGroup": ["FULLNAME(false)"]
     }
   ]
 }

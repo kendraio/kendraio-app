@@ -1,12 +1,11 @@
 {
-
-	"title": "SIMPLE - Edit Video",
-	"description": "This form allows you to edit your video",
-	"type": "object",
-	"properties": {
-		"img": {
-			"title": "Title",
-			"imgUrl": "https://static.webwiz.net/images/web_wiz_logo.png"
-		}
-	}
+  "title": "SIMPLE - Edit Video",
+  "description": "This form allows you to edit your video",
+  "type": "object",
+  "properties": {
+    "img": {
+      "title": "Title",
+      "imgUrl": "https://static.webwiz.net/images/web_wiz_logo.png"
+    }
+  }
 }

@@ -1,18 +1,20 @@
-
 <div>
-  <app-blocks-workflow [blocks]="activeTabBlocks"
-                       [models]="models"
-                       [context]="context"></app-blocks-workflow>
-
+  <app-blocks-workflow
+    [blocks]="activeTabBlocks"
+    [models]="models"
+    [context]="context"
+  ></app-blocks-workflow>
 </div>
 
 <div class="app-tabs">
-
-  <button class="app-tabs-tab" *ngFor="let tab of tabs; let i = index" (click)="setTab(i)">
+  <button
+    class="app-tabs-tab"
+    *ngFor="let tab of tabs; let i = index"
+    (click)="setTab(i)"
+  >
     <span class="app-tabs-tab-icon">
       <mat-icon>{{ tab.icon }}</mat-icon>
     </span>
     <span class="app-tabs-tab-text">{{ tab.title }}</span>
   </button>
-
 </div>

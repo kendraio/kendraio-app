@@ -1,9 +1,12 @@
-
 <div class="upload-file">
-  <mat-icon (click)="filePicker.click()" color="primary"
-            style="cursor: pointer; margin-left: -8rem; font-size: 10rem">cloud_upload</mat-icon>
-  <br>
-  <input type="file" style="display: none;" #filePicker>
+  <mat-icon
+    (click)="filePicker.click()"
+    color="primary"
+    style="cursor: pointer; margin-left: -8rem; font-size: 10rem"
+    >cloud_upload</mat-icon
+  >
+  <br />
+  <input type="file" style="display: none" #filePicker />
   <button (click)="filePicker.click()" mat-flat-button>Select file</button>
 </div>
 
@@ -11,25 +14,28 @@
   <span *ngFor="let adapter of adapters | objectKeys">
     <span *ngIf="adapters[adapter] as config">
       <mat-list-item *ngIf="config.adapter.uploads && enabled[adapter]">
-
         <span [style.color]="enabled[adapter] ? '' : '#ccc'">
           {{ config.adapter.title }}
         </span>
 
         <span class="spacer"></span>
 
-        <mat-slide-toggle *ngIf="!isUploading; else uploadProgress"
-                          [(ngModel)]="uploadEnabled[adapter]"></mat-slide-toggle>
+        <mat-slide-toggle
+          *ngIf="!isUploading; else uploadProgress"
+          [(ngModel)]="uploadEnabled[adapter]"
+        ></mat-slide-toggle>
 
         <ng-template #uploadProgress>
-          <mat-progress-bar *ngIf="uploadEnabled[adapter]"
-                            mode="determinate" [value]="uploadStatus[adapter]"></mat-progress-bar>
+          <mat-progress-bar
+            *ngIf="uploadEnabled[adapter]"
+            mode="determinate"
+            [value]="uploadStatus[adapter]"
+          ></mat-progress-bar>
         </ng-template>
       </mat-list-item>
     </span>
 
-  <!--<pre>{{ adapters[adapter] | json }}</pre>-->
-
+    <!--<pre>{{ adapters[adapter] | json }}</pre>-->
   </span>
   <mat-list-item>
     <mat-checkbox [checked]="true">Add metadata</mat-checkbox>

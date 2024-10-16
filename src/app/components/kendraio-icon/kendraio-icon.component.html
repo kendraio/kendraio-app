@@ -1,4 +1,9 @@
-<mat-icon *ngIf="isFontAwesome; else defaultIcon" fontSet="fa" [fontIcon]="icon" [color]="color"></mat-icon>
+<mat-icon
+  *ngIf="isFontAwesome; else defaultIcon"
+  fontSet="fa"
+  [fontIcon]="icon"
+  [color]="color"
+></mat-icon>
 
 <ng-template #defaultIcon>
   <mat-icon [color]="color">{{ this.icon }}</mat-icon>

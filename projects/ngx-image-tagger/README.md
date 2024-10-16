@@ -2,7 +2,7 @@
 
 The Image Tagger component from Kendraio App, split out into a separate reusable component.
 
-### Usage 
+### Usage
 
 Include the module in your `app.module.ts` file:
 

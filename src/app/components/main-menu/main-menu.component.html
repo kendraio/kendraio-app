@@ -1,42 +1,45 @@
-
-<mat-tree [dataSource]="menu$" [treeControl]="treeControl" class="mt-5 ken-tree">
-
-  <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle
-                 routerLinkActive="menu-item--active">
-    <li class="mat-tree-node  mat-menu-item"  [routerLink]="node.path">
+<mat-tree
+  [dataSource]="menu$"
+  [treeControl]="treeControl"
+  class="mt-5 ken-tree"
+>
+  <mat-tree-node
+    *matTreeNodeDef="let node"
+    matTreeNodeToggle
+    routerLinkActive="menu-item--active"
+  >
+    <li class="mat-tree-node mat-menu-item" [routerLink]="node.path">
       <!-- use a disabled button to provide padding for tree leaf -->
-      <mat-icon style="color: #999999;">{{node.icon}}</mat-icon>
-      <span class="ml-2">{{node.label | translate}}</span>
+      <mat-icon style="color: #999999">{{ node.icon }}</mat-icon>
+      <span class="ml-2">{{ node.label | translate }}</span>
     </li>
   </mat-tree-node>
 
   <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
     <li>
-      <button mat-button
-              [routerLink]="node.path"
-              (click)="collapseAll(node)"
+      <button
+        mat-button
+        [routerLink]="node.path"
+        (click)="collapseAll(node)"
+        matTreeNodeToggle
+        [routerLink]="node.path"
+        routerLinkActive="menu-item--active"
+      >
+        <mat-icon style="color: #999999">{{ node.icon }}</mat-icon>
 
-              matTreeNodeToggle [routerLink]="node.path"
-              routerLinkActive="menu-item--active">
+        <span class="ml-2">{{ node.label | translate }}</span>
 
-        <mat-icon style="color: #999999;">{{node.icon}}</mat-icon>
-
-        <span class="ml-2">{{node.label | translate}}</span>
-
-        <mat-icon class="mat-icon-rtl-mirror" style="color: #999999;">
-          {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+        <mat-icon class="mat-icon-rtl-mirror" style="color: #999999">
+          {{ treeControl.isExpanded(node) ? "expand_more" : "chevron_right" }}
         </mat-icon>
-
       </button>
 
       <!-- <ul *ngIf="treeControl.isExpanded(node)">
         <ng-container matTreeNodeOutlet></ng-container>
       </ul> -->
-      <ul  [@openClose]="treeControl.isExpanded(node) ? 'open' : 'closed'"   >
+      <ul [@openClose]="treeControl.isExpanded(node) ? 'open' : 'closed'">
         <ng-container matTreeNodeOutlet></ng-container>
       </ul>
-
     </li>
   </mat-nested-tree-node>
-
 </mat-tree>

@@ -1,56 +1,53 @@
-import {config} from '../../_shared/ui-form/config';
+import { config } from "../../_shared/ui-form/config";
 
 export const UI_SCHEMA = {
-  type: 'object',
+  type: "object",
   additionalProperties: {
-    type: 'object',
+    type: "object",
     properties: {
-      'ui:widget': {
-        'type': 'string',
-        'enum': [
-          'datepicker',
-          ...config.types.map(({ name }) => name)
-        ]
+      "ui:widget": {
+        type: "string",
+        enum: ["datepicker", ...config.types.map(({ name }) => name)],
       },
-      'ui:disabled': {
-        'type': 'boolean'
+      "ui:disabled": {
+        type: "boolean",
       },
-      'ui:placeholder': {
-        'type': 'string'
+      "ui:placeholder": {
+        type: "string",
       },
-      'ui:labelProp': {
-        type: 'string'
+      "ui:labelProp": {
+        type: "string",
       },
-      'ui:valueProp': {
-        type: 'string'
+      "ui:valueProp": {
+        type: "string",
       },
-      'ui:isMultiSelect': {
-        type: 'boolean'
+      "ui:isMultiSelect": {
+        type: "boolean",
       },
-      'ui:addTag': {
-        type: 'boolean'
+      "ui:addTag": {
+        type: "boolean",
       },
-      'ui:ref': {
-        type: 'string'
+      "ui:ref": {
+        type: "string",
       },
-      'ui:refType': {
-        enum: ['json', 'http', 'fetch']
+      "ui:refType": {
+        enum: ["json", "http", "fetch"],
       },
-      'ui:errMessage': {
-        type: 'object'
+      "ui:errMessage": {
+        type: "object",
       },
-      'ui:autosize': {
-        type: 'boolean'
+      "ui:autosize": {
+        type: "boolean",
       },
-      'ui:cols': {
-        type: 'number'
+      "ui:cols": {
+        type: "number",
       },
-      'ui:rows': {
-        type: 'number'
+      "ui:rows": {
+        type: "number",
       },
-      'ui:required': {
-        type: 'boolean'
-      }
-    }
-  }
+      "ui:required": {
+        type: "boolean",
+      },
+    },
+  },
 };

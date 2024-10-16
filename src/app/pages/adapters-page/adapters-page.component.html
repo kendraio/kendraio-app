@@ -1,11 +1,12 @@
-<div style="margin-bottom: 1em;">
+<div style="margin-bottom: 1em">
   <button mat-raised-button (click)="enableAll()">Enable all</button>
 </div>
 
-
 <section class="row" *ngIf="adapters$ | async as adapters">
-
-  <div *ngFor="let adapter of adapters | objectKeys" class="col-sm-12 col-md-6 col-lg-4">
+  <div
+    *ngFor="let adapter of adapters | objectKeys"
+    class="col-sm-12 col-md-6 col-lg-4"
+  >
     <mat-card *ngIf="adapters[adapter] as config">
       <mat-card-title>
         {{ config.adapter.title }} [{{ config.adapter.name }}]
@@ -26,7 +27,7 @@
           <div *ngIf="schemas.length > 0">
             <p>
               <b>Supported schemas:</b>
-              {{ schemas.join(', ') }}
+              {{ schemas.join(", ") }}
             </p>
           </div>
         </ng-container>
@@ -47,21 +48,34 @@
         </ng-container>
 
         <div *ngIf="enabled[adapter]; else notEnabled" class="adapter-buttons">
-          <button mat-flat-button color="warn" (click)="disableAdapter(adapter)">Disable</button>
+          <button
+            mat-flat-button
+            color="warn"
+            (click)="disableAdapter(adapter)"
+          >
+            Disable
+          </button>
           <button mat-stroked-button>Register</button>
           <button mat-stroked-button>Login</button>
-          <a mat-stroked-button *ngIf="config?.adapter.swagger" [routerLink]="['/api-client', adapter]">API Client</a>
+          <a
+            mat-stroked-button
+            *ngIf="config?.adapter.swagger"
+            [routerLink]="['/api-client', adapter]"
+            >API Client</a
+          >
         </div>
         <ng-template #notEnabled>
-          <button mat-flat-button color="primary" (click)="enableAdapter(adapter)">Enable</button>
+          <button
+            mat-flat-button
+            color="primary"
+            (click)="enableAdapter(adapter)"
+          >
+            Enable
+          </button>
         </ng-template>
-
       </mat-card-content>
 
       <!--<pre>{{ adapters[adapter] | json }}</pre>-->
-
     </mat-card>
   </div>
-
 </section>
-

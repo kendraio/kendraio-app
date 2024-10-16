@@ -39,9 +39,7 @@
                   }
                 }
               },
-              "uiSchema": {
-
-              }
+              "uiSchema": {}
             },
             {
               "type": "actions",

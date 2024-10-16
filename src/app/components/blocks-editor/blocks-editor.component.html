@@ -1,25 +1,39 @@
-
 <mat-accordion cdkDropList (cdkDropListDropped)="drop($event)">
   <mat-expansion-panel *ngFor="let block of blocks; let i = index" cdkDrag>
     <mat-expansion-panel-header>
       <mat-icon class="drag-handle" cdkDragHandle>reorder</mat-icon>
-      <app-kendraio-icon [icon]="blockIcons[block.type]||''"></app-kendraio-icon>
-      <span class="block-type-title" >{{ blockTypes[block.type]?.label||block.type}}{{ blockTitles[i] ? ": "+blockTitles[i] :""}}</span>      
+      <app-kendraio-icon
+        [icon]="blockIcons[block.type] || ''"
+      ></app-kendraio-icon>
+      <span class="block-type-title"
+        >{{ blockTypes[block.type]?.label || block.type
+        }}{{ blockTitles[i] ? ": " + blockTitles[i] : "" }}</span
+      >
     </mat-expansion-panel-header>
-    
 
-    <ng-template matExpansionPanelContent>            
+    <ng-template matExpansionPanelContent>
       <ng-container [ngSwitch]="block.type">
         <ng-container *ngSwitchCase="'graphql'">
-          <app-block-graphql-builder-box [block]="block"
-                                         #value
-                                         (updateBlock)="onUpdateBlock(i, value)"></app-block-graphql-builder-box>
+          <app-block-graphql-builder-box
+            [block]="block"
+            #value
+            (updateBlock)="onUpdateBlock(i, value)"
+          ></app-block-graphql-builder-box>
           <mat-action-row>
-            <button mat-flat-button color="primary" (click)="onUpdateBlock(i, value)">
+            <button
+              mat-flat-button
+              color="primary"
+              (click)="onUpdateBlock(i, value)"
+            >
               <mat-icon>save</mat-icon>
               <span class="button-label">Update</span>
             </button>
-            <button style="margin-left: 1em" mat-flat-button color="warn" (click)="onDeleteBlock(i)">
+            <button
+              style="margin-left: 1em"
+              mat-flat-button
+              color="warn"
+              (click)="onDeleteBlock(i)"
+            >
               <mat-icon>delete</mat-icon>
               <span class="button-label">Delete</span>
             </button>
@@ -27,15 +41,26 @@
         </ng-container>
 
         <ng-container *ngSwitchCase="'mapping'">
-          <app-block-mapping-builder-box [block]="block"
-                                         #value
-                                         (updateBlock)="onUpdateBlock(i, value)"></app-block-mapping-builder-box>
+          <app-block-mapping-builder-box
+            [block]="block"
+            #value
+            (updateBlock)="onUpdateBlock(i, value)"
+          ></app-block-mapping-builder-box>
           <mat-action-row>
-            <button mat-flat-button color="primary" (click)="onUpdateBlock(i, value)">
+            <button
+              mat-flat-button
+              color="primary"
+              (click)="onUpdateBlock(i, value)"
+            >
               <mat-icon>save</mat-icon>
               <span class="button-label">Update</span>
             </button>
-            <button style="margin-left: 1em" mat-flat-button color="warn" (click)="onDeleteBlock(i)">
+            <button
+              style="margin-left: 1em"
+              mat-flat-button
+              color="warn"
+              (click)="onDeleteBlock(i)"
+            >
               <mat-icon>delete</mat-icon>
               <span class="button-label">Delete</span>
             </button>
@@ -43,15 +68,26 @@
         </ng-container>
 
         <ng-container *ngSwitchCase="'multi-dev'">
-          <app-block-multi-builder-box [block]="block"
-                                       #value
-                                       (updateBlock)="onUpdateBlock(i, value)"></app-block-multi-builder-box>
+          <app-block-multi-builder-box
+            [block]="block"
+            #value
+            (updateBlock)="onUpdateBlock(i, value)"
+          ></app-block-multi-builder-box>
           <mat-action-row>
-            <button mat-flat-button color="primary" (click)="onUpdateBlock(i, value)">
+            <button
+              mat-flat-button
+              color="primary"
+              (click)="onUpdateBlock(i, value)"
+            >
               <mat-icon>save</mat-icon>
               <span class="button-label">Update</span>
             </button>
-            <button style="margin-left: 1em" mat-flat-button color="warn" (click)="onDeleteBlock(i)">
+            <button
+              style="margin-left: 1em"
+              mat-flat-button
+              color="warn"
+              (click)="onDeleteBlock(i)"
+            >
               <mat-icon>delete</mat-icon>
               <span class="button-label">Delete</span>
             </button>
@@ -59,15 +95,26 @@
         </ng-container>
 
         <ng-container *ngSwitchCase="'gosub'">
-          <app-block-gosub-builder-box [block]="block"
-                                       #value
-                                       (updateBlock)="onUpdateBlock(i, value)"></app-block-gosub-builder-box>
+          <app-block-gosub-builder-box
+            [block]="block"
+            #value
+            (updateBlock)="onUpdateBlock(i, value)"
+          ></app-block-gosub-builder-box>
           <mat-action-row>
-            <button mat-flat-button color="primary" (click)="onUpdateBlock(i, value)">
+            <button
+              mat-flat-button
+              color="primary"
+              (click)="onUpdateBlock(i, value)"
+            >
               <mat-icon>save</mat-icon>
               <span class="button-label">Update</span>
             </button>
-            <button style="margin-left: 1em" mat-flat-button color="warn" (click)="onDeleteBlock(i)">
+            <button
+              style="margin-left: 1em"
+              mat-flat-button
+              color="warn"
+              (click)="onDeleteBlock(i)"
+            >
               <mat-icon>delete</mat-icon>
               <span class="button-label">Delete</span>
             </button>
@@ -75,15 +122,26 @@
         </ng-container>
 
         <ng-container *ngSwitchCase="'comparison'">
-          <app-block-comparison-builder-box [block]="block"
-                                       #value
-                                       (updateBlock)="onUpdateBlock(i, value)"></app-block-comparison-builder-box>
+          <app-block-comparison-builder-box
+            [block]="block"
+            #value
+            (updateBlock)="onUpdateBlock(i, value)"
+          ></app-block-comparison-builder-box>
           <mat-action-row>
-            <button mat-flat-button color="primary" (click)="onUpdateBlock(i, value)">
+            <button
+              mat-flat-button
+              color="primary"
+              (click)="onUpdateBlock(i, value)"
+            >
               <mat-icon>save</mat-icon>
               <span class="button-label">Update</span>
             </button>
-            <button style="margin-left: 1em" mat-flat-button color="warn" (click)="onDeleteBlock(i)">
+            <button
+              style="margin-left: 1em"
+              mat-flat-button
+              color="warn"
+              (click)="onDeleteBlock(i)"
+            >
               <mat-icon>delete</mat-icon>
               <span class="button-label">Delete</span>
             </button>
@@ -91,33 +149,40 @@
         </ng-container>
 
         <ng-container *ngSwitchDefault>
-
-          <app-block-builder-box [block]="block"
-                                 #value
-                                 (updateBlock)="onUpdateBlock(i, value)"></app-block-builder-box>
+          <app-block-builder-box
+            [block]="block"
+            #value
+            (updateBlock)="onUpdateBlock(i, value)"
+          ></app-block-builder-box>
           <mat-action-row>
-            <button mat-flat-button color="primary" (click)="onUpdateBlock(i, value)">
+            <button
+              mat-flat-button
+              color="primary"
+              (click)="onUpdateBlock(i, value)"
+            >
               <mat-icon>save</mat-icon>
               <span class="button-label">Update</span>
             </button>
-            <button style="margin-left: 1em" mat-flat-button color="warn" (click)="onDeleteBlock(i)">
+            <button
+              style="margin-left: 1em"
+              mat-flat-button
+              color="warn"
+              (click)="onDeleteBlock(i)"
+            >
               <mat-icon>delete</mat-icon>
               <span class="button-label">Delete</span>
             </button>
           </mat-action-row>
         </ng-container>
-
-      </ng-container>      
-
+      </ng-container>
     </ng-template>
-   
   </mat-expansion-panel>
 </mat-accordion>
 
-<br>
+<br />
 <button mat-flat-button (click)="addBlock()">
   <mat-icon>add</mat-icon>
   <span class="button-label">Add Task</span>
 </button>
-<br>
+<br />
 <!--    <pre>{{ blocks | json }}</pre>-->

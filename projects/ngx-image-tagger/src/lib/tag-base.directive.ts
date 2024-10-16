@@ -1,25 +1,25 @@
-import { Directive, ElementRef, HostListener } from '@angular/core';
-import { TaggerInterface } from './tagger.interface';
+import { Directive, ElementRef, HostListener } from "@angular/core";
+import { TaggerInterface } from "./tagger.interface";
 
 const limit = (min, max, value) => Math.max(min, Math.min(max, value));
 
-
 @Directive({
   // tslint:disable-next-line:directive-selector
-  selector: '[ngxTagBase]'
+  selector: "[ngxTagBase]",
 })
 export class TagBaseDirective {
-
   tagger: TaggerInterface;
 
-  constructor(
-    public readonly el: ElementRef
-  ) { }
+  constructor(public readonly el: ElementRef) {}
 
-  @HostListener('click', ['$event'])
+  @HostListener("click", ["$event"])
   onClick(event: MouseEvent) {
     const { offsetX, offsetY } = event;
-    const tag = this.getTagPosition(offsetX, offsetY, this.tagger.defaultTagSize);
+    const tag = this.getTagPosition(
+      offsetX,
+      offsetY,
+      this.tagger.defaultTagSize,
+    );
     if (this.tagger) {
       this.tagger.addTag(tag);
     }
@@ -38,11 +38,11 @@ export class TagBaseDirective {
     // Calculate top left and bottom right corners of tag region
     const topLeft = {
       x: clientWidth === 0 ? 0 : (xPos - halfWidth) / clientWidth,
-      y: clientHeight === 0 ? 0 : (yPos - halfHeight) / clientHeight
+      y: clientHeight === 0 ? 0 : (yPos - halfHeight) / clientHeight,
     };
     const bottomRight = {
       x: clientWidth === 0 ? 0 : (xPos + halfWidth) / clientWidth,
-      y: clientHeight === 0 ? 0 : (yPos + halfHeight) / clientHeight
+      y: clientHeight === 0 ? 0 : (yPos + halfHeight) / clientHeight,
     };
     return { topLeft, bottomRight };
   }

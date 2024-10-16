@@ -1,13 +1,12 @@
 .breadcrumb li {
-    display: inline;
-  }
-  .breadcrumb li+li:before {
-    content: " > ";
-
-  }
-  .breadcrumb{
-    padding: 20px;
-  }
+  display: inline;
+}
+.breadcrumb li + li:before {
+  content: " > ";
+}
+.breadcrumb {
+  padding: 20px;
+}
 
 .breadcrumb:empty {
   display: none;

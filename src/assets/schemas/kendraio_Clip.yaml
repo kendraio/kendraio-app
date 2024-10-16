@@ -5,14 +5,14 @@ fields:
     id: name
     label: Clip name
     autoComplete: off
-    defaultValue: ''
+    defaultValue: ""
   - type: TEXT
     id: role
     label: Role
     autoComplete: off
-    defaultValue: ''
+    defaultValue: ""
   - type: TEXT
     id: contributor
     label: Contributor
     autoComplete: off
-    defaultValue: ''
+    defaultValue: ""

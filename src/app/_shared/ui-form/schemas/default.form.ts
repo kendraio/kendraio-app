@@ -1,22 +1,25 @@
-import { Field } from '../helpers/fields';
-import { FULLNAME, EMAIL,
+import { Field } from "../helpers/fields";
+import {
+  FULLNAME,
+  EMAIL,
   //  MESSAGE,
-  TYPEAHEAD } from './form-elements';
+  TYPEAHEAD,
+} from "./form-elements";
 
 export const DEFAULT_FORM = (disabled = false) => ({
-  id: 'DEFAULT',
+  id: "DEFAULT",
   template: [
     {
-      wrappers: ['panel'],
+      wrappers: ["panel"],
       templateOptions: {
-        label: 'Formly'
+        label: "Formly",
       },
       fieldGroup: [
-        FULLNAME(false, 'Stan laurel'), // use model to populate!
-        EMAIL(disabled, 'boo3@boo.com'),
+        FULLNAME(false, "Stan laurel"), // use model to populate!
+        EMAIL(disabled, "boo3@boo.com"),
         TYPEAHEAD(disabled),
         // MESSAGE(disabled)
-      ]
-    }
-  ]
+      ],
+    },
+  ],
 });

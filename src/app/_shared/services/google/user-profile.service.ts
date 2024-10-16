@@ -1,17 +1,16 @@
-import { Subject, Subscription } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { Injectable, NgZone } from '@angular/core';
+import { Subject, Subscription } from "rxjs";
+import { HttpClient } from "@angular/common/http";
+import { Injectable, NgZone } from "@angular/core";
 
-import { YoutubeApiService } from './youtube-api.class';
+import { YoutubeApiService } from "./youtube-api.class";
 
 // import { Authorization } from './authorization.service';
-import { AuthService } from '../../../services/auth.service';
+import { AuthService } from "../../../services/auth.service";
 
-
-import { switchMap, take } from 'rxjs/operators';
+import { switchMap, take } from "rxjs/operators";
 @Injectable({
-    providedIn: 'root'
-  })
+  providedIn: "root",
+})
 export class UserProfile {
   isSearching: Boolean = false;
   public playlistInfo: YoutubeApiService;
@@ -22,7 +21,7 @@ export class UserProfile {
     private http: HttpClient,
     private zone: NgZone,
     //  private youtubeVideosInfo: YoutubeVideosInfo,
-     private authorization: AuthService
+    private authorization: AuthService,
   ) {
     // this.playlistInfo = new YoutubeApiService(
     //   {
@@ -35,7 +34,6 @@ export class UserProfile {
     //   },
     //    authorization
     // );
-
     // this.playlists = new YoutubeApiService(
     //   {
     //     url: 'https://www.googleapis.com/youtube/v3/playlists',
@@ -85,69 +83,69 @@ export class UserProfile {
     return this.playlistApi.list(playlistId);
   }
 
-//   fetchPlaylistItems(playlistId: string, pageToken = '') {
-//     // const token = this.playlists.config.get('access_token');
-//     if ('' === pageToken) {
-//       this.playlistInfo.deletePageToken();
-//     } else {
-//       this.playlistInfo.setPageToken(pageToken);
-//     }
-//     return this.playlistInfo.list(playlistId).pipe(
-//       switchMap((response: any) => {
-//         const videoIds = response.items
-//           .map(video => video.snippet.resourceId.videoId)
-//           .join(',');
-//         return this.youtubeVideosInfo.api.list(videoIds);
-//       })
-//     );
-//   }
+  //   fetchPlaylistItems(playlistId: string, pageToken = '') {
+  //     // const token = this.playlists.config.get('access_token');
+  //     if ('' === pageToken) {
+  //       this.playlistInfo.deletePageToken();
+  //     } else {
+  //       this.playlistInfo.setPageToken(pageToken);
+  //     }
+  //     return this.playlistInfo.list(playlistId).pipe(
+  //       switchMap((response: any) => {
+  //         const videoIds = response.items
+  //           .map(video => video.snippet.resourceId.videoId)
+  //           .join(',');
+  //         return this.youtubeVideosInfo.api.list(videoIds);
+  //       })
+  //     );
+  //   }
 
-//   fetchAllPlaylistItems(playlistId: string) {
-//     let items = [];
-//     const subscriptions: Subscription[] = [];
-//     const items$ = new Subject();
-//     let nextPageToken = '';
-//     const fetchMetadata = response => {
-//       const videoIds = response.items
-//         .map(video => video.snippet.resourceId.videoId)
-//         .join(',');
-//       nextPageToken = response.nextPageToken;
-//       return this.youtubeVideosInfo.api.list(videoIds);
-//     };
-//     const collectItems = videos => {
-//       items = [...items, ...videos.items];
-//       if (nextPageToken) {
-//         fetchItems(playlistId, nextPageToken);
-//       } else {
-//         items$.next(items);
-//         subscriptions.forEach(_s => _s.unsubscribe());
-//         items$.complete();
-//       }
-//     };
-//     const fetchItems = (id, token) => {
-//       this.playlistInfo.setPageToken(token);
-//       const sub = this.playlistInfo
-//         .list(id)
-//         .pipe(switchMap(response => fetchMetadata(response)))
-//         .subscribe(response => collectItems(response));
-//       subscriptions.push(sub);
-//       return sub;
-//     };
-//     fetchItems(playlistId, '');
-//     return items$.pipe(take(1));
-//   }
+  //   fetchAllPlaylistItems(playlistId: string) {
+  //     let items = [];
+  //     const subscriptions: Subscription[] = [];
+  //     const items$ = new Subject();
+  //     let nextPageToken = '';
+  //     const fetchMetadata = response => {
+  //       const videoIds = response.items
+  //         .map(video => video.snippet.resourceId.videoId)
+  //         .join(',');
+  //       nextPageToken = response.nextPageToken;
+  //       return this.youtubeVideosInfo.api.list(videoIds);
+  //     };
+  //     const collectItems = videos => {
+  //       items = [...items, ...videos.items];
+  //       if (nextPageToken) {
+  //         fetchItems(playlistId, nextPageToken);
+  //       } else {
+  //         items$.next(items);
+  //         subscriptions.forEach(_s => _s.unsubscribe());
+  //         items$.complete();
+  //       }
+  //     };
+  //     const fetchItems = (id, token) => {
+  //       this.playlistInfo.setPageToken(token);
+  //       const sub = this.playlistInfo
+  //         .list(id)
+  //         .pipe(switchMap(response => fetchMetadata(response)))
+  //         .subscribe(response => collectItems(response));
+  //       subscriptions.push(sub);
+  //       return sub;
+  //     };
+  //     fetchItems(playlistId, '');
+  //     return items$.pipe(take(1));
+  //   }
 
-//   toUserJson(profile): GoogleBasicProfile {
-//     const _profile: GoogleBasicProfile = {};
-//     if (profile) {
-//       _profile.imageUrl = profile.getImageUrl();
-//       _profile.name = profile.getName();
-//     }
-//     return _profile;
-//   }
+  //   toUserJson(profile): GoogleBasicProfile {
+  //     const _profile: GoogleBasicProfile = {};
+  //     if (profile) {
+  //       _profile.imageUrl = profile.getImageUrl();
+  //       _profile.name = profile.getName();
+  //     }
+  //     return _profile;
+  //   }
 
-//   fetchMetadata(items: GoogleApiYouTubeVideoResource[]) {
-//     const videoIds = items.map(video => video.id).join(',');
-//     return this.youtubeVideosInfo.api.list(videoIds);
-//   }
+  //   fetchMetadata(items: GoogleApiYouTubeVideoResource[]) {
+  //     const videoIds = items.map(video => video.id).join(',');
+  //     return this.youtubeVideosInfo.api.list(videoIds);
+  //   }
 }

@@ -1,41 +1,36 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, Input, OnInit } from "@angular/core";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 
 @Component({
-  selector: 'app-legacy-data-form-control',
-  templateUrl: './legacy-data-form-control.component.html',
-  styleUrls: ['./legacy-data-form-control.component.scss'],
+  selector: "app-legacy-data-form-control",
+  templateUrl: "./legacy-data-form-control.component.html",
+  styleUrls: ["./legacy-data-form-control.component.scss"],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: LegacyDataFormControlComponent,
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
-export class LegacyDataFormControlComponent implements OnInit, ControlValueAccessor {
-
+export class LegacyDataFormControlComponent
+  implements OnInit, ControlValueAccessor
+{
   @Input() doc;
 
   value;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  registerOnChange(fn: any): void {
-  }
+  registerOnChange(fn: any): void {}
 
-  registerOnTouched(fn: any): void {
-  }
+  registerOnTouched(fn: any): void {}
 
-  setDisabledState(isDisabled: boolean): void {
-  }
+  setDisabledState(isDisabled: boolean): void {}
 
   writeValue(obj: any): void {
     this.value = obj;
   }
-
-
 }

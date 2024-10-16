@@ -4,10 +4,8 @@
 // import { USERDETAILS_FORM } from './user-details.form';
 // import { YOUTUBE_FORM } from './youtube.form';
 
-
 // // list forms here so we can access/load by ID
 // // also allows us to generate different configs in form object
-
 
 // export const FORMS_VALUES = (disabled = false, data?: any) => ({
 //   [DEFAULT_FORM().id]: DEFAULT_FORM(disabled).template,
@@ -17,8 +15,6 @@
 //   [YOUTUBE_FORM(data).id]: YOUTUBE_FORM(disabled, data).template,
 // });
 
-
 export const FORMS_VALUES = (disabled = false) => ({
-    // 'basic': getFormData(),
-  });
-
+  // 'basic': getFormData(),
+});

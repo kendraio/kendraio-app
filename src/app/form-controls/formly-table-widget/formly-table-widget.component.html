@@ -11,46 +11,55 @@
 <h3>{{ to.label }}</h3>
 <table class="table table-bordered">
   <thead>
-  <tr>
-    <th *ngFor="let h of colHeadings">{{ h }}</th>
-    <th *ngIf="hasBlocks"></th>
-    <th *ngIf="allowRemove"></th>
-  </tr>
+    <tr>
+      <th *ngFor="let h of colHeadings">{{ h }}</th>
+      <th *ngIf="hasBlocks"></th>
+      <th *ngIf="allowRemove"></th>
+    </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let currentField of field.fieldGroup; let i = index;">
+    <tr *ngFor="let currentField of field.fieldGroup; let i = index">
+      <ng-container
+        *ngIf="
+          currentField.fieldGroup && currentField.fieldGroup.length > 0;
+          else singleField
+        "
+      >
+        <td *ngFor="let c of currentField.fieldGroup; let j = index">
+          <formly-field [field]="c"></formly-field>
+        </td>
+      </ng-container>
+      <ng-template #singleField>
+        <td>
+          <formly-field [field]="currentField"></formly-field>
+        </td>
+      </ng-template>
 
-    <ng-container *ngIf="currentField.fieldGroup && currentField.fieldGroup.length > 0; else singleField">
-      <td *ngFor="let c of currentField.fieldGroup; let j = index">
-        <formly-field [field]="c"></formly-field>
+      <td *ngIf="hasBlocks">
+        <app-blocks-workflow
+          [blocks]="blocksConfig"
+          [models]="[formControl.at(i).value]"
+        ></app-blocks-workflow>
       </td>
-    </ng-container>
-    <ng-template #singleField>
-      <td>
-        <formly-field [field]="currentField"></formly-field>
+
+      <td *ngIf="allowRemove">
+        <div style="margin-top: 1em">
+          <button mat-flat-button (click)="remove(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
       </td>
-    </ng-template>
-
-    <td *ngIf="hasBlocks">
-      <app-blocks-workflow
-        [blocks]="blocksConfig"
-        [models]="[formControl.at(i).value]"></app-blocks-workflow>
-    </td>
-
-    <td *ngIf="allowRemove">
-      <div style="margin-top: 1em;">
-        <button mat-flat-button (click)="remove(i)">
-          <mat-icon>delete</mat-icon>
+    </tr>
+    <tr *ngIf="allowAdd">
+      <td
+        [colSpan]="
+          colHeadings.length + (hasBlocks ? 1 : 0) + (allowRemove ? 1 : 0)
+        "
+      >
+        <button mat-flat-button (click)="add(null, defaultValue)">
+          <mat-icon>add</mat-icon>
         </button>
-      </div>
-    </td>
-  </tr>
-  <tr *ngIf="allowAdd">
-    <td [colSpan]="colHeadings.length + (hasBlocks ? 1 : 0) + (allowRemove ? 1 : 0)">
-      <button mat-flat-button (click)="add(null, defaultValue)">
-        <mat-icon>add</mat-icon>
-      </button>
-    </td>
-  </tr>
+      </td>
+    </tr>
   </tbody>
 </table>

@@ -5,9 +5,7 @@
     "title": "Unsplash"
   },
   "host": "api.unsplash.com",
-  "schemes": [
-    "https"
-  ],
+  "schemes": ["https"],
   "paths": {
     "/Users": {
       "get": {

@@ -1,63 +1,68 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-import {clone, get} from 'lodash-es';
-import {BookmarkDataService} from '../../services/bookmark-data.service';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+} from "@angular/core";
+import { clone, get } from "lodash-es";
+import { BookmarkDataService } from "../../services/bookmark-data.service";
 
 @Component({
-  selector: 'app-variable-get',
-  templateUrl: './variable-get.component.html',
-  styleUrls: ['./variable-get.component.scss']
+  selector: "app-variable-get",
+  templateUrl: "./variable-get.component.html",
+  styleUrls: ["./variable-get.component.scss"],
 })
 export class VariableGetComponent implements OnInit, OnChanges {
-
   @Input() config;
   @Input() context;
   @Input() model: any = {};
   @Output() output = new EventEmitter();
 
   hasError = false;
-  errorMessage = '';
+  errorMessage = "";
   skipFirst = true;
 
-  constructor(private readonly bookmarks: BookmarkDataService) { }
+  constructor(private readonly bookmarks: BookmarkDataService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngOnChanges(changes): void {
-    this.skipFirst = get(this.config, 'skipFirst', true);
-    if (this.skipFirst && get(changes, 'model.firstChange', false)) {
+    this.skipFirst = get(this.config, "skipFirst", true);
+    if (this.skipFirst && get(changes, "model.firstChange", false)) {
       return;
     }
 
-    const variableName = get(this.config, 'name', 'UNKNOWN');
+    const variableName = get(this.config, "name", "UNKNOWN");
 
-    const isSystemVar = get(this.config, 'systemVar', false);
+    const isSystemVar = get(this.config, "systemVar", false);
     if (isSystemVar) {
       switch (variableName) {
-        case 'bookmarked-flows':
+        case "bookmarked-flows":
           this.output.emit(this.bookmarks.activeBookmarks);
           return;
       }
     }
 
-    const adapterName = get(this.context, 'app.adapterName', 'UNKNOWN');
+    const adapterName = get(this.context, "app.adapterName", "UNKNOWN");
 
     const key = `${adapterName}.variables.${variableName}`;
     try {
-      // Variable set does not enforce JSON. Strings can be saved directly. 
-      // To get around this, we need to attempt to parse the JSON, 
+      // Variable set does not enforce JSON. Strings can be saved directly.
+      // To get around this, we need to attempt to parse the JSON,
       // but if we don't get a valid result, just allow the value through "as-is"
       let data = localStorage.getItem(key);
       try {
         data = JSON.parse(data);
       } catch {
         // just get data "neat"
-        // Catch is not optional. 
+        // Catch is not optional.
       }
       if (!!data) {
         this.output.emit(clone(data));
       } else {
-        this.output.emit(get(this.config, 'default'));
+        this.output.emit(get(this.config, "default"));
       }
     } catch (e) {
       this.errorMessage = e.message;

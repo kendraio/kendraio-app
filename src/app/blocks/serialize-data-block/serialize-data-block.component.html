@@ -1,6 +1,12 @@
-<p>{{ numberOfRows }} {{ numberOfRows != 1 ? 'records' : 'record' }}</p>
-<mat-radio-group *ngIf="hasFormatSelection" [(ngModel)]="selectedFormat" (ngModelChange)="onFormatChange()">
-  <mat-radio-button *ngFor="let f of outputFormats" [value]="f">{{ f }}</mat-radio-button>
+<p>{{ numberOfRows }} {{ numberOfRows != 1 ? "records" : "record" }}</p>
+<mat-radio-group
+  *ngIf="hasFormatSelection"
+  [(ngModel)]="selectedFormat"
+  (ngModelChange)="onFormatChange()"
+>
+  <mat-radio-button *ngFor="let f of outputFormats" [value]="f">{{
+    f
+  }}</mat-radio-button>
 </mat-radio-group>
 <mat-error *ngIf="hasError">
   {{ errorMessage }}

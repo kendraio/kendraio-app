@@ -1,68 +1,68 @@
 {
-	"HOME": "Bem vindo ao Kendraio App",
-	"adapters": "Adaptadores",
-	"assets": "Ativos",
-	"bloomen": {
-		"intro": "",
-		"registerFail": "Falha no registro do usuário!",
-		"registerSuccess": "Seu usuário foi registrado com sucesso",
-		"title": "Bloomen"
-	},
-	"claims": "Reivindicações",
-	"contacts": {
-		"organisations": "Organizações",
-		"people": "pessoas",
-		"title": "Contatos"
-	},
-	"dashboard": "painel de controle",
-	"database": "base de dados",
-	"files": {
-		"intro": "Esta é a página de arquivos",
-		"title": "Arquivos"
-	},
-	"formBuilder": {
-		"menuTitle": "Construtor de formulários",
-		"pageTitle": "Construtor de formulários"
-	},
-	"help": {
-		"1": "Este é um texto de ajuda de amostra. É apenas aqui para o seu prazer de visualização e para dar aos programadores uma ideia de como é o HelpText em diferentes idiomas. Legal hey?",
-		"tmp2": "Este texto nada mais é do que material de colocação simulado."
-	},
-	"home": {
-		"title": "Casa",
-		"welcome": "Bem vindo ao Kendraio App"
-	},
-	"import": "Importar",
-	"importPage": {
-		"pageTitle": "Importar dados"
-	},
-	"pageTitle": "",
-	"recordings": {
-		"btnAddNew": "Registrar nova gravação",
-		"intro": "Gravações de música Isso permitirá que o usuário gerencie dados de direitos e outros metadados relacionados sobre gravações. Essas gravações podem ser inéditas ou liberadas.",
-		"title": "Gravações"
-	},
-	"releases": {
-		"title": "Lançamentos"
-	},
-	"reports": {
-		"intro": "Esta página permite que você gerencie seus relatórios",
-		"title": "relatórios"
-	},
-	"services": "Serviços",
-	"settings": "Definições",
-	"tasks": "tarefas",
-	"upload": {
-		"title": "Envio"
-	},
-	"wfBuilder": "construtor de fluxo de trabalho",
-	"workflowCloud": {
-		"menuTitle": "Nuvem de fluxo de trabalho",
-		"pageTitle": "Crie seu fluxo de trabalho"
-	},
-	"works": {
-		"intro": "Esta é a página permite que você gerencie seus trabalhos",
-		"registerNew": "Registrar novo trabalho",
-		"title": "Trabalho"
-	}
+  "HOME": "Bem vindo ao Kendraio App",
+  "adapters": "Adaptadores",
+  "assets": "Ativos",
+  "bloomen": {
+    "intro": "",
+    "registerFail": "Falha no registro do usuário!",
+    "registerSuccess": "Seu usuário foi registrado com sucesso",
+    "title": "Bloomen"
+  },
+  "claims": "Reivindicações",
+  "contacts": {
+    "organisations": "Organizações",
+    "people": "pessoas",
+    "title": "Contatos"
+  },
+  "dashboard": "painel de controle",
+  "database": "base de dados",
+  "files": {
+    "intro": "Esta é a página de arquivos",
+    "title": "Arquivos"
+  },
+  "formBuilder": {
+    "menuTitle": "Construtor de formulários",
+    "pageTitle": "Construtor de formulários"
+  },
+  "help": {
+    "1": "Este é um texto de ajuda de amostra. É apenas aqui para o seu prazer de visualização e para dar aos programadores uma ideia de como é o HelpText em diferentes idiomas. Legal hey?",
+    "tmp2": "Este texto nada mais é do que material de colocação simulado."
+  },
+  "home": {
+    "title": "Casa",
+    "welcome": "Bem vindo ao Kendraio App"
+  },
+  "import": "Importar",
+  "importPage": {
+    "pageTitle": "Importar dados"
+  },
+  "pageTitle": "",
+  "recordings": {
+    "btnAddNew": "Registrar nova gravação",
+    "intro": "Gravações de música Isso permitirá que o usuário gerencie dados de direitos e outros metadados relacionados sobre gravações. Essas gravações podem ser inéditas ou liberadas.",
+    "title": "Gravações"
+  },
+  "releases": {
+    "title": "Lançamentos"
+  },
+  "reports": {
+    "intro": "Esta página permite que você gerencie seus relatórios",
+    "title": "relatórios"
+  },
+  "services": "Serviços",
+  "settings": "Definições",
+  "tasks": "tarefas",
+  "upload": {
+    "title": "Envio"
+  },
+  "wfBuilder": "construtor de fluxo de trabalho",
+  "workflowCloud": {
+    "menuTitle": "Nuvem de fluxo de trabalho",
+    "pageTitle": "Crie seu fluxo de trabalho"
+  },
+  "works": {
+    "intro": "Esta é a página permite que você gerencie seus trabalhos",
+    "registerNew": "Registrar novo trabalho",
+    "title": "Trabalho"
+  }
 }

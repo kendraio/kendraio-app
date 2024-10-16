@@ -113,7 +113,7 @@
         },
         "related_works": {
           "ui:widget": "table",
-          "colHeadings": [ "Related work" ],
+          "colHeadings": ["Related work"],
           "blocks": [
             {
               "type": "actions",

@@ -7,54 +7,54 @@ fields:
     id: Name
     label: Name
     autoComplete: off
-    defaultValue: ''
+    defaultValue: ""
   - type: TEXT
     id: Artist
     label: Artist
     autoComplete: off
-    defaultValue: ''
+    defaultValue: ""
   - type: TEXT
     id: ISRC
     label: ISRC
     autoComplete: off
-    defaultValue: ''
+    defaultValue: ""
   - type: TEXT
     id: ISWC
     label: ISWC
     autoComplete: off
-    defaultValue: ''
+    defaultValue: ""
   - type: TEXT
     id: Date
     label: Date
     autoComplete: off
-    defaultValue: ''
+    defaultValue: ""
   - type: TEXT
     id: Country
     label: Country
     autoComplete: off
-    defaultValue: ''
+    defaultValue: ""
   - type: TEXT
     id: Owner
     label: Owner
     autoComplete: off
-    defaultValue: ''
+    defaultValue: ""
   - type: TEXT
     id: Collective
     label: Collective
     autoComplete: off
-    defaultValue: ''
+    defaultValue: ""
   - type: TEXT
     id: Submitted to
     label: Submitted to
     autoComplete: off
-    defaultValue: ''
+    defaultValue: ""
   - type: TEXT
     id: Status
     label: Status
     autoComplete: off
-    defaultValue: ''
+    defaultValue: ""
   - type: JSON
     id: json_debug
     label: Debug
     autoComplete: off
-    defaultValue: ''
+    defaultValue: ""

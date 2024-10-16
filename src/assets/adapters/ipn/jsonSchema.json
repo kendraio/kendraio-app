@@ -2,9 +2,7 @@
   "title": "IPN",
   "description": "Add and verify your International Performer Number (IPN)",
   "type": "object",
-  "required": [
-    "ipn"
-  ],
+  "required": ["ipn"],
   "properties": {
     "ipn": {
       "title": "IPN",

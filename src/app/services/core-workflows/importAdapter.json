@@ -4,9 +4,7 @@
     {
       "type": "file-input",
       "label": "Import",
-      "accept": [
-        "json"
-      ]
+      "accept": ["json"]
     },
     {
       "type": "parse-data",

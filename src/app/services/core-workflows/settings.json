@@ -53,7 +53,7 @@
                 "showHelp": true,
                 "debugMode": false,
                 "disablePreview": true,
-                "exposeCoreActions":false
+                "exposeCoreActions": false
               }
             },
             {
@@ -96,7 +96,6 @@
                     "type": "boolean",
                     "default": false
                   }
-
                 }
               },
               "uiSchema": {}

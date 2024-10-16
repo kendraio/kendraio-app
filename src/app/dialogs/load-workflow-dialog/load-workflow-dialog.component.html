@@ -1,15 +1,22 @@
 <div>
-  <mat-form-field style="width: 450px;">
+  <mat-form-field style="width: 450px">
     <mat-label>Select configuration</mat-label>
     <mat-select #configSelect>
       <mat-option *ngFor="let config of configs$ | async" [value]="config.id">
-        {{config.title}} ({{ config.created }})
+        {{ config.title }} ({{ config.created }})
       </mat-option>
     </mat-select>
   </mat-form-field>
 </div>
-<br>
-<button mat-flat-button color="primary" (click)="onLoad(configSelect.value)" style="margin-right: 1em;">Load</button>
+<br />
+<button
+  mat-flat-button
+  color="primary"
+  (click)="onLoad(configSelect.value)"
+  style="margin-right: 1em"
+>
+  Load
+</button>
 <button mat-flat-button (click)="onCancel()">Cancel</button>
-<br>
+<br />
 <mat-spinner *ngIf="isLoading"></mat-spinner>

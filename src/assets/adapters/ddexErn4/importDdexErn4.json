@@ -4,9 +4,7 @@
     {
       "type": "file-input",
       "label": "Load ERN",
-      "accept": [
-        "xml"
-      ]
+      "accept": ["xml"]
     },
     {
       "type": "parse-data",
@@ -47,11 +45,7 @@
             "ResourceList": {
               "ResourceList.": [
                 {
-                  "[": [
-                    "SoundRecording[]",
-                    "Video[]",
-                    "Image[]"
-                  ]
+                  "[": ["SoundRecording[]", "Video[]", "Image[]"]
                 },
                 "[][]",
                 {
@@ -72,10 +66,7 @@
             "ReleaseList": {
               "ReleaseList.": [
                 {
-                  "[": [
-                    "Release[]",
-                    "TrackRelease[]"
-                  ]
+                  "[": ["Release[]", "TrackRelease[]"]
                 },
                 "[][]",
                 {

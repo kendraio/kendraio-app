@@ -7,14 +7,14 @@ fields:
     id: name
     label: Name
     autoComplete: off
-    defaultValue: ''
+    defaultValue: ""
   - type: REFERENCE
     id: owner
     label: Owner
     autoComplete: off
-    defaultValue: ''
+    defaultValue: ""
   - type: JSON
     id: json_debug
     label: Legacy Data
     autoComplete: off
-    defaultValue: ''
+    defaultValue: ""

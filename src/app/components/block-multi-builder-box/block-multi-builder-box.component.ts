@@ -1,22 +1,21 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {clone, get} from 'lodash-es';
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { clone, get } from "lodash-es";
 
 @Component({
-  selector: 'app-block-multi-builder-box',
-  templateUrl: './block-multi-builder-box.component.html',
-  styleUrls: ['./block-multi-builder-box.component.scss']
+  selector: "app-block-multi-builder-box",
+  templateUrl: "./block-multi-builder-box.component.html",
+  styleUrls: ["./block-multi-builder-box.component.scss"],
 })
 export class BlockMultiBuilderBoxComponent implements OnInit {
-
   @Input() block;
   @Output() updateBlock = new EventEmitter();
 
   batches = [];
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-    this.batches = get(this.block, 'batches', []);
+    this.batches = get(this.block, "batches", []);
   }
 
   addBatch() {
@@ -35,7 +34,7 @@ export class BlockMultiBuilderBoxComponent implements OnInit {
   getUpdatedModel() {
     return {
       ...this.block,
-      batches: clone(this.batches)
+      batches: clone(this.batches),
     };
   }
 }

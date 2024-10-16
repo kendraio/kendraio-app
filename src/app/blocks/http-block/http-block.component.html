@@ -2,12 +2,16 @@
   {{ errorMessage }}
 </mat-error>
 
-<mat-error *ngIf="contextErrorKey && contextErrors">{{contextErrors}}</mat-error>
+<mat-error *ngIf="contextErrorKey && contextErrors">{{
+  contextErrors
+}}</mat-error>
 
 <div *ngIf="errorBlocks.length > 0">
-  <app-blocks-workflow [blocks]="errorBlocks"
-                       [models]="[errorData]"
-                       [context]="context"></app-blocks-workflow>
+  <app-blocks-workflow
+    [blocks]="errorBlocks"
+    [models]="[errorData]"
+    [context]="context"
+  ></app-blocks-workflow>
 </div>
 
 <mat-spinner *ngIf="isLoading" diameter="50"></mat-spinner>
@@ -17,4 +21,3 @@
 
 <hr>
 <pre>httpblock-config{{config | json}}</pre> -->
-

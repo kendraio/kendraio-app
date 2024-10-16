@@ -21,11 +21,7 @@
         {
           "headerName": "Visibility",
           "field": "visibility",
-          "enum": [
-            "Private",
-            "Public",
-            "Unlisted"
-          ]
+          "enum": ["Private", "Public", "Unlisted"]
         },
         {
           "headerName": "Operations",

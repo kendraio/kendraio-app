@@ -229,16 +229,8 @@
   "upload": {
     "enabled": true
   },
-  "apis": [
-    "swagger/api-docs.json"
-  ],
-  "tags": [
-    "music",
-    "b2b",
-    "photos",
-    "webtv",
-    "demo"
-  ],
+  "apis": ["swagger/api-docs.json"],
+  "tags": ["music", "b2b", "photos", "webtv", "demo"],
   "adapterName": "bloomen",
   "modified": false,
   "attachments": {
@@ -280,11 +272,7 @@
           "type": "array",
           "items": {
             "type": "string",
-            "enum": [
-              "photographer",
-              "publisher",
-              "admin"
-            ]
+            "enum": ["photographer", "publisher", "admin"]
           }
         },
         "reputation": {
@@ -425,9 +413,7 @@
         "type": {
           "title": "Type",
           "type": "string",
-          "enum": [
-            "photo"
-          ]
+          "enum": ["photo"]
         }
       },
       "schemaName": "photo",
@@ -843,9 +829,7 @@
         {
           "type": "file-input",
           "label": "Load file",
-          "accept": [
-            "json"
-          ]
+          "accept": ["json"]
         },
         {
           "type": "parse-data"
@@ -2398,11 +2382,7 @@
         {
           "type": "file-input",
           "label": "Import",
-          "accept": [
-            "csv",
-            "json",
-            "xml"
-          ]
+          "accept": ["csv", "json", "xml"]
         },
         {
           "type": "parse-data",
@@ -3706,11 +3686,7 @@
           "type": "array",
           "items": {
             "type": "string",
-            "enum": [
-              "photographer",
-              "publisher",
-              "admin"
-            ]
+            "enum": ["photographer", "publisher", "admin"]
           }
         },
         "reputation": {
@@ -3850,9 +3826,7 @@
         "type": {
           "title": "Type",
           "type": "string",
-          "enum": [
-            "photo"
-          ]
+          "enum": ["photo"]
         }
       }
     },

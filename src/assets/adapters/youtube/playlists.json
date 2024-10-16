@@ -22,14 +22,9 @@
             "type": "array",
             "items": {
               "type": "object",
-              "required": [
-                "title",
-                "visibility"
-              ],
+              "required": ["title", "visibility"],
               "properties": {
-                "required": [
-                  "title"
-                ],
+                "required": ["title"],
                 "title": {
                   "type": "string",
                   "title": "Title",
@@ -38,20 +33,14 @@
                 "visibility": {
                   "type": "string",
                   "title": "Visibility",
-                  "enum": [
-                    "Private",
-                    "Public",
-                    "Unlisted"
-                  ]
+                  "enum": ["Private", "Public", "Unlisted"]
                 }
               }
             }
           }
         }
       },
-      "uiSchema": {
-       
-      }
+      "uiSchema": {}
     },
     {
       "type": "debug",

@@ -1,7 +1,7 @@
 <select [(ngModel)]="selectedApi" (ngModelChange)="getList()">
   <option *ngFor="let api of APIs" [value]="api">{{ api }}</option>
 </select>
-<br>
+<br />
 <ng-container *ngIf="dataList.length > 0">
   <select [(ngModel)]="selectedData">
     <option *ngFor="let d of dataList; let i = index" [value]="i">
@@ -9,6 +9,6 @@
     </option>
   </select>
 </ng-container>
-<br><br>
+<br /><br />
 <button mat-flat-button (click)="loadData()" color="primary">Load Data</button>
 <button mat-flat-button (click)="cancel()">Cancel</button>

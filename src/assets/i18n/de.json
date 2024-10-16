@@ -1,68 +1,68 @@
 {
-	"HOME": "Willkommen bei der Kendraio App",
-	"adapters": "Adapter",
-	"assets": "Vermögenswerte",
-	"bloomen": {
-		"intro": "",
-		"registerFail": "Benutzerregistrierung fehlgeschlagen!",
-		"registerSuccess": "Ihr Benutzer wurde erfolgreich registriert",
-		"title": "Bloomen"
-	},
-	"claims": "Ansprüche",
-	"contacts": {
-		"organisations": "Organisationen",
-		"people": "Menschen",
-		"title": "Kontakte"
-	},
-	"dashboard": "Instrumententafel",
-	"database": "Datenbank",
-	"files": {
-		"intro": "Dies ist die Datei-Seite",
-		"title": "Dateien"
-	},
-	"formBuilder": {
-		"menuTitle": "Formular-Generator",
-		"pageTitle": "Formular-Generator"
-	},
-	"help": {
-		"1": "Dies ist ein Beispiel-Hilfetext. Es ist nur für Ihr Sehvergnügen und um den Entwicklern eine Vorstellung davon zu vermitteln, wie HelpText in verschiedenen Sprachen tatsächlich aussieht. Cool, hey?",
-		"tmp2": "Dieser Text ist nichts weiter als Dummy-Platzierungen."
-	},
-	"home": {
-		"title": "Zuhause",
-		"welcome": "Willkommen bei der Kendraio App"
-	},
-	"import": "Einführen",
-	"importPage": {
-		"pageTitle": "Daten importieren"
-	},
-	"pageTitle": "",
-	"recordings": {
-		"btnAddNew": "Registrieren Sie eine neue Aufnahme",
-		"intro": "Musikaufnahmen Damit kann der Benutzer die Rechte- und andere Metadaten zu den Aufnahmen verwalten. Diese Aufnahmen könnten nicht veröffentlicht oder veröffentlicht werden.",
-		"title": "Aufnahmen"
-	},
-	"releases": {
-		"title": "Veröffentlichungen"
-	},
-	"reports": {
-		"intro": "Auf dieser Seite können Sie Ihre Berichte verwalten",
-		"title": "Berichte"
-	},
-	"services": "dienstleistungen",
-	"settings": "die Einstellungen",
-	"tasks": "Aufgaben",
-	"upload": {
-		"title": "Hochladen"
-	},
-	"wfBuilder": "Workflow-Generator",
-	"workflowCloud": {
-		"menuTitle": "Workflow Cloud",
-		"pageTitle": "Bauen Sie Ihren Workflow auf"
-	},
-	"works": {
-		"intro": "Auf dieser Seite können Sie Ihre Arbeiten verwalten",
-		"registerNew": "Neue Arbeit registrieren",
-		"title": "Arbeitet"
-	}
+  "HOME": "Willkommen bei der Kendraio App",
+  "adapters": "Adapter",
+  "assets": "Vermögenswerte",
+  "bloomen": {
+    "intro": "",
+    "registerFail": "Benutzerregistrierung fehlgeschlagen!",
+    "registerSuccess": "Ihr Benutzer wurde erfolgreich registriert",
+    "title": "Bloomen"
+  },
+  "claims": "Ansprüche",
+  "contacts": {
+    "organisations": "Organisationen",
+    "people": "Menschen",
+    "title": "Kontakte"
+  },
+  "dashboard": "Instrumententafel",
+  "database": "Datenbank",
+  "files": {
+    "intro": "Dies ist die Datei-Seite",
+    "title": "Dateien"
+  },
+  "formBuilder": {
+    "menuTitle": "Formular-Generator",
+    "pageTitle": "Formular-Generator"
+  },
+  "help": {
+    "1": "Dies ist ein Beispiel-Hilfetext. Es ist nur für Ihr Sehvergnügen und um den Entwicklern eine Vorstellung davon zu vermitteln, wie HelpText in verschiedenen Sprachen tatsächlich aussieht. Cool, hey?",
+    "tmp2": "Dieser Text ist nichts weiter als Dummy-Platzierungen."
+  },
+  "home": {
+    "title": "Zuhause",
+    "welcome": "Willkommen bei der Kendraio App"
+  },
+  "import": "Einführen",
+  "importPage": {
+    "pageTitle": "Daten importieren"
+  },
+  "pageTitle": "",
+  "recordings": {
+    "btnAddNew": "Registrieren Sie eine neue Aufnahme",
+    "intro": "Musikaufnahmen Damit kann der Benutzer die Rechte- und andere Metadaten zu den Aufnahmen verwalten. Diese Aufnahmen könnten nicht veröffentlicht oder veröffentlicht werden.",
+    "title": "Aufnahmen"
+  },
+  "releases": {
+    "title": "Veröffentlichungen"
+  },
+  "reports": {
+    "intro": "Auf dieser Seite können Sie Ihre Berichte verwalten",
+    "title": "Berichte"
+  },
+  "services": "dienstleistungen",
+  "settings": "die Einstellungen",
+  "tasks": "Aufgaben",
+  "upload": {
+    "title": "Hochladen"
+  },
+  "wfBuilder": "Workflow-Generator",
+  "workflowCloud": {
+    "menuTitle": "Workflow Cloud",
+    "pageTitle": "Bauen Sie Ihren Workflow auf"
+  },
+  "works": {
+    "intro": "Auf dieser Seite können Sie Ihre Arbeiten verwalten",
+    "registerNew": "Neue Arbeit registrieren",
+    "title": "Arbeitet"
+  }
 }

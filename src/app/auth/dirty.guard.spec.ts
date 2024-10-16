@@ -1,8 +1,8 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from "@angular/core/testing";
 
-import { CanDeactivateGuard } from './dirty.guard';
+import { CanDeactivateGuard } from "./dirty.guard";
 
-describe('CanDeactivateGuard', () => {
+describe("CanDeactivateGuard", () => {
   let guard: CanDeactivateGuard;
 
   beforeEach(() => {
@@ -10,7 +10,7 @@ describe('CanDeactivateGuard', () => {
     guard = TestBed.inject(CanDeactivateGuard);
   });
 
-  it('should be created', () => {
+  it("should be created", () => {
     expect(guard).toBeTruthy();
   });
 });

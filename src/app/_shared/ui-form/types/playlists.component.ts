@@ -1,20 +1,19 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FieldType } from '@ngx-formly/core';
-import { MatLegacyRadioChange as MatRadioChange } from '@angular/material/legacy-radio';
-import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
-import { Animations } from '../../animations';
-import { UserProfile } from '../../services/google/user-profile.service';
-import { YoutubeDataService } from 'src/app/services/youtube-data.service';
+import { Component, OnInit, Input } from "@angular/core";
+import { FieldType } from "@ngx-formly/core";
+import { MatLegacyRadioChange as MatRadioChange } from "@angular/material/legacy-radio";
+import { UntypedFormGroup, UntypedFormBuilder } from "@angular/forms";
+import { Observable, Subscription } from "rxjs";
+import { Animations } from "../../animations";
+import { UserProfile } from "../../services/google/user-profile.service";
+import { YoutubeDataService } from "src/app/services/youtube-data.service";
 
 @Component({
-  selector: 'app-field-input-visibility',
-  templateUrl: 'playlists.component.html',
-  animations: [Animations.kendraAnimations]
+  selector: "app-field-input-visibility",
+  templateUrl: "playlists.component.html",
+  animations: [Animations.kendraAnimations],
 })
 // tslint:disable-next-line: component-class-suffiximplements OnInit
 export class FieldInputPlaylistComponent extends FieldType implements OnInit {
-
   // @Input()
   // formControl;
 
@@ -23,17 +22,13 @@ export class FieldInputPlaylistComponent extends FieldType implements OnInit {
   @Input() context = {};
   @Input() videoId = {};
 
-  showNewPlaylist  = false;
+  showNewPlaylist = false;
   mySelectedPlaylists = [];
-Playlists: any = [];
-
+  Playlists: any = [];
 
   videoPlaylist: {
     id: string;
-  }[] = [
-      { 'id': '1' },
-      { 'id': '3' }
-    ];
+  }[] = [{ id: "1" }, { id: "3" }];
 
   val: string;
   showSchedulue: boolean;
@@ -47,32 +42,24 @@ Playlists: any = [];
 
   constructor(
     private fb: UntypedFormBuilder,
-    private  userProfile: UserProfile,
-    private yt: YoutubeDataService
-    ) {
+    private userProfile: UserProfile,
+    private yt: YoutubeDataService,
+  ) {
     super();
-
- 
   }
 
   ngOnInit(): void {
-
-
-
-
-
-this.yt.getMyPlaylists().subscribe((response: any) => {
-this.Playlists = response.items;
-});
-
+    this.yt.getMyPlaylists().subscribe((response: any) => {
+      this.Playlists = response.items;
+    });
 
     this.newPlaylistForm = this.fb.group({
-      visibility: '',
-      playlistTitle: ''
+      visibility: "",
+      playlistTitle: "",
     });
 
     this.myform = this.fb.group({
-      myPlaylistCtrl: ''
+      myPlaylistCtrl: "",
     });
 
     this.updateList();
@@ -97,31 +84,23 @@ this.Playlists = response.items;
     // console.log(value);
 
     //   });
-
   }
 
-
-addVideoToPlayList (playlistId, videoId) {
-  this.yt.addVideoToPlaylist(playlistId, videoId).subscribe(()=> {
-
-  })
-}
-
-
+  addVideoToPlayList(playlistId, videoId) {
+    this.yt.addVideoToPlaylist(playlistId, videoId).subscribe(() => {});
+  }
 
   private updateList() {
-//     this.mySelectedPlaylists = this.myPlaylists
-//       .filter(option => {
-//         return this.videoPlaylist.find(select => {
-//           return option.id === select.id;
-//         });
-//       });
-//     setTimeout(() => {
-//   this.myform.get('myPlaylistCtrl').setValue(this.mySelectedPlaylists);
-
-// this.formControl.setValue(this.myform.value);
-
-//     }, 500);
+    //     this.mySelectedPlaylists = this.myPlaylists
+    //       .filter(option => {
+    //         return this.videoPlaylist.find(select => {
+    //           return option.id === select.id;
+    //         });
+    //       });
+    //     setTimeout(() => {
+    //   this.myform.get('myPlaylistCtrl').setValue(this.mySelectedPlaylists);
+    // this.formControl.setValue(this.myform.value);
+    //     }, 500);
   }
 
   // get myPlaylistCtrl() {
@@ -129,32 +108,28 @@ addVideoToPlayList (playlistId, videoId) {
   // }
 
   get visibility() {
-    return this.newPlaylistForm.get('visibility').value;
+    return this.newPlaylistForm.get("visibility").value;
   }
 
   get playlistTitle() {
-    return this.newPlaylistForm.get('playlistTitle').value;
+    return this.newPlaylistForm.get("playlistTitle").value;
   }
 
   onListControlChanged(listId, event) {
     // this.selectedOptionsx = list.options.map(item => item.value);
-   this.formControl.patchValue(this.videoPlaylist);
+    this.formControl.patchValue(this.videoPlaylist);
     // this.formControl.setValue('this.videoPlaylist');
-   // console.log(this.formControl);
+    // console.log(this.formControl);
     // console.log(this.videoPlaylist);
-  console.log(this.myform.value);
-  // this.addVideoToPlayList(listId, this.formControl.value) // TODO uncomment when ready
+    console.log(this.myform.value);
+    // this.addVideoToPlayList(listId, this.formControl.value) // TODO uncomment when ready
   }
 
   createPlayList(event) {
     const newId = Date.now().toString();
     // this.myPlaylists.unshift({ 'id': newId, 'name': this.playlistTitle, 'visibility': this.visibility });
-    this.videoPlaylist.unshift({ 'id': newId });
+    this.videoPlaylist.unshift({ id: newId });
     this.formControl.patchValue(this.videoPlaylist);
     this.updateList();
-
-
   }
-
 }
-

@@ -1,22 +1,20 @@
-
-import {throwError as observableThrowError,  Observable } from 'rxjs';
-import { Injectable } from '@angular/core';
+import { throwError as observableThrowError, Observable } from "rxjs";
+import { Injectable } from "@angular/core";
 // import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient } from "@angular/common/http";
 
 @Injectable()
 export class ValidationService {
-
-
   static getValidatorErrorMessage(validatorName: string, validatorValue?: any) {
     const config = {
-      'required': 'Required field',
+      required: "Required field",
       // 'invalidEmailAddress': 'Invalid email address',
-      'invalidPassword': 'Invalid password. Password must be at least 6 characters long, and contain a number.',
-      'minlength': `Min. length ${validatorValue.requiredLength}`,
-      'badword' : 'Ilegal word',
-      'invalid' : 'Ilegal word',
-      'pattern' : 'Invalid entry'
+      invalidPassword:
+        "Invalid password. Password must be at least 6 characters long, and contain a number.",
+      minlength: `Min. length ${validatorValue.requiredLength}`,
+      badword: "Ilegal word",
+      invalid: "Ilegal word",
+      pattern: "Invalid entry",
     };
 
     return config[validatorName];
@@ -27,12 +25,11 @@ export class ValidationService {
     if (control.value.match(/^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{6,100}$/)) {
       return null;
     } else {
-      return { 'invalidPassword': true };
+      return { invalidPassword: true };
     }
   }
 
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   // checkForDupEmail(email: string): Observable<any> {
 
@@ -44,15 +41,10 @@ export class ValidationService {
   //   return body || '';
   // }
 
-
   // private handleError(error: Response): Observable<any> {
   //   // in a real world app, we may send the server to some remote logging infrastructure
   //   // instead of just logging it to the console
   //   console.error(error);
   //   return observableThrowError(error.json().error || 'Server error');
   // }
-
-
-
-
 }

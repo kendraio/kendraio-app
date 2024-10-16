@@ -7,7 +7,7 @@ fields:
     id: name
     label: Name
     autoComplete: off
-    defaultValue: ''
+    defaultValue: ""
   - type: AUDIO
     id: audio
     label: File

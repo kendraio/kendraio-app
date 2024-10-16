@@ -1,39 +1,40 @@
-import { Injectable } from '@angular/core';
-import { set } from 'lodash';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '@env/environment';
-import {tap} from 'rxjs/operators';
+import { Injectable } from "@angular/core";
+import { set } from "lodash";
+import { HttpClient } from "@angular/common/http";
+import { environment } from "@env/environment";
+import { tap } from "rxjs/operators";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class ConnectionManagerService {
-
   connections: Set<string> = new Set<string>();
   flows = [];
 
-  constructor(
-    private readonly http: HttpClient,
-  ) {
-    const savedConnections = localStorage.getItem('kendraio-saved-connection-list');
+  constructor(private readonly http: HttpClient) {
+    const savedConnections = localStorage.getItem(
+      "kendraio-saved-connection-list",
+    );
     if (savedConnections) {
-      (<string[]>JSON.parse(savedConnections)).forEach(workflowId => {
+      (<string[]>JSON.parse(savedConnections)).forEach((workflowId) => {
         this.connections.add(workflowId);
       });
     }
   }
 
   init() {
-    return this.http.get<any[]>(`${environment.workflowStoreUrl}/tag/connect`)
-      .pipe(
-        tap(flows => this.flows = flows)
-      )
+    return this.http
+      .get<any[]>(`${environment.workflowStoreUrl}/tag/connect`)
+      .pipe(tap((flows) => (this.flows = flows)))
       .toPromise();
   }
 
   addConnection(workflowId) {
     this.connections.add(workflowId);
-    localStorage.setItem('kendraio-saved-connection-list', JSON.stringify(this.toPlainArray()));
+    localStorage.setItem(
+      "kendraio-saved-connection-list",
+      JSON.stringify(this.toPlainArray()),
+    );
   }
 
   toPlainArray(): string[] {
@@ -41,6 +42,6 @@ export class ConnectionManagerService {
   }
 
   addToContext(context) {
-    set(context, 'app.connections', this.toPlainArray());
+    set(context, "app.connections", this.toPlainArray());
   }
 }

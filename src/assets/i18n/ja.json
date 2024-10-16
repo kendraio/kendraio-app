@@ -1,68 +1,68 @@
 {
-	"HOME": "Kendraioアプリへようこそ",
-	"adapters": "アダプター",
-	"assets": "資産",
-	"bloomen": {
-		"intro": "",
-		"registerFail": "ユーザー登録に失敗しました！",
-		"registerSuccess": "ユーザーが正常に登録されました",
-		"title": "ブルーメン"
-	},
-	"claims": "クレーム",
-	"contacts": {
-		"organisations": "組織",
-		"people": "人",
-		"title": "連絡先"
-	},
-	"dashboard": "ダッシュボード",
-	"database": "データベース",
-	"files": {
-		"intro": "これはファイルページです。",
-		"title": "ファイル"
-	},
-	"formBuilder": {
-		"menuTitle": "フォームビルダー",
-		"pageTitle": "フォームビルダー"
-	},
-	"help": {
-		"1": "これはサンプルヘルプテキストです。これは、表示を楽しくし、ヘルプテキストがさまざまな言語で実際にどのように見えるかを開発者に提供するためのものです。ちょっとクール？",
-		"tmp2": "このテキストは、ダミーの配置にすぎません。"
-	},
-	"home": {
-		"title": "ホーム",
-		"welcome": "Kendraioアプリへようこそ"
-	},
-	"import": "インポート",
-	"importPage": {
-		"pageTitle": "データをインポートする"
-	},
-	"pageTitle": "",
-	"recordings": {
-		"btnAddNew": "新しい記録を登録",
-		"intro": "音楽の録音これにより、ユーザーは権利データや録音に関するその他の関連メタデータを管理できます。これらの記録は未発表または公開される可能性があります。",
-		"title": "レコーディング"
-	},
-	"releases": {
-		"title": "リリース"
-	},
-	"reports": {
-		"intro": "このページでレポートを管理できます",
-		"title": "レポート"
-	},
-	"services": "サービス内容",
-	"settings": "設定",
-	"tasks": "タスク",
-	"upload": {
-		"title": "アップロード"
-	},
-	"wfBuilder": "ワークフロービルダー",
-	"workflowCloud": {
-		"menuTitle": "ワークフロークラウド",
-		"pageTitle": "ワークフローを構築する"
-	},
-	"works": {
-		"intro": "このページではあなたの作品を管理することができます",
-		"registerNew": "新しい作品を登録する",
-		"title": "作品"
-	}
+  "HOME": "Kendraioアプリへようこそ",
+  "adapters": "アダプター",
+  "assets": "資産",
+  "bloomen": {
+    "intro": "",
+    "registerFail": "ユーザー登録に失敗しました！",
+    "registerSuccess": "ユーザーが正常に登録されました",
+    "title": "ブルーメン"
+  },
+  "claims": "クレーム",
+  "contacts": {
+    "organisations": "組織",
+    "people": "人",
+    "title": "連絡先"
+  },
+  "dashboard": "ダッシュボード",
+  "database": "データベース",
+  "files": {
+    "intro": "これはファイルページです。",
+    "title": "ファイル"
+  },
+  "formBuilder": {
+    "menuTitle": "フォームビルダー",
+    "pageTitle": "フォームビルダー"
+  },
+  "help": {
+    "1": "これはサンプルヘルプテキストです。これは、表示を楽しくし、ヘルプテキストがさまざまな言語で実際にどのように見えるかを開発者に提供するためのものです。ちょっとクール？",
+    "tmp2": "このテキストは、ダミーの配置にすぎません。"
+  },
+  "home": {
+    "title": "ホーム",
+    "welcome": "Kendraioアプリへようこそ"
+  },
+  "import": "インポート",
+  "importPage": {
+    "pageTitle": "データをインポートする"
+  },
+  "pageTitle": "",
+  "recordings": {
+    "btnAddNew": "新しい記録を登録",
+    "intro": "音楽の録音これにより、ユーザーは権利データや録音に関するその他の関連メタデータを管理できます。これらの記録は未発表または公開される可能性があります。",
+    "title": "レコーディング"
+  },
+  "releases": {
+    "title": "リリース"
+  },
+  "reports": {
+    "intro": "このページでレポートを管理できます",
+    "title": "レポート"
+  },
+  "services": "サービス内容",
+  "settings": "設定",
+  "tasks": "タスク",
+  "upload": {
+    "title": "アップロード"
+  },
+  "wfBuilder": "ワークフロービルダー",
+  "workflowCloud": {
+    "menuTitle": "ワークフロークラウド",
+    "pageTitle": "ワークフローを構築する"
+  },
+  "works": {
+    "intro": "このページではあなたの作品を管理することができます",
+    "registerNew": "新しい作品を登録する",
+    "title": "作品"
+  }
 }

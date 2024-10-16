@@ -1,9 +1,8 @@
 <div class="time-display">
-  <div *ngIf="title" class="time-title">{{title}}</div>
-  <div class="time-wide-space">
-  </div>
-  <div>{{currentTime|duration}}</div>
+  <div *ngIf="title" class="time-title">{{ title }}</div>
+  <div class="time-wide-space"></div>
+  <div>{{ currentTime | duration }}</div>
   <div class="time-spacer">/</div>
-  <div>{{duration|duration}}</div>
+  <div>{{ duration | duration }}</div>
 </div>
 <div #waveform></div>
