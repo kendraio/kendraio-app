@@ -1,14 +1,16 @@
-import { Component, ViewChild, ViewContainerRef } from '@angular/core';
-import { FieldWrapper } from '@ngx-formly/core';
+import { Component, ViewChild, ViewContainerRef } from "@angular/core";
+import { FieldWrapper } from "@ngx-formly/core";
 
 @Component({
-  selector: 'app-checkbox-wrapper-panel',
+  selector: "app-checkbox-wrapper-panel",
   template: `
-  <section class="checkbox-section">
-        <ng-container #fieldComponent></ng-container>
-  <section>
-  `
+    <section class="checkbox-section">
+      <ng-container #fieldComponent></ng-container>
+      <section></section>
+    </section>
+  `,
 })
 export class CheckBoxWrapperComponent extends FieldWrapper {
-  @ViewChild('fieldComponent', { read: ViewContainerRef, static: true }) fieldComponent: ViewContainerRef;
+  @ViewChild("fieldComponent", { read: ViewContainerRef, static: true })
+  fieldComponent: ViewContainerRef;
 }

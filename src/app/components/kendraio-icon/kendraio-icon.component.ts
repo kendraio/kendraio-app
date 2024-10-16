@@ -1,23 +1,25 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from "@angular/core";
 
 @Component({
-  selector: 'app-kendraio-icon',
-  templateUrl: './kendraio-icon.component.html',
-  styleUrls: ['./kendraio-icon.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  selector: "app-kendraio-icon",
+  templateUrl: "./kendraio-icon.component.html",
+  styleUrls: ["./kendraio-icon.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KendraioIconComponent implements OnInit {
-
   @Input() icon: string;
   @Input() color;
 
   get isFontAwesome() {
-    return this.icon.startsWith('fa-');
+    return this.icon.startsWith("fa-");
   }
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

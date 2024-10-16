@@ -1,46 +1,51 @@
 <!-- 💸👌 Web Monetization compatibility detected -->
 <span *ngIf="supported == true">
-
   <!-- 👍 Web Monetization working messaging -->
-  <app-template-block [config]="supportFoundTemplateConfig"></app-template-block>
+  <app-template-block
+    [config]="supportFoundTemplateConfig"
+  ></app-template-block>
 
   <!-- 💸▶ active payment messaging -->
   <span *ngIf="!!paymentPointer && enabled == true">
-    <app-template-block [config]="paymentActiveTemplateConfig"></app-template-block>
+    <app-template-block
+      [config]="paymentActiveTemplateConfig"
+    ></app-template-block>
 
     <!-- 🧐 show payment pointer for debugging etc -->
-    <span *ngIf="showPaymentPointer"> 
-        Payment pointer: {{ paymentPointer }}
+    <span *ngIf="showPaymentPointer">
+      Payment pointer: {{ paymentPointer }}
     </span>
 
     <!-- 🧐 show payment stream total estimate -->
-    <div class="payTotal" *ngIf="showPaymentTotal && nativeTotalAmount"> 
+    <div class="payTotal" *ngIf="showPaymentTotal && nativeTotalAmount">
       <span class="payTitle">
-        {{payTotalTitle}}
+        {{ payTotalTitle }}
       </span>
-      <span class="nativeTotal"> 
+      <span class="nativeTotal">
         {{ nativeTotalAmount }}
       </span>
-      <span class="around"> 
-        ≈
-      </span>
-      <span class="fiatTotal" *ngIf="fiatTotalAmount"> 
+      <span class="around"> ≈ </span>
+      <span class="fiatTotal" *ngIf="fiatTotalAmount">
         {{ fiatTotalAmount }}
       </span>
     </div>
   </span>
-  
+
   <!-- ⏸️ paused messaging -->
   <span *ngIf="enabled == false">
-    <app-template-block [config]="paymentPausedTemplateConfig"></app-template-block>
-  </span> 
-
+    <app-template-block
+      [config]="paymentPausedTemplateConfig"
+    ></app-template-block>
+  </span>
 </span>
 
 <!-- Web Monetization API not found, show Coil login -->
 <span *ngIf="supported == false">
-  <a mat-flat-button class="mat-primary" href="{{coilLoginURL}}">Connect to Coil</a>
-  <br>
-  <app-template-block [config]="supportMissingTemplateConfig"></app-template-block>
+  <a mat-flat-button class="mat-primary" href="{{ coilLoginURL }}"
+    >Connect to Coil</a
+  >
+  <br />
+  <app-template-block
+    [config]="supportMissingTemplateConfig"
+  ></app-template-block>
 </span>
-

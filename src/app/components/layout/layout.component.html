@@ -1,36 +1,39 @@
-<mat-sidenav-container  class="app-container">
-
+<mat-sidenav-container class="app-container">
   <mat-sidenav #sidenav mode="side" opened (keydown.escape)="sidenav.close()">
     <mat-nav-list>
+      <mat-list-item (click)="gotoPage('/assets', sidenav)">
+        <mat-icon mat-list-icon [matMenuTriggerFor]="menu">favorite</mat-icon>
+        <a matLine [matMenuTriggerFor]="menu">Assets</a>
+        <mat-menu #menu="matMenu">
+          <button (click)="gotoPage('/assets/files', sidenav)" mat-menu-item>
+            Files
+          </button>
+          <button
+            mat-menu-item
+            (click)="gotoPage('/assets/recordings', sidenav)"
+          >
+            Recordings
+          </button>
+          <button mat-menu-item (click)="gotoPage('/assets/releases', sidenav)">
+            Releases
+          </button>
+          <button mat-menu-item (click)="gotoPage('/assets/works', sidenav)">
+            Works
+          </button>
+        </mat-menu>
+      </mat-list-item>
 
-
-
-
-
-
-        <mat-list-item (click)="gotoPage('/assets', sidenav)"  >
-            <mat-icon mat-list-icon [matMenuTriggerFor]="menu">favorite</mat-icon>
-            <a matLine [matMenuTriggerFor]="menu">Assets</a>
-            <mat-menu #menu="matMenu">
-              <button  (click)="gotoPage('/assets/files', sidenav)"  mat-menu-item>Files</button>
-              <button mat-menu-item (click)="gotoPage('/assets/recordings', sidenav)" >Recordings</button>
-              <button mat-menu-item (click)="gotoPage('/assets/releases', sidenav)">Releases</button>
-              <button mat-menu-item (click)="gotoPage('/assets/works', sidenav)" >Works</button>
-            </mat-menu>
-          </mat-list-item>
-
-
-      <mat-list-item *ngFor="let link of links" (click)="gotoPage(link.href, sidenav)">
+      <mat-list-item
+        *ngFor="let link of links"
+        (click)="gotoPage(link.href, sidenav)"
+      >
         <mat-icon mat-list-icon>{{ link.icon }}</mat-icon>
         <a matLine>{{ link.title }}</a>
       </mat-list-item>
-
-
     </mat-nav-list>
   </mat-sidenav>
 
   <mat-sidenav-content>
-
     <mat-toolbar>
       <button mat-icon-button (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
@@ -38,24 +41,23 @@
 
       <span *ngIf="pageTitle$ | async as pageTitleData">
         {{ pageTitleData.title }}
-        <button *ngIf="pageTitleData.isWorkflow" mat-icon-button (click)="onRefresh()">
+        <button
+          *ngIf="pageTitleData.isWorkflow"
+          mat-icon-button
+          (click)="onRefresh()"
+        >
           <mat-icon>refresh</mat-icon>
         </button>
       </span>
       <span class="spacer"></span>
-
-
-
 
       <button mat-icon-button (click)="gotoPage('/user', sidenav)">
         <mat-icon>person</mat-icon>
       </button>
     </mat-toolbar>
 
-
-
     <div class="page-content">
-<!--        <app-breadcrumb></app-breadcrumb>-->
+      <!--        <app-breadcrumb></app-breadcrumb>-->
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>

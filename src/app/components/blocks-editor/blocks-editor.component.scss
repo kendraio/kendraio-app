@@ -1,4 +1,4 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 
 .block-type-title {
   flex: 1;
@@ -11,13 +11,12 @@
 .block-editor-comment {
   font-size: 0.75rem;
   opacity: 70%;
-  margin-bottom: 10px;  
+  margin-bottom: 10px;
 }
 
 .drag-handle {
   cursor: move;
 }
-
 
 :host ::ng-deep {
   mat-expansion-panel app-kendraio-icon {
@@ -33,15 +32,16 @@
   }
 }
 
-
 .mat-expansion-panel {
   user-select: none;
 
-  &.cdk-drag-preview { // while dragging
+  &.cdk-drag-preview {
+    // while dragging
     @include mat.elevation(12);
   }
 
-  &.cdk-drag-placeholder { // potential drop area
+  &.cdk-drag-placeholder {
+    // potential drop area
     opacity: 0;
   }
 }

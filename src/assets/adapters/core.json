@@ -9,8 +9,6 @@
   "database": [],
   "workflow": [],
   "forms": [],
-  "tags": [
-    "core"
-  ],
+  "tags": ["core"],
   "attachments": {}
 }

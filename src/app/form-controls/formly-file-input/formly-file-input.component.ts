@@ -1,18 +1,17 @@
-import { Component } from '@angular/core';
-import {FieldType} from '@ngx-formly/core';
+import { Component } from "@angular/core";
+import { FieldType } from "@ngx-formly/core";
 
 @Component({
-  selector: 'app-formly-file-input',
-  templateUrl: './formly-file-input.component.html',
-  styleUrls: ['./formly-file-input.component.scss']
+  selector: "app-formly-file-input",
+  templateUrl: "./formly-file-input.component.html",
+  styleUrls: ["./formly-file-input.component.scss"],
 })
 export class FormlyFileInputComponent extends FieldType {
-
-  accept = '*';
-  fileName = '';
+  accept = "*";
+  fileName = "";
 
   get label() {
-    return 'Select file';
+    return "Select file";
   }
 
   onFileChange(files: FileList) {

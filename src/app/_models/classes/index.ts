@@ -1,10 +1,10 @@
 export interface IUser {
-    id: string;
-    fName: string;
-    lName: string;
+  id: string;
+  fName: string;
+  lName: string;
 }
 
 export interface ICountry {
-    name: string;
-    isoCode: string;
+  name: string;
+  isoCode: string;
 }

@@ -1,17 +1,16 @@
-import adapterRepos from './adapterRepos.json';
-import adapters from './adapters.json';
-import example from './example.json';
-import settings from './settings.json';
-import updateAdapterList from './updateAdapterList.json';
-import searchAdapters from './searchAdapters.json';
-import newAdapter from './newAdapter.json';
-import adapterDetails from './adapterDetails.json';
-import newWorkflow from './newWorkflow.json';
-import importAdapter from './importAdapter.json';
-import cloneWorkflow from './cloneWorkflow.json';
+import adapterRepos from "./adapterRepos.json";
+import adapters from "./adapters.json";
+import example from "./example.json";
+import settings from "./settings.json";
+import updateAdapterList from "./updateAdapterList.json";
+import searchAdapters from "./searchAdapters.json";
+import newAdapter from "./newAdapter.json";
+import adapterDetails from "./adapterDetails.json";
+import newWorkflow from "./newWorkflow.json";
+import importAdapter from "./importAdapter.json";
+import cloneWorkflow from "./cloneWorkflow.json";
 
 export function installCoreWorkflows(db) {
-
   const coreWorkflowConfigs = {
     adapterRepos,
     adapters,
@@ -23,15 +22,15 @@ export function installCoreWorkflows(db) {
     adapterDetails,
     newWorkflow,
     importAdapter,
-    cloneWorkflow
+    cloneWorkflow,
   };
 
-  Object.keys(coreWorkflowConfigs).forEach(workflowId => {
+  Object.keys(coreWorkflowConfigs).forEach((workflowId) => {
     console.log(`Install ${workflowId} workflow in core`);
-    db['workflows'].add({
+    db["workflows"].add({
       ...coreWorkflowConfigs[workflowId],
       workflowId,
-      adapterName: 'core'
+      adapterName: "core",
     });
   });
 }

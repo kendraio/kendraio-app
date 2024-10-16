@@ -1,13 +1,21 @@
-import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
-import {get} from 'lodash-es';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  ViewChild,
+} from "@angular/core";
+import { get } from "lodash-es";
 
 @Component({
-  selector: 'app-card-block',
-  templateUrl: './card-block.component.html',
-  styleUrls: ['./card-block.component.scss']
+  selector: "app-card-block",
+  templateUrl: "./card-block.component.html",
+  styleUrls: ["./card-block.component.scss"],
 })
 export class CardBlockComponent implements OnInit, OnChanges {
-
   @Input() config;
   @Input() context;
   @Input() model: any = {};
@@ -15,13 +23,12 @@ export class CardBlockComponent implements OnInit, OnChanges {
 
   blocks = [];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngOnChanges(changes) {
-    this.blocks = get(this.config, 'blocks', []);
+    this.blocks = get(this.config, "blocks", []);
   }
 
   onWorkflowComplete(event) {

@@ -1,25 +1,23 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {BookmarkDataService} from '../../services/bookmark-data.service';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { BookmarkDataService } from "../../services/bookmark-data.service";
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
 
 @Component({
-  selector: 'app-bookmark-button',
-  templateUrl: './bookmark-button.component.html',
-  styleUrls: ['./bookmark-button.component.scss']
+  selector: "app-bookmark-button",
+  templateUrl: "./bookmark-button.component.html",
+  styleUrls: ["./bookmark-button.component.scss"],
 })
 export class BookmarkButtonComponent implements OnInit, OnDestroy {
-
   isActive = false;
   onDestroy$ = new Subject();
 
-  constructor(private readonly bookmarks: BookmarkDataService) {
-  }
+  constructor(private readonly bookmarks: BookmarkDataService) {}
 
   ngOnInit() {
     this.bookmarks.isActive$
       .pipe(takeUntil(this.onDestroy$))
-      .subscribe(isActive => this.isActive = isActive);
+      .subscribe((isActive) => (this.isActive = isActive));
   }
 
   ngOnDestroy() {
@@ -30,5 +28,4 @@ export class BookmarkButtonComponent implements OnInit, OnDestroy {
   onBookmark() {
     this.bookmarks.onBookmark();
   }
-
 }

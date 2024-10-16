@@ -3,43 +3,43 @@
 
 module.exports = function (config) {
   config.set({
-    basePath: '',
-    frameworks: ['jasmine', '@angular-devkit/build-angular'],
+    basePath: "",
+    frameworks: ["jasmine", "@angular-devkit/build-angular"],
     plugins: [
-      require('karma-jasmine'),
-      require('karma-electron'),
-      require('karma-jasmine-html-reporter'),
-      require('karma-coverage-istanbul-reporter'),
-      require('@angular-devkit/build-angular/plugins/karma')
+      require("karma-jasmine"),
+      require("karma-electron"),
+      require("karma-jasmine-html-reporter"),
+      require("karma-coverage-istanbul-reporter"),
+      require("@angular-devkit/build-angular/plugins/karma"),
     ],
     client: {
-      clearContext: false // leave Jasmine Spec Runner output visible in browser
+      clearContext: false, // leave Jasmine Spec Runner output visible in browser
     },
     coverageIstanbulReporter: {
-      dir: require('path').join(__dirname, '../../coverage/ngx-image-tagger'),
-      reports: ['html', 'lcovonly', 'text-summary'],
-      fixWebpackSourcePaths: true
+      dir: require("path").join(__dirname, "../../coverage/ngx-image-tagger"),
+      reports: ["html", "lcovonly", "text-summary"],
+      fixWebpackSourcePaths: true,
     },
-    reporters: ['progress', 'kjhtml'],
+    reporters: ["progress", "kjhtml"],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
     customLaunchers: {
       CustomElectron: {
-        base: 'Electron',
-        flags: ['--no-sandbox'],
+        base: "Electron",
+        flags: ["--no-sandbox"],
         browserWindowOptions: {
           webPreferences: {
             nodeIntegration: true,
-            contextIsolation: false
-          }
-        }
-      }
+            contextIsolation: false,
+          },
+        },
+      },
     },
-    browsers: ['CustomElectron'],
+    browsers: ["CustomElectron"],
     singleRun: false,
     restartOnFileChange: true,
-    failOnEmptyTestSuite: false
+    failOnEmptyTestSuite: false,
   });
 };

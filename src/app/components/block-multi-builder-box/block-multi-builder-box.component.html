@@ -1,22 +1,23 @@
 <div>
   <div class="batch-divider" *ngFor="let batch of batches; let i = index">
     <div class="batch-header">
-      <div>
-        Batch {{ i + 1 }}
-      </div>
+      <div>Batch {{ i + 1 }}</div>
       <div>
         <button mat-icon-button (click)="deleteBatch(i)">
           <mat-icon>delete_forever</mat-icon>
         </button>
       </div>
     </div>
-    <app-blocks-editor [blocks]="batch.blocks" (blockUpdate)="onBlocksUpdate(i, $event)"></app-blocks-editor>
+    <app-blocks-editor
+      [blocks]="batch.blocks"
+      (blockUpdate)="onBlocksUpdate(i, $event)"
+    ></app-blocks-editor>
   </div>
 </div>
 
 <div class="bottom-button">
-<button mat-flat-button (click)="addBatch()">
-  <mat-icon>add</mat-icon>
-  <span class="button-label">Batch</span>
-</button>
+  <button mat-flat-button (click)="addBatch()">
+    <mat-icon>add</mat-icon>
+    <span class="button-label">Batch</span>
+  </button>
 </div>

@@ -1,44 +1,44 @@
 [
-    {
-        "section": "assets",
-        "items": [
-            {
-                "text": "Alles über Vermögenswerte: Ipsum dolor sit amet consectetur adipisicing elit. Eius minima perspiciatis doloribus vero maxime enim, sunt ex ad qui, laudantium ea necessitatibus quas dolor saepe quaerat! Vel placeat voluptatibus odio!",
-                "ref": "assets"
-            },
-            {
-                "text": "Helfen Sie mit Aufnahmen. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius minima perspiciatis doloribus vero maxime enim, sunt ex ad qui, laudantium ea necessitatibus quas dolor saepe quaerat! Vel placeat voluptatibus odio!",
-                "ref": "recordings"
-            },
-            {
-                "text": "Lets talk about your Works. Eius minima perspiciatis doloribus vero maxime enim, sunt ex ad qui.",
-                "ref": "works"
-            },
-            {
-                "text": "Reden wir über das Testen der Hilfe. Eius minima perspiciatis doloribus vero maxime enim, sunt ex ad qui.",
-                "ref": "test"
-            },
-            {
-                "text": "Sie möchten also wissen, was Dateien sind? Ipsum dolor sit amet consectetur adipisicing elit. Eius minima perspiciatis doloribus vero maxime enim, sunt ex ad qui, laudantium ea necessitatibus quas dolor saepe quaerat! Vel placeat voluptatibus odio!",
-                "ref": "files"
-            }
-        ]
-    },
-    {
-        "section": "contacts",
-        "items": [
-            {
-                "text": "Kontakte assIpsum dolor sit amet consectetur adipisicing elit. Eius minima perspiciatis doloribus vero maxime enim, sunt ex ad qui, laudantium ea necessitatibus quas dolor saepe quaerat! Vel placeat voluptatibus odio!",
-                "ref": "contacts"
-            },
-            {
-                "text": "contacts recsLorem ipsum dolor sit amet consectetur adipisicing elit. Eius minima perspiciatis doloribus vero maxime enim, sunt ex ad qui, laudantium ea necessitatibus quas dolor saepe quaerat! Vel placeat voluptatibus odio!",
-                "ref": "people"
-            },
-            {
-                "text": "contacts worksEius minima perspiciatis doloribus vero maxime enim, sunt ex ad qui.",
-                "ref": "organisations"
-            }
-        ]
-    }
+  {
+    "section": "assets",
+    "items": [
+      {
+        "text": "Alles über Vermögenswerte: Ipsum dolor sit amet consectetur adipisicing elit. Eius minima perspiciatis doloribus vero maxime enim, sunt ex ad qui, laudantium ea necessitatibus quas dolor saepe quaerat! Vel placeat voluptatibus odio!",
+        "ref": "assets"
+      },
+      {
+        "text": "Helfen Sie mit Aufnahmen. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius minima perspiciatis doloribus vero maxime enim, sunt ex ad qui, laudantium ea necessitatibus quas dolor saepe quaerat! Vel placeat voluptatibus odio!",
+        "ref": "recordings"
+      },
+      {
+        "text": "Lets talk about your Works. Eius minima perspiciatis doloribus vero maxime enim, sunt ex ad qui.",
+        "ref": "works"
+      },
+      {
+        "text": "Reden wir über das Testen der Hilfe. Eius minima perspiciatis doloribus vero maxime enim, sunt ex ad qui.",
+        "ref": "test"
+      },
+      {
+        "text": "Sie möchten also wissen, was Dateien sind? Ipsum dolor sit amet consectetur adipisicing elit. Eius minima perspiciatis doloribus vero maxime enim, sunt ex ad qui, laudantium ea necessitatibus quas dolor saepe quaerat! Vel placeat voluptatibus odio!",
+        "ref": "files"
+      }
+    ]
+  },
+  {
+    "section": "contacts",
+    "items": [
+      {
+        "text": "Kontakte assIpsum dolor sit amet consectetur adipisicing elit. Eius minima perspiciatis doloribus vero maxime enim, sunt ex ad qui, laudantium ea necessitatibus quas dolor saepe quaerat! Vel placeat voluptatibus odio!",
+        "ref": "contacts"
+      },
+      {
+        "text": "contacts recsLorem ipsum dolor sit amet consectetur adipisicing elit. Eius minima perspiciatis doloribus vero maxime enim, sunt ex ad qui, laudantium ea necessitatibus quas dolor saepe quaerat! Vel placeat voluptatibus odio!",
+        "ref": "people"
+      },
+      {
+        "text": "contacts worksEius minima perspiciatis doloribus vero maxime enim, sunt ex ad qui.",
+        "ref": "organisations"
+      }
+    ]
+  }
 ]

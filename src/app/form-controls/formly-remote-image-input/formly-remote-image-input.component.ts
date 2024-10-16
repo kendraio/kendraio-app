@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import {FieldType} from '@ngx-formly/core';
+import { Component, OnInit } from "@angular/core";
+import { FieldType } from "@ngx-formly/core";
 
 @Component({
-  selector: 'app-formly-remote-image-input',
-  templateUrl: './formly-remote-image-input.component.html',
-  styleUrls: ['./formly-remote-image-input.component.scss']
+  selector: "app-formly-remote-image-input",
+  templateUrl: "./formly-remote-image-input.component.html",
+  styleUrls: ["./formly-remote-image-input.component.scss"],
 })
-export class FormlyRemoteImageInputComponent extends FieldType implements OnInit {
-
-  ngOnInit() {
-  }
-
+export class FormlyRemoteImageInputComponent
+  extends FieldType
+  implements OnInit
+{
+  ngOnInit() {}
 }

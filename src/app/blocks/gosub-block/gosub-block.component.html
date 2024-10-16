@@ -2,7 +2,9 @@
 <mat-error *ngIf="hasError">
   {{ errorMessage }}
 </mat-error>
-<app-blocks-workflow [blocks]="blocks"
-                     [models]="subModels"
-                     [context]="context"
-                     (workflowComplete)="onWorkflowComplete($event)"></app-blocks-workflow>
+<app-blocks-workflow
+  [blocks]="blocks"
+  [models]="subModels"
+  [context]="context"
+  (workflowComplete)="onWorkflowComplete($event)"
+></app-blocks-workflow>

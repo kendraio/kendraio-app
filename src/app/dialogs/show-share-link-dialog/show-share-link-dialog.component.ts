@@ -1,23 +1,22 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit, ViewChild } from "@angular/core";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 
 @Component({
-  selector: 'app-show-share-link-dialog',
-  templateUrl: './show-share-link-dialog.component.html',
-  styleUrls: ['./show-share-link-dialog.component.scss']
+  selector: "app-show-share-link-dialog",
+  templateUrl: "./show-share-link-dialog.component.html",
+  styleUrls: ["./show-share-link-dialog.component.scss"],
 })
 export class ShowShareLinkDialogComponent implements OnInit {
+  flowShareLink = "";
+  dbShareLink = "";
+  shareMode = "";
 
-  flowShareLink = '';
-  dbShareLink = '';
-  shareMode = '';
-
-  @ViewChild('textBox') textBox;
+  @ViewChild("textBox") textBox;
 
   constructor(
     public dialogRef: MatDialogRef<ShowShareLinkDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.flowShareLink = this.data.flowShareLink;
@@ -27,9 +26,8 @@ export class ShowShareLinkDialogComponent implements OnInit {
   copyText() {
     this.textBox.nativeElement.focus();
     this.textBox.nativeElement.select();
-    window.document.execCommand('copy');
+    window.document.execCommand("copy");
     // TODO: consider the more new API:
     // navigator.clipboard.writeText(this.shareLink);
   }
-
 }

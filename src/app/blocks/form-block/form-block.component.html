@@ -1,17 +1,27 @@
-<mat-error *ngIf="contextErrorKey && contextErrors">{{contextErrors}}</mat-error>
+<mat-error *ngIf="contextErrorKey && contextErrors">{{
+  contextErrors
+}}</mat-error>
 
-<formly-form [fields]="fields" [options]="options" [model]="model" [form]="form" (modelChange)="onModelChange($event)"></formly-form>
+<formly-form
+  [fields]="fields"
+  [options]="options"
+  [model]="model"
+  [form]="form"
+  (modelChange)="onModelChange($event)"
+></formly-form>
 <div class="button-row" *ngIf="hasSubmit">
-  <button type="button" mat-flat-button color="primary" (click)="onSubmit()">{{ label }}</button>
+  <button type="button" mat-flat-button color="primary" (click)="onSubmit()">
+    {{ label }}
+  </button>
 
-
-<!-- xxxx{{form | json}}xxxx -->
-
-
+  <!-- xxxx{{form | json}}xxxx -->
 </div>
 
 <div *ngIf="schemaBlocks && schemaBlocks.length > 0">
-  <app-blocks-workflow [blocks]="schemaBlocks"
-                       [models]="[model]"
-                       [context]="context" (workflowComplete)="onSchemaBlocksComplete($event)"></app-blocks-workflow>
+  <app-blocks-workflow
+    [blocks]="schemaBlocks"
+    [models]="[model]"
+    [context]="context"
+    (workflowComplete)="onSchemaBlocksComplete($event)"
+  ></app-blocks-workflow>
 </div>

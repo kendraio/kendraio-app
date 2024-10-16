@@ -1,7 +1,6 @@
 {
   "title": "YouTube edAddit Video",
   "blocks": [
-  
     {
       "type": "form",
       "hasSubmit": false,
@@ -10,41 +9,37 @@
         "title": "Add Video",
         "description": "This form allows you to add a new video.",
         "type": "object",
-        "required": [
-            "title",
-            "description"
-        ],
+        "required": ["title", "description"],
         "properties": {
-            "title": {
-                "title": "Title",
-                "description": "",
-                "type": "string",
-                "minLength": 2,
-                "maxLength": 150
-            },
-            "description": {
-                "type": "string",
-                "title": "Description",
-                "minLength": 2,
-                "maxLength": 1000
-            },
-            "tags": {
-                "type": "string",
-                "title": "Tags ",
-                "description": "Press enter to add a tag"
-            },
-            "visibility": {
-                "type": "object",
-                "title": "Visibility "
-            },
-            "playlist": {
-                "type": "object",
-                "title": "Playlists"
-            }
+          "title": {
+            "title": "Title",
+            "description": "",
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 150
+          },
+          "description": {
+            "type": "string",
+            "title": "Description",
+            "minLength": 2,
+            "maxLength": 1000
+          },
+          "tags": {
+            "type": "string",
+            "title": "Tags ",
+            "description": "Press enter to add a tag"
+          },
+          "visibility": {
+            "type": "object",
+            "title": "Visibility "
+          },
+          "playlist": {
+            "type": "object",
+            "title": "Playlists"
+          }
         }
-    },
+      },
       "uiSchema": {
-  
         "title": {
           "ui:disabled": false,
           "ui:placeholder": "Enter the Video Title",
@@ -60,15 +55,14 @@
           "ui:widget": "k-textarea",
           "ui:rows": 8,
           "ui:cols": 3,
-          "ui:errMessage":{
+          "ui:errMessage": {
             "required": "Excuse me, this field is required!!",
             "minLength": "Please enter more Characters",
             "maxLength": "This field cannot except that many Characters. ",
             "pattern": "Incorrect format! Should be 555-555-555"
           }
         },
-        "videoId": {
-        },
+        "videoId": {},
         "thumbnails": {
           "ui:widget": "thumbnailviewer"
         },
@@ -108,7 +102,7 @@
               "context": {
                 "uuid": "uuid"
               }
-          }
+            }
           ]
         },
         {

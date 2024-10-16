@@ -1,20 +1,20 @@
-import { Field } from '../../../ui-form/helpers/fields';
+import { Field } from "../../../ui-form/helpers/fields";
 
 export const COUNTRIES = (disabled) => ({
   ...Field.field(
-    'select',
-    'country',
+    "select",
+    "country",
     {
-      label: 'Country',
-      placeholder: 'Select a country',
+      label: "Country",
+      placeholder: "Select a country",
       options: [
-        { label: 'Un Kngdm', value: 'UK' },
-        { label: 'United States of America', value: 'USA' },
-        { label: 'Greece', value: 'GR' }
+        { label: "Un Kngdm", value: "UK" },
+        { label: "United States of America", value: "USA" },
+        { label: "Greece", value: "GR" },
       ],
       required: true,
-      disabled: disabled
+      disabled: disabled,
     },
-    { defaultValue: 'UK' }
-  )
+    { defaultValue: "UK" },
+  ),
 });

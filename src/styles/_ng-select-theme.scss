@@ -1,173 +1,183 @@
 // WIP
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 @mixin ng-select-theme($theme) {
-    $primary: map-get($theme, primary);
-    $accent: map-get($theme, accent);
-    $warn: map-get($theme, warn);
-    $isdark: map-get($theme, is-dark);
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $isdark: map-get($theme, is-dark);
 
-    $foreground: map-get($theme, foreground);
-    $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
 
+  $highlight-color: if(
+    $isdark,
+    mat.get-color-from-palette($foreground, text),
+    mat.get-color-from-palette($primary)
+  );
 
-    $highlight-color: if($isdark, mat.get-color-from-palette($foreground, text)  ,mat.get-color-from-palette($primary));
+  .ng-select,
+  .ng-select-container,
+  .ng-input > input {
+    color: mat.get-color-from-palette($foreground, text) !important;
+    font: inherit;
+    font-family: inherit;
+  }
+  .ng-placeholder {
+    display: none;
+    color: mat.get-color-from-palette($foreground, text, 0.54) !important;
+  }
 
-    .ng-select, .ng-select-container, .ng-input>input {
-        color: mat.get-color-from-palette($foreground, text) !important;
-        font: inherit;
-        font-family: inherit;
+  .ng-select-focused {
+    .ng-placeholder {
+      display: inline-block;
     }
-    .ng-placeholder{
+    .ng-has-value {
+      .ng-placeholder {
         display: none;
-        color: mat.get-color-from-palette($foreground, text,.54) !important;
-    }
-
-    .ng-select-focused {
-      .ng-placeholder{
-        display: inline-block;
-      }
-      .ng-has-value{
-       .ng-placeholder{
-          display: none;
-        }
       }
     }
+  }
 
-    .ng-clear-wrapper, .ng-arrow-wrapper{
-        height: 1em;
-        color: mat.get-color-from-palette($foreground, text, .4);
+  .ng-clear-wrapper,
+  .ng-arrow-wrapper {
+    height: 1em;
+    color: mat.get-color-from-palette($foreground, text, 0.4);
+  }
+  .ng-clear-wrapper:hover,
+  .ng-arrow-wrapper:hover {
+    color: mat.get-color-from-palette($foreground, text);
+  }
+  .ng-select .ng-arrow-wrapper .ng-arrow {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid;
+    height: 7px !important;
+  }
+
+  .ng-select.ng-select-single .ng-select-container .ng-value-container {
+    height: 1em;
+  }
+
+  .ng-select.ng-select-multiple {
+    margin-bottom: -4px;
+    .ng-value {
+      // WIP
+      color: mat.get-color-from-palette($primary, default-contrast);
+      background: mat.get-color-from-palette($primary);
+      padding: 4px 8px;
+      border-radius: 12px;
+      margin: 0 4px 2px 0;
+      .ng-value-label {
+        margin-left: 8px;
+      }
     }
-    .ng-clear-wrapper:hover, .ng-arrow-wrapper:hover{
+  }
+  .ng-select.ng-select-multiple
+    .ng-select-container
+    .ng-value-container
+    .ng-input {
+    padding-top: 4px;
+  }
+
+  .ng-dropdown-panel {
+    @include mat.elevation(4);
+    background: mat.get-color-from-palette($background, card);
+    color: mat.get-color-from-palette($foreground, text) !important;
+
+    .mat-option.ng-option-selected:not(.ng-option-marked):not(:hover) {
+      background: mat.get-color-from-palette($background, card);
+
+      &:not(.ng-option-disabled) {
         color: mat.get-color-from-palette($foreground, text);
-    }
-    .ng-select .ng-arrow-wrapper .ng-arrow{
-        border-left: 5px solid transparent;
-        border-right: 5px solid transparent;
-        border-top: 5px solid;
-        height: 7px !important;
-    }
-
-    .ng-select.ng-select-single .ng-select-container .ng-value-container {
-      height: 1em;
-    }
-
-    .ng-select.ng-select-multiple{
-      margin-bottom: -4px;
-      .ng-value{
-          // WIP
-          color: mat.get-color-from-palette($primary, default-contrast);
-          background: mat.get-color-from-palette($primary);
-          padding: 4px 8px;
-          border-radius: 12px;
-          margin: 0 4px 2px 0;
-          .ng-value-label{
-            margin-left: 8px;
-          }
       }
     }
-    .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-input{
-      padding-top: 4px;
+
+    // left: 0;
+    &.ng-select-bottom {
+      top: calc(100% + 0.5em);
     }
-
-    .ng-dropdown-panel{
-        @include mat.elevation(4);
-        background: mat.get-color-from-palette($background, card);
-        color: mat.get-color-from-palette($foreground, text) !important;
-
-
-        .mat-option.ng-option-selected:not(.ng-option-marked):not(:hover) {
+    &.ng-select-top {
+      bottom: calc(100% + 1.5em);
+    }
+    &.multiple {
+      .ng-option {
+        &.selected {
           background: mat.get-color-from-palette($background, card);
-
-          &:not(.ng-option-disabled) {
-            color: mat.get-color-from-palette($foreground, text);
-          }
         }
-
-        // left: 0;
-        &.ng-select-bottom {
-            top: calc(100% + .5em );
+        &.marked {
+          background: mat.get-color-from-palette($foreground, text, 0.04);
         }
-        &.ng-select-top {
-            bottom: calc(100% + 1.5em);
-        }
-        &.multiple {
-            .ng-option {
-                &.selected {
-                    background: mat.get-color-from-palette($background,card);
-                }
-                &.marked {
-                    background: mat.get-color-from-palette($foreground, text, .04);
-                }
-            }
-        }
-
-        .ng-dropdown-header {
-            border-bottom: 1px solid mat.get-color-from-palette($foreground, text,.12);
-            padding: 0 16px;
-            line-height: 3em;
-            min-height: 3em;
-        }
-
-        .ng-dropdown-footer {
-            border-top: 1px solid mat.get-color-from-palette($foreground, text,.12);
-            padding: 0 16px;
-            line-height: 3em;
-            min-height: 3em;
-        }
-
-        .ng-dropdown-panel-items {
-            .ng-optgroup {
-                user-select: none;
-                cursor: pointer;
-                line-height: 3em;
-                height: 3em;
-                padding: 0 16px;
-                color: mat.get-color-from-palette($foreground, text);
-                font-weight: 500;
-                &.ng-option-marked {
-                    background:mat.get-color-from-palette($foreground, text, .04);
-                }
-                &.ng-option-disabled {
-                    cursor: default;
-                }
-                &.ng-option-selected {
-                    background: mat.get-color-from-palette($foreground, text, .12);
-                    color: $highlight-color;
-                }
-            }
-            .ng-option {
-                line-height: 3em;
-                min-height: 3em;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                padding: 0 16px;
-                text-decoration: none;
-                position: relative;
-                color: mat.get-color-from-palette($foreground, text,.87);
-                text-align: left;
-
-                &.ng-option-marked {
-                    background: mat.get-color-from-palette($foreground, text, .04);
-                    color: mat.get-color-from-palette($foreground, text,.87);
-                }
-                &.ng-option-selected {
-                    background: mat.get-color-from-palette($foreground, text, .12);
-                    color: $highlight-color;
-                }
-                &.ng-option-disabled {
-                    color: mat.get-color-from-palette($foreground, text, 0.38);
-                }
-                &.ng-option-child {
-                    padding-left: 32px;
-                }
-                .ng-tag-label {
-                    padding-right: 5px;
-                    font-size: 80%;
-                    font-weight: 400;
-                    color: mat.get-color-from-palette($foreground, text, 0.38);
-                }
-            }
-        }
+      }
     }
+
+    .ng-dropdown-header {
+      border-bottom: 1px solid
+        mat.get-color-from-palette($foreground, text, 0.12);
+      padding: 0 16px;
+      line-height: 3em;
+      min-height: 3em;
+    }
+
+    .ng-dropdown-footer {
+      border-top: 1px solid mat.get-color-from-palette($foreground, text, 0.12);
+      padding: 0 16px;
+      line-height: 3em;
+      min-height: 3em;
+    }
+
+    .ng-dropdown-panel-items {
+      .ng-optgroup {
+        user-select: none;
+        cursor: pointer;
+        line-height: 3em;
+        height: 3em;
+        padding: 0 16px;
+        color: mat.get-color-from-palette($foreground, text);
+        font-weight: 500;
+        &.ng-option-marked {
+          background: mat.get-color-from-palette($foreground, text, 0.04);
+        }
+        &.ng-option-disabled {
+          cursor: default;
+        }
+        &.ng-option-selected {
+          background: mat.get-color-from-palette($foreground, text, 0.12);
+          color: $highlight-color;
+        }
+      }
+      .ng-option {
+        line-height: 3em;
+        min-height: 3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 0 16px;
+        text-decoration: none;
+        position: relative;
+        color: mat.get-color-from-palette($foreground, text, 0.87);
+        text-align: left;
+
+        &.ng-option-marked {
+          background: mat.get-color-from-palette($foreground, text, 0.04);
+          color: mat.get-color-from-palette($foreground, text, 0.87);
+        }
+        &.ng-option-selected {
+          background: mat.get-color-from-palette($foreground, text, 0.12);
+          color: $highlight-color;
+        }
+        &.ng-option-disabled {
+          color: mat.get-color-from-palette($foreground, text, 0.38);
+        }
+        &.ng-option-child {
+          padding-left: 32px;
+        }
+        .ng-tag-label {
+          padding-right: 5px;
+          font-size: 80%;
+          font-weight: 400;
+          color: mat.get-color-from-palette($foreground, text, 0.38);
+        }
+      }
+    }
+  }
 }

@@ -4,14 +4,9 @@
     "outDir": "../out-tsc/app",
     "types": [],
     "paths": {
-      "@env/*": ["./src/environments/*"],
+      "@env/*": ["./src/environments/*"]
     }
   },
-  "angularCompilerOptions": {
-  },
-  "exclude": [
-    "test.ts",
-    "**/*.spec.ts",
-    "./app/_shared/ui-form-x/**"
-  ]
+  "angularCompilerOptions": {},
+  "exclude": ["test.ts", "**/*.spec.ts", "./app/_shared/ui-form-x/**"]
 }

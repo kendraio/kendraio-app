@@ -1,18 +1,25 @@
-
-
 <mat-card *ngIf="isAuthenticated; else notLoggedIn">
   <h3>Identities</h3>
 
-  <p>You are logged in as <em>{{ profile?.nickname }}</em></p>
-
-  <br>
-  <img *ngIf="profile?.picture" alt="User profile pic" [src]="profile.picture">
-
-  <br><br>
-  <p>Last updated: <em>{{ profile?.updated_at }}</em></p>
-  <p>Name: <em>{{ profile?.name }}</em></p>
-  <p>Connected accounts:
+  <p>
+    You are logged in as <em>{{ profile?.nickname }}</em>
   </p>
+
+  <br />
+  <img
+    *ngIf="profile?.picture"
+    alt="User profile pic"
+    [src]="profile.picture"
+  />
+
+  <br /><br />
+  <p>
+    Last updated: <em>{{ profile?.updated_at }}</em>
+  </p>
+  <p>
+    Name: <em>{{ profile?.name }}</em>
+  </p>
+  <p>Connected accounts:</p>
   <ul *ngIf="!!profile?.identities">
     <li *ngFor="let a of profile.identities">
       <b>{{ a.provider }}</b>
@@ -28,20 +35,23 @@
   <pre appDebugOnly>{{ profile | json }}</pre>
   <button mat-flat-button color="primary" (click)="onLogout()">Logout</button>
 
-  <br><br>
-  <button mat-flat-button color="primary" (click)="linkAccount()">Link Account</button>
+  <br /><br />
+  <button mat-flat-button color="primary" (click)="linkAccount()">
+    Link Account
+  </button>
 </mat-card>
 
 <ng-template #notLoggedIn>
   <mat-card>
     <h3>Connected Profiles</h3>
 
-    <p>No profiles are saved on this device. You can connect multiple profiles by
+    <p>
+      No profiles are saved on this device. You can connect multiple profiles by
       logging in using different authentication providers.
     </p>
     <button mat-flat-button color="primary" (click)="onLogin()">Login</button>
-<!--    <br><br>-->
-<!--    <button mat-flat-button color="primary" (click)="loginGoogle()">Login with Google</button>-->
+    <!--    <br><br>-->
+    <!--    <button mat-flat-button color="primary" (click)="loginGoogle()">Login with Google</button>-->
   </mat-card>
 </ng-template>
 

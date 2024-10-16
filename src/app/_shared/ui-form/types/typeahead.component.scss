@@ -1,49 +1,52 @@
 :host ::ng-deep {
-    .ng-select {
-      font-size: inherit;
+  .ng-select {
+    font-size: inherit;
     font-weight: 400;
     line-height: 1.125;
-    font-family: Roboto,"Helvetica Neue",sans-serif;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
 
-      padding-bottom: 10px;
-      .ng-select-container {
-        color: inherit;
-        min-height: inherit;
-        border-top: none;
+    padding-bottom: 10px;
+    .ng-select-container {
+      color: inherit;
+      min-height: inherit;
+      border-top: none;
+      padding: 0;
+      &::after {
+        border-bottom: 0px;
+      }
+
+      .ng-value-container {
         padding: 0;
-        &::after {
-          border-bottom: 0px;
-        }
-  
-        .ng-value-container {
-          padding: 0;
-          border-top: 0;
-        }
-  
-        .ng-arrow-wrapper {
-          bottom: 6px;
-          .ng-arrow {
-            color: inherit;
-          }
-        }
-        .ng-clear-wrapper {
-          bottom: 2px;
+        border-top: 0;
+      }
+
+      .ng-arrow-wrapper {
+        bottom: 6px;
+        .ng-arrow {
+          color: inherit;
         }
       }
+      .ng-clear-wrapper {
+        bottom: 2px;
+      }
     }
-    .ng-dropdown-panel.ng-select-bottom {
-      top: calc(100% - 0em);
-      box-shadow: 0 5px 5px -3px rgba(0,0,0,0.2), 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12);
   }
-    .ng-dropdown-panel {
-      -webkit-box-sizing: border-box;
-      box-sizing: border-box;
-      position: absolute;
-      opacity: 0;
-      width: 100%;
-      z-index: 1050;
-      -webkit-overflow-scrolling: touch;
-      background: #fff;
+  .ng-dropdown-panel.ng-select-bottom {
+    top: calc(100% - 0em);
+    box-shadow:
+      0 5px 5px -3px rgba(0, 0, 0, 0.2),
+      0 8px 10px 1px rgba(0, 0, 0, 0.14),
+      0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  }
+  .ng-dropdown-panel {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    z-index: 1050;
+    -webkit-overflow-scrolling: touch;
+    background: #fff;
   }
 
   .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
@@ -54,22 +57,21 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-.ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
-  line-height: 3em;
-  min-height: 3em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding: 0 16px;
-  text-align: left;
-  text-decoration: none;
-  position: relative;
-  color: rgba(0,0,0,0.87);
-}
-.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked {
-  /* background: rgba(0,0,0,0.04); */
-  color: rgba(0,0,0,0.87);
-}
-
   }
+  .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+    line-height: 3em;
+    min-height: 3em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 16px;
+    text-align: left;
+    text-decoration: none;
+    position: relative;
+    color: rgba(0, 0, 0, 0.87);
+  }
+  .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked {
+    /* background: rgba(0,0,0,0.04); */
+    color: rgba(0, 0, 0, 0.87);
+  }
+}

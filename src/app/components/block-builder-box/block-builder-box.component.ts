@@ -1,16 +1,15 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {EDITOR_OPTIONS} from './editor-options';
-import {BLOCK_TYPES} from '../../dialogs/add-block-dialog/block-types';
-import { find, get, unset, clone } from 'lodash-es';
-import { UntypedFormControl } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { EDITOR_OPTIONS } from "./editor-options";
+import { BLOCK_TYPES } from "../../dialogs/add-block-dialog/block-types";
+import { find, get, unset, clone } from "lodash-es";
+import { UntypedFormControl } from "@angular/forms";
 
 @Component({
-  selector: 'app-block-builder-box',
-  templateUrl: './block-builder-box.component.html',
-  styleUrls: ['./block-builder-box.component.scss']
+  selector: "app-block-builder-box",
+  templateUrl: "./block-builder-box.component.html",
+  styleUrls: ["./block-builder-box.component.scss"],
 })
 export class BlockBuilderBoxComponent implements OnInit {
-
   editorOptions = EDITOR_OPTIONS;
 
   blockTypes = BLOCK_TYPES;
@@ -19,30 +18,32 @@ export class BlockBuilderBoxComponent implements OnInit {
   hasEditor = false;
 
   @Input() block;
-  blockModel = '';  
-  blockCommentFormControl = new UntypedFormControl(); 
-  blockTitle = '';
+  blockModel = "";
+  blockCommentFormControl = new UntypedFormControl();
+  blockTitle = "";
 
   @Output() updateBlock = new EventEmitter();
   @Output() deleteBlock = new EventEmitter();
 
   jsonMode;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {    
-    this.blockCommentFormControl.setValue(get(this.block, 'blockComment', ''));    
-    let block = clone(this.block);      
-    unset(block,"blockComment");    
+  ngOnInit() {
+    this.blockCommentFormControl.setValue(get(this.block, "blockComment", ""));
+    let block = clone(this.block);
+    unset(block, "blockComment");
     this.blockModel = JSON.stringify(block, null, 4);
-    this.blockTypeConfig = find(BLOCK_TYPES, ({ type }) => this.block.type === type);
-    this.hasEditor = get(this.blockTypeConfig, 'hasEditor', false);
+    this.blockTypeConfig = find(
+      BLOCK_TYPES,
+      ({ type }) => this.block.type === type,
+    );
+    this.hasEditor = get(this.blockTypeConfig, "hasEditor", false);
 
-    
     // this.jsonMode = {
-      // value: this.blockModel,
-      // language: 'json',
-      // uri: 'a:blockModel.json'
+    // value: this.blockModel,
+    // language: 'json',
+    // uri: 'a:blockModel.json'
     // };
   }
 
@@ -53,10 +54,9 @@ export class BlockBuilderBoxComponent implements OnInit {
   getUpdatedModel() {
     let block = JSON.parse(this.blockModel);
     return {
-      ...block,            
-      blockComment: this.blockCommentFormControl.value,      
+      ...block,
+      blockComment: this.blockCommentFormControl.value,
     };
-
   }
 
   onBlockUpdated(newBlock) {
@@ -68,8 +68,6 @@ export class BlockBuilderBoxComponent implements OnInit {
     //   uri: 'a:blockModel.json'
     // };
   }
-  
-   
-  initEditor() {
-  }
+
+  initEditor() {}
 }

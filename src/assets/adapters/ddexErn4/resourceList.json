@@ -195,11 +195,7 @@
                 {
                   "type": "serialize",
                   "hasFormatSelection": true,
-                  "formats": [
-                    "json",
-                    "csv",
-                    "xml"
-                  ]
+                  "formats": ["json", "csv", "xml"]
                 },
                 {
                   "type": "file-export",

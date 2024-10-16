@@ -1,12 +1,14 @@
-/**
-* DEPRECATED
-* All functionality has been moved to the form builder
-*/
+/** * DEPRECATED * All functionality has been moved to the form builder */
 <ng-container *ngIf="adapters$ | async as adapters">
-
   <select [(ngModel)]="selectedAdapter" (ngModelChange)="selectedForm = ''">
-    <option class="row" *ngFor="let adapter of adapters | objectKeys | orderKeys" [value]="adapter">
-      <ng-container *ngIf="adapters[adapter] as config">{{ config?.adapter?.name }}</ng-container>
+    <option
+      class="row"
+      *ngFor="let adapter of adapters | objectKeys | orderKeys"
+      [value]="adapter"
+    >
+      <ng-container *ngIf="adapters[adapter] as config">{{
+        config?.adapter?.name
+      }}</ng-container>
     </option>
   </select>
 
@@ -14,20 +16,25 @@
     <ng-container *ngIf="adapters[selectedAdapter]['adapter'] as adapterConfig">
       <ng-container *ngIf="adapterConfig['forms'] as formConfig; else noForms">
         <select [(ngModel)]="selectedForm">
-          <option *ngFor="let formId of formConfig | objectKeys" [value]="formId">
+          <option
+            *ngFor="let formId of formConfig | objectKeys"
+            [value]="formId"
+          >
             {{ formId }}
           </option>
         </select>
       </ng-container>
     </ng-container>
   </ng-container>
-
 </ng-container>
 
 <ng-template #noForms>No forms</ng-template>
 
-<br><br>
+<br /><br />
 
 <div *ngIf="selectedAdapter && selectedForm">
-  <app-generic-form [adapter]="selectedAdapter" [formId]="selectedForm"></app-generic-form>
+  <app-generic-form
+    [adapter]="selectedAdapter"
+    [formId]="selectedForm"
+  ></app-generic-form>
 </div>

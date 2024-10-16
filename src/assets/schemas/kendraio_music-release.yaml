@@ -5,9 +5,9 @@ fields:
     id: Title
     label: Title
     autoComplete: off
-    defaultValue: ''
+    defaultValue: ""
   - type: JSON
     id: json_data
     label: Legacy Data
     autoComplete: off
-    defaultValue: ''
+    defaultValue: ""

@@ -1,74 +1,65 @@
-import { Field } from '../../helpers/fields';
+import { Field } from "../../helpers/fields";
 
 let startTyping = true;
 
 export const FULLNAME = (disabled, defaultValue) => {
   const templateOptions = {
-    label: 'Full Name',
-    placeholder: 'Enter your full name',
+    label: "Full Name",
+    placeholder: "Enter your full name",
     required: true,
-    disabled: disabled
+    disabled: disabled,
   };
   return {
     ...Field.input(
-      'name',
+      "name",
       {
-        ...templateOptions
+        ...templateOptions,
       },
       {
-        defaultValue: defaultValue
-      }
-    )
+        defaultValue: defaultValue,
+      },
+    ),
   };
 };
 
 export const USERNAME = (disabled) => {
   const templateOptions = {
-    label: 'User Name',
-    placeholder: 'Enter a unique Username',
+    label: "User Name",
+    placeholder: "Enter a unique Username",
     required: true,
-    disabled: disabled
+    disabled: disabled,
   };
   return {
-    ...Field.input(
-      'username',
-      {
-        ...templateOptions
-      }
-    )
+    ...Field.input("username", {
+      ...templateOptions,
+    }),
   };
 };
 
 export const FNAME = (disabled) => {
   const templateOptions = {
-    label: 'First Name',
-    placeholder: 'Enter your first name',
+    label: "First Name",
+    placeholder: "Enter your first name",
     required: true,
-    disabled: disabled
+    disabled: disabled,
   };
   return {
-    ...Field.input(
-      'fname',
-      {
-        ...templateOptions
-      }
-    )
+    ...Field.input("fname", {
+      ...templateOptions,
+    }),
   };
 };
 
 export const LNAME = (disabled) => {
   const templateOptions = {
-    label: 'Last Name',
-    placeholder: 'Enter your last name',
+    label: "Last Name",
+    placeholder: "Enter your last name",
     required: true,
-    disabled: disabled
+    disabled: disabled,
   };
   return {
-    ...Field.input(
-      'lname',
-      {
-        ...templateOptions
-      }
-    )
+    ...Field.input("lname", {
+      ...templateOptions,
+    }),
   };
 };

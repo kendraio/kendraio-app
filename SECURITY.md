@@ -17,7 +17,7 @@ Email security@kendra.io with full details of the security issue,
 we will add it to the private security issue workspace, and reply to
 you with full details of how we are dealing with the issue.
 
-We thank you for your contribution and for responsible 
+We thank you for your contribution and for responsible
 reporting of security issues.
 
 :heart:

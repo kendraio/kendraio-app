@@ -8,9 +8,7 @@
     {
       "type": "file-input",
       "label": "Load JSON",
-      "accept": [
-        "json"
-      ]
+      "accept": ["json"]
     },
     {
       "type": "parse-data",

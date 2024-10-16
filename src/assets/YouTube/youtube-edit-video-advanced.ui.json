@@ -1,9 +1,8 @@
 {
-    "recordingDate": {
-      "ui:placeholder": "Enter the Video Title",
-      "ui:widget": "datepicker"
-    },
-
+  "recordingDate": {
+    "ui:placeholder": "Enter the Video Title",
+    "ui:widget": "datepicker"
+  },
 
   "location": {
     "ui:placeholder": "Enter the Country",

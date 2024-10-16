@@ -19,9 +19,9 @@
           "field": "title"
         },
         {
-            "headerName": "Video ID",
-            "field": "videoId"
-          },
+          "headerName": "Video ID",
+          "field": "videoId"
+        },
         {
           "headerName": "Description",
           "field": "description"

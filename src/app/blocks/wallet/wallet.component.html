@@ -1,12 +1,24 @@
 <span *ngIf="loginActive == false">
-  <a mat-flat-button class="mat-primary" href="{{login_url}}">Connect to Uphold</a>
+  <a mat-flat-button class="mat-primary" href="{{ login_url }}"
+    >Connect to Uphold</a
+  >
 </span>
 
-
 <span *ngIf="loginActive == true">
-  
-  <a  *ngIf="this.reconnect_button === true" mat-flat-button class="mat-primary" href="{{login_url}}">Reconnect to Uphold</a><br>
+  <a
+    *ngIf="this.reconnect_button === true"
+    mat-flat-button
+    class="mat-primary"
+    href="{{ login_url }}"
+    >Reconnect to Uphold</a
+  ><br />
 
-  <button *ngIf="this.make_card_button === true" mat-flat-button class="mat-accent" (click)="this.makeCard()">Make XRP card</button>
-  
+  <button
+    *ngIf="this.make_card_button === true"
+    mat-flat-button
+    class="mat-accent"
+    (click)="this.makeCard()"
+  >
+    Make XRP card
+  </button>
 </span>

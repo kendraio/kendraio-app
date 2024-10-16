@@ -1,27 +1,40 @@
-<mat-form-field style="margin-bottom: 0;">
+<mat-form-field style="margin-bottom: 0">
   <label>
     <span>Endpoint</span>
   </label>
-  <input matInput [formControl]="endpointFormControl">
+  <input matInput [formControl]="endpointFormControl" />
 </mat-form-field>
 
 <div class="">
-  <mat-checkbox [(ngModel)]="allowEmpty" class="allow-empty-checkbox">Allow empty</mat-checkbox>
-  <mat-checkbox [(ngModel)]="allowFirst" class="allow-first-checkbox">Allow first</mat-checkbox>
+  <mat-checkbox [(ngModel)]="allowEmpty" class="allow-empty-checkbox"
+    >Allow empty</mat-checkbox
+  >
+  <mat-checkbox [(ngModel)]="allowFirst" class="allow-first-checkbox"
+    >Allow first</mat-checkbox
+  >
 </div>
 
 <div>
   <span>Query</span>
-  <ngx-monaco-editor [options]="editorOptions" style="height: 160px;"
-                     [(ngModel)]="queryModel"></ngx-monaco-editor>
+  <ngx-monaco-editor
+    [options]="editorOptions"
+    style="height: 160px"
+    [(ngModel)]="queryModel"
+  ></ngx-monaco-editor>
 </div>
 <div>
   <span>Variables</span>
-  <ngx-monaco-editor [options]="editorOptionsJson" style="height: 90px;"
-                     [(ngModel)]="variablesModel"></ngx-monaco-editor>
+  <ngx-monaco-editor
+    [options]="editorOptionsJson"
+    style="height: 90px"
+    [(ngModel)]="variablesModel"
+  ></ngx-monaco-editor>
 </div>
 <div>
   <span>Headers</span>
-  <ngx-monaco-editor [options]="editorOptionsJson" style="height: 90px;"
-                     [(ngModel)]="headerModel"></ngx-monaco-editor>
+  <ngx-monaco-editor
+    [options]="editorOptionsJson"
+    style="height: 90px"
+    [(ngModel)]="headerModel"
+  ></ngx-monaco-editor>
 </div>

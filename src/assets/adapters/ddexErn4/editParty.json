@@ -56,11 +56,7 @@
         },
         "PartyName": {
           "ui:widget": "table",
-          "colHeadings": [
-            "FullName",
-            "FullNameIndexed",
-            "Language"
-          ]
+          "colHeadings": ["FullName", "FullNameIndexed", "Language"]
         }
       }
     },

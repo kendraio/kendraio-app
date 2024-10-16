@@ -1,18 +1,26 @@
 <div *ngIf="files$ | async as files; else noAuth">
-
   <div class="upload-file">
-    <mat-icon (click)="filePicker.click()" color="primary"
-              style="cursor: pointer; margin-left: -8rem; font-size: 10rem">cloud_upload
+    <mat-icon
+      (click)="filePicker.click()"
+      color="primary"
+      style="cursor: pointer; margin-left: -8rem; font-size: 10rem"
+      >cloud_upload
     </mat-icon>
-    <br>
-    <input type="file" style="display: none;" #filePicker (change)="onFilePick($event)">
+    <br />
+    <input
+      type="file"
+      style="display: none"
+      #filePicker
+      (change)="onFilePick($event)"
+    />
     <button (click)="filePicker.click()" mat-flat-button>Select file</button>
   </div>
 
   <!--<pre>{{ files | json }}</pre>-->
   <ul>
     <li *ngFor="let f of files.entries">
-      {{ f.name }} <a mat-button (click)="onDownload(f)">Download</a> <a mat-button (click)="onDelete(f)" color="warn">Delete</a>
+      {{ f.name }} <a mat-button (click)="onDownload(f)">Download</a>
+      <a mat-button (click)="onDelete(f)" color="warn">Delete</a>
     </li>
   </ul>
 </div>

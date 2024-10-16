@@ -1,59 +1,73 @@
-import { AfterContentInit, Component, ContentChild, Input, OnInit } from '@angular/core';
-import { TaggerInterface, TagInterface } from './interfaces';
-import { TagBaseDirective } from './tag-base.directive';
-import { NgxTaggerConfig } from './interfaces/ngx-tagger-config';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  AfterContentInit,
+  Component,
+  ContentChild,
+  Input,
+  OnInit,
+} from "@angular/core";
+import { TaggerInterface, TagInterface } from "./interfaces";
+import { TagBaseDirective } from "./tag-base.directive";
+import { NgxTaggerConfig } from "./interfaces/ngx-tagger-config";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 
 @Component({
-  selector: 'ngx-tagger',
+  selector: "ngx-tagger",
   template: `
     <ng-content></ng-content>
     <div class="tags">
-      <span class="tag" [ngxTag]="tag"
-            [style.border]="_config.tagBorder"
-            (updateTag)="updateTag({ i: i, tag: $event })"
-            *ngFor="let tag of tags; index as i"></span>
+      <span
+        class="tag"
+        [ngxTag]="tag"
+        [style.border]="_config.tagBorder"
+        (updateTag)="updateTag({ i: i, tag: $event })"
+        *ngFor="let tag of tags; index as i"
+      ></span>
     </div>
   `,
-  styles: [`
+  styles: [
+    `
       :host {
-          display: block;
-          position: relative;
-          user-select: none;
+        display: block;
+        position: relative;
+        user-select: none;
       }
       .tags {
-          position: absolute;
-          top: 0;
-          left: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
       }
       .tag {
-          display: block;
-          position: absolute;
-          box-sizing: border-box;
+        display: block;
+        position: absolute;
+        box-sizing: border-box;
       }
-  `],
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: NgxTaggerComponent,
-    multi: true
-  }]
+    `,
+  ],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: NgxTaggerComponent,
+      multi: true,
+    },
+  ],
 })
-export class NgxTaggerComponent implements OnInit, AfterContentInit, TaggerInterface, ControlValueAccessor {
-
+export class NgxTaggerComponent
+  implements OnInit, AfterContentInit, TaggerInterface, ControlValueAccessor
+{
   @Input() defaultTagSize = 90;
 
   _config: NgxTaggerConfig = {
-    tagBorder: '3px solid blue'
+    tagBorder: "3px solid blue",
   };
   @Input() set config(c: NgxTaggerConfig) {
     this._config = { ...this._config, ...c };
-  };
+  }
 
   tags: Array<TagInterface>;
 
   @ContentChild(TagBaseDirective) tagBase: TagBaseDirective;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     this.tags = [];
@@ -84,14 +98,11 @@ export class NgxTaggerComponent implements OnInit, AfterContentInit, TaggerInter
     this._touched = fn;
   }
 
-  setDisabledState(isDisabled: boolean): void {
-  }
+  setDisabledState(isDisabled: boolean): void {}
 
   writeValue(obj: any): void {
     if (!!obj) {
       this.tags = obj;
     }
   }
-
-
 }

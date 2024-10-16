@@ -159,10 +159,7 @@
         },
         "DisplayArtist": {
           "ui:widget": "table",
-          "colHeadings": [
-            "Artist",
-            "Role"
-          ],
+          "colHeadings": ["Artist", "Role"],
           "items": {
             "artist_uuid": {
               "ui:widget": "blocks",
@@ -210,10 +207,7 @@
         },
         "Contributor": {
           "ui:widget": "table",
-          "colHeadings": [
-            "Contributor",
-            "Role"
-          ],
+          "colHeadings": ["Contributor", "Role"],
           "items": {
             "contributor_uuid": {
               "ui:widget": "blocks",

@@ -1,26 +1,33 @@
 <p class="mat-typography">Load form from Swagger:</p>
 <ng-container *ngIf="adapters$ | async as adapters">
-
   <select [(ngModel)]="selectedAdapter" (ngModelChange)="selectedForm = ''">
-    <option class="row" *ngFor="let adapter of adapters | objectKeys | orderKeys" [value]="adapter">
+    <option
+      class="row"
+      *ngFor="let adapter of adapters | objectKeys | orderKeys"
+      [value]="adapter"
+    >
       <ng-container>{{ adapter }}</ng-container>
     </option>
   </select>
 
   <ng-container *ngIf="adapters[selectedAdapter] as swaggerConfig">
-    <ng-container *ngIf="swaggerConfig['definitions'] as definitionsConfig; else noForms">
+    <ng-container
+      *ngIf="swaggerConfig['definitions'] as definitionsConfig; else noForms"
+    >
       <select [(ngModel)]="selectedForm">
-        <option *ngFor="let formId of definitionsConfig | objectKeys" [value]="formId">
+        <option
+          *ngFor="let formId of definitionsConfig | objectKeys"
+          [value]="formId"
+        >
           {{ formId }}
         </option>
       </select>
     </ng-container>
   </ng-container>
-
 </ng-container>
 
 <ng-template #noForms>No Swagger config</ng-template>
 
-<br><br>
+<br /><br />
 <button mat-flat-button (click)="loadForm()" color="primary">Load Form</button>
 <button mat-flat-button (click)="cancel()">Cancel</button>

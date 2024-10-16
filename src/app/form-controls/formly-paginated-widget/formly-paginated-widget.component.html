@@ -4,28 +4,47 @@
   <div class="paginated-form-wrapper">
     <div class="page-list">
       <ol class="page-list-wrapper">
-        <li class="page-list-item" *ngFor="let currentField of field.fieldGroup; let i = index;">
-          <button class="page-list-item-button" *ngIf="activeItem != i" type="button" (click)="activeItem = i">
+        <li
+          class="page-list-item"
+          *ngFor="let currentField of field.fieldGroup; let i = index"
+        >
+          <button
+            class="page-list-item-button"
+            *ngIf="activeItem != i"
+            type="button"
+            (click)="activeItem = i"
+          >
             {{ getPageTitle(i) }}
           </button>
 
-          <span class="page-list-item-button active-button" *ngIf="activeItem == i">
+          <span
+            class="page-list-item-button active-button"
+            *ngIf="activeItem == i"
+          >
             <span>{{ getPageTitle(i) }}</span>
             <button class="remove-button" type="button" (click)="remove(i)">
               <mat-icon>delete</mat-icon>
             </button>
           </span>
-
         </li>
       </ol>
       <button type="button" (click)="add()">+</button>
     </div>
 
     <div class="paginated-item-form" *ngIf="!!field.fieldGroup[activeItem]">
-
       <ng-container
-        *ngIf="field.fieldGroup[activeItem].fieldGroup && field.fieldGroup[activeItem].fieldGroup.length > 0; else singleField">
-        <ng-container *ngFor="let c of field.fieldGroup[activeItem].fieldGroup; let j = index">
+        *ngIf="
+          field.fieldGroup[activeItem].fieldGroup &&
+            field.fieldGroup[activeItem].fieldGroup.length > 0;
+          else singleField
+        "
+      >
+        <ng-container
+          *ngFor="
+            let c of field.fieldGroup[activeItem].fieldGroup;
+            let j = index
+          "
+        >
           <formly-field [field]="c"></formly-field>
         </ng-container>
       </ng-container>
@@ -34,11 +53,6 @@
           <formly-field [field]="field.fieldGroup[activeItem]"></formly-field>
         </ng-container>
       </ng-template>
-
     </div>
-
   </div>
-
 </div>
-
-

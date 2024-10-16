@@ -1,63 +1,469 @@
 <ng-container *ngFor="let block of blocks; let i = index">
   <ng-container [ngSwitch]="block.type">
-    <app-form-block class="block-wrapper" *ngSwitchCase="'form'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-form-block>
-    <app-debug-block class="block-wrapper" *ngSwitchCase="'debug'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-debug-block>
-    <app-query-block class="block-wrapper" *ngSwitchCase="'query'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-query-block>
-    <app-mapping-block class="block-wrapper" *ngSwitchCase="'mapping'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-mapping-block>
-    <app-grid-block class="block-wrapper" *ngSwitchCase="'grid'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-grid-block>
-    <app-http-block class="block-wrapper" *ngSwitchCase="'http'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-http-block>
-    <app-chart-block class="block-wrapper" *ngSwitchCase="'chart'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-chart-block>
-    <app-init-block class="block-wrapper" *ngSwitchCase="'init'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-init-block>
-    <app-message-block class="block-wrapper" *ngSwitchCase="'message'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-message-block>
-    <app-image-block class="block-wrapper" *ngSwitchCase="'image'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-image-block>
-    <app-vimeo-block class="block-wrapper" *ngSwitchCase="'vimeoPlayer'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-vimeo-block>
-    <app-template-block class="block-wrapper" *ngSwitchCase="'template'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-template-block>
-    <app-button-block class="block-wrapper" *ngSwitchCase="'button'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-button-block>
-    <app-dialog-block class="block-wrapper" *ngSwitchCase="'dialog'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-dialog-block>
-    <app-actions-block class="block-wrapper" *ngSwitchCase="'actions'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-actions-block>
-    <app-variable-get class="block-wrapper" *ngSwitchCase="'variable-get'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-variable-get>
-    <app-variable-set class="block-wrapper" *ngSwitchCase="'variable-set'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-variable-set>
-    <app-switch-block class="block-wrapper" *ngSwitchCase="'switch'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-switch-block>
-    <app-batch-block class="block-wrapper" *ngSwitchCase="'batch'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-batch-block>
-    <app-multi-block class="block-wrapper" *ngSwitchCase="'multi'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-multi-block>
-    <app-event-dispatch-block class="block-wrapper" *ngSwitchCase="'dispatch'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-event-dispatch-block>
-    <app-csv-import-block class="block-wrapper" *ngSwitchCase="'csv-import'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-csv-import-block>
-    <app-csv-export-block class="block-wrapper" *ngSwitchCase="'csv-export'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-csv-export-block>
-    <app-card-block class="block-wrapper" *ngSwitchCase="'card'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-card-block>
-    <app-faker-block class="block-wrapper" *ngSwitchCase="'faker'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-faker-block>
-    <app-data-import-block class="block-wrapper" *ngSwitchCase="'import'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-data-import-block>
-    <app-data-export-block class="block-wrapper" *ngSwitchCase="'export'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-data-export-block>
-    <app-file-input-block class="block-wrapper" *ngSwitchCase="'file-input'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-file-input-block>
-    <app-parse-data-block class="block-wrapper" *ngSwitchCase="'parse-data'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-parse-data-block>
-    <app-file-export-block class="block-wrapper" *ngSwitchCase="'file-export'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-file-export-block>
-    <app-serialize-data-block class="block-wrapper" *ngSwitchCase="'serialize'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-serialize-data-block>
-    <app-launch-block class="block-wrapper" *ngSwitchCase="'launch'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-launch-block>
-    <app-db-block class="block-wrapper" *ngSwitchCase="'db'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-db-block>
-    <app-reference-block class="block-wrapper" *ngSwitchCase="'reference'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-reference-block>
-    <app-context-block class="block-wrapper" *ngSwitchCase="'context'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-context-block>
-    <app-auth0-profile-data-block class="block-wrapper" *ngSwitchCase="'auth0'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-auth0-profile-data-block>
-    <app-adapter-list-block class="block-wrapper" *ngSwitchCase="'adapter-list'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-adapter-list-block>
-    <app-adapter-info-block class="block-wrapper" *ngSwitchCase="'adapter-info'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-adapter-info-block>
-    <app-read-file-block class="block-wrapper" *ngSwitchCase="'read-file'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-read-file-block>
-    <app-context-save-block class="block-wrapper" *ngSwitchCase="'context-save'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-context-save-block>
-    <app-video-upload-block class="block-wrapper" *ngSwitchCase="'video-upload'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-video-upload-block>
-    <app-gosub-block class="block-wrapper" *ngSwitchCase="'gosub'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-gosub-block>
-    <app-gsheet-block class="block-wrapper" *ngSwitchCase="'gsheet'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-gsheet-block>
-    <app-map-block class="block-wrapper" *ngSwitchCase="'map'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-map-block>
-    <app-graphql-block class="block-wrapper" *ngSwitchCase="'graphql'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-graphql-block>
-    <app-validator-block class="block-wrapper" *ngSwitchCase="'validator'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-validator-block>
-    <app-load-auth-block class="block-wrapper" *ngSwitchCase="'load-auth'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-load-auth-block>
-    <app-xlsx-template-block class="block-wrapper" *ngSwitchCase="'xlsx-template'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-xlsx-template-block>
-    <app-validate-block class="block-wrapper" *ngSwitchCase="'validate'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-validate-block>
-    <app-audio-player-block class="block-wrapper" *ngSwitchCase="'player'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-audio-player-block>
-    <app-web-money-block class="block-wrapper" *ngSwitchCase="'web-money'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-web-money-block>
-    <app-wallet-block class="block-wrapper" *ngSwitchCase="'wallet'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-wallet-block>
-    <app-load-schema-block class="block-wrapper" *ngSwitchCase="'load-schema'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-load-schema-block>
-    <app-app-layout-block class="block-wrapper" *ngSwitchCase="'app-layout'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-app-layout-block>
-    <app-rename-fields-block class="block-wrapper" *ngSwitchCase="'rename-fields'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-rename-fields-block>
-    <app-mermaid-block class="block-wrapper" *ngSwitchCase="'mermaid'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-mermaid-block>
-    <app-comparison class="block-wrapper" *ngSwitchCase="'comparison'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-comparison>
-    <app-link-action class="block-wrapper" *ngSwitchCase="'link-action'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-link-action>
+    <app-form-block
+      class="block-wrapper"
+      *ngSwitchCase="'form'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-form-block>
+    <app-debug-block
+      class="block-wrapper"
+      *ngSwitchCase="'debug'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-debug-block>
+    <app-query-block
+      class="block-wrapper"
+      *ngSwitchCase="'query'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-query-block>
+    <app-mapping-block
+      class="block-wrapper"
+      *ngSwitchCase="'mapping'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-mapping-block>
+    <app-grid-block
+      class="block-wrapper"
+      *ngSwitchCase="'grid'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-grid-block>
+    <app-http-block
+      class="block-wrapper"
+      *ngSwitchCase="'http'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-http-block>
+    <app-chart-block
+      class="block-wrapper"
+      *ngSwitchCase="'chart'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-chart-block>
+    <app-init-block
+      class="block-wrapper"
+      *ngSwitchCase="'init'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-init-block>
+    <app-message-block
+      class="block-wrapper"
+      *ngSwitchCase="'message'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-message-block>
+    <app-image-block
+      class="block-wrapper"
+      *ngSwitchCase="'image'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-image-block>
+    <app-vimeo-block
+      class="block-wrapper"
+      *ngSwitchCase="'vimeoPlayer'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-vimeo-block>
+    <app-template-block
+      class="block-wrapper"
+      *ngSwitchCase="'template'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-template-block>
+    <app-button-block
+      class="block-wrapper"
+      *ngSwitchCase="'button'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-button-block>
+    <app-dialog-block
+      class="block-wrapper"
+      *ngSwitchCase="'dialog'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-dialog-block>
+    <app-actions-block
+      class="block-wrapper"
+      *ngSwitchCase="'actions'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-actions-block>
+    <app-variable-get
+      class="block-wrapper"
+      *ngSwitchCase="'variable-get'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-variable-get>
+    <app-variable-set
+      class="block-wrapper"
+      *ngSwitchCase="'variable-set'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-variable-set>
+    <app-switch-block
+      class="block-wrapper"
+      *ngSwitchCase="'switch'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-switch-block>
+    <app-batch-block
+      class="block-wrapper"
+      *ngSwitchCase="'batch'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-batch-block>
+    <app-multi-block
+      class="block-wrapper"
+      *ngSwitchCase="'multi'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-multi-block>
+    <app-event-dispatch-block
+      class="block-wrapper"
+      *ngSwitchCase="'dispatch'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-event-dispatch-block>
+    <app-csv-import-block
+      class="block-wrapper"
+      *ngSwitchCase="'csv-import'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-csv-import-block>
+    <app-csv-export-block
+      class="block-wrapper"
+      *ngSwitchCase="'csv-export'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-csv-export-block>
+    <app-card-block
+      class="block-wrapper"
+      *ngSwitchCase="'card'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-card-block>
+    <app-faker-block
+      class="block-wrapper"
+      *ngSwitchCase="'faker'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-faker-block>
+    <app-data-import-block
+      class="block-wrapper"
+      *ngSwitchCase="'import'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-data-import-block>
+    <app-data-export-block
+      class="block-wrapper"
+      *ngSwitchCase="'export'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-data-export-block>
+    <app-file-input-block
+      class="block-wrapper"
+      *ngSwitchCase="'file-input'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-file-input-block>
+    <app-parse-data-block
+      class="block-wrapper"
+      *ngSwitchCase="'parse-data'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-parse-data-block>
+    <app-file-export-block
+      class="block-wrapper"
+      *ngSwitchCase="'file-export'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-file-export-block>
+    <app-serialize-data-block
+      class="block-wrapper"
+      *ngSwitchCase="'serialize'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-serialize-data-block>
+    <app-launch-block
+      class="block-wrapper"
+      *ngSwitchCase="'launch'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-launch-block>
+    <app-db-block
+      class="block-wrapper"
+      *ngSwitchCase="'db'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-db-block>
+    <app-reference-block
+      class="block-wrapper"
+      *ngSwitchCase="'reference'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-reference-block>
+    <app-context-block
+      class="block-wrapper"
+      *ngSwitchCase="'context'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-context-block>
+    <app-auth0-profile-data-block
+      class="block-wrapper"
+      *ngSwitchCase="'auth0'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-auth0-profile-data-block>
+    <app-adapter-list-block
+      class="block-wrapper"
+      *ngSwitchCase="'adapter-list'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-adapter-list-block>
+    <app-adapter-info-block
+      class="block-wrapper"
+      *ngSwitchCase="'adapter-info'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-adapter-info-block>
+    <app-read-file-block
+      class="block-wrapper"
+      *ngSwitchCase="'read-file'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-read-file-block>
+    <app-context-save-block
+      class="block-wrapper"
+      *ngSwitchCase="'context-save'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-context-save-block>
+    <app-video-upload-block
+      class="block-wrapper"
+      *ngSwitchCase="'video-upload'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-video-upload-block>
+    <app-gosub-block
+      class="block-wrapper"
+      *ngSwitchCase="'gosub'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-gosub-block>
+    <app-gsheet-block
+      class="block-wrapper"
+      *ngSwitchCase="'gsheet'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-gsheet-block>
+    <app-map-block
+      class="block-wrapper"
+      *ngSwitchCase="'map'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-map-block>
+    <app-graphql-block
+      class="block-wrapper"
+      *ngSwitchCase="'graphql'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-graphql-block>
+    <app-validator-block
+      class="block-wrapper"
+      *ngSwitchCase="'validator'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-validator-block>
+    <app-load-auth-block
+      class="block-wrapper"
+      *ngSwitchCase="'load-auth'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-load-auth-block>
+    <app-xlsx-template-block
+      class="block-wrapper"
+      *ngSwitchCase="'xlsx-template'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-xlsx-template-block>
+    <app-validate-block
+      class="block-wrapper"
+      *ngSwitchCase="'validate'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-validate-block>
+    <app-audio-player-block
+      class="block-wrapper"
+      *ngSwitchCase="'player'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-audio-player-block>
+    <app-web-money-block
+      class="block-wrapper"
+      *ngSwitchCase="'web-money'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-web-money-block>
+    <app-wallet-block
+      class="block-wrapper"
+      *ngSwitchCase="'wallet'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-wallet-block>
+    <app-load-schema-block
+      class="block-wrapper"
+      *ngSwitchCase="'load-schema'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-load-schema-block>
+    <app-app-layout-block
+      class="block-wrapper"
+      *ngSwitchCase="'app-layout'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-app-layout-block>
+    <app-rename-fields-block
+      class="block-wrapper"
+      *ngSwitchCase="'rename-fields'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-rename-fields-block>
+    <app-mermaid-block
+      class="block-wrapper"
+      *ngSwitchCase="'mermaid'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-mermaid-block>
+    <app-comparison
+      class="block-wrapper"
+      *ngSwitchCase="'comparison'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-comparison>
+    <app-link-action
+      class="block-wrapper"
+      *ngSwitchCase="'link-action'"
+      [context]="context"
+      [config]="block"
+      [model]="models[i]"
+      (output)="updateModel(i + 1, $event)"
+    ></app-link-action>
   </ng-container>
 </ng-container>
 <!-- <pre>workblock: {{ context | json }}</pre> -->

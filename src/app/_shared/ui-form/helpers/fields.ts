@@ -1,37 +1,49 @@
-import { FormlyFieldConfig } from '@ngx-formly/core';
-import { FormlyTemplateOptions } from '@ngx-formly/core';
+import { FormlyFieldConfig } from "@ngx-formly/core";
+import { FormlyTemplateOptions } from "@ngx-formly/core";
 
 export class Field {
   public static field(
     type: string,
     key: string,
     templateOptions?: FormlyTemplateOptions,
-    options?: any
+    options?: any,
   ): FormlyFieldConfig {
     return {
       type,
       key,
       templateOptions,
-      ...options
+      ...options,
     };
   }
 
-  public static input(key: string,  templateOptions?: FormlyTemplateOptions, options?: any): FormlyFieldConfig {
-    return this.field('input', key, templateOptions, options);
+  public static input(
+    key: string,
+    templateOptions?: FormlyTemplateOptions,
+    options?: any,
+  ): FormlyFieldConfig {
+    return this.field("input", key, templateOptions, options);
   }
 
-  public static email(key: string, templateOptions?: FormlyTemplateOptions, options?: any): FormlyFieldConfig {
+  public static email(
+    key: string,
+    templateOptions?: FormlyTemplateOptions,
+    options?: any,
+  ): FormlyFieldConfig {
     const defaults = {
-      type: 'email',
-      label: 'Email'
+      type: "email",
+      label: "Email",
     };
 
-    return this.input(key,  { ...templateOptions, ...defaults }, options);
+    return this.input(key, { ...templateOptions, ...defaults }, options);
   }
 
-  public static password(key: string, templateOptions?: FormlyTemplateOptions, options?: any): FormlyFieldConfig {
+  public static password(
+    key: string,
+    templateOptions?: FormlyTemplateOptions,
+    options?: any,
+  ): FormlyFieldConfig {
     const defaults = {
-      type: 'password',
+      type: "password",
       minLength: 8,
       required: true,
       // {hideExpression: 'model.password'}
@@ -39,15 +51,27 @@ export class Field {
     return this.input(key, { ...templateOptions, ...defaults }, options);
   }
 
-  public static select(key: string, templateOptions?: FormlyTemplateOptions, options?: any): FormlyFieldConfig {
-    return this.field('select', key, templateOptions, options);
+  public static select(
+    key: string,
+    templateOptions?: FormlyTemplateOptions,
+    options?: any,
+  ): FormlyFieldConfig {
+    return this.field("select", key, templateOptions, options);
   }
 
-  public static textarea(key: string, templateOptions?: FormlyTemplateOptions, options?: any): FormlyFieldConfig {
-    return this.field('textarea', key, templateOptions, options);
+  public static textarea(
+    key: string,
+    templateOptions?: FormlyTemplateOptions,
+    options?: any,
+  ): FormlyFieldConfig {
+    return this.field("textarea", key, templateOptions, options);
   }
 
-  public static radio(key: string, templateOptions?: FormlyTemplateOptions, options?: any): FormlyFieldConfig {
-    return this.field('radio', key, templateOptions, options);
+  public static radio(
+    key: string,
+    templateOptions?: FormlyTemplateOptions,
+    options?: any,
+  ): FormlyFieldConfig {
+    return this.field("radio", key, templateOptions, options);
   }
 }

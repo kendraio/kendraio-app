@@ -1,27 +1,24 @@
-import { Component } from '@angular/core';
-import {BaseBlockComponent} from '../base-block/base-block.component';
-import {Router} from '@angular/router';
-import {get, isArray, isObject, isString} from 'lodash-es';
-import {mappingUtility} from '../mapping-block/mapping-util';
+import { Component } from "@angular/core";
+import { BaseBlockComponent } from "../base-block/base-block.component";
+import { Router } from "@angular/router";
+import { get, isArray, isObject, isString } from "lodash-es";
+import { mappingUtility } from "../mapping-block/mapping-util";
 
 @Component({
-  selector: 'app-launch-block',
-  templateUrl: './launch-block.component.html',
-  styleUrls: ['./launch-block.component.scss']
+  selector: "app-launch-block",
+  templateUrl: "./launch-block.component.html",
+  styleUrls: ["./launch-block.component.scss"],
 })
 export class LaunchBlockComponent extends BaseBlockComponent {
-
-  constructor(
-    private readonly router: Router
-  ) {
+  constructor(private readonly router: Router) {
     super();
   }
 
   onData(data: any, firstChange: boolean) {
     if (!firstChange) {
-      const context = this.getMappingResult(get(this.config, 'context', {}));
-      const adapter = this.valueGetter('adapter');
-      const workflowId = this.valueGetter('workflowId');
+      const context = this.getMappingResult(get(this.config, "context", {}));
+      const adapter = this.valueGetter("adapter");
+      const workflowId = this.valueGetter("workflowId");
       this.router.navigate([adapter, workflowId], { queryParams: context });
     }
   }
@@ -36,10 +33,13 @@ export class LaunchBlockComponent extends BaseBlockComponent {
 
   getMappingResult(mapping) {
     if (isString(mapping)) {
-      return mappingUtility({ data: this.model, context: this.context }, mapping);
+      return mappingUtility(
+        { data: this.model, context: this.context },
+        mapping,
+      );
     }
     if (isArray(mapping)) {
-      return mapping.map(v => this.getMappingResult(v));
+      return mapping.map((v) => this.getMappingResult(v));
     }
     if (isObject(mapping)) {
       return Object.keys(mapping).reduce((a, key) => {

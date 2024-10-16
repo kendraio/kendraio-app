@@ -2,11 +2,21 @@
 11{{formDescription}} -->
 
 <form [formGroup]="form" (ngSubmit)="submit()">
-  <formly-form [fields]="fields" [options]="options" [model]="model" [form]="form"></formly-form>
-  <button type="submit" mat-raised-button color="primary" [disabled]="form.invalid">Submit</button>
+  <formly-form
+    [fields]="fields"
+    [options]="options"
+    [model]="model"
+    [form]="form"
+  ></formly-form>
+  <button
+    type="submit"
+    mat-raised-button
+    color="primary"
+    [disabled]="form.invalid"
+  >
+    Submit
+  </button>
 </form>
-
-
 
 <!-- {{form.value | json}}/ -->
 <!-- {{fields | json}} -->

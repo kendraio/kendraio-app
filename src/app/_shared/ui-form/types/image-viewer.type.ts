@@ -1,45 +1,35 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FieldType } from '@ngx-formly/core';
-
+import { Component, Input, OnInit } from "@angular/core";
+import { FieldType } from "@ngx-formly/core";
 
 @Component({
-  selector: 'app-thumbnail-viewer',
+  selector: "app-thumbnail-viewer",
   template: `
-
-  <mat-card *ngIf="formControl.value" style="float:left;margin-right:32px" >
-  <mat-card-header>
-    <mat-label>{{to.label}}</mat-label>
-  </mat-card-header>
-  <mat-card-content>
-
-<div>
-
-<img src="{{imgUrl}}">
-
-</div>
-
-</mat-card-content>
-</mat-card>
-
- `,
+    <mat-card *ngIf="formControl.value" style="float:left;margin-right:32px">
+      <mat-card-header>
+        <mat-label>{{ to.label }}</mat-label>
+      </mat-card-header>
+      <mat-card-content>
+        <div>
+          <img src="{{ imgUrl }}" />
+        </div>
+      </mat-card-content>
+    </mat-card>
+  `,
 })
-
 export class ImageViewerComponent extends FieldType implements OnInit {
-    @Input()
-    private _formControl: any;
-    public get formControl() {
-        return this._formControl;
-    }
-    public set formControl(value) {
-        this._formControl = value;
-    }
+  @Input()
+  private _formControl: any;
+  public get formControl() {
+    return this._formControl;
+  }
+  public set formControl(value) {
+    this._formControl = value;
+  }
   imgId: any;
   imgUrl: any;
- imgProps: {};
+  imgProps: {};
 
   ngOnInit() {
     this.imgUrl = this.formControl.value;
   }
-
-
 }
