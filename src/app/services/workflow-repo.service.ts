@@ -1,15 +1,15 @@
-import { Injectable } from "@angular/core";
-import { AdaptersService } from "./adapters.service";
-import { catchError, map, switchMap, tap } from "rxjs/operators";
-import { get } from "lodash-es";
-import { from, of } from "rxjs";
-import { HttpClient } from "@angular/common/http";
-import { LocalDatabaseService } from "./local-database.service";
-import { environment } from "../../environments/environment";
-import { camelCase } from "camel-case";
+import { Injectable } from '@angular/core';
+import { AdaptersService } from './adapters.service';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { get } from 'lodash-es';
+import { from, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { LocalDatabaseService } from './local-database.service';
+import { environment } from '../../environments/environment';
+import { camelCase } from 'camel-case';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class WorkflowRepoService {
   configCache = {};
@@ -17,7 +17,7 @@ export class WorkflowRepoService {
   constructor(
     private readonly adapters: AdaptersService,
     private readonly http: HttpClient,
-    private readonly localData: LocalDatabaseService,
+    private readonly localData: LocalDatabaseService
   ) {}
 
   clearCacheFor(adapterName: string, workflowId: string) {
@@ -45,12 +45,12 @@ export class WorkflowRepoService {
 
     // Attempt to load workflow from DB, fall back to legacy loading if not found
     return from(
-      this.localData["workflows"]
+      this.localData['workflows']
         .where({
           adapterName,
           workflowId,
         })
-        .first(),
+        .first()
     ).pipe(
       switchMap((data: any) => {
         if (!!data) {
@@ -60,7 +60,7 @@ export class WorkflowRepoService {
         }
 
         const URL = `${environment.workflowStoreUrl}/${adapterName}/${camelCase(
-          workflowId,
+          workflowId
         )}`;
         return this.http.get(URL).pipe(
           map((config) => ({
@@ -100,14 +100,14 @@ export class WorkflowRepoService {
               }),
               catchError((err2) => {
                 console.log(
-                  `Workflow ${workflowId} loaded with previous loader`,
+                  `Workflow ${workflowId} loaded with previous loader`
                 );
                 return this.prevGetBlocks(adapterName, workflowId, context);
-              }),
+              })
             );
-          }),
+          })
         );
-      }),
+      })
     );
   }
 
@@ -124,9 +124,9 @@ export class WorkflowRepoService {
           .pipe(
             map((config) => {
               return { ...config, context };
-            }),
+            })
           );
-      }),
+      })
     );
   }
 }

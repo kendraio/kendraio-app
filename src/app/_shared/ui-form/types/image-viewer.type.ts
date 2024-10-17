@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { FieldType } from "@ngx-formly/core";
+import { Component, Input, OnInit } from '@angular/core';
+import { FieldType } from '@ngx-formly/core';
 
 @Component({
-  selector: "app-thumbnail-viewer",
+  selector: 'app-thumbnail-viewer',
   template: `
     <mat-card *ngIf="formControl.value" style="float:left;margin-right:32px">
       <mat-card-header>

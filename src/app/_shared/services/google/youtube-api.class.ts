@@ -1,11 +1,11 @@
-import { HttpClient, HttpParams, HttpHeaders } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 // import { Authorization } from './authorization.service';
-import { AuthService } from "../../../services/auth.service";
-import { map } from "rxjs/operators";
-import { ContextDataService } from "../../../services/context-data.service";
+import { AuthService } from '../../../services/auth.service';
+import { map } from 'rxjs/operators';
+import { ContextDataService } from '../../../services/context-data.service';
 
-import { YoutubeDataService } from "src/app/services/youtube-data.service";
+import { YoutubeDataService } from 'src/app/services/youtube-data.service';
 
 interface YoutubeApiServiceOptions {
   url?: string;
@@ -18,10 +18,10 @@ interface YoutubeApiServiceOptions {
 }
 
 const defaultParams = {
-  part: "snippet,contentDetails",
-  key: "", // environment.youtube.API_KEY,
-  maxResults: "50",
-  pageToken: "",
+  part: 'snippet,contentDetails',
+  key: '', // environment.youtube.API_KEY,
+  maxResults: '50',
+  pageToken: '',
 };
 
 // TODO: consider each api should have own class / interface???
@@ -39,7 +39,7 @@ export class YoutubeApiService {
     options: any,
     private yt: YoutubeDataService,
     // private readonly contextData: ContextDataService,
-    private authService?: AuthService,
+    private authService?: AuthService
   ) {
     this.resetConfig();
     if (authService) {
@@ -96,7 +96,7 @@ export class YoutubeApiService {
         this.nextPageToken = response.nextPageToken;
         this.isSearching = false;
         return response;
-      }),
+      })
     );
   }
 
@@ -110,7 +110,7 @@ export class YoutubeApiService {
 
   resetPageToken() {
     // this.params['pageToken'] = '';
-    this.setPageToken("");
+    this.setPageToken('');
   }
 
   setPageToken(pageToken) {
@@ -118,7 +118,7 @@ export class YoutubeApiService {
   }
 
   deletePageToken() {
-    this.params = this.params.delete("pageToken");
+    this.params = this.params.delete('pageToken');
   }
 
   createHeaders() {
@@ -158,7 +158,7 @@ export class YoutubeApiService {
     // this.authService && this.authService.accessToken;
     const headers = {};
     //  if (accessToken && this.authorize) {
-    headers["Authorization"] = `Bearer ${accessToken}`;
+    headers['Authorization'] = `Bearer ${accessToken}`;
     //  }
     return headers;
   }

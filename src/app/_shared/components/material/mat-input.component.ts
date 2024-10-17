@@ -3,11 +3,11 @@ import {
   QueryList,
   ViewChildren,
   ViewContainerRef,
-} from "@angular/core";
-import { ICellEditorAngularComp } from "ag-grid-angular";
+} from '@angular/core';
+import { ICellEditorAngularComp } from 'ag-grid-angular';
 
 @Component({
-  selector: "input-cell",
+  selector: 'input-cell',
   template: `
     <mat-card>
       <form class="container" tabindex="0" (keydown)="onKeyDown($event)">
@@ -37,7 +37,7 @@ export class MatInputComponent implements ICellEditorAngularComp {
   Title: string;
   // private lastName: string;
 
-  @ViewChildren("input", { read: ViewContainerRef })
+  @ViewChildren('input', { read: ViewContainerRef })
   public inputs: QueryList<any>;
   private focusedInput = 0;
 

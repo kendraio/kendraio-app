@@ -1,8 +1,8 @@
 /***************************************************************************************************
  * Load `$localize` onto the global scope - used if i18n tags appear in Angular templates.
  */
-import "@angular/localize/init";
-import "reflect-metadata";
+import '@angular/localize/init';
+import 'reflect-metadata';
 /**
  * This file includes polyfills needed by Angular and is loaded before the app.
  * You can add your own extra polyfills to this file.
@@ -67,7 +67,7 @@ import "reflect-metadata";
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */
-import "zone.js"; // Included with Angular CLI.
+import 'zone.js'; // Included with Angular CLI.
 
 /***************************************************************************************************
  * APPLICATION IMPORTS
@@ -75,8 +75,8 @@ import "zone.js"; // Included with Angular CLI.
 (window as any).global = window;
 (window as any).process = {};
 (window as any).process.nextTick = setTimeout;
-(window as any).process.cwd = () => "";
+(window as any).process.cwd = () => '';
 
 // @ts-ignore
-window.Buffer = window.Buffer || require("buffer").Buffer;
+window.Buffer = window.Buffer || require('buffer').Buffer;
 (process as any).browser = true;

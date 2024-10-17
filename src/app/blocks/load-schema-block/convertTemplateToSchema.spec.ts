@@ -1,40 +1,40 @@
-import { Converter } from "./convertTemplateToSchema";
+import { Converter } from './convertTemplateToSchema';
 
-describe("convertTemplateToSchema", () => {
-  it("convertKeys should convert keys in the template using the convertables", () => {
+describe('convertTemplateToSchema', () => {
+  it('convertKeys should convert keys in the template using the convertables', () => {
     // Arrange:
     let input_template = {
       websitemodel: {
-        "website-content": [
+        'website-content': [
           {
-            uuid: "c5bfac02-f0b6-4c31-8fdf-18de02667ee9",
-            src: "https://placekitten.com/200/300",
+            uuid: 'c5bfac02-f0b6-4c31-8fdf-18de02667ee9',
+            src: 'https://placekitten.com/200/300',
           },
           {
-            uuid: "c5bfac02-f0b6-4c31-8fdf-18de02667ee9",
-            src: "https://placekitten.com/200/300",
+            uuid: 'c5bfac02-f0b6-4c31-8fdf-18de02667ee9',
+            src: 'https://placekitten.com/200/300',
           },
         ],
       },
     };
 
     let expected_output = {
-      "website-content": {
-        "website-content": [
+      'website-content': {
+        'website-content': [
           {
-            uuid: "c5bfac02-f0b6-4c31-8fdf-18de02667ee9",
-            src: "https://placekitten.com/200/300",
+            uuid: 'c5bfac02-f0b6-4c31-8fdf-18de02667ee9',
+            src: 'https://placekitten.com/200/300',
           },
           {
-            uuid: "c5bfac02-f0b6-4c31-8fdf-18de02667ee9",
-            src: "https://placekitten.com/200/300",
+            uuid: 'c5bfac02-f0b6-4c31-8fdf-18de02667ee9',
+            src: 'https://placekitten.com/200/300',
           },
         ],
       },
     };
 
     let config = {
-      convertables: { websitemodel: "website-content" },
+      convertables: { websitemodel: 'website-content' },
     };
 
     // Act:
@@ -45,25 +45,25 @@ describe("convertTemplateToSchema", () => {
     expect(converted).toEqual(expected_output);
   });
 
-  it("applyBlockTypeDefaults should replace objects with matching UUIDs with defaults", () => {
+  it('applyBlockTypeDefaults should replace objects with matching UUIDs with defaults', () => {
     // Arrange:
     let input_template = {
-      "block-content": [
+      'block-content': [
         {
-          uuid: "c5bfac02-f0b6-4c31-8fdf-18de02667ee9",
+          uuid: 'c5bfac02-f0b6-4c31-8fdf-18de02667ee9',
         },
       ],
     };
 
     let expected_output = {
-      "block-content": [
+      'block-content': [
         {
-          uuid: "b74e30a7-a052-4331-86eb-ba2eb7a31ce4",
-          type: "object",
+          uuid: 'b74e30a7-a052-4331-86eb-ba2eb7a31ce4',
+          type: 'object',
           properties: {
             src: {
-              type: "string",
-              title: "Image URL",
+              type: 'string',
+              title: 'Image URL',
             },
           },
         },
@@ -72,12 +72,12 @@ describe("convertTemplateToSchema", () => {
 
     let config = {
       blockTypeDefaults: {
-        "c5bfac02-f0b6-4c31-8fdf-18de02667ee9": {
-          type: "object",
+        'c5bfac02-f0b6-4c31-8fdf-18de02667ee9': {
+          type: 'object',
           properties: {
             src: {
-              type: "string",
-              title: "Image URL",
+              type: 'string',
+              title: 'Image URL',
             },
           },
         },
@@ -86,8 +86,8 @@ describe("convertTemplateToSchema", () => {
 
     // Act:
     // we spy on the uuid method, making it return  "b74e30a7-a052-4331-86eb-ba2eb7a31ce4"
-    spyOn(Converter.prototype, "uuid").and.returnValue(
-      "b74e30a7-a052-4331-86eb-ba2eb7a31ce4",
+    spyOn(Converter.prototype, 'uuid').and.returnValue(
+      'b74e30a7-a052-4331-86eb-ba2eb7a31ce4'
     );
     let converter = new Converter(input_template, config);
     let converted = converter.applyBlockTypeDefaults(input_template);
@@ -96,28 +96,28 @@ describe("convertTemplateToSchema", () => {
     expect(converted).toEqual(expected_output);
   });
 
-  it("arrayOfUUIDsToDict should convert arrays of objects with UUIDs to dictionaries with UUIDs as keys", () => {
+  it('arrayOfUUIDsToDict should convert arrays of objects with UUIDs to dictionaries with UUIDs as keys', () => {
     // Arrange:
     let input_template = {
-      "block-content": [
+      'block-content': [
         {
-          uuid: "c5bfac02-f0b6-4c31-8fdf-18de02667ee9",
-          src: "https://placekitten.com/200/300",
+          uuid: 'c5bfac02-f0b6-4c31-8fdf-18de02667ee9',
+          src: 'https://placekitten.com/200/300',
         },
         {
-          uuid: "b74e30a7-a052-4331-86eb-ba2eb7a31ce4",
-          name: "Ada Lovelace",
+          uuid: 'b74e30a7-a052-4331-86eb-ba2eb7a31ce4',
+          name: 'Ada Lovelace',
         },
       ],
     };
 
     let expected_output = {
-      "block-content": {
-        "c5bfac02-f0b6-4c31-8fdf-18de02667ee9": {
-          src: "https://placekitten.com/200/300",
+      'block-content': {
+        'c5bfac02-f0b6-4c31-8fdf-18de02667ee9': {
+          src: 'https://placekitten.com/200/300',
         },
-        "b74e30a7-a052-4331-86eb-ba2eb7a31ce4": {
-          name: "Ada Lovelace",
+        'b74e30a7-a052-4331-86eb-ba2eb7a31ce4': {
+          name: 'Ada Lovelace',
         },
       },
     };
@@ -132,27 +132,27 @@ describe("convertTemplateToSchema", () => {
     expect(converted).toEqual(expected_output);
   });
 
-  it("convertToValidJSONSchema should convert template data to a valid JSON Schema with readOnly properties", () => {
+  it('convertToValidJSONSchema should convert template data to a valid JSON Schema with readOnly properties', () => {
     // Arrange:
     let input_template = {
-      uuid: "c5bfac02-f0b6-4c31-8fdf-18de02667ee9",
-      src: "https://placekitten.com/200/300",
+      uuid: 'c5bfac02-f0b6-4c31-8fdf-18de02667ee9',
+      src: 'https://placekitten.com/200/300',
     };
 
     let expected_output = {
-      type: "object",
+      type: 'object',
       properties: {
         uuid: {
-          type: "string",
-          default: "c5bfac02-f0b6-4c31-8fdf-18de02667ee9",
+          type: 'string',
+          default: 'c5bfac02-f0b6-4c31-8fdf-18de02667ee9',
           readOnly: true,
-          title: "c5bfac02-f0b6-4c31-8fdf-18de02667ee9",
+          title: 'c5bfac02-f0b6-4c31-8fdf-18de02667ee9',
         },
         src: {
-          type: "string",
-          default: "https://placekitten.com/200/300",
+          type: 'string',
+          default: 'https://placekitten.com/200/300',
           readOnly: true,
-          title: "https://placekitten.com/200/300",
+          title: 'https://placekitten.com/200/300',
         },
       },
     };
@@ -167,34 +167,34 @@ describe("convertTemplateToSchema", () => {
     expect(converted).toEqual(expected_output);
   });
 
-  it("convert should convert template data to a valid JSON Schema with readOnly properties", () => {
+  it('convert should convert template data to a valid JSON Schema with readOnly properties', () => {
     // Arrange:
     let input_template = {
       websitemodel: {
         blockmodel: [
           {
-            uuid: "c5bfac02-f0b6-4c31-8fdf-18de02667ee9",
-            src: "https://placekitten.com/200/300",
+            uuid: 'c5bfac02-f0b6-4c31-8fdf-18de02667ee9',
+            src: 'https://placekitten.com/200/300',
           },
         ],
       },
     };
 
     let expected_output = {
-      type: "object",
+      type: 'object',
       properties: {
-        "website-content": {
-          type: "object",
+        'website-content': {
+          type: 'object',
           properties: {
-            "block-content": {
-              type: "object",
+            'block-content': {
+              type: 'object',
               properties: {
-                "b74e30a7-a052-4331-86eb-ba2eb7a31ce4": {
-                  type: "object",
+                'b74e30a7-a052-4331-86eb-ba2eb7a31ce4': {
+                  type: 'object',
                   properties: {
                     src: {
-                      type: "string",
-                      title: "Image URL",
+                      type: 'string',
+                      title: 'Image URL',
                     },
                   },
                 },
@@ -207,16 +207,16 @@ describe("convertTemplateToSchema", () => {
 
     let config = {
       convertables: {
-        websitemodel: "website-content",
-        blockmodel: "block-content",
+        websitemodel: 'website-content',
+        blockmodel: 'block-content',
       },
       blockTypeDefaults: {
-        "c5bfac02-f0b6-4c31-8fdf-18de02667ee9": {
-          type: "object",
+        'c5bfac02-f0b6-4c31-8fdf-18de02667ee9': {
+          type: 'object',
           properties: {
             src: {
-              type: "string",
-              title: "Image URL",
+              type: 'string',
+              title: 'Image URL',
             },
           },
         },
@@ -225,8 +225,8 @@ describe("convertTemplateToSchema", () => {
 
     // Act:
     // we spy on the uuid method, making it return  "b74e30a7-a052-4331-86eb-ba2eb7a31ce4"
-    spyOn(Converter.prototype, "uuid").and.returnValue(
-      "b74e30a7-a052-4331-86eb-ba2eb7a31ce4",
+    spyOn(Converter.prototype, 'uuid').and.returnValue(
+      'b74e30a7-a052-4331-86eb-ba2eb7a31ce4'
     );
     let converter = new Converter(input_template, config);
     let converted = converter.convert();

@@ -1,13 +1,13 @@
-import { Component } from "@angular/core";
-import { BaseBlockComponent } from "../base-block/base-block.component";
-import { Router } from "@angular/router";
-import { get, isArray, isObject, isString } from "lodash-es";
-import { mappingUtility } from "../mapping-block/mapping-util";
+import { Component } from '@angular/core';
+import { BaseBlockComponent } from '../base-block/base-block.component';
+import { Router } from '@angular/router';
+import { get, isArray, isObject, isString } from 'lodash-es';
+import { mappingUtility } from '../mapping-block/mapping-util';
 
 @Component({
-  selector: "app-launch-block",
-  templateUrl: "./launch-block.component.html",
-  styleUrls: ["./launch-block.component.scss"],
+  selector: 'app-launch-block',
+  templateUrl: './launch-block.component.html',
+  styleUrls: ['./launch-block.component.scss'],
 })
 export class LaunchBlockComponent extends BaseBlockComponent {
   constructor(private readonly router: Router) {
@@ -16,9 +16,9 @@ export class LaunchBlockComponent extends BaseBlockComponent {
 
   onData(data: any, firstChange: boolean) {
     if (!firstChange) {
-      const context = this.getMappingResult(get(this.config, "context", {}));
-      const adapter = this.valueGetter("adapter");
-      const workflowId = this.valueGetter("workflowId");
+      const context = this.getMappingResult(get(this.config, 'context', {}));
+      const adapter = this.valueGetter('adapter');
+      const workflowId = this.valueGetter('workflowId');
       this.router.navigate([adapter, workflowId], { queryParams: context });
     }
   }
@@ -35,7 +35,7 @@ export class LaunchBlockComponent extends BaseBlockComponent {
     if (isString(mapping)) {
       return mappingUtility(
         { data: this.model, context: this.context },
-        mapping,
+        mapping
       );
     }
     if (isArray(mapping)) {

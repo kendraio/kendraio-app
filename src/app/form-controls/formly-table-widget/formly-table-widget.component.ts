@@ -1,30 +1,30 @@
-import { Component, OnInit } from "@angular/core";
-import { FieldArrayType, FormlyFieldConfig } from "@ngx-formly/core";
-import { get } from "lodash-es";
+import { Component, OnInit } from '@angular/core';
+import { FieldArrayType, FormlyFieldConfig } from '@ngx-formly/core';
+import { get } from 'lodash-es';
 
 @Component({
-  selector: "app-formly-table-widget",
-  templateUrl: "./formly-table-widget.component.html",
-  styleUrls: ["./formly-table-widget.component.scss"],
+  selector: 'app-formly-table-widget',
+  templateUrl: './formly-table-widget.component.html',
+  styleUrls: ['./formly-table-widget.component.scss'],
 })
 export class FormlyTableWidgetComponent
   extends FieldArrayType<FormlyFieldConfig>
   implements OnInit
 {
   get allowAdd() {
-    return get(this.field, "templateOptions.uiSchema.allowAdd", true);
+    return get(this.field, 'templateOptions.uiSchema.allowAdd', true);
   }
 
   get allowRemove() {
-    return get(this.field, "templateOptions.uiSchema.allowRemove", true);
+    return get(this.field, 'templateOptions.uiSchema.allowRemove', true);
   }
 
   get colHeadings() {
-    return get(this.field, "templateOptions.uiSchema.colHeadings", []);
+    return get(this.field, 'templateOptions.uiSchema.colHeadings', []);
   }
 
   get blocksConfig() {
-    return get(this.field, "templateOptions.uiSchema.blocks", []) as Array<any>;
+    return get(this.field, 'templateOptions.uiSchema.blocks', []) as Array<any>;
   }
 
   get hasBlocks() {
@@ -32,7 +32,7 @@ export class FormlyTableWidgetComponent
   }
 
   get defaultValue() {
-    return get(this.field, "templateOptions.uiSchema.defaultValue", {});
+    return get(this.field, 'templateOptions.uiSchema.defaultValue', {});
   }
 
   // TODO: replace the HTML table with ag-grid

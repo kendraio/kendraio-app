@@ -2,18 +2,18 @@ name: Photo
 labelField: name
 forms:
   edit: assets/forms/photoEditForm.yaml
-attachments: ["image"]
+attachments: ['image']
 fields:
   - type: TEXT
     id: name
     label: Photo title
     autoComplete: off
-    defaultValue: ""
+    defaultValue: ''
   - type: TEXT
     id: location
     label: Location
     autoComplete: off
-    defaultValue: ""
+    defaultValue: ''
   - type: REFERENCE
     id: author
     label: Author

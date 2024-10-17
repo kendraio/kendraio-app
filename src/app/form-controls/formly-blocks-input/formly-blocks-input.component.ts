@@ -4,14 +4,14 @@ import {
   OnChanges,
   OnInit,
   SimpleChanges,
-} from "@angular/core";
-import { FieldType } from "@ngx-formly/core";
-import { get } from "lodash-es";
+} from '@angular/core';
+import { FieldType } from '@ngx-formly/core';
+import { get } from 'lodash-es';
 
 @Component({
-  selector: "app-formly-blocks-input",
-  templateUrl: "./formly-blocks-input.component.html",
-  styleUrls: ["./formly-blocks-input.component.scss"],
+  selector: 'app-formly-blocks-input',
+  templateUrl: './formly-blocks-input.component.html',
+  styleUrls: ['./formly-blocks-input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormlyBlocksInputComponent
@@ -27,8 +27,8 @@ export class FormlyBlocksInputComponent
     // TODO: does this need to run OnChange
     this.blocks = get(
       this.field,
-      "templateOptions.uiSchema.blocksConfig.blocks",
-      [],
+      'templateOptions.uiSchema.blocksConfig.blocks',
+      []
     );
     // console.log(this.field, this.blocks);
     // console.log('form block value', this.formControl.value);
@@ -36,14 +36,14 @@ export class FormlyBlocksInputComponent
     // this.context = { ...this.context, defaultValue: this.formControl.value };
     const adapterName = get(
       this.field,
-      "templateOptions.uiSchema.blocksConfig.adapterName",
-      "UNKNOWN",
+      'templateOptions.uiSchema.blocksConfig.adapterName',
+      'UNKNOWN'
     );
     this.context = {
       app: {
         adapterName,
       },
-      ...(this.options["context"] || {}),
+      ...(this.options['context'] || {}),
     };
     this.models.push(this.formControl.value);
   }
@@ -52,14 +52,14 @@ export class FormlyBlocksInputComponent
     console.log({ changes });
     const adapterName = get(
       this.field,
-      "templateOptions.uiSchema.blocksConfig.adapterName",
-      "UNKNOWN",
+      'templateOptions.uiSchema.blocksConfig.adapterName',
+      'UNKNOWN'
     );
     this.context = {
       app: {
         adapterName,
       },
-      ...(this.options["context"] || {}),
+      ...(this.options['context'] || {}),
     };
   }
 

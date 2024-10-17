@@ -1,8 +1,8 @@
-import { Component, ChangeDetectionStrategy, OnInit } from "@angular/core";
-import { FieldType } from "@ngx-formly/core";
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { FieldType } from '@ngx-formly/core';
 
 @Component({
-  selector: "select-tags",
+  selector: 'select-tags',
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
     <label></label>

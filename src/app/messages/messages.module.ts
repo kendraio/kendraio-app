@@ -1,10 +1,10 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { MessagesComponent } from "./messages.component";
-import { RouterModule } from "@angular/router";
-import { MessageService } from "../_shared/services/message.service";
-import { SharedModule } from "../_shared/shared.module";
-import { AppMaterialModule } from "../app-material/app-material.module";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MessagesComponent } from './messages.component';
+import { RouterModule } from '@angular/router';
+import { MessageService } from '../_shared/services/message.service';
+import { SharedModule } from '../_shared/shared.module';
+import { AppMaterialModule } from '../app-material/app-material.module';
 
 @NgModule({
   declarations: [MessagesComponent],
@@ -13,9 +13,9 @@ import { AppMaterialModule } from "../app-material/app-material.module";
     CommonModule,
     RouterModule.forChild([
       {
-        path: "messages",
+        path: 'messages',
         component: MessagesComponent,
-        outlet: "popup",
+        outlet: 'popup',
       },
     ]),
   ],

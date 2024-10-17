@@ -1,23 +1,23 @@
-import { Component, NgZone } from "@angular/core";
-import { BaseBlockComponent } from "../base-block/base-block.component";
-import { clone, get, pick, set } from "lodash-es";
-import { mappingUtility } from "../mapping-block/mapping-util";
+import { Component, NgZone } from '@angular/core';
+import { BaseBlockComponent } from '../base-block/base-block.component';
+import { clone, get, pick, set } from 'lodash-es';
+import { mappingUtility } from '../mapping-block/mapping-util';
 
 @Component({
-  selector: "app-read-file-block",
-  templateUrl: "./read-file-block.component.html",
-  styleUrls: ["./read-file-block.component.scss"],
+  selector: 'app-read-file-block',
+  templateUrl: './read-file-block.component.html',
+  styleUrls: ['./read-file-block.component.scss'],
 })
 export class ReadFileBlockComponent extends BaseBlockComponent {
-  fileGetter = "data";
+  fileGetter = 'data';
   skipFirst = true;
-  readMode = "dataUrl"; // or 'text', 'binary' 'arrayBuffer'
-  encoding: "UTF-8";
-  mode = "update"; // or 'replace'
-  updatePath = "file";
+  readMode = 'dataUrl'; // or 'text', 'binary' 'arrayBuffer'
+  encoding: 'UTF-8';
+  mode = 'update'; // or 'replace'
+  updatePath = 'file';
 
   hasError = false;
-  errorMessage = "";
+  errorMessage = '';
   isLoading = false;
 
   constructor(private readonly zone: NgZone) {
@@ -25,12 +25,12 @@ export class ReadFileBlockComponent extends BaseBlockComponent {
   }
 
   onConfigUpdate(config: any) {
-    this.skipFirst = get(config, "skipFirst", true);
-    this.fileGetter = get(config, "fileGetter", "data");
-    this.readMode = get(config, "readMode", "dataUrl");
-    this.encoding = get(config, "encoding", "UTF-8");
-    this.mode = get(config, "mode", "update");
-    this.updatePath = get(config, "updatePath", "file");
+    this.skipFirst = get(config, 'skipFirst', true);
+    this.fileGetter = get(config, 'fileGetter', 'data');
+    this.readMode = get(config, 'readMode', 'dataUrl');
+    this.encoding = get(config, 'encoding', 'UTF-8');
+    this.mode = get(config, 'mode', 'update');
+    this.updatePath = get(config, 'updatePath', 'file');
   }
 
   onData(data: any, firstChange: boolean) {
@@ -40,16 +40,16 @@ export class ReadFileBlockComponent extends BaseBlockComponent {
     this.hasError = false;
     const file = mappingUtility(
       { data: this.model, context: this.context },
-      this.fileGetter,
+      this.fileGetter
     );
     if (file) {
-      const fileMeta = pick(file, ["name", "lastModified", "type", "size"]);
+      const fileMeta = pick(file, ['name', 'lastModified', 'type', 'size']);
       this.isLoading = true;
       const reader = new FileReader();
       reader.addEventListener(
-        "load",
+        'load',
         () => {
-          if (this.mode === "update") {
+          if (this.mode === 'update') {
             const outputData = clone(data);
             set(outputData, this.updatePath, {
               ...fileMeta,
@@ -63,27 +63,27 @@ export class ReadFileBlockComponent extends BaseBlockComponent {
             this.isLoading = false;
           });
         },
-        false,
+        false
       );
 
       switch (this.readMode) {
-        case "dataUrl":
+        case 'dataUrl':
           reader.readAsDataURL(file);
           break;
-        case "text":
+        case 'text':
           reader.readAsText(file, this.encoding);
           break;
-        case "binary":
+        case 'binary':
           reader.readAsBinaryString(file);
           break;
-        case "arrayBuffer":
+        case 'arrayBuffer':
           reader.readAsArrayBuffer(file);
           break;
         default:
           this.hasError = true;
-          this.errorMessage = "Unknown mode in read-file block";
+          this.errorMessage = 'Unknown mode in read-file block';
           this.isLoading = false;
-          console.error("Unknown read mode in file block");
+          console.error('Unknown read mode in file block');
       }
     }
   }

@@ -1,8 +1,8 @@
-import { Component } from "@angular/core";
-import { IHeaderAngularComp, ICellRendererAngularComp } from "ag-grid-angular";
+import { Component } from '@angular/core';
+import { IHeaderAngularComp, ICellRendererAngularComp } from 'ag-grid-angular';
 
 @Component({
-  selector: "button-component",
+  selector: 'button-component',
   template: `
     <div class="container">
       <button mat-raised-button mat-button>Edit</button>
@@ -32,8 +32,7 @@ export class MatButtonComponent implements ICellRendererAngularComp {
     return true;
   }
 
-  constructor() //   private columnAlignmentService: ColumnAlignmentService
-  {}
+  constructor() {} //   private columnAlignmentService: ColumnAlignmentService
 
   groupChanged($event) {
     //  this.columnAlignmentService.changeColumnAlignment($event.value);

@@ -5,13 +5,13 @@ import {
   OnChanges,
   OnInit,
   Output,
-} from "@angular/core";
-import { get } from "lodash-es";
+} from '@angular/core';
+import { get } from 'lodash-es';
 
 @Component({
-  selector: "app-base-block",
-  templateUrl: "./base-block.component.html",
-  styleUrls: ["./base-block.component.scss"],
+  selector: 'app-base-block',
+  templateUrl: './base-block.component.html',
+  styleUrls: ['./base-block.component.scss'],
 })
 export class BaseBlockComponent implements OnInit, OnChanges {
   @Input() config;
@@ -25,17 +25,17 @@ export class BaseBlockComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes) {
     const keyChanges = Object.keys(changes);
-    if (keyChanges.includes("context")) {
+    if (keyChanges.includes('context')) {
       this.onContextUpdate(
         this.context,
-        get(changes, "context.firstChange", false),
+        get(changes, 'context.firstChange', false)
       );
     }
-    if (keyChanges.includes("config")) {
+    if (keyChanges.includes('config')) {
       this.onConfigUpdate(this.config);
     }
-    if (keyChanges.includes("model")) {
-      this.onData(this.model, get(changes, "model.firstChange", false));
+    if (keyChanges.includes('model')) {
+      this.onData(this.model, get(changes, 'model.firstChange', false));
     }
   }
 

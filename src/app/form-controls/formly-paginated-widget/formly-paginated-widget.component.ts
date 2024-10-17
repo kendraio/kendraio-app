@@ -1,12 +1,12 @@
-import { Component, OnInit } from "@angular/core";
-import { FieldArrayType, FormlyFieldConfig } from "@ngx-formly/core";
-import { get } from "lodash-es";
-import { mappingUtility } from "../../blocks/mapping-block/mapping-util";
+import { Component, OnInit } from '@angular/core';
+import { FieldArrayType, FormlyFieldConfig } from '@ngx-formly/core';
+import { get } from 'lodash-es';
+import { mappingUtility } from '../../blocks/mapping-block/mapping-util';
 
 @Component({
-  selector: "app-formly-paginated-widget",
-  templateUrl: "./formly-paginated-widget.component.html",
-  styleUrls: ["./formly-paginated-widget.component.scss"],
+  selector: 'app-formly-paginated-widget',
+  templateUrl: './formly-paginated-widget.component.html',
+  styleUrls: ['./formly-paginated-widget.component.scss'],
 })
 export class FormlyPaginatedWidgetComponent
   extends FieldArrayType<FormlyFieldConfig>
@@ -18,8 +18,8 @@ export class FormlyPaginatedWidgetComponent
   getPageTitle(i) {
     const titleGetter = get(
       this.field,
-      "templateOptions.uiSchema.titleGetter",
-      false,
+      'templateOptions.uiSchema.titleGetter',
+      false
     );
     if (!titleGetter) {
       return `Item ${i + 1}`;

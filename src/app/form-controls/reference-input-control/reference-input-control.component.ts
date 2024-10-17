@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
+import { Component, Input, OnInit } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: "app-reference-input-control",
-  templateUrl: "./reference-input-control.component.html",
-  styleUrls: ["./reference-input-control.component.scss"],
+  selector: 'app-reference-input-control',
+  templateUrl: './reference-input-control.component.html',
+  styleUrls: ['./reference-input-control.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

@@ -1,13 +1,13 @@
-import { Component, Input, OnChanges, OnInit } from "@angular/core";
-import { UntypedFormGroup } from "@angular/forms";
-import { FormlyFieldConfig, FormlyFormOptions } from "@ngx-formly/core";
-import { KendraioFormService } from "../../_shared/ui-form/services/kendraio.form.service";
-import { FormSubmitHandlerService } from "../../services/form-submit-handler.service";
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { UntypedFormGroup } from '@angular/forms';
+import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
+import { KendraioFormService } from '../../_shared/ui-form/services/kendraio.form.service';
+import { FormSubmitHandlerService } from '../../services/form-submit-handler.service';
 
 @Component({
-  selector: "app-generic-form",
-  templateUrl: "./generic-form.component.html",
-  styleUrls: ["./generic-form.component.scss"],
+  selector: 'app-generic-form',
+  templateUrl: './generic-form.component.html',
+  styleUrls: ['./generic-form.component.scss'],
 })
 export class GenericFormComponent implements OnInit, OnChanges {
   @Input() adapter: string;
@@ -20,7 +20,7 @@ export class GenericFormComponent implements OnInit, OnChanges {
 
   constructor(
     private formService: KendraioFormService,
-    private formSubmitHandler: FormSubmitHandlerService,
+    private formSubmitHandler: FormSubmitHandlerService
   ) {}
 
   ngOnInit() {
@@ -43,7 +43,7 @@ export class GenericFormComponent implements OnInit, OnChanges {
   onSubmit() {
     this.formSubmitHandler.handle({
       form: `${this.adapter}:${this.formId}`,
-      action: "submit",
+      action: 'submit',
       payload: this.form.getRawValue(),
     });
   }

@@ -1,15 +1,15 @@
-import { Component } from "@angular/core";
-import { BaseBlockComponent } from "../base-block/base-block.component";
-import { mappingUtility } from "../mapping-block/mapping-util";
-import { get } from "lodash-es";
-import * as uuid from "uuid";
-import { Tracking } from "./tracking";
+import { Component } from '@angular/core';
+import { BaseBlockComponent } from '../base-block/base-block.component';
+import { mappingUtility } from '../mapping-block/mapping-util';
+import { get } from 'lodash-es';
+import * as uuid from 'uuid';
+import { Tracking } from './tracking';
 
 const tracking = new Tracking();
 const metaSelector = 'meta[name="monetization"]';
 
 function isMonetizationSupported(): boolean {
-  return Boolean(document["monetization"]);
+  return Boolean(document['monetization']);
 }
 
 function setPaymentPointer(paymentPointer: string) {
@@ -17,32 +17,32 @@ function setPaymentPointer(paymentPointer: string) {
   // using track data, stored in the player's dataset
   var metaTag = document.querySelector(metaSelector);
   if (!metaTag) {
-    metaTag = document.createElement("meta");
-    metaTag.setAttribute("name", "monetization");
+    metaTag = document.createElement('meta');
+    metaTag.setAttribute('name', 'monetization');
     document.head.appendChild(metaTag);
-    console.info("Added Web Monetization metatag for Web Money block");
+    console.info('Added Web Monetization metatag for Web Money block');
   }
 
-  metaTag.setAttribute("content", paymentPointer);
-  console.info("Set payment pointer to:", paymentPointer);
+  metaTag.setAttribute('content', paymentPointer);
+  console.info('Set payment pointer to:', paymentPointer);
 }
 
 function removePaymentPointer() {
-  console.info("removePaymentPointer called");
+  console.info('removePaymentPointer called');
   var metaTag = document.querySelector(metaSelector);
   if (metaTag) {
     metaTag.remove();
   }
 }
 
-const COIL_CLIENT_ID = "19d9c8e7-3a37-4fd5-803c-057300f4354b";
+const COIL_CLIENT_ID = '19d9c8e7-3a37-4fd5-803c-057300f4354b';
 
 function addCoilClientScript() {
-  const s = document.createElement("script");
-  s.setAttribute("src", "https://cdn.coil.com/coil-oauth-wm.v7.beta.js");
+  const s = document.createElement('script');
+  s.setAttribute('src', 'https://cdn.coil.com/coil-oauth-wm.v7.beta.js');
   document.head.appendChild(s);
-  document["monetization"] = document.createElement("div");
-  document["monetization"].state = "stopped";
+  document['monetization'] = document.createElement('div');
+  document['monetization'].state = 'stopped';
 }
 
 async function setupCoilClient() {
@@ -52,21 +52,21 @@ async function setupCoilClient() {
   // we we look for callbacks to this whenever this component
   // exists to redirect the app to the desired URL
 
-  let codeURLParameter = new URLSearchParams(location.search).get("code");
+  let codeURLParameter = new URLSearchParams(location.search).get('code');
   let coilAuthStateParameter = new URLSearchParams(location.search).get(
-    "state",
+    'state'
   );
   let coilOauthCallbackCode = new URLSearchParams(location.search).get(
-    "coilOauthCallbackCode", // long name to ensure exact match
+    'coilOauthCallbackCode' // long name to ensure exact match
   );
 
-  if (location.pathname === "/coil/callback") {
+  if (location.pathname === '/coil/callback') {
     // Callback redirect from Coil found, redirecting to correct app URL
     // and also passing the coilOauthCallbackCode
-    let invokerURL = atob(coilAuthStateParameter.split("_")[1]);
-    let baseURL = location.protocol + "//" + location.host;
+    let invokerURL = atob(coilAuthStateParameter.split('_')[1]);
+    let baseURL = location.protocol + '//' + location.host;
     location.href =
-      baseURL + invokerURL + "?coilOauthCallbackCode=" + codeURLParameter;
+      baseURL + invokerURL + '?coilOauthCallbackCode=' + codeURLParameter;
     return;
   }
 
@@ -78,47 +78,47 @@ async function setupCoilClient() {
     addCoilClientScript();
 
     let response = await fetch(
-      "https://coil-api-proxy.vercel.app/api/login?code=" +
+      'https://coil-api-proxy.vercel.app/api/login?code=' +
         coilOauthCallbackCode,
       {
-        method: "POST",
-      },
+        method: 'POST',
+      }
     );
 
     let result = await response.json();
     if (result.btpToken) {
-      console.info("logged in Coil, and got BTP token");
+      console.info('logged in Coil, and got BTP token');
 
       // Removes ugly parameters from browser URL:
       window.history.replaceState(
         null,
         document.title,
-        location.href.replace(location.search, ""),
+        location.href.replace(location.search, '')
       );
 
       // Provides BTP token to the polyfill:
-      document["coilMonetizationPolyfill"].init({ btpToken: result.btpToken });
+      document['coilMonetizationPolyfill'].init({ btpToken: result.btpToken });
     } else {
-      console.error("Failed to connect with Coil", result);
-      alert("Failed to connect with Coil :(");
+      console.error('Failed to connect with Coil', result);
+      alert('Failed to connect with Coil :(');
     }
   }
 }
 
-const urlPrefix = "https://app.kendra.io/";
+const urlPrefix = 'https://app.kendra.io/';
 
 function getCoilOauthLoginURL(): string {
-  const coilOauthLoginURL = new URL("https://coil.com/oauth/auth");
+  const coilOauthLoginURL = new URL('https://coil.com/oauth/auth');
 
-  const oauthState = uuid.v4() + "_" + btoa(location.pathname);
+  const oauthState = uuid.v4() + '_' + btoa(location.pathname);
   // A random UUID with our current path, to redirect back to
 
   Object.entries({
-    response_type: "code",
-    scope: "simple_wm openid",
+    response_type: 'code',
+    scope: 'simple_wm openid',
     client_id: COIL_CLIENT_ID,
     state: oauthState,
-    redirect_uri: urlPrefix + "coil/callback",
+    redirect_uri: urlPrefix + 'coil/callback',
   }).forEach(([key, value]) => {
     coilOauthLoginURL.searchParams.append(key, value);
   });
@@ -130,8 +130,8 @@ if (!webMonetizationSupportFound) {
   setupCoilClient();
 }
 const defaultPaymentActiveMessage = `💸▶️ Streaming web payment`;
-const defaultPaymentPausedMessage = "💸⏸️";
-const defaultSupportFoundMessage = "";
+const defaultPaymentPausedMessage = '💸⏸️';
+const defaultSupportFoundMessage = '';
 const defaultSupportMissingMessage = `
 <a href="https://webmonetization.org">
   Learn about Web Monetization here.</a>
@@ -151,12 +151,12 @@ function loadCurrencyRates(assetCode, fiat) {
   rate_fetches[assetCode + fiat] = true;
 
   return fetch(
-    "https://api.coingecko.com/api/v3/coins/markets?order=market_cap_desc&per_page=20&page=1&sparkline=false&vs_currency=" +
+    'https://api.coingecko.com/api/v3/coins/markets?order=market_cap_desc&per_page=20&page=1&sparkline=false&vs_currency=' +
       fiat,
     {
-      method: "GET",
-      mode: "cors",
-    },
+      method: 'GET',
+      mode: 'cors',
+    }
   )
     .then((response) => response.json())
     .then((response) => {
@@ -170,18 +170,18 @@ function loadCurrencyRates(assetCode, fiat) {
 let totalAmount = 0;
 let lastStreamTotalAmount = 0;
 
-const defaultFiatCurrency = "usd"; //must be lowercase
+const defaultFiatCurrency = 'usd'; //must be lowercase
 
 @Component({
-  selector: "app-web-money-block",
-  templateUrl: "./web-money.component.html",
-  styleUrls: ["./web-money.component.scss"],
+  selector: 'app-web-money-block',
+  templateUrl: './web-money.component.html',
+  styleUrls: ['./web-money.component.scss'],
 })
 export class WebMoneyComponent extends BaseBlockComponent {
-  paymentPointerSourceMapping = "data.paymentPointer";
-  paymentPointer = "";
-  analyticsRecipientID = "";
-  analyticsItemUUID = "";
+  paymentPointerSourceMapping = 'data.paymentPointer';
+  paymentPointer = '';
+  analyticsRecipientID = '';
+  analyticsItemUUID = '';
   enabled = true;
   trackingEnabled = false;
   supported = isMonetizationSupported();
@@ -189,14 +189,14 @@ export class WebMoneyComponent extends BaseBlockComponent {
 
   showPaymentTotal = true;
   fiatCurrency = defaultFiatCurrency;
-  nativeTotalAmount = ""; // total amount stored in native currency format (e.g: ETH, XRP)
-  nativeLastStreamTotalAmount = ""; // total amount of the last / current payment stream only
+  nativeTotalAmount = ''; // total amount stored in native currency format (e.g: ETH, XRP)
+  nativeLastStreamTotalAmount = ''; // total amount of the last / current payment stream only
 
-  fiatTotalAmount = ""; // total amount converted to a fiat currency (e.g: USD, EUR)
-  fiatLastStreamTotalAmount = ""; // last / current payment stream, currency converted
-  payTotalTitle = ""; // heading for the total amounts
+  fiatTotalAmount = ''; // total amount converted to a fiat currency (e.g: USD, EUR)
+  fiatLastStreamTotalAmount = ''; // last / current payment stream, currency converted
+  payTotalTitle = ''; // heading for the total amounts
 
-  coilLoginURL = "";
+  coilLoginURL = '';
   supportFoundMessage = defaultSupportFoundMessage;
   supportMissingMessage = defaultSupportMissingMessage;
   paymentActiveMessage = defaultPaymentActiveMessage;
@@ -209,38 +209,38 @@ export class WebMoneyComponent extends BaseBlockComponent {
   onConfigUpdate(config: any) {
     this.paymentPointerSourceMapping = get(
       config,
-      "mapping",
-      "data.paymentPointer",
+      'mapping',
+      'data.paymentPointer'
     );
-    this.enabled = get(config, "enabled", true);
-    this.trackingEnabled = get(config, "trackingEnabled", false);
-    this.showPaymentPointer = get(config, "showPaymentPointer", true);
-    this.showPaymentTotal = get(config, "showPaymentTotal", true);
+    this.enabled = get(config, 'enabled', true);
+    this.trackingEnabled = get(config, 'trackingEnabled', false);
+    this.showPaymentPointer = get(config, 'showPaymentPointer', true);
+    this.showPaymentTotal = get(config, 'showPaymentTotal', true);
     this.fiatCurrency = get(
       config,
-      "fiatCurrency",
-      defaultFiatCurrency,
+      'fiatCurrency',
+      defaultFiatCurrency
     ).toLowerCase();
-    this.payTotalTitle = get(config, "payTotalTitle", "Pay total:");
+    this.payTotalTitle = get(config, 'payTotalTitle', 'Pay total:');
     this.paymentActiveMessage = get(
       config,
-      "paymentActiveMessage",
-      defaultPaymentActiveMessage,
+      'paymentActiveMessage',
+      defaultPaymentActiveMessage
     );
     this.paymentPausedMessage = get(
       config,
-      "paymentPausedMessage",
-      defaultPaymentPausedMessage,
+      'paymentPausedMessage',
+      defaultPaymentPausedMessage
     );
     this.supportFoundMessage = get(
       config,
-      "supportFoundMessage",
-      defaultSupportFoundMessage,
+      'supportFoundMessage',
+      defaultSupportFoundMessage
     );
     this.supportMissingMessage = get(
       config,
-      "supportMissingMessage",
-      defaultSupportMissingMessage,
+      'supportMissingMessage',
+      defaultSupportMissingMessage
     );
     this.paymentActiveTemplateConfig = { template: this.paymentActiveMessage };
     this.paymentPausedTemplateConfig = { template: this.paymentPausedMessage };
@@ -267,12 +267,12 @@ export class WebMoneyComponent extends BaseBlockComponent {
       const fiatCurrencyFormatter = new Intl.NumberFormat(
         window.navigator.language,
         {
-          style: "currency",
+          style: 'currency',
           currency: fiat.toUpperCase(),
           minimumFractionDigits: 2,
           maximumFractionDigits: 20,
           maximumSignificantDigits: 5,
-        },
+        }
       );
       const nativeCurrencyFormatter = new Intl.NumberFormat(
         window.navigator.language,
@@ -282,14 +282,14 @@ export class WebMoneyComponent extends BaseBlockComponent {
           minimumFractionDigits: 2,
           maximumFractionDigits: 20,
           maximumSignificantDigits: 5,
-        },
+        }
       );
 
       parentScope.nativeTotalAmount = `${nativeCurrencyFormatter.format(
-        floatTotalAmount,
+        floatTotalAmount
       )}  ${detail.assetCode.toUpperCase()}`;
       parentScope.nativeLastStreamTotalAmount = `${nativeCurrencyFormatter.format(
-        lastStreamFloatTotalAmount,
+        lastStreamFloatTotalAmount
       )}  ${detail.assetCode.toUpperCase()}`;
       if (detail.assetCode + fiat in rates) {
         const fiatTotalAmount =
@@ -297,14 +297,14 @@ export class WebMoneyComponent extends BaseBlockComponent {
         const lastStreamFiatTotalAmount =
           lastStreamFloatTotalAmount * rates[detail.assetCode + fiat];
         parentScope.fiatTotalAmount = `${fiatCurrencyFormatter.format(
-          fiatTotalAmount,
+          fiatTotalAmount
         )} ${fiat.toUpperCase()}`;
         parentScope.fiatLastStreamTotalAmount = `${fiatCurrencyFormatter.format(
-          lastStreamFiatTotalAmount,
+          lastStreamFiatTotalAmount
         )} ${fiat.toUpperCase()}`;
         if (parentScope.trackingEnabled) {
           tracking.capture({
-            type: "nativeWebMoneyTotal",
+            type: 'nativeWebMoneyTotal',
             numericKey: detail.assetCode.toUpperCase(),
             numericValue: lastStreamFloatTotalAmount,
             data: {
@@ -315,7 +315,7 @@ export class WebMoneyComponent extends BaseBlockComponent {
           });
         }
       } else {
-        console.info("loading latest currency conversion");
+        console.info('loading latest currency conversion');
         loadCurrencyRates(detail.assetCode, fiat);
       }
     }
@@ -325,8 +325,8 @@ export class WebMoneyComponent extends BaseBlockComponent {
     function dispatchMockMonetizationProgressEvent() {
       monetizationprogressHandler({
         detail: {
-          amount: "1",
-          assetCode: "XRP",
+          amount: '1',
+          assetCode: 'XRP',
           assetScale: 2,
         },
       });
@@ -338,15 +338,15 @@ export class WebMoneyComponent extends BaseBlockComponent {
   onData(data: any, _firstChange: boolean) {
     this.analyticsRecipientID = mappingUtility(
       { data: this.model, context: this.context },
-      "data.analyticsRecipientID",
+      'data.analyticsRecipientID'
     );
     this.analyticsItemUUID = mappingUtility(
       { data: this.model, context: this.context },
-      "data.analyticsItemUUID",
+      'data.analyticsItemUUID'
     );
     this.paymentPointer = mappingUtility(
       { data: this.model, context: this.context },
-      this.paymentPointerSourceMapping,
+      this.paymentPointerSourceMapping
     );
     lastStreamTotalAmount = 0; //reset on event change
     if (

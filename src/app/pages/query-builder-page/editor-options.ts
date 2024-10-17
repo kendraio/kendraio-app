@@ -1,11 +1,11 @@
 export const EDITOR_OPTIONS = {
-  baseUrl: "form-builder",
-  theme: "vs-dark",
-  language: "json",
+  baseUrl: 'form-builder',
+  theme: 'vs-dark',
+  language: 'json',
   minimap: {
     enabled: false,
   },
-  lineNumbers: "off",
+  lineNumbers: 'off',
   scrollBeyondLastLine: false,
   automaticLayout: true,
 };

@@ -1,44 +1,44 @@
-import { Injectable } from "@angular/core";
-import Dexie from "dexie";
-import { v4 } from "uuid";
-import { get as _get } from "lodash-es";
-import { installCoreWorkflows } from "./core-workflows/install-core";
+import { Injectable } from '@angular/core';
+import Dexie from 'dexie';
+import { v4 } from 'uuid';
+import { get as _get } from 'lodash-es';
+import { installCoreWorkflows } from './core-workflows/install-core';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class LocalDatabaseService extends Dexie {
   constructor() {
-    super("kendraio-db");
+    super('kendraio-db');
     this.initDatabase();
-    this.on("populate", () => {
-      console.log("Populate database");
+    this.on('populate', () => {
+      console.log('Populate database');
       installCoreWorkflows(this);
       this.configureDefaultSettings();
     });
-    window["databaseInit"] = true;
+    window['databaseInit'] = true;
   }
 
   configureDefaultSettings() {
     localStorage.setItem(
-      "core.variables.adapterRepos",
+      'core.variables.adapterRepos',
       JSON.stringify({
-        repos: ["https://kendraio-adapter.kendraio.vercel.app/"],
-      }),
+        repos: ['https://kendraio-adapter.kendraio.vercel.app/'],
+      })
     );
   }
 
   initDatabase() {
     this.version(1).stores({
       metadata:
-        "uuid, schemaName, adapterName, label, [adapterName+schemaName]",
-      adapters: "adapterName",
-      dashboards: "adapterName",
-      services: "adapterName",
-      schemas: "++, *adapterName, [adapterName+schemaName]",
-      forms: "++, *adapterName, [adapterName+formId]",
-      workflows: "++, *adapterName, [adapterName+workflowId]",
-      apis: "++, *adapterName, [adapterName+apiPath]",
+        'uuid, schemaName, adapterName, label, [adapterName+schemaName]',
+      adapters: 'adapterName',
+      dashboards: 'adapterName',
+      services: 'adapterName',
+      schemas: '++, *adapterName, [adapterName+schemaName]',
+      forms: '++, *adapterName, [adapterName+formId]',
+      workflows: '++, *adapterName, [adapterName+workflowId]',
+      apis: '++, *adapterName, [adapterName+apiPath]',
     });
   }
 
@@ -58,9 +58,9 @@ export class LocalDatabaseService extends Dexie {
    * @returns a promise that resolves to the uuid of the item
    */
   add({ adapterName, schema: schemaName, data }) {
-    const uuid = _get(data, "uuid", v4());
-    const label = _get(data, "_label", _get(data, "name"));
-    return this["metadata"].add({ uuid, adapterName, schemaName, data, label });
+    const uuid = _get(data, 'uuid', v4());
+    const label = _get(data, '_label', _get(data, 'name'));
+    return this['metadata'].add({ uuid, adapterName, schemaName, data, label });
   }
 
   /**
@@ -70,7 +70,7 @@ export class LocalDatabaseService extends Dexie {
    * @returns dataset content as an array of objects
    */
   get({ adapterName, schema: schemaName }) {
-    return this["metadata"]
+    return this['metadata']
       .where({ adapterName, schemaName })
       .toArray()
       .then((items) => items.map(({ uuid, data }) => ({ uuid, ...data })));
@@ -82,8 +82,8 @@ export class LocalDatabaseService extends Dexie {
    * @returns a promise that resolves to the number of updated items (0 or 1)
    */
   update({ data, uuid }) {
-    const label = _get(data, "_label", _get(data, "name"));
-    return this["metadata"].update(uuid, { data, label });
+    const label = _get(data, '_label', _get(data, 'name'));
+    return this['metadata'].update(uuid, { data, label });
   }
 
   /**
@@ -92,7 +92,7 @@ export class LocalDatabaseService extends Dexie {
    * @returns A promise that resolves to the item
    */
   fetch({ uuid }) {
-    return this["metadata"]
+    return this['metadata']
       .where({ uuid })
       .toArray()
       .then((items) => items.map(({ data }) => ({ uuid, ...data })));
@@ -105,8 +105,8 @@ export class LocalDatabaseService extends Dexie {
    */
 
   deleteItem({ uuid }) {
-    console.log("delete", uuid);
-    return this["metadata"].delete(uuid);
+    console.log('delete', uuid);
+    return this['metadata'].delete(uuid);
   }
 
   /**
@@ -114,7 +114,7 @@ export class LocalDatabaseService extends Dexie {
    * @returns a promise that resolves to the JSON string
    */
   exportMetadataTable() {
-    return this["metadata"].toArray().then((items) => JSON.stringify(items));
+    return this['metadata'].toArray().then((items) => JSON.stringify(items));
   }
 
   /**
@@ -123,8 +123,8 @@ export class LocalDatabaseService extends Dexie {
    * @returns a promise that resolves to the number of items imported
    */
   importMetadataTable(items) {
-    return this["metadata"]
+    return this['metadata']
       .clear()
-      .then((_) => this["metadata"].bulkAdd(items));
+      .then((_) => this['metadata'].bulkAdd(items));
   }
 }

@@ -31,12 +31,12 @@
             <ng-template #double>
               <mat-panel-title>
                 If [&nbsp;<span class="value">
-                  {{ comparison.get("operator").value }}</span
+                  {{ comparison.get('operator').value }}</span
                 >&nbsp;] : [&nbsp;<span class="value">{{
-                  comparison.get("target").value | slice: 0 : 12
+                  comparison.get('target').value | slice: 0 : 12
                 }}</span
                 >&nbsp; ] then [&nbsp;<span class="value">{{
-                  comparison.get("output").value | slice: 0 : 12
+                  comparison.get('output').value | slice: 0 : 12
                 }}</span
                 >&nbsp;]
               </mat-panel-title>
@@ -44,9 +44,9 @@
             <ng-template #single>
               <mat-panel-title>
                 If [&nbsp;<span class="value">
-                  {{ comparison.get("operator").value }}</span
+                  {{ comparison.get('operator').value }}</span
                 >&nbsp;] then [&nbsp;<span class="value">{{
-                  comparison.get("output").value | slice: 0 : 30
+                  comparison.get('output').value | slice: 0 : 30
                 }}</span
                 >&nbsp;]
               </mat-panel-title>

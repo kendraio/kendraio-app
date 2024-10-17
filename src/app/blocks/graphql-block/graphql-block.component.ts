@@ -1,44 +1,44 @@
-import { Component } from "@angular/core";
-import { BaseBlockComponent } from "../base-block/base-block.component";
-import { HttpClient } from "@angular/common/http";
-import { get, isObject } from "lodash";
-import { mappingUtility } from "../mapping-block/mapping-util";
-import { SharedStateService } from "src/app/services/shared-state.service";
+import { Component } from '@angular/core';
+import { BaseBlockComponent } from '../base-block/base-block.component';
+import { HttpClient } from '@angular/common/http';
+import { get, isObject } from 'lodash';
+import { mappingUtility } from '../mapping-block/mapping-util';
+import { SharedStateService } from 'src/app/services/shared-state.service';
 
 @Component({
-  selector: "app-graphql-block",
-  templateUrl: "./graphql-block.component.html",
-  styleUrls: ["./graphql-block.component.scss"],
+  selector: 'app-graphql-block',
+  templateUrl: './graphql-block.component.html',
+  styleUrls: ['./graphql-block.component.scss'],
 })
 export class GraphqlBlockComponent extends BaseBlockComponent {
-  endpoint = "";
+  endpoint = '';
   variableGetters = {};
   headers = {};
-  query = "";
+  query = '';
 
   hasError = false;
-  errorMessage = "";
+  errorMessage = '';
   isLoading = false;
 
   constructor(
     private readonly http: HttpClient,
-    private readonly stateService: SharedStateService,
+    private readonly stateService: SharedStateService
   ) {
     super();
   }
 
   onConfigUpdate(config: any) {
-    this.endpoint = get(config, "endpoint", "");
-    this.variableGetters = get(config, "variables", {});
-    this.headers = get(config, "headers", {});
-    this.query = get(config, "query", "");
+    this.endpoint = get(config, 'endpoint', '');
+    this.variableGetters = get(config, 'variables', {});
+    this.headers = get(config, 'headers', {});
+    this.query = get(config, 'query', '');
   }
 
   onData(data: any, firstChange: boolean) {
-    if (firstChange && !get(this.config, "allowFirst", false)) {
+    if (firstChange && !get(this.config, 'allowFirst', false)) {
       return;
     }
-    const allowEmpty = get(this.config, "allowEmpty", false);
+    const allowEmpty = get(this.config, 'allowEmpty', false);
     if (!isObject(data) && !allowEmpty) {
       return;
     }
@@ -54,7 +54,7 @@ export class GraphqlBlockComponent extends BaseBlockComponent {
         variables: Object.keys(this.variableGetters).reduce((a, key) => {
           a[key] = mappingUtility(
             { data, context: this.context, state: this.stateService.state },
-            this.variableGetters[key],
+            this.variableGetters[key]
           );
           return a;
         }, {}),
@@ -62,7 +62,7 @@ export class GraphqlBlockComponent extends BaseBlockComponent {
       headers = Object.keys(this.headers).reduce((a, key) => {
         a[key] = mappingUtility(
           { data, context: this.context, state: this.stateService.state },
-          this.headers[key],
+          this.headers[key]
         );
         return a;
       }, {});
@@ -71,7 +71,7 @@ export class GraphqlBlockComponent extends BaseBlockComponent {
       this.errorMessage = e.message;
     }
     if (!payload || !headers) {
-      console.log("graphql payload or headers not set");
+      console.log('graphql payload or headers not set');
       return;
     }
 
@@ -86,7 +86,7 @@ export class GraphqlBlockComponent extends BaseBlockComponent {
         this.hasError = true;
         this.isLoading = false;
         this.errorMessage = error.message;
-      },
+      }
     );
   }
 }

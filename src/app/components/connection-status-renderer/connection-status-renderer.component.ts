@@ -1,18 +1,18 @@
-import { Component, OnInit } from "@angular/core";
-import { ICellRendererAngularComp } from "ag-grid-angular";
-import { ICellRendererParams } from "ag-grid-community";
-import moment from "moment";
+import { Component, OnInit } from '@angular/core';
+import { ICellRendererAngularComp } from 'ag-grid-angular';
+import { ICellRendererParams } from 'ag-grid-community';
+import moment from 'moment';
 
 @Component({
-  selector: "app-connection-status-renderer",
-  templateUrl: "./connection-status-renderer.component.html",
-  styleUrls: ["./connection-status-renderer.component.scss"],
+  selector: 'app-connection-status-renderer',
+  templateUrl: './connection-status-renderer.component.html',
+  styleUrls: ['./connection-status-renderer.component.scss'],
 })
 export class ConnectionStatusRendererComponent
   implements OnInit, ICellRendererAngularComp
 {
   hasDetails = false;
-  updated = "";
+  updated = '';
 
   constructor() {}
 
@@ -28,7 +28,7 @@ export class ConnectionStatusRendererComponent
       try {
         console.log(localStorage.getItem(`${key}__updated`));
         this.updated = moment(
-          localStorage.getItem(`${key}__updated`),
+          localStorage.getItem(`${key}__updated`)
         ).calendar();
       } catch (e) {
         console.log(e.message);

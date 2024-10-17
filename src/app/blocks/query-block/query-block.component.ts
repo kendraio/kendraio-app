@@ -6,21 +6,21 @@ import {
   OnChanges,
   OnInit,
   Output,
-} from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { get, has, isString } from "lodash-es";
-import { DocumentRepositoryService } from "../../services/document-repository.service";
-import { ContextDataService } from "../../services/context-data.service";
-import { search } from "jmespath";
-import { catchError, tap } from "rxjs/operators";
-import { of } from "rxjs";
+} from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { get, has, isString } from 'lodash-es';
+import { DocumentRepositoryService } from '../../services/document-repository.service';
+import { ContextDataService } from '../../services/context-data.service';
+import { search } from 'jmespath';
+import { catchError, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 // TODO: deprecate this in favour of separate http and local db blocks
 
 @Component({
-  selector: "app-query-block",
-  templateUrl: "./query-block.component.html",
-  styleUrls: ["./query-block.component.scss"],
+  selector: 'app-query-block',
+  templateUrl: './query-block.component.html',
+  styleUrls: ['./query-block.component.scss'],
 })
 export class QueryBlockComponent implements OnInit, OnChanges {
   @Input() config;
@@ -29,93 +29,93 @@ export class QueryBlockComponent implements OnInit, OnChanges {
   @Output() output = new EventEmitter();
 
   hasError = false;
-  errorMessage = "";
+  errorMessage = '';
 
-  debug = "";
+  debug = '';
   isLoading = false;
 
   constructor(
     private readonly http: HttpClient,
     private readonly docRepo: DocumentRepositoryService,
     private readonly contextData: ContextDataService,
-    private readonly zone: NgZone,
+    private readonly zone: NgZone
   ) {}
 
   ngOnInit() {}
 
   ngOnChanges(changes): void {
     // console.log({ changes });
-    if (get(changes, "model.firstChange", false)) {
+    if (get(changes, 'model.firstChange', false)) {
       return;
     }
     this.updateQuery();
   }
 
   constructEndpointUrl(dataSource) {
-    if (isString(get(dataSource, "endpoint", ""))) {
+    if (isString(get(dataSource, 'endpoint', ''))) {
       return dataSource.endpoint;
     }
     const endpoint = this.contextData.getFromContextWithModel(
       dataSource.endpoint,
-      this.model,
+      this.model
     );
     // console.log({ endpoint });
-    const protocol = get(endpoint, "protocol", "https:");
-    const host = get(endpoint, "host", "");
-    const pathname = get(endpoint, "pathname", "/");
-    const query = get(endpoint, "query", []);
+    const protocol = get(endpoint, 'protocol', 'https:');
+    const host = get(endpoint, 'host', '');
+    const pathname = get(endpoint, 'pathname', '/');
+    const query = get(endpoint, 'query', []);
     const reduceQuery = (_q) =>
       Object.keys(_q)
         .map((key) => `${key}=${_q[key]}`, [])
-        .join("&");
+        .join('&');
     return `${protocol}//${host}${pathname}?${reduceQuery(query)}`;
   }
 
   updateQuery() {
     this.hasError = false;
     this.isLoading = true;
-    const { type, ...dataSource } = get(this.config, "dataSource", {
+    const { type, ...dataSource } = get(this.config, 'dataSource', {
       type: false,
     });
     switch (type) {
-      case "local":
+      case 'local':
         const { schema } = dataSource;
         this.docRepo.listAllOfType(schema).subscribe((values) => {
           // console.log({ values });
           this.sendOutput(values || []);
         });
         break;
-      case "remote":
+      case 'remote':
         const endpoint = this.constructEndpointUrl(dataSource);
         this.debug = endpoint;
         let headers = new HttpHeaders();
-        if (has(dataSource, "authentication.type")) {
-          switch (get(dataSource, "authentication.type")) {
-            case "basic-auth":
+        if (has(dataSource, 'authentication.type')) {
+          switch (get(dataSource, 'authentication.type')) {
+            case 'basic-auth':
               const valueGetters = get(
                 dataSource,
-                "authentication.valueGetters",
-                {},
+                'authentication.valueGetters',
+                {}
               );
               const context = {
                 ...dataSource.authentication,
                 ...this.contextData.getGlobalContext(
                   valueGetters,
-                  this.context,
+                  this.context
                 ),
               };
-              if (has(context, "username") && has(context, "password")) {
+              if (has(context, 'username') && has(context, 'password')) {
                 const { username, password } = context;
                 headers = headers.append(
-                  "Authorization",
-                  "Basic " + btoa(`${username}:${password}`),
+                  'Authorization',
+                  'Basic ' + btoa(`${username}:${password}`)
                 );
               }
               break;
-            case "bearer":
+            case 'bearer':
               break;
             default:
-              console.log("Unknown authentication type");
+              console.log('Unknown authentication type');
           }
         }
         this.http
@@ -126,7 +126,7 @@ export class QueryBlockComponent implements OnInit, OnChanges {
               this.errorMessage = error.message;
               // TODO: need to prevent errors for triggering subsequent blocks
               return of([]);
-            }),
+            })
           )
           .subscribe((values) => {
             this.sendOutput(values);
@@ -134,7 +134,7 @@ export class QueryBlockComponent implements OnInit, OnChanges {
         break;
       default:
         this.hasError = true;
-        this.errorMessage = "Unknown data source type";
+        this.errorMessage = 'Unknown data source type';
         this.sendOutput([]);
     }
   }

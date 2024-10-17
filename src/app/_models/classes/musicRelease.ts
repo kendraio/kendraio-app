@@ -6,10 +6,10 @@ export interface IMusicRelease {
   Territory: string;
   Type: string;
   Format: string;
-  "Catalogue Number": string;
+  'Catalogue Number': string;
   Barcode: string;
-  "Number of tracks": string;
+  'Number of tracks': string;
   Distribution: string;
   Collective: string;
-  "Submitted to": string;
+  'Submitted to': string;
 }

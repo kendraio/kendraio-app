@@ -16,23 +16,23 @@
  *  The setTimeout() wrapper allows the updates to work with Angular's change detection cycle. Don't leave it out.
  */
 
-import { Injectable } from "@angular/core";
-import { get, set } from "lodash-es";
-import { Subject } from "rxjs";
-import { Location } from "@angular/common";
-import internal from "stream";
+import { Injectable } from '@angular/core';
+import { get, set } from 'lodash-es';
+import { Subject } from 'rxjs';
+import { Location } from '@angular/common';
+import internal from 'stream';
 
-export const STATE_ROOT_GLOBAL = "global";
-export const STATE_ROOT_LOCAL = "local";
+export const STATE_ROOT_GLOBAL = 'global';
+export const STATE_ROOT_LOCAL = 'local';
 
 /**
  * Flags are a shortcut to allow the use of a standard state location, outside of the url hierarchy, for storing variables
  */
-export const STATE_ROOT_FLAGS = "flags"; // What top level key should contain flags
-export const STATE_ROOT_FLAGS_SOURCE = "global._.flags"; // how should the top level flags key be translated in the global tree
+export const STATE_ROOT_FLAGS = 'flags'; // What top level key should contain flags
+export const STATE_ROOT_FLAGS_SOURCE = 'global._.flags'; // how should the top level flags key be translated in the global tree
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class SharedStateService {
   private _state = {};
@@ -57,7 +57,7 @@ export class SharedStateService {
     };
     state[STATE_ROOT_FLAGS] = get(
       this._state,
-      STATE_ROOT_FLAGS_SOURCE.substring(7),
+      STATE_ROOT_FLAGS_SOURCE.substring(7)
     );
     return state;
   }
@@ -66,7 +66,7 @@ export class SharedStateService {
    * Eg: e.g from: /adapterName/workflowId to adapterName.workflowId
    */
   private get localPath(): string {
-    return this.location.path().substring(1).replace("//+/g,", ".");
+    return this.location.path().substring(1).replace('//+/g,', '.');
   }
 
   /**
@@ -88,7 +88,7 @@ export class SharedStateService {
         internalKey = key.substring(6); // remove the prefix
       }
       if (internalKey.length) {
-        internalKey = [this.localPath, internalKey].join(".");
+        internalKey = [this.localPath, internalKey].join('.');
       } else {
         internalKey = this.localPath;
       }
@@ -113,7 +113,7 @@ export class SharedStateService {
       !(key.startsWith(STATE_ROOT_LOCAL) || key.startsWith(STATE_ROOT_GLOBAL))
     ) {
       // Default to local
-      key = STATE_ROOT_LOCAL + "." + key;
+      key = STATE_ROOT_LOCAL + '.' + key;
     }
     const value = get(this.state, key);
     return value;

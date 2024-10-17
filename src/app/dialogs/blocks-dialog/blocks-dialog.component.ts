@@ -1,11 +1,11 @@
-import { Component, Inject, NgZone, OnInit } from "@angular/core";
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { get } from "lodash-es";
+import { Component, Inject, NgZone, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { get } from 'lodash-es';
 
 @Component({
-  selector: "app-blocks-dialog",
-  templateUrl: "./blocks-dialog.component.html",
-  styleUrls: ["./blocks-dialog.component.scss"],
+  selector: 'app-blocks-dialog',
+  templateUrl: './blocks-dialog.component.html',
+  styleUrls: ['./blocks-dialog.component.scss'],
 })
 export class BlocksDialogComponent implements OnInit {
   blocks = [];
@@ -15,13 +15,13 @@ export class BlocksDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<BlocksDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
-    private readonly zone: NgZone,
+    private readonly zone: NgZone
   ) {}
 
   ngOnInit() {
-    this.blocks = get(this.data, "blocks", []);
-    this.models = [get(this.data, "model", {})];
-    this.context = get(this.data, "context", {});
+    this.blocks = get(this.data, 'blocks', []);
+    this.models = [get(this.data, 'model', {})];
+    this.context = get(this.data, 'context', {});
   }
 
   onWorkflowComplete(value) {

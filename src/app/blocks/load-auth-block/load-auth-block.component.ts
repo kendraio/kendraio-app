@@ -1,16 +1,16 @@
-import { Component } from "@angular/core";
-import { BaseBlockComponent } from "../base-block/base-block.component";
-import { clone, set, get } from "lodash-es";
+import { Component } from '@angular/core';
+import { BaseBlockComponent } from '../base-block/base-block.component';
+import { clone, set, get } from 'lodash-es';
 
 @Component({
-  selector: "app-load-auth-block",
-  templateUrl: "./load-auth-block.component.html",
-  styleUrls: ["./load-auth-block.component.scss"],
+  selector: 'app-load-auth-block',
+  templateUrl: './load-auth-block.component.html',
+  styleUrls: ['./load-auth-block.component.scss'],
 })
 export class LoadAuthBlockComponent extends BaseBlockComponent {
   onData(data: any, firstChange: boolean) {
-    const adapterName = get(this.context, "app.adapterName", "UNKNOWN");
-    const workflowId = get(this.config, "workflowId", "UNKNOWN");
+    const adapterName = get(this.context, 'app.adapterName', 'UNKNOWN');
+    const workflowId = get(this.config, 'workflowId', 'UNKNOWN');
     const key = `connect__${adapterName}__${workflowId}`;
     const loadedAuth = JSON.parse(localStorage.getItem(key));
     if (loadedAuth) {

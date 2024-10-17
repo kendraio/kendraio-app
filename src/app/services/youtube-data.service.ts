@@ -1,14 +1,14 @@
-import { Injectable } from "@angular/core";
-import { AuthService } from "./auth.service";
-import { BehaviorSubject, from, of } from "rxjs";
-import { catchError, map, switchMap, tap } from "rxjs/operators";
-import { HttpClient, HttpEventType, HttpHeaders } from "@angular/common/http";
+import { Injectable } from '@angular/core';
+import { AuthService } from './auth.service';
+import { BehaviorSubject, from, of } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class YoutubeDataService {
-  googleapis = "https://www.googleapis.com/youtube/v3/"; // TODO: should be this.apiService.google.youtube
+  googleapis = 'https://www.googleapis.com/youtube/v3/'; // TODO: should be this.apiService.google.youtube
   categoryCache;
 
   _error = new BehaviorSubject<null | string>(null);
@@ -19,7 +19,7 @@ export class YoutubeDataService {
 
   constructor(
     private readonly auth: AuthService,
-    private readonly http: HttpClient,
+    private readonly http: HttpClient
   ) {}
 
   getAllProfileData() {
@@ -35,7 +35,7 @@ export class YoutubeDataService {
     });
   }
 
-  getProfileData(provider = "google-oauth2") {
+  getProfileData(provider = 'google-oauth2') {
     return new Promise((resolve, reject) => {
       this.auth.getProfile((err, profile) => {
         if (err) {
@@ -43,8 +43,8 @@ export class YoutubeDataService {
           return;
         }
         // console.log({ profile });
-        const ytProfile = (profile["identities"] || []).find(
-          (item) => item["provider"] === provider,
+        const ytProfile = (profile['identities'] || []).find(
+          (item) => item['provider'] === provider
         );
         resolve(ytProfile);
       });
@@ -52,12 +52,12 @@ export class YoutubeDataService {
   }
 
   getAccessToken() {
-    return from(this.getProfileData("google-oauth2")).pipe(
+    return from(this.getProfileData('google-oauth2')).pipe(
       catchError((err) => {
         this._error.next(err.message);
         return of({});
       }),
-      map(({ access_token }: any) => access_token),
+      map(({ access_token }: any) => access_token)
     );
   }
 
@@ -65,11 +65,11 @@ export class YoutubeDataService {
     return this.getAccessToken().pipe(
       switchMap((access_token) => {
         return this.http
-          .get("https://www.googleapis.com/youtube/v3/search", {
+          .get('https://www.googleapis.com/youtube/v3/search', {
             params: {
-              part: "snippet",
-              forMine: "true",
-              type: "video",
+              part: 'snippet',
+              forMine: 'true',
+              type: 'video',
             },
             headers: {
               Authorization: `Bearer ${access_token}`,
@@ -79,20 +79,20 @@ export class YoutubeDataService {
             catchError((err) => {
               this._error.next(err.message);
               return of({});
-            }),
+            })
           );
-      }),
+      })
     );
   }
   getMyPlaylists() {
     return this.getAccessToken().pipe(
       switchMap((access_token) => {
         return this.http
-          .get("https://www.googleapis.com/youtube/v3/playlists", {
+          .get('https://www.googleapis.com/youtube/v3/playlists', {
             params: {
-              part: "snippet,id,contentDetails,status",
-              mine: "true",
-              maxResults: "50",
+              part: 'snippet,id,contentDetails,status',
+              mine: 'true',
+              maxResults: '50',
             },
             headers: {
               Authorization: `Bearer ${access_token}`,
@@ -102,9 +102,9 @@ export class YoutubeDataService {
             catchError((err) => {
               this._error.next(err.message);
               return of({});
-            }),
+            })
           );
-      }),
+      })
     );
   }
 
@@ -129,44 +129,44 @@ export class YoutubeDataService {
       switchMap((access_token) => {
         return this.http
           .post(
-            this.googleapis + "/playlistItems",
+            this.googleapis + '/playlistItems',
             {
               snippet: {
                 playlistId: playlistId,
                 position: 0,
                 resourceId: {
-                  kind: "youtube#video",
+                  kind: 'youtube#video',
                   videoId: videoId,
                 },
               },
               status: {
-                privacyStatus: "private",
+                privacyStatus: 'private',
               },
             },
             {
               params: {
-                part: "snippet,status",
-                uploadType: "resumable",
+                part: 'snippet,status',
+                uploadType: 'resumable',
               },
               headers: {
                 Authorization: `Bearer ${access_token}`,
               },
-              observe: "response",
-            },
+              observe: 'response',
+            }
           )
           .pipe(
             catchError((err) => {
               this._error.next(err.message);
               return of({});
-            }),
+            })
           );
-      }),
+      })
     );
   }
 
   uploadVideo({ title, description, category, file, privacySetting }) {
     console.log({ title, description, category, file, privacySetting });
-    const url = "https://www.googleapis.com/upload/youtube/v3/videos";
+    const url = 'https://www.googleapis.com/upload/youtube/v3/videos';
     this.getAccessToken()
       .pipe(
         switchMap((access_token) => {
@@ -185,14 +185,14 @@ export class YoutubeDataService {
               },
               {
                 params: {
-                  part: "snippet,status",
-                  uploadType: "resumable",
+                  part: 'snippet,status',
+                  uploadType: 'resumable',
                 },
                 headers: {
                   Authorization: `Bearer ${access_token}`,
                 },
-                observe: "response",
-              },
+                observe: 'response',
+              }
             )
             .pipe(
               catchError((err) => {
@@ -201,13 +201,13 @@ export class YoutubeDataService {
               }),
               tap(console.log),
               switchMap(({ headers }) => {
-                const [location] = headers.getAll("location");
+                const [location] = headers.getAll('location');
                 return this.http
                   .put(location, file as File, {
                     headers: {
                       Authorization: `Bearer ${access_token}`,
                     },
-                    observe: "events",
+                    observe: 'events',
                     reportProgress: true,
                   })
                   .pipe(
@@ -220,20 +220,20 @@ export class YoutubeDataService {
                       switch (event.type) {
                         case HttpEventType.UploadProgress:
                           const progress = Math.round(
-                            (100 * event.loaded) / event.total,
+                            (100 * event.loaded) / event.total
                           );
                           this._progress.next(progress);
-                          return { status: "progress", message: progress };
+                          return { status: 'progress', message: progress };
                         case HttpEventType.Response:
                           return event.body;
                         default:
                           return `Unhandled event: ${event.type}`;
                       }
-                    }),
+                    })
                   );
-              }),
+              })
             );
-        }),
+        })
       )
       .subscribe();
   }
@@ -242,14 +242,14 @@ export class YoutubeDataService {
     if (!!this.categoryCache) {
       return of(this.categoryCache);
     }
-    const url = "https://www.googleapis.com/youtube/v3/videoCategories";
+    const url = 'https://www.googleapis.com/youtube/v3/videoCategories';
     return this.getAccessToken().pipe(
       switchMap((access_token) => {
         return this.http
           .get<any>(url, {
             params: {
-              part: "snippet",
-              regionCode: "gb",
+              part: 'snippet',
+              regionCode: 'gb',
             },
             headers: {
               Authorization: `Bearer ${access_token}`,
@@ -259,15 +259,15 @@ export class YoutubeDataService {
             catchError((err) => {
               this._error.next(err.message);
               return of({ items: [] });
-            }),
+            })
           );
       }),
       map(({ items }) =>
-        (items || []).map(({ id, snippet: { title } }) => ({ id, title })),
+        (items || []).map(({ id, snippet: { title } }) => ({ id, title }))
       ),
       tap((categories) => {
         this.categoryCache = categories;
-      }),
+      })
     );
   }
 }

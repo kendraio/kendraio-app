@@ -1,10 +1,10 @@
-import { Component } from "@angular/core";
-import { FieldType } from "@ngx-formly/core";
+import { Component } from '@angular/core';
+import { FieldType } from '@ngx-formly/core';
 
 // here we are trying to find a way to put all error msgs in one place.
 
 @Component({
-  selector: "formly-object-type",
+  selector: 'formly-object-type',
   template: `
     <legend *ngIf="to.label">{{ to.label }}</legend>
     <p *ngIf="to.description">{{ to.description }}</p>

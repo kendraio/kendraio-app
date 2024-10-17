@@ -1,15 +1,15 @@
-import { Component, OnInit } from "@angular/core";
-import { NestedTreeControl } from "@angular/cdk/tree";
-import { MenuItem } from "../../_models/classes/common";
-import { MatTreeNestedDataSource } from "@angular/material/tree";
-import { MenuBuilderService } from "../../services/menu-builder.service";
-import { Animations } from "../../_shared/animations";
+import { Component, OnInit } from '@angular/core';
+import { NestedTreeControl } from '@angular/cdk/tree';
+import { MenuItem } from '../../_models/classes/common';
+import { MatTreeNestedDataSource } from '@angular/material/tree';
+import { MenuBuilderService } from '../../services/menu-builder.service';
+import { Animations } from '../../_shared/animations';
 
 @Component({
   animations: [Animations.kendraAnimations],
-  selector: "app-main-menu",
-  templateUrl: "./main-menu.component.html",
-  styleUrls: ["./main-menu.component.scss"],
+  selector: 'app-main-menu',
+  templateUrl: './main-menu.component.html',
+  styleUrls: ['./main-menu.component.scss'],
 })
 export class MainMenuComponent implements OnInit {
   treeControl = new NestedTreeControl<MenuItem>((node) => node.children);

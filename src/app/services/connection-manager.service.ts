@@ -1,11 +1,11 @@
-import { Injectable } from "@angular/core";
-import { set } from "lodash";
-import { HttpClient } from "@angular/common/http";
-import { environment } from "@env/environment";
-import { tap } from "rxjs/operators";
+import { Injectable } from '@angular/core';
+import { set } from 'lodash';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '@env/environment';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class ConnectionManagerService {
   connections: Set<string> = new Set<string>();
@@ -13,7 +13,7 @@ export class ConnectionManagerService {
 
   constructor(private readonly http: HttpClient) {
     const savedConnections = localStorage.getItem(
-      "kendraio-saved-connection-list",
+      'kendraio-saved-connection-list'
     );
     if (savedConnections) {
       (<string[]>JSON.parse(savedConnections)).forEach((workflowId) => {
@@ -32,8 +32,8 @@ export class ConnectionManagerService {
   addConnection(workflowId) {
     this.connections.add(workflowId);
     localStorage.setItem(
-      "kendraio-saved-connection-list",
-      JSON.stringify(this.toPlainArray()),
+      'kendraio-saved-connection-list',
+      JSON.stringify(this.toPlainArray())
     );
   }
 
@@ -42,6 +42,6 @@ export class ConnectionManagerService {
   }
 
   addToContext(context) {
-    set(context, "app.connections", this.toPlainArray());
+    set(context, 'app.connections', this.toPlainArray());
   }
 }

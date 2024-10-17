@@ -1,12 +1,12 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { BookmarkDataService } from "../../services/bookmark-data.service";
-import { Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { BookmarkDataService } from '../../services/bookmark-data.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: "app-bookmark-button",
-  templateUrl: "./bookmark-button.component.html",
-  styleUrls: ["./bookmark-button.component.scss"],
+  selector: 'app-bookmark-button',
+  templateUrl: './bookmark-button.component.html',
+  styleUrls: ['./bookmark-button.component.scss'],
 })
 export class BookmarkButtonComponent implements OnInit, OnDestroy {
   isActive = false;

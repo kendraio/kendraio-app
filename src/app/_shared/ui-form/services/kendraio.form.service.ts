@@ -1,31 +1,31 @@
-import { Injectable } from "@angular/core";
-import { FormlyFieldConfig } from "@ngx-formly/core";
-import { FormlyJsonschema } from "@ngx-formly/core/json-schema";
+import { Injectable } from '@angular/core';
+import { FormlyFieldConfig } from '@ngx-formly/core';
+import { FormlyJsonschema } from '@ngx-formly/core/json-schema';
 // import { Field } from '../helpers/fields';
 // import { DEFAULT_FORM } from '../schemas/default.form';
 // import { LOGIN_FORM } from '../schemas/login.form';
 // import { FORMS_VALUES } from '../schemas';
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 // import { FULLNAME, EMAIL, TYPEAHEAD } from '../schemas/form-elements';
-import { Observable, from, forkJoin, throwError, of } from "rxjs";
-import { FORM_APIS, REFDATA_APIS } from "../api-config";
-import { catchError, map, tap } from "rxjs/operators";
-import { get, set, has, findIndex, isObject } from "lodash-es";
-import { AdaptersService } from "../../../services/adapters.service";
-import { IfStmt } from "@angular/compiler";
-import { ConfigOption } from "@ngx-formly/core";
+import { Observable, from, forkJoin, throwError, of } from 'rxjs';
+import { FORM_APIS, REFDATA_APIS } from '../api-config';
+import { catchError, map, tap } from 'rxjs/operators';
+import { get, set, has, findIndex, isObject } from 'lodash-es';
+import { AdaptersService } from '../../../services/adapters.service';
+import { IfStmt } from '@angular/compiler';
+import { ConfigOption } from '@ngx-formly/core';
 
-const ADAPTER_PREFIX = "https://kendraio.github.io/kendraio-adapter/";
+const ADAPTER_PREFIX = 'https://kendraio.github.io/kendraio-adapter/';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class KendraioFormService {
   constructor(
     private http: HttpClient,
     private formlyJsonschema: FormlyJsonschema,
-    private adapters: AdaptersService,
+    private adapters: AdaptersService
     // private config: ConfigOption
   ) {}
 
@@ -47,7 +47,7 @@ export class KendraioFormService {
         get(
           this.adapters.getAdapterSync(groupId),
           `adapter.forms.${formId}.uiSchema`,
-          "",
+          ''
         );
 
     return this.http.get(url).pipe(catchError(() => of({})));
@@ -55,7 +55,7 @@ export class KendraioFormService {
 
   getJSONSchema(_adapter, _formId) {
     const ob = this.getFormData(_adapter, _formId).pipe(
-      map(([uiSchema, jsonSchema]) => ({ uiSchema, jsonSchema })),
+      map(([uiSchema, jsonSchema]) => ({ uiSchema, jsonSchema }))
     );
     return ob;
   }
@@ -64,12 +64,12 @@ export class KendraioFormService {
     const ob = this.getFormData(_adapter, _formId).pipe(
       map(([uiSchema, jsonSchema]) => ({ uiSchema, jsonSchema })),
       map(({ uiSchema, jsonSchema }) =>
-        this.jsonSchemaToFieldConfig({ uiSchema, jsonSchema }),
+        this.jsonSchemaToFieldConfig({ uiSchema, jsonSchema })
       ),
       map(({ fields, uiSchema }) =>
-        this.uiWidgetTypeMapper({ fields, uiSchema }),
+        this.uiWidgetTypeMapper({ fields, uiSchema })
       ),
-      map((fields) => [fields]),
+      map((fields) => [fields])
     );
     return ob;
   }
@@ -105,7 +105,7 @@ export class KendraioFormService {
   private uiWidgetTypeMapper({ fields, uiSchema }) {
     // Utility function to find the array index of field from a fieldGroup based on key
     const getFieldIndexFromGroup = (obj, _key) => {
-      return findIndex(get(obj, "fieldGroup", []), ({ key }) => key === _key);
+      return findIndex(get(obj, 'fieldGroup', []), ({ key }) => key === _key);
     };
 
     const fieldIndexExists = (fieldIndex) => fieldIndex !== -1;
@@ -115,14 +115,14 @@ export class KendraioFormService {
       if (fieldIndexExists(fieldIndex)) {
         // Map simple top level widget types
         if (has(uiSchema, `${uiKey}.ui:widget`)) {
-          const newWidgetType = get(uiSchema, `${uiKey}.ui:widget`, "");
+          const newWidgetType = get(uiSchema, `${uiKey}.ui:widget`, '');
           set(_fields, `fieldGroup[${fieldIndex}].type`, newWidgetType);
           // TODO: Don't do this here!!!!!!
           const { items, ...subSchema } = get(uiSchema, uiKey);
           set(
             _fields,
             `fieldGroup[${fieldIndex}].templateOptions.uiSchema`,
-            subSchema,
+            subSchema
           );
         }
         // Recursively map arrays
@@ -130,18 +130,18 @@ export class KendraioFormService {
           const oldArray = get(
             _fields,
             `fieldGroup[${fieldIndex}].fieldArray`,
-            {},
+            {}
           );
           const subSchema = get(uiSchema, `${uiKey}.items`);
           const newArray = this.uiWidgetTypeMapper({
             fields: oldArray,
             uiSchema: subSchema,
           });
-          if (has(subSchema, "ui:widget")) {
-            set(newArray, "type", get(subSchema, "ui:widget"));
+          if (has(subSchema, 'ui:widget')) {
+            set(newArray, 'type', get(subSchema, 'ui:widget'));
             // TODO: Don't do this here!!!!!!
             const { items, ...newSubSchema } = subSchema;
-            set(newArray, "templateOptions.uiSchema", newSubSchema);
+            set(newArray, 'templateOptions.uiSchema', newSubSchema);
           }
           set(_fields, `fieldGroup[${fieldIndex}]`, {
             ...get(_fields, `fieldGroup[${fieldIndex}]`),
@@ -149,7 +149,7 @@ export class KendraioFormService {
           });
         }
         // Nested objects
-        if (uiKey !== "items" && isObject(get(uiSchema, uiKey))) {
+        if (uiKey !== 'items' && isObject(get(uiSchema, uiKey))) {
           const oldObj = get(_fields, `fieldGroup[${fieldIndex}]`, {});
           const subSchema = get(uiSchema, `${uiKey}`);
           const newObj = this.uiWidgetTypeMapper({
@@ -158,7 +158,7 @@ export class KendraioFormService {
           });
           // TODO: Don't do this here!!!!!!
           const { items, ...newSubSchema } = subSchema;
-          set(newObj, "templateOptions.uiSchema", newSubSchema);
+          set(newObj, 'templateOptions.uiSchema', newSubSchema);
           set(_fields, `fieldGroup[${fieldIndex}]`, { ...oldObj, ...newObj });
         }
       }
@@ -175,7 +175,7 @@ export class KendraioFormService {
         get(
           this.adapters.getAdapterSync(groupId),
           `adapter.forms.${formId}.jsonSchema`,
-          "",
+          ''
         );
 
     return this.http
@@ -207,11 +207,11 @@ export class KendraioFormService {
         Object.keys(jsonSchema.properties).forEach(function (key) {
           // Object.keys(jsonSchema.properties['items'].properties).forEach(function (key) {
           Object.keys(uiSchema).forEach(function (uiKey) {
-            const TO = formlyConfig["fieldGroup"][i]["templateOptions"];
+            const TO = formlyConfig['fieldGroup'][i]['templateOptions'];
 
-            if (key.toLowerCase() === "formgroup") {
+            if (key.toLowerCase() === 'formgroup') {
               const f = jsonSchema.properties[key];
-              set(f, "type", "formgroup");
+              set(f, 'type', 'formgroup');
             }
 
             // if (Object.keys(jsonSchema.properties[key]).length) {
@@ -224,24 +224,24 @@ export class KendraioFormService {
             //   }
 
             if (uiKey === key) {
-              switch (uiSchema[key]["ui:widget"]) {
+              switch (uiSchema[key]['ui:widget']) {
                 // k-password money, datepicker, k-timepicker, videoviewer, thumbnailviewer, tags, visibility, playlist
 
-                case "k-textarea":
-                case "kendraio-textarea":
+                case 'k-textarea':
+                case 'kendraio-textarea':
                   mapTextArea(TO, uiSchema, key);
                   break;
 
-                case "k-timepicker":
-                case "kendraio-timepicker":
+                case 'k-timepicker':
+                case 'kendraio-timepicker':
                   mapTimepicker(TO, uiSchema, key);
                   break;
 
-                case "k-select" || "typeahead":
-                case "kendraio-select" || "typeahead":
+                case 'k-select' || 'typeahead':
+                case 'kendraio-select' || 'typeahead':
                   mapKSelect(TO, uiSchema, key);
-                  const ref = get(uiSchema, `${key}.ui:ref`, "");
-                  const refType = get(uiSchema, `${key}.ui:refType`, "json");
+                  const ref = get(uiSchema, `${key}.ui:ref`, '');
+                  const refType = get(uiSchema, `${key}.ui:refType`, 'json');
                   SELECT_CONFIG.push({ key: i, ref, refType });
                   break;
 
@@ -250,15 +250,15 @@ export class KendraioFormService {
               }
 
               switch (jsonSchema.properties[key].type) {
-                case "null": {
+                case 'null': {
                   break;
                 }
-                case "number":
+                case 'number':
                   break;
-                case "integer":
+                case 'integer':
                   break;
-                case "string":
-                  ["minLength", "maxLength", "pattern"].forEach((prop) => {
+                case 'string':
+                  ['minLength', 'maxLength', 'pattern'].forEach((prop) => {
                     if (jsonSchema.properties[key].hasOwnProperty(prop)) {
                       TO[prop] = jsonSchema.properties[key][prop];
                     }
@@ -269,30 +269,30 @@ export class KendraioFormService {
                   break;
               }
 
-              set(TO, "disabled", get(uiSchema, `${key}.ui:disabled`, false));
+              set(TO, 'disabled', get(uiSchema, `${key}.ui:disabled`, false));
               set(
                 TO,
-                "placeholder",
-                get(uiSchema, `${key}.ui:placeholder`, null),
+                'placeholder',
+                get(uiSchema, `${key}.ui:placeholder`, null)
               );
 
-              TO["errMessage"] = get(uiSchema, `${key}.ui:errMessage`, null);
-              TO["patternErrMessage"] = get(
+              TO['errMessage'] = get(uiSchema, `${key}.ui:errMessage`, null);
+              TO['patternErrMessage'] = get(
                 uiSchema,
                 `${key}.ui:patternErrMessage`,
-                null,
+                null
               );
 
-              if (get(uiSchema, `${key}.ui:widget`, "") === "blocks") {
+              if (get(uiSchema, `${key}.ui:widget`, '') === 'blocks') {
                 const blocksConfig = get(
                   uiSchema,
                   `${key}.ui:blocksConfig`,
-                  [],
+                  []
                 );
                 set(
                   formlyConfig,
                   `fieldGroup[${i}].templateOptions.blocksConfig`,
-                  blocksConfig,
+                  blocksConfig
                 );
               }
             }
@@ -303,7 +303,7 @@ export class KendraioFormService {
       if (SELECT_CONFIG.length) {
         SELECT_CONFIG.forEach((item, index) => {
           const refType = SELECT_CONFIG[index].refType;
-          if (refType === "fetch" && SELECT_CONFIG[index].ref) {
+          if (refType === 'fetch' && SELECT_CONFIG[index].ref) {
             this.http.get(SELECT_CONFIG[index].ref).subscribe((newValue) => {
               formlyConfig.fieldGroup[item.key].templateOptions.options =
                 newValue;
@@ -313,7 +313,7 @@ export class KendraioFormService {
               .get(
                 REFDATA_APIS[SELECT_CONFIG[index].ref][
                   SELECT_CONFIG[index].refType
-                ],
+                ]
               )
               .subscribe((newValue) => {
                 formlyConfig.fieldGroup[item.key].templateOptions.options =
@@ -340,8 +340,8 @@ export class KendraioFormService {
   uiTypeMapper(uiSchema: any, jsonSchema: any) {
     Object.keys(uiSchema).forEach((uiKey) => {
       Object.keys(jsonSchema.properties).forEach((schemaKey) => {
-        if (uiKey === schemaKey && uiSchema[uiKey]["ui:widget"]) {
-          jsonSchema.properties[schemaKey].type = uiSchema[uiKey]["ui:widget"];
+        if (uiKey === schemaKey && uiSchema[uiKey]['ui:widget']) {
+          jsonSchema.properties[schemaKey].type = uiSchema[uiKey]['ui:widget'];
         }
         // Calls to widget type mapping when using $ref within schema fail here
         // because the reference has not been de-referenced by the time this mapper is called
@@ -359,7 +359,7 @@ export class KendraioFormService {
       Object.keys(uiSchema).forEach(function (key) {
         Object.keys(jsonSchema.properties).forEach(function (uiKey) {
           if (uiKey === key) {
-            jsonSchema.properties[i].type = uiSchema.bandArtist["ui:widget"];
+            jsonSchema.properties[i].type = uiSchema.bandArtist['ui:widget'];
           }
         });
         i++;
@@ -371,35 +371,35 @@ export class KendraioFormService {
   errorHandler(error: HttpErrorResponse) {
     // added HttpInterceptor so maybe dont need this
     if (error.error instanceof ErrorEvent) {
-      console.error("An error occurred:", error.error.message);
+      console.error('An error occurred:', error.error.message);
     } else {
       console.error(
         `Backend http returned code ${error.status}, ` +
-          `body was: ${error.error}`,
+          `body was: ${error.error}`
       );
     }
-    return throwError("Something naughty happened; please try again later.");
+    return throwError('Something naughty happened; please try again later.');
   }
 
   getRefData() {
-    return this.http.get("assets/fake-data/test-ref-data.json");
+    return this.http.get('assets/fake-data/test-ref-data.json');
   }
 }
 
 function mapTextArea(TO: any, uiSchema: any, key: string) {
-  set(TO, "autosize", get(uiSchema, `${key}.ui:autosize`, false));
-  TO["rows"] = get(uiSchema, `${key}.ui:rows`, 420);
-  TO["cols"] = get(uiSchema, `${key}.ui:cols`, 30);
+  set(TO, 'autosize', get(uiSchema, `${key}.ui:autosize`, false));
+  TO['rows'] = get(uiSchema, `${key}.ui:rows`, 420);
+  TO['cols'] = get(uiSchema, `${key}.ui:cols`, 30);
 }
 
 function mapTimepicker(TO: any, uiSchema: any, key: string) {
-  TO["hideClock"] = get(uiSchema, `${key}.ui:hideClock`, false);
-  TO["timeFormat"] = get(uiSchema, `${key}.ui:timeFormat`, false);
+  TO['hideClock'] = get(uiSchema, `${key}.ui:hideClock`, false);
+  TO['timeFormat'] = get(uiSchema, `${key}.ui:timeFormat`, false);
 }
 
 function mapKSelect(TO: any, uiSchema: any, key: string) {
-  set(TO, "labelProp", get(uiSchema, `${key}.ui:labelProp`, "label"));
-  set(TO, "valueProp", get(uiSchema, `${key}.ui:valueProp`, "value"));
-  set(TO, "isMultiSelect", get(uiSchema, `${key}.ui:isMultiSelect`, false));
-  set(TO, "addTag", get(uiSchema, `${key}.ui:addTag`, false));
+  set(TO, 'labelProp', get(uiSchema, `${key}.ui:labelProp`, 'label'));
+  set(TO, 'valueProp', get(uiSchema, `${key}.ui:valueProp`, 'value'));
+  set(TO, 'isMultiSelect', get(uiSchema, `${key}.ui:isMultiSelect`, false));
+  set(TO, 'addTag', get(uiSchema, `${key}.ui:addTag`, false));
 }

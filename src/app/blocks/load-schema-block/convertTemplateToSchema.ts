@@ -1,5 +1,5 @@
-import { get, clone } from "lodash-es";
-import { v4 as uuidv4 } from "uuid";
+import { get, clone } from 'lodash-es';
+import { v4 as uuidv4 } from 'uuid';
 
 /**
  * Makes form schemas from existing JSON data as a template
@@ -46,8 +46,8 @@ export class Converter {
    * @memberof Converter
    */
   constructor(template, config) {
-    this.blockTypeDefaults = get(config, "blockTypeDefaults", {});
-    this.convertables = get(config, "convertables", {});
+    this.blockTypeDefaults = get(config, 'blockTypeDefaults', {});
+    this.convertables = get(config, 'convertables', {});
     this.template = template;
     return this;
   }
@@ -98,8 +98,8 @@ export class Converter {
     // returning a JSON schema object.
     return this.convertToValidJSONSchema(
       this.arrayOfUUIDsToDict(
-        this.applyBlockTypeDefaults(this.convertKeys(this.template)),
-      ),
+        this.applyBlockTypeDefaults(this.convertKeys(this.template))
+      )
     );
   }
 
@@ -127,7 +127,7 @@ export class Converter {
         newObject[this.convertables[key]] = this.convertKeys(object[key]);
         delete newObject[key];
       } else {
-        if (typeof object[key] === "object") {
+        if (typeof object[key] === 'object') {
           // Recurse into objects, but not arrays.  Arrays are handled below. We could also check the type of the value at each level and handle it accordingly.
           newObject[key] = this.convertKeys(object[key]); // Recurse into objects, but not arrays.  Arrays are handled below.
         }
@@ -158,14 +158,14 @@ export class Converter {
     // We recursively loop through the object and apply blockTypeDefaults to each block-content key.
     // This means that when we find an object with a UUID matching an expected key, we replace it's contents entirely with a copy of the defaults.
 
-    const targetKeyName = "block-content"; // TODO: depreciate this hardcoded CMS specific property.
+    const targetKeyName = 'block-content'; // TODO: depreciate this hardcoded CMS specific property.
     var newObject = clone(object); // Make a copy of the original object.
 
     // First we get the UUID keys of the blockTypeDefaults, then we recurse for matches, changing parents where found.
     var blockTypeDefaultKeys = Object.keys(this.blockTypeDefaults); // Get the keys of the blockTypeDefaults object.  These are UUIDs, and we will use them to match against our template's UUIDs.
     for (var key in object) {
       // Loop through each key in the original object:
-      if (typeof object[key] === "object") {
+      if (typeof object[key] === 'object') {
         // If it is an array or an object, recurse into it:
         newObject[key] = this.applyBlockTypeDefaults(object[key]); // Recursively call this function on any objects found within this one, replacing them with their converted versions as they are returned from recursion.
 
@@ -175,12 +175,12 @@ export class Converter {
           var tempArray = [];
           for (var i = 0; i < newObject[key].length; i++) {
             // Loop through the array of objects.
-            if (blockTypeDefaultKeys.indexOf(newObject[key][i]["uuid"]) > -1) {
+            if (blockTypeDefaultKeys.indexOf(newObject[key][i]['uuid']) > -1) {
               // If we find a UUID that matches one of our defaults...
               tempArray.push(
-                clone(this.blockTypeDefaults[newObject[key][i]["uuid"]]),
+                clone(this.blockTypeDefaults[newObject[key][i]['uuid']])
               ); // Push a copy of the default object into our temporary array, replacing it's contents entirely with those from blockTypeDefaults.
-              tempArray[tempArray.length - 1]["uuid"] = this.uuid(); // Add a new UUID v4 property to each item.
+              tempArray[tempArray.length - 1]['uuid'] = this.uuid(); // Add a new UUID v4 property to each item.
             } else {
               tempArray.push(newObject[key][i]); // Otherwise just push the original object into our temporary array as is, without modification or replacement by defaults:
             }
@@ -205,7 +205,7 @@ export class Converter {
     // Converts arrays containing UUIDs to dictionaries with UUIDs as keys:
     function arrayChildrenAllHaveUUIDs(array) {
       for (var i = 0; i < array.length; i++) {
-        if (!array[i]["uuid"]) return false; // If any child object does not have a UUID, we return false and do nothing to this array.
+        if (!array[i]['uuid']) return false; // If any child object does not have a UUID, we return false and do nothing to this array.
       }
 
       return true; // Otherwise we can assume that all children of the array have UUIDs, so it is safe to convert them into an object with those keys!
@@ -214,7 +214,7 @@ export class Converter {
     var newObject = clone(object); // Make a copy of the original object.
     for (var key in newObject) {
       // Loop through each key in the original object:
-      if (typeof newObject[key] === "object") {
+      if (typeof newObject[key] === 'object') {
         // If it is an array or an object, recurse into it:
         newObject[key] = this.arrayOfUUIDsToDict(newObject[key]); // Recursively call this function on any objects found within this one, replacing them with their converted versions as they are returned from recursion.
 
@@ -225,8 +225,8 @@ export class Converter {
           var tempObj = {};
           for (var i = 0; i < newObject[key].length; i++) {
             // Loop through the original child objects in the original parent object's key value:
-            tempObj[newObject[key][i]["uuid"]] = newObject[key][i]; // Add each child object to a temporary object, using the UUID as the key.
-            delete tempObj[newObject[key][i]["uuid"]].uuid; // Delete the UUID from each child object once it is used as a key instead.
+            tempObj[newObject[key][i]['uuid']] = newObject[key][i]; // Add each child object to a temporary object, using the UUID as the key.
+            delete tempObj[newObject[key][i]['uuid']].uuid; // Delete the UUID from each child object once it is used as a key instead.
           }
 
           newObject[key] = tempObj; // Replace the original parent object's key value with our temporary object containing all of the child objects, now using their UUIDs as keys.
@@ -247,11 +247,11 @@ export class Converter {
   convertToValidJSONSchema(template) {
     // Converts the template to a valid JSON Schema.
     let schema = {
-      type: "object",
+      type: 'object',
       properties: {},
     };
     for (let key in template) {
-      if (typeof template[key] === "object") {
+      if (typeof template[key] === 'object') {
         // Only modify invalid JSON schema fragments
         if (template[key].type === undefined) {
           schema.properties[key] = this.convertToValidJSONSchema(template[key]);
@@ -260,7 +260,7 @@ export class Converter {
         }
       } else {
         schema.properties[key] = {
-          type: "string",
+          type: 'string',
           default: template[key],
           readOnly: true,
           title: template[key],

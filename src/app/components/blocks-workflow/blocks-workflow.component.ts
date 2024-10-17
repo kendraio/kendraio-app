@@ -1,10 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { clone } from "lodash-es";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { clone } from 'lodash-es';
 
 @Component({
-  selector: "app-blocks-workflow",
-  templateUrl: "./blocks-workflow.component.html",
-  styleUrls: ["./blocks-workflow.component.scss"],
+  selector: 'app-blocks-workflow',
+  templateUrl: './blocks-workflow.component.html',
+  styleUrls: ['./blocks-workflow.component.scss'],
 })
 export class BlocksWorkflowComponent implements OnInit {
   @Input() blocks = [];

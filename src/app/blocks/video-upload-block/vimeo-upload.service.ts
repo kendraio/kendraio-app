@@ -1,12 +1,12 @@
-import { Injectable } from "@angular/core";
-import { Observable, BehaviorSubject, interval } from "rxjs";
-import { HttpHeaders, HttpClient } from "@angular/common/http";
+import { Injectable } from '@angular/core';
+import { Observable, BehaviorSubject, interval } from 'rxjs';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 
-import * as tus from "tus-js-client";
-import { uploadFiles } from "./video-upload-block.component";
+import * as tus from 'tus-js-client';
+import { uploadFiles } from './video-upload-block.component';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class VimeoUploadService {
   str: number;
@@ -19,11 +19,11 @@ export class VimeoUploadService {
 
   // TODO: note hard coded endpoint
   // TODO: provide an 'endpoint' api Service eg. kendraio.com/endpoints/vimeo/videos/upload
-  private api = "https://api.vimeo.com/me/videos";
+  private api = 'https://api.vimeo.com/me/videos';
   // TODO: SUGGESTION: get end point from central 'lookup table' via an endpoint service do not allow  user to edit.
 
   private accessToken = JSON.parse(
-    localStorage.getItem("vimeo.variables.access_token"),
+    localStorage.getItem('vimeo.variables.access_token')
   ); // TODO: needs flexibility
 
   // TODO: access tokens may change location ?? localstorage to memory to server??
@@ -45,18 +45,18 @@ export class VimeoUploadService {
     const body = {
       name: file.name,
       upload: {
-        approach: "tus",
+        approach: 'tus',
         size: file.size,
       },
     };
     console.log(file);
     const header: HttpHeaders = new HttpHeaders()
-      .set("Authorization", "bearer " + this.accessToken)
-      .set("Content-Type", "application/json")
-      .set("Accept", "application/vnd.vimeo.*+json;version=3.4");
+      .set('Authorization', 'bearer ' + this.accessToken)
+      .set('Content-Type', 'application/json')
+      .set('Accept', 'application/vnd.vimeo.*+json;version=3.4');
     return this.http.post(this.api, body, {
       headers: header,
-      observe: "response",
+      observe: 'response',
     });
   }
 
@@ -72,7 +72,7 @@ export class VimeoUploadService {
     i: number,
     videoArray: uploadFiles[],
     uploadArray: tus.Upload[],
-    success: any,
+    success: any
   ): tus.Upload {
     // i = i + 1;
     const upload = new tus.Upload(file.video, {
@@ -81,24 +81,24 @@ export class VimeoUploadService {
       retryDelays: [0, 1000, 3000, 5000],
       onError: (error) => {
         // TODO: we need to do something here
-        console.log("Failed: " + file.video.name + error);
+        console.log('Failed: ' + file.video.name + error);
       },
       onProgress: (bytesUploaded, bytesTotal) => {
         this.percentage.next(((bytesUploaded / bytesTotal) * 100).toFixed(2));
         console.log(
-          "file: " + i + " of " + videoArray.length + ":",
+          'file: ' + i + ' of ' + videoArray.length + ':',
           bytesUploaded,
           bytesTotal,
-          this.percentage.value + "%",
+          this.percentage.value + '%'
         );
       },
       onSuccess: () => {
-        console.log("Download " + file.video.name + " from " + upload.url);
+        console.log('Download ' + file.video.name + ' from ' + upload.url);
         if (i < videoArray.length - 1) {
           uploadArray[i + 1].start();
         } else {
           success();
-          console.log("Videos uploaded successfully");
+          console.log('Videos uploaded successfully');
           this.allComplete.next(true);
         }
       },

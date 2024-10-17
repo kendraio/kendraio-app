@@ -6,13 +6,13 @@ import {
   OnChanges,
   OnInit,
   Output,
-} from "@angular/core";
-import { clone, every, get, isArray, isObject } from "lodash-es";
+} from '@angular/core';
+import { clone, every, get, isArray, isObject } from 'lodash-es';
 
 @Component({
-  selector: "app-batch-block",
-  templateUrl: "./batch-block.component.html",
-  styleUrls: ["./batch-block.component.scss"],
+  selector: 'app-batch-block',
+  templateUrl: './batch-block.component.html',
+  styleUrls: ['./batch-block.component.scss'],
 })
 export class BatchBlockComponent implements OnInit, OnChanges {
   @Input() config;
@@ -28,9 +28,9 @@ export class BatchBlockComponent implements OnInit, OnChanges {
   completed = [];
 
   hasError = false;
-  errorMessage = "";
+  errorMessage = '';
 
-  @HostBinding("class.batch-block-flex")
+  @HostBinding('class.batch-block-flex')
   flex: boolean = false;
 
   constructor() {}
@@ -39,8 +39,8 @@ export class BatchBlockComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes) {
     this.hasError = false;
-    this.flex = get(this.config, "flex", false);
-    this.blocks = get(this.config, "blocks", []);
+    this.flex = get(this.config, 'flex', false);
+    this.blocks = get(this.config, 'blocks', []);
     // FORCE the model to be an array
     this.modelList = isArray(this.model)
       ? this.model

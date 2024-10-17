@@ -1,69 +1,69 @@
-import { loadFlowCode } from "../support/helper";
-import "cypress-localstorage-commands";
+import { loadFlowCode } from '../support/helper';
+import 'cypress-localstorage-commands';
 // tslint:disable: quotemark
 /// <reference types="Cypress" />
 
-describe("Adapter install", () => {
+describe('Adapter install', () => {
   beforeEach(() => {
     // Prevent external network request for adapter config
     cy.intercept(
-      "GET",
-      "https://kendraio.github.io/kendraio-adapter/config.json",
+      'GET',
+      'https://kendraio.github.io/kendraio-adapter/config.json',
       {
-        fixture: "adapterConfig",
-      },
-    ).as("adapterConfig");
+        fixture: 'adapterConfig',
+      }
+    ).as('adapterConfig');
     cy.intercept(
-      "GET",
-      "https://kendraio-adapter.kendraio.now.sh/bloomen.json",
+      'GET',
+      'https://kendraio-adapter.kendraio.now.sh/bloomen.json',
       {
-        fixture: "bloomen.json",
-      },
-    ).as("bloomen");
+        fixture: 'bloomen.json',
+      }
+    ).as('bloomen');
 
     // Alter settings to allow adapters to be installed from flows
     let localStorageConfig = JSON.stringify({
-      adapterRepoUrl: "https://kendraio.github.io/kendraio-adapter/",
+      adapterRepoUrl: 'https://kendraio.github.io/kendraio-adapter/',
       exposeCoreActions: true,
     });
-    cy.setLocalStorage("core.variables.settings", localStorageConfig);
+    cy.setLocalStorage('core.variables.settings', localStorageConfig);
   });
 
-  it("Export a packaged adapter with attachments", () => {
+  it('Export a packaged adapter with attachments', () => {
     loadFlowCode([
       {
-        type: "init",
+        type: 'init',
       },
       {
-        type: "mapping",
+        type: 'mapping',
         mapping:
-          "{repoUrl:`https://kendraio-adapter.kendraio.now.sh/`, name:`bloomen`}",
+          '{repoUrl:`https://kendraio-adapter.kendraio.now.sh/`, name:`bloomen`}',
       },
       {
-        type: "actions",
+        type: 'actions',
         buttons: [
           {
-            label: "Import Adapter",
-            color: "default",
+            label: 'Import Adapter',
+            color: 'default',
             blocks: [
               {
-                type: "dispatch",
-                action: "installAdapter",
+                type: 'dispatch',
+                action: 'installAdapter',
               },
             ],
           },
         ],
       },
     ]);
-    cy.contains("Import Adapter").click().wait(["@bloomen"]).wait(2000); // make sure that the data is downloaded and give the adapter time to install.
+    cy.contains('Import Adapter').click().wait(['@bloomen']).wait(2000); // make sure that the data is downloaded and give the adapter time to install.
     loadFlowCode([
       {
-        type: "adapter-info",
-        adapterName: "bloomen",
+        type: 'adapter-info',
+        adapterName: 'bloomen',
         packageAdapter: true,
       },
       {
-        type: "debug",
+        type: 'debug',
         open: 4,
       },
     ]);
@@ -72,6 +72,6 @@ describe("Adapter install", () => {
     // This key does not exist in the default data,
     // so is an effective test
 
-    cy.contains("attachments").should("exist");
+    cy.contains('attachments').should('exist');
   });
 });

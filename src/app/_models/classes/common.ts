@@ -39,5 +39,5 @@ export interface Message {
 export interface Label {
   de: string;
   fr: string;
-  "en-US": string;
+  'en-US': string;
 }

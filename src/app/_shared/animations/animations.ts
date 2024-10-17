@@ -9,7 +9,7 @@ import {
   stagger,
   state,
   AnimationMetadata,
-} from "@angular/animations";
+} from '@angular/animations';
 
 export class Animations {
   static kendraAnimations: AnimationMetadata[] = [
@@ -46,21 +46,21 @@ export class Animations {
     //     )]),
     //   ]),
 
-    trigger("openClose", [
+    trigger('openClose', [
       // ...
       state(
-        "open",
+        'open',
         style({
-          display: "block",
+          display: 'block',
           opacity: 1,
-        }),
+        })
       ),
       state(
-        "closed",
+        'closed',
         style({
-          height: "0px",
+          height: '0px',
           opacity: 0.5,
-        }),
+        })
       ),
       // transition('open => closed', [
       //     animate('0.1s 100ms ease-out')
@@ -70,213 +70,213 @@ export class Animations {
       // ]),
     ]),
 
-    trigger("enterLeaveInOut-2", [
-      transition("* => *", [
-        query(":enter", style({ opacity: 0 }), { optional: true }),
+    trigger('enterLeaveInOut-2', [
+      transition('* => *', [
+        query(':enter', style({ opacity: 0 }), { optional: true }),
 
         query(
-          ":enter",
-          stagger("200ms", [
+          ':enter',
+          stagger('200ms', [
             animate(
-              ".6s ease-in",
+              '.6s ease-in',
               keyframes([
-                style({ opacity: 0, transform: "scale(1)", offset: 0 }),
-                style({ opacity: 0.4, transform: "scale(1.01)", offset: 0.3 }),
-                style({ opacity: 1, transform: "scale(1)", offset: 1.0 }),
-              ]),
+                style({ opacity: 0, transform: 'scale(1)', offset: 0 }),
+                style({ opacity: 0.4, transform: 'scale(1.01)', offset: 0.3 }),
+                style({ opacity: 1, transform: 'scale(1)', offset: 1.0 }),
+              ])
             ),
           ]),
-          { optional: true },
+          { optional: true }
         ),
         query(
-          ":leave",
-          stagger("300ms", [
+          ':leave',
+          stagger('300ms', [
             animate(
-              ".6s ease-out",
+              '.6s ease-out',
               keyframes([
-                style({ opacity: 1, transform: "scale(.5)", offset: 0 }),
-                style({ opacity: 0.5, transform: "scale(0)", offset: 0.3 }),
+                style({ opacity: 1, transform: 'scale(.5)', offset: 0 }),
+                style({ opacity: 0.5, transform: 'scale(0)', offset: 0.3 }),
                 //   style({opacity: 0, transform: 'scale(.3)',     offset: 1.0}),
-              ]),
+              ])
             ),
           ]),
-          { optional: true },
+          { optional: true }
         ),
       ]),
     ]),
-    trigger("enterLeaveInOut-3", [
-      transition("* => *", [
-        query(":enter", style({ opacity: 0 }), { optional: true }),
+    trigger('enterLeaveInOut-3', [
+      transition('* => *', [
+        query(':enter', style({ opacity: 0 }), { optional: true }),
 
         query(
-          ":enter",
-          stagger("700ms", [
+          ':enter',
+          stagger('700ms', [
             animate(
-              ".6s ease-in",
+              '.6s ease-in',
               keyframes([
-                style({ opacity: 0, transform: "scale(1)", offset: 0 }),
-                style({ opacity: 0.4, transform: "scale(1.01)", offset: 0.3 }),
-                style({ opacity: 1, transform: "scale(1)", offset: 1.0 }),
-              ]),
+                style({ opacity: 0, transform: 'scale(1)', offset: 0 }),
+                style({ opacity: 0.4, transform: 'scale(1.01)', offset: 0.3 }),
+                style({ opacity: 1, transform: 'scale(1)', offset: 1.0 }),
+              ])
             ),
           ]),
-          { optional: true },
+          { optional: true }
         ),
         query(
-          ":leave",
-          stagger("300ms", [
+          ':leave',
+          stagger('300ms', [
             animate(
-              ".6s ease-out",
+              '.6s ease-out',
               keyframes([
-                style({ opacity: 1, transform: "scale(.5)", offset: 0 }),
-                style({ opacity: 0.5, transform: "scale(0)", offset: 0.3 }),
+                style({ opacity: 1, transform: 'scale(.5)', offset: 0 }),
+                style({ opacity: 0.5, transform: 'scale(0)', offset: 0.3 }),
                 //   style({opacity: 0, transform: 'scale(.3)',     offset: 1.0}),
-              ]),
+              ])
             ),
           ]),
-          { optional: true },
-        ),
-      ]),
-    ]),
-
-    trigger("enterLeaveInOut", [
-      transition("* => *", [
-        query(":enter", style({ opacity: 0 }), { optional: true }),
-
-        query(
-          ":enter",
-          stagger("100ms", [
-            animate(
-              ".6s ease-in",
-              keyframes([
-                style({ opacity: 0, transform: "scale(.9)", offset: 0 }),
-                style({ opacity: 0.5, transform: "scale(1.1)", offset: 0.3 }),
-                style({ opacity: 1, transform: "scale(1)", offset: 1.0 }),
-              ]),
-            ),
-          ]),
-          { optional: true },
-        ),
-        query(
-          ":leave",
-          stagger("300ms", [
-            animate(
-              ".6s ease-out",
-              keyframes([
-                style({ opacity: 1, transform: "scale(.5)", offset: 0 }),
-                style({ opacity: 0.5, transform: "scale(0)", offset: 0.3 }),
-                //   style({opacity: 0, transform: 'scale(.3)',     offset: 1.0}),
-              ]),
-            ),
-          ]),
-          { optional: true },
+          { optional: true }
         ),
       ]),
     ]),
 
-    trigger("enterLeaveUpDwn2", [
-      transition("* => *", [
-        query(":enter", style({ opacity: 0 }), { optional: true }),
+    trigger('enterLeaveInOut', [
+      transition('* => *', [
+        query(':enter', style({ opacity: 0 }), { optional: true }),
 
         query(
-          ":enter",
-          stagger("100ms", [
+          ':enter',
+          stagger('100ms', [
             animate(
-              ".6s ease-in",
+              '.6s ease-in',
               keyframes([
-                style({ opacity: 0, transform: "translateY(-1%)", offset: 0 }),
+                style({ opacity: 0, transform: 'scale(.9)', offset: 0 }),
+                style({ opacity: 0.5, transform: 'scale(1.1)', offset: 0.3 }),
+                style({ opacity: 1, transform: 'scale(1)', offset: 1.0 }),
+              ])
+            ),
+          ]),
+          { optional: true }
+        ),
+        query(
+          ':leave',
+          stagger('300ms', [
+            animate(
+              '.6s ease-out',
+              keyframes([
+                style({ opacity: 1, transform: 'scale(.5)', offset: 0 }),
+                style({ opacity: 0.5, transform: 'scale(0)', offset: 0.3 }),
+                //   style({opacity: 0, transform: 'scale(.3)',     offset: 1.0}),
+              ])
+            ),
+          ]),
+          { optional: true }
+        ),
+      ]),
+    ]),
+
+    trigger('enterLeaveUpDwn2', [
+      transition('* => *', [
+        query(':enter', style({ opacity: 0 }), { optional: true }),
+
+        query(
+          ':enter',
+          stagger('100ms', [
+            animate(
+              '.6s ease-in',
+              keyframes([
+                style({ opacity: 0, transform: 'translateY(-1%)', offset: 0 }),
                 style({
                   opacity: 0.5,
-                  transform: "translateY(15px)",
+                  transform: 'translateY(15px)',
                   offset: 0.3,
                 }),
-                style({ opacity: 1, transform: "translateY(0)", offset: 1.0 }),
-              ]),
+                style({ opacity: 1, transform: 'translateY(0)', offset: 1.0 }),
+              ])
             ),
           ]),
-          { optional: true },
+          { optional: true }
         ),
         query(
-          ":leave",
-          stagger("300ms", [
+          ':leave',
+          stagger('300ms', [
             animate(
-              ".6s ease-out",
+              '.6s ease-out',
               keyframes([
-                style({ opacity: 1, transform: "translateY(0)", offset: 0 }),
+                style({ opacity: 1, transform: 'translateY(0)', offset: 0 }),
                 style({
                   opacity: 0.5,
-                  transform: "translateY(15px)",
+                  transform: 'translateY(15px)',
                   offset: 0.3,
                 }),
                 style({
                   opacity: 0,
-                  transform: "translateY(-5%)",
+                  transform: 'translateY(-5%)',
                   offset: 1.0,
                 }),
-              ]),
+              ])
             ),
           ]),
-          { optional: true },
+          { optional: true }
         ),
       ]),
     ]),
 
-    trigger("enterLeaveUpDwn", [
-      transition("* => *", [
-        query(":enter", style({ opacity: 0 }), { optional: true }),
+    trigger('enterLeaveUpDwn', [
+      transition('* => *', [
+        query(':enter', style({ opacity: 0 }), { optional: true }),
 
         query(
-          ":enter",
-          stagger("300ms", [
+          ':enter',
+          stagger('300ms', [
             animate(
-              ".6s ease-in",
+              '.6s ease-in',
               keyframes([
-                style({ opacity: 0, transform: "translateY(-5%)", offset: 0 }),
+                style({ opacity: 0, transform: 'translateY(-5%)', offset: 0 }),
                 style({
                   opacity: 0.5,
-                  transform: "translateY(35px)",
+                  transform: 'translateY(35px)',
                   offset: 0.3,
                 }),
-                style({ opacity: 1, transform: "translateY(0)", offset: 1.0 }),
-              ]),
+                style({ opacity: 1, transform: 'translateY(0)', offset: 1.0 }),
+              ])
             ),
           ]),
-          { optional: true },
+          { optional: true }
         ),
         query(
-          ":leave",
-          stagger("300ms", [
+          ':leave',
+          stagger('300ms', [
             animate(
-              ".6s ease-out",
+              '.6s ease-out',
               keyframes([
-                style({ opacity: 1, transform: "translateY(0)", offset: 0 }),
+                style({ opacity: 1, transform: 'translateY(0)', offset: 0 }),
                 style({
                   opacity: 0.5,
-                  transform: "translateY(35px)",
+                  transform: 'translateY(35px)',
                   offset: 0.3,
                 }),
                 style({
                   opacity: 0,
-                  transform: "translateY(-75%)",
+                  transform: 'translateY(-75%)',
                   offset: 1.0,
                 }),
-              ]),
+              ])
             ),
           ]),
-          { optional: true },
+          { optional: true }
         ),
       ]),
     ]),
 
-    trigger("enterAnimateUpDwn", [
+    trigger('enterAnimateUpDwn', [
       // state('true',
       //     style({ opacity: 1, transform: 'translate(0, 10px)' })
       // ),
-      state("void", style({ opacity: 0, transform: "translate(0, -10px)" })),
+      state('void', style({ opacity: 0, transform: 'translate(0, -10px)' })),
       transition(
         // down
-        "* => *",
-        [animate(".8s cubic-bezier(0.175, 0.885, 0.32, 1.275)")],
+        '* => *',
+        [animate('.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)')]
       ),
       // transition( //up
       //     '* => *', [
@@ -285,15 +285,15 @@ export class Animations {
       // )
     ]),
 
-    trigger("enterAnimateInOut", [
+    trigger('enterAnimateInOut', [
       // state('true',
       //     style({ opacity: 1, transform: 'translate(0, 10px)' })
       // ),
-      state("void", style({ opacity: 0, transform: "scale(.3)" })),
+      state('void', style({ opacity: 0, transform: 'scale(.3)' })),
       transition(
         // down
-        "* => *",
-        [animate("1s cubic-bezier(0.175, 0.885, 0.32, 1.275)")],
+        '* => *',
+        [animate('1s cubic-bezier(0.175, 0.885, 0.32, 1.275)')]
       ),
       // transition( //up
       //     '* => *', [
@@ -302,106 +302,106 @@ export class Animations {
       // )
     ]),
 
-    trigger("validationMsg", [
-      state("void", style({ opacity: 0, transform: "translate(0, 20px)" })),
+    trigger('validationMsg', [
+      state('void', style({ opacity: 0, transform: 'translate(0, 20px)' })),
       transition(
         // down
-        "* => *",
-        [animate("1s cubic-bezier(0.175, 0.885, 0.32, 1.275)")],
+        '* => *',
+        [animate('1s cubic-bezier(0.175, 0.885, 0.32, 1.275)')]
       ),
     ]),
 
-    trigger("enterAnimate", [
-      state("true", style({ opacity: 1, transform: "translate(200px , 0)" })),
-      state("void", style({ opacity: 0, transform: "translate(200px , 0)" })),
-      transition("* => void", [animate("300ms ease-in")]),
-      transition("void => *", [animate("800ms 0.3s ease-out")]),
+    trigger('enterAnimate', [
+      state('true', style({ opacity: 1, transform: 'translate(200px , 0)' })),
+      state('void', style({ opacity: 0, transform: 'translate(200px , 0)' })),
+      transition('* => void', [animate('300ms ease-in')]),
+      transition('void => *', [animate('800ms 0.3s ease-out')]),
     ]),
 
-    trigger("isSubmitted", [
-      state("true", style({ transform: "scale(0.4)" })),
-      transition("1 => 0", [
-        animate("1.5s cubic-bezier(0.215, 0.610, 0.355, 1.000)"),
+    trigger('isSubmitted', [
+      state('true', style({ transform: 'scale(0.4)' })),
+      transition('1 => 0', [
+        animate('1.5s cubic-bezier(0.215, 0.610, 0.355, 1.000)'),
       ]),
       transition(
-        "0 => 1",
-        animate("1.5s cubic-bezier(0.215, 0.610, 0.355, 2.000)"),
+        '0 => 1',
+        animate('1.5s cubic-bezier(0.215, 0.610, 0.355, 2.000)')
       ),
     ]),
 
-    trigger("zoomInOut", [
-      state("small", style({ transform: "translateY(0)", opacity: 1 })),
-      state("large", style({ transform: "scale(0.95)", opacity: 0 })),
-      transition("1 => 0", [
-        animate("1.5s cubic-bezier(0.215, 0.610, 0.355, 2.000)"),
+    trigger('zoomInOut', [
+      state('small', style({ transform: 'translateY(0)', opacity: 1 })),
+      state('large', style({ transform: 'scale(0.95)', opacity: 0 })),
+      transition('1 => 0', [
+        animate('1.5s cubic-bezier(0.215, 0.610, 0.355, 2.000)'),
       ]),
       transition(
-        "0 => 1",
-        animate("1.5s cubic-bezier(0.215, 0.610, 0.355, 1.600)"),
+        '0 => 1',
+        animate('1.5s cubic-bezier(0.215, 0.610, 0.355, 1.600)')
       ),
     ]),
 
-    trigger("dropInOut", [
+    trigger('dropInOut', [
       state(
-        "small",
+        'small',
         style({
-          transform: "scale(0)",
-        }),
+          transform: 'scale(0)',
+        })
       ),
       state(
-        "large",
+        'large',
         style({
-          transform: "scale(1.5)",
-        }),
+          transform: 'scale(1.5)',
+        })
       ),
       transition(
-        "small => large",
+        'small => large',
         animate(
-          "1.5s cubic-bezier(0.215, 0.610, 0.355, 2.000)",
+          '1.5s cubic-bezier(0.215, 0.610, 0.355, 2.000)',
           keyframes([
-            style({ opacity: 0, transform: "translateY(-75%)", offset: 0 }),
+            style({ opacity: 0, transform: 'translateY(-75%)', offset: 0 }),
             //  style({opacity: 1, transform: 'translateY(35px)',  offset: 0.5}),
-            style({ opacity: 1, transform: "translateY(0)", offset: 1.0 }),
-          ]),
-        ),
+            style({ opacity: 1, transform: 'translateY(0)', offset: 1.0 }),
+          ])
+        )
       ),
 
       transition(
-        "large => small",
+        'large => small',
         animate(
-          "1.5s cubic-bezier(0.215, 0.610, 0.355, 2.000)",
+          '1.5s cubic-bezier(0.215, 0.610, 0.355, 2.000)',
           keyframes([
             //   style({opacity: 0, transform: 'translateY(-75%)', offset: 0}),
             //  style({opacity: 1, transform: 'translateY(35px)',  offset: 0.5}),
-            style({ opacity: 0, transform: "translateY(0)", offset: 1.0 }),
-          ]),
-        ),
+            style({ opacity: 0, transform: 'translateY(0)', offset: 1.0 }),
+          ])
+        )
       ),
     ]),
 
-    trigger("dropInOut2", [
+    trigger('dropInOut2', [
       state(
-        "small",
+        'small',
         style({
-          transform: "scale(1)",
-        }),
+          transform: 'scale(1)',
+        })
       ),
       state(
-        "large",
+        'large',
         style({
-          transform: "scale(1.5)",
-        }),
+          transform: 'scale(1.5)',
+        })
       ),
       transition(
-        "small <=> large",
+        'small <=> large',
         animate(
-          "1.5s cubic-bezier(0.215, 0.610, 0.355, 2.000)",
+          '1.5s cubic-bezier(0.215, 0.610, 0.355, 2.000)',
           keyframes([
-            style({ opacity: 0, transform: "translateY(75%)", offset: 0 }),
+            style({ opacity: 0, transform: 'translateY(75%)', offset: 0 }),
             //   style({opacity: 1, transform: 'translateY(-35px)',  offset: 0.5}),
-            style({ opacity: 1, transform: "translateY(0)", offset: 1.0 }),
-          ]),
-        ),
+            style({ opacity: 1, transform: 'translateY(0)', offset: 1.0 }),
+          ])
+        )
       ),
     ]),
   ];

@@ -1,24 +1,24 @@
-import { Component } from "@angular/core";
-import { BaseBlockComponent } from "../base-block/base-block.component";
-import { get } from "lodash-es";
-import { parse } from "papaparse";
+import { Component } from '@angular/core';
+import { BaseBlockComponent } from '../base-block/base-block.component';
+import { get } from 'lodash-es';
+import { parse } from 'papaparse';
 
 @Component({
-  selector: "app-gsheet-block",
-  templateUrl: "./gsheet-block.component.html",
-  styleUrls: ["./gsheet-block.component.scss"],
+  selector: 'app-gsheet-block',
+  templateUrl: './gsheet-block.component.html',
+  styleUrls: ['./gsheet-block.component.scss'],
 })
 export class GsheetBlockComponent extends BaseBlockComponent {
-  shareUrl = "";
-  key = "";
+  shareUrl = '';
+  key = '';
   simple = false;
 
   hasError = false;
-  errorMessage = "";
+  errorMessage = '';
   isLoading = false;
 
   onConfigUpdate(config: any) {
-    this.shareUrl = get(config, "shareUrl");
+    this.shareUrl = get(config, 'shareUrl');
   }
 
   onData(data: any, firstChange: boolean) {

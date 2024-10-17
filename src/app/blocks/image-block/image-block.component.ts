@@ -7,14 +7,14 @@ import {
   OnInit,
   Output,
   ViewChild,
-} from "@angular/core";
-import { clone, get, isObject } from "lodash-es";
-import { compile } from "handlebars/dist/handlebars.js";
+} from '@angular/core';
+import { clone, get, isObject } from 'lodash-es';
+import { compile } from 'handlebars/dist/handlebars.js';
 
 @Component({
-  selector: "app-image-block",
-  templateUrl: "./image-block.component.html",
-  styleUrls: ["./image-block.component.scss"],
+  selector: 'app-image-block',
+  templateUrl: './image-block.component.html',
+  styleUrls: ['./image-block.component.scss'],
 })
 export class ImageBlockComponent implements OnInit, OnChanges {
   @Input() config;
@@ -23,18 +23,18 @@ export class ImageBlockComponent implements OnInit, OnChanges {
 
   @Output() output = new EventEmitter();
 
-  title = "";
-  src = "";
-  type = "";
+  title = '';
+  src = '';
+  type = '';
 
   constructor() {}
 
   ngOnInit() {}
 
   ngOnChanges(changes) {
-    this.type = get(this.config, "type", "");
+    this.type = get(this.config, 'type', '');
     // this.title = compile(get(this.config, 'title', ''))({ context: this.context || {}, data: this.model, ...this.model || {} });
-    this.src = compile(get(this.config, "src", ""))({
+    this.src = compile(get(this.config, 'src', ''))({
       context: this.context || {},
       data: this.model,
       ...(this.model || {}),

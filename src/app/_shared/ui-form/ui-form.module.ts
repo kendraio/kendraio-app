@@ -1,30 +1,30 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { CheckBoxWrapperComponent, PanelWrapperComponent } from "./wrappers";
+import { CheckBoxWrapperComponent, PanelWrapperComponent } from './wrappers';
 
-import * as types from "./types/";
+import * as types from './types/';
 
 import {
   ErrorStateMatcher,
   MatNativeDateModule,
   ShowOnDirtyErrorStateMatcher,
-} from "@angular/material/core";
-import { NgSelectModule } from "@ng-select/ng-select";
-import { FormlyMatDatepickerModule } from "@ngx-formly/material/datepicker";
+} from '@angular/material/core';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
 
-import { MatButtonToggleModule } from "@angular/material/button-toggle";
-import { MatIconModule } from "@angular/material/icon";
-import { FormlyMaterialModule } from "@ngx-formly/material";
-import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
-import { FlexLayoutModule } from "@angular/flex-layout";
-import { FormlyFieldFileComponent } from "./types/file-type.component";
-import { FormlyModule } from "@ngx-formly/core";
-import { MatCardModule } from "@angular/material/card";
-import { MatInputModule } from "@angular/material/input";
-import { MaskitoDirective } from "@maskito/angular";
-import { MatRadioModule } from "@angular/material/radio";
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatIconModule } from '@angular/material/icon';
+import { FormlyMaterialModule } from '@ngx-formly/material';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormlyFieldFileComponent } from './types/file-type.component';
+import { FormlyModule } from '@ngx-formly/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MaskitoDirective } from '@maskito/angular';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   providers: [

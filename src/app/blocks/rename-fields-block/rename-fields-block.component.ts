@@ -1,34 +1,34 @@
-import { Component } from "@angular/core";
-import { BaseBlockComponent } from "../base-block/base-block.component";
-import { get, isArray } from "lodash-es";
-import { mappingUtility } from "../mapping-block/mapping-util";
+import { Component } from '@angular/core';
+import { BaseBlockComponent } from '../base-block/base-block.component';
+import { get, isArray } from 'lodash-es';
+import { mappingUtility } from '../mapping-block/mapping-util';
 
 @Component({
-  selector: "app-rename-fields-block",
-  templateUrl: "./rename-fields-block.component.html",
-  styleUrls: ["./rename-fields-block.component.scss"],
+  selector: 'app-rename-fields-block',
+  templateUrl: './rename-fields-block.component.html',
+  styleUrls: ['./rename-fields-block.component.scss'],
 })
 export class RenameFieldsBlockComponent extends BaseBlockComponent {
   mapping = [];
   mappingGetter = undefined;
-  inputGetter = "data";
+  inputGetter = 'data';
 
   onConfigUpdate(config: any) {
-    this.mapping = get(config, "mapping", []);
-    this.mappingGetter = get(config, "mappingGetter");
-    this.inputGetter = get(config, "inputGetter", "data");
+    this.mapping = get(config, 'mapping', []);
+    this.mappingGetter = get(config, 'mappingGetter');
+    this.inputGetter = get(config, 'inputGetter', 'data');
   }
 
   onData(data: any, firstChange: boolean) {
     const fieldMapping = this.mappingGetter
       ? mappingUtility(
           { data: this.model, context: this.context },
-          this.mappingGetter,
+          this.mappingGetter
         )
       : this.mapping;
     const input = mappingUtility(
       { data: this.model, context: this.context },
-      this.inputGetter,
+      this.inputGetter
     );
 
     let output;

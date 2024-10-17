@@ -1,12 +1,12 @@
-import { Field } from "../helpers/fields";
+import { Field } from '../helpers/fields';
 import {
   USERNAME,
   EMAIL,
   PASSWORD,
   PASSWORDCONFIRM,
   // MONEY_INPUT, TYPEAHEAD
-} from "./form-elements";
-import { FormlyFormOptions } from "@ngx-formly/core";
+} from './form-elements';
+import { FormlyFormOptions } from '@ngx-formly/core';
 
 export const LOGIN_FORM = (disabled = false, hidden = false) => ({
   // options: FormlyFormOptions = {
@@ -16,10 +16,10 @@ export const LOGIN_FORM = (disabled = false, hidden = false) => ({
   //   },
   // },
 
-  id: "LOGIN",
+  id: 'LOGIN',
   template: [
     {
-      key: "password",
+      key: 'password',
       validators: {
         fieldMatch: {
           // TODO: refactor in validators.ts
@@ -31,18 +31,18 @@ export const LOGIN_FORM = (disabled = false, hidden = false) => ({
               !value.password;
             return boo;
           },
-          message: "Passwords do not Match",
-          errorPath: "passwordconfirm",
+          message: 'Passwords do not Match',
+          errorPath: 'passwordconfirm',
         },
       },
-      wrappers: ["panel"],
+      wrappers: ['panel'],
       templateOptions: {
-        label: "Login Form",
+        label: 'Login Form',
       },
 
       fieldGroup: [
         USERNAME(disabled),
-        EMAIL(disabled, "boo2@boo2.com"),
+        EMAIL(disabled, 'boo2@boo2.com'),
         PASSWORD(disabled),
         PASSWORDCONFIRM(true),
       ],

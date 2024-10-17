@@ -4,14 +4,14 @@ import {
   ContentChild,
   Input,
   OnInit,
-} from "@angular/core";
-import { TaggerInterface, TagInterface } from "./interfaces";
-import { TagBaseDirective } from "./tag-base.directive";
-import { NgxTaggerConfig } from "./interfaces/ngx-tagger-config";
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
+} from '@angular/core';
+import { TaggerInterface, TagInterface } from './interfaces';
+import { TagBaseDirective } from './tag-base.directive';
+import { NgxTaggerConfig } from './interfaces/ngx-tagger-config';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: "ngx-tagger",
+  selector: 'ngx-tagger',
   template: `
     <ng-content></ng-content>
     <div class="tags">
@@ -57,7 +57,7 @@ export class NgxTaggerComponent
   @Input() defaultTagSize = 90;
 
   _config: NgxTaggerConfig = {
-    tagBorder: "3px solid blue",
+    tagBorder: '3px solid blue',
   };
   @Input() set config(c: NgxTaggerConfig) {
     this._config = { ...this._config, ...c };

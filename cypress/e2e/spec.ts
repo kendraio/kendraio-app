@@ -1,117 +1,117 @@
-import { loadFlowCode } from "../support/helper";
+import { loadFlowCode } from '../support/helper';
 // tslint:disable: quotemark
 
-describe("workspace-project App", () => {
+describe('workspace-project App', () => {
   beforeEach(() => {
     // Prevent external network request for adapter config
     cy.intercept(
-      "GET",
-      "https://kendraio.github.io/kendraio-adapter/config.json",
+      'GET',
+      'https://kendraio.github.io/kendraio-adapter/config.json',
       {
-        fixture: "adapterConfig.json",
-      },
-    ).as("adapterConfig.json");
+        fixture: 'adapterConfig.json',
+      }
+    ).as('adapterConfig.json');
 
     // Prevent external network requests for Workflow cloud
     cy.intercept(
-      "GET",
-      "https://app.kendra.io/api/workflowCloud/listWorkflows",
+      'GET',
+      'https://app.kendra.io/api/workflowCloud/listWorkflows',
       {
-        fixture: "workflow-cloud.json",
-      },
-    ).as("workflow-cloud.json");
+        fixture: 'workflow-cloud.json',
+      }
+    ).as('workflow-cloud.json');
 
     // Prevent external network requests for fonts with empty CSS rule
-    cy.intercept("https://fonts.googleapis.com/**", "*{ }").as("emptyFonts");
+    cy.intercept('https://fonts.googleapis.com/**', '*{ }').as('emptyFonts');
   });
 
-  it("should assert the mapping block produces the expected UUID string output", () => {
+  it('should assert the mapping block produces the expected UUID string output', () => {
     loadFlowCode([
       {
-        type: "mapping",
+        type: 'mapping',
         mapping: "uuid('test')",
       },
       {
-        type: "debug",
+        type: 'debug',
         open: 1,
         showContext: false,
       },
     ]);
 
-    cy.contains("3ab8d0cd-7b76-5741-8bc9-5725650dc435");
+    cy.contains('3ab8d0cd-7b76-5741-8bc9-5725650dc435');
   });
 
-  it("should make new workflow with mapping block", () => {
-    cy.visit("/workflow-builder");
-    cy.contains("menu");
-    cy.get("app-root mat-toolbar").contains("menu").click();
-    cy.contains("Flow Builder").click();
-    cy.contains("settings");
+  it('should make new workflow with mapping block', () => {
+    cy.visit('/workflow-builder');
+    cy.contains('menu');
+    cy.get('app-root mat-toolbar').contains('menu').click();
+    cy.contains('Flow Builder').click();
+    cy.contains('settings');
     cy.get('[data-cy="toolbar-setting-button"]').click();
-    cy.get("app-workflow-sidenav")
-      .contains("delete_forever")
+    cy.get('app-workflow-sidenav')
+      .contains('delete_forever')
       .click()
-      .get("app-workflow-sidenav")
-      .contains("Mapping")
-      .should("not.exist");
+      .get('app-workflow-sidenav')
+      .contains('Mapping')
+      .should('not.exist');
     cy.get('[data-cy="blocks-editor-add-task"]').click();
-    cy.contains("Select Task");
-    cy.get("mat-dialog-container").contains("Mapping").click();
+    cy.contains('Select Task');
+    cy.get('mat-dialog-container').contains('Mapping').click();
     cy.get('[data-cy="dialog-addBlock-addTask-button"]').click();
-    cy.get("button").contains("Mapping");
+    cy.get('button').contains('Mapping');
   });
 
-  it("should display a custom title and additional form elements for the mapping editor block", () => {
+  it('should display a custom title and additional form elements for the mapping editor block', () => {
     loadFlowCode([
       {
-        type: "mapping",
-        mapping: "`true`",
-        blockComment: "testingComment",
+        type: 'mapping',
+        mapping: '`true`',
+        blockComment: 'testingComment',
       },
     ]);
     cy.get('[data-cy="toolbar-setting-button"]').click();
-    cy.get("app-workflow-sidenav").contains("testingComment").should("exist");
-    cy.get("app-workflow-sidenav").contains("testingComment").click();
+    cy.get('app-workflow-sidenav').contains('testingComment').should('exist');
+    cy.get('app-workflow-sidenav').contains('testingComment').click();
     // cy.get('app-workflow-sidenav').contains('Block Comment'); // FIXME: regression - MatFormField placeholder text is not visible
   });
 
-  it("should display the comment for a generic editor block", () => {
+  it('should display the comment for a generic editor block', () => {
     loadFlowCode([
       {
-        type: "template",
-        blockComment: "testingComment first line\nComment line2",
+        type: 'template',
+        blockComment: 'testingComment first line\nComment line2',
       },
     ]);
     cy.get('[data-cy="toolbar-setting-button"]').click();
-    cy.get("app-workflow-sidenav").contains("testingComment").should("exist");
-    cy.get("app-workflow-sidenav").contains("line2").should("not.exist");
-    cy.get("app-workflow-sidenav").contains("testingComment").click();
+    cy.get('app-workflow-sidenav').contains('testingComment').should('exist');
+    cy.get('app-workflow-sidenav').contains('line2').should('not.exist');
+    cy.get('app-workflow-sidenav').contains('testingComment').click();
   });
 
-  it("should display welcome message", () => {
-    cy.intercept("https://app.kendra.io/api/core/dashboard", {
-      fixture: "dashboardHomeFlow.json",
+  it('should display welcome message', () => {
+    cy.intercept('https://app.kendra.io/api/core/dashboard', {
+      fixture: 'dashboardHomeFlow.json',
     });
-    cy.visit("/");
-    cy.contains("Kendraio App is an open source dashboard");
+    cy.visit('/');
+    cy.contains('Kendraio App is an open source dashboard');
   });
 
-  it("should display saved workflows", () => {
+  it('should display saved workflows', () => {
     cy.intercept(
-      "GET",
-      "https://app.kendra.io/api/workflowCloud/listWorkflows",
+      'GET',
+      'https://app.kendra.io/api/workflowCloud/listWorkflows',
       {
-        fixture: "listWorkflowsFlow.json",
-      },
-    ).as("listWorkflowsFlow.json");
+        fixture: 'listWorkflowsFlow.json',
+      }
+    ).as('listWorkflowsFlow.json');
 
-    cy.intercept("GET", "https://app.kendra.io/api", {
-      fixture: "flowList.json",
-    }).as("flowList.json");
+    cy.intercept('GET', 'https://app.kendra.io/api', {
+      fixture: 'flowList.json',
+    }).as('flowList.json');
 
-    cy.visit("/workflowCloud/listWorkflows");
-    cy.contains("Submit").click();
-    cy.contains("Made up flow A");
+    cy.visit('/workflowCloud/listWorkflows');
+    cy.contains('Submit').click();
+    cy.contains('Made up flow A');
   });
 
   /*

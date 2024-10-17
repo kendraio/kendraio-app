@@ -7,16 +7,16 @@ import {
   OnInit,
   Output,
   ViewChild,
-} from "@angular/core";
-import { clone, get } from "lodash-es";
-import { BlocksWorkflowComponent } from "../../components/blocks-workflow/blocks-workflow.component";
-import { mappingUtility } from "../mapping-block/mapping-util";
-import { SharedStateService } from "src/app/services/shared-state.service";
+} from '@angular/core';
+import { clone, get } from 'lodash-es';
+import { BlocksWorkflowComponent } from '../../components/blocks-workflow/blocks-workflow.component';
+import { mappingUtility } from '../mapping-block/mapping-util';
+import { SharedStateService } from 'src/app/services/shared-state.service';
 
 @Component({
-  selector: "app-actions-block",
-  templateUrl: "./actions-block.component.html",
-  styleUrls: ["./actions-block.component.scss"],
+  selector: 'app-actions-block',
+  templateUrl: './actions-block.component.html',
+  styleUrls: ['./actions-block.component.scss'],
 })
 export class ActionsBlockComponent implements OnInit, OnChanges {
   @Input() config;
@@ -33,7 +33,7 @@ export class ActionsBlockComponent implements OnInit, OnChanges {
 
   constructor(
     private readonly zone: NgZone,
-    private stateService: SharedStateService,
+    private stateService: SharedStateService
   ) {
     stateService.state$.subscribe((state) => {
       Promise.resolve(null).then(() => this.setEnabled());
@@ -48,9 +48,9 @@ export class ActionsBlockComponent implements OnInit, OnChanges {
             context: this.context,
             state: this.stateService.state,
           },
-          button.labelGetter,
+          button.labelGetter
         )
-      : button.label || "Submit";
+      : button.label || 'Submit';
   }
 
   setEnabled() {
@@ -62,7 +62,7 @@ export class ActionsBlockComponent implements OnInit, OnChanges {
               context: this.context,
               state: this.stateService.state,
             },
-            button.enabledGetter,
+            button.enabledGetter
           )
         : true;
       this.buttons[index].enabled = enabled;
@@ -72,16 +72,16 @@ export class ActionsBlockComponent implements OnInit, OnChanges {
   ngOnInit() {}
 
   ngOnChanges(changes) {
-    this.buttons = get(this.config, "buttons", []);
+    this.buttons = get(this.config, 'buttons', []);
     this.setEnabled();
   }
 
   onSubmit(button) {
     // console.log({ button });
     // TODO: refactor (d)
-    this.blocks = get(button, "blocks", []);
+    this.blocks = get(button, 'blocks', []);
     this.models = this.blocks.map((blockDef) =>
-      get(blockDef, "defaultValue", {}),
+      get(blockDef, 'defaultValue', {})
     );
     this.models.push({});
     setTimeout(() => {

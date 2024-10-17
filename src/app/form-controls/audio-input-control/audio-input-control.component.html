@@ -5,11 +5,11 @@
   mat-stroked-button
   (click)="filePicker.click()"
 >
-  {{ file ? "Replace" : "Add" }} file
+  {{ file ? 'Replace' : 'Add' }} file
 </button>
 
 <button type="button" mat-icon-button (click)="playPause()">
-  <mat-icon>{{ isPlaying ? "pause" : "play_arrow" }}</mat-icon>
+  <mat-icon>{{ isPlaying ? 'pause' : 'play_arrow' }}</mat-icon>
 </button>
 
 <div class="audio-wrapper" *ngIf="!!file">

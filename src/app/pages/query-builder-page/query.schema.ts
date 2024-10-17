@@ -1,47 +1,47 @@
 export const QUERY_SCHEMA = {
-  type: "object",
+  type: 'object',
   properties: {
     title: {
-      type: "string",
+      type: 'string',
     },
     description: {
-      type: "string",
+      type: 'string',
     },
     dataSource: {
-      type: "object",
+      type: 'object',
       properties: {
         type: {
-          type: "string",
-          enum: ["remote", "local"],
+          type: 'string',
+          enum: ['remote', 'local'],
         },
         endpoint: {
-          type: "string",
+          type: 'string',
         },
         schema: {
-          description: "Name of schema (used for local DB queries)",
-          type: "string",
+          description: 'Name of schema (used for local DB queries)',
+          type: 'string',
         },
       },
     },
     mapping: {
-      type: "string",
+      type: 'string',
     },
     output: {
-      type: "object",
+      type: 'object',
       properties: {
-        type: { type: "string", enum: ["grid", "chart"] },
+        type: { type: 'string', enum: ['grid', 'chart'] },
         columnDefs: {
-          type: "array",
+          type: 'array',
           items: {
-            type: "object",
+            type: 'object',
             properties: {
-              headerName: { type: "string" },
-              field: { type: "string" },
-              sortable: { type: "boolean" },
-              filter: { type: "boolean" },
-              pinned: { type: "string", enum: ["left", "right"] },
-              valueGetter: { type: "string" },
-              resizable: { type: "boolean" },
+              headerName: { type: 'string' },
+              field: { type: 'string' },
+              sortable: { type: 'boolean' },
+              filter: { type: 'boolean' },
+              pinned: { type: 'string', enum: ['left', 'right'] },
+              valueGetter: { type: 'string' },
+              resizable: { type: 'boolean' },
             },
           },
         },

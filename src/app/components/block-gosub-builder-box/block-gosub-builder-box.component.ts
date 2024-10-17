@@ -1,14 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { get } from "lodash-es";
-import { UntypedFormControl } from "@angular/forms";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { startWith, map } from "rxjs/operators";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { get } from 'lodash-es';
+import { UntypedFormControl } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
-  selector: "app-block-gosub-builder-box",
-  templateUrl: "./block-gosub-builder-box.component.html",
-  styleUrls: ["./block-gosub-builder-box.component.scss"],
+  selector: 'app-block-gosub-builder-box',
+  templateUrl: './block-gosub-builder-box.component.html',
+  styleUrls: ['./block-gosub-builder-box.component.scss'],
 })
 export class BlockGosubBuilderBoxComponent implements OnInit {
   workflowCloud: any = [];
@@ -28,24 +28,24 @@ export class BlockGosubBuilderBoxComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.adapterNameFormControl.setValue(get(this.block, "adapterName", ""));
-    this.workflowIdFormControl.setValue(get(this.block, "workflowId", ""));
-    this.blockCommentFormControl.setValue(get(this.block, "blockComment", ""));
+    this.adapterNameFormControl.setValue(get(this.block, 'adapterName', ''));
+    this.workflowIdFormControl.setValue(get(this.block, 'workflowId', ''));
+    this.blockCommentFormControl.setValue(get(this.block, 'blockComment', ''));
     this.getData();
 
     this.filteredAdapters = this.adapterNameFormControl.valueChanges.pipe(
-      startWith(""),
-      map((val) => this.filterAdapters(val)),
+      startWith(''),
+      map((val) => this.filterAdapters(val))
     );
     this.filteredWorkflows = this.workflowIdFormControl.valueChanges.pipe(
-      startWith(""),
-      map((val) => this.filterWorkflows(val)),
+      startWith(''),
+      map((val) => this.filterWorkflows(val))
     );
   }
 
   filterAdapters(val: string): string[] {
     return this.adapters.filter(
-      (option) => option.toLowerCase().indexOf(val.toLowerCase()) === 0,
+      (option) => option.toLowerCase().indexOf(val.toLowerCase()) === 0
     );
   }
 
@@ -54,7 +54,7 @@ export class BlockGosubBuilderBoxComponent implements OnInit {
     let filteredWorkflows = [];
     if (workflowAdapters) {
       filteredWorkflows = workflowAdapters.filter(
-        (option) => option.toLowerCase().indexOf(val.toLowerCase()) === 0,
+        (option) => option.toLowerCase().indexOf(val.toLowerCase()) === 0
       );
     }
     return filteredWorkflows;
@@ -70,7 +70,7 @@ export class BlockGosubBuilderBoxComponent implements OnInit {
   }
 
   getData() {
-    const url = "https://app.kendra.io/api";
+    const url = 'https://app.kendra.io/api';
     this.http.get(url).subscribe((res) => {
       this.workflowCloud = res;
       this.workflowCloud.forEach((element) => {

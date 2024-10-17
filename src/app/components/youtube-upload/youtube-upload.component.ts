@@ -1,10 +1,10 @@
-import { Component, OnInit } from "@angular/core";
-import { YoutubeDataService } from "../../services/youtube-data.service";
+import { Component, OnInit } from '@angular/core';
+import { YoutubeDataService } from '../../services/youtube-data.service';
 import {
   UntypedFormBuilder,
   UntypedFormGroup,
   Validators,
-} from "@angular/forms";
+} from '@angular/forms';
 
 /*
 {
@@ -20,9 +20,9 @@ import {
  */
 
 @Component({
-  selector: "app-youtube-upload",
-  templateUrl: "./youtube-upload.component.html",
-  styleUrls: ["./youtube-upload.component.scss"],
+  selector: 'app-youtube-upload',
+  templateUrl: './youtube-upload.component.html',
+  styleUrls: ['./youtube-upload.component.scss'],
 })
 export class YoutubeUploadComponent implements OnInit {
   form: UntypedFormGroup;
@@ -34,16 +34,16 @@ export class YoutubeUploadComponent implements OnInit {
 
   constructor(
     private readonly fb: UntypedFormBuilder,
-    private readonly yt: YoutubeDataService,
+    private readonly yt: YoutubeDataService
   ) {}
 
   ngOnInit() {
     this.form = this.fb.group({
-      title: ["", [Validators.required]],
-      description: ["", [Validators.required]],
-      category: ["", [Validators.required]],
+      title: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      category: ['', [Validators.required]],
       file: [null, [Validators.required]],
-      privacySetting: ["unlisted", [Validators.required]],
+      privacySetting: ['unlisted', [Validators.required]],
     });
     this.categories$ = this.yt.getCategories();
     this.progress$ = this.yt.progress$;
@@ -52,7 +52,7 @@ export class YoutubeUploadComponent implements OnInit {
   onFileChange(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      this.form.get("file").setValue(file);
+      this.form.get('file').setValue(file);
     }
   }
 

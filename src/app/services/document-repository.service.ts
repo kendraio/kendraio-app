@@ -1,19 +1,19 @@
-import { Injectable } from "@angular/core";
-import { from, Observable, of } from "rxjs";
-import { v4 as UUIDv4 } from "uuid";
-import { SchemaRepositoryService } from "./schema-repository.service";
-import { map, switchMap } from "rxjs/operators";
-import { at, get, has, omit } from "lodash-es";
-import Dexie from "dexie";
+import { Injectable } from '@angular/core';
+import { from, Observable, of } from 'rxjs';
+import { v4 as UUIDv4 } from 'uuid';
+import { SchemaRepositoryService } from './schema-repository.service';
+import { map, switchMap } from 'rxjs/operators';
+import { at, get, has, omit } from 'lodash-es';
+import Dexie from 'dexie';
 
 declare const emit;
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class DocumentRepositoryService extends Dexie {
   constructor(private readonly schemaRepo: SchemaRepositoryService) {
-    super("kendraio-legacy");
+    super('kendraio-legacy');
   }
 
   async resetApp() {
@@ -37,7 +37,7 @@ export class DocumentRepositoryService extends Dexie {
     //     } as any
     //   }) : {});
     this.version(1).stores({
-      docs: "&id,label",
+      docs: '&id,label',
     });
     await this.open();
   }
@@ -62,7 +62,7 @@ export class DocumentRepositoryService extends Dexie {
   }
 
   addNew(schemaName: string, initialValues = {}): Observable<any> {
-    return this.putDoc({ "@schema": schemaName, ...initialValues });
+    return this.putDoc({ '@schema': schemaName, ...initialValues });
   }
 
   // When fetching document, also fetch attachments and add to doc as per schema
@@ -105,7 +105,7 @@ export class DocumentRepositoryService extends Dexie {
 
   deleteDoc(id) {
     return this.getDoc(id).pipe(
-      switchMap((doc) => this.putDoc({ ...doc, _deleted: true })),
+      switchMap((doc) => this.putDoc({ ...doc, _deleted: true }))
     );
   }
 }

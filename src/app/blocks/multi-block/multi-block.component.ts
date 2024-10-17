@@ -6,13 +6,13 @@ import {
   OnChanges,
   OnInit,
   Output,
-} from "@angular/core";
-import { clone, every, get } from "lodash-es";
+} from '@angular/core';
+import { clone, every, get } from 'lodash-es';
 
 @Component({
-  selector: "app-multi-block",
-  templateUrl: "./multi-block.component.html",
-  styleUrls: ["./multi-block.component.scss"],
+  selector: 'app-multi-block',
+  templateUrl: './multi-block.component.html',
+  styleUrls: ['./multi-block.component.scss'],
 })
 export class MultiBlockComponent implements OnInit, OnChanges {
   @Input() config;
@@ -32,7 +32,7 @@ export class MultiBlockComponent implements OnInit, OnChanges {
   ngOnInit() {}
 
   ngOnChanges(changes) {
-    this.batches = get(this.config, "batches", []);
+    this.batches = get(this.config, 'batches', []);
     this.modelStacks = this.batches.map((batch) => {
       // const batchBlocks = get(batch, 'blocks', []);
       // const batchModels = batchBlocks.map(blockDef => get(blockDef, 'defaultValue', {}));

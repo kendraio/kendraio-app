@@ -1,7 +1,7 @@
-import { Component, ViewChild } from "@angular/core";
-import { FieldType } from "@ngx-formly/material";
-import { ErrorStateMatcher } from "@angular/material/core";
-import { MatInput } from "@angular/material/input";
+import { Component, ViewChild } from '@angular/core';
+import { FieldType } from '@ngx-formly/material';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { MatInput } from '@angular/material/input';
 
 @Component({
   template: `
@@ -26,6 +26,6 @@ export class TimePickerComponent extends FieldType<any> {
     return this.to.hideClock || false;
   }
   get defaultTime(): string {
-    return this.to.defaultTime || "7:13";
+    return this.to.defaultTime || '7:13';
   }
 }
