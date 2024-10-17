@@ -22,7 +22,7 @@ Check out the screencast videos:
   <https://app.kendra.io/player/all>
 
 - Wallet Block demo:
-  <https://app.kendra.io/dsp1/walletArray>
+  <https://app.kendra.io/distributor/walletArray>
 
 - Statistics using anonymous analytics:
   <https://app.kendra.io/player/stats>
