@@ -5,22 +5,22 @@ import {
   OnDestroy,
   OnInit,
   Output,
-} from "@angular/core";
+} from '@angular/core';
 import {
   AbstractControl,
   ControlValueAccessor,
   FormArray,
   FormControl,
   NG_VALUE_ACCESSOR,
-} from "@angular/forms";
-import { blobToDataURL } from "blob-util";
-import { Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
+} from '@angular/forms';
+import { blobToDataURL } from 'blob-util';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: "app-image-input-control",
-  templateUrl: "./image-input-control.component.html",
-  styleUrls: ["./image-input-control.component.scss"],
+  selector: 'app-image-input-control',
+  templateUrl: './image-input-control.component.html',
+  styleUrls: ['./image-input-control.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

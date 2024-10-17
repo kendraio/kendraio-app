@@ -91,7 +91,7 @@ $pw-mobile-size: 400px !default;
     top: $pw-bubble-size * 0.5 - $pw-border-thickness;
     width: 100%;
     height: $pw-bubble-line-thickness;
-    content: "";
+    content: '';
     background-color: $pw-incomplete;
   }
   > li .bubble:before {

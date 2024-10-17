@@ -5,16 +5,16 @@ import {
   OnChanges,
   OnInit,
   Output,
-} from "@angular/core";
-import { get, isArray, isObject } from "lodash-es";
-import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
-import { BlocksDialogComponent } from "../../dialogs/blocks-dialog/blocks-dialog.component";
-import { RepositionScrollStrategy } from "@angular/cdk/overlay";
+} from '@angular/core';
+import { get, isArray, isObject } from 'lodash-es';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { BlocksDialogComponent } from '../../dialogs/blocks-dialog/blocks-dialog.component';
+import { RepositionScrollStrategy } from '@angular/cdk/overlay';
 
 @Component({
-  selector: "app-dialog-block",
-  templateUrl: "./dialog-block.component.html",
-  styleUrls: ["./dialog-block.component.scss"],
+  selector: 'app-dialog-block',
+  templateUrl: './dialog-block.component.html',
+  styleUrls: ['./dialog-block.component.scss'],
 })
 export class DialogBlockComponent implements OnInit, OnChanges {
   @Input() config;
@@ -28,14 +28,14 @@ export class DialogBlockComponent implements OnInit, OnChanges {
   ngOnInit() {}
 
   ngOnChanges(changes) {
-    if (get(changes, "model.firstChange", false)) {
+    if (get(changes, 'model.firstChange', false)) {
       return;
     }
     const dialogRef = this.dialog.open(BlocksDialogComponent, {
-      maxHeight: "90vh",
+      maxHeight: '90vh',
       // TODO: Add other dialog options to config
       data: {
-        blocks: get(this.config, "blocks", []),
+        blocks: get(this.config, 'blocks', []),
         model: this.model,
         context: this.context,
       },
@@ -43,7 +43,7 @@ export class DialogBlockComponent implements OnInit, OnChanges {
     dialogRef.afterClosed().subscribe((value) => {
       // TODO: replace this shallow copy code with _.clone() or similar
       this.output.emit(
-        isArray(value) ? [...value] : isObject(value) ? { ...value } : value,
+        isArray(value) ? [...value] : isObject(value) ? { ...value } : value
       );
     });
   }

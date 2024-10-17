@@ -6,15 +6,15 @@ import {
   OnChanges,
   OnInit,
   Output,
-} from "@angular/core";
-import { clone, find, get } from "lodash-es";
-import { mappingUtility } from "../mapping-block/mapping-util";
-import { SharedStateService } from "src/app/services/shared-state.service";
+} from '@angular/core';
+import { clone, find, get } from 'lodash-es';
+import { mappingUtility } from '../mapping-block/mapping-util';
+import { SharedStateService } from 'src/app/services/shared-state.service';
 
 @Component({
-  selector: "app-switch-block",
-  templateUrl: "./switch-block.component.html",
-  styleUrls: ["./switch-block.component.scss"],
+  selector: 'app-switch-block',
+  templateUrl: './switch-block.component.html',
+  styleUrls: ['./switch-block.component.scss'],
 })
 export class SwitchBlockComponent implements OnInit, OnChanges {
   @Input() config;
@@ -27,29 +27,29 @@ export class SwitchBlockComponent implements OnInit, OnChanges {
 
   constructor(
     private readonly zone: NgZone,
-    private stateService: SharedStateService,
+    private stateService: SharedStateService
   ) {}
 
   ngOnInit() {}
 
   ngOnChanges(changes) {
-    const cases = get(this.config, "cases", []);
+    const cases = get(this.config, 'cases', []);
     const matchValue = mappingUtility(
       {
         data: this.model,
         context: this.context,
         state: this.stateService.state,
       },
-      get(this.config, "valueGetter", "data"),
+      get(this.config, 'valueGetter', 'data')
     );
     const match = find(cases, ({ value }) => value === matchValue);
     if (!!match) {
-      this.blocks = get(match, "blocks", []);
+      this.blocks = get(match, 'blocks', []);
     } else {
-      this.blocks = get(this.config, "default.blocks", []);
+      this.blocks = get(this.config, 'default.blocks', []);
     }
     this.models = this.blocks.map((blockDef) =>
-      get(blockDef, "defaultValue", {}),
+      get(blockDef, 'defaultValue', {})
     );
     this.models.push({});
     setTimeout(() => {

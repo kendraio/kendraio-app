@@ -1,10 +1,10 @@
-import { validateToken } from "../utils/validate-token";
-import * as admin from "firebase-admin";
-import { userHash } from "../utils/get-hash";
+import { validateToken } from '../utils/validate-token';
+import * as admin from 'firebase-admin';
+import { userHash } from '../utils/get-hash';
 
-const crypto = require("crypto");
+const crypto = require('crypto');
 
-const DEFAULT_ADAPTER_NAME = "Adapter name";
+const DEFAULT_ADAPTER_NAME = 'Adapter name';
 
 const makeHash = (secret, salt) => {
   return new Promise((resolve, reject) => {
@@ -12,27 +12,27 @@ const makeHash = (secret, salt) => {
       if (err) {
         reject(err);
       }
-      resolve(derivedKey.toString("hex"));
+      resolve(derivedKey.toString('hex'));
     });
   });
 };
 
 function appFactory({ db, auth }: { db: any; auth: admin.auth.Auth }) {
-  const app = require("express")();
-  const cors = require("cors");
-  const bodyParser = require("body-parser");
+  const app = require('express')();
+  const cors = require('cors');
+  const bodyParser = require('body-parser');
 
   const fakeId = () => db.collection().doc().id;
 
   app.use(cors());
   app.use(bodyParser.json());
 
-  app.post("/api/login", async (req, res) => {
+  app.post('/api/login', async (req, res) => {
     const { username, password } = req.body;
     let user, hashedPassword;
     try {
       user = await auth.getUserByEmail(username);
-      hashedPassword = await makeHash(password, "TEMP123QQ1");
+      hashedPassword = await makeHash(password, 'TEMP123QQ1');
     } catch (e) {
       res.status(403).send(e.message);
       return;
@@ -43,7 +43,7 @@ function appFactory({ db, auth }: { db: any; auth: admin.auth.Auth }) {
       return;
     } else {
       console.log(user);
-      await res.status(403).send("Unauthorized");
+      await res.status(403).send('Unauthorized');
       return;
     }
   });
@@ -59,9 +59,9 @@ function appFactory({ db, auth }: { db: any; auth: admin.auth.Auth }) {
   }) => {
     const now = new Date().toISOString();
     return await db
-      .collection("adapters")
+      .collection('adapters')
       .doc(adapterName || DEFAULT_ADAPTER_NAME)
-      .collection("workflows")
+      .collection('workflows')
       .doc(workflowId || fakeId())
       .set({
         adapterName,
@@ -74,16 +74,16 @@ function appFactory({ db, auth }: { db: any; auth: admin.auth.Auth }) {
       });
   };
 
-  app.put("/api", validateToken, async (req, res) => {
+  app.put('/api', validateToken, async (req, res) => {
     const docRef = await updateWorkflow(req.body);
-    await res.send({ status: "ok", id: docRef.id });
+    await res.send({ status: 'ok', id: docRef.id });
   });
 
-  app.get("/api/tag/:tag", async (req, res) => {
+  app.get('/api/tag/:tag', async (req, res) => {
     const tag = `${req.params.tag}`;
     const docs = await db
-      .collectionGroup("workflows")
-      .where("tags", "array-contains", tag)
+      .collectionGroup('workflows')
+      .where('tags', 'array-contains', tag)
       .get();
     const result: Array<any> = [];
     docs.forEach((doc) => {
@@ -101,7 +101,7 @@ function appFactory({ db, auth }: { db: any; auth: admin.auth.Auth }) {
     res.send(result);
   });
 
-  app.post("/api/:adapterName/:workflowId", validateToken, async (req, res) => {
+  app.post('/api/:adapterName/:workflowId', validateToken, async (req, res) => {
     const now = new Date().toISOString();
     const adapterName = `${req.params.adapterName}`;
     const workflowId = `${req.params.workflowId}`;
@@ -111,17 +111,17 @@ function appFactory({ db, auth }: { db: any; auth: admin.auth.Auth }) {
       workflowId,
       updated: now,
     });
-    await res.json({ status: "ok", id: docRef.id });
+    await res.json({ status: 'ok', id: docRef.id });
   });
 
-  app.get("/api/:adapterName/:workflowId", async (req, res) => {
+  app.get('/api/:adapterName/:workflowId', async (req, res) => {
     const adapterName = `${req.params.adapterName}`;
     const workflowId = `${req.params.workflowId}`;
 
     const docRef = await db
-      .collection("adapters")
+      .collection('adapters')
       .doc(adapterName)
-      .collection("workflows")
+      .collection('workflows')
       .doc(workflowId)
       .get();
 
@@ -144,8 +144,8 @@ function appFactory({ db, auth }: { db: any; auth: admin.auth.Auth }) {
     await res.status(500).send();
   });
 
-  app.get("/api/", async (req, res) => {
-    const docs = await db.collectionGroup("workflows").get();
+  app.get('/api/', async (req, res) => {
+    const docs = await db.collectionGroup('workflows').get();
     const result: Array<any> = [];
     docs.forEach((doc) => {
       result.push({
@@ -162,8 +162,8 @@ function appFactory({ db, auth }: { db: any; auth: admin.auth.Auth }) {
     res.send(result);
   });
 
-  app.get("/flows/", async (req, res) => {
-    const docs = await db.collectionGroup("workflows").get();
+  app.get('/flows/', async (req, res) => {
+    const docs = await db.collectionGroup('workflows').get();
     const result: Array<any> = [];
     docs.forEach((doc) => {
       let data = doc.data();

@@ -4,9 +4,9 @@ import {
   OnDestroy,
   OnInit,
   Input,
-} from "@angular/core";
-import { FieldType } from "@ngx-formly/material";
-import { Subject } from "rxjs";
+} from '@angular/core';
+import { FieldType } from '@ngx-formly/material';
+import { Subject } from 'rxjs';
 import {
   takeUntil,
   startWith,
@@ -14,10 +14,10 @@ import {
   debounceTime,
   distinctUntilChanged,
   switchMap,
-} from "rxjs/operators";
+} from 'rxjs/operators';
 
 @Component({
-  selector: "kendra-field-typeahead",
+  selector: 'kendra-field-typeahead',
   template: `
     <ng-select
       [items]="to.options"
@@ -37,7 +37,7 @@ import {
       </ng-template>
     </ng-select>
   `,
-  styleUrls: ["./typeahead.component.scss"],
+  styleUrls: ['./typeahead.component.scss'],
 })
 export class KendraFieldTypeahead
   extends FieldType
@@ -47,13 +47,13 @@ export class KendraFieldTypeahead
     return this.to.isMultiSelect || false;
   }
   get labelProp(): string {
-    return this.to.labelProp || "name";
+    return this.to.labelProp || 'name';
   }
   get valueProp(): string {
-    return this.to.valueProp || "id";
+    return this.to.valueProp || 'id';
   }
   get groupProp(): string {
-    return this.to.groupProp || "group";
+    return this.to.groupProp || 'group';
   }
 
   @Input() data: [];

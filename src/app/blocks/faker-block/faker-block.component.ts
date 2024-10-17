@@ -7,17 +7,17 @@ import {
   OnInit,
   Output,
   ViewChild,
-} from "@angular/core";
-import { get, has } from "lodash-es";
-import { KendraioFormService } from "../../_shared/ui-form/services/kendraio.form.service";
-import * as faker from "faker/locale/en_GB";
+} from '@angular/core';
+import { get, has } from 'lodash-es';
+import { KendraioFormService } from '../../_shared/ui-form/services/kendraio.form.service';
+import * as faker from 'faker/locale/en_GB';
 
 declare let JSONSchemaFaker: any;
 
 @Component({
-  selector: "app-faker-block",
-  templateUrl: "./faker-block.component.html",
-  styleUrls: ["./faker-block.component.scss"],
+  selector: 'app-faker-block',
+  templateUrl: './faker-block.component.html',
+  styleUrls: ['./faker-block.component.scss'],
 })
 export class FakerBlockComponent implements OnInit, OnChanges {
   @Input() config;
@@ -28,14 +28,14 @@ export class FakerBlockComponent implements OnInit, OnChanges {
   constructor(private readonly formService: KendraioFormService) {}
 
   ngOnInit() {
-    JSONSchemaFaker.extend("faker", () => faker);
+    JSONSchemaFaker.extend('faker', () => faker);
   }
 
   ngOnChanges(changes) {
-    if (get(changes, "model.firstChange", false)) {
+    if (get(changes, 'model.firstChange', false)) {
       return;
     }
-    this.outputFakeValues(get(this.config, "jsonSchema", {}));
+    this.outputFakeValues(get(this.config, 'jsonSchema', {}));
   }
 
   outputFakeValues(schema) {

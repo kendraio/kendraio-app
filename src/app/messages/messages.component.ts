@@ -1,18 +1,18 @@
-import { Component } from "@angular/core";
-import { MessageService } from "../_shared/services/message.service";
-import { Router } from "@angular/router";
-import { Animations } from "../_shared/animations";
+import { Component } from '@angular/core';
+import { MessageService } from '../_shared/services/message.service';
+import { Router } from '@angular/router';
+import { Animations } from '../_shared/animations';
 
 @Component({
-  selector: "app-messages",
-  templateUrl: "./messages.component.html",
-  styleUrls: ["./messages.component.scss"],
+  selector: 'app-messages',
+  templateUrl: './messages.component.html',
+  styleUrls: ['./messages.component.scss'],
   animations: [Animations.kendraAnimations],
 })
 export class MessagesComponent {
   constructor(
     public messageService: MessageService,
-    private router: Router,
+    private router: Router
   ) {
     // this.messageService.closeMe(0)
   }

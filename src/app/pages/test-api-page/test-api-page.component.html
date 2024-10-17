@@ -28,7 +28,7 @@
   <mat-form-field style="margin-right: 0.5em">
     <mat-select placeholder="Entity ID" (valueChange)="changeEntity($event)">
       <mat-option *ngFor="let entity of entityList" [value]="entity.id">
-        {{ entity["id"] }}
+        {{ entity['id'] }}
       </mat-option>
     </mat-select>
   </mat-form-field>

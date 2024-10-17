@@ -86,8 +86,8 @@ Edit the generated my-block.component.ts to make it a sub-class of BaseBlock.
 Start by setting up your initial imports.
 
 ```javascript
-import { BaseBlockComponent } from "../base-block/base-block.component";
-import { get } from "lodash-es";
+import { BaseBlockComponent } from '../base-block/base-block.component';
+import { get } from 'lodash-es';
 ```
 
 Take a look at one of the more recent blocks as an example, eg the AudioPlayer:

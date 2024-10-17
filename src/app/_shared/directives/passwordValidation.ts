@@ -2,13 +2,13 @@ import {
   AbstractControl,
   UntypedFormControl,
   ValidationErrors,
-} from "@angular/forms";
+} from '@angular/forms';
 export class PasswordValidation {
   static MatchPassword(AC: AbstractControl) {
-    let password = AC.get("password").value; // to get value in input tag
-    let confirmPassword = AC.get("confirmPassword").value; // to get value in input tag
+    let password = AC.get('password').value; // to get value in input tag
+    let confirmPassword = AC.get('confirmPassword').value; // to get value in input tag
     if (password !== confirmPassword) {
-      AC.get("confirmPassword").setErrors({ MatchPassword: true });
+      AC.get('confirmPassword').setErrors({ MatchPassword: true });
       //  AC.get('password').setErrors( {MatchPassword: true} );
     } else {
       return null;
@@ -19,8 +19,8 @@ export class PasswordValidation {
 export function matchPasswords(control: UntypedFormControl): {
   [s: string]: boolean;
 } {
-  const password = control.get("password");
-  const confirmPassword = control.get("confirmPassword");
+  const password = control.get('password');
+  const confirmPassword = control.get('confirmPassword');
   if (password.value !== confirmPassword.value) {
     return {
       noMatchingPasswords: true,
@@ -38,7 +38,7 @@ export class PasswordStrength {
   public static strong(control: UntypedFormControl): ValidationResult {
     const isStrong =
       /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!+_#\-&$£*])(?=.*[0-9]).{8,24}?$/g.test(
-        control.value,
+        control.value
       );
     const hasNumber = /\d/.test(control.value);
     const hasUpper = /[A-Z]/.test(control.value);
@@ -55,12 +55,12 @@ export class PasswordStrength {
 }
 
 export function PasswordStrength2(
-  control: AbstractControl,
+  control: AbstractControl
 ): ValidationErrors | null {
   // public static strong(control: FormControl): ValidationResult {
   const isStrong =
     /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!+_#\-&$£*])(?=.*[0-9]).{8,24}?$/g.test(
-      control.value,
+      control.value
     );
   const hasNumber = /\d/.test(control.value);
   const hasUpper = /[A-Z]/.test(control.value);
@@ -73,7 +73,7 @@ export function PasswordStrength2(
   return hasError
     ? {
         PasswordStrong: true,
-        msg: "bongo",
+        msg: 'bongo',
       }
     : null;
   // }

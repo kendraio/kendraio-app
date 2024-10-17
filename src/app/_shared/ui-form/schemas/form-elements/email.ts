@@ -1,16 +1,16 @@
-import { Field } from "../../helpers/fields";
+import { Field } from '../../helpers/fields';
 
 export const EMAIL = (disabled, data: any) => ({
   ...Field.email(
-    "email",
+    'email',
     {
-      placeholder: "Enter your email",
+      placeholder: 'Enter your email',
       required: true,
       disabled: disabled,
     },
     {
       defaultValue: data,
-    },
+    }
   ),
 });
 
@@ -38,15 +38,15 @@ export const EMAIL = (disabled, data: any) => ({
 export function emailx(disabled, data: any) {
   return {
     ...Field.email(
-      "email",
+      'email',
       {
-        placeholder: "Enter your email",
+        placeholder: 'Enter your email',
         required: true,
         disabled: disabled,
       },
       {
         defaultValue: data,
-      },
+      }
     ),
   };
 }

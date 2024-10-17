@@ -1,13 +1,13 @@
-import { Component, Input } from "@angular/core";
-import { FieldType } from "@ngx-formly/core";
+import { Component, Input } from '@angular/core';
+import { FieldType } from '@ngx-formly/core';
 import {
   DomSanitizer,
   SafeResourceUrl,
   SafeUrl,
-} from "@angular/platform-browser";
+} from '@angular/platform-browser';
 
 @Component({
-  selector: "formly-field-video-viewer",
+  selector: 'formly-field-video-viewer',
   template: `
     <mat-card>
       <mat-card-header>
@@ -43,7 +43,7 @@ export class FormlyFieldVideoViewer extends FieldType {
   ngOnInit() {
     this.videoId = this.formControl.value;
     this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-      "https://www.youtube.com/embed/" + this.formControl.value,
+      'https://www.youtube.com/embed/' + this.formControl.value
     );
   }
 

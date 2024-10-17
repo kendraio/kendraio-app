@@ -3,28 +3,28 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  urlPrefix: "http://localhost:4200/",
+  urlPrefix: 'http://localhost:4200/',
   production: false,
-  adapterBaseUrl: "https://kendraio.github.io/kendraio-adapter/",
-  adapterConfig: "https://kendraio.github.io/kendraio-adapter/config.json",
+  adapterBaseUrl: 'https://kendraio.github.io/kendraio-adapter/',
+  adapterConfig: 'https://kendraio.github.io/kendraio-adapter/config.json',
   auth0: {
-    clientID: "BpSIsaDagBnDpAZyfJOVoAqG1r041Nj7",
-    domain: "kendraio.eu.auth0.com",
-    responseType: "token id_token",
-    audience: "https://kendraio.eu.auth0.com/api/v2/",
-    redirectUri: "http://localhost:4200/callback",
-    scope: "openid profile",
+    clientID: 'BpSIsaDagBnDpAZyfJOVoAqG1r041Nj7',
+    domain: 'kendraio.eu.auth0.com',
+    responseType: 'token id_token',
+    audience: 'https://kendraio.eu.auth0.com/api/v2/',
+    redirectUri: 'http://localhost:4200/callback',
+    scope: 'openid profile',
   },
-  workflowStoreUrl: "https://app.kendra.io/api",
-  authProxyUrl: "https://kendraio-auth0-proxy.vercel.app/",
+  workflowStoreUrl: 'https://app.kendra.io/api',
+  authProxyUrl: 'https://kendraio-auth0-proxy.vercel.app/',
   // authProxyUrl: 'http://localhost:3000/',
   uphold: {
-    proxy: "https://uphold-proxy.kendra.io/",
-    apiRoot: "https://api.uphold.com/",
-    siteRoot: "https://uphold.com/",
-    clientID: "83ca2ad1489b3d8935b130ba523508f3733002c5",
+    proxy: 'https://uphold-proxy.kendra.io/',
+    apiRoot: 'https://api.uphold.com/',
+    siteRoot: 'https://uphold.com/',
+    clientID: '83ca2ad1489b3d8935b130ba523508f3733002c5',
   },
-  corsProxyUrl: "https://proxy.kendra.io",
+  corsProxyUrl: 'https://proxy.kendra.io',
 };
 
 /*

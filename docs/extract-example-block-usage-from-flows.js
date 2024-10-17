@@ -12,19 +12,19 @@
  * 3. Check the generated JSON file for the grouped data.
  */
 
-let inputFilePath = "flow-analysis/flows.json";
-let outputFilePath = "flow-analysis/flow-block-config-analysis.json";
+let inputFilePath = 'flow-analysis/flows.json';
+let outputFilePath = 'flow-analysis/flow-block-config-analysis.json';
 
-let blockType = "form"; // Replace with the block type you're interested in
+let blockType = 'form'; // Replace with the block type you're interested in
 let propertyOfInterest = null; // E.g: 'uiSchema' - replace with the property you're interested in or leave as null
-let KENDRAIO_APP_URL = "https://app.kendra.io/";
+let KENDRAIO_APP_URL = 'https://app.kendra.io/';
 
-const fs = require("fs");
-const https = require("https");
-const { URL } = require("url");
+const fs = require('fs');
+const https = require('https');
+const { URL } = require('url');
 
 const readJsonFile = (filePath) =>
-  JSON.parse(fs.readFileSync(filePath, "utf8"));
+  JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
 const writeJsonFile = (data, filePath) =>
   fs.writeFileSync(filePath, JSON.stringify(data, null, 4));
@@ -34,7 +34,7 @@ const generateGroupedJson = (
   inputFilePath,
   outputFilePath,
   blockType,
-  propertyOfInterest = null,
+  propertyOfInterest = null
 ) => {
   const flowsData = readJsonFile(inputFilePath);
   let enhancedFlowsWithBlocks = [];
@@ -103,13 +103,13 @@ const generateGroupedJson = (
     const file = fs.createWriteStream(inputFilePath);
     https.get(url, (response) => {
       response.pipe(file);
-      file.on("finish", () => {
+      file.on('finish', () => {
         file.close();
         generateGroupedJson(
           inputFilePath,
           outputFilePath,
           blockType,
-          propertyOfInterest,
+          propertyOfInterest
         );
       });
     });
@@ -118,7 +118,7 @@ const generateGroupedJson = (
       inputFilePath,
       outputFilePath,
       blockType,
-      propertyOfInterest,
+      propertyOfInterest
     );
   }
 })();

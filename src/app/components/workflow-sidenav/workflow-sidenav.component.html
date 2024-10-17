@@ -5,7 +5,7 @@
     (click)="toggleExpand()"
     [matTooltip]="isExpanded ? 'Shrink' : 'Expand'"
   >
-    <mat-icon>{{ isExpanded ? "arrow_right" : "arrow_left" }}</mat-icon>
+    <mat-icon>{{ isExpanded ? 'arrow_right' : 'arrow_left' }}</mat-icon>
   </button>
 
   <button
@@ -96,8 +96,8 @@
   <p>
     Title: {{ workflow.title }}<br />
     Adapter: {{ workflow.getAdapterName() }}<br />
-    Flow ID: {{ workflow.id || "Flow ID" }}<br />
-    Tags: {{ workflow.tags.join(", ") }}
+    Flow ID: {{ workflow.id || 'Flow ID' }}<br />
+    Tags: {{ workflow.tags.join(', ') }}
   </p>
 </mat-card>
 <app-blocks-editor

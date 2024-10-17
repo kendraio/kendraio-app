@@ -8,20 +8,20 @@ import {
   OnChanges,
   Output,
   SimpleChanges,
-} from "@angular/core";
-import * as interact_ from "interactjs";
+} from '@angular/core';
+import * as interact_ from 'interactjs';
 const interact = interact_ as any;
 
 @Directive({
-  selector: "[appTrackClip]",
+  selector: '[appTrackClip]',
 })
 export class TrackClipDirective implements AfterViewInit, OnChanges {
-  @Input("appTrackClip") clip;
+  @Input('appTrackClip') clip;
 
-  @HostBinding("style.margin-left.%")
+  @HostBinding('style.margin-left.%')
   _start = 0;
 
-  @HostBinding("style.margin-right.%")
+  @HostBinding('style.margin-right.%')
   _end = 0;
 
   @Output() clipUpdate = new EventEmitter<{ start: number; end: number }>();
@@ -50,9 +50,9 @@ export class TrackClipDirective implements AfterViewInit, OnChanges {
   ngAfterViewInit() {
     interact(this.el.nativeElement)
       .draggable({
-        axis: "x",
+        axis: 'x',
         restrict: {
-          restriction: "parent",
+          restriction: 'parent',
           elementRect: { top: 0, left: 0, bottom: 1, right: 1 },
         },
         onmove: (event) => {
@@ -68,7 +68,7 @@ export class TrackClipDirective implements AfterViewInit, OnChanges {
       } as any)
       .resizable({
         edges: { top: false, bottom: false, left: true, right: true },
-        restrictEdges: { outer: "parent" },
+        restrictEdges: { outer: 'parent' },
         restrictSize: {
           min: { width: 50, height: 19 },
         },

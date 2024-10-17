@@ -1,11 +1,11 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { map, tap } from "rxjs/operators";
-import { safeLoad as YamlLoad } from "js-yaml";
-import { forkJoin } from "rxjs";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { map, tap } from 'rxjs/operators';
+import { safeLoad as YamlLoad } from 'js-yaml';
+import { forkJoin } from 'rxjs';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class SchemaRepositoryService {
   schemas = {};
@@ -14,31 +14,31 @@ export class SchemaRepositoryService {
 
   init() {
     const enabledSchemas = [
-      "schema_Person",
-      "schema_Photo",
-      "mrin_Project",
-      "schema_Audio",
-      "kendraio_Clip",
-      "kendraio_file",
-      "kendraio_music-recording",
-      "kendraio_music-release",
-      "kendraio_music-work",
-      "kendraio_payment",
-      "kendraio_claim",
-      "kendraio_video",
-      "kendraio_person",
-      "bloomen_Photo",
-      "bloomen_User",
+      'schema_Person',
+      'schema_Photo',
+      'mrin_Project',
+      'schema_Audio',
+      'kendraio_Clip',
+      'kendraio_file',
+      'kendraio_music-recording',
+      'kendraio_music-release',
+      'kendraio_music-work',
+      'kendraio_payment',
+      'kendraio_claim',
+      'kendraio_video',
+      'kendraio_person',
+      'bloomen_Photo',
+      'bloomen_User',
     ];
     return forkJoin(
       enabledSchemas.map((schemaName) =>
         this.http
-          .get(`assets/schemas/${schemaName}.yaml`, { responseType: "text" })
+          .get(`assets/schemas/${schemaName}.yaml`, { responseType: 'text' })
           .pipe(
             map((text) => YamlLoad(text)),
-            tap((schema) => (this.schemas[schemaName] = schema)),
-          ),
-      ),
+            tap((schema) => (this.schemas[schemaName] = schema))
+          )
+      )
     ).toPromise();
   }
 

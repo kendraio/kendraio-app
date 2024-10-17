@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { NG_VALUE_ACCESSOR } from "@angular/forms";
+import { Component, Input, OnInit } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: "app-remote-image-control",
-  templateUrl: "./remote-image-control.component.html",
-  styleUrls: ["./remote-image-control.component.scss"],
+  selector: 'app-remote-image-control',
+  templateUrl: './remote-image-control.component.html',
+  styleUrls: ['./remote-image-control.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

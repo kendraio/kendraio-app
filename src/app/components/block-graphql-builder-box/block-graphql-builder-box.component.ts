@@ -1,41 +1,41 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { get } from "lodash-es";
-import { UntypedFormControl } from "@angular/forms";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { get } from 'lodash-es';
+import { UntypedFormControl } from '@angular/forms';
 
 @Component({
-  selector: "app-block-graphql-builder-box",
-  templateUrl: "./block-graphql-builder-box.component.html",
-  styleUrls: ["./block-graphql-builder-box.component.scss"],
+  selector: 'app-block-graphql-builder-box',
+  templateUrl: './block-graphql-builder-box.component.html',
+  styleUrls: ['./block-graphql-builder-box.component.scss'],
 })
 export class BlockGraphqlBuilderBoxComponent implements OnInit {
   editorOptions = {
-    baseUrl: "blocks-builder",
-    theme: "vs",
-    language: "graphql",
+    baseUrl: 'blocks-builder',
+    theme: 'vs',
+    language: 'graphql',
     minimap: {
       enabled: false,
     },
-    lineNumbers: "off",
+    lineNumbers: 'off',
     scrollBeyondLastLine: false,
     automaticLayout: true,
   };
   editorOptionsJson = {
-    baseUrl: "blocks-builder",
-    theme: "vs",
-    language: "json",
+    baseUrl: 'blocks-builder',
+    theme: 'vs',
+    language: 'json',
     minimap: {
       enabled: false,
     },
-    lineNumbers: "off",
+    lineNumbers: 'off',
     scrollBeyondLastLine: false,
     automaticLayout: true,
   };
 
   @Input() block;
   @Output() updateBlock = new EventEmitter();
-  queryModel = "";
-  variablesModel = "";
-  headerModel = "";
+  queryModel = '';
+  variablesModel = '';
+  headerModel = '';
   allowEmpty = false;
   allowFirst = false;
   endpointFormControl = new UntypedFormControl();
@@ -43,16 +43,16 @@ export class BlockGraphqlBuilderBoxComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.queryModel = get(this.block, "query", "");
+    this.queryModel = get(this.block, 'query', '');
     this.variablesModel = JSON.stringify(
-      get(this.block, "variables", {}),
+      get(this.block, 'variables', {}),
       null,
-      2,
+      2
     );
-    this.headerModel = JSON.stringify(get(this.block, "headers", {}), null, 2);
-    this.allowEmpty = get(this.block, "allowEmpty", false);
-    this.allowFirst = get(this.block, "allowEmpty", false);
-    this.endpointFormControl.setValue(get(this.block, "endpoint", ""));
+    this.headerModel = JSON.stringify(get(this.block, 'headers', {}), null, 2);
+    this.allowEmpty = get(this.block, 'allowEmpty', false);
+    this.allowFirst = get(this.block, 'allowEmpty', false);
+    this.endpointFormControl.setValue(get(this.block, 'endpoint', ''));
   }
 
   getUpdatedModel() {
@@ -60,8 +60,8 @@ export class BlockGraphqlBuilderBoxComponent implements OnInit {
       ...this.block,
       query: this.queryModel,
       endpoint: this.endpointFormControl.value,
-      variables: JSON.parse(this.variablesModel || "{}"),
-      headers: JSON.parse(this.headerModel || "{}"),
+      variables: JSON.parse(this.variablesModel || '{}'),
+      headers: JSON.parse(this.headerModel || '{}'),
       allowFirst: this.allowFirst,
       allowEmpty: this.allowEmpty,
     };

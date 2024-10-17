@@ -1,23 +1,23 @@
-import { Directive, ElementRef, HostListener } from "@angular/core";
-import { TaggerInterface } from "./interfaces";
+import { Directive, ElementRef, HostListener } from '@angular/core';
+import { TaggerInterface } from './interfaces';
 
 const limit = (min, max, value) => Math.max(min, Math.min(max, value));
 
 @Directive({
-  selector: "[ngxTagBase]",
+  selector: '[ngxTagBase]',
 })
 export class TagBaseDirective {
   tagger: TaggerInterface;
 
   constructor(public readonly el: ElementRef) {}
 
-  @HostListener("click", ["$event"])
+  @HostListener('click', ['$event'])
   onClick(event: MouseEvent) {
     const { offsetX, offsetY } = event;
     const tag = this.getTagPosition(
       offsetX,
       offsetY,
-      this.tagger.defaultTagSize,
+      this.tagger.defaultTagSize
     );
     if (this.tagger) {
       this.tagger.addTag(tag);

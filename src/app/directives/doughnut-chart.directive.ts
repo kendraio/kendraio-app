@@ -6,20 +6,20 @@ import {
   OnChanges,
   OnDestroy,
   SimpleChanges,
-} from "@angular/core";
-import * as Chart from "chart.js";
-import { Subject } from "rxjs";
-import { map, takeUntil, tap } from "rxjs/operators";
+} from '@angular/core';
+import * as Chart from 'chart.js';
+import { Subject } from 'rxjs';
+import { map, takeUntil, tap } from 'rxjs/operators';
 
 @Directive({
-  selector: "[appDoughnutChart]",
+  selector: '[appDoughnutChart]',
 })
 export class DoughnutChartDirective
   implements AfterViewInit, OnChanges, OnDestroy
 {
   destroy$ = new Subject();
 
-  @Input("appDoughnutChart") data$;
+  @Input('appDoughnutChart') data$;
   _data;
 
   chart;
@@ -28,18 +28,18 @@ export class DoughnutChartDirective
 
   ngAfterViewInit(): void {
     this.chart = new Chart(this.el.nativeElement, {
-      type: "doughnut",
+      type: 'doughnut',
       data: {
         datasets: [
           {
             data: [],
             backgroundColor: [
-              "#a2708c",
-              "#d5e26c",
-              "#b95ea9",
-              "#adcbe8",
-              "green",
-              "purple",
+              '#a2708c',
+              '#d5e26c',
+              '#b95ea9',
+              '#adcbe8',
+              'green',
+              'purple',
             ],
           },
         ],
@@ -53,7 +53,7 @@ export class DoughnutChartDirective
     });
     this.data$
       .pipe(
-        takeUntil(this.destroy$),
+        takeUntil(this.destroy$)
         // map(this.chartData),
         // tap(console.log)
       )
@@ -71,7 +71,7 @@ export class DoughnutChartDirective
       datasets: [
         {
           data: clips.map(({ start, end }) => end - start),
-          backgroundColor: ["red", "yellow", "pink", "blue", "green", "purple"],
+          backgroundColor: ['red', 'yellow', 'pink', 'blue', 'green', 'purple'],
         },
       ],
       labels: clips.map(({ name }) => name),

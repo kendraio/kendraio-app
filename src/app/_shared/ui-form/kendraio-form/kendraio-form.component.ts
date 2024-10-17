@@ -1,10 +1,10 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input } from '@angular/core';
 // import { modelGroupProvider } from '@angular/forms/src/directives/ng_model_group';
 
 @Component({
-  selector: "app-kendraio-form",
-  templateUrl: "./kendraio-form.component.html",
-  styleUrls: ["./kendraio-form.component.scss"],
+  selector: 'app-kendraio-form',
+  templateUrl: './kendraio-form.component.html',
+  styleUrls: ['./kendraio-form.component.scss'],
 })
 export class KendraioFormComponent implements OnInit {
   @Input()

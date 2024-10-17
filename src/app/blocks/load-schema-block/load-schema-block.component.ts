@@ -1,21 +1,21 @@
-import { Component } from "@angular/core";
-import { BaseBlockComponent } from "../base-block/base-block.component";
-import { get, has, clone } from "lodash-es";
-import { mappingUtility } from "../mapping-block/mapping-util";
-import { LocalDatabaseService } from "../../services/local-database.service";
-import { validate as isValidUUID } from "uuid";
-import { convertTemplateToSchema } from "./convertTemplateToSchema";
+import { Component } from '@angular/core';
+import { BaseBlockComponent } from '../base-block/base-block.component';
+import { get, has, clone } from 'lodash-es';
+import { mappingUtility } from '../mapping-block/mapping-util';
+import { LocalDatabaseService } from '../../services/local-database.service';
+import { validate as isValidUUID } from 'uuid';
+import { convertTemplateToSchema } from './convertTemplateToSchema';
 
 @Component({
-  selector: "app-load-schema-block",
-  templateUrl: "./load-schema-block.component.html",
-  styleUrls: ["./load-schema-block.component.scss"],
+  selector: 'app-load-schema-block',
+  templateUrl: './load-schema-block.component.html',
+  styleUrls: ['./load-schema-block.component.scss'],
 })
 export class LoadSchemaBlockComponent extends BaseBlockComponent {
   isLoading = false;
-  adapterName = "schemas";
-  schema = "";
-  schemaGetter = "";
+  adapterName = 'schemas';
+  schema = '';
+  schemaGetter = '';
   lastOutput = {};
 
   templateToSchema = {};
@@ -25,11 +25,11 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
   }
 
   onConfigUpdate(config: any) {
-    window["localDatabase"] = this.localDatabase;
-    this.adapterName = get(config, "adapterName", "schemas");
-    this.schema = get(config, "schema", "");
-    this.schemaGetter = get(config, "schemaGetter", "");
-    this.templateToSchema = get(config, "templateToSchema", "");
+    window['localDatabase'] = this.localDatabase;
+    this.adapterName = get(config, 'adapterName', 'schemas');
+    this.schema = get(config, 'schema', '');
+    this.schemaGetter = get(config, 'schemaGetter', '');
+    this.templateToSchema = get(config, 'templateToSchema', '');
   }
 
   async onData(data: any, firstChange: boolean) {
@@ -42,8 +42,8 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
       };
       this.output.emit(this.lastOutput);
       console.log(
-        "Emitting new templateToSchema schema:",
-        JSON.stringify(this.lastOutput, null, 2),
+        'Emitting new templateToSchema schema:',
+        JSON.stringify(this.lastOutput, null, 2)
       );
       return;
     }
@@ -52,17 +52,17 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
     const baseSchema = !!this.schemaGetter
       ? mappingUtility(
           { context: this.context, data: this.model },
-          this.schemaGetter,
+          this.schemaGetter
         )
       : this.schema;
 
-    if (typeof baseSchema === "string" && baseSchema.length > 0) {
+    if (typeof baseSchema === 'string' && baseSchema.length > 0) {
       let schemaDefinitions = {};
       // @ts-ignore: Relax checks due to dynamic schemas
       schemaDefinitions[baseSchema] = await this.resolveSchema(
         schemaDefinitions,
         baseSchema,
-        0,
+        0
       );
       const jsonSchema = {
         definitions: schemaDefinitions,
@@ -87,13 +87,13 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
         // @ts-ignore: Relax checks due to dynamic schemas
         schemaDefinitions[schemaName] = await this.mapSchema(
           schemaDefinitions,
-          get(result, "[0].data", {}),
+          get(result, '[0].data', {}),
           schemaName,
-          depth,
+          depth
         );
       } catch (e) {
         // TODO: handle error
-        console.log("error loading schema:", e);
+        console.log('error loading schema:', e);
       } finally {
         this.isLoading = false;
       }
@@ -103,14 +103,14 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
   }
 
   async loadSchemaFromDatabase(schemaName: string) {
-    const schema = await this.localDatabase["metadata"]
+    const schema = await this.localDatabase['metadata']
       .where({ label: schemaName })
       .toArray();
     return schema;
   }
 
   async loadRecords(embedSchemaName: string) {
-    const records = await this.localDatabase["metadata"]
+    const records = await this.localDatabase['metadata']
       .where({ schemaName: embedSchemaName })
       .toArray();
     return records;
@@ -130,64 +130,64 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
   async mapSchema(schemaDefinitions, inputSchema, inputSchemaName, depth) {
     // Create the base schema object
     let outputSchema = {
-      title: get(inputSchema, "name", ""),
-      description: get(inputSchema, "description", ""),
-      type: "object",
+      title: get(inputSchema, 'name', ''),
+      description: get(inputSchema, 'description', ''),
+      type: 'object',
       properties: {},
     };
 
     // Loop through the properties of the schema, and add them to the output schema
-    for (const p of get(inputSchema, "properties", [])) {
-      switch (get(p, "type")) {
-        case "Number": {
+    for (const p of get(inputSchema, 'properties', [])) {
+      switch (get(p, 'type')) {
+        case 'Number': {
           outputSchema = await this.mapSchemaNumber(outputSchema, p);
           break;
         }
-        case "Text": {
+        case 'Text': {
           outputSchema = await this.mapSchemaText(outputSchema, p);
           break;
         }
-        case "Date": {
+        case 'Date': {
           outputSchema = await this.mapSchemaDate(outputSchema, p);
           break;
         }
-        case "Object": {
+        case 'Object': {
           outputSchema = await this.mapSchemaObject(
             outputSchema,
             p,
             schemaDefinitions,
             inputSchemaName,
-            depth,
+            depth
           );
           break;
         }
-        case "List": {
+        case 'List': {
           outputSchema = await this.mapSchemaList(
             outputSchema,
             p,
             schemaDefinitions,
             inputSchemaName,
-            depth,
+            depth
           );
           break;
         }
-        case "ObjectReference": {
+        case 'ObjectReference': {
           outputSchema = await this.mapSchemaObjectReference(
             outputSchema,
             p,
             schemaDefinitions,
             inputSchemaName,
-            depth,
+            depth
           );
           break;
         }
-        case "ListReference": {
+        case 'ListReference': {
           outputSchema = await this.mapSchemaListReference(
             outputSchema,
             p,
             schemaDefinitions,
             inputSchemaName,
-            depth,
+            depth
           );
           break;
         }
@@ -198,10 +198,10 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
   }
 
   private async mapSchemaNumber(outputSchema, p) {
-    outputSchema.properties[get(p, "key", "")] = {
-      type: "number",
-      title: get(p, "title", ""),
-      description: get(p, "description", ""),
+    outputSchema.properties[get(p, 'key', '')] = {
+      type: 'number',
+      title: get(p, 'title', ''),
+      description: get(p, 'description', ''),
     };
     return outputSchema;
   }
@@ -211,16 +211,16 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
     // if config is set to a schema name, it can populate an
     // enumerated list of record labels from the database
     let textValue = {
-      type: "string",
-      title: get(p, "title", ""),
-      description: get(p, "description", ""),
+      type: 'string',
+      title: get(p, 'title', ''),
+      description: get(p, 'description', ''),
     };
 
-    if (get(p, "config", false)) {
+    if (get(p, 'config', false)) {
       // Config may provide a UUID or a schemaName for now.
-      if (!isValidUUID(get(p, "config", ""))) {
+      if (!isValidUUID(get(p, 'config', ''))) {
         // if config is not a UUID, assume it is a schemaName:
-        let results = await this.loadSchemaFromDatabase(get(p, "config", ""));
+        let results = await this.loadSchemaFromDatabase(get(p, 'config', ''));
         // e.g: [{
         //      "label": "bob"
         //    }, {
@@ -228,24 +228,24 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
         //    }]
 
         // Just make an array of the names from the label property:
-        results = results.map((r) => get(r, "label", ""));
+        results = results.map((r) => get(r, 'label', ''));
         // e.g: ["bob", "dave"]
-        textValue["enum"] = results;
+        textValue['enum'] = results;
       } else {
-        console.error("UUID not yet supported for config");
+        console.error('UUID not yet supported for config');
       }
     }
-    outputSchema.properties[get(p, "key", "")] = textValue;
+    outputSchema.properties[get(p, 'key', '')] = textValue;
     return outputSchema;
   }
 
   private async mapSchemaDate(outputSchema, p) {
     // Date type turns into a JSON schema string of type date
-    outputSchema.properties[get(p, "key", "")] = {
-      type: "string",
-      format: "date",
-      title: get(p, "title", ""),
-      description: get(p, "description", ""),
+    outputSchema.properties[get(p, 'key', '')] = {
+      type: 'string',
+      format: 'date',
+      title: get(p, 'title', ''),
+      description: get(p, 'description', ''),
     };
     return outputSchema;
   }
@@ -255,7 +255,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
     p,
     schemaDefinitions,
     inputSchemaName,
-    depth,
+    depth
   ) {
     // Object type turns into a JSON schema object, with a reference to the embedded schema
     // Loads referenced schema if not already found.
@@ -269,7 +269,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
     //   "config": "person"
     // }
     // The config value is the name of the embedded schema
-    const embedSchemaName = get(p, "config", "");
+    const embedSchemaName = get(p, 'config', '');
     // If the embedded schema has not been resolved, resolve it:
     if (
       !has(schemaDefinitions, embedSchemaName) &&
@@ -279,10 +279,10 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
       schemaDefinitions[embedSchemaName] = await this.resolveSchema(
         schemaDefinitions,
         embedSchemaName,
-        depth + 1,
+        depth + 1
       );
     }
-    outputSchema.properties[get(p, "key", "")] = {
+    outputSchema.properties[get(p, 'key', '')] = {
       $ref: `#/definitions/${embedSchemaName}`,
     };
     return outputSchema;
@@ -293,7 +293,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
     p,
     schemaDefinitions,
     inputSchemaName,
-    depth,
+    depth
   ) {
     // List type turns into a JSON schema array, with a reference to the embedded schema
     // Loads the referenced schema if not already found.
@@ -308,7 +308,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
     //   "config": "person"
     // }
     // The config value is the name of the embedded schema
-    const embedSchemaName = get(p, "config", "");
+    const embedSchemaName = get(p, 'config', '');
     // If the embedded schema has not been resolved, resolve it:
     if (
       !has(schemaDefinitions, embedSchemaName) &&
@@ -318,13 +318,13 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
       schemaDefinitions[embedSchemaName] = await this.resolveSchema(
         schemaDefinitions,
         embedSchemaName,
-        depth + 1,
+        depth + 1
       );
     }
-    outputSchema.properties[get(p, "key", "")] = {
-      type: "array",
-      title: get(p, "title", ""),
-      description: get(p, "description", ""),
+    outputSchema.properties[get(p, 'key', '')] = {
+      type: 'array',
+      title: get(p, 'title', ''),
+      description: get(p, 'description', ''),
       items: {
         $ref: `#/definitions/${embedSchemaName}`,
       },
@@ -337,14 +337,14 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
     p,
     schemaDefinitions,
     inputSchemaName,
-    depth,
+    depth
   ) {
     // ObjectReference type injects a single record from the database into the schema,
     // with the default value set to the record's data.
     // This form property is an object type that conforms to a schema,
     // with a list of possible values for the object to be populated from the metadata records
     // for the schema specified in the config.
-    const embedSchemaName = get(p, "config", "");
+    const embedSchemaName = get(p, 'config', '');
     // If the embedded schema has not been resolved, resolve it:
     if (
       !has(schemaDefinitions, embedSchemaName) &&
@@ -354,15 +354,15 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
       schemaDefinitions[embedSchemaName] = await this.resolveSchema(
         schemaDefinitions,
         embedSchemaName,
-        depth + 1,
+        depth + 1
       );
     }
     // Gets the records array for this schema:
     const records = await this.loadRecords(embedSchemaName);
     // Generate the schema for this reference
     let injectedRecord = {
-      type: "object",
-      title: get(p, "title", ""),
+      type: 'object',
+      title: get(p, 'title', ''),
       oneOf: records.map((record) => {
         let item = {
           title: record.label,
@@ -373,11 +373,11 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
         // when editing existing saved data,
         // we use a regex pattern to validate that record matches any provided data object
         // since the uuid is unique, we can use it to identify the record as a match
-        item.properties["uuid"] = {
-          type: "string",
+        item.properties['uuid'] = {
+          type: 'string',
           readOnly: true,
           default: record.uuid,
-          pattern: "^" + record.uuid + "$",
+          pattern: '^' + record.uuid + '$',
         };
 
         for (const property in record.data) {
@@ -388,8 +388,8 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
               get(
                 schemaDefinitions[embedSchemaName],
                 `properties.${property}`,
-                {},
-              ),
+                {}
+              )
             );
             item.properties[property].readOnly = true;
             item.properties[property].default = clone(value);
@@ -399,7 +399,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
         return item;
       }),
     };
-    outputSchema.properties[get(p, "key", "")] = injectedRecord;
+    outputSchema.properties[get(p, 'key', '')] = injectedRecord;
     return outputSchema;
   }
 
@@ -408,7 +408,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
     p,
     schemaDefinitions,
     inputSchemaName,
-    depth,
+    depth
   ) {
     // ListReference type injects multiple records from the
     // database into the schema, for selection from a list.
@@ -420,7 +420,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
     // If a schema reference list is nested in another schema reference list,
     // then a plain object is used for the nested list item, rather than
     // a list of selectable objects.
-    const embedSchemaName = get(p, "config", "");
+    const embedSchemaName = get(p, 'config', '');
 
     // If the embedded schema has not been resolved, resolve it:
     if (
@@ -431,7 +431,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
       schemaDefinitions[embedSchemaName] = await this.resolveSchema(
         schemaDefinitions,
         embedSchemaName,
-        depth + 1,
+        depth + 1
       );
     }
 
@@ -446,18 +446,18 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
 
     // The label may be missing, so we find which property is the label key on the rawSchema:
     const labelKey =
-      "data." + get(rawSchema, "[0].data.label", "Missing label");
+      'data.' + get(rawSchema, '[0].data.label', 'Missing label');
 
     // Then we get the label property from each record's properties
     if (depth == 0) {
       let injectedRecordSelectionList = {
-        type: "object",
+        type: 'object',
         oneOf: records.map((record) => {
           let item = {
             title: get(
               record,
               labelKey,
-              "fallback:" + record.label || "Missing label!",
+              'fallback:' + record.label || 'Missing label!'
             ),
             properties: {},
           };
@@ -468,11 +468,11 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
           // when editing an existing and non-nested record,
           // we use a regex pattern to validate that record matches any provided data object
           // since the uuid is unique, we can use it to identify the record as a match
-          item.properties["uuid"] = {
-            type: "string",
+          item.properties['uuid'] = {
+            type: 'string',
             readOnly: true,
             default: record.uuid,
-            pattern: "^" + record.uuid + "$",
+            pattern: '^' + record.uuid + '$',
           };
 
           for (const property in record.data) {
@@ -483,34 +483,34 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
                 get(
                   schemaDefinitions[embedSchemaName],
                   `properties.${property}`,
-                  {},
-                ),
+                  {}
+                )
               );
               item.properties[property].readOnly = true;
               item.properties[property].default = clone(value);
 
               // If we have an object with a UUID, we add a pattern to validate that the UUID is correct
-              if (property === "uuid") {
-                item.properties[property].pattern = "^" + value + "$";
+              if (property === 'uuid') {
+                item.properties[property].pattern = '^' + value + '$';
               }
 
               // if the property type is string, add a pattern for it:
-              if (item.properties[property].type === "string") {
-                item.properties[property].pattern = "^" + value + "$";
+              if (item.properties[property].type === 'string') {
+                item.properties[property].pattern = '^' + value + '$';
               }
             }
           }
 
-          item.properties["uuid"].default = record.uuid;
+          item.properties['uuid'].default = record.uuid;
 
           return item;
         }),
       };
 
-      outputSchema.properties[get(p, "key", "")] = {
-        type: "array",
-        title: get(p, "title", ""),
-        description: get(p, "description", ""),
+      outputSchema.properties[get(p, 'key', '')] = {
+        type: 'array',
+        title: get(p, 'title', ''),
+        description: get(p, 'description', ''),
         items: injectedRecordSelectionList,
       };
     } else {
@@ -520,25 +520,25 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
       // @ts-ignore: Relax checks due to dynamic schemas
       const plain_schema = get(
         schemaDefinitions[embedSchemaName],
-        "properties",
-        {},
+        'properties',
+        {}
       );
       let schema_with_uuid = clone(plain_schema);
 
       // Since the UUID is part of every schema, it is not a configurable property in our custom
       // schema editor, so we add it here.
-      schema_with_uuid["uuid"] = {
-        type: "string",
+      schema_with_uuid['uuid'] = {
+        type: 'string',
         readOnly: true,
-        title: "UUID",
+        title: 'UUID',
       };
 
-      outputSchema.properties[get(p, "key", "")] = {
-        type: "array",
-        title: get(p, "title", ""),
-        description: get(p, "description", ""),
+      outputSchema.properties[get(p, 'key', '')] = {
+        type: 'array',
+        title: get(p, 'title', ''),
+        description: get(p, 'description', ''),
         items: {
-          type: "object",
+          type: 'object',
           properties: schema_with_uuid,
         },
       };

@@ -9,24 +9,24 @@ import {
   OnInit,
   Output,
   ViewChild,
-} from "@angular/core";
-import { clone, cloneDeep, get, isArray, isObject, isString } from "lodash-es";
-import * as Chart from "chart.js";
-import { BehaviorSubject, combineLatest, Subject } from "rxjs";
-import { filter, map, takeUntil, tap } from "rxjs/operators";
-import { mappingUtility } from "../mapping-block/mapping-util";
+} from '@angular/core';
+import { clone, cloneDeep, get, isArray, isObject, isString } from 'lodash-es';
+import * as Chart from 'chart.js';
+import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
+import { filter, map, takeUntil, tap } from 'rxjs/operators';
+import { mappingUtility } from '../mapping-block/mapping-util';
 
 const CAT10 = [
-  "#1f77b4",
-  "#ff7f0e",
-  "#2ca02c",
-  "#d62728",
-  "#9467bd",
-  "#8c564b",
-  "#e377c2",
-  "#7f7f7f",
-  "#bcbd22",
-  "#17becf",
+  '#1f77b4',
+  '#ff7f0e',
+  '#2ca02c',
+  '#d62728',
+  '#9467bd',
+  '#8c564b',
+  '#e377c2',
+  '#7f7f7f',
+  '#bcbd22',
+  '#17becf',
 ];
 const CAT10a = CAT10.map((hex) => {
   const r = parseInt(hex.slice(1, 3), 16),
@@ -36,9 +36,9 @@ const CAT10a = CAT10.map((hex) => {
 });
 
 @Component({
-  selector: "app-chart-block",
-  templateUrl: "./chart-block.component.html",
-  styleUrls: ["./chart-block.component.scss"],
+  selector: 'app-chart-block',
+  templateUrl: './chart-block.component.html',
+  styleUrls: ['./chart-block.component.scss'],
 })
 export class ChartBlockComponent
   implements OnInit, OnChanges, AfterViewInit, OnDestroy
@@ -52,7 +52,7 @@ export class ChartBlockComponent
   @Output() output = new EventEmitter();
   multi = false;
 
-  @ViewChild("chart") chartElement: ElementRef;
+  @ViewChild('chart') chartElement: ElementRef;
   _chart;
 
   _destroy$ = new Subject();
@@ -60,7 +60,7 @@ export class ChartBlockComponent
   _viewUpdates$ = new BehaviorSubject(false);
   chartUpdates$ = combineLatest([this._dataUpdates$, this._viewUpdates$]).pipe(
     takeUntil(this._destroy$),
-    filter(([_, isViewInitialised]) => isViewInitialised),
+    filter(([_, isViewInitialised]) => isViewInitialised)
   );
 
   constructor() {}
@@ -87,11 +87,11 @@ export class ChartBlockComponent
   ngOnChanges(changes) {
     this._dataUpdates$.next({});
     this.output.emit(clone(this.model));
-    this.multi = get(this.config, "multi", false);
+    this.multi = get(this.config, 'multi', false);
   }
 
   initChartType() {
-    const chartType = get(this.config, "chartType", "doughnut");
+    const chartType = get(this.config, 'chartType', 'doughnut');
     if (!this._chart || chartType !== this._chart.type) {
       if (this._chart) {
         this._chart.destroy();
@@ -115,8 +115,8 @@ export class ChartBlockComponent
         label: _data.label,
         data: _data.data.map(({ value }) => value),
       }));
-      const customOptions = cloneDeep(get(this.config, "options", {}));
-      ["xAxes", "yAxes"].forEach((axisType) => {
+      const customOptions = cloneDeep(get(this.config, 'options', {}));
+      ['xAxes', 'yAxes'].forEach((axisType) => {
         if (customOptions.scales && customOptions.scales[axisType]) {
           customOptions.scales[axisType].forEach((axes) => {
             if (axes.ticks && isString(axes.ticks.callback)) {
@@ -134,7 +134,7 @@ export class ChartBlockComponent
     }
     const data = isArray(this.model)
       ? this.model
-      : get(this.model, "result", []);
+      : get(this.model, 'result', []);
     this._chart.data.labels = data.map(({ label }) => label);
     this._chart.data.datasets = [
       {

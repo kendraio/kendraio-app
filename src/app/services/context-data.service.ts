@@ -1,10 +1,10 @@
-import { Injectable } from "@angular/core";
-import { TeostoProfileHandlerService } from "../handlers/teosto-profile-handler.service";
-import { get, has, isString } from "lodash-es";
-import { mappingUtility } from "../blocks/mapping-block/mapping-util";
+import { Injectable } from '@angular/core';
+import { TeostoProfileHandlerService } from '../handlers/teosto-profile-handler.service';
+import { get, has, isString } from 'lodash-es';
+import { mappingUtility } from '../blocks/mapping-block/mapping-util';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class ContextDataService {
   constructor(private readonly teostoProfile: TeostoProfileHandlerService) {}
@@ -54,11 +54,11 @@ export class ContextDataService {
       },
     };
     // console.log({ context });
-    const valueGetter = get(endpoint, "valueGetter");
+    const valueGetter = get(endpoint, 'valueGetter');
     if (isString(valueGetter)) {
       return mappingUtility(_context, valueGetter);
     }
-    const valueGetters = has(endpoint, "valueGetters")
+    const valueGetters = has(endpoint, 'valueGetters')
       ? Object.keys(endpoint.valueGetters).reduce((a, v) => {
           try {
             a[v] = mappingUtility(_context, endpoint.valueGetters[v]);
@@ -72,7 +72,7 @@ export class ContextDataService {
   }
 
   getUserContext() {
-    const profile = JSON.parse(localStorage.getItem("kendraio-user-profile"));
+    const profile = JSON.parse(localStorage.getItem('kendraio-user-profile'));
     return profile || {};
   }
 

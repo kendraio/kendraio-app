@@ -1,13 +1,13 @@
-import { Component, Inject, OnInit } from "@angular/core";
-import { AdaptersService } from "../../services/adapters.service";
-import { MatLegacyDialogRef as MatDialogRef } from "@angular/material/legacy-dialog";
-import { has, omitBy, pickBy } from "lodash-es";
-import { map } from "rxjs/operators";
+import { Component, Inject, OnInit } from '@angular/core';
+import { AdaptersService } from '../../services/adapters.service';
+import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { has, omitBy, pickBy } from 'lodash-es';
+import { map } from 'rxjs/operators';
 
 @Component({
-  selector: "app-form-select-dialog",
-  templateUrl: "./form-select-dialog.component.html",
-  styleUrls: ["./form-select-dialog.component.scss"],
+  selector: 'app-form-select-dialog',
+  templateUrl: './form-select-dialog.component.html',
+  styleUrls: ['./form-select-dialog.component.scss'],
 })
 export class FormSelectDialogComponent implements OnInit {
   adapters$;
@@ -16,14 +16,14 @@ export class FormSelectDialogComponent implements OnInit {
 
   constructor(
     private readonly adapters: AdaptersService,
-    public dialogRef: MatDialogRef<FormSelectDialogComponent>,
+    public dialogRef: MatDialogRef<FormSelectDialogComponent>
   ) {}
 
   ngOnInit() {
     this.adapters$ = this.adapters.adapters$.pipe(
       map((adapters) => {
-        return pickBy(adapters, (config) => has(config, "adapter.forms"));
-      }),
+        return pickBy(adapters, (config) => has(config, 'adapter.forms'));
+      })
     );
   }
 

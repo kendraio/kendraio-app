@@ -7,15 +7,15 @@ import {
   OnInit,
   Output,
   ViewChild,
-} from "@angular/core";
-import { clone } from "lodash-es";
-import { parse, ParseResult, ParseConfig } from "papaparse";
-import { types } from "util";
+} from '@angular/core';
+import { clone } from 'lodash-es';
+import { parse, ParseResult, ParseConfig } from 'papaparse';
+import { types } from 'util';
 
 @Component({
-  selector: "app-csv-import-block",
-  templateUrl: "./csv-import-block.component.html",
-  styleUrls: ["./csv-import-block.component.scss"],
+  selector: 'app-csv-import-block',
+  templateUrl: './csv-import-block.component.html',
+  styleUrls: ['./csv-import-block.component.scss'],
 })
 export class CsvImportBlockComponent implements OnInit, OnChanges {
   name: string;
@@ -34,7 +34,7 @@ export class CsvImportBlockComponent implements OnInit, OnChanges {
 
   openInput() {
     // your can use ElementRef for this later
-    document.getElementById("fileInput").click();
+    document.getElementById('fileInput').click();
   }
 
   fileChange(files: File[]) {
@@ -45,7 +45,7 @@ export class CsvImportBlockComponent implements OnInit, OnChanges {
 
   upload() {
     // Why is this here? This file is never sent to the server!?
-    console.log("sending this to server", this.theFile);
+    console.log('sending this to server', this.theFile);
   }
 
   onFileChange(files: File[]) {
@@ -56,7 +56,7 @@ export class CsvImportBlockComponent implements OnInit, OnChanges {
       const { type, ...config } = this.config;
       const parsedData = parse(
         fileReader.result as string,
-        config as ParseConfig,
+        config as ParseConfig
       ) as ParseResult<any>;
       if (!!parsedData.data) {
         this.output.emit(parsedData.data);

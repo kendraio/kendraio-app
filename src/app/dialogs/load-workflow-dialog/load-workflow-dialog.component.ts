@@ -1,12 +1,12 @@
-import { Component, OnInit } from "@angular/core";
-import { MatLegacyDialogRef as MatDialogRef } from "@angular/material/legacy-dialog";
-import { HttpClient } from "@angular/common/http";
-import { environment } from "../../../environments/environment";
+import { Component, OnInit } from '@angular/core';
+import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Component({
-  selector: "app-load-workflow-dialog",
-  templateUrl: "./load-workflow-dialog.component.html",
-  styleUrls: ["./load-workflow-dialog.component.scss"],
+  selector: 'app-load-workflow-dialog',
+  templateUrl: './load-workflow-dialog.component.html',
+  styleUrls: ['./load-workflow-dialog.component.scss'],
 })
 export class LoadWorkflowDialogComponent implements OnInit {
   configs$;
@@ -14,7 +14,7 @@ export class LoadWorkflowDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<LoadWorkflowDialogComponent>,
-    private readonly http: HttpClient,
+    private readonly http: HttpClient
   ) {}
 
   ngOnInit() {

@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
+import { Component, Input, OnInit } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: "app-legacy-data-form-control",
-  templateUrl: "./legacy-data-form-control.component.html",
-  styleUrls: ["./legacy-data-form-control.component.scss"],
+  selector: 'app-legacy-data-form-control',
+  templateUrl: './legacy-data-form-control.component.html',
+  styleUrls: ['./legacy-data-form-control.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

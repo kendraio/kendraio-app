@@ -1,8 +1,8 @@
-import { Component } from "@angular/core";
-import { FieldType } from "@ngx-formly/core";
+import { Component } from '@angular/core';
+import { FieldType } from '@ngx-formly/core';
 
 @Component({
-  selector: "app-field-input-password",
+  selector: 'app-field-input-password',
   template: `
     <mat-form-field>
       <input
@@ -21,7 +21,7 @@ import { FieldType } from "@ngx-formly/core";
         [attr.aria-label]="'Hide password'"
         [attr.aria-pressed]="hide"
       >
-        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
       </label>
 
       <mat-hint>{{ description }}</mat-hint>
@@ -46,6 +46,6 @@ export class FieldInputPasswordComponent extends FieldType {
     return this.to.description;
   }
   get hint(): string {
-    return this.to.hint || "";
+    return this.to.hint || '';
   }
 }

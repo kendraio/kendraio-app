@@ -1,83 +1,83 @@
-import { loadFlowCode } from "../support/helper";
+import { loadFlowCode } from '../support/helper';
 // tslint:disable: quotemark
 /// <reference types="Cypress" />
 
-describe("Template blocks", () => {
+describe('Template blocks', () => {
   beforeEach(() => {
     // Prevent external network request for adapter config
     cy.intercept(
-      "GET",
-      "https://kendraio.github.io/kendraio-adapter/config.json",
+      'GET',
+      'https://kendraio.github.io/kendraio-adapter/config.json',
       {
-        fixture: "adapterConfig.json",
-      },
-    ).as("adapterConfig.json");
+        fixture: 'adapterConfig.json',
+      }
+    ).as('adapterConfig.json');
   });
 
-  it("should render visible html", () => {
+  it('should render visible html', () => {
     loadFlowCode([
       {
-        type: "init",
+        type: 'init',
       },
       {
-        type: "mapping",
+        type: 'mapping',
         mapping:
           '{\r\n    "header": `Header`,\r\n    "content": `Content`\r\n}',
-        blockComment: "",
+        blockComment: '',
       },
       {
-        type: "template",
+        type: 'template',
         template:
-          "<p>visible:{{data.header}}</p><p>visible:{{data.content}}</p>",
-        blockComment: "",
+          '<p>visible:{{data.header}}</p><p>visible:{{data.content}}</p>',
+        blockComment: '',
       },
       {
-        type: "template",
+        type: 'template',
         template:
-          "<p>invisible:{{data.header}}</p><p>invisible:{{data.content}}</p>",
+          '<p>invisible:{{data.header}}</p><p>invisible:{{data.content}}</p>',
         renderToScreen: false,
-        blockComment: "",
+        blockComment: '',
       },
       {
-        type: "debug",
+        type: 'debug',
         open: 2,
       },
     ]);
-    cy.get(".dynamic-content").contains("visible:Header").should("exist");
-    cy.get(".dynamic-content")
-      .contains("invisible:Header", { timeout: 100 })
-      .should("not.exist");
+    cy.get('.dynamic-content').contains('visible:Header').should('exist');
+    cy.get('.dynamic-content')
+      .contains('invisible:Header', { timeout: 100 })
+      .should('not.exist');
   });
 
-  it("should render html to the flow if renderToData is true", () => {
+  it('should render html to the flow if renderToData is true', () => {
     loadFlowCode([
       {
-        type: "init",
+        type: 'init',
       },
       {
-        type: "mapping",
+        type: 'mapping',
         mapping:
           '{\r\n    "header": `Header`,\r\n    "content": `Content`\r\n}',
-        blockComment: "",
+        blockComment: '',
       },
       {
-        type: "template",
+        type: 'template',
         template:
-          "<p>invisible:{{data.header}}</p><p>invisible:{{data.content}}</p>",
+          '<p>invisible:{{data.header}}</p><p>invisible:{{data.content}}</p>',
         renderToScreen: false,
-        key: "renderedHtml",
+        key: 'renderedHtml',
       },
       {
-        type: "debug",
+        type: 'debug',
         open: 2,
       },
     ]);
 
-    cy.get(".dynamic-content")
-      .contains("invisible:Header", { timeout: 100 })
-      .should("not.exist");
-    cy.get(".model-output")
-      .contains("invisible:Header", { timeout: 100 })
-      .should("exist");
+    cy.get('.dynamic-content')
+      .contains('invisible:Header', { timeout: 100 })
+      .should('not.exist');
+    cy.get('.model-output')
+      .contains('invisible:Header', { timeout: 100 })
+      .should('exist');
   });
 });

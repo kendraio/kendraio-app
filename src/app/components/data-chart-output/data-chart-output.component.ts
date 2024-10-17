@@ -7,21 +7,21 @@ import {
   OnInit,
   SimpleChanges,
   ViewChild,
-} from "@angular/core";
-import * as Chart from "chart.js";
-import { get } from "lodash-es";
+} from '@angular/core';
+import * as Chart from 'chart.js';
+import { get } from 'lodash-es';
 
 @Component({
-  selector: "app-data-chart-output",
-  templateUrl: "./data-chart-output.component.html",
-  styleUrls: ["./data-chart-output.component.scss"],
+  selector: 'app-data-chart-output',
+  templateUrl: './data-chart-output.component.html',
+  styleUrls: ['./data-chart-output.component.scss'],
 })
 export class DataChartOutputComponent
   implements OnInit, AfterViewInit, OnChanges
 {
   @Input() data;
   @Input() config;
-  @ViewChild("chart") chart: ElementRef;
+  @ViewChild('chart') chart: ElementRef;
   _chart;
   isInit = false;
 
@@ -36,9 +36,9 @@ export class DataChartOutputComponent
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.isInit) {
-      const data = get(changes, "data.currentValue", []) as Array<any>;
+      const data = get(changes, 'data.currentValue', []) as Array<any>;
       this._chart = new Chart(this.chart.nativeElement, {
-        type: "doughnut",
+        type: 'doughnut',
         data: {
           datasets: [{ data: data.map(({ value }) => value) }],
           labels: data.map(({ label }) => label),

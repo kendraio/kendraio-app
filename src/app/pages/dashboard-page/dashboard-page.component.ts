@@ -1,30 +1,30 @@
-import { Component, OnInit } from "@angular/core";
-import { PageTitleService } from "../../services/page-title.service";
-import { Router } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { PageTitleService } from '../../services/page-title.service';
+import { Router } from '@angular/router';
 // import { DatabaseService } from '../../services/database.service';
-import { take } from "rxjs/operators";
-import { now } from "lodash-es";
-import { TranslateService, TranslationChangeEvent } from "@ngx-translate/core";
+import { take } from 'rxjs/operators';
+import { now } from 'lodash-es';
+import { TranslateService, TranslationChangeEvent } from '@ngx-translate/core';
 
 @Component({
-  selector: "app-dashboard-page",
-  templateUrl: "./dashboard-page.component.html",
-  styleUrls: ["./dashboard-page.component.scss"],
+  selector: 'app-dashboard-page',
+  templateUrl: './dashboard-page.component.html',
+  styleUrls: ['./dashboard-page.component.scss'],
 })
 export class DashboardPageComponent implements OnInit {
   data = [];
   TODAY = Date.now();
-  transViaService = "";
+  transViaService = '';
   // navigator: Navigator;
 
   constructor(
     private readonly pageTitle: PageTitleService,
     private readonly router: Router,
-    public translate: TranslateService,
+    public translate: TranslateService
     // private readonly navigator: Navigator,
     // private readonly database: DatabaseService
   ) {
-    this.pageTitle.setTitle("Dashboard");
+    this.pageTitle.setTitle('Dashboard');
     // translate.addLangs(['en', 'fr', 'de', 'pt', 'it', 'ru', 'ja', 'es']);
     // translate.setDefaultLang('en');
 
@@ -53,7 +53,7 @@ export class DashboardPageComponent implements OnInit {
   ngOnInit() {}
 
   addContent() {
-    this.router.navigate(["/import"]);
+    this.router.navigate(['/import']);
   }
 
   onDeleted() {

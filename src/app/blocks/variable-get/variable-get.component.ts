@@ -5,14 +5,14 @@ import {
   OnChanges,
   OnInit,
   Output,
-} from "@angular/core";
-import { clone, get } from "lodash-es";
-import { BookmarkDataService } from "../../services/bookmark-data.service";
+} from '@angular/core';
+import { clone, get } from 'lodash-es';
+import { BookmarkDataService } from '../../services/bookmark-data.service';
 
 @Component({
-  selector: "app-variable-get",
-  templateUrl: "./variable-get.component.html",
-  styleUrls: ["./variable-get.component.scss"],
+  selector: 'app-variable-get',
+  templateUrl: './variable-get.component.html',
+  styleUrls: ['./variable-get.component.scss'],
 })
 export class VariableGetComponent implements OnInit, OnChanges {
   @Input() config;
@@ -21,7 +21,7 @@ export class VariableGetComponent implements OnInit, OnChanges {
   @Output() output = new EventEmitter();
 
   hasError = false;
-  errorMessage = "";
+  errorMessage = '';
   skipFirst = true;
 
   constructor(private readonly bookmarks: BookmarkDataService) {}
@@ -29,23 +29,23 @@ export class VariableGetComponent implements OnInit, OnChanges {
   ngOnInit() {}
 
   ngOnChanges(changes): void {
-    this.skipFirst = get(this.config, "skipFirst", true);
-    if (this.skipFirst && get(changes, "model.firstChange", false)) {
+    this.skipFirst = get(this.config, 'skipFirst', true);
+    if (this.skipFirst && get(changes, 'model.firstChange', false)) {
       return;
     }
 
-    const variableName = get(this.config, "name", "UNKNOWN");
+    const variableName = get(this.config, 'name', 'UNKNOWN');
 
-    const isSystemVar = get(this.config, "systemVar", false);
+    const isSystemVar = get(this.config, 'systemVar', false);
     if (isSystemVar) {
       switch (variableName) {
-        case "bookmarked-flows":
+        case 'bookmarked-flows':
           this.output.emit(this.bookmarks.activeBookmarks);
           return;
       }
     }
 
-    const adapterName = get(this.context, "app.adapterName", "UNKNOWN");
+    const adapterName = get(this.context, 'app.adapterName', 'UNKNOWN');
 
     const key = `${adapterName}.variables.${variableName}`;
     try {
@@ -62,7 +62,7 @@ export class VariableGetComponent implements OnInit, OnChanges {
       if (!!data) {
         this.output.emit(clone(data));
       } else {
-        this.output.emit(get(this.config, "default"));
+        this.output.emit(get(this.config, 'default'));
       }
     } catch (e) {
       this.errorMessage = e.message;

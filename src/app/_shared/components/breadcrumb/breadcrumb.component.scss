@@ -2,7 +2,7 @@
   display: inline;
 }
 .breadcrumb li + li:before {
-  content: " > ";
+  content: ' > ';
 }
 .breadcrumb {
   padding: 20px;

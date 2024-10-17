@@ -1,5 +1,5 @@
-import { Injectable, HostBinding, EventEmitter } from "@angular/core";
-import { Router } from "@angular/router";
+import { Injectable, HostBinding, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AnimationService {
@@ -17,8 +17,8 @@ export class AnimationService {
     this.emitCurrentDirection.emit(this.routing);
     setTimeout(() => {
       // timeout pushes this code to the back of the event queue
-      this._router.navigate(["register/start/" + nextRoute], {
-        queryParamsHandling: "merge",
+      this._router.navigate(['register/start/' + nextRoute], {
+        queryParamsHandling: 'merge',
       });
     });
   }

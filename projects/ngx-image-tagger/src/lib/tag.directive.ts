@@ -8,35 +8,35 @@ import {
   OnChanges,
   Output,
   SimpleChanges,
-} from "@angular/core";
-import * as interact_ from "interactjs";
+} from '@angular/core';
+import * as interact_ from 'interactjs';
 const interact = interact_ as any;
-import { TagInterface } from "./tag.interface";
-import { NgxTaggerComponent } from "./ngx-tagger.component";
+import { TagInterface } from './tag.interface';
+import { NgxTaggerComponent } from './ngx-tagger.component';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
-  selector: "[ngxTag]",
+  selector: '[ngxTag]',
 })
 export class TagDirective implements OnChanges, AfterViewInit {
-  @Input("ngxTag") tag: TagInterface;
+  @Input('ngxTag') tag: TagInterface;
   @Output() updateTag = new EventEmitter<TagInterface>();
 
-  @HostBinding("style.width.px")
+  @HostBinding('style.width.px')
   _w = 0;
 
-  @HostBinding("style.height.px")
+  @HostBinding('style.height.px')
   _h = 0;
 
   _x = 0;
   _y = 0;
 
-  @HostBinding("style.transform")
-  _xy = "";
+  @HostBinding('style.transform')
+  _xy = '';
 
   constructor(
     private readonly el: ElementRef,
-    private readonly parent: NgxTaggerComponent,
+    private readonly parent: NgxTaggerComponent
   ) {}
 
   ngAfterViewInit() {
@@ -82,7 +82,7 @@ export class TagDirective implements OnChanges, AfterViewInit {
       this._x + this._w / 2.0,
       this._y + this._h / 2.0,
       this._w,
-      this._h,
+      this._h
     );
     this.updateTag.emit({ ...tag, data: this.tag.data });
   }

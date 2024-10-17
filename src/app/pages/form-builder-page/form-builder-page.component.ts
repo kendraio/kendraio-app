@@ -4,36 +4,36 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-} from "@angular/core";
-import { UntypedFormGroup } from "@angular/forms";
-import { FormlyFieldConfig, FormlyFormOptions } from "@ngx-formly/core";
-import { KendraioFormService } from "../../_shared/ui-form/services/kendraio.form.service";
-import { FormSubmitHandlerService } from "../../services/form-submit-handler.service";
-import { ShareLinkGeneratorService } from "../../services/share-link-generator.service";
-import { Subject } from "rxjs";
-import { debounceTime, takeUntil } from "rxjs/operators";
-import JSONFormatter from "json-formatter-js";
-import { JSON_SCHEMA } from "./jsonschema";
-import { NgxEditorModel } from "ngx-monaco-editor";
-import { UI_SCHEMA } from "./uischema";
-import { EDITOR_OPTIONS } from "./editor-options";
-import { AdapterFormSelectService } from "../../services/adapter-form-select.service";
-import { FormDataService } from "../../services/form-data.service";
-import { clone, get, has } from "lodash-es";
-import { PageTitleService } from "../../services/page-title.service";
+} from '@angular/core';
+import { UntypedFormGroup } from '@angular/forms';
+import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
+import { KendraioFormService } from '../../_shared/ui-form/services/kendraio.form.service';
+import { FormSubmitHandlerService } from '../../services/form-submit-handler.service';
+import { ShareLinkGeneratorService } from '../../services/share-link-generator.service';
+import { Subject } from 'rxjs';
+import { debounceTime, takeUntil } from 'rxjs/operators';
+import JSONFormatter from 'json-formatter-js';
+import { JSON_SCHEMA } from './jsonschema';
+import { NgxEditorModel } from 'ngx-monaco-editor';
+import { UI_SCHEMA } from './uischema';
+import { EDITOR_OPTIONS } from './editor-options';
+import { AdapterFormSelectService } from '../../services/adapter-form-select.service';
+import { FormDataService } from '../../services/form-data.service';
+import { clone, get, has } from 'lodash-es';
+import { PageTitleService } from '../../services/page-title.service';
 
 @Component({
-  selector: "app-form-builder-page",
-  templateUrl: "./form-builder-page.component.html",
-  styleUrls: ["./form-builder-page.component.scss"],
+  selector: 'app-form-builder-page',
+  templateUrl: './form-builder-page.component.html',
+  styleUrls: ['./form-builder-page.component.scss'],
 })
 export class FormBuilderPageComponent implements OnInit, OnDestroy {
   editorOptions = EDITOR_OPTIONS;
 
-  JSONSchema = "{}";
+  JSONSchema = '{}';
   jsonModel: NgxEditorModel;
 
-  UISchema = "{}";
+  UISchema = '{}';
   uiModel: NgxEditorModel;
 
   form = new UntypedFormGroup({});
@@ -50,12 +50,12 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
   showFormConfig = false;
 
   hasError = false;
-  errorMessage = "";
+  errorMessage = '';
 
   isAPIData = false;
-  endpoint = "";
+  endpoint = '';
 
-  @ViewChild("modelOutput") modelOutput: ElementRef;
+  @ViewChild('modelOutput') modelOutput: ElementRef;
 
   constructor(
     private formService: KendraioFormService,
@@ -63,21 +63,21 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
     private shareLinks: ShareLinkGeneratorService,
     private formSelect: AdapterFormSelectService,
     private formData: FormDataService,
-    private readonly pageTitle: PageTitleService,
+    private readonly pageTitle: PageTitleService
   ) {}
 
   ngOnInit() {
-    this.pageTitle.setTitle("formBuilder.pageTitle");
+    this.pageTitle.setTitle('formBuilder.pageTitle');
     this._schemaChange$
       .pipe(takeUntil(this._destroy$), debounceTime(500))
       .subscribe(() => {
         try {
           this.hasError = false;
           const JSONSchema = JSON.parse(this.JSONSchema);
-          this.isDbForm = has(JSONSchema, "name");
+          this.isDbForm = has(JSONSchema, 'name');
           this.fields = this.formService.schemasToFieldConfig(
             JSONSchema,
-            JSON.parse(this.UISchema),
+            JSON.parse(this.UISchema)
           );
         } catch ({ message }) {
           this.hasError = true;
@@ -107,13 +107,13 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
   updateEditorModels() {
     this.jsonModel = {
       value: this.JSONSchema,
-      language: "json",
-      uri: "a:jsonModel.json",
+      language: 'json',
+      uri: 'a:jsonModel.json',
     };
     this.uiModel = {
       value: this.UISchema,
-      language: "json",
-      uri: "a:uiModel.json",
+      language: 'json',
+      uri: 'a:uiModel.json',
     };
   }
 
@@ -122,13 +122,13 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
       validate: true,
       schemas: [
         {
-          fileMatch: ["a:jsonModel.json"],
-          uri: "https://json-schema.org/draft-07/schema",
+          fileMatch: ['a:jsonModel.json'],
+          uri: 'https://json-schema.org/draft-07/schema',
           schema: JSON_SCHEMA,
         },
         {
-          fileMatch: ["a:uiModel.json"],
-          uri: "https://app.kendra.io/v0/ui-schema",
+          fileMatch: ['a:uiModel.json'],
+          uri: 'https://app.kendra.io/v0/ui-schema',
           schema: UI_SCHEMA,
         },
       ],
@@ -142,7 +142,7 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
   shareForm() {
     const JSONSchema = JSON.parse(this.JSONSchema);
     const UISchema = JSON.parse(this.UISchema);
-    this.shareLinks.shareFlowLink("form-builder", { JSONSchema, UISchema });
+    this.shareLinks.shareFlowLink('form-builder', { JSONSchema, UISchema });
   }
 
   onChange() {
@@ -150,7 +150,7 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
     const formatter = new JSONFormatter(this.model, Infinity);
     while (this.modelOutput.nativeElement.firstChild) {
       this.modelOutput.nativeElement.removeChild(
-        this.modelOutput.nativeElement.firstChild,
+        this.modelOutput.nativeElement.firstChild
       );
     }
     this.modelOutput.nativeElement.append(formatter.render());
@@ -160,7 +160,7 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
     // Send form submit event to the form handler service
     this.formSubmitHandler.handle({
       form: `formBuilderForm`,
-      action: "submit",
+      action: 'submit',
       payload: this.form.getRawValue(),
     });
   }
@@ -171,12 +171,12 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
       const JSONSchema = JSON.parse(this.JSONSchema);
       this.saveOriginalDbValues(this.model);
       this.formData
-        .saveData(get(JSONSchema, "name"), this.model)
+        .saveData(get(JSONSchema, 'name'), this.model)
         .subscribe(({ ok, id, rev }) => {
           // TODO: This logic is specific to DB and should not be here
           if (ok) {
-            this.model["_rev"] = rev;
-            this.model["_id"] = id;
+            this.model['_rev'] = rev;
+            this.model['_id'] = id;
             this.onChange();
           }
         });
@@ -210,8 +210,8 @@ export class FormBuilderPageComponent implements OnInit, OnDestroy {
 
   loadFromDatabase() {
     const data = JSON.parse(this.JSONSchema);
-    if (data && has(data, "name")) {
-      this.formData.loadData(get(data, "name")).subscribe((values) => {
+    if (data && has(data, 'name')) {
+      this.formData.loadData(get(data, 'name')).subscribe((values) => {
         if (!!values) {
           this.isAPIData = false;
           this.saveOriginalDbValues(values);

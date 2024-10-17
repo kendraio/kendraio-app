@@ -1,21 +1,21 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {
   ControlValueAccessor,
   UntypedFormControl,
   NG_VALUE_ACCESSOR,
-} from "@angular/forms";
-import { Subject } from "rxjs";
-import { blobToDataURL } from "blob-util";
-import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
-import { EditClipDialogComponent } from "../../dialogs/edit-clip-dialog/edit-clip-dialog.component";
-import { ConfirmDeleteDialogComponent } from "../../dialogs/confirm-delete-dialog/confirm-delete-dialog.component";
-import { WaveformComponent } from "../../components/waveform/waveform.component";
-import { map, startWith } from "rxjs/operators";
+} from '@angular/forms';
+import { Subject } from 'rxjs';
+import { blobToDataURL } from 'blob-util';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { EditClipDialogComponent } from '../../dialogs/edit-clip-dialog/edit-clip-dialog.component';
+import { ConfirmDeleteDialogComponent } from '../../dialogs/confirm-delete-dialog/confirm-delete-dialog.component';
+import { WaveformComponent } from '../../components/waveform/waveform.component';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
-  selector: "app-audio-input-control",
-  templateUrl: "./audio-input-control.component.html",
-  styleUrls: ["./audio-input-control.component.scss"],
+  selector: 'app-audio-input-control',
+  templateUrl: './audio-input-control.component.html',
+  styleUrls: ['./audio-input-control.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -37,7 +37,7 @@ export class AudioInputControlComponent
 
   @Input() clipControl: UntypedFormControl;
 
-  @ViewChild("player") player: WaveformComponent;
+  @ViewChild('player') player: WaveformComponent;
   isPlaying = false;
 
   clipValues;
@@ -47,7 +47,7 @@ export class AudioInputControlComponent
   ngOnInit() {
     this.clipValues = this.clipControl.valueChanges.pipe(
       startWith(this.clipControl.value),
-      map(this.chartData),
+      map(this.chartData)
     );
   }
 
@@ -56,7 +56,7 @@ export class AudioInputControlComponent
       datasets: [
         {
           data: clips.map(({ start, end }) => end - start),
-          backgroundColor: ["red", "yellow", "pink", "blue", "green", "purple"],
+          backgroundColor: ['red', 'yellow', 'pink', 'blue', 'green', 'purple'],
         },
       ],
       labels: clips.map(({ name }) => name),
@@ -105,7 +105,7 @@ export class AudioInputControlComponent
   }
 
   add(name) {
-    if (name.trim() !== "") {
+    if (name.trim() !== '') {
       this.data.push({ name, start: 0, end: 100 });
       const clips = this.clipControl.value as Array<any>;
       clips.push({ name, start: 0, end: 100 });
@@ -123,7 +123,7 @@ export class AudioInputControlComponent
     const dialogRef = this.dialog.open(ConfirmDeleteDialogComponent, {
       data: {
         item: {
-          type: "Clip",
+          type: 'Clip',
           name: (this.clipControl.value as Array<any>)[i].name,
         },
       },

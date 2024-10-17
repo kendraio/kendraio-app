@@ -1,10 +1,10 @@
-import { Injectable } from "@angular/core";
-import { WorkflowService } from "./workflow.service";
-import { BehaviorSubject } from "rxjs";
-import { filter, find, remove } from "lodash-es";
+import { Injectable } from '@angular/core';
+import { WorkflowService } from './workflow.service';
+import { BehaviorSubject } from 'rxjs';
+import { filter, find, remove } from 'lodash-es';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class BookmarkDataService {
   activeBookmarks = [];
@@ -23,7 +23,7 @@ export class BookmarkDataService {
   }
 
   loadSavedBookmarks() {
-    const data = localStorage.getItem("kendraio-app-saved-bookmarks");
+    const data = localStorage.getItem('kendraio-app-saved-bookmarks');
     if (data) {
       return JSON.parse(data);
     }
@@ -32,31 +32,31 @@ export class BookmarkDataService {
 
   saveBookmarks() {
     const value = JSON.stringify(this.activeBookmarks);
-    localStorage.setItem("kendraio-app-saved-bookmarks", value);
-    console.log("save", value);
+    localStorage.setItem('kendraio-app-saved-bookmarks', value);
+    console.log('save', value);
   }
 
   hasBookmark(adapterName, workflowId) {
     return find(
       this.activeBookmarks,
       (item) =>
-        item.adapterName === adapterName && item.workflows === workflowId,
+        item.adapterName === adapterName && item.workflows === workflowId
     );
   }
 
   addBookmark(adapterName, workflowId) {
-    console.log("add bookmark");
+    console.log('add bookmark');
     this.activeBookmarks.push({ adapterName, workflowId, active: true });
     this.saveBookmarks();
     this.setIsActive();
   }
 
   removeBookmark(adapterName, workflowId) {
-    console.log("remove bookmark");
+    console.log('remove bookmark');
     this.activeBookmarks = filter(
       this.activeBookmarks,
       (item) =>
-        !(item.adapterName === adapterName && item.workflowId === workflowId),
+        !(item.adapterName === adapterName && item.workflowId === workflowId)
     );
     this.saveBookmarks();
     this.setIsActive();
@@ -65,7 +65,7 @@ export class BookmarkDataService {
   onBookmark() {
     const adapterName = this.workflows.getAdapterName();
     const workflowId = this.workflows.id;
-    console.log("toggle bookmark", adapterName, workflowId);
+    console.log('toggle bookmark', adapterName, workflowId);
     if (!adapterName || !workflowId) {
       return;
     }

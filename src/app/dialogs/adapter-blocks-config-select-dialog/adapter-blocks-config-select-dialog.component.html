@@ -14,7 +14,7 @@
 
   <select *ngIf="configs.length > 0" [(ngModel)]="selectedConfig">
     <option *ngFor="let q of configs; let i = index" [value]="i">
-      {{ q?.title || "Untitled" }}
+      {{ q?.title || 'Untitled' }}
     </option>
   </select>
 </ng-container>

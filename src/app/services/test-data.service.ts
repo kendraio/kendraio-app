@@ -1,28 +1,28 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { map, tap } from "rxjs/operators";
-import { DocumentRepositoryService } from "./document-repository.service";
-import { SchemaRepositoryService } from "./schema-repository.service";
-import { includes } from "lodash";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { map, tap } from 'rxjs/operators';
+import { DocumentRepositoryService } from './document-repository.service';
+import { SchemaRepositoryService } from './schema-repository.service';
+import { includes } from 'lodash';
 
 // Service for communicating with the Kendraio Test API
 // The data is pulled from a Google Spreadsheet via an API proxy.
 // For more details see this repo:
 // https://github.com/kendraio/google-sheets-api-proxy
 
-const KENDRAIO_API = "https://google-sheets-api-proxy.now.sh/";
+const KENDRAIO_API = 'https://google-sheets-api-proxy.now.sh/';
 
-const isKendraioSchema = (item) => item.startsWith("kendraio_");
-const removePrefix = (item) => item.split("_")[1];
+const isKendraioSchema = (item) => item.startsWith('kendraio_');
+const removePrefix = (item) => item.split('_')[1];
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class TestDataService {
   constructor(
     private readonly http: HttpClient,
     private readonly docs: DocumentRepositoryService,
-    private readonly schemas: SchemaRepositoryService,
+    private readonly schemas: SchemaRepositoryService
   ) {}
 
   // Get the list of valid entity types
@@ -46,8 +46,8 @@ export class TestDataService {
       map(({ rows }) =>
         rows
           .filter(({ id }) => id.startsWith(`kendraio_${type}`))
-          .map(removePrefix),
-      ),
+          .map(removePrefix)
+      )
     );
   }
 
@@ -55,7 +55,7 @@ export class TestDataService {
     if ($config.live) {
       return this.http
         .get<{ header: Array<any>; data: Array<any> }>(
-          `${KENDRAIO_API}${type}/all`,
+          `${KENDRAIO_API}${type}/all`
         )
         .pipe(
           map(({ header, data }) => {
@@ -65,7 +65,7 @@ export class TestDataService {
                 return obj;
               }, {});
             });
-          }),
+          })
         );
     }
     return this.docs.listAllOfType(`kendraio_${type}`);
@@ -77,14 +77,14 @@ export class TestDataService {
       map((_) => ({ rows: [] })),
       map(({ rows }) =>
         rows.reduce((acc, item) => {
-          const namedType = item["id"].split(":")[0];
-          const type = includes(namedType, "_")
-            ? namedType.split("_")[1]
+          const namedType = item['id'].split(':')[0];
+          const type = includes(namedType, '_')
+            ? namedType.split('_')[1]
             : namedType;
           acc[type] = acc[type] ? acc[type] + 1 : 1;
           return acc;
-        }, {}),
-      ),
+        }, {})
+      )
     );
   }
 

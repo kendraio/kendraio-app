@@ -1,11 +1,11 @@
 export const JSON_EDITOR_OPTIONS = {
-  baseUrl: "kql-builder",
-  theme: "vs",
-  language: "json",
+  baseUrl: 'kql-builder',
+  theme: 'vs',
+  language: 'json',
   minimap: {
     enabled: false,
   },
-  lineNumbers: "off",
+  lineNumbers: 'off',
   scrollBeyondLastLine: false,
   automaticLayout: true,
 };

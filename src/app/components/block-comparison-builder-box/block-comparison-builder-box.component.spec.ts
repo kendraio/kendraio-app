@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BlockComparisonBuilderBoxComponent } from "./block-comparison-builder-box.component";
+import { BlockComparisonBuilderBoxComponent } from './block-comparison-builder-box.component';
 
-describe("BlockComparisonBuilderBoxComponent", () => {
+describe('BlockComparisonBuilderBoxComponent', () => {
   let component: BlockComparisonBuilderBoxComponent;
   let fixture: ComponentFixture<BlockComparisonBuilderBoxComponent>;
 
@@ -16,7 +16,7 @@ describe("BlockComparisonBuilderBoxComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

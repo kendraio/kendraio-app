@@ -1,15 +1,15 @@
-import { Subject, Subscription } from "rxjs";
-import { HttpClient } from "@angular/common/http";
-import { Injectable, NgZone } from "@angular/core";
+import { Subject, Subscription } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, NgZone } from '@angular/core';
 
-import { YoutubeApiService } from "./youtube-api.class";
+import { YoutubeApiService } from './youtube-api.class';
 
 // import { Authorization } from './authorization.service';
-import { AuthService } from "../../../services/auth.service";
+import { AuthService } from '../../../services/auth.service';
 
-import { switchMap, take } from "rxjs/operators";
+import { switchMap, take } from 'rxjs/operators';
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class UserProfile {
   isSearching: Boolean = false;
@@ -21,7 +21,7 @@ export class UserProfile {
     private http: HttpClient,
     private zone: NgZone,
     //  private youtubeVideosInfo: YoutubeVideosInfo,
-    private authorization: AuthService,
+    private authorization: AuthService
   ) {
     // this.playlistInfo = new YoutubeApiService(
     //   {

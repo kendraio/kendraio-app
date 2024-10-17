@@ -1,11 +1,11 @@
-import { Component, NgZone, OnInit } from "@angular/core";
-import { AuthService } from "../../services/auth.service";
-import { HttpClient } from "@angular/common/http";
+import { Component, NgZone, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: "app-dropbox-page",
-  templateUrl: "./dropbox-page.component.html",
-  styleUrls: ["./dropbox-page.component.scss"],
+  selector: 'app-dropbox-page',
+  templateUrl: './dropbox-page.component.html',
+  styleUrls: ['./dropbox-page.component.scss'],
 })
 export class DropboxPageComponent implements OnInit {
   files$;
@@ -16,19 +16,19 @@ export class DropboxPageComponent implements OnInit {
   constructor(
     private readonly auth: AuthService,
     private readonly http: HttpClient,
-    private readonly zone: NgZone,
+    private readonly zone: NgZone
   ) {}
 
   ngOnInit() {
     this.showSync = false;
-    const idp = this.auth.getIdentity("dropbox");
+    const idp = this.auth.getIdentity('dropbox');
     if (!!idp && idp.access_token) {
       const { access_token } = idp;
       this.accessToken = access_token;
       const headers = { authorization: `Bearer ${access_token}` };
       const url = `https://api.dropboxapi.com/2/files/list_folder`;
       const body = {
-        path: "/uploads",
+        path: '/uploads',
       };
       this.files$ = this.http.post(url, body, { headers });
     }
@@ -44,14 +44,14 @@ export class DropboxPageComponent implements OnInit {
     const headers = {
       Authorization: `Bearer ${this.accessToken}`,
     };
-    const url = "https://api.dropboxapi.com/2/files/get_temporary_link";
+    const url = 'https://api.dropboxapi.com/2/files/get_temporary_link';
     this.http.post<any>(url, { path }, { headers }).subscribe(({ link }) => {
       window.open(link);
     });
   }
 
   onDelete(f) {
-    const url = "https://api.dropboxapi.com/2/files/delete_v2";
+    const url = 'https://api.dropboxapi.com/2/files/delete_v2';
     const path = f.id;
     const headers = {
       Authorization: `Bearer ${this.accessToken}`,
@@ -66,11 +66,11 @@ export class DropboxPageComponent implements OnInit {
     if (file) {
       const path = `/uploads/${file.name}`;
       const headers = {
-        "Dropbox-API-Arg": JSON.stringify({ path }),
+        'Dropbox-API-Arg': JSON.stringify({ path }),
         Authorization: `Bearer ${this.accessToken}`,
-        "Content-Type": "application/octet-stream",
+        'Content-Type': 'application/octet-stream',
       };
-      const url = "https://content.dropboxapi.com/2/files/upload";
+      const url = 'https://content.dropboxapi.com/2/files/upload';
       this.http.post(url, file, { headers }).subscribe(() => {
         this.ngOnInit();
       });

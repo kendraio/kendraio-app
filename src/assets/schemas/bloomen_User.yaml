@@ -7,29 +7,29 @@ fields:
     id: username
     label: Username
     autoComplete: off
-    defaultValue: ""
+    defaultValue: ''
   - type: TEXT
     id: email
     label: Email
     autoComplete: off
-    defaultValue: ""
+    defaultValue: ''
   - type: TEXT
     id: id
     label: ID
     autoComplete: off
-    defaultValue: ""
+    defaultValue: ''
   - type: TEXT
     id: hash
     label: Hash
     autoComplete: off
-    defaultValue: ""
+    defaultValue: ''
   - type: TEXT
     id: role
     label: Role
     autoComplete: off
-    defaultValue: ""
+    defaultValue: ''
   - type: JSON
     id: json_data
     label: Legacy Data
     autoComplete: off
-    defaultValue: ""
+    defaultValue: ''

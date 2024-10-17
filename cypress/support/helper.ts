@@ -1,5 +1,5 @@
-import * as LZS from "lz-string";
-import dexie from "dexie";
+import * as LZS from 'lz-string';
+import dexie from 'dexie';
 /**
  * Loads a Kendraio workflow from a block array, by generating a shared
  * Workflow link. A compressed URL component is generated from
@@ -9,7 +9,7 @@ import dexie from "dexie";
 export function loadFlowCode(blocks: Array<{ [key: string]: any }>): void {
   const compressed = LZS.compressToEncodedURIComponent(JSON.stringify(blocks));
   const url = `/workflow-builder?data=${compressed}`;
-  cy.visit(url).contains("Flow");
+  cy.visit(url).contains('Flow');
 }
 
 /**
@@ -17,12 +17,12 @@ export function loadFlowCode(blocks: Array<{ [key: string]: any }>): void {
  */
 export async function clearMetadataTable(): Promise<void> {
   try {
-    if (window["databaseInit"] === false) {
+    if (window['databaseInit'] === false) {
       return;
     }
-    const db = new dexie("kendraio-db");
+    const db = new dexie('kendraio-db');
     await db.open();
-    await db.table("metadata").clear();
+    await db.table('metadata').clear();
   } catch (error) {
     console.log(error);
   }
@@ -35,9 +35,9 @@ export async function clearMetadataTable(): Promise<void> {
 export async function getMetadataTable(): Promise<
   Array<{ [key: string]: any }>
 > {
-  const db = new dexie("kendraio-db");
+  const db = new dexie('kendraio-db');
   await new Promise((resolve) => setTimeout(resolve, 5500)); // this is arbitrary, but it seems needed to allow the db to open
   await db.open();
-  const metadata = await db.table("metadata").toArray();
+  const metadata = await db.table('metadata').toArray();
   return metadata;
 }

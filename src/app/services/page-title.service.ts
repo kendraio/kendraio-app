@@ -1,13 +1,13 @@
-import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
-import { Title } from "@angular/platform-browser";
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { Title } from '@angular/platform-browser';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class PageTitleService {
   pageTitle$ = new BehaviorSubject({
-    title: "Kendraio App",
+    title: 'Kendraio App',
     isWorkflow: false,
   });
   refresh$ = new BehaviorSubject({});
@@ -17,7 +17,7 @@ export class PageTitleService {
 
   setTitle(newTitle: string, isWorkflow = false) {
     this.pageTitle$.next({ title: newTitle, isWorkflow });
-    this.titleService.setTitle("Kendraio | " + newTitle);
+    this.titleService.setTitle('Kendraio | ' + newTitle);
   }
 
   onRefresh() {

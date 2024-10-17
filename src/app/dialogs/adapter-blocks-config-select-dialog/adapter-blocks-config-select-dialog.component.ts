@@ -1,16 +1,16 @@
-import { Component, OnInit } from "@angular/core";
-import { AdaptersService } from "../../services/adapters.service";
-import { HttpClient } from "@angular/common/http";
-import { MatLegacyDialogRef as MatDialogRef } from "@angular/material/legacy-dialog";
-import { map, tap } from "rxjs/operators";
-import { get, has, pickBy } from "lodash-es";
-import { forkJoin } from "rxjs";
-import { environment } from "../../../environments/environment";
+import { Component, OnInit } from '@angular/core';
+import { AdaptersService } from '../../services/adapters.service';
+import { HttpClient } from '@angular/common/http';
+import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { map, tap } from 'rxjs/operators';
+import { get, has, pickBy } from 'lodash-es';
+import { forkJoin } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Component({
-  selector: "app-adapter-blocks-config-select-dialog",
-  templateUrl: "./adapter-blocks-config-select-dialog.component.html",
-  styleUrls: ["./adapter-blocks-config-select-dialog.component.scss"],
+  selector: 'app-adapter-blocks-config-select-dialog',
+  templateUrl: './adapter-blocks-config-select-dialog.component.html',
+  styleUrls: ['./adapter-blocks-config-select-dialog.component.scss'],
 })
 export class AdapterBlocksConfigSelectDialogComponent implements OnInit {
   adapters$;
@@ -23,23 +23,23 @@ export class AdapterBlocksConfigSelectDialogComponent implements OnInit {
   constructor(
     private readonly adapters: AdaptersService,
     private readonly http: HttpClient,
-    public dialogRef: MatDialogRef<AdapterBlocksConfigSelectDialogComponent>,
+    public dialogRef: MatDialogRef<AdapterBlocksConfigSelectDialogComponent>
   ) {}
 
   ngOnInit() {
     this.adapters$ = this.adapters.adapters$.pipe(
       map((adapters) => {
-        return pickBy(adapters, (config) => has(config, "adapter.configs"));
+        return pickBy(adapters, (config) => has(config, 'adapter.configs'));
       }),
-      tap((value) => (this.adapterCache = value)),
+      tap((value) => (this.adapterCache = value))
     );
   }
 
   adapterChange() {
     forkJoin(
       get(this.adapterCache, `${this.selectedAdapter}.adapter.configs`, []).map(
-        (path) => this.http.get(`${environment.adapterBaseUrl}${path}`),
-      ),
+        (path) => this.http.get(`${environment.adapterBaseUrl}${path}`)
+      )
     ).subscribe((results) => (this.configs = results));
   }
 

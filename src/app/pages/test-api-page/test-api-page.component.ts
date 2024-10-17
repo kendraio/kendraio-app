@@ -1,6 +1,6 @@
-import { Component, OnInit } from "@angular/core";
-import { TestDataService } from "../../services/test-data.service";
-import { forkJoin, Observable, of, Subject } from "rxjs";
+import { Component, OnInit } from '@angular/core';
+import { TestDataService } from '../../services/test-data.service';
+import { forkJoin, Observable, of, Subject } from 'rxjs';
 import {
   catchError,
   map,
@@ -9,17 +9,17 @@ import {
   take,
   tap,
   withLatestFrom,
-} from "rxjs/operators";
-import { ImportProgressDialogComponent } from "../../dialogs/import-progress-dialog/import-progress-dialog.component";
-import { Router } from "@angular/router";
-import { PageTitleService } from "../../services/page-title.service";
-import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
-import { TestImportDialogComponent } from "../../dialogs/test-import-dialog/test-import-dialog.component";
+} from 'rxjs/operators';
+import { ImportProgressDialogComponent } from '../../dialogs/import-progress-dialog/import-progress-dialog.component';
+import { Router } from '@angular/router';
+import { PageTitleService } from '../../services/page-title.service';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { TestImportDialogComponent } from '../../dialogs/test-import-dialog/test-import-dialog.component';
 
 @Component({
-  selector: "app-test-api-page",
-  templateUrl: "./test-api-page.component.html",
-  styleUrls: ["./test-api-page.component.scss"],
+  selector: 'app-test-api-page',
+  templateUrl: './test-api-page.component.html',
+  styleUrls: ['./test-api-page.component.scss'],
 })
 export class TestApiPageComponent implements OnInit {
   entityTypes$;
@@ -37,21 +37,21 @@ export class TestApiPageComponent implements OnInit {
     private readonly testData: TestDataService,
     private readonly router: Router,
     private readonly pageTitle: PageTitleService,
-    private readonly dialog: MatDialog,
+    private readonly dialog: MatDialog
   ) {}
 
   ngOnInit() {
     this.entityTypes$ = this.testData.listEntityTypes({ live: true });
     this.entityList$ = new Subject<string>().pipe(
-      switchMap((type) => this.testData.listEntities(type, { live: true })),
+      switchMap((type) => this.testData.listEntities(type, { live: true }))
     );
     this.selectedEntity$ = new Subject<number>().pipe(
       switchMap((id) =>
-        this.testData.getEntity(this.selectedType, id, { live: true }),
-      ),
+        this.testData.getEntity(this.selectedType, id, { live: true })
+      )
     );
     this.listAll$ = new Subject<string>().pipe(
-      switchMap((type) => this.testData.listAll(type, { live: true })),
+      switchMap((type) => this.testData.listAll(type, { live: true }))
     );
   }
 
@@ -74,7 +74,7 @@ export class TestApiPageComponent implements OnInit {
       .pipe(
         take(1),
         map((types) =>
-          types.filter((type) => type !== "video" && type !== "photo"),
+          types.filter((type) => type !== 'video' && type !== 'photo')
         ),
         mergeMap((types) =>
           forkJoin(
@@ -82,11 +82,11 @@ export class TestApiPageComponent implements OnInit {
               return this.testData.listAll(type, { live: true }).pipe(
                 take(1),
                 catchError((err) => of([])),
-                map((records) => ({ type, records })),
+                map((records) => ({ type, records }))
               );
-            }),
-          ),
-        ),
+            })
+          )
+        )
       )
       .subscribe((allItems) => {
         this.isLoadingAll = false;
@@ -114,7 +114,7 @@ export class TestApiPageComponent implements OnInit {
       data: { content },
     });
     dialogRef.afterClosed().subscribe(() => {
-      this.router.navigate(["/docs"]);
+      this.router.navigate(['/docs']);
     });
   }
 }

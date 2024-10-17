@@ -7,13 +7,13 @@ import {
   OnInit,
   Output,
   ViewChild,
-} from "@angular/core";
-import { get } from "lodash-es";
+} from '@angular/core';
+import { get } from 'lodash-es';
 
 @Component({
-  selector: "app-card-block",
-  templateUrl: "./card-block.component.html",
-  styleUrls: ["./card-block.component.scss"],
+  selector: 'app-card-block',
+  templateUrl: './card-block.component.html',
+  styleUrls: ['./card-block.component.scss'],
 })
 export class CardBlockComponent implements OnInit, OnChanges {
   @Input() config;
@@ -28,7 +28,7 @@ export class CardBlockComponent implements OnInit, OnChanges {
   ngOnInit() {}
 
   ngOnChanges(changes) {
-    this.blocks = get(this.config, "blocks", []);
+    this.blocks = get(this.config, 'blocks', []);
   }
 
   onWorkflowComplete(event) {

@@ -1,23 +1,23 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { clone, set, get } from "lodash-es";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { clone, set, get } from 'lodash-es';
 import {
   comparisonOperators,
   comparisonTypes,
   comparisonDefinition,
-} from "src/app/blocks/comparison/comparison.component";
+} from 'src/app/blocks/comparison/comparison.component';
 import {
   FormControl,
   FormArray,
   FormGroup,
   UntypedFormControl,
-} from "@angular/forms";
-import def from "ajv/dist/vocabularies/discriminator";
-import { moveItemInArray } from "@angular/cdk/drag-drop";
+} from '@angular/forms';
+import def from 'ajv/dist/vocabularies/discriminator';
+import { moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
-  selector: "app-block-comparison-builder-box",
-  templateUrl: "./block-comparison-builder-box.component.html",
-  styleUrls: ["./block-comparison-builder-box.component.scss"],
+  selector: 'app-block-comparison-builder-box',
+  templateUrl: './block-comparison-builder-box.component.html',
+  styleUrls: ['./block-comparison-builder-box.component.scss'],
 })
 
 /**
@@ -27,8 +27,8 @@ export class BlockComparisonBuilderBoxComponent implements OnInit {
   @Input() block;
   @Output() blockUpdated = new EventEmitter();
 
-  valueGetter: string = "data";
-  default: string = "OK";
+  valueGetter: string = 'data';
+  default: string = 'OK';
   defaultType: string = comparisonTypes[0];
   comparisons: comparisonDefinition[];
   operators: string[];
@@ -41,28 +41,28 @@ export class BlockComparisonBuilderBoxComponent implements OnInit {
   });
 
   ngOnInit() {
-    this.form.controls["valueGetter"].setValue(
-      get(this.block, "valueGetter", this.valueGetter),
+    this.form.controls['valueGetter'].setValue(
+      get(this.block, 'valueGetter', this.valueGetter)
     );
-    this.form.controls["default"].setValue(
-      get(this.block, "default", this.default),
+    this.form.controls['default'].setValue(
+      get(this.block, 'default', this.default)
     );
-    this.form.controls["defaultType"].setValue(
-      get(this.block, "defaultType", this.defaultType),
+    this.form.controls['defaultType'].setValue(
+      get(this.block, 'defaultType', this.defaultType)
     );
     this.operators = Object.keys(comparisonOperators);
     this.targetTypes = comparisonTypes;
-    this.comparisons = get(this.block, "comparisons", []);
+    this.comparisons = get(this.block, 'comparisons', []);
 
     this.comparisons.forEach((comparison) => {
-      this.form.controls["comparisons"].push(
+      this.form.controls['comparisons'].push(
         new FormGroup({
           operator: new FormControl(comparison.operator),
           target: new FormControl(comparison.target),
-          targetType: new FormControl(comparison.targetType || "value"),
+          targetType: new FormControl(comparison.targetType || 'value'),
           output: new FormControl(comparison.output),
-          outputType: new FormControl(comparison.outputType || "value"),
-        }),
+          outputType: new FormControl(comparison.outputType || 'value'),
+        })
       );
     });
   }
@@ -75,20 +75,20 @@ export class BlockComparisonBuilderBoxComponent implements OnInit {
     let comparisons: comparisonDefinition[] = [];
     for (let comparisonGroup of this.form.controls.comparisons.controls) {
       let comparison = {
-        operator: comparisonGroup.get("operator").value,
-        target: comparisonGroup.get("target").value,
-        targetType: comparisonGroup.get("targetType").value,
-        output: comparisonGroup.get("output").value,
-        outputType: comparisonGroup.get("outputType").value,
+        operator: comparisonGroup.get('operator').value,
+        target: comparisonGroup.get('target').value,
+        targetType: comparisonGroup.get('targetType').value,
+        output: comparisonGroup.get('output').value,
+        outputType: comparisonGroup.get('outputType').value,
       };
       comparisons.push(comparison);
     }
 
     return {
       ...this.block,
-      valueGetter: this.form.controls["valueGetter"].value,
-      default: this.form.controls["default"].value,
-      defaultType: this.form.controls["defaultType"].value,
+      valueGetter: this.form.controls['valueGetter'].value,
+      default: this.form.controls['default'].value,
+      defaultType: this.form.controls['defaultType'].value,
       comparisons: comparisons,
     };
   }
@@ -107,14 +107,14 @@ export class BlockComparisonBuilderBoxComponent implements OnInit {
    * Insert a new comparison object into the form
    */
   insertComparison(): void {
-    this.form.controls["comparisons"].push(
+    this.form.controls['comparisons'].push(
       new FormGroup({
-        operator: new FormControl("=="),
-        target: new FormControl(""),
-        targetType: new FormControl("value"),
-        output: new FormControl(""),
-        outputType: new FormControl("value"),
-      }),
+        operator: new FormControl('=='),
+        target: new FormControl(''),
+        targetType: new FormControl('value'),
+        output: new FormControl(''),
+        outputType: new FormControl('value'),
+      })
     );
   }
 
@@ -123,7 +123,7 @@ export class BlockComparisonBuilderBoxComponent implements OnInit {
    * @param index
    */
   removeComparison(index) {
-    let formArray = this.form.get("comparisons") as FormArray;
+    let formArray = this.form.get('comparisons') as FormArray;
     formArray.removeAt(index);
   }
 
@@ -143,7 +143,7 @@ export class BlockComparisonBuilderBoxComponent implements OnInit {
 
   moveComparison(fromIndex: number, toIndex: number): void {
     const dir = toIndex > fromIndex ? 1 : -1;
-    let formArray = this.form.get("comparisons") as FormArray;
+    let formArray = this.form.get('comparisons') as FormArray;
 
     const item = formArray.at(fromIndex);
     for (let i = fromIndex; i * dir < toIndex * dir; i = i + dir) {

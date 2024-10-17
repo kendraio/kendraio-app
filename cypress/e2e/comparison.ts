@@ -1,197 +1,197 @@
-import { loadFlowCode } from "../support/helper";
+import { loadFlowCode } from '../support/helper';
 // tslint:disable: quotemark
 /// <reference types="Cypress" />
 
-describe("Comparison Block Capabilities", () => {
+describe('Comparison Block Capabilities', () => {
   // Working default
-  it("has a default result", () => {
+  it('has a default result', () => {
     loadFlowCode([
       {
-        type: "mapping",
-        mapping: "{source:`one`, one:`one`, two:`two` }",
+        type: 'mapping',
+        mapping: '{source:`one`, one:`one`, two:`two` }',
       },
       {
-        type: "comparison",
-        valueGetter: "data.source",
-        default: "default",
+        type: 'comparison',
+        valueGetter: 'data.source',
+        default: 'default',
       },
       {
-        type: "debug",
+        type: 'debug',
       },
     ]);
-    cy.contains("default");
+    cy.contains('default');
   });
 
   // basic matching
 
-  it("returns a value for a matching comparison", () => {
+  it('returns a value for a matching comparison', () => {
     loadFlowCode([
       {
-        type: "mapping",
-        mapping: "{ source:`one`, one:`one`, two:`two` }",
+        type: 'mapping',
+        mapping: '{ source:`one`, one:`one`, two:`two` }',
       },
       {
-        type: "comparison",
-        valueGetter: "data.source",
-        default: "default",
+        type: 'comparison',
+        valueGetter: 'data.source',
+        default: 'default',
         comparisons: [
           {
-            operator: "==",
-            target: "one",
-            output: "one",
+            operator: '==',
+            target: 'one',
+            output: 'one',
           },
         ],
       },
       {
-        type: "debug",
+        type: 'debug',
       },
     ]);
-    cy.contains("one");
+    cy.contains('one');
   });
 
   // value and jmespath targets
 
-  it("returns a jmespath value for a matching comparison", () => {
+  it('returns a jmespath value for a matching comparison', () => {
     loadFlowCode([
       {
-        type: "mapping",
-        mapping: "{ source:`one`, one:`one`, two:`two`, path:`one` }",
+        type: 'mapping',
+        mapping: '{ source:`one`, one:`one`, two:`two`, path:`one` }',
       },
       {
-        type: "comparison",
-        valueGetter: "data.source",
-        default: "default",
+        type: 'comparison',
+        valueGetter: 'data.source',
+        default: 'default',
         comparisons: [
           {
-            operator: "==",
-            target: "data.path",
-            targetType: "jmespath",
-            output: "path",
+            operator: '==',
+            target: 'data.path',
+            targetType: 'jmespath',
+            output: 'path',
           },
         ],
       },
       {
-        type: "debug",
+        type: 'debug',
       },
     ]);
-    cy.contains("path");
+    cy.contains('path');
   });
 
   // multiple comparisons
 
-  it("keeps processing comparisons until it finds a matching comparison", () => {
+  it('keeps processing comparisons until it finds a matching comparison', () => {
     loadFlowCode([
       {
-        type: "mapping",
-        mapping: "{ source:`two`, one:`one`, two:`two`  }",
+        type: 'mapping',
+        mapping: '{ source:`two`, one:`one`, two:`two`  }',
       },
       {
-        type: "comparison",
-        valueGetter: "data.source",
-        default: "default",
+        type: 'comparison',
+        valueGetter: 'data.source',
+        default: 'default',
         comparisons: [
           {
-            operator: "==",
-            target: "one",
-            output: "first",
+            operator: '==',
+            target: 'one',
+            output: 'first',
           },
           {
-            operator: "==",
-            target: "two",
-            output: "second",
+            operator: '==',
+            target: 'two',
+            output: 'second',
           },
         ],
       },
       {
-        type: "debug",
+        type: 'debug',
       },
     ]);
-    cy.contains("second");
+    cy.contains('second');
   });
 
   // invalid comparison definitions
 
-  it("ignores badly formed comparisons", () => {
+  it('ignores badly formed comparisons', () => {
     loadFlowCode([
       {
-        type: "mapping",
-        mapping: "{ source:`two`, one:`one`, two:`two`  }",
+        type: 'mapping',
+        mapping: '{ source:`two`, one:`one`, two:`two`  }',
       },
       {
-        type: "comparison",
-        valueGetter: "data.source",
-        default: "default",
+        type: 'comparison',
+        valueGetter: 'data.source',
+        default: 'default',
         comparisons: [
           {
-            operator: "==",
-            target: "",
-            output: "first",
+            operator: '==',
+            target: '',
+            output: 'first',
           },
           {
-            operator: "==",
-            target: "two",
-            output: "second",
+            operator: '==',
+            target: 'two',
+            output: 'second',
           },
         ],
       },
       {
-        type: "debug",
+        type: 'debug',
       },
     ]);
-    cy.contains("second");
+    cy.contains('second');
   });
 
   // nothing there
 
-  it("can cope with a non-existent source value", () => {
+  it('can cope with a non-existent source value', () => {
     loadFlowCode([
       {
-        type: "mapping",
-        mapping: "{ source:`two`, one:`one`, two:`two`  }",
+        type: 'mapping',
+        mapping: '{ source:`two`, one:`one`, two:`two`  }',
       },
       {
-        type: "comparison",
-        valueGetter: "data.null",
-        default: "default",
+        type: 'comparison',
+        valueGetter: 'data.null',
+        default: 'default',
         comparisons: [
           {
-            operator: "null",
-            output: "null",
+            operator: 'null',
+            output: 'null',
           },
         ],
       },
       {
-        type: "debug",
+        type: 'debug',
       },
     ]);
-    cy.contains("null");
+    cy.contains('null');
   });
 
-  it("allows jmespath default values", () => {
+  it('allows jmespath default values', () => {
     loadFlowCode([
       {
-        type: "mapping",
-        mapping: "{ source:`two`, one:`first`, two:`second`  }",
+        type: 'mapping',
+        mapping: '{ source:`two`, one:`first`, two:`second`  }',
       },
       {
-        type: "comparison",
-        valueGetter: "data.source",
-        default: "data.two",
-        defaultType: "jmespath",
+        type: 'comparison',
+        valueGetter: 'data.source',
+        default: 'data.two',
+        defaultType: 'jmespath',
         comparisons: [
           {
-            operator: "typeof",
-            target: "array",
-            targetType: "value",
-            output: "one",
-            outputType: "value",
+            operator: 'typeof',
+            target: 'array',
+            targetType: 'value',
+            output: 'one',
+            outputType: 'value',
           },
         ],
       },
       {
-        type: "debug",
+        type: 'debug',
       },
     ]);
-    cy.contains("second");
+    cy.contains('second');
   });
 });

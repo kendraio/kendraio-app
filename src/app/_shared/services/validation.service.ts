@@ -1,20 +1,20 @@
-import { throwError as observableThrowError, Observable } from "rxjs";
-import { Injectable } from "@angular/core";
+import { throwError as observableThrowError, Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
 // import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class ValidationService {
   static getValidatorErrorMessage(validatorName: string, validatorValue?: any) {
     const config = {
-      required: "Required field",
+      required: 'Required field',
       // 'invalidEmailAddress': 'Invalid email address',
       invalidPassword:
-        "Invalid password. Password must be at least 6 characters long, and contain a number.",
+        'Invalid password. Password must be at least 6 characters long, and contain a number.',
       minlength: `Min. length ${validatorValue.requiredLength}`,
-      badword: "Ilegal word",
-      invalid: "Ilegal word",
-      pattern: "Invalid entry",
+      badword: 'Ilegal word',
+      invalid: 'Ilegal word',
+      pattern: 'Invalid entry',
     };
 
     return config[validatorName];

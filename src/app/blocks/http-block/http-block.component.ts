@@ -5,23 +5,23 @@ import {
   OnChanges,
   OnInit,
   Output,
-} from "@angular/core";
-import { get, has, includes, isString, toUpper } from "lodash-es";
-import { ContextDataService } from "../../services/context-data.service";
+} from '@angular/core';
+import { get, has, includes, isString, toUpper } from 'lodash-es';
+import { ContextDataService } from '../../services/context-data.service';
 import {
   HttpClient,
   HttpHeaders,
   HttpParams,
   HttpResponse,
-} from "@angular/common/http";
-import { MatLegacySnackBar as MatSnackBar } from "@angular/material/legacy-snack-bar";
-import { catchError, expand, reduce, takeWhile } from "rxjs/operators";
-import { of, EMPTY } from "rxjs";
-import { mappingUtility } from "../mapping-block/mapping-util";
+} from '@angular/common/http';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { catchError, expand, reduce, takeWhile } from 'rxjs/operators';
+import { of, EMPTY } from 'rxjs';
+import { mappingUtility } from '../mapping-block/mapping-util';
 @Component({
-  selector: "app-http-block",
-  templateUrl: "./http-block.component.html",
-  styleUrls: ["./http-block.component.scss"],
+  selector: 'app-http-block',
+  templateUrl: './http-block.component.html',
+  styleUrls: ['./http-block.component.scss'],
 })
 export class HttpBlockComponent implements OnInit, OnChanges {
   @Input() config;
@@ -29,10 +29,10 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   @Input() model: any = {};
   @Output() output = new EventEmitter();
 
-  responseType: "json" = "json";
+  responseType: 'json' = 'json';
 
   hasError = false;
-  errorMessage = "";
+  errorMessage = '';
 
   errorData = {};
   errorBlocks = [];
@@ -40,41 +40,41 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   isLoading = false;
 
   contextErrorKey = null;
-  contextErrors = "";
-  prevContextKey = "";
+  contextErrors = '';
+  prevContextKey = '';
 
   constructor(
     private readonly contextData: ContextDataService,
     private readonly notify: MatSnackBar,
-    private readonly http: HttpClient,
+    private readonly http: HttpClient
   ) {}
 
   ngOnInit() {}
 
   ngOnChanges(changes) {
     const keyChanges = Object.keys(changes);
-    this.contextErrorKey = get(this.config, "contextErrorKey", null);
+    this.contextErrorKey = get(this.config, 'contextErrorKey', null);
     if (this.context.__key !== this.prevContextKey) {
       // context has changed
       this.prevContextKey = this.context.__key;
       // update errors from context if used
       if (this.contextErrorKey) {
         this.contextErrors =
-          mappingUtility(this.context, this.contextErrorKey) || "";
+          mappingUtility(this.context, this.contextErrorKey) || '';
       }
-      if (keyChanges.length === 1 && keyChanges.includes("context")) {
+      if (keyChanges.length === 1 && keyChanges.includes('context')) {
         // exit if only the context was changed
         return;
       }
     }
     if (
-      get(this.config, "skipInit", true) &&
-      get(changes, "model.firstChange", false)
+      get(this.config, 'skipInit', true) &&
+      get(changes, 'model.firstChange', false)
     ) {
       return;
     }
-    this.responseType = get(this.config, "responseType", "json");
-    this.errorBlocks = get(this.config, "onError.blocks", []);
+    this.responseType = get(this.config, 'responseType', 'json');
+    this.errorBlocks = get(this.config, 'onError.blocks', []);
 
     this.makeRequest();
   }
@@ -86,9 +86,9 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   makeRequest() {
     this.hasError = false;
     this.isLoading = true;
-    const method = get(this.config, "method");
+    const method = get(this.config, 'method');
     if (!method) {
-      this.errorMessage = "No HTTP method provided";
+      this.errorMessage = 'No HTTP method provided';
       this.errorData = {};
       this.errorBlocks = [];
       this.hasError = true;
@@ -97,11 +97,11 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     }
     if (
       !includes(
-        ["GET", "POST", "PUT", "DELETE", "PATCH", "BPUT"],
-        toUpper(method),
+        ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'BPUT'],
+        toUpper(method)
       )
     ) {
-      this.errorMessage = "HTTP method not supported";
+      this.errorMessage = 'HTTP method not supported';
       this.errorData = {};
       this.errorBlocks = [];
       this.hasError = true;
@@ -111,64 +111,64 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     let url = this.constructEndpointUrl(this.config);
     let headers = new HttpHeaders(this.getPayloadHeaders());
 
-    const useProxy = get(this.config, "useProxy", false);
+    const useProxy = get(this.config, 'useProxy', false);
     if (useProxy) {
-      headers = headers.append("Target-URL", url);
+      headers = headers.append('Target-URL', url);
       const appSettings = JSON.parse(
-        localStorage.getItem("core.variables.settings") || "{}",
+        localStorage.getItem('core.variables.settings') || '{}'
       );
       const defaultProxy = get(
         appSettings,
-        "defaultCorsProxy",
-        "https://proxy.kendra.io/",
+        'defaultCorsProxy',
+        'https://proxy.kendra.io/'
       );
-      url = get(this.config, "proxyUrl", defaultProxy);
+      url = get(this.config, 'proxyUrl', defaultProxy);
       if (!url) {
         this.hasError = true;
-        this.errorMessage = "Invalid proxy URL";
+        this.errorMessage = 'Invalid proxy URL';
         return;
       }
     }
 
-    if (has(this.config, "authentication.type")) {
-      const valueGetters = get(this.config, "authentication.valueGetters", {});
+    if (has(this.config, 'authentication.type')) {
+      const valueGetters = get(this.config, 'authentication.valueGetters', {});
       const context = {
         ...this.config.authentication,
         ...this.contextData.getGlobalContext(
           valueGetters,
           this.context,
-          this.model,
+          this.model
         ),
       };
-      switch (get(this.config, "authentication.type")) {
-        case "basic-auth":
-          if (has(context, "username") && has(context, "password")) {
+      switch (get(this.config, 'authentication.type')) {
+        case 'basic-auth':
+          if (has(context, 'username') && has(context, 'password')) {
             const { username, password } = context;
             headers = headers.append(
-              "Authorization",
-              "Basic " + btoa(`${username}:${password}`),
+              'Authorization',
+              'Basic ' + btoa(`${username}:${password}`)
             );
           }
           break;
-        case "bearer":
-          if (has(context, "jwt")) {
+        case 'bearer':
+          if (has(context, 'jwt')) {
             const { jwt } = context;
-            headers = headers.append("Authorization", `Bearer ${jwt}`);
+            headers = headers.append('Authorization', `Bearer ${jwt}`);
           }
           break;
         default:
-          console.log("Unknown authentication type");
+          console.log('Unknown authentication type');
       }
     }
 
     // TODO: decide what to do with response when error condition
     switch (toUpper(method)) {
-      case "GET":
+      case 'GET':
         // force the service worker bypass.
         // When calls are passed to the service worker, they can be invisibly cached
         // by forcing a bypass, we have more control to force a call to take place
-        headers = headers.append("ngsw-bypass", "true");
-        if (get(this.config, "followPaginationLinksMerged", false)) {
+        headers = headers.append('ngsw-bypass', 'true');
+        if (get(this.config, 'followPaginationLinksMerged', false)) {
           this.getAllPages(url, headers, this.responseType);
         } else {
           this.http
@@ -184,7 +184,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
                   hasError: this.hasError,
                   errorMessage: this.errorMessage,
                 });
-              }),
+              })
             )
             .subscribe((response: Record<string, any>) => {
               this.isLoading = false;
@@ -195,7 +195,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
             });
         }
         break;
-      case "DELETE":
+      case 'DELETE':
         this.http
           .delete(url, { headers, responseType: this.responseType })
           .pipe(
@@ -209,7 +209,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
                 hasError: this.hasError,
                 errorMessage: this.errorMessage,
               });
-            }),
+            })
           )
           .subscribe((response: Record<string, any>) => {
             this.isLoading = false;
@@ -219,15 +219,15 @@ export class HttpBlockComponent implements OnInit, OnChanges {
             this.outputResult(response);
           });
         break;
-      case "BPUT": // binary PUT
+      case 'BPUT': // binary PUT
         const isArrayBufferWithContent = (obj) =>
           obj instanceof ArrayBuffer && obj.byteLength > 0;
-        const payloadB = get(this.model, "content");
+        const payloadB = get(this.model, 'content');
         if (!isArrayBufferWithContent(payloadB)) {
           this.isLoading = false;
           this.hasError = true;
           this.errorMessage = `${toUpper(
-            method,
+            method
           )} of empty payload prevented in http block`;
           this.errorData = {};
           this.errorBlocks = [];
@@ -247,7 +247,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
                 hasError: this.hasError,
                 errorMessage: this.errorMessage,
               });
-            }),
+            })
           )
           .subscribe((response: Record<string, any>) => {
             this.isLoading = false;
@@ -255,37 +255,37 @@ export class HttpBlockComponent implements OnInit, OnChanges {
             if (!response.hasError) this.errorBlocks = [];
 
             this.outputResult(response);
-            const notify = get(this.config, "notify", true);
+            const notify = get(this.config, 'notify', true);
             if (notify) {
-              const message = "API update successful";
-              this.notify.open(message, "OK", {
+              const message = 'API update successful';
+              this.notify.open(message, 'OK', {
                 duration: 2000,
-                verticalPosition: "top",
+                verticalPosition: 'top',
               });
             }
           });
         break;
-      case "PUT":
-      case "POST":
-      case "PATCH":
+      case 'PUT':
+      case 'POST':
+      case 'PATCH':
         const isEmptyObject = (obj) =>
           obj instanceof Object && Object.keys(obj).length === 0;
         let payload = this.getPayload();
         if (
-          "application/x-www-form-urlencoded" ===
-          get(this.config, "requestType", "application/json")
+          'application/x-www-form-urlencoded' ===
+          get(this.config, 'requestType', 'application/json')
         ) {
           payload = new HttpParams({ fromObject: payload }).toString();
           headers = headers.set(
-            "Content-Type",
-            "application/x-www-form-urlencoded",
+            'Content-Type',
+            'application/x-www-form-urlencoded'
           );
         }
         if (isEmptyObject(payload)) {
           this.isLoading = false;
           this.hasError = true;
           this.errorMessage = `${toUpper(
-            method,
+            method
           )} of empty payload prevented in http block`;
           this.errorData = {};
           this.errorBlocks = [];
@@ -293,12 +293,12 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           return;
         }
         const sub =
-          toUpper(method) === "PUT"
+          toUpper(method) === 'PUT'
             ? this.http.put(url, payload, {
                 headers,
                 responseType: this.responseType,
               })
-            : toUpper(method) === "PATCH"
+            : toUpper(method) === 'PATCH'
               ? this.http.patch(url, payload, {
                   headers,
                   responseType: this.responseType,
@@ -319,7 +319,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
                 hasError: this.hasError,
                 errorMessage: this.errorMessage,
               });
-            }),
+            })
           )
           .subscribe((response: Record<string, any>) => {
             this.isLoading = false;
@@ -327,12 +327,12 @@ export class HttpBlockComponent implements OnInit, OnChanges {
             if (!response.hasError) this.errorBlocks = [];
 
             this.outputResult(response);
-            const notify = get(this.config, "notify", true);
+            const notify = get(this.config, 'notify', true);
             if (notify) {
-              const message = "API update successful";
-              this.notify.open(message, "OK", {
+              const message = 'API update successful';
+              this.notify.open(message, 'OK', {
                 duration: 2000,
-                verticalPosition: "top",
+                verticalPosition: 'top',
               });
             }
           });
@@ -349,23 +349,23 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   getAllPages(url, headers, responseType) {
     // Expands through pages recursively based on nextPageUrl
     this.http
-      .get(url, { headers, responseType, observe: "response" })
+      .get(url, { headers, responseType, observe: 'response' })
       .pipe(
         expand((response: HttpResponse<any>) => {
-          const linkHeader = response.headers.get("link");
+          const linkHeader = response.headers.get('link');
           const nextPageUrl = this.extractNextPageUrl(linkHeader);
 
           if (nextPageUrl) {
-            if (get(this.config, "useProxy", false)) {
-              headers = headers.delete("Target-URL");
-              headers = headers.append("Target-URL", nextPageUrl);
+            if (get(this.config, 'useProxy', false)) {
+              headers = headers.delete('Target-URL');
+              headers = headers.append('Target-URL', nextPageUrl);
             } else {
               url = nextPageUrl;
             }
             return this.http.get(url, {
               headers,
               responseType,
-              observe: "response",
+              observe: 'response',
             });
           } else {
             return EMPTY;
@@ -381,8 +381,8 @@ export class HttpBlockComponent implements OnInit, OnChanges {
         reduce(
           (accumlated_results: any[], response: HttpResponse<any>) =>
             accumlated_results.concat(response.body || []),
-          [],
-        ),
+          []
+        )
       )
       .subscribe((results) => {
         this.isLoading = false;
@@ -420,7 +420,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
 
     // We use a regex to extract the URL and relation type from each link,
     // and return an object with the URL and relation type.
-    const links = linkHeader.split(",").map((link) => {
+    const links = linkHeader.split(',').map((link) => {
       // The regex will match the first pair of angle brackets enclosing the URL,
       // and the first pair of double quotes enclosing the relation type.
       // Example: `<https://example.com/data?page=2>; rel="next"`
@@ -434,7 +434,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     });
 
     // Get the first link that matches the condition:
-    const nextPageLink = links.find((link) => link?.rel === "next");
+    const nextPageLink = links.find((link) => link?.rel === 'next');
     // We return the URL of the next page if it exists, or null otherwise.
     return nextPageLink?.url || null;
   }
@@ -444,47 +444,47 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   }
 
   getPayloadHeaders() {
-    const headers = get(this.config, "headers", {});
+    const headers = get(this.config, 'headers', {});
     return Object.keys(headers).reduce((a, key) => {
       a[key] = mappingUtility(
         { data: this.model, context: this.context },
-        headers[key],
+        headers[key]
       );
       return a;
     }, {});
   }
 
   getPayload() {
-    const payloadMapping = get(this.config, "payload");
+    const payloadMapping = get(this.config, 'payload');
     if (payloadMapping) {
       return mappingUtility(
         { data: this.model, context: this.context },
-        payloadMapping,
+        payloadMapping
       );
     }
     return this.model;
   }
 
   constructEndpointUrl(config) {
-    if (isString(get(config, "endpoint", ""))) {
+    if (isString(get(config, 'endpoint', ''))) {
       return config.endpoint;
     }
     const endpoint = this.contextData.getFromContextWithModel(
       config.endpoint,
       this.model,
-      this.context,
+      this.context
     );
     if (isString(endpoint)) {
       return endpoint;
     }
-    const protocol = get(endpoint, "protocol", "https:");
-    const host = get(endpoint, "host", "");
-    const pathname = get(endpoint, "pathname", "/");
-    const query = get(endpoint, "query", []);
+    const protocol = get(endpoint, 'protocol', 'https:');
+    const host = get(endpoint, 'host', '');
+    const pathname = get(endpoint, 'pathname', '/');
+    const query = get(endpoint, 'query', []);
     const reduceQuery = (_q) =>
       Object.keys(_q)
         .map((key) => `${key}=${_q[key]}`, [])
-        .join("&");
+        .join('&');
 
     return `${protocol}//${host}${pathname}?${reduceQuery(query)}`;
   }

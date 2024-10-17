@@ -1,14 +1,14 @@
-import { Directive, HostBinding } from "@angular/core";
-import { AppSettingsService } from "../services/app-settings.service";
+import { Directive, HostBinding } from '@angular/core';
+import { AppSettingsService } from '../services/app-settings.service';
 
 @Directive({
-  selector: "[appDebugOnly]",
+  selector: '[appDebugOnly]',
 })
 export class DebugOnlyDirective {
-  @HostBinding("hidden")
+  @HostBinding('hidden')
   isHidden = true;
 
   constructor(private readonly settings: AppSettingsService) {
-    this.isHidden = !this.settings.get("debugMode", false);
+    this.isHidden = !this.settings.get('debugMode', false);
   }
 }

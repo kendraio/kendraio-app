@@ -1,8 +1,8 @@
-import { Pipe, PipeTransform } from "@angular/core";
-import { mappingUtility } from "../blocks/mapping-block/mapping-util";
+import { Pipe, PipeTransform } from '@angular/core';
+import { mappingUtility } from '../blocks/mapping-block/mapping-util';
 
 @Pipe({
-  name: "mapping",
+  name: 'mapping',
 })
 export class MappingPipe implements PipeTransform {
   transform(value: any, expr): any {

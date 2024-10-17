@@ -1,15 +1,15 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { FieldType } from "@ngx-formly/core";
-import { MatLegacyRadioChange as MatRadioChange } from "@angular/material/legacy-radio";
-import { UntypedFormGroup, UntypedFormBuilder } from "@angular/forms";
-import { Observable, Subscription } from "rxjs";
-import { Animations } from "../../animations";
-import { UserProfile } from "../../services/google/user-profile.service";
-import { YoutubeDataService } from "src/app/services/youtube-data.service";
+import { Component, OnInit, Input } from '@angular/core';
+import { FieldType } from '@ngx-formly/core';
+import { MatLegacyRadioChange as MatRadioChange } from '@angular/material/legacy-radio';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
+import { Observable, Subscription } from 'rxjs';
+import { Animations } from '../../animations';
+import { UserProfile } from '../../services/google/user-profile.service';
+import { YoutubeDataService } from 'src/app/services/youtube-data.service';
 
 @Component({
-  selector: "app-field-input-visibility",
-  templateUrl: "playlists.component.html",
+  selector: 'app-field-input-visibility',
+  templateUrl: 'playlists.component.html',
   animations: [Animations.kendraAnimations],
 })
 // tslint:disable-next-line: component-class-suffiximplements OnInit
@@ -28,7 +28,7 @@ export class FieldInputPlaylistComponent extends FieldType implements OnInit {
 
   videoPlaylist: {
     id: string;
-  }[] = [{ id: "1" }, { id: "3" }];
+  }[] = [{ id: '1' }, { id: '3' }];
 
   val: string;
   showSchedulue: boolean;
@@ -43,7 +43,7 @@ export class FieldInputPlaylistComponent extends FieldType implements OnInit {
   constructor(
     private fb: UntypedFormBuilder,
     private userProfile: UserProfile,
-    private yt: YoutubeDataService,
+    private yt: YoutubeDataService
   ) {
     super();
   }
@@ -54,12 +54,12 @@ export class FieldInputPlaylistComponent extends FieldType implements OnInit {
     });
 
     this.newPlaylistForm = this.fb.group({
-      visibility: "",
-      playlistTitle: "",
+      visibility: '',
+      playlistTitle: '',
     });
 
     this.myform = this.fb.group({
-      myPlaylistCtrl: "",
+      myPlaylistCtrl: '',
     });
 
     this.updateList();
@@ -108,11 +108,11 @@ export class FieldInputPlaylistComponent extends FieldType implements OnInit {
   // }
 
   get visibility() {
-    return this.newPlaylistForm.get("visibility").value;
+    return this.newPlaylistForm.get('visibility').value;
   }
 
   get playlistTitle() {
-    return this.newPlaylistForm.get("playlistTitle").value;
+    return this.newPlaylistForm.get('playlistTitle').value;
   }
 
   onListControlChanged(listId, event) {

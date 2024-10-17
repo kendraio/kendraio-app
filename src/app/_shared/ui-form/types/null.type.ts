@@ -1,9 +1,9 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { FieldType } from "@ngx-formly/core";
-import { indexOf } from "lodash-es";
+import { Component, Input, OnInit } from '@angular/core';
+import { FieldType } from '@ngx-formly/core';
+import { indexOf } from 'lodash-es';
 
 @Component({
-  selector: "app-null-type",
+  selector: 'app-null-type',
   template: `
     <div>
       <label
@@ -34,12 +34,12 @@ export class NullTypeComponent extends FieldType implements OnInit {
   ngOnInit() {
     this.text = this.formControl.value;
     if (this.formControl.value) {
-      this.isUrl = this.formControl.value.toString().indexOf("http") > -1;
+      this.isUrl = this.formControl.value.toString().indexOf('http') > -1;
     }
 
     this.text2 = this.to.description;
   }
   cleanUrl(urlStr: string) {
-    return urlStr.split("/")[2];
+    return urlStr.split('/')[2];
   }
 }

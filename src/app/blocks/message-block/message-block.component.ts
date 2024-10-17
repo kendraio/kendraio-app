@@ -7,14 +7,14 @@ import {
   OnInit,
   Output,
   ViewChild,
-} from "@angular/core";
-import { clone, get, isArray, isObject } from "lodash-es";
-import { compile } from "handlebars/dist/handlebars.js";
+} from '@angular/core';
+import { clone, get, isArray, isObject } from 'lodash-es';
+import { compile } from 'handlebars/dist/handlebars.js';
 
 @Component({
-  selector: "app-message-block",
-  templateUrl: "./message-block.component.html",
-  styleUrls: ["./message-block.component.scss"],
+  selector: 'app-message-block',
+  templateUrl: './message-block.component.html',
+  styleUrls: ['./message-block.component.scss'],
 })
 export class MessageBlockComponent implements OnInit, OnChanges {
   @Input() config;
@@ -23,9 +23,9 @@ export class MessageBlockComponent implements OnInit, OnChanges {
 
   @Output() output = new EventEmitter();
 
-  title = "";
-  message = "";
-  type = "";
+  title = '';
+  message = '';
+  type = '';
 
   constructor() {}
 
@@ -54,13 +54,13 @@ export class MessageBlockComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes) {
-    this.type = get(this.config, "type", "");
-    this.title = compile(get(this.config, "title", ""))({
+    this.type = get(this.config, 'type', '');
+    this.title = compile(get(this.config, 'title', ''))({
       context: this.context || {},
       data: this.model,
       ...(this.model || {}),
     });
-    this.message = compile(get(this.config, "message", ""))({
+    this.message = compile(get(this.config, 'message', ''))({
       context: this.context || {},
       data: this.model,
       ...(this.model || {}),

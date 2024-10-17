@@ -1,17 +1,17 @@
-import { Component, Inject, OnInit } from "@angular/core";
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA,
   MatLegacyDialogRef as MatDialogRef,
-} from "@angular/material/legacy-dialog";
-import { interval } from "rxjs";
-import { startWith, take } from "rxjs/operators";
-import * as X2JS from "x2js";
-import { DocumentRepositoryService } from "../../services/document-repository.service";
+} from '@angular/material/legacy-dialog';
+import { interval } from 'rxjs';
+import { startWith, take } from 'rxjs/operators';
+import * as X2JS from 'x2js';
+import { DocumentRepositoryService } from '../../services/document-repository.service';
 
 @Component({
-  selector: "app-import-progress-dialog",
-  templateUrl: "./import-progress-dialog.component.html",
-  styleUrls: ["./import-progress-dialog.component.scss"],
+  selector: 'app-import-progress-dialog',
+  templateUrl: './import-progress-dialog.component.html',
+  styleUrls: ['./import-progress-dialog.component.scss'],
 })
 export class ImportProgressDialogComponent implements OnInit {
   progress = 0;
@@ -19,7 +19,7 @@ export class ImportProgressDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ImportProgressDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
-    private readonly docsRepo: DocumentRepositoryService,
+    private readonly docsRepo: DocumentRepositoryService
   ) {}
 
   ngOnInit() {
@@ -35,20 +35,20 @@ export class ImportProgressDialogComponent implements OnInit {
     console.log(_r);
 
     if (
-      _r["RecordingInformationNotification"].ProjectList.Project.ProjectName
+      _r['RecordingInformationNotification'].ProjectList.Project.ProjectName
     ) {
       const data = {
-        name: _r["RecordingInformationNotification"].ProjectList.Project
+        name: _r['RecordingInformationNotification'].ProjectList.Project
           .ProjectName,
         json_data: _r,
       };
-      this.docsRepo.addNew("mrin_Project", data).subscribe(() => {
+      this.docsRepo.addNew('mrin_Project', data).subscribe(() => {
         interval(10)
           .pipe(startWith(0), take(100))
           .subscribe(
             () => (this.progress += 1),
             (err) => console.log(err),
-            () => this.dialogRef.close(),
+            () => this.dialogRef.close()
           );
       });
     } else {

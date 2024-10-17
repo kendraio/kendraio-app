@@ -5,11 +5,11 @@ import {
   HttpHandler,
   HttpEvent,
   HttpErrorResponse,
-} from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
-import { Observable, of, from, EMPTY, empty, throwError } from "rxjs";
-import { map, catchError } from "rxjs/operators";
+} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable, of, from, EMPTY, empty, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
@@ -17,7 +17,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
   intercept(
     request: HttpRequest<any>,
-    next: HttpHandler,
+    next: HttpHandler
   ): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
       map((event: HttpEvent<any>) => {
@@ -33,12 +33,12 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           reason:
             error && error.error && error.error.reason
               ? error.error.reason
-              : "",
+              : '',
           status: error.status,
         };
         // console.log(error.statusText);
         return throwError(error);
-      }),
+      })
     );
   }
 }

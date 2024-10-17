@@ -1,7 +1,7 @@
-import { Component, ViewChild } from "@angular/core";
-import { FieldType } from "@ngx-formly/material";
-import { ErrorStateMatcher } from "@angular/material/core";
-import { MatLegacyInput as MatInput } from "@angular/material/legacy-input";
+import { Component, ViewChild } from '@angular/core';
+import { FieldType } from '@ngx-formly/material';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { MatLegacyInput as MatInput } from '@angular/material/legacy-input';
 
 /** Error when invalid control is dirty, touched, or submitted.
  * this is an attempt to allow custom error msgs
@@ -74,7 +74,7 @@ export class TextareaComponent extends FieldType {
     return this.to.description;
   }
   get test(): string {
-    return this.formControl.getError("maxLength");
+    return this.formControl.getError('maxLength');
   }
 }
 

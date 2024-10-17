@@ -1,32 +1,32 @@
-import { Injectable } from "@angular/core";
-import { NavigationEnd, Router } from "@angular/router";
-import { filter, take, tap, withLatestFrom } from "rxjs/operators";
-import { ExportConfigDialogComponent } from "../dialogs/export-config-dialog/export-config-dialog.component";
-import * as stringify from "json-stringify-safe";
-import { PasteConfigDialogComponent } from "../dialogs/paste-config-dialog/paste-config-dialog.component";
-import { clone, findIndex, get, has, isArray, pick, set } from "lodash-es";
-import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
-import { MatLegacySnackBar as MatSnackBar } from "@angular/material/legacy-snack-bar";
-import { PageTitleService } from "./page-title.service";
-import { AdaptersService } from "./adapters.service";
+import { Injectable } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter, take, tap, withLatestFrom } from 'rxjs/operators';
+import { ExportConfigDialogComponent } from '../dialogs/export-config-dialog/export-config-dialog.component';
+import * as stringify from 'json-stringify-safe';
+import { PasteConfigDialogComponent } from '../dialogs/paste-config-dialog/paste-config-dialog.component';
+import { clone, findIndex, get, has, isArray, pick, set } from 'lodash-es';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { PageTitleService } from './page-title.service';
+import { AdaptersService } from './adapters.service';
 // tslint:disable-next-line:import-spacing
-import { AdapterBlocksConfigSelectDialogComponent } from "../dialogs/adapter-blocks-config-select-dialog/adapter-blocks-config-select-dialog.component";
-import { ShareLinkGeneratorService } from "./share-link-generator.service";
-import { LoadWorkflowDialogComponent } from "../dialogs/load-workflow-dialog/load-workflow-dialog.component";
-import { SaveWorkflowDialogComponent } from "../dialogs/save-workflow-dialog/save-workflow-dialog.component";
-import { EditWorkflowMetadataDialogComponent } from "../dialogs/edit-workflow-metadata-dialog/edit-workflow-metadata-dialog.component";
-import { LocalDatabaseService } from "./local-database.service";
-import { camelCase } from "lodash-es";
-import { ConnectionManagerService } from "./connection-manager.service";
-import { WorkflowRepoService } from "./workflow-repo.service";
+import { AdapterBlocksConfigSelectDialogComponent } from '../dialogs/adapter-blocks-config-select-dialog/adapter-blocks-config-select-dialog.component';
+import { ShareLinkGeneratorService } from './share-link-generator.service';
+import { LoadWorkflowDialogComponent } from '../dialogs/load-workflow-dialog/load-workflow-dialog.component';
+import { SaveWorkflowDialogComponent } from '../dialogs/save-workflow-dialog/save-workflow-dialog.component';
+import { EditWorkflowMetadataDialogComponent } from '../dialogs/edit-workflow-metadata-dialog/edit-workflow-metadata-dialog.component';
+import { LocalDatabaseService } from './local-database.service';
+import { camelCase } from 'lodash-es';
+import { ConnectionManagerService } from './connection-manager.service';
+import { WorkflowRepoService } from './workflow-repo.service';
 
-const DEFAULT_ADAPTER_NAME = "Adapter name";
+const DEFAULT_ADAPTER_NAME = 'Adapter name';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class WorkflowService {
-  title = "";
+  title = '';
   id;
   blocks = [];
   models = [];
@@ -44,12 +44,12 @@ export class WorkflowService {
     private readonly localData: LocalDatabaseService,
     private readonly notify: MatSnackBar,
     private readonly connectionManager: ConnectionManagerService,
-    private readonly workflowRepo: WorkflowRepoService,
+    private readonly workflowRepo: WorkflowRepoService
   ) {
     this.router.events
       .pipe(
         filter((e): e is NavigationEnd => e instanceof NavigationEnd),
-        filter(({ url }) => url === "/workflow-builder"),
+        filter(({ url }) => url === '/workflow-builder')
       )
       .subscribe((_) => this.loadState());
   }
@@ -59,24 +59,24 @@ export class WorkflowService {
     if (urlData && isArray(urlData)) {
       this.blocks = urlData;
       this.initWorkflow(
-        { title: "Flow name", blocks: urlData, context: {}, tags: [] },
-        true,
+        { title: 'Flow name', blocks: urlData, context: {}, tags: [] },
+        true
       );
     }
   }
 
   loadState() {
-    const state = JSON.parse(localStorage.getItem("kendraio-workflow-state"));
-    const title = get(state, "title", "Flow name");
-    const blocks = get(state, "blocks", []);
-    const context = get(state, "context", {});
-    const tags = get(state, "tags", []);
+    const state = JSON.parse(localStorage.getItem('kendraio-workflow-state'));
+    const title = get(state, 'title', 'Flow name');
+    const blocks = get(state, 'blocks', []);
+    const context = get(state, 'context', {});
+    const tags = get(state, 'tags', []);
     this.initWorkflow({ title, blocks, context, tags });
-    this.id = get(state, "id", false);
+    this.id = get(state, 'id', false);
     set(
       this.context,
-      "app.adapterName",
-      get(state, "adapterName", this.getAdapterName()),
+      'app.adapterName',
+      get(state, 'adapterName', this.getAdapterName())
     );
   }
 
@@ -85,8 +85,8 @@ export class WorkflowService {
     const adapterName = this.getAdapterName();
     this.workflowRepo.clearCacheFor(adapterName, id);
     localStorage.setItem(
-      "kendraio-workflow-state",
-      JSON.stringify({ title, blocks, context, id, adapterName }),
+      'kendraio-workflow-state',
+      JSON.stringify({ title, blocks, context, id, adapterName })
     );
   }
 
@@ -95,7 +95,7 @@ export class WorkflowService {
     // this.pageTitle.onRefresh();
     // ... when this refresh call should just re-init the running workflow
     this.models = this.blocks.map((blockDef) =>
-      get(blockDef, "defaultValue", {}),
+      get(blockDef, 'defaultValue', {})
     );
     this.models.push({});
     // TODO: this is a partial refresh of context data, but needs refactoring
@@ -111,16 +111,16 @@ export class WorkflowService {
 
   clearBlocks() {
     this.blocks = [];
-    this.id = "";
-    this.title = "Flow";
-    set(this.context, "app.adapterName", undefined);
+    this.id = '';
+    this.title = 'Flow';
+    set(this.context, 'app.adapterName', undefined);
     this.saveState();
-    this.router.navigate(["/workflow-builder"]);
+    this.router.navigate(['/workflow-builder']);
   }
 
   clearWorkflowData() {
     this.models = this.blocks.map((blockDef) =>
-      get(blockDef, "defaultValue", {}),
+      get(blockDef, 'defaultValue', {})
     );
     this.models.push({});
   }
@@ -136,7 +136,7 @@ export class WorkflowService {
             adapterName: this.getAdapterName(),
           },
           null,
-          2,
+          2
         ),
       },
     });
@@ -146,33 +146,33 @@ export class WorkflowService {
     const dialogRef = this.dialog.open(PasteConfigDialogComponent, {});
     dialogRef.afterClosed().subscribe((value) => {
       if (!!value) {
-        this.router.navigate(["/workflow-builder"]).then(() => {
+        this.router.navigate(['/workflow-builder']).then(() => {
           try {
             const config = JSON.parse(value);
-            if (has(config, "blocks")) {
+            if (has(config, 'blocks')) {
               this.router.routerState.root.queryParams
                 .pipe(
                   take(1),
-                  withLatestFrom(this.router.routerState.root.fragment),
+                  withLatestFrom(this.router.routerState.root.fragment)
                 )
                 .subscribe(([queryParams, fragment]) => {
                   this.initWorkflow({
-                    title: get(config, "title", "Imported config"),
-                    blocks: get(config, "blocks", []),
+                    title: get(config, 'title', 'Imported config'),
+                    blocks: get(config, 'blocks', []),
                     context: { queryParams, fragment },
-                    tags: get(config, "tags", []),
+                    tags: get(config, 'tags', []),
                   });
-                  this.id = get(config, "id");
+                  this.id = get(config, 'id');
                   set(
                     this.context,
-                    "app.adapterName",
-                    get(config, "adapterName", DEFAULT_ADAPTER_NAME),
+                    'app.adapterName',
+                    get(config, 'adapterName', DEFAULT_ADAPTER_NAME)
                   );
                   this.saveState();
                 });
             }
           } catch (e) {
-            console.log("Error importing config", e);
+            console.log('Error importing config', e);
           }
         });
       }
@@ -188,28 +188,28 @@ export class WorkflowService {
     this.context = clone(context);
     set(
       this.context,
-      "app.location",
+      'app.location',
       pick(location, [
-        "origin",
-        "protocol",
-        "host",
-        "port",
-        "pathname",
-        "search",
-        "hash",
-        "href",
-      ]),
+        'origin',
+        'protocol',
+        'host',
+        'port',
+        'pathname',
+        'search',
+        'hash',
+        'href',
+      ])
     );
     this.connectionManager.addToContext(this.context);
     this.id = this.getWorkflowId();
     this.models = this.blocks.map((blockDef) =>
-      get(blockDef, "defaultValue", {}),
+      get(blockDef, 'defaultValue', {})
     );
     this.models.push({});
     if (isBuilder) {
       this.saveState();
     }
-    if (this.tags.includes("app")) {
+    if (this.tags.includes('app')) {
       this.pageTitle.enableAppLayout();
     } else {
       this.pageTitle.disableAppLayout();
@@ -217,7 +217,7 @@ export class WorkflowService {
   }
 
   shareConfig() {
-    this.shareLinks.shareFlowLink("workflow-builder", this.blocks);
+    this.shareLinks.shareFlowLink('workflow-builder', this.blocks);
   }
 
   loadFromAdapter() {
@@ -225,23 +225,23 @@ export class WorkflowService {
       AdapterBlocksConfigSelectDialogComponent,
       {
         data: {},
-      },
+      }
     );
     dialogRef.afterClosed().subscribe((values) => {
       if (!!values) {
         this.initWorkflow({ ...values, context: {} });
         set(
           this.context,
-          "app.adapterName",
-          get(values, "adapterName", this.getAdapterName()),
+          'app.adapterName',
+          get(values, 'adapterName', this.getAdapterName())
         );
       }
     });
   }
 
   saveToAdapter() {
-    this.localData["workflows"]
-      .where("[adapterName+workflowId]")
+    this.localData['workflows']
+      .where('[adapterName+workflowId]')
       .equals([this.getAdapterName() || DEFAULT_ADAPTER_NAME, this.id])
       .modify({
         blocks: this.blocks,
@@ -250,13 +250,13 @@ export class WorkflowService {
         modified: true,
       })
       .then(() => {
-        this.localData["adapters"]
+        this.localData['adapters']
           .get(this.getAdapterName())
           .then((adapter) => {
-            const workflow = get(adapter, "workflow", []);
+            const workflow = get(adapter, 'workflow', []);
             const workflowIndex = findIndex(
               workflow,
-              ({ workflowId }) => workflowId === this.id,
+              ({ workflowId }) => workflowId === this.id
             );
             if (workflowIndex !== -1) {
               workflow[workflowIndex] = {
@@ -265,16 +265,16 @@ export class WorkflowService {
                 modified: true,
               };
             }
-            this.localData["adapters"]
+            this.localData['adapters']
               .update(this.getAdapterName(), {
                 ...adapter,
                 workflow,
                 modified: true,
               })
               .then(() => {
-                this.notify.open("Saved workflow", "OK", {
-                  verticalPosition: "top",
-                  horizontalPosition: "center",
+                this.notify.open('Saved workflow', 'OK', {
+                  verticalPosition: 'top',
+                  horizontalPosition: 'center',
                   duration: 2000,
                 });
               });
@@ -298,7 +298,7 @@ export class WorkflowService {
     dialogRef.afterClosed().subscribe((values) => {
       if (!!values) {
         // console.log(values);
-        this.id = get(values, "id", this.id);
+        this.id = get(values, 'id', this.id);
         this.saveState();
         this.dirty = false;
       }
@@ -310,16 +310,16 @@ export class WorkflowService {
     dialogRef.afterClosed().subscribe((values) => {
       if (!!values) {
         // console.log(values);
-        const blocks = get(values, "blocks", []);
-        const tags = get(values, "tags", []);
-        const title = get(values, "title", "Flow");
+        const blocks = get(values, 'blocks', []);
+        const tags = get(values, 'tags', []);
+        const title = get(values, 'title', 'Flow');
         this.initWorkflow({ title, blocks, context: {}, tags });
-        this.id = get(values, "id");
-        this.tags = get(values, "tags", []);
+        this.id = get(values, 'id');
+        this.tags = get(values, 'tags', []);
         set(
           this.context,
-          "app.adapterName",
-          get(values, "adapterName", this.getAdapterName()),
+          'app.adapterName',
+          get(values, 'adapterName', this.getAdapterName())
         );
         this.saveState();
       }
@@ -334,13 +334,13 @@ export class WorkflowService {
     });
     dialogRef.afterClosed().subscribe((values) => {
       if (!!values) {
-        this.title = get(values, "title", "Flow");
-        this.id = get(values, "id");
-        this.tags = get(values, "tags");
+        this.title = get(values, 'title', 'Flow');
+        this.id = get(values, 'id');
+        this.tags = get(values, 'tags');
         set(
           this.context,
-          "app.adapterName",
-          get(values, "adapterName", this.getAdapterName()),
+          'app.adapterName',
+          get(values, 'adapterName', this.getAdapterName())
         );
         this.saveState();
         this.dirty = true;
@@ -349,10 +349,10 @@ export class WorkflowService {
   }
 
   getAdapterName() {
-    return get(this.context, "app.adapterName", "Adapter name");
+    return get(this.context, 'app.adapterName', 'Adapter name');
   }
 
   getWorkflowId() {
-    return get(this.context, "app.workflowId");
+    return get(this.context, 'app.workflowId');
   }
 }

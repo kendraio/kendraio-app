@@ -1,7 +1,7 @@
-import { Pipe, PipeTransform } from "@angular/core";
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: "objectKeys",
+  name: 'objectKeys',
 })
 export class ObjectKeysPipe implements PipeTransform {
   transform(value: any, args?: any): any {

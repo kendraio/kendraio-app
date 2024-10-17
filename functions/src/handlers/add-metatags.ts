@@ -1,9 +1,9 @@
-const fs = require("fs").promises;
+const fs = require('fs').promises;
 
 export const addMetatagsHandler = async (req, resp) => {
   const data = (await fs.readFile(
     `${process.cwd()}/index.html`,
-    "utf8",
+    'utf8'
   )) as string;
   const metatags = `
 <!-- Search Engine -->
@@ -29,5 +29,5 @@ export const addMetatagsHandler = async (req, resp) => {
 <meta property="og:locale" content="en_GB">
 <meta property="og:type" content="website">
 `;
-  resp.status(200).send(`${data.replace("</head>", `${metatags}</head>`)}`);
+  resp.status(200).send(`${data.replace('</head>', `${metatags}</head>`)}`);
 };

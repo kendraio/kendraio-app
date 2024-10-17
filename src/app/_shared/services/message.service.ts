@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
-import { Message } from "src/app/_models/classes/common";
+import { Injectable } from '@angular/core';
+import { Message } from 'src/app/_models/classes/common';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class MessageService {
   public messages: Array<Message> = [];
@@ -16,7 +16,7 @@ export class MessageService {
     //   alert(message.msgObj[0].text);
     //  this.messages.unshift(message);
     const objectModifiedIndex = this.messages.findIndex(
-      (objectModified) => objectModified.msgObj === message.msgObj,
+      (objectModified) => objectModified.msgObj === message.msgObj
     );
     const currentDate = new Date();
 
@@ -28,7 +28,7 @@ export class MessageService {
       this.messages.unshift(message);
     } else {
       if (this.messages.length > 0) {
-        this.messages[objectModifiedIndex].cssClass = "flash";
+        this.messages[objectModifiedIndex].cssClass = 'flash';
       }
 
       // this.closeMe(objectModifiedIndex);

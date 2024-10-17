@@ -1,9 +1,9 @@
-import { Component } from "@angular/core";
-import { FieldType } from "@ngx-formly/core";
-import { NgSelectModule, NgOption } from "@ng-select/ng-select";
+import { Component } from '@angular/core';
+import { FieldType } from '@ngx-formly/core';
+import { NgSelectModule, NgOption } from '@ng-select/ng-select';
 
 @Component({
-  selector: "app-field-ng-select",
+  selector: 'app-field-ng-select',
   template: `
     <ng-select
       ngSelectMat
@@ -29,13 +29,13 @@ export class KendraFieldSelect extends FieldType {
     return this.to.isMultiSelect || false;
   }
   get labelProp(): string {
-    return this.to.labelProp || "name";
+    return this.to.labelProp || 'name';
   }
   get valueProp(): string {
-    return this.to.valueProp || "id";
+    return this.to.valueProp || 'id';
   }
   get groupProp(): string {
-    return this.to.groupProp || "group";
+    return this.to.groupProp || 'group';
   }
 
   // TODO:

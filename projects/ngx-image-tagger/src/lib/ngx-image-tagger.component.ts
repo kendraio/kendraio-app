@@ -5,14 +5,14 @@ import {
   OnDestroy,
   OnInit,
   Output,
-} from "@angular/core";
-import { FormControl } from "@angular/forms";
-import { Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
+} from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: "ngx-image-tagger",
+  selector: 'ngx-image-tagger',
   template: `
     <!--      <img [src]="src" [alt]="alt">-->
     <ngx-tagger

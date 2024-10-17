@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
+import { Component, Input, OnInit } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: "app-blocks-input-control",
-  templateUrl: "./blocks-input-control.component.html",
-  styleUrls: ["./blocks-input-control.component.scss"],
+  selector: 'app-blocks-input-control',
+  templateUrl: './blocks-input-control.component.html',
+  styleUrls: ['./blocks-input-control.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

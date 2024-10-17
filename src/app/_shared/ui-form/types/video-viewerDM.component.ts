@@ -1,13 +1,13 @@
-import { Component, Input } from "@angular/core";
-import { FieldType } from "@ngx-formly/core";
+import { Component, Input } from '@angular/core';
+import { FieldType } from '@ngx-formly/core';
 import {
   DomSanitizer,
   SafeResourceUrl,
   SafeUrl,
-} from "@angular/platform-browser";
+} from '@angular/platform-browser';
 
 @Component({
-  selector: "formly-field-video-viewer2",
+  selector: 'formly-field-video-viewer2',
   template: `
     <mat-card>
       <mat-card-header>
@@ -45,17 +45,17 @@ export class FormlyFieldVideoViewerDM extends FieldType {
     this.videoId = this.formControl.value;
 
     switch (this.to.uiSchema.adapter) {
-      case "dailymotion":
+      case 'dailymotion':
         this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-          "//www.dailymotion.com/embed/video/" + this.formControl.value + "?",
+          '//www.dailymotion.com/embed/video/' + this.formControl.value + '?'
         );
         break;
 
       default:
         this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-          "https://player.vimeo.com/video/" +
+          'https://player.vimeo.com/video/' +
             this.formControl.value +
-            "?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=16166",
+            '?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=16166'
         );
 
         break;

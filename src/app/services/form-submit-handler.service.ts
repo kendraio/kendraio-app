@@ -1,5 +1,5 @@
-import { Injectable } from "@angular/core";
-import { BehaviorSubject, Subject } from "rxjs";
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 export interface FormSubmitAction {
   form: string;
@@ -8,7 +8,7 @@ export interface FormSubmitAction {
 }
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class FormSubmitHandlerService {
   private _actions$ = new Subject<FormSubmitAction>();

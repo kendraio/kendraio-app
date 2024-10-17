@@ -1,13 +1,13 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import {
   FieldArrayType,
   FormlyFieldConfig,
   FormlyFormBuilder,
-} from "@ngx-formly/core";
-import { AddBlockDialogComponent } from "../../dialogs/add-block-dialog/add-block-dialog.component";
-import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
-import { UntypedFormArray } from "@angular/forms";
-import { EDITOR_OPTIONS } from "../../components/block-builder-box/editor-options";
+} from '@ngx-formly/core';
+import { AddBlockDialogComponent } from '../../dialogs/add-block-dialog/add-block-dialog.component';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { UntypedFormArray } from '@angular/forms';
+import { EDITOR_OPTIONS } from '../../components/block-builder-box/editor-options';
 
 export class WorkflowType {
   name: string;
@@ -21,9 +21,9 @@ export interface WorkflowFieldConfig extends FormlyFieldConfig {
 }
 
 @Component({
-  selector: "app-formly-workflow-field",
-  templateUrl: "./formly-workflow-field.component.html",
-  styleUrls: ["./formly-workflow-field.component.scss"],
+  selector: 'app-formly-workflow-field',
+  templateUrl: './formly-workflow-field.component.html',
+  styleUrls: ['./formly-workflow-field.component.scss'],
 })
 export class FormlyWorkflowFieldComponent
   extends FieldArrayType<WorkflowFieldConfig>
@@ -39,7 +39,7 @@ export class FormlyWorkflowFieldComponent
 
   addTask() {
     const dialogRef = this.dialog.open(AddBlockDialogComponent, {
-      width: "460px",
+      width: '460px',
     });
     dialogRef.afterClosed().subscribe((newTask) => {
       if (!!newTask) {

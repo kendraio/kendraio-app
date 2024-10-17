@@ -1,5 +1,5 @@
-import * as uuid from "uuid";
-import { jsonToGraphQLQuery } from "json-to-graphql-query";
+import * as uuid from 'uuid';
+import { jsonToGraphQLQuery } from 'json-to-graphql-query';
 
 export class Tracking {
   sessionUUID = uuid.v4();
@@ -12,7 +12,7 @@ export class Tracking {
 
   fake = false;
 
-  graphqlEndpoint = "https://distributor.hasura.app/v1/graphql";
+  graphqlEndpoint = 'https://distributor.hasura.app/v1/graphql';
 
   queueWorkerTimer = setInterval(() => {
     if (this.queue.length === 0) {
@@ -22,7 +22,7 @@ export class Tracking {
     this.hotQueue = JSON.parse(JSON.stringify(this.queue)); // clone
     this.queue = [];
     this.sendData(this.hotQueue).then((_) => {
-      console.info("Success sending, emptying queue");
+      console.info('Success sending, emptying queue');
       parentThis.hotQueue = [];
     });
   }, this.queueWaitSeconds * 1000);
@@ -43,7 +43,7 @@ export class Tracking {
           },
           {
             pretty: true,
-          },
+          }
         ),
         variables: null,
       });
@@ -52,7 +52,7 @@ export class Tracking {
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           console.info(
-            ` pretending to send for session UUID: ${this.sessionUUID}`,
+            ` pretending to send for session UUID: ${this.sessionUUID}`
           );
           console.info(makeGraphQLMutationQuery(data));
           resolve(undefined);
@@ -60,10 +60,10 @@ export class Tracking {
       });
     }
     return fetch(this.graphqlEndpoint, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        Accept: "*/*",
-        "content-type": "application/json",
+        Accept: '*/*',
+        'content-type': 'application/json',
       },
       body: makeGraphQLMutationQuery(data),
     });

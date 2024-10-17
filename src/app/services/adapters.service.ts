@@ -1,12 +1,12 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { BehaviorSubject } from "rxjs";
-import { environment } from "../../environments/environment";
-import { map, tap } from "rxjs/operators";
-import { get } from "lodash-es";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { map, tap } from 'rxjs/operators';
+import { get } from 'lodash-es';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class AdaptersService {
   adapterKeys = [];
@@ -17,7 +17,7 @@ export class AdaptersService {
   adaptersReady$ = new BehaviorSubject(false);
 
   constructor(private readonly http: HttpClient) {
-    const savedState = localStorage.getItem("kendraio-adapter-state");
+    const savedState = localStorage.getItem('kendraio-adapter-state');
     if (savedState) {
       this.enabledAdapters = JSON.parse(savedState);
     }
@@ -26,7 +26,7 @@ export class AdaptersService {
       .pipe(
         tap((adapters) => {
           this.adapterKeys = Object.keys(adapters);
-        }),
+        })
       )
       .subscribe((adapters) => {
         // console.log(adapters);
@@ -39,7 +39,7 @@ export class AdaptersService {
   getAdaptersInfo() {
     return Object.keys(this._adapters || {}).reduce((a, key) => {
       a[key] = this._adapters[key];
-      a[key]["enabled"] = get(this.enabledAdapters, key, false);
+      a[key]['enabled'] = get(this.enabledAdapters, key, false);
       return a;
     }, {});
   }
@@ -50,7 +50,7 @@ export class AdaptersService {
 
   getAdapter(id) {
     return this.adapters$.pipe(
-      map((allAdapters) => get(allAdapters, `${id}.adapter`)),
+      map((allAdapters) => get(allAdapters, `${id}.adapter`))
       // tap(console.log)
     );
   }
@@ -68,8 +68,8 @@ export class AdaptersService {
 
   saveState() {
     localStorage.setItem(
-      "kendraio-adapter-state",
-      JSON.stringify(this.enabledAdapters),
+      'kendraio-adapter-state',
+      JSON.stringify(this.enabledAdapters)
     );
   }
 

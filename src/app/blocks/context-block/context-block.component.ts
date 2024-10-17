@@ -1,18 +1,18 @@
-import { Component, NgZone } from "@angular/core";
-import { BaseBlockComponent } from "../base-block/base-block.component";
-import { clone, get, set } from "lodash-es";
+import { Component, NgZone } from '@angular/core';
+import { BaseBlockComponent } from '../base-block/base-block.component';
+import { clone, get, set } from 'lodash-es';
 
 @Component({
-  selector: "app-context-block",
-  templateUrl: "./context-block.component.html",
-  styleUrls: ["./context-block.component.scss"],
+  selector: 'app-context-block',
+  templateUrl: './context-block.component.html',
+  styleUrls: ['./context-block.component.scss'],
 })
 export class ContextBlockComponent extends BaseBlockComponent {
   blocks = [];
   contextModels = [];
   models = [];
   newContext = {};
-  contextPath = "temp";
+  contextPath = 'temp';
   contextBlocks = [];
   contextOutput;
   gotContextValue = false;
@@ -29,12 +29,12 @@ export class ContextBlockComponent extends BaseBlockComponent {
      * The contextBlocks are ran first (until they produce output), once they output data, the data is saved to the contextPath
      * The flows from the "blocks" config are then ran, and can access the contextPath value
      */
-    this.blocks = get(config, "blocks", []);
-    this.skipFirst = get(config, "skipFirst", false);
-    this.contextPath = get(config, "contextPath", "temp");
-    this.contextBlocks = get(config, "contextBlocks", []);
+    this.blocks = get(config, 'blocks', []);
+    this.skipFirst = get(config, 'skipFirst', false);
+    this.contextPath = get(config, 'contextPath', 'temp');
+    this.contextBlocks = get(config, 'contextBlocks', []);
     this.models = this.blocks.map((blockDef) =>
-      get(blockDef, "defaultValue", {}),
+      get(blockDef, 'defaultValue', {})
     );
     this.models.push({});
   }
@@ -58,7 +58,7 @@ export class ContextBlockComponent extends BaseBlockComponent {
     // // }
     this.newContext = clone(this.context);
     // TODO: for security make sure this doesn't allow override app context!
-    if (!this.contextPath.startsWith("app")) {
+    if (!this.contextPath.startsWith('app')) {
       set(this.newContext, this.contextPath, this.contextOutput);
     }
   }

@@ -1,13 +1,13 @@
-import { Directive, ElementRef, HostBinding, Input } from "@angular/core";
-import { TagInterface } from "./tag.interface";
-import { DomSanitizer, SafeStyle } from "@angular/platform-browser";
+import { Directive, ElementRef, HostBinding, Input } from '@angular/core';
+import { TagInterface } from './tag.interface';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
-  selector: "[ngxTagPreview]",
+  selector: '[ngxTagPreview]',
 })
 export class TagPreviewDirective {
-  @Input("ngxTagPreview") set tag({ topLeft, bottomRight }: TagInterface) {
+  @Input('ngxTagPreview') set tag({ topLeft, bottomRight }: TagInterface) {
     const tl = `${topLeft.x * 100}% ${topLeft.y * 100}%`;
     const tr = `${bottomRight.x * 100}% ${topLeft.y * 100}%`;
     const bl = `${topLeft.x * 100}% ${bottomRight.y * 100}%`;
@@ -22,18 +22,18 @@ export class TagPreviewDirective {
     this.transform = this.sanitizer.bypassSecurityTrustStyle(t);
   }
 
-  @HostBinding("style.clip-path")
+  @HostBinding('style.clip-path')
   clipPath: SafeStyle;
 
-  @HostBinding("style.transform-origin")
-  origin = "top left";
+  @HostBinding('style.transform-origin')
+  origin = 'top left';
 
   // // TODO: scale up and translate the tag preview
-  @HostBinding("style.transform")
+  @HostBinding('style.transform')
   transform: SafeStyle;
 
   constructor(
     private readonly el: ElementRef,
-    private readonly sanitizer: DomSanitizer,
+    private readonly sanitizer: DomSanitizer
   ) {}
 }

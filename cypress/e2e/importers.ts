@@ -1,26 +1,26 @@
-import { loadFlowCode } from "../support/helper";
+import { loadFlowCode } from '../support/helper';
 // tslint:disable: quotemark
 /// <reference types="Cypress" />
 
-describe("Google sheets import", () => {
-  it("should extract shared CSV data from a published google sheet", () => {
-    cy.intercept("GET", "https://google-sheets-example.com/sheet1.csv", {
-      fixture: "googleSheet.csv",
-    }).as("googleSheet");
+describe('Google sheets import', () => {
+  it('should extract shared CSV data from a published google sheet', () => {
+    cy.intercept('GET', 'https://google-sheets-example.com/sheet1.csv', {
+      fixture: 'googleSheet.csv',
+    }).as('googleSheet');
     loadFlowCode([
       {
-        type: "init",
+        type: 'init',
       },
       {
-        type: "actions",
+        type: 'actions',
         buttons: [
           {
-            label: "Import Sheet",
-            color: "default",
+            label: 'Import Sheet',
+            color: 'default',
             blocks: [
               {
-                type: "gsheet",
-                shareUrl: "https://google-sheets-example.com/sheet1.csv",
+                type: 'gsheet',
+                shareUrl: 'https://google-sheets-example.com/sheet1.csv',
               },
             ],
             enabled: true,
@@ -29,11 +29,11 @@ describe("Google sheets import", () => {
       },
 
       {
-        type: "debug",
+        type: 'debug',
         open: 3,
       },
     ]);
-    cy.contains("Import Sheet").click().wait(["@googleSheet"]);
-    cy.contains("Adobe Cabernet Sauvignon Reserva").should("exist"); // defaults
+    cy.contains('Import Sheet').click().wait(['@googleSheet']);
+    cy.contains('Adobe Cabernet Sauvignon Reserva').should('exist'); // defaults
   });
 });

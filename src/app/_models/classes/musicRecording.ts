@@ -1,4 +1,4 @@
-import { IUser, ICountry } from ".";
+import { IUser, ICountry } from '.';
 
 export interface IMusicRecording {
   Name: string;
@@ -9,6 +9,6 @@ export interface IMusicRecording {
   Country: ICountry;
   Owner: string;
   Collective: string;
-  "Submitted to": string;
+  'Submitted to': string;
   Status: string;
 }

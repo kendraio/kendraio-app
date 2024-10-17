@@ -5,4 +5,4 @@ fields:
     id: Title
     label: Title
     autoComplete: off
-    defaultValue: ""
+    defaultValue: ''

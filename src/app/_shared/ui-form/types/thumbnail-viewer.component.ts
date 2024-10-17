@@ -1,13 +1,13 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { FieldType } from "@ngx-formly/core";
+import { Component, Input, OnInit } from '@angular/core';
+import { FieldType } from '@ngx-formly/core';
 import {
   DomSanitizer,
   SafeResourceUrl,
   SafeUrl,
-} from "@angular/platform-browser";
+} from '@angular/platform-browser';
 
 @Component({
-  selector: "app-thumbnail-viewer",
+  selector: 'app-thumbnail-viewer',
   template: `
     <section>
       <mat-label>{{ to.label }}</mat-label
@@ -33,7 +33,7 @@ import {
 })
 export class ThumbnailViewerComponent extends FieldType implements OnInit {
   @Input()
-  videoId: any = "I_txFxMKg4U";
+  videoId: any = 'I_txFxMKg4U';
   videoUrl: any;
   thumbs: Array<any> = [];
 
@@ -44,15 +44,15 @@ export class ThumbnailViewerComponent extends FieldType implements OnInit {
     this.thumbs = [
       // {url: 'https://i.ytimg.com/vi/' + this.formControl.value + '/0.jpg', isDefault: true},
       {
-        url: "https://i.ytimg.com/vi/" + this.formControl.value + "/1.jpg",
+        url: 'https://i.ytimg.com/vi/' + this.formControl.value + '/1.jpg',
         isDefault: false,
       },
       {
-        url: "https://i.ytimg.com/vi/" + this.formControl.value + "/2.jpg",
+        url: 'https://i.ytimg.com/vi/' + this.formControl.value + '/2.jpg',
         isDefault: true,
       },
       {
-        url: "https://i.ytimg.com/vi/" + this.formControl.value + "/3.jpg",
+        url: 'https://i.ytimg.com/vi/' + this.formControl.value + '/3.jpg',
         isDefault: false,
       },
     ];
@@ -60,7 +60,7 @@ export class ThumbnailViewerComponent extends FieldType implements OnInit {
 
   cleanUrl(urlStr: string) {
     if (urlStr.length) {
-      return urlStr.split("/")[4];
+      return urlStr.split('/')[4];
     }
   }
 

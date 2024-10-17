@@ -1,5 +1,5 @@
-import { decorate } from "@daz.is/jmespath";
-import * as uuid from "uuid";
+import { decorate } from '@daz.is/jmespath';
+import * as uuid from 'uuid';
 import {
   isString,
   find,
@@ -21,12 +21,12 @@ import {
   isNumber,
   set,
   findIndex,
-} from "lodash-es";
-import { DateTime } from "luxon";
-import { parse as parseQueryString, stringify as asQueryString } from "qs";
-import stringify from "json-stringify-safe";
-import * as showdown from "showdown";
-import { Buffer } from "buffer";
+} from 'lodash-es';
+import { DateTime } from 'luxon';
+import { parse as parseQueryString, stringify as asQueryString } from 'qs';
+import stringify from 'json-stringify-safe';
+import * as showdown from 'showdown';
+import { Buffer } from 'buffer';
 
 // Type constants used to define functions.
 const TYPE_NUMBER = 0;
@@ -65,8 +65,8 @@ const search = decorate({
     _func: ([name, NAMESPACE_STRING]) => {
       if (name) {
         const NAMESPACE_UUID = uuid.v5(
-          NAMESPACE_STRING || "https://app.kendra.io",
-          uuid.v5.URL,
+          NAMESPACE_STRING || 'https://app.kendra.io',
+          uuid.v5.URL
         );
         return uuid.v5(name, NAMESPACE_UUID);
       } else {
@@ -153,7 +153,7 @@ const search = decorate({
   },
   debug: {
     _func: ([v]) => {
-      console.log("debug value in mapping", v);
+      console.log('debug value in mapping', v);
       return v;
     },
     _signature: [{ types: [TYPE_ANY] }],
@@ -164,7 +164,7 @@ const search = decorate({
   },
   markdown: {
     _func: ([s]) => {
-      showdown.setFlavor("github");
+      showdown.setFlavor('github');
       const converter = new showdown.Converter();
       return converter.makeHtml(s);
     },
@@ -176,7 +176,7 @@ const search = decorate({
   },
   base64encode: {
     // btoa is not compatible with UTF-8, to safely manage the base64encoding
-    _func: ([s]) => Buffer.from(s).toString("base64"),
+    _func: ([s]) => Buffer.from(s).toString('base64'),
     _signature: [{ types: [TYPE_STRING] }],
   },
   pairwise: {
@@ -255,7 +255,7 @@ const search = decorate({
   },
   currency: {
     _func: ([n, l, c]) =>
-      new Intl.NumberFormat(l, { style: "currency", currency: c }).format(n),
+      new Intl.NumberFormat(l, { style: 'currency', currency: c }).format(n),
     _signature: [
       { types: [TYPE_NUMBER, TYPE_STRING] },
       { types: [TYPE_STRING] },
@@ -302,8 +302,8 @@ const search = decorate({
       if (isNull(n)) {
         return null;
       }
-      if (isString(n) && n.includes(":")) {
-        const [m, s] = n.split(":");
+      if (isString(n) && n.includes(':')) {
+        const [m, s] = n.split(':');
         return parseInt(m, 10) * 60 + s;
       }
       if (isString(n)) {
@@ -318,7 +318,7 @@ const search = decorate({
   },
   parseUnixTimestamp: {
     _func: ([n, format]) => {
-      if (format === "ms" || format === "milliseconds") {
+      if (format === 'ms' || format === 'milliseconds') {
         n = n / 1000;
       }
       if (isNumber(n)) {

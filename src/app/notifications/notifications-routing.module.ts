@@ -1,14 +1,14 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
-import * as pages from "./";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import * as pages from './';
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     component: pages.NotificationsComponent,
     data: {
-      breadcrumb: "",
-      menuLabel: "",
+      breadcrumb: '',
+      menuLabel: '',
     },
   },
 ];

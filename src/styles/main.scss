@@ -7,7 +7,7 @@ Global Style Guide:
   where the style attribute is sanitised, but CSS classes are allowed.
 *********/
 
-@import "~@ng-select/ng-select/themes/material.theme.css";
+@import '~@ng-select/ng-select/themes/material.theme.css';
 // @import '../../app/ng-select-theme';
 
 .formFieldWidth380 .mat-form-field-infix {
@@ -24,7 +24,7 @@ Global Style Guide:
 .ken-tree li {
   margin: 0;
   list-style-type: none;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
   font-size: 14px;
   font-weight: 500;
 
@@ -272,7 +272,7 @@ formly-array-type {
 
 // Fix for cut-off Formly Material label
 .mdc-text-field--filled::before {
-  content: "" !important;
+  content: '' !important;
 }
 
 .mdc-text-field--disabled,
@@ -285,7 +285,7 @@ formly-array-type {
 }
 
 .mdc-text-field--disabled mat-label::after {
-  content: "(read-only)";
+  content: '(read-only)';
 }
 
 // Kendraio3ca31f6bcb87c68721363847192dbd57

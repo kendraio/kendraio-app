@@ -1,8 +1,8 @@
-import { Component, OnInit } from "@angular/core";
-import { BaseBlockComponent } from "../base-block/base-block.component";
-import { mappingUtility } from "../mapping-block/mapping-util";
-import { SharedStateService } from "src/app/services/shared-state.service";
-import { clone, get } from "lodash-es";
+import { Component, OnInit } from '@angular/core';
+import { BaseBlockComponent } from '../base-block/base-block.component';
+import { mappingUtility } from '../mapping-block/mapping-util';
+import { SharedStateService } from 'src/app/services/shared-state.service';
+import { clone, get } from 'lodash-es';
 
 /**
  * The comparison block takes a source value, and then performs a set
@@ -18,7 +18,7 @@ import { clone, get } from "lodash-es";
  * Target and output data can be either string values, or jmespath expressions
  * Types are "value" by default
  */
-export const comparisonTypes = ["value", "jmespath"];
+export const comparisonTypes = ['value', 'jmespath'];
 
 /**
  *  Each comparison is defined using this structure
@@ -59,38 +59,38 @@ export type comparisonOperatorList = {
  *
  */
 export var comparisonOperators = {
-  "==": {
+  '==': {
     test: function (a: any, b: any): boolean {
       console.log(`a: ${a}  b:${b}`);
       return a == b;
     },
     paramcount: 2,
   },
-  "!=": {
+  '!=': {
     test: function (a: any, b: any): boolean {
       return a != b;
     },
     paramcount: 2,
   },
-  ">": {
+  '>': {
     test: function (a: any, b: any): boolean {
       return a > b;
     },
     paramcount: 2,
   },
-  ">=": {
+  '>=': {
     test: function (a: any, b: any): boolean {
       return a >= b;
     },
     paramcount: 2,
   },
-  "<": {
+  '<': {
     test: function (a: any, b: any): boolean {
       return a < b;
     },
     paramcount: 2,
   },
-  "<=": {
+  '<=': {
     test: function (a: any, b: any): boolean {
       return a <= b;
     },
@@ -110,7 +110,7 @@ export var comparisonOperators = {
     },
     paramcount: 1,
   },
-  "not null": {
+  'not null': {
     test: function (a: any, b: any): boolean {
       return a !== null;
     },
@@ -118,26 +118,26 @@ export var comparisonOperators = {
   },
   empty: {
     test: function (a: any, b: any): boolean {
-      return a == "";
+      return a == '';
     },
     paramcount: 1,
   },
-  "not empty": {
+  'not empty': {
     test: function (a: any, b: any): boolean {
-      return a != "";
+      return a != '';
     },
     paramcount: 1,
   },
 };
 
 @Component({
-  selector: "app-comparison",
-  templateUrl: "./comparison.component.html",
-  styleUrls: ["./comparison.component.scss"],
+  selector: 'app-comparison',
+  templateUrl: './comparison.component.html',
+  styleUrls: ['./comparison.component.scss'],
 })
 export class ComparisonComponent extends BaseBlockComponent {
   // where to look for incoming data
-  valueGetter: string = "data";
+  valueGetter: string = 'data';
   default = false;
   defaultType = comparisonTypes[0];
 
@@ -150,10 +150,10 @@ export class ComparisonComponent extends BaseBlockComponent {
   }
 
   onConfigUpdate(config: any) {
-    this.valueGetter = get(config, "valueGetter", "data");
-    this.comparisons = get(config, "comparisons", []);
-    this.default = get(config, "default", false);
-    this.defaultType = get(config, "defaultType", "value");
+    this.valueGetter = get(config, 'valueGetter', 'data');
+    this.comparisons = get(config, 'comparisons', []);
+    this.default = get(config, 'default', false);
+    this.defaultType = get(config, 'defaultType', 'value');
   }
 
   onData(data: any, firstChange: boolean) {
@@ -173,7 +173,7 @@ export class ComparisonComponent extends BaseBlockComponent {
       if (comparisonOperators[comparison.operator].paramcount == 1) {
         // if we have only one operator, we only want to validate our output if it's
         // a jmespath expression.
-        if (comparison.outputType == "jmespath") {
+        if (comparison.outputType == 'jmespath') {
           // make sure that we have some output content
           if (comparison.output.length > 0) {
             valid = true;
@@ -202,17 +202,17 @@ export class ComparisonComponent extends BaseBlockComponent {
 
     const value = mappingUtility(
       { data, context: this.context, state: this.stateService.state },
-      this.valueGetter,
+      this.valueGetter
     );
 
     let found = false;
     let checkCount = 0;
     let output: any;
-    console.log("d:" + this.defaultType);
-    if (this.defaultType == "jmespath") {
+    console.log('d:' + this.defaultType);
+    if (this.defaultType == 'jmespath') {
       output = mappingUtility(
         { data, context: this.context, state: this.stateService.state },
-        this.default,
+        this.default
       );
     } else {
       output = this.default; // set the default, in case we don't find anything
@@ -224,10 +224,10 @@ export class ComparisonComponent extends BaseBlockComponent {
       // only bother with valid checks
       if (this.isValid(check)) {
         let target = check.target;
-        if (check.targetType == "jmespath") {
+        if (check.targetType == 'jmespath') {
           target = mappingUtility(
             { data, context: this.context, state: this.stateService.state },
-            check.target,
+            check.target
           );
         }
         if (check.operator in comparisonOperators) {
@@ -237,10 +237,10 @@ export class ComparisonComponent extends BaseBlockComponent {
           if (op(value, target)) {
             found = true;
             output = check.output;
-            if (check.outputType == "jmespath") {
+            if (check.outputType == 'jmespath') {
               output = mappingUtility(
                 { data, context: this.context, state: this.stateService.state },
-                check.output,
+                check.output
               );
             }
           }

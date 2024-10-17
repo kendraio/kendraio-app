@@ -5,14 +5,14 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 
-@import "~bootstrap/dist/css/bootstrap.css";
+@import '~bootstrap/dist/css/bootstrap.css';
 
 // Our own variables that override bootstrap
-@import "_variables";
+@import '_variables';
 
 // Utility classes
-@import "node_modules/bootstrap/scss/bootstrap-utilities.scss";
-@import "progress-bar";
+@import 'node_modules/bootstrap/scss/bootstrap-utilities.scss';
+@import 'progress-bar';
 
 /*
  * Font Awesome 4.x

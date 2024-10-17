@@ -1,6 +1,6 @@
-import { Injectable } from "@angular/core";
-import { CanDeactivate } from "@angular/router";
-import { Observable } from "rxjs";
+import { Injectable } from '@angular/core';
+import { CanDeactivate } from '@angular/router';
+import { Observable } from 'rxjs';
 
 /** @fileoverview
  * When a kendra flow has been changed, we want to warn the user that they may lose their changes if they
@@ -18,7 +18,7 @@ export interface CanComponentDeactivate {
 }
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class CanDeactivateGuard
   implements CanDeactivate<CanComponentDeactivate>

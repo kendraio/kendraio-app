@@ -1,18 +1,18 @@
-import { Component, OnInit } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { MatLegacyDialogRef as MatDialogRef } from "@angular/material/legacy-dialog";
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 
 @Component({
-  selector: "app-api-data-select-dialog",
-  templateUrl: "./api-data-select-dialog.component.html",
-  styleUrls: ["./api-data-select-dialog.component.scss"],
+  selector: 'app-api-data-select-dialog',
+  templateUrl: './api-data-select-dialog.component.html',
+  styleUrls: ['./api-data-select-dialog.component.scss'],
 })
 export class ApiDataSelectDialogComponent implements OnInit {
   APIs = [
-    "https://fake-api.now32.now.sh/soundRecording",
-    "https://fake-api.now32.now.sh/musicalWork",
-    "https://bloomen.herokuapp.com/sound/music",
-    "https://bloomen.herokuapp.com/sound/recordings",
+    'https://fake-api.now32.now.sh/soundRecording',
+    'https://fake-api.now32.now.sh/musicalWork',
+    'https://bloomen.herokuapp.com/sound/music',
+    'https://bloomen.herokuapp.com/sound/recordings',
   ];
 
   dataList = [];
@@ -22,7 +22,7 @@ export class ApiDataSelectDialogComponent implements OnInit {
 
   constructor(
     private readonly http: HttpClient,
-    public dialogRef: MatDialogRef<ApiDataSelectDialogComponent>,
+    public dialogRef: MatDialogRef<ApiDataSelectDialogComponent>
   ) {}
 
   ngOnInit() {}
