@@ -1,0 +1,589 @@
+{
+    "backstage": [
+        {
+            "meta": {
+                "adapterName": "backstage",
+                "id": "addgig",
+                "title": "Kendraio Backstage Add Gig",
+                "url": "https://app.kendra.io/backstage/addgig"
+            },
+            "blocks": [
+                {
+                    "type": "launch",
+                    "adapter": "backstage",
+                    "workflowId": "dashboard",
+                    "blockComment": "",
+                    "parent1": {
+                        "type": "graphql",
+                        "endpoint": "https://kendraio-backstage.hasura.app/v1/graphql",
+                        "query": "mutation MyMutation(\n    $headline_artist_id: Int,\n    $venue_id: Int!,\n    $description: String,\n    $start_date: String,\n    $start_time: String,\n    $status: String,\n    $lineup: [Int!],\n    $tickets_manager: [String]\n) \n{\n    insert_backstage_gigs(\n        objects: [\n            {\n                headline_artist_id: $headline_artist_id,\n                venue_id: $venue_id,\n                description: $description,\n                start_date: $start_date,\n                start_time: $start_time,\n                status: $status,\n                lineup: $lineup,\n                tickets_manager: $tickets_manager\n            }\n        ]\n    ) {\n        returning {\n            id\n        }\n    }\n}\n",
+                        "variables": {
+                            "headline_artist_id": "data.headline_artist_id",
+                            "venue_id": "data.venue_id",
+                            "description": "data.description",
+                            "start_date": "data.start_date",
+                            "start_time": "data.start_time",
+                            "status": "data.status",
+                            "lineup": "data.lineup",
+                            "tickets_manager": "data.tickets_manager"
+                        },
+                        "headers": {
+                            "x-hasura-admin-secret": "context.hasura.token"
+                        },
+                        "allowFirst": false,
+                        "allowEmpty": false
+                    },
+                    "parent2": {
+                        "type": "debug",
+                        "open": 1,
+                        "showData": true,
+                        "showContext": true,
+                        "showState": true,
+                        "blockComment": ""
+                    }
+                }
+            ]
+        },
+        {
+            "meta": {
+                "adapterName": "backstage",
+                "id": "addgigwithlaunch",
+                "title": "Kendraio Backstage Add Gig",
+                "url": "https://app.kendra.io/backstage/addgigwithlaunch"
+            },
+            "blocks": [
+                {
+                    "type": "launch",
+                    "adapter": "backstage",
+                    "workflowId": "dashboard",
+                    "blockComment": "",
+                    "parent1": {
+                        "type": "graphql",
+                        "endpoint": "https://kendraio-backstage.hasura.app/v1/graphql",
+                        "query": "mutation MyMutation(\n    $headline_artist_id: Int,\n    $venue_id: Int!,\n    $description: String,\n    $start_date: String,\n    $start_time: String,\n    $status: String,\n    $lineup: [Int!],\n    $tickets_manager: [String]\n) \n{\n    insert_backstage_gigs(\n        objects: [\n            {\n                headline_artist_id: $headline_artist_id,\n                venue_id: $venue_id,\n                description: $description,\n                start_date: $start_date,\n                start_time: $start_time,\n                status: $status,\n                lineup: $lineup,\n                tickets_manager: $tickets_manager\n            }\n        ]\n    ) {\n        returning {\n            id\n        }\n    }\n}\n",
+                        "variables": {
+                            "headline_artist_id": "data.headline_artist_id",
+                            "venue_id": "data.venue_id",
+                            "description": "data.description",
+                            "start_date": "data.start_date",
+                            "start_time": "data.start_time",
+                            "status": "data.status",
+                            "lineup": "data.lineup",
+                            "tickets_manager": "data.tickets_manager"
+                        },
+                        "headers": {
+                            "x-hasura-admin-secret": "context.hasura.token"
+                        },
+                        "allowFirst": false,
+                        "allowEmpty": false
+                    },
+                    "parent2": {
+                        "type": "debug",
+                        "open": 1,
+                        "showData": true,
+                        "showContext": true,
+                        "showState": true,
+                        "blockComment": ""
+                    }
+                }
+            ]
+        },
+        {
+            "meta": {
+                "adapterName": "backstage",
+                "id": "updateartist",
+                "title": "Kendraio Backstage Update Artist",
+                "url": "https://app.kendra.io/backstage/updateartist"
+            },
+            "blocks": [
+                {
+                    "type": "launch",
+                    "adapter": "backstage",
+                    "workflowId": "manageartists",
+                    "blockComment": "",
+                    "parent1": {
+                        "type": "graphql",
+                        "endpoint": "https://kendraio-backstage.hasura.app/v1/graphql",
+                        "query": "mutation MyMutation(\n    $name: String,\n    $id: Int!\n) {\n    update_backstage_artists_by_pk(\n        pk_columns: {\n            id: $id\n        },\n        _set: {\n            name: $name\n        }\n    ) {\n        id\n        name\n    }\n}\n",
+                        "variables": {
+                            "name": "data.name",
+                            "id": "context.flow_data.id"
+                        },
+                        "headers": {
+                            "x-hasura-admin-secret": "context.flow_data.token"
+                        },
+                        "allowFirst": false,
+                        "allowEmpty": false
+                    },
+                    "parent2": {
+                        "type": "form",
+                        "contextErrorKey": "formErrors.message",
+                        "label": "Update Artist",
+                        "jsonSchema": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "title": "Name"
+                                }
+                            }
+                        },
+                        "uiSchema": {},
+                        "blockComment": ""
+                    }
+                }
+            ]
+        },
+        {
+            "meta": {
+                "adapterName": "backstage",
+                "id": "updatevenue",
+                "title": "Kendraio Backstage Update Venue",
+                "url": "https://app.kendra.io/backstage/updatevenue"
+            },
+            "blocks": [
+                {
+                    "type": "launch",
+                    "adapter": "backstage",
+                    "workflowId": "managevenues",
+                    "blockComment": "",
+                    "parent1": {
+                        "type": "graphql",
+                        "endpoint": "https://kendraio-backstage.hasura.app/v1/graphql",
+                        "query": "mutation MyMutation(\n    $name: String,\n    $city: String,\n    $country: String,\n    $longitude: numeric,\n    $latitude: numeric,\n    $id: Int!\n) {\n    update_backstage_venues_by_pk(\n        pk_columns: {\n            id: $id\n        },\n        _set: {\n            name: $name,\n            city: $city,\n            country: $country,\n            longitude: $longitude,\n            latitude: $latitude\n        }\n    ) {\n        id\n        name\n        city\n        country\n        longitude\n        latitude\n    }\n}\n",
+                        "variables": {
+                            "name": "data.name",
+                            "city": "data.city",
+                            "country": "data.country",
+                            "longitude": "data.longitude",
+                            "latitude": "data.latitude",
+                            "id": "context.flow_data.id"
+                        },
+                        "headers": {
+                            "x-hasura-admin-secret": "context.flow_data.token"
+                        },
+                        "allowFirst": false,
+                        "allowEmpty": false
+                    },
+                    "parent2": {
+                        "type": "form",
+                        "contextErrorKey": "formErrors.message",
+                        "label": "Update Venue",
+                        "jsonSchema": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "title": "Name"
+                                },
+                                "city": {
+                                    "type": "string",
+                                    "title": "City"
+                                },
+                                "country": {
+                                    "type": "string",
+                                    "title": "Country"
+                                },
+                                "latitude": {
+                                    "type": "string",
+                                    "title": "Latitude"
+                                },
+                                "longitude": {
+                                    "type": "string",
+                                    "title": "Longitude"
+                                }
+                            }
+                        },
+                        "uiSchema": {},
+                        "blockComment": ""
+                    }
+                }
+            ]
+        }
+    ],
+    "culturebanked": [
+        {
+            "meta": {
+                "adapterName": "culturebanked",
+                "id": "editLicense",
+                "title": "Edit License Details",
+                "url": "https://app.kendra.io/culturebanked/editLicense"
+            },
+            "blocks": [
+                {
+                    "type": "launch",
+                    "workflowId": "database",
+                    "adapter": "culturebanked",
+                    "parent1": {
+                        "type": "db",
+                        "operation": "update",
+                        "adapterName": "culturebanked",
+                        "schema": "license"
+                    },
+                    "parent2": {
+                        "type": "form",
+                        "jsonSchema": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "title": "Name",
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "uiSchema": {}
+                    }
+                }
+            ]
+        },
+        {
+            "meta": {
+                "adapterName": "culturebanked",
+                "id": "editParty",
+                "title": "Edit Party Details",
+                "url": "https://app.kendra.io/culturebanked/editParty"
+            },
+            "blocks": [
+                {
+                    "type": "launch",
+                    "workflowId": "database",
+                    "adapter": "culturebanked",
+                    "parent1": {
+                        "type": "db",
+                        "operation": "update",
+                        "adapterName": "culturebanked",
+                        "schema": "party"
+                    },
+                    "parent2": {
+                        "type": "form",
+                        "jsonSchema": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "title": "Name",
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "uiSchema": {}
+                    }
+                }
+            ]
+        },
+        {
+            "meta": {
+                "adapterName": "culturebanked",
+                "id": "editPlatform",
+                "title": "Edit Market Platform Details",
+                "url": "https://app.kendra.io/culturebanked/editPlatform"
+            },
+            "blocks": [
+                {
+                    "type": "launch",
+                    "workflowId": "database",
+                    "adapter": "culturebanked",
+                    "parent1": {
+                        "type": "db",
+                        "operation": "update",
+                        "adapterName": "culturebanked",
+                        "schema": "platform"
+                    },
+                    "parent2": {
+                        "type": "form",
+                        "jsonSchema": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "title": "Name",
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "uiSchema": {}
+                    }
+                }
+            ]
+        },
+        {
+            "meta": {
+                "adapterName": "culturebanked",
+                "id": "editWork",
+                "title": "Edit Work Details",
+                "url": "https://app.kendra.io/culturebanked/editWork"
+            },
+            "blocks": [
+                {
+                    "type": "launch",
+                    "workflowId": "database",
+                    "adapter": "culturebanked",
+                    "parent1": {
+                        "type": "db",
+                        "operation": "update",
+                        "adapterName": "culturebanked",
+                        "schema": "work"
+                    },
+                    "parent2": {
+                        "type": "form",
+                        "jsonSchema": {
+                            "type": "object",
+                            "properties": {
+                                "asset": {
+                                    "title": "Asset",
+                                    "type": "string"
+                                },
+                                "width": {
+                                    "title": "Width (mm)",
+                                    "type": "string"
+                                },
+                                "height": {
+                                    "title": "Height (mm)",
+                                    "type": "string"
+                                },
+                                "medium": {
+                                    "title": "Medium",
+                                    "type": "string"
+                                },
+                                "after": {
+                                    "title": "After",
+                                    "type": "string"
+                                },
+                                "location": {
+                                    "title": "Location",
+                                    "type": "string"
+                                },
+                                "physicalLocation": {
+                                    "title": "Physical Location",
+                                    "type": "string"
+                                },
+                                "owner": {
+                                    "title": "Owner",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "partyId": {
+                                                "$ref": "#/definitions/context/partyData"
+                                            },
+                                            "split": {
+                                                "type": "string",
+                                                "title": "split"
+                                            }
+                                        }
+                                    }
+                                },
+                                "beneficiaries": {
+                                    "title": "Beneficiaries",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "partyId": {
+                                                "$ref": "#/definitions/context/partyData"
+                                            },
+                                            "split": {
+                                                "type": "string",
+                                                "title": "split"
+                                            }
+                                        }
+                                    }
+                                },
+                                "marketPlatforms": {
+                                    "title": "Market platforms",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "marketId": {
+                                                "$ref": "#/definitions/context/platformData"
+                                            }
+                                        }
+                                    }
+                                },
+                                "assetManager": {
+                                    "title": "Asset manager",
+                                    "$ref": "#/definitions/context/partyData"
+                                },
+                                "licenseDetails": {
+                                    "type": "string",
+                                    "title": "License details"
+                                }
+                            }
+                        },
+                        "uiSchema": {
+                            "location": {
+                                "ui:widget": "remote-image"
+                            },
+                            "licenseDetails": {
+                                "ui:widget": "blocks",
+                                "blocksConfig": {
+                                    "blocks": [
+                                        {
+                                            "type": "context-save",
+                                            "contextKey": "defaultValue"
+                                        },
+                                        {
+                                            "type": "db",
+                                            "skipFirst": false,
+                                            "operation": "get",
+                                            "adapterName": "culturebanked",
+                                            "schema": "license"
+                                        },
+                                        {
+                                            "type": "reference",
+                                            "fieldLabel": "Select license",
+                                            "labelGetter": "name",
+                                            "valueField": "uuid",
+                                            "outputGetter": "uuid"
+                                        }
+                                    ]
+                                }
+                            },
+                            "owner": {
+                                "ui:widget": "table",
+                                "colHeadings": [
+                                    "Owner",
+                                    "Split"
+                                ]
+                            },
+                            "beneficiaries": {
+                                "ui:widget": "table",
+                                "colHeadings": [
+                                    "Beneficiary",
+                                    "Split"
+                                ]
+                            }
+                        },
+                        "blockComment": ""
+                    }
+                }
+            ]
+        }
+    ],
+    "freecords": [
+        {
+            "meta": {
+                "adapterName": "freecords",
+                "id": "connect",
+                "title": "Freecords Connect",
+                "url": "https://app.kendra.io/freecords/connect"
+            },
+            "blocks": [
+                {
+                    "type": "launch",
+                    "adapter": "freecords",
+                    "workflowId": "getsongs",
+                    "blockComment": "",
+                    "parent1": {
+                        "type": "variable-set",
+                        "name": "token",
+                        "blockComment": ""
+                    },
+                    "parent2": {
+                        "type": "form",
+                        "label": "Connect",
+                        "jsonSchema": {
+                            "type": "object",
+                            "properties": {
+                                "key": {
+                                    "type": "string",
+                                    "title": "key"
+                                }
+                            }
+                        },
+                        "uiSchema": {
+                            "key": {
+                                "ui:widget": "password"
+                            }
+                        },
+                        "blockComment": ""
+                    }
+                }
+            ]
+        }
+    ],
+    "spotify": [
+        {
+            "meta": {
+                "adapterName": "spotify",
+                "id": "OmPABNlEDJhwdzTaZqkb",
+                "title": "Auth Callback",
+                "url": "https://app.kendra.io/spotify/OmPABNlEDJhwdzTaZqkb"
+            },
+            "blocks": [
+                {
+                    "type": "launch",
+                    "adapter": "spotify",
+                    "workflowId": "listPlaylists",
+                    "parent1": {
+                        "type": "debug",
+                        "open": 1,
+                        "showContext": false
+                    },
+                    "parent2": {
+                        "type": "variable-set",
+                        "name": "access_token"
+                    }
+                }
+            ]
+        },
+        {
+            "meta": {
+                "adapterName": "spotify",
+                "id": "callback",
+                "title": "Auth Callback",
+                "url": "https://app.kendra.io/spotify/callback"
+            },
+            "blocks": [
+                {
+                    "type": "launch",
+                    "adapter": "spotify",
+                    "workflowId": "listPlaylists",
+                    "parent1": {
+                        "type": "debug",
+                        "open": 1,
+                        "showContext": false
+                    },
+                    "parent2": {
+                        "type": "variable-set",
+                        "name": "access_token"
+                    }
+                }
+            ]
+        }
+    ],
+    "valueflows": [
+        {
+            "meta": {
+                "adapterName": "valueflows",
+                "id": "updatePlan",
+                "title": "ValueFlows Update Plan",
+                "url": "https://app.kendra.io/valueflows/updatePlan"
+            },
+            "blocks": [
+                {
+                    "type": "launch",
+                    "adapter": "valueflows",
+                    "workflowId": "updatePlanWordCount",
+                    "context": {
+                        "planId": "data.data.updatePlan.plan.id"
+                    },
+                    "parent1": {
+                        "type": "validator",
+                        "test": "not_null(data) && data.length",
+                        "message": "Validation Failed"
+                    },
+                    "parent2": {
+                        "type": "graphql",
+                        "endpoint": "https://valnet.lurker.dev/api/graphql",
+                        "query": "mutation ($token: String!, $id: Int!, $name: String) {  updatePlan(token: $token, id: $id, name: $name, note: $name) {  plan {   id    name   note   }  } }",
+                        "variables": {
+                            "id": "to_number(data.id)",
+                            "name": "data.name",
+                            "token": "context.vfAuth"
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -50,8 +50,16 @@ const search = decorate({
     _func: ([s]) => s.toLowerCase(),
     _signature: [{types: [TYPE_STRING]}]
   },
+  toUpper: {
+    _func: ([s]) => s.toUpperCase(),
+    _signature: [{types: [TYPE_STRING]}]
+  },
   replace: {
     _func: ([s, a, b]) => s.replace(a, b),
+    _signature: [{types: [TYPE_STRING]}, {types: [TYPE_STRING]}, {types: [TYPE_STRING]}]
+  },
+  replaceAll: {
+    _func: ([s, a, b]) => s.replaceAll(a, b),
     _signature: [{types: [TYPE_STRING]}, {types: [TYPE_STRING]}, {types: [TYPE_STRING]}]
   },
   trim: {

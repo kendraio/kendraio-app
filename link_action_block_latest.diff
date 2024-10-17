@@ -1,0 +1,485 @@
+diff --git a/cypress/e2e/actions.ts b/cypress/e2e/actions.ts
+index 5f5cf9fa..046b3ccc 100644
+--- a/cypress/e2e/actions.ts
++++ b/cypress/e2e/actions.ts
+@@ -59,3 +59,50 @@ describe('Actions block type', () => {
+     });
+ });
+ 
++
++describe('LinkActionComponent', () => {
++  it('should generate the correct link URL from plain strings', () => {
++    // Tests with hardcoded values
++    loadFlowCode([
++      {
++        "type": "link-action",
++        "label": "Test Link",
++        "adapterName": "myAdapter",
++        "workflowId": "myWorkflow"
++      }
++    ]);
++    cy.get('app-link-action a').should('have.attr', 'href', '/myAdapter/myWorkflow');
++  });
++
++  it('should generate the correct link URL using object mappings', () => {
++    // Test with JMESPath expressions
++    loadFlowCode([
++      {
++        "type": "mapping",
++        "mapping": "{ adapter: `testAdapter`, workflow: `testWorkflow` }"
++      },
++      {
++        "type": "link-action",
++        "label": "Dynamic Link",
++        "adapterNameGetter": "data.adapter",
++        "workflowIdGetter": "data.workflow"
++      }
++    ]);
++    cy.get('app-link-action a').should('have.attr', 'href', '/testAdapter/testWorkflow');
++  });
++
++  it('should not have no link target by default', () => {
++    // The default behavior should be to open the link in the same tab,
++    // it's up to the user and their user-agent to decide how to handle the link.
++    loadFlowCode([
++      {
++        "type": "link-action",
++        "label": "Test Link",
++        "adapterName": "myAdapter",
++        "workflowId": "myWorkflow"
++      }
++    ]);
++    cy.get('app-link-action a').should('not.have.attr', 'target');
++  });
++
++});
+diff --git a/docs/documentation.rst b/docs/documentation.rst
+index 2230193f..8e428539 100644
+--- a/docs/documentation.rst
++++ b/docs/documentation.rst
+@@ -19,7 +19,7 @@ code, and build the docs:
+ 
+ .. prompt:: bash $
+ 
+-    pip install sphinx
++    pip install sphinx sphinx-prompt sphinx_rtd_theme
+     git clone https://github.com/kendraio/kendraio-app.git
+     cd docs
+     make html
+@@ -35,7 +35,7 @@ Run the following commands (from the root of the repository, or change the paths
+ 
+ .. prompt:: bash $
+ 
+-  pip install sphinx-autobuild
++  pip install sphinx-autobuild==2021.3.14
+   sphinx-autobuild docs/ docs/_build/html
+ 
+ Then go to http://127.0.0.1:8000 in the browser.
+diff --git a/docs/index.rst b/docs/index.rst
+index f75fc456..a049493b 100644
+--- a/docs/index.rst
++++ b/docs/index.rst
+@@ -60,6 +60,7 @@ Kendraio App
+    workflow/blocks/gsheet
+    workflow/blocks/http
+    workflow/blocks/init
++   workflow/blocks/link_action_block
+    workflow/blocks/launch_block
+    workflow/blocks/load_schema
+    workflow/blocks/load_schema_template
+diff --git a/docs/workflow/blocks/actions.rst b/docs/workflow/blocks/actions.rst
+index 615f720e..7bce2912 100644
+--- a/docs/workflow/blocks/actions.rst
++++ b/docs/workflow/blocks/actions.rst
+@@ -152,4 +152,9 @@ After the block as loaded, the `enabled` property will be set on the button:
+       ]
+     }
+ 
+-Buttons do not work for external links. Consider the :doc:`Template Block <template>` for external links.
+\ No newline at end of file
++Buttons do not work for external links. Consider the :doc:`Template Block <template>` for external links.
++
++See also
++--------
++
++The :doc:`Link Action Block <link_action_block>`, allows opening Flows in a new tab or window as an alternative to the :doc:`Launch Block <launch_block>` being used with the Actions block.
+\ No newline at end of file
+diff --git a/docs/workflow/blocks/launch_block.rst b/docs/workflow/blocks/launch_block.rst
+index 8c6666e8..8d41c70f 100644
+--- a/docs/workflow/blocks/launch_block.rst
++++ b/docs/workflow/blocks/launch_block.rst
+@@ -1,7 +1,9 @@
+ Launch
+ ======
+ 
+-Jump to a new workflow. This block is not available to be added to a flow directly, but is instead for use from within other blocks. 
++Useful to jump to a different Flow. This block is not available to be added to a flow directly, but is instead for use from within other blocks.
++
++If you want to jump to a different Flow from an button the :doc:`Link Action Block <link_action_block>`, allows opening Flows in a new tab or window as an alternative to an :doc:`Actions block button <actions>` being used with a Launch block.
+ 
+ Default config
+ --------------
+diff --git a/docs/workflow/blocks/link_action_block.rst b/docs/workflow/blocks/link_action_block.rst
+new file mode 100644
+index 00000000..724ff575
+--- /dev/null
++++ b/docs/workflow/blocks/link_action_block.rst
+@@ -0,0 +1,101 @@
++Link Action block
++===========
++The Link Action block provides a user-friendly button that links to other Flows. 
++Like a normal link, the user can choose how Flows are opened, according to their browser configuration.
++
++Existing Flows that use a combination of an :doc:`Actions block <actions>` and a :doc:`Launch Block <launch_block>` to open a Flow, can be replaced by the Link Action block to provide the user with more control.
++
++What problem does it solve?
++---------------------------
++Often when browsers present buttons to navigate to new screens, (such as when a Flow uses an Actions block with a Launch Block), the user is not given control over where the browser will open the new screen. Instead of allowing users to open the new screen in a new tab or window, the user may be forced to navigate away from their current screen, which unfortunately could cause context from the current tab to be lost!
++
++
++To provide the user with more control, the Link Action block can be used instead to produce buttons that allow opening a specified Flow in a new tab or window, or even the same browser context.
++
++For example, when a laptop user right-clicks a button generated by the Link Action block, their browser will typically present a context menu, then the user may choose to open the specified Flow in a new tab, allowing them to keep the existing Flow they have been using, as it is - without needing to navigate away from it.
++
++To perform the same behavior without using a right mouse button users typically hold the Cmd or Ctrl button and then click (Ctrl+click for Windows/Linux, and Cmd+click for macOS).
++
++Without relying on browser pop-ups, the Link Action block links to Flows in the browser's chosen context by using a browser anchor tag, as normally used for web page links, with the link styled as a button for a consistent user experience.
++
++By default, links to Flow's made with the Link Action block will open in the same window/tab context, but users with a mouse input device may right-click to open the link in a new tab or window, or on mobile devices with touchscreens, typically users would press and hold to open a Flow link produced by the Link Action block in a new tab.
++
++On supported browsers, users may notice the destination Flow is shown when hovering over the link, this allows the user to directly see where the button would navigate to.
++
++Default configuration
++--------------
++
++.. code-block:: json
++
++    {
++      "type": "link-action",
++      "label": "Open Workflow",
++      "adapterName": "adapterName",
++      "workflowId": "workflowId"
++    }
++
++Supported Properties
++--------------------
++
++- **label** (string): The text displayed on the button-like link. Defaults to "Link".
++- **adapterNameGetter** (string): A JMESPath expression that resolves to the adapter name of the target workflow. This allows for dynamic resolution of the adapter name from the data and context. If not set, will use the `adapterName` property instead.
++- **adapterName** (string): The adapter name of the target workflow. This property is used if `adapterNameGetter` is not specified.
++- **workflowIdGetter** (string): A JMESPath expression that resolves to the workflow ID of the target workflow. This allows for dynamic resolution of the workflow ID from the data and context. If not set, will use the `workflowId` property instead.
++- **workflowId** (string): The workflow ID of the target workflow. This property is used if `workflowIdGetter` is not specified.
++
++Usage
++-----
++
++The block can be configured for use in a static or dynamic way.
++
++1. **Standalone Link:**
++    - Use hardcoded values for `adapterName` and `workflowId` to create a static link to a specific Flow.
++
++2. **Within a Grid Cell:**
++    - Embed the block within the `cellRendererParams` of a grid column definition to provide a clickable link for each row.
++    - Use JMESPath expressions in `adapterNameGetter` and `workflowIdGetter` to dynamically generate the link URL based on the row data.
++    - Alternatively, use the `adapterName` and `workflowId` properties for static links within the grid.
++
++Example 1: Static Flow links (not dynamic)
++------------------------------------------
++
++To create a standalone button with a hardcoded link to a Flow, in the configuration for the block, provide the `adapterName` and `workflowId` properties:
++
++.. code-block:: json
++
++    {
++        "type": "link-action",
++        "label": "View Details",
++        "adapterName": "myAdapter",
++        "workflowId": "myWorkflow"
++    }
++
++In this example, it will create a link with the label "View Details" that points to the `/myAdapter/myWorkflow` route.
++
++Example 2: Dynamic Flow links within a grid
++-------------------------------------------
++
++This example demonstrates using the `LinkActionComponent` within a grid cell to link to individual Flows:
++
++**Grid column example:**
++
++.. code-block:: json
++
++    {
++        "headerName": "Operations",
++        "cellRenderer": "workflowRenderer",
++        "cellRendererParams": {
++            "blocks": [
++                {
++                    "type": "link-action",
++                    "label": "Launch",
++                    "adapterNameGetter": "data.adapterName",
++                    "workflowIdGetter": "data.id"
++                }
++            ]
++        }
++    }
++
++In this configuration:
++- `data.adapterName` and `data.id` are JMESPath expressions that retrieve the adapter name and workflow ID from the current row's data.
++- The generated link for each row will point to the corresponding Flow.
+diff --git a/docs/workflow/implementation.rst b/docs/workflow/implementation.rst
+index ea774b12..a6524f33 100644
+--- a/docs/workflow/implementation.rst
++++ b/docs/workflow/implementation.rst
+@@ -1,7 +1,7 @@
+ How flows get executed
+ ======================
+ 
+-Workflows are implemented using Angular's built-in execution chaining. 
++Flows are implemented using Angular's built-in execution chaining. 
+ While this simplifies the whole process of running workflows, it does 
+ introduce some challenges - many of which can be overcome by understanding
+ a little about how flows are run, and in particular, the way change detection
+diff --git a/docs/workflow/intro.rst b/docs/workflow/intro.rst
+index c901f81a..3dd4979a 100644
+--- a/docs/workflow/intro.rst
++++ b/docs/workflow/intro.rst
+@@ -1,17 +1,17 @@
+-Workflow Blocks
++Flow Blocks
+ ===============
+ 
+ Overview
+ --------
+ 
+-Workflows are created by plugging together various reusable blocks of functionality.
+-A workflow is a list of workflow items (or blocks). A task is a running instance of a workflow.
+-Workflow definitions can be nested, as some workflow item blocks contain embedded workflows.
++Flows are created by plugging together various reusable blocks of functionality.
++A Flow is made from multiple blocks that connect together. A task is a running instance of a Flow.
++Flows can be nested inside other Flows.
+ Thus, tasks are nested too, and a running task may contain multiple tasks within it.
+ 
+ The available “blocks” of reusable functionality are documented below.
+-The workflow builder within the app lets you create and customise workflows,
+-load existing workflows from adapters, and generate links to share workflows you have created.
++The Flow builder in the app lets you create and customise Flows,
++load existing Flows from adapters, and generate links to share Flows you have created.
+ 
+ Block Metadata & Comments
+ +++++++++++++++++++++++++
+diff --git a/src/app/app.module.ts b/src/app/app.module.ts
+index 8f745f76..465ed444 100644
+--- a/src/app/app.module.ts
++++ b/src/app/app.module.ts
+@@ -186,7 +186,7 @@ import { BlockGosubBuilderBoxComponent } from './components/block-gosub-builder-
+ import { MermaidBlockComponent } from './blocks/mermaid-block/mermaid-block.component';
+ import { ComparisonComponent } from './blocks/comparison/comparison.component';
+ import { BlockComparisonBuilderBoxComponent } from './components/block-comparison-builder-box/block-comparison-builder-box.component';
+-
++import { LinkActionComponent } from './blocks/link-action-block/link-action.component';
+ // AoT requires an exported function for factories
+ export function HttpLoaderFactory(http: HttpClient) {
+   return new TranslateHttpLoader(http);
+@@ -347,7 +347,8 @@ export function HttpLoaderFactory(http: HttpClient) {
+         BlockGosubBuilderBoxComponent,
+         MermaidBlockComponent,
+         ComparisonComponent,
+-        BlockComparisonBuilderBoxComponent
++        BlockComparisonBuilderBoxComponent,
++        LinkActionComponent
+     ],
+     imports: [
+         FormlyModule.forRoot({}),
+diff --git a/src/app/blocks/link-action-block/link-action.component.html b/src/app/blocks/link-action-block/link-action.component.html
+new file mode 100644
+index 00000000..8fdaa069
+--- /dev/null
++++ b/src/app/blocks/link-action-block/link-action.component.html
+@@ -0,0 +1 @@
++<a [href]="linkUrl" mat-flat-button>{{ label }}</a>
+diff --git a/src/app/blocks/link-action-block/link-action.component.scss b/src/app/blocks/link-action-block/link-action.component.scss
+new file mode 100644
+index 00000000..07369eee
+--- /dev/null
++++ b/src/app/blocks/link-action-block/link-action.component.scss
+@@ -0,0 +1,3 @@
++a:hover {
++    color: inherit;
++}
+diff --git a/src/app/blocks/link-action-block/link-action.component.ts b/src/app/blocks/link-action-block/link-action.component.ts
+new file mode 100644
+index 00000000..72debd73
+--- /dev/null
++++ b/src/app/blocks/link-action-block/link-action.component.ts
+@@ -0,0 +1,50 @@
++import { Component } from '@angular/core';
++import { BaseBlockComponent } from '../base-block/base-block.component';
++import { get } from 'lodash-es';
++import { mappingUtility } from '../mapping-block/mapping-util';
++
++@Component({
++  selector: 'app-link-action',
++  templateUrl: './link-action.component.html',
++  styleUrls: ['./link-action.component.scss']
++})
++export class LinkActionComponent extends BaseBlockComponent {
++
++  linkUrl = '';
++  label = '';
++  adapterNameGetter = '';
++  workflowIdGetter = '';
++  config: any;
++  
++  constructor() {
++    super();
++  }
++  
++  private generateLinkUrl() {
++    let resolvedAdapterName = get(this.config, 'adapterName', '');
++    let resolvedWorkflowId = get(this.config, 'workflowId', '');
++
++    if (this.adapterNameGetter) {
++      resolvedAdapterName = mappingUtility({ data: this.model, context: this.context }, this.adapterNameGetter);
++    }
++
++    if (this.workflowIdGetter) {
++      resolvedWorkflowId = mappingUtility({ data: this.model, context: this.context }, this.workflowIdGetter);
++    }
++
++    this.linkUrl = `/${resolvedAdapterName}/${resolvedWorkflowId}`;
++  }
++  
++  onConfigUpdate(config: any) {
++    this.label = get(config, 'label', 'Link');
++    this.adapterNameGetter = get(config, 'adapterNameGetter', '');
++    this.workflowIdGetter = get(config, 'workflowIdGetter', '');
++    this.config = config;
++    this.generateLinkUrl();
++  }
++
++  async onData(data: any, _firstChange: boolean) {
++    this.model = data;
++    this.generateLinkUrl();
++  }
++}
+diff --git a/src/app/blocks/load-schema-block/load-schema-block.component.ts b/src/app/blocks/load-schema-block/load-schema-block.component.ts
+index f4aedf03..6da3642a 100644
+--- a/src/app/blocks/load-schema-block/load-schema-block.component.ts
++++ b/src/app/blocks/load-schema-block/load-schema-block.component.ts
+@@ -55,6 +55,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+ 
+     if ((typeof baseSchema === 'string') && (baseSchema.length > 0)) {
+       let schemaDefinitions = {};
++      // @ts-ignore: Relax checks due to dynamic schemas
+       schemaDefinitions[baseSchema] = await this.resolveSchema(schemaDefinitions, baseSchema, 0);
+       const jsonSchema = {
+         definitions: schemaDefinitions,
+@@ -78,6 +79,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+     if (!has(schemaDefinitions, schemaName)) {
+       try {
+         const result = await this.loadSchemaFromDatabase(schemaName);
++        // @ts-ignore: Relax checks due to dynamic schemas
+         schemaDefinitions[schemaName] = await this.mapSchema(schemaDefinitions, get(result, '[0].data', {}), schemaName, depth);
+       } catch (e) {
+         // TODO: handle error
+@@ -86,6 +88,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+         this.isLoading = false;
+       }
+     }
++    // @ts-ignore: Relax checks due to dynamic schemas
+     return schemaDefinitions[schemaName];
+   }
+ 
+@@ -226,6 +229,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+     const embedSchemaName = get(p, 'config', '');
+     // If the embedded schema has not been resolved, resolve it:
+     if (!has(schemaDefinitions, embedSchemaName) && embedSchemaName !== inputSchemaName) {
++      // @ts-ignore: Relax checks due to dynamic schemas
+       schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName, depth + 1);
+     }
+     outputSchema.properties[get(p, 'key', '')] = {
+@@ -251,6 +255,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+     const embedSchemaName = get(p, 'config', '');
+     // If the embedded schema has not been resolved, resolve it:
+     if (!has(schemaDefinitions, embedSchemaName) && embedSchemaName !== inputSchemaName) {
++      // @ts-ignore: Relax checks due to dynamic schemas
+       schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName, depth + 1);
+     }
+     outputSchema.properties[get(p, 'key', '')] = {
+@@ -273,6 +278,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+     const embedSchemaName = get(p, 'config', '');
+     // If the embedded schema has not been resolved, resolve it:
+     if (!has(schemaDefinitions, embedSchemaName) && embedSchemaName !== inputSchemaName) {
++      // @ts-ignore: Relax checks due to dynamic schemas
+       schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName, depth + 1);
+     }
+     // Gets the records array for this schema:
+@@ -301,6 +307,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+         for (const property in record.data) {
+           if (record.data.hasOwnProperty(property)) {
+             const value = record.data[property];
++            // @ts-ignore: Relax checks due to dynamic schemas
+             item.properties[property] = clone(get(schemaDefinitions[embedSchemaName], `properties.${property}`, {}));
+             item.properties[property].readOnly = true;
+             item.properties[property].default = clone(value);
+@@ -329,6 +336,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+ 
+     // If the embedded schema has not been resolved, resolve it:
+     if (!has(schemaDefinitions, embedSchemaName) && embedSchemaName !== inputSchemaName) {
++      // @ts-ignore: Relax checks due to dynamic schemas
+       schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName, depth + 1);
+     }
+ 
+@@ -370,7 +378,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+           for (const property in record.data) {
+             if (record.data.hasOwnProperty(property)) {
+               const value = record.data[property];
+-
++              // @ts-ignore: Relax checks due to dynamic schemas
+               item.properties[property] = clone(get(schemaDefinitions[embedSchemaName], `properties.${property}`, {}));
+               item.properties[property].readOnly = true;
+               item.properties[property].default = clone(value);
+@@ -406,7 +414,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+       // if we have a nested record - a record that is referenced by another record,
+       // instead of injecting a selectable list of records, we inject a single record,
+       // with an array of one record object that conforms to the schema, with the uuid property added
+-
++      // @ts-ignore: Relax checks due to dynamic schemas
+       const plain_schema = get(schemaDefinitions[embedSchemaName], 'properties', {});
+       let schema_with_uuid = clone(plain_schema);
+ 
+diff --git a/src/app/components/blocks-workflow/blocks-workflow.component.html b/src/app/components/blocks-workflow/blocks-workflow.component.html
+index 30292711..a80558dc 100644
+--- a/src/app/components/blocks-workflow/blocks-workflow.component.html
++++ b/src/app/components/blocks-workflow/blocks-workflow.component.html
+@@ -57,6 +57,7 @@
+     <app-rename-fields-block class="block-wrapper" *ngSwitchCase="'rename-fields'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-rename-fields-block>
+     <app-mermaid-block class="block-wrapper" *ngSwitchCase="'mermaid'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-mermaid-block>
+     <app-comparison class="block-wrapper" *ngSwitchCase="'comparison'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-comparison>
++    <app-link-action class="block-wrapper" *ngSwitchCase="'link-action'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-link-action>
+   </ng-container>
+ </ng-container>
+ <!-- <pre>workblock: {{ context | json }}</pre> -->
+diff --git a/src/app/dialogs/add-block-dialog/block-types.ts b/src/app/dialogs/add-block-dialog/block-types.ts
+index e8a20afb..ce306714 100644
+--- a/src/app/dialogs/add-block-dialog/block-types.ts
++++ b/src/app/dialogs/add-block-dialog/block-types.ts
+@@ -653,5 +653,18 @@ export const BLOCK_TYPES = [
+     defaultConfig: {
+       type: 'wallet'
+     }
++  },
++  {
++    type: 'link-action',
++    label: 'Link Action',
++    description: 'Open a Flow as a link (works with new tab / window)',
++    icon: 'link',
++    hasEditor: true,
++    defaultConfig: {
++      type: 'link-action',
++      label: 'Open Workflow', 
++      adapterName: 'adapterName', 
++      workflowId: 'workflowId', 
++    }
+   }
+ ];

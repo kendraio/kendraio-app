@@ -1,0 +1,263 @@
+diff --git a/docs/workflow/blocks/map.rst b/docs/workflow/blocks/map.rst
+index acb27eed..329ec9c5 100644
+--- a/docs/workflow/blocks/map.rst
++++ b/docs/workflow/blocks/map.rst
+@@ -1,7 +1,7 @@
+ Map
+ ===
+ 
+-The map block allows embedding a map for display of geocoded data.
++The Map block allows embedding a map for display of geocoded data.
+ Leaflet.JS is used to display the map, and some Leaflet.JS customisation
+ options are supported.
+ 
+@@ -9,29 +9,120 @@ The ``height`` in pixels of the block (default height 500px),
+ and the initial ``zoom`` level (default zoom = 8)
+ are provided as configuration options to the block. You can also optionally
+ provide a ``latlng`` config option for the default map center point.
++
+ The map defaults to centering at [51.505, -0.09].
+ 
++Data input
++----------
++
++The map block expects incoming data to be an array of objects.
++Each object represents a marker, and/or a country area. Each object can include the following properties:
++
++- **Location-based Pin:** Provide both ``lat`` and ``long`` properties to display a pin at the specified coordinates.
++- **Country-based Area:** Provide the ``country`` property with a 3-letter ISO country code (e.g., "GBR") to display the country area.
++
++You can provide both location and country properties in the same object to display both a pin and a country area.
++
++You can include a ``label`` property for the popup label and a ``customPin`` property for using custom icons for pins (see below).
++
++Displaying Country Areas
++------------------------
++
++To display a country area on the map, provide the ``country`` property in the data object 
++with the 3-letter ISO code for the country. For example, to display the United Kingdom, you would use ``"GBR"``.
++
++You can configure the appearance of country areas using the ``countryStyle`` object in the block config. 
++The properties and their defaults are as follows:
++
++.. code-block:: json
++
++        {
++            "color": "gray",
++            "weight": 2,
++            "opacity": 0.3,
++            "fillColor": "gray",
++            "fillOpacity": 0.5
++        }
++
++Custom pin icons
++----------------
++
++In addition to the default pin icon, the block allows setting custom pin 
++icons using the ``customPin`` property in the data object. The ``customPin`` property 
++accepts a string value that can be plain text, HTML, or even emojis.
++The input is sanitised with DOMPurify to prevent XSS attacks.
++
+ Examples
+ --------
+ 
+-The map block expects incoming data to be an array of objects that
+-have ``lat``, ``long``, and ``label`` properties. Here is an example
+-of a mapping that produces appropriate data:
++**Displaying Location-Based Pins:**
++
++This example shows a mapping that produces an array of objects, each representing a location with a pin:
++
++.. code-block:: json
++
++    {
++        "type": "mapping",
++        "mapping": "[{ lat: `51.5074`, long: `-0.1278`, label: 'London' }, { lat: `48.8566`, long: `2.3522`, label: 'Paris' }]"
++    },
++    {
++        "type": "map",
++        "height": 500,
++        "zoom": 2
++    }
++
++**Displaying Country Areas:**
++
++This example shows a mapping that produces an array of objects, each representing a country area:
+ 
+ .. code-block:: json
+ 
+-                {
+-                    "type": "mapping",
+-                    "mapping": "data[?recovered > `20`].{ lat: lat, long: long, label: join(' ', [to_string(recovered), 'recovered in', combinedKey][? @ != null]) }"
+-                }
++  {
++    "type": "mapping",
++    "mapping": "[{ country: 'GBR', label: 'United Kingdom' }, { country: 'FRA', label: 'France' }]"
++  },
++  {
++    "type": "map",
++    "height": 500,
++    "zoom": 2,
++    "countryStyle": {
++      "color": "red",
++      "fillColor": "pink"
++    }
++  }
++
++**Displaying both Pins and Country Areas:**
+ 
+-Example map block configuration:
++This example demonstrates displaying both a pin and a country area in the same object:
+ 
+ .. code-block:: json
+ 
+-                {
+-                    "type": "map",
+-                    "height": 500,
+-                    "zoom": 2
+-                }
++  {
++    "type": "mapping",
++    "mapping": "[{ country: 'GBR', lat: `51.5074`, long: `-0.1278`, label: 'London, United Kingdom', customPin: '🇬🇧' }]"
++  },
++  {
++    "type": "map",
++    "height": 500,
++    "zoom": 6,
++    "countryStyle": {
++      "color": "blue",
++      "fillColor": "lightblue"
++    }
++  }
++
++**Custom Pin Icons with Emojis:**
++
++This example uses emojis as custom pin icons for specific locations:
++
++.. code-block:: json
+ 
++  {
++    "type": "mapping",
++    "mapping": "[{ lat: `51.5074`, long: `-0.1278`, label: 'London', customPin: '🇬🇧' }, { lat: `48.8566`, long: `2.3522`, label: 'Paris', customPin: '🇫🇷' }]"
++  },
++  {
++    "type": "map",
++    "height": 500,
++    "zoom": 2
++  }
+\ No newline at end of file
+diff --git a/src/app/blocks/map-block/map-block.component.ts b/src/app/blocks/map-block/map-block.component.ts
+index 466065f8..e1cda8be 100644
+--- a/src/app/blocks/map-block/map-block.component.ts
++++ b/src/app/blocks/map-block/map-block.component.ts
+@@ -1,7 +1,8 @@
+ import {Component} from '@angular/core';
+ import {BaseBlockComponent} from '../base-block/base-block.component';
+-import {icon, latLng, marker, tileLayer} from 'leaflet';
++import {icon, latLng, marker, tileLayer, divIcon, geoJSON} from 'leaflet';
+ import {get, isArray, set} from 'lodash-es';
++import * as DOMPurify from 'dompurify';
+ 
+ @Component({
+   selector: 'app-map-block',
+@@ -28,23 +29,92 @@ contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA
+   markerClusterData = [];
+   markerClusterOptions = {};
+ 
++  // Country GeoJSON provider base URL
++  countryProviderBaseURL = 'https://raw.githubusercontent.com/AshKyd/geojson-regions/main/public/countries/50m/';
++  countryExtension = '.geojson';
++
++  // Country area polygon styling
++  countryStyle = {
++    color: 'gray',
++    weight: 2,
++    opacity: 0.3,
++    fillColor: 'gray',
++    fillOpacity: 0.5
++  };
++
++  // In-memory cache for country GeoJSON data
++  countryCache: { [key: string]: any } = {};
++
+   onConfigUpdate(config: any) {
+     this.height = get(config, 'height', 500);
+     set(this.options, 'zoom', get(config, 'zoom', 8));
+     const latln = get(config, 'latlng', [51.505, -0.09]);
+     set(this.options, 'center', latLng(latln[0], latln[1]));
++
++    // Allow setting custom country provider base URL
++    this.countryProviderBaseURL = get(config, 'countryProviderBaseURL', this.countryProviderBaseURL);
++    // Allow setting custom country extension
++    this.countryExtension = get(config, 'countryExtension', this.countryExtension);
++
++    // Update country style from config
++    this.countryStyle = {
++      ...this.countryStyle,
++      ...get(config, 'countryStyle', {})
++    };
++  }
++
++  private fetchGeoJsonData(countryCode: string): Promise<any> {
++    if (this.countryCache[countryCode]) {
++      return Promise.resolve(this.countryCache[countryCode]);
++    } else {
++      const geoJsonFilename = `${countryCode}${this.countryExtension}`;
++      return fetch(`${this.countryProviderBaseURL}${geoJsonFilename}`)
++        .then(response => response.json())
++        .then(geojsonData => {
++          this.countryCache[countryCode] = geojsonData; // Cache the data
++          return geojsonData;
++        });
++    }
+   }
+ 
+   onData(data: any, firstChange: boolean) {
+     if (isArray(data)) {
+-      this.layers = data.map(({ lat, long, label }) => marker(latLng(lat, long), {
+-        icon: icon({
+-          iconSize: [ 25, 41 ],
+-          iconAnchor: [ 13, 41 ],
+-          iconUrl: '/assets/marker-icon.png',
+-          shadowUrl: '/assets/marker-shadow.png'
+-        })
+-      }).bindPopup(label));
++      this.layers = [];
++      
++      data.forEach(({ lat, long, label, customPin, country }) => {
++        let markerIcon;
++        if (customPin) {
++          const sanitizedHtml = DOMPurify.sanitize(customPin);
++          markerIcon = divIcon({
++            html: `<div style="font-size: 25px;">${sanitizedHtml}</div>`,
++            iconSize: [25, 41],
++            className: 'custom-marker' // avoid the ugly default marker class
++          });
++        } else {
++          markerIcon = icon({
++            iconSize: [25, 41],
++            iconAnchor: [13, 41],
++            iconUrl: '/assets/marker-icon.png',
++            shadowUrl: '/assets/marker-shadow.png'
++          });
++        }
++        
++        if (lat && long) {
++          this.layers.push(
++            marker(latLng(lat, long), { icon: markerIcon }).bindPopup(label)
++          );
++        }
++  
++        if (country) {
++          const countryCode = country.toUpperCase();
++          this.fetchGeoJsonData(countryCode).then(geojsonData => {
++            const geojsonLayer = geoJSON(geojsonData, {
++              style: this.countryStyle,
++            });
++            this.layers.push(geojsonLayer);
++          });
++        }
++      });
+     }
+   }
+ }

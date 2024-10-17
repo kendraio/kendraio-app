@@ -60,6 +60,7 @@ Kendraio App
    workflow/blocks/gsheet
    workflow/blocks/http
    workflow/blocks/init
+   workflow/blocks/link_action_block
    workflow/blocks/launch_block
    workflow/blocks/load_schema
    workflow/blocks/load_schema_template
@@ -82,4 +83,5 @@ Kendraio App
 .. toctree::
    :maxdepth: 2
    :caption: Automated testing
+   
    testing/tips

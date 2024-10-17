@@ -19,7 +19,7 @@ code, and build the docs:
 
 .. prompt:: bash $
 
-    pip install sphinx
+    pip install sphinx sphinx-prompt sphinx_rtd_theme
     git clone https://github.com/kendraio/kendraio-app.git
     cd docs
     make html
@@ -35,7 +35,7 @@ Run the following commands (from the root of the repository, or change the paths
 
 .. prompt:: bash $
 
-  pip install sphinx-autobuild
+  pip install sphinx-autobuild==2021.3.14
   sphinx-autobuild docs/ docs/_build/html
 
 Then go to http://127.0.0.1:8000 in the browser.

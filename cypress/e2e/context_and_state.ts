@@ -217,7 +217,7 @@ describe('Kendraio context and state', () => {
           "id": "button-enabled"
         },
         {
-          "label": "Hidden",
+          "label": "Visible and disabled",
           "color": "default",
           "blocks": [],
           "enabledGetter": "state.global.disabled",
@@ -226,7 +226,8 @@ describe('Kendraio context and state', () => {
       ]
     }]);
     cy.get("#button-enabled").should('exist');
-    cy.contains("Hidden").should('not.exist');
+    cy.get("#button-disabled").should('exist');
+    cy.get("#button-disabled").should('have.attr', 'ng-reflect-disabled');
   });
 
   it('should allow the disabling of the datagrid', () => {

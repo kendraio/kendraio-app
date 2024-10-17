@@ -1,0 +1,24 @@
+<<<<<<< HEAD
+<mat-dialog-actions>
+  <button mat-flat-button (click)="shareMode='flow'">Share flow</button>
+  <button mat-flat-button (click)="shareMode='database'" data-cy="dialog-share-shareDatabase">Share database</button>
+</mat-dialog-actions>
+
+=======
+<button mat-flat-button (click)="shareMode='flow'">Share flow</button>
+<button mat-flat-button (click)="shareMode='database'">Share database</button>
+>>>>>>> parent of 36e31d0d (Migrate angular MUI to MDC components (#454))
+<div *ngIf="shareMode=='flow'">
+  <p class="mat-typography">Share the following flow link:</p>
+  <textarea #textBox readonly="readonly">{{flowShareLink}}</textarea><br>
+  <button mat-flat-button (click)="textBox.focus();textBox.select()">Select all</button>
+  <button mat-flat-button (click)="copyText()">Copy link</button>
+</div>
+
+<div *ngIf="shareMode=='database'">
+    <p class="mat-typography">Share the following database link:</p>
+    <textarea #textBox readonly="readonly">{{dbShareLink}}</textarea><br>
+    <button mat-flat-button (click)="textBox.focus();textBox.select()">Select all</button>
+    <button mat-flat-button (click)="copyText()">Copy link</button>
+  </div>
+  

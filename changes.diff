@@ -1,0 +1,1782 @@
+720,735c720,723
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Dashboard",
+<             "color": "primary",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "backstage",
+<                 "workflowId": "dashboard"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Dashboard",
+>         "adapterName": "backstage",
+>         "workflowId": "dashboard"
+902,917c890,893
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Dashboard",
+<             "color": "primary",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "backstage",
+<                 "workflowId": "dashboard"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Dashboard",
+>         "adapterName": "backstage",
+>         "workflowId": "dashboard"
+1020,1035c996,999
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Back",
+<             "color": "primary",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "backstage",
+<                 "workflowId": "dashboard"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Back",
+>         "adapterName": "backstage",
+>         "workflowId": "dashboard"
+1421,1460c1385,1400
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Add Gig",
+<             "color": "primary",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "backstage",
+<                 "workflowId": "addgig"
+<               }
+<             ],
+<             "enabled": true
+<           },
+<           {
+<             "label": "Manage Venues",
+<             "color": "primary",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "backstage",
+<                 "workflowId": "managevenues"
+<               }
+<             ],
+<             "enabled": true
+<           },
+<           {
+<             "label": "Manage Artists",
+<             "color": "primary",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "backstage",
+<                 "workflowId": "manageartists"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Add Gig",
+>         "adapterName": "backstage",
+>         "workflowId": "addgig"
+>       },
+>       {
+>         "type": "link-action",
+>         "label": "Manage Venues",
+>         "adapterName": "backstage",
+>         "workflowId": "managevenues"
+>       },
+>       {
+>         "type": "link-action",
+>         "label": "Manage Artists",
+>         "adapterName": "backstage",
+>         "workflowId": "manageartists"
+1855,1870c1795,1798
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Dashboard",
+<             "color": "primary",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "backstage",
+<                 "workflowId": "dashboard"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Dashboard",
+>         "adapterName": "backstage",
+>         "workflowId": "dashboard"
+2074,2089c2002,2005
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Dashboard",
+<             "color": "primary",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "backstage",
+<                 "workflowId": "dashboard"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Dashboard",
+>         "adapterName": "backstage",
+>         "workflowId": "dashboard"
+2353,2368c2269,2272
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Back",
+<             "color": "primary",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "backstage",
+<                 "workflowId": "dashboard"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Back",
+>         "adapterName": "backstage",
+>         "workflowId": "dashboard"
+2453,2468c2357,2360
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Dashboard",
+<             "color": "primary",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "backstage",
+<                 "workflowId": "dashboard"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Dashboard",
+>         "adapterName": "backstage",
+>         "workflowId": "dashboard"
+2668,2683c2560,2563
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Dashboard",
+<             "color": "primary",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "backstage",
+<                 "workflowId": "dashboard"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Dashboard",
+>         "adapterName": "backstage",
+>         "workflowId": "dashboard"
+2785,2800c2665,2668
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Dashboard",
+<             "color": "primary",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "backstage",
+<                 "workflowId": "dashboard"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Dashboard",
+>         "adapterName": "backstage",
+>         "workflowId": "dashboard"
+3049,3064c2917,2920
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Back to start page",
+<             "color": "secondary",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "bandsintown",
+<                 "workflowId": "start"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Back to start page",
+>         "adapterName": "bandsintown",
+>         "workflowId": "start"
+4240,4255c4096,4099
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Back to start page",
+<             "color": "secondary",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "bandsintown",
+<                 "workflowId": "start"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Back to start page",
+>         "adapterName": "bandsintown",
+>         "workflowId": "start"
+4522,4537c4366,4369
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Back to start page",
+<             "color": "secondary",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "bandsintown",
+<                 "workflowId": "start"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Back to start page",
+>         "adapterName": "bandsintown",
+>         "workflowId": "start"
+4798,4813c4630,4633
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Back to start page",
+<             "color": "secondary",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "bandsintown",
+<                 "workflowId": "start"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Back to start page",
+>         "adapterName": "bandsintown",
+>         "workflowId": "start"
+5075,5090c4895,4898
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Back to start page",
+<             "color": "secondary",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "bandsintown",
+<                 "workflowId": "start"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Back to start page",
+>         "adapterName": "bandsintown",
+>         "workflowId": "start"
+6138,6165c5946,5955
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Existing Events",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "bandsintown",
+<                 "workflowId": "listEvents"
+<               }
+<             ],
+<             "enabled": true
+<           },
+<           {
+<             "label": "Add Event",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "bandsintown",
+<                 "workflowId": "addEvent"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": "Aritst Actions"
+---
+>         "type": "link-action",
+>         "label": "Existing Events",
+>         "adapterName": "bandsintown",
+>         "workflowId": "listEvents"
+>       },
+>       {
+>         "type": "link-action",
+>         "label": "Add Event",
+>         "adapterName": "bandsintown",
+>         "workflowId": "addEvent"
+7169,7196c6959,6968
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Go to Projects",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "contributions",
+<                 "workflowId": "projects"
+<               }
+<             ],
+<             "enabled": true
+<           },
+<           {
+<             "label": "Go to Contributors",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "contributions",
+<                 "workflowId": "contributors"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Go to Projects",
+>         "adapterName": "contributions",
+>         "workflowId": "projects"
+>       },
+>       {
+>         "type": "link-action",
+>         "label": "Go to Contributors",
+>         "adapterName": "contributions",
+>         "workflowId": "contributors"
+7376,7391c7148,7151
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Back to Database Table",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "contributions",
+<                 "workflowId": "contributions"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Back to Database Table",
+>         "adapterName": "contributions",
+>         "workflowId": "contributions"
+7512,7539c7272,7281
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Go to Contributions",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "contributions",
+<                 "workflowId": "contributions"
+<               }
+<             ],
+<             "enabled": true
+<           },
+<           {
+<             "label": "Go to Projects",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "contributions",
+<                 "workflowId": "projects"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Go to Contributions",
+>         "adapterName": "contributions",
+>         "workflowId": "contributions"
+>       },
+>       {
+>         "type": "link-action",
+>         "label": "Go to Projects",
+>         "adapterName": "contributions",
+>         "workflowId": "projects"
+7645,7660c7387,7390
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Back to Database Table",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "contributions",
+<                 "workflowId": "contributors"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Back to Database Table",
+>         "adapterName": "contributions",
+>         "workflowId": "contributors"
+7814,7829c7544,7547
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Back to Database Table",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "contributions",
+<                 "workflowId": "projects"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Back to Database Table",
+>         "adapterName": "contributions",
+>         "workflowId": "projects"
+7955,7982c7673,7682
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Go to Contributions",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "contributions",
+<                 "workflowId": "contributions"
+<               }
+<             ],
+<             "enabled": true
+<           },
+<           {
+<             "label": "Go to Contributors",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "contributions",
+<                 "workflowId": "contributors"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Go to Contributions",
+>         "adapterName": "contributions",
+>         "workflowId": "contributions"
+>       },
+>       {
+>         "type": "link-action",
+>         "label": "Go to Contributors",
+>         "adapterName": "contributions",
+>         "workflowId": "contributors"
+11209,11223c10909,10912
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Add Batch",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "ddex",
+<                 "workflowId": "addBatch"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ]
+---
+>         "type": "link-action",
+>         "label": "Add Batch",
+>         "adapterName": "ddex",
+>         "workflowId": "addBatch"
+12334,12358c12023,12032
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Save",
+<             "color": "primary",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "ddex",
+<                 "workflowId": "batches"
+<               }
+<             ]
+<           },
+<           {
+<             "label": "Cancel",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "ddex",
+<                 "workflowId": "batches"
+<               }
+<             ]
+<           }
+<         ]
+---
+>         "type": "link-action",
+>         "label": "Save",
+>         "adapterName": "ddex",
+>         "workflowId": "batches"
+>       },
+>       {
+>         "type": "link-action",
+>         "label": "Cancel",
+>         "adapterName": "ddex",
+>         "workflowId": "batches"
+12651,12664c12325,12328
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Import DDEX XML",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "ddex",
+<                 "workflowId": "ernImport"
+<               }
+<             ]
+<           }
+<         ]
+---
+>         "type": "link-action",
+>         "label": "Import DDEX XML",
+>         "adapterName": "ddex",
+>         "workflowId": "ernImport"
+13041,13054c12705,12708
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Back",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "ddex",
+<                 "workflowId": "batches"
+<               }
+<             ]
+<           }
+<         ]
+---
+>         "type": "link-action",
+>         "label": "Back",
+>         "adapterName": "ddex",
+>         "workflowId": "batches"
+15461,15474c15115,15118
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Back",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "dsp1",
+<                 "workflowId": "myTracks"
+<               }
+<             ]
+<           }
+<         ]
+---
+>         "type": "link-action",
+>         "label": "Back",
+>         "adapterName": "dsp1",
+>         "workflowId": "myTracks"
+15822,15835c15466,15469
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Add Track",
+<             "color": "primary",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "dsp1",
+<                 "workflowId": "addTrack"
+<               }
+<             ]
+<           }
+<         ]
+---
+>         "type": "link-action",
+>         "label": "Add Track",
+>         "adapterName": "dsp1",
+>         "workflowId": "addTrack"
+16420,16435c16054,16057
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Basic random UUID example",
+<             "color": "accent",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "examples",
+<                 "workflowId": "uuid4"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": "Basic random UUID flow example"
+---
+>         "type": "link-action",
+>         "label": "Basic random UUID example",
+>         "adapterName": "examples",
+>         "workflowId": "uuid4"
+16438,16453c16060,16063
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Random UUID list example",
+<             "color": "accent",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "examples",
+<                 "workflowId": "uuid4S"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": "uuid4S"
+---
+>         "type": "link-action",
+>         "label": "Random UUID list example",
+>         "adapterName": "examples",
+>         "workflowId": "uuid4S"
+16456,16471c16066,16069
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Deterministic UUID example",
+<             "color": "accent",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "examples",
+<                 "workflowId": "uuid5"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": "uuid5"
+---
+>         "type": "link-action",
+>         "label": "Deterministic UUID example",
+>         "adapterName": "examples",
+>         "workflowId": "uuid5"
+16811,16825c16409,16412
+<                   "type": "actions",
+<                   "buttons": [
+<                     {
+<                       "label": "Launch",
+<                       "blocks": [
+<                         {
+<                           "type": "launch",
+<                           "valueGetters": {
+<                             "adapter": "data.adapterName",
+<                             "workflowId": "data.id"
+<                           }
+<                         }
+<                       ]
+<                     }
+<                   ]
+---
+>                   "type": "link-action",
+>                   "label": "Launch",
+>                   "adapterNameGetter": "data.adapterName",
+>                   "workflowIdGetter": "data.id"
+17050,17074c16637,16646
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Update local database",
+<             "color": "primary",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "flowSearch",
+<                 "workflowId": "updateLocalDatabaseFlows"
+<               }
+<             ]
+<           },
+<           {
+<             "label": "Wipe local database",
+<             "color": "warn",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "flowSearch",
+<                 "workflowId": "wipeLocalDatabase"
+<               }
+<             ]
+<           }
+<         ]
+---
+>         "type": "link-action",
+>         "label": "Update local database",
+>         "adapterName": "flowSearch",
+>         "workflowId": "updateLocalDatabaseFlows"
+>       },
+>       {
+>         "type": "link-action",
+>         "label": "Wipe local database",
+>         "adapterName": "flowSearch",
+>         "workflowId": "wipeLocalDatabase"
+17237,17250c16809,16812
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Search local database",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "flowSearch",
+<                 "workflowId": "findBlocks"
+<               }
+<             ]
+<           }
+<         ]
+---
+>         "type": "link-action",
+>         "label": "Search local database",
+>         "adapterName": "flowSearch",
+>         "workflowId": "findBlocks"
+17440,17453c17002,17005
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Search local database",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "flowSearch",
+<                 "workflowId": "findBlocks"
+<               }
+<             ]
+<           }
+<         ]
+---
+>         "type": "link-action",
+>         "label": "Search local database",
+>         "adapterName": "flowSearch",
+>         "workflowId": "findBlocks"
+17557,17581c17109,17118
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Update local database",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "flowSearch",
+<                 "workflowId": "updateLocalDatabaseFlows"
+<               }
+<             ]
+<           },
+<           {
+<             "label": "Search local database",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "flowSearch",
+<                 "workflowId": "findBlocks"
+<               }
+<             ]
+<           }
+<         ]
+---
+>         "type": "link-action",
+>         "label": "Update local database",
+>         "adapterName": "flowSearch",
+>         "workflowId": "updateLocalDatabaseFlows"
+>       },
+>       {
+>         "type": "link-action",
+>         "label": "Search local database",
+>         "adapterName": "flowSearch",
+>         "workflowId": "findBlocks"
+20603,20618c20140,20143
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Go back",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "harvest",
+<                 "workflowId": "timesheet"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Go back",
+>         "adapterName": "harvest",
+>         "workflowId": "timesheet"
+21072,21085c20597,20600
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Back",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "importer",
+<                 "workflowId": "listPresets"
+<               }
+<             ]
+<           }
+<         ]
+---
+>         "type": "link-action",
+>         "label": "Back",
+>         "adapterName": "importer",
+>         "workflowId": "listPresets"
+21186,21199c20701,20704
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Back to preset list",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "importer",
+<                 "workflowId": "listPresets"
+<               }
+<             ]
+<           }
+<         ]
+---
+>         "type": "link-action",
+>         "label": "Back to preset list",
+>         "adapterName": "importer",
+>         "workflowId": "listPresets"
+21221,21236c20726,20729
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Back to start page",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "importer",
+<                 "workflowId": "start"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": "Importer footer"
+---
+>         "type": "link-action",
+>         "label": "Back to start page",
+>         "adapterName": "importer",
+>         "workflowId": "start"
+23670,23683c23163,23166
+<                     "type": "actions",
+<                     "buttons": [
+<                       {
+<                         "label": "Create schema",
+<                         "blocks": [
+<                           {
+<                             "type": "launch",
+<                             "adapter": "schemas",
+<                             "workflowId": "list"
+<                           }
+<                         ],
+<                         "enabled": true
+<                       }
+<                     ]
+---
+>                     "type": "link-action",
+>                     "label": "Create schema",
+>                     "adapterName": "schemas",
+>                     "workflowId": "list"
+26260,26297c25743,25758
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Main",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "local-loop",
+<                 "workflowId": "main"
+<               }
+<             ],
+<             "enabled": true
+<           },
+<           {
+<             "label": "Filter transactions by organisation",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "local-loop",
+<                 "workflowId": "filterTransactionsByOrg"
+<               }
+<             ],
+<             "enabled": true
+<           },
+<           {
+<             "label": "Add a new transaction",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "local-loop",
+<                 "workflowId": "addTransaction"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Main",
+>         "adapterName": "local-loop",
+>         "workflowId": "main"
+>       },
+>       {
+>         "type": "link-action",
+>         "label": "Filter transactions by organisation",
+>         "adapterName": "local-loop",
+>         "workflowId": "filterTransactionsByOrg"
+>       },
+>       {
+>         "type": "link-action",
+>         "label": "Add a new transaction",
+>         "adapterName": "local-loop",
+>         "workflowId": "addTransaction"
+26496,26533c25957,25972
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Main",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "local-loop",
+<                 "workflowId": "main"
+<               }
+<             ],
+<             "enabled": true
+<           },
+<           {
+<             "label": "Filter transactions by organisation",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "local-loop",
+<                 "workflowId": "filterTransactionsByOrg"
+<               }
+<             ],
+<             "enabled": true
+<           },
+<           {
+<             "label": "Add a new organisation",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "local-loop",
+<                 "workflowId": "addOrg"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Main",
+>         "adapterName": "local-loop",
+>         "workflowId": "main"
+>       },
+>       {
+>         "type": "link-action",
+>         "label": "Filter transactions by organisation",
+>         "adapterName": "local-loop",
+>         "workflowId": "filterTransactionsByOrg"
+>       },
+>       {
+>         "type": "link-action",
+>         "label": "Add a new organisation",
+>         "adapterName": "local-loop",
+>         "workflowId": "addOrg"
+26649,26687c26088,26103
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Main",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "local-loop",
+<                 "workflowId": "main"
+<               }
+<             ],
+<             "enabled": true
+<           },
+<           {
+<             "label": "Add a new organisation",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "local-loop",
+<                 "workflowId": "addOrg"
+<               }
+<             ],
+<             "enabled": true
+<           },
+<           {
+<             "label": "Add a new transaction",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "local-loop",
+<                 "workflowId": "addTransaction"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Main",
+>         "adapterName": "local-loop",
+>         "workflowId": "main"
+>       },
+>       {
+>         "type": "link-action",
+>         "label": "Add a new organisation",
+>         "adapterName": "local-loop",
+>         "workflowId": "addOrg"
+>       },
+>       {
+>         "type": "link-action",
+>         "label": "Add a new transaction",
+>         "adapterName": "local-loop",
+>         "workflowId": "addTransaction"
+26803,26841c26219,26234
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Main",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "local-loop",
+<                 "workflowId": "main"
+<               }
+<             ],
+<             "enabled": true
+<           },
+<           {
+<             "label": "Add a new organisation",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "local-loop",
+<                 "workflowId": "addOrg"
+<               }
+<             ],
+<             "enabled": true
+<           },
+<           {
+<             "label": "Add a new transaction",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "local-loop",
+<                 "workflowId": "addTransaction"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Main",
+>         "adapterName": "local-loop",
+>         "workflowId": "main"
+>       },
+>       {
+>         "type": "link-action",
+>         "label": "Add a new organisation",
+>         "adapterName": "local-loop",
+>         "workflowId": "addOrg"
+>       },
+>       {
+>         "type": "link-action",
+>         "label": "Add a new transaction",
+>         "adapterName": "local-loop",
+>         "workflowId": "addTransaction"
+27267,27304c26660,26675
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Main",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "localloop",
+<                 "workflowId": "main"
+<               }
+<             ],
+<             "enabled": true
+<           },
+<           {
+<             "label": "Filter transactions by organisation",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "localloop",
+<                 "workflowId": "filterTransactionsByOrg"
+<               }
+<             ],
+<             "enabled": true
+<           },
+<           {
+<             "label": "Add a new transaction",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "localloop",
+<                 "workflowId": "addTransaction"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Main",
+>         "adapterName": "localloop",
+>         "workflowId": "main"
+>       },
+>       {
+>         "type": "link-action",
+>         "label": "Filter transactions by organisation",
+>         "adapterName": "localloop",
+>         "workflowId": "filterTransactionsByOrg"
+>       },
+>       {
+>         "type": "link-action",
+>         "label": "Add a new transaction",
+>         "adapterName": "localloop",
+>         "workflowId": "addTransaction"
+27500,27537c26871,26886
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Main",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "localloop",
+<                 "workflowId": "main"
+<               }
+<             ],
+<             "enabled": true
+<           },
+<           {
+<             "label": "Filter transactions by organisation",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "localloop",
+<                 "workflowId": "filterTransactionsByOrg"
+<               }
+<             ],
+<             "enabled": true
+<           },
+<           {
+<             "label": "Add a new organisation",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "localloop",
+<                 "workflowId": "addOrg"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Main",
+>         "adapterName": "localloop",
+>         "workflowId": "main"
+>       },
+>       {
+>         "type": "link-action",
+>         "label": "Filter transactions by organisation",
+>         "adapterName": "localloop",
+>         "workflowId": "filterTransactionsByOrg"
+>       },
+>       {
+>         "type": "link-action",
+>         "label": "Add a new organisation",
+>         "adapterName": "localloop",
+>         "workflowId": "addOrg"
+27650,27688c26999,27014
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Main",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "localloop",
+<                 "workflowId": "main"
+<               }
+<             ],
+<             "enabled": true
+<           },
+<           {
+<             "label": "Add a new organisation",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "localloop",
+<                 "workflowId": "addOrg"
+<               }
+<             ],
+<             "enabled": true
+<           },
+<           {
+<             "label": "Add a new transaction",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "localloop",
+<                 "workflowId": "addTransaction"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Main",
+>         "adapterName": "localloop",
+>         "workflowId": "main"
+>       },
+>       {
+>         "type": "link-action",
+>         "label": "Add a new organisation",
+>         "adapterName": "localloop",
+>         "workflowId": "addOrg"
+>       },
+>       {
+>         "type": "link-action",
+>         "label": "Add a new transaction",
+>         "adapterName": "localloop",
+>         "workflowId": "addTransaction"
+27703,27741c27029,27044
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Filter transactions by organisation",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "localloop",
+<                 "workflowId": "filterTransactionsByOrg"
+<               }
+<             ],
+<             "enabled": true
+<           },
+<           {
+<             "label": "Add a new organisation",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "localloop",
+<                 "workflowId": "addOrg"
+<               }
+<             ],
+<             "enabled": true
+<           },
+<           {
+<             "label": "Add a new transaction",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "localloop",
+<                 "workflowId": "addTransaction"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Filter transactions by organisation",
+>         "adapterName": "localloop",
+>         "workflowId": "filterTransactionsByOrg"
+>       },
+>       {
+>         "type": "link-action",
+>         "label": "Add a new organisation",
+>         "adapterName": "localloop",
+>         "workflowId": "addOrg"
+>       },
+>       {
+>         "type": "link-action",
+>         "label": "Add a new transaction",
+>         "adapterName": "localloop",
+>         "workflowId": "addTransaction"
+27809,27824c27112,27115
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Edit block types",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "site-builder",
+<                 "workflowId": "blockEditor"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Edit block types",
+>         "adapterName": "site-builder",
+>         "workflowId": "blockEditor"
+30150,30163c29441,29444
+<                 "type": "actions",
+<                 "buttons": [
+<                   {
+<                     "label": "Continue",
+<                     "color": "primary",
+<                     "blocks": [
+<                       {
+<                         "type": "launch",
+<                         "adapter": "resonate",
+<                         "workflowId": "dashboard"
+<                       }
+<                     ]
+<                   }
+<                 ]
+---
+>                 "type": "link-action",
+>                 "label": "Continue",
+>                 "adapterName": "resonate",
+>                 "workflowId": "dashboard"
+31762,31775c31043,31046
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Back to list",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "schemas",
+<                 "workflowId": "list"
+<               }
+<             ]
+<           }
+<         ]
+---
+>         "type": "link-action",
+>         "label": "Back to list",
+>         "adapterName": "schemas",
+>         "workflowId": "list"
+33918,33933c33189,33192
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Edit block types",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "site-builder",
+<                 "workflowId": "blockEditor"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Edit block types",
+>         "adapterName": "site-builder",
+>         "workflowId": "blockEditor"
+34179,34194c33438,33441
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Edit block types",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "site-builder",
+<                 "workflowId": "blockEditor"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Edit block types",
+>         "adapterName": "site-builder",
+>         "workflowId": "blockEditor"
+34445,34460c33692,33695
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Edit block types",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "site-builder",
+<                 "workflowId": "blockEditor"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Edit block types",
+>         "adapterName": "site-builder",
+>         "workflowId": "blockEditor"
+38444,38459c37679,37682
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Dashboard",
+<             "color": "primary",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "task",
+<                 "workflowId": "dashboard"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Dashboard",
+>         "adapterName": "task",
+>         "workflowId": "dashboard"
+39449,39464c38672,38675
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Dashboard",
+<             "color": "primary",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "task",
+<                 "workflowId": "dashboard"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": ""
+---
+>         "type": "link-action",
+>         "label": "Dashboard",
+>         "adapterName": "task",
+>         "workflowId": "dashboard"
+44696,44710c43907,43910
+<                 "type": "actions",
+<                 "buttons": [
+<                   {
+<                     "label": "Reload landing page",
+<                     "color": "default",
+<                     "blocks": [
+<                       {
+<                         "type": "launch",
+<                         "adapter": "transparence",
+<                         "workflowId": "landing"
+<                       }
+<                     ],
+<                     "enabled": true
+<                   }
+<                 ]
+---
+>                 "type": "link-action",
+>                 "label": "Reload landing page",
+>                 "adapterName": "transparence",
+>                 "workflowId": "landing"
+44742,44768c43942,43951
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "All workflows",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "transparence",
+<                 "workflowId": "workflowList"
+<               }
+<             ],
+<             "enabled": true
+<           },
+<           {
+<             "label": "Add a new user",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "transparence",
+<                 "workflowId": "signup"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ]
+---
+>         "type": "link-action",
+>         "label": "All workflows",
+>         "adapterName": "transparence",
+>         "workflowId": "workflowList"
+>       },
+>       {
+>         "type": "link-action",
+>         "label": "Add a new user",
+>         "adapterName": "transparence",
+>         "workflowId": "signup"
+46332,46346c45515,45518
+<                   "type": "actions",
+<                   "buttons": [
+<                     {
+<                       "label": "Launch",
+<                       "blocks": [
+<                         {
+<                           "type": "launch",
+<                           "valueGetters": {
+<                             "adapter": "data.adapterName",
+<                             "workflowId": "data.id"
+<                           }
+<                         }
+<                       ]
+<                     }
+<                   ]
+---
+>                   "type": "link-action",
+>                   "label": "Launch",
+>                   "adapterNameGetter": "data.adapterName",
+>                   "workflowIdGetter": "data.id"
+47241,47254c46413,46416
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "Go",
+<             "color": "primary",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "valueflows",
+<                 "workflowId": "editPlan"
+<               }
+<             ]
+<           }
+<         ]
+---
+>         "type": "link-action",
+>         "label": "Go",
+>         "adapterName": "valueflows",
+>         "workflowId": "editPlan"
+50219,50234c49381,49384
+<         "type": "actions",
+<         "buttons": [
+<           {
+<             "label": "\ud83d\udcc4 List saved searches",
+<             "color": "default",
+<             "blocks": [
+<               {
+<                 "type": "launch",
+<                 "adapter": "searches",
+<                 "workflowId": "saved"
+<               }
+<             ],
+<             "enabled": true
+<           }
+<         ],
+<         "blockComment": "List saved searches button"
+---
+>         "type": "link-action",
+>         "label": "\ud83d\udcc4 List saved searches",
+>         "adapterName": "searches",
+>         "workflowId": "saved"

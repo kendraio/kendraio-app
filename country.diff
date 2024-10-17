@@ -1,0 +1,433 @@
+diff --git a/docs/workflow/blocks/map.rst b/docs/workflow/blocks/map.rst
+index acb27eed..f4018f0c 100644
+--- a/docs/workflow/blocks/map.rst
++++ b/docs/workflow/blocks/map.rst
+@@ -1,37 +1,124 @@
+ Map
+ ===
+ 
+-The map block allows embedding a map for display of geocoded data.
+-Leaflet.JS is used to display the map, and some Leaflet.JS customisation
+-options are supported.
++The Map block allows embedding a map for displaying geocoded data.
++The Leaflet.js library is used to display the map, and some customisation options are supported.
+ 
+ The ``height`` in pixels of the block (default height 500px),
+ and the initial ``zoom`` level (default zoom = 8)
+ are provided as configuration options to the block. You can also optionally
+-provide a ``latlng`` config option for the default map center point.
+-The map defaults to centering at [51.505, -0.09].
++provide a ``latlng`` config option for the default map centre point.
+ 
+-Examples
+---------
++The map defaults to centring at [51.505, -0.09].
+ 
+-The map block expects incoming data to be an array of objects that
+-have ``lat``, ``long``, and ``label`` properties. Here is an example
+-of a mapping that produces appropriate data:
++Data input
++----------
++
++The Map block expects incoming data to be an array of objects.
++Each object represents a marker, and/or a country area. Each object can include the following properties:
++
++- **Location-based Pin:** Provide both ``lat`` and ``long`` properties to display a pin at the specified coordinates.
++- **Country-based Area:** Provide the ``country`` property with a 3-letter ISO country code (e.g., "GBR") to display the country area.
++
++You can include both location and country properties in the same object to display both a pin and a country area.
++
++Optionally, include a ``label`` property for the popup label and a ``customPin`` property for custom icons (see below).
++
++**Example: Displaying location pins**
++
++This example shows a mapping that produces an array of objects, each representing a location with a pin:
++
++.. code-block:: json
++
++    {
++        "type": "mapping",
++        "mapping": "[{ lat: `51.5074`, long: `-0.1278`, label: 'London' }, { lat: `48.8566`, long: `2.3522`, label: 'Paris' }]"
++    },
++    {
++        "type": "map",
++        "height": 500,
++        "zoom": 2
++    }
++
++Displaying country areas
++------------------------
++
++To display a country area on the map, provide the ``country`` property in the data object 
++with the 3-letter ISO code for the country. For example, to display the United Kingdom, you would use ``"GBR"``.
++
++You can configure the appearance of country areas using the ``countryStyle`` object in the block config. 
++The properties and their defaults are as follows:
+ 
+ .. code-block:: json
+ 
+-                {
+-                    "type": "mapping",
+-                    "mapping": "data[?recovered > `20`].{ lat: lat, long: long, label: join(' ', [to_string(recovered), 'recovered in', combinedKey][? @ != null]) }"
+-                }
++        {
++            "color": "gray",
++            "weight": 2,
++            "opacity": 0.3,
++            "fillColor": "gray",
++            "fillOpacity": 0.5
++        }
+ 
+-Example map block configuration:
++**Example: Displaying country areas**
++
++This example shows a mapping that produces an array of objects, each representing a country area. The map block configures the appearance of the country areas:
++
++.. code-block:: json
++
++  {
++    "type": "mapping",
++    "mapping": "[{ country: 'GBR', label: 'United Kingdom' }, { country: 'FRA', label: 'France' }]"
++  },
++  {
++    "type": "map",
++    "height": 500,
++    "zoom": 2,
++    "countryStyle": {
++      "color": "red",
++      "fillColor": "pink"
++    }
++  }
++
++**Example: Displaying both pins and country areas**
++
++This example demonstrates displaying both a pin and a country area in the same object:
+ 
+ .. code-block:: json
+ 
+-                {
+-                    "type": "map",
+-                    "height": 500,
+-                    "zoom": 2
+-                }
++  {
++    "type": "mapping",
++    "mapping": "[{ country: 'GBR', lat: `51.5074`, long: `-0.1278`, label: 'London, United Kingdom', customPin: '🇬🇧' }]"
++  },
++  {
++    "type": "map",
++    "height": 500,
++    "zoom": 6,
++    "countryStyle": {
++      "color": "blue",
++      "fillColor": "lightblue"
++    }
++  }
++
++Custom pin icons
++----------------
++
++In addition to the default pin icon, the block allows setting custom pin 
++icons using the ``customPin`` property in the data object. The ``customPin`` property 
++accepts a string value that can be plain text, HTML, or even emojis.
++The input is sanitised with DOMPurify to prevent XSS attacks.
++
++**Example: Custom pin icons with emojis**
++
++This example uses emojis as custom pin icons for specific locations:
++
++.. code-block:: json
+ 
++  {
++    "type": "mapping",
++    "mapping": "[{ lat: `51.5074`, long: `-0.1278`, label: 'London', customPin: '🇬🇧' }, { lat: `48.8566`, long: `2.3522`, label: 'Paris', customPin: '🇫🇷' }]"
++  },
++  {
++    "type": "map",
++    "height": 500,
++    "zoom": 2
++  }
+diff --git a/src/app/blocks/map-block/map-block.component.spec.ts b/src/app/blocks/map-block/map-block.component.spec.ts
+new file mode 100644
+index 00000000..f74b5cee
+--- /dev/null
++++ b/src/app/blocks/map-block/map-block.component.spec.ts
+@@ -0,0 +1,163 @@
++import { MapBlockComponent } from "./map-block.component";
++import { ComponentFixture, TestBed } from "@angular/core/testing";
++import { of } from "rxjs";
++import { geoJSON } from "leaflet";
++
++const mockGeoJsonData = {
++  type: "FeatureCollection",
++  features: [
++    {
++      type: "Feature",
++      geometry: {
++        type: "Polygon",
++        coordinates: [
++          [
++            [-5.0, 52.0],
++            [-4.0, 52.0],
++            [-4.0, 53.0],
++            [-5.0, 53.0],
++            [-5.0, 52.0],
++          ],
++        ],
++      },
++      properties: {
++        name: "Mock Country",
++      },
++    },
++  ],
++};
++
++describe("MapBlockComponent", () => {
++  let component: MapBlockComponent;
++  let fixture: ComponentFixture<MapBlockComponent>;
++
++  beforeEach(() => {
++    TestBed.configureTestingModule({
++      declarations: [MapBlockComponent],
++    }).compileComponents();
++
++    fixture = TestBed.createComponent(MapBlockComponent);
++    component = fixture.componentInstance;
++  });
++
++  it("should create", () => {
++    expect(component).toBeTruthy();
++  });
++
++  it("should handle missing lat/long values if country is provided", (done) => {
++    const mockResponse = new Response(JSON.stringify(mockGeoJsonData), {
++      status: 200,
++      headers: { "Content-type": "application/json" },
++    });
++
++    spyOn(window, "fetch").and.returnValue(Promise.resolve(mockResponse));
++
++    const data = [{ country: "GBR", label: "United Kingdom" }];
++    component.onData(data, false);
++
++    setTimeout(() => {
++      try {
++        expect(component.layers.length).toBe(1); // Should create a single layer for the country
++        done();
++      } catch (error) {
++        done.fail(error);
++      }
++    }, 100); // Allow async operations to complete
++  });
++
++  it("should apply custom styles to country areas", () => {
++    component.onConfigUpdate({
++      countryStyle: { color: "red", fillColor: "pink" },
++    });
++    expect(component.countryStyle.color).toBe("red");
++    expect(component.countryStyle.fillColor).toBe("pink");
++  });
++
++  it("should create a custom marker icon with sanitised HTML", () => {
++    const data = [
++      {
++        lat: `51.5074`,
++        long: `-0.1278`,
++        label: "London",
++        customPin: '<span class="test">Test</span>',
++      },
++    ];
++    component.onData(data, false);
++    expect(component.layers[0].options.icon.options.html).toContain(
++      '<span class="test">Test</span>'
++    );
++  });
++
++  it("should handle both lat/long and country in the same object", (done) => {
++    const mockResponse = new Response(JSON.stringify(mockGeoJsonData), {
++      status: 200,
++      headers: { "Content-type": "application/json" },
++    });
++
++    spyOn(window, "fetch").and.returnValue(Promise.resolve(mockResponse));
++
++    const data = [
++      {
++        country: "GBR",
++        lat: `51.5074`,
++        long: `-0.1278`,
++        label: "London, United Kingdom",
++        customPin: "🇬🇧",
++      },
++    ];
++    component.onData(data, false);
++
++    setTimeout(() => {
++      try {
++        expect(component.layers.length).toBe(2); // Should create layers for both the pin and the country
++        done();
++      } catch (error) {
++        done.fail(error);
++      }
++    }, 100); // Allow async operations to complete
++  });
++
++  it("should update map height and zoom level based on configuration", () => {
++    component.onConfigUpdate({ height: 600, zoom: 10 });
++    expect(component.height).toBe(600);
++    expect(component.options.zoom).toBe(10);
++  });
++
++  it("should handle empty data input", () => {
++    component.onData([], false);
++    expect(component.layers.length).toBe(0); // No layers should be created
++  });
++
++  it("should create a custom marker icon with plain text", () => {
++    const data = [
++      {
++        lat: `51.5074`,
++        long: `-0.1278`,
++        label: "London",
++        customPin: "📍",
++      },
++    ];
++    component.onData(data, false);
++    expect(component.layers[0].options.icon.options.html).toContain("📍");
++  });
++
++  it("should use cached GeoJSON data if available", (done) => {
++    const countryCode = "GBR";
++    component.countryCache[countryCode] = mockGeoJsonData;
++
++    const spyFetch = spyOn(window, "fetch");
++
++    const data = [{ country: countryCode, label: "United Kingdom" }];
++    component.onData(data, false);
++
++    setTimeout(() => {
++      try {
++        expect(spyFetch).not.toHaveBeenCalled(); // Fetch should not be called if data is cached
++        expect(component.layers.length).toBe(1); // Should create a single layer for the country
++        done();
++      } catch (error) {
++        done.fail(error);
++      }
++    }, 100); // Allow async operations to complete
++  });
++});
+diff --git a/src/app/blocks/map-block/map-block.component.ts b/src/app/blocks/map-block/map-block.component.ts
+index 466065f8..e1cda8be 100644
+--- a/src/app/blocks/map-block/map-block.component.ts
++++ b/src/app/blocks/map-block/map-block.component.ts
+@@ -1,7 +1,8 @@
+ import {Component} from '@angular/core';
+ import {BaseBlockComponent} from '../base-block/base-block.component';
+-import {icon, latLng, marker, tileLayer} from 'leaflet';
++import {icon, latLng, marker, tileLayer, divIcon, geoJSON} from 'leaflet';
+ import {get, isArray, set} from 'lodash-es';
++import * as DOMPurify from 'dompurify';
+ 
+ @Component({
+   selector: 'app-map-block',
+@@ -28,23 +29,92 @@ contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA
+   markerClusterData = [];
+   markerClusterOptions = {};
+ 
++  // Country GeoJSON provider base URL
++  countryProviderBaseURL = 'https://raw.githubusercontent.com/AshKyd/geojson-regions/main/public/countries/50m/';
++  countryExtension = '.geojson';
++
++  // Country area polygon styling
++  countryStyle = {
++    color: 'gray',
++    weight: 2,
++    opacity: 0.3,
++    fillColor: 'gray',
++    fillOpacity: 0.5
++  };
++
++  // In-memory cache for country GeoJSON data
++  countryCache: { [key: string]: any } = {};
++
+   onConfigUpdate(config: any) {
+     this.height = get(config, 'height', 500);
+     set(this.options, 'zoom', get(config, 'zoom', 8));
+     const latln = get(config, 'latlng', [51.505, -0.09]);
+     set(this.options, 'center', latLng(latln[0], latln[1]));
++
++    // Allow setting custom country provider base URL
++    this.countryProviderBaseURL = get(config, 'countryProviderBaseURL', this.countryProviderBaseURL);
++    // Allow setting custom country extension
++    this.countryExtension = get(config, 'countryExtension', this.countryExtension);
++
++    // Update country style from config
++    this.countryStyle = {
++      ...this.countryStyle,
++      ...get(config, 'countryStyle', {})
++    };
++  }
++
++  private fetchGeoJsonData(countryCode: string): Promise<any> {
++    if (this.countryCache[countryCode]) {
++      return Promise.resolve(this.countryCache[countryCode]);
++    } else {
++      const geoJsonFilename = `${countryCode}${this.countryExtension}`;
++      return fetch(`${this.countryProviderBaseURL}${geoJsonFilename}`)
++        .then(response => response.json())
++        .then(geojsonData => {
++          this.countryCache[countryCode] = geojsonData; // Cache the data
++          return geojsonData;
++        });
++    }
+   }
+ 
+   onData(data: any, firstChange: boolean) {
+     if (isArray(data)) {
+-      this.layers = data.map(({ lat, long, label }) => marker(latLng(lat, long), {
+-        icon: icon({
+-          iconSize: [ 25, 41 ],
+-          iconAnchor: [ 13, 41 ],
+-          iconUrl: '/assets/marker-icon.png',
+-          shadowUrl: '/assets/marker-shadow.png'
+-        })
+-      }).bindPopup(label));
++      this.layers = [];
++      
++      data.forEach(({ lat, long, label, customPin, country }) => {
++        let markerIcon;
++        if (customPin) {
++          const sanitizedHtml = DOMPurify.sanitize(customPin);
++          markerIcon = divIcon({
++            html: `<div style="font-size: 25px;">${sanitizedHtml}</div>`,
++            iconSize: [25, 41],
++            className: 'custom-marker' // avoid the ugly default marker class
++          });
++        } else {
++          markerIcon = icon({
++            iconSize: [25, 41],
++            iconAnchor: [13, 41],
++            iconUrl: '/assets/marker-icon.png',
++            shadowUrl: '/assets/marker-shadow.png'
++          });
++        }
++        
++        if (lat && long) {
++          this.layers.push(
++            marker(latLng(lat, long), { icon: markerIcon }).bindPopup(label)
++          );
++        }
++  
++        if (country) {
++          const countryCode = country.toUpperCase();
++          this.fetchGeoJsonData(countryCode).then(geojsonData => {
++            const geojsonLayer = geoJSON(geojsonData, {
++              style: this.countryStyle,
++            });
++            this.layers.push(geojsonLayer);
++          });
++        }
++      });
+     }
+   }
+ }

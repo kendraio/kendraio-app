@@ -1,0 +1,15 @@
+Error: src/app/blocks/load-schema-block/load-schema-block.component.ts:81:9 - error TS2322: Type 'any' is not assignable to type 'never'.
+81         schemaDefinitions[schemaName] = await this.mapSchema(schemaDefinitions, get(result, '[0].data', {}), schemaName, depth) as any;
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Error: src/app/blocks/load-schema-block/load-schema-block.component.ts:229:7 - error TS2322: Type 'any' is not assignable to type 'never'.
+229       schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName, depth + 1) as any;
+          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Error: src/app/blocks/load-schema-block/load-schema-block.component.ts:254:7 - error TS2322: Type 'any' is not assignable to type 'never'.
+254       schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName, depth + 1) as any;
+          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Error: src/app/blocks/load-schema-block/load-schema-block.component.ts:276:7 - error TS2322: Type 'any' is not assignable to type 'never'.
+276       schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName, depth + 1) as any;
+          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Error: src/app/blocks/load-schema-block/load-schema-block.component.ts:332:7 - error TS2322: Type 'any' is not assignable to type 'never'.
+332       schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName, depth + 1) as any;
+          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

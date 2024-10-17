@@ -26,5 +26,6 @@ export default defineConfig({
     supportFile: false,
     baseUrl: 'http://localhost:4200',
     specPattern: 'cypress/e2e/**/*.{js,jsx,ts,tsx}',
+    experimentalRunAllSpecs: true
   },
 })

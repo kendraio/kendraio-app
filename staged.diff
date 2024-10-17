@@ -1,0 +1,118 @@
+diff --git a/src/app/app.module.ts b/src/app/app.module.ts
+index 8f745f76..465ed444 100644
+--- a/src/app/app.module.ts
++++ b/src/app/app.module.ts
+@@ -186,7 +186,7 @@ import { BlockGosubBuilderBoxComponent } from './components/block-gosub-builder-
+ import { MermaidBlockComponent } from './blocks/mermaid-block/mermaid-block.component';
+ import { ComparisonComponent } from './blocks/comparison/comparison.component';
+ import { BlockComparisonBuilderBoxComponent } from './components/block-comparison-builder-box/block-comparison-builder-box.component';
+-
++import { LinkActionComponent } from './blocks/link-action-block/link-action.component';
+ // AoT requires an exported function for factories
+ export function HttpLoaderFactory(http: HttpClient) {
+   return new TranslateHttpLoader(http);
+@@ -347,7 +347,8 @@ export function HttpLoaderFactory(http: HttpClient) {
+         BlockGosubBuilderBoxComponent,
+         MermaidBlockComponent,
+         ComparisonComponent,
+-        BlockComparisonBuilderBoxComponent
++        BlockComparisonBuilderBoxComponent,
++        LinkActionComponent
+     ],
+     imports: [
+         FormlyModule.forRoot({}),
+diff --git a/src/app/blocks/link-action-block/link-action.component.html b/src/app/blocks/link-action-block/link-action.component.html
+new file mode 100644
+index 00000000..8107187a
+--- /dev/null
++++ b/src/app/blocks/link-action-block/link-action.component.html
+@@ -0,0 +1 @@
++<a [href]="linkUrl" target="_blank" mat-flat-button>{{ label }}</a> 
+\ No newline at end of file
+diff --git a/src/app/blocks/link-action-block/link-action.component.scss b/src/app/blocks/link-action-block/link-action.component.scss
+new file mode 100644
+index 00000000..e69de29b
+diff --git a/src/app/blocks/link-action-block/link-action.component.ts b/src/app/blocks/link-action-block/link-action.component.ts
+new file mode 100644
+index 00000000..22f701cd
+--- /dev/null
++++ b/src/app/blocks/link-action-block/link-action.component.ts
+@@ -0,0 +1,42 @@
++import { Component } from '@angular/core';
++import { BaseBlockComponent } from '../base-block/base-block.component';
++import { get } from 'lodash-es';
++import { mappingUtility } from '../mapping-block/mapping-util';
++
++@Component({
++  selector: 'app-link-action',
++  templateUrl: './link-action.component.html',
++  styleUrls: ['./link-action.component.scss']
++})
++export class LinkActionComponent extends BaseBlockComponent {
++
++  linkUrl = '';
++  label = '';
++  adapterName = '';
++  workflowId = '';
++
++  constructor() {
++    super();
++  }
++
++  // Helper function to generate the link URL
++  private generateLinkUrl() {
++    const resolvedAdapterName = mappingUtility({ data: this.model, context: this.context }, this.adapterName);
++    const resolvedWorkflowId = mappingUtility({ data: this.model, context: this.context }, this.workflowId);
++    this.linkUrl = `/${resolvedAdapterName}/${resolvedWorkflowId}`;
++    console.log('Link URL:', this.linkUrl);
++  }
++  
++  onConfigUpdate(config: any) {
++    this.label = get(config, 'label', 'Link');
++    this.adapterName = get(config, 'adapterName', '');
++    this.workflowId = get(config, 'workflowId', '');
++    this.generateLinkUrl(); // Generate link URL here
++  }
++
++  onData(data: any, firstChange: boolean) {
++      this.generateLinkUrl(); // Regenerate if data or context changes
++  }
++
++
++}
+\ No newline at end of file
+diff --git a/src/app/components/blocks-workflow/blocks-workflow.component.html b/src/app/components/blocks-workflow/blocks-workflow.component.html
+index 30292711..a80558dc 100644
+--- a/src/app/components/blocks-workflow/blocks-workflow.component.html
++++ b/src/app/components/blocks-workflow/blocks-workflow.component.html
+@@ -57,6 +57,7 @@
+     <app-rename-fields-block class="block-wrapper" *ngSwitchCase="'rename-fields'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-rename-fields-block>
+     <app-mermaid-block class="block-wrapper" *ngSwitchCase="'mermaid'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-mermaid-block>
+     <app-comparison class="block-wrapper" *ngSwitchCase="'comparison'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-comparison>
++    <app-link-action class="block-wrapper" *ngSwitchCase="'link-action'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-link-action>
+   </ng-container>
+ </ng-container>
+ <!-- <pre>workblock: {{ context | json }}</pre> -->
+diff --git a/src/app/dialogs/add-block-dialog/block-types.ts b/src/app/dialogs/add-block-dialog/block-types.ts
+index e8a20afb..c5e1865c 100644
+--- a/src/app/dialogs/add-block-dialog/block-types.ts
++++ b/src/app/dialogs/add-block-dialog/block-types.ts
+@@ -653,5 +653,18 @@ export const BLOCK_TYPES = [
+     defaultConfig: {
+       type: 'wallet'
+     }
++  },
++  {
++    type: 'link-action',
++    label: 'Link Action',
++    description: 'Open a workflow in a new tab using a link',
++    icon: 'link',
++    hasEditor: true,
++    defaultConfig: {
++      type: 'link-action',
++      label: 'Open Workflow', 
++      adapterName: 'adapterName', 
++      workflowId: 'workflowId', 
++    }
+   }
+ ];

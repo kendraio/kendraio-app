@@ -1,0 +1,937 @@
+diff --git a/cypress/e2e/actions.ts b/cypress/e2e/actions.ts
+index 046b3ccc..5f5cf9fa 100644
+--- a/cypress/e2e/actions.ts
++++ b/cypress/e2e/actions.ts
+@@ -59,50 +59,3 @@ describe('Actions block type', () => {
+     });
+ });
+ 
+-
+-describe('LinkActionComponent', () => {
+-  it('should generate the correct link URL from plain strings', () => {
+-    // Tests with hardcoded values
+-    loadFlowCode([
+-      {
+-        "type": "link-action",
+-        "label": "Test Link",
+-        "adapterName": "myAdapter",
+-        "workflowId": "myWorkflow"
+-      }
+-    ]);
+-    cy.get('app-link-action a').should('have.attr', 'href', '/myAdapter/myWorkflow');
+-  });
+-
+-  it('should generate the correct link URL using object mappings', () => {
+-    // Test with JMESPath expressions
+-    loadFlowCode([
+-      {
+-        "type": "mapping",
+-        "mapping": "{ adapter: `testAdapter`, workflow: `testWorkflow` }"
+-      },
+-      {
+-        "type": "link-action",
+-        "label": "Dynamic Link",
+-        "adapterNameGetter": "data.adapter",
+-        "workflowIdGetter": "data.workflow"
+-      }
+-    ]);
+-    cy.get('app-link-action a').should('have.attr', 'href', '/testAdapter/testWorkflow');
+-  });
+-
+-  it('should not have no link target by default', () => {
+-    // The default behavior should be to open the link in the same tab,
+-    // it's up to the user and their user-agent to decide how to handle the link.
+-    loadFlowCode([
+-      {
+-        "type": "link-action",
+-        "label": "Test Link",
+-        "adapterName": "myAdapter",
+-        "workflowId": "myWorkflow"
+-      }
+-    ]);
+-    cy.get('app-link-action a').should('not.have.attr', 'target');
+-  });
+-
+-});
+diff --git a/docs/documentation.rst b/docs/documentation.rst
+index 8e428539..2230193f 100644
+--- a/docs/documentation.rst
++++ b/docs/documentation.rst
+@@ -19,7 +19,7 @@ code, and build the docs:
+ 
+ .. prompt:: bash $
+ 
+-    pip install sphinx sphinx-prompt sphinx_rtd_theme
++    pip install sphinx
+     git clone https://github.com/kendraio/kendraio-app.git
+     cd docs
+     make html
+@@ -35,7 +35,7 @@ Run the following commands (from the root of the repository, or change the paths
+ 
+ .. prompt:: bash $
+ 
+-  pip install sphinx-autobuild==2021.3.14
++  pip install sphinx-autobuild
+   sphinx-autobuild docs/ docs/_build/html
+ 
+ Then go to http://127.0.0.1:8000 in the browser.
+diff --git a/docs/index.rst b/docs/index.rst
+index a049493b..f75fc456 100644
+--- a/docs/index.rst
++++ b/docs/index.rst
+@@ -60,7 +60,6 @@ Kendraio App
+    workflow/blocks/gsheet
+    workflow/blocks/http
+    workflow/blocks/init
+-   workflow/blocks/link_action_block
+    workflow/blocks/launch_block
+    workflow/blocks/load_schema
+    workflow/blocks/load_schema_template
+diff --git a/docs/workflow/blocks/actions.rst b/docs/workflow/blocks/actions.rst
+index c6f983da..3fa4e48e 100644
+--- a/docs/workflow/blocks/actions.rst
++++ b/docs/workflow/blocks/actions.rst
+@@ -1,7 +1,7 @@
+ Actions
+ =======
+ 
+-Use the Actions block to add a row of buttons for one or more sub-tasks.
++Use the actions block to add a row of buttons for one or more sub-tasks.
+ 
+ Default config
+ --------------
+@@ -77,6 +77,7 @@ In this example, we are specifying which flow to load when the button is clicked
+ You can find this example on the `Flow Cloud <https://app.kendra.io/workflowCloud/listWorkflows>`, in the list of workflows.
+ 
+ .. code-block:: json
++
+   {
+     "type": "actions",
+     "buttons": [
+@@ -94,7 +95,7 @@ You can find this example on the `Flow Cloud <https://app.kendra.io/workflowClou
+             "enabled": true
+         }
+     ]
+-}
++  }
+ 
+ 
+ enabledGetter
+@@ -130,6 +131,7 @@ To do so we take values we have saved in the state and assign them to the `enabl
+ 
+ 
+ After the block as loaded, the `enabled` property will be set on the button:
++
+ .. code-block:: json
+ 
+   {
+@@ -152,8 +154,4 @@ After the block as loaded, the `enabled` property will be set on the button:
+       ]
+     }
+ 
+-Alternative blocks
+-++++++++++++++++++++++
+-For external links, the :doc:`Template Block <template>` can be used to create links using a subset of HTML, though it is not styled as a button by default.
+-
+-For links to other Flows, the :doc:`Link Action Block <link_action_block>` allows opening links in another window or tab, with only one block needed, which is styled as a button (just like an Actions block).
+\ No newline at end of file
++Buttons do not work for external links. Consider the :doc:`Template Block <template>` for external links.
+diff --git a/docs/workflow/blocks/debug.rst b/docs/workflow/blocks/debug.rst
+index f317daba..a1a531bf 100644
+--- a/docs/workflow/blocks/debug.rst
++++ b/docs/workflow/blocks/debug.rst
+@@ -27,3 +27,46 @@ Supported properties
+   block is shown. Set this to true to enable debugging of context values too.
+ - showState (default = false): Set this to true to enable to display of state.
+ - enabledGetter : When set the enabledGetter should contain a JMESPath expression that returns true/false to enable or disable the debug block. 
++
++
++Debug in nested blocks or Flows
++--------------------------------
++
++Is possible to use the Debug block also in nested Flows or nested blocks. 
++For example while working with the :doc:`uiSchema <uiSchema>`, is possible to use the debugger inside of the list of items as the following example
++
++.. code-block:: json
++
++              [...]
++                  "ui:widget": "blocks",
++                    "blocksConfig": {
++                        "blocks": [
++                            {
++                                "type": "context-save",
++                                "contextKey": "defaultValue"
++                            },
++                            {
++                                "type": "db",
++                                "skipFirst": false,
++                                "operation": "get",
++                                "adapterName": "culturebanked",
++                                "schema": "party"
++                            },
++                            {
++                                "type": "debug",
++                                "consoleLog": true,
++                                "showData": true,
++                                "showState": true,
++                                "showContext": true
++                            },
++                            {
++                                "type": "reference",
++                                "fieldLabel": "Select beneficiary",
++                                "labelGetter": "name",
++                                "valueField": "uuid",
++                                "outputGetter": "uuid"
++                            }
++                        ]
++                    }
++                [...]
++
+diff --git a/docs/workflow/blocks/form.rst b/docs/workflow/blocks/form.rst
+index 1a481e10..5351a29c 100644
+--- a/docs/workflow/blocks/form.rst
++++ b/docs/workflow/blocks/form.rst
+@@ -4,6 +4,7 @@ Form
+ Display a form for data entry or editing.
+ 
+ Forms are displayed based on the UI Schema and JSON Schema provided. These can be provided inline within the block configuration, or loaded from an adapter.
++Kendrai Form is build on top of Angular Formly https://formly.dev/. Most of the form property and functionality can be looked up in Formly.
+ 
+ Default config
+ --------------
+@@ -61,6 +62,15 @@ The fields of the form can be populated in two ways: manually writing fields or
+ Here's an example of creating a form by manually writing fields and configuring it:
+ 
+ .. code-block:: json
++
++
++  // data
++  {
++    "name": `John`,
++    "lastname": `Doe`
++  }
++
++  // Form config
+   {
+     "type": "form",
+     "hasSubmit": "true", 
+@@ -81,21 +91,22 @@ Here's an example of creating a form by manually writing fields and configuring
+         }
+     },
+     "uiSchema": {}
+-}
++  }
+ 
+ Dynamic data and field titles
+ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ To generate fields form given data, the data needs to be in a format readable by the form block.
++
+ It is possible to transform the data into the format that the form expects with the help of a mapping block.
++
+ Is also possible to use generated data to dynamically display the title of a field
+ 
+ .. code-block:: json
+   
+-
+-  // generated data
++  // data
+   {
+-    "name": `John`,
+-    "surname": `Doe`
++    "user_name": `John`,
++    "user_surname": `Doe`
+   }
+ 
+   // Form config
+@@ -111,17 +122,231 @@ Is also possible to use generated data to dynamically display the title of a fie
+             "user_name": {
+                 "type": "string",
+                 "title": "name",
+-                "default": "The title of this field comes from dynamic data"
++                "default": "The value of this field comes from dynamic data"
+             },
+             "user_surname": {
+                 "type": "string",
+                 "title": "surname",
+-                "default": "The title of this field comes from dynamic data"
++                "default": "The value of this field comes from dynamic data"
+             }
+         }
+     },
+     "uiSchema": {}
+-}
++  }
++
++Select Input
++^^^^^^^^^^^^
++Display a field as select with several options.
++
++The options have to be listed in a property called `enum` as array.
++
++To have a label, the `default` property can be used. To prefill the select with a specific option, 
++a string with same name property and same value, as to be passed in as data.
++The `enum` property works just with hardcoded data, as per example.
++
++.. code-block:: json
++
++  // data
++  {
++    "name": `John`,
++    "lastname": `Doe`,
++    "age": `+21`
++  }
++
++  // Form config
++  {
++    "type": "form",
++    "hasSubmit": "true", 
++    "label": "Click to submit",
++    "jsonSchema": {
++        "type": "object",
++        "properties": {
++            "name": {
++                "type": "string",
++                "title": "Name",
++                "default": ""
++            },
++            "lastname": {
++                "type": "string",
++                "title": "Last name",
++                "default": ""
++            },
++            "age": {
++              "type": "string",
++              "title": "Age",
++              "enum": [
++                "0-16",
++                "16-18",
++                "18-21",
++                "+21"
++              ]
++            },
++            "status": {
++              "type": "string",
++              "title": "Civil Status",
++              "default": "Pick a status"
++              "enum": [
++                "single",
++                "married",
++                "window",
++                "divorced"
++              ]
++            }
++        }
++    },
++    "uiSchema": {}
++  }
++
++Select with Dynamic data
++^^^^^^^^^^^^^^^^^^^^^^^^
++If the  options that have to be displayed in the select input are coming dynamically (maybe from a mapping block or from an API), 
++then we will need to use the `$ref` property and the passed data must have a specific structure: with `anyOf`, `title` and `const`.
++It is also possible to use the :doc:`reference <reference>`
++
++.. code-block:: json
++
++  // data
++  {
++    "name": `John`,
++    "status": {
++        "anyOf": 
++        [
++            {
++                "title": `Single`,
++                "const": `1`
++            },
++            {
++                "title": `Divorce`,
++                "const": `2`
++            }
++        ]
++    }
++  }
++
++  // Save these data to a context, under the name `civilStatusData`
++
++  // Form config
++  {
++    "type": "form",
++    "hasSubmit": "true", 
++    "label": "Click to submit",
++    "jsonSchema": {
++        "type": "object",
++        "properties": {
++            "name": {
++                "type": "string",
++                "title": "Name",
++                "default": ""
++            },
++            "status": {
++              "title": "Civil Status",
++              "$ref": "#/definitions/context/civilStatusData"
++        }
++    },
++    "uiSchema": {}
++  }
++
++If you want to prefill the field with a specific option, you will need to pass the equivalente of the `const` value 
++as data, right before the Form block.
++
++.. code-block:: json
++
++  // data
++  {
++    "name": `John`,
++    "status": {
++        "anyOf": 
++        [
++            {
++                "title": `Single`,
++                "const": `1`
++            },
++            {
++                "title": `Divorce`,
++                "const": `2`
++            }
++        ]
++    }
++  }
++
++  // Save these data to a context, under the name `civilStatusData`
++  {
++      "type": "context-save",
++      "key": "civilStatusData"
++  }
++
++  // Pass the selected option
++  {
++    "status": `2`
++  }
++
++
++  // Form config
++  {
++    "type": "form",
++    "hasSubmit": "true", 
++    "label": "Click to submit",
++    "jsonSchema": {
++        "type": "object",
++        "properties": {
++            "name": {
++                "type": "string",
++                "title": "Name",
++                "default": ""
++            },
++            "status": {
++              "title": "Civil Status",
++              "$ref": "#/definitions/context/civilStatusData"
++        }
++    },
++    "uiSchema": {}
++  }
++
++In the above example, as soon as the Flow is open, it should show a select input with `Divorce` already selected, and the option to change it to `Single`.
++
++
++
++Special UI: Card to add and remove items dynamically
++^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++`type: array` display a special UI which allow to add/delete dynamically
++the specified field with the specified properties. 
++
++In the below example, the form will allow the user to create a group of 
++two fields: A number and a string. 
++
++Clicking on the add button the user will be able to add more of these group of items,
++or remove the already created one.
++
++An example of the array type in action is `here <https://app.kendra.io/bandsintown/editEvent>`_
++
++.. code-block:: json
++
++  {
++    "type": "form",
++      "label": "Search",
++      "jsonSchema": {
++          "type": "object",
++          "properties": {
++            "lineup": {
++                "type": "array",
++                "title": "Lineup",
++                "items": {
++                    "type": "object",
++                    "properties": {
++                        "id": {
++                            "type": "number"
++                        },
++                        "name": {
++                            "type": "string"
++                        }
++                    }
++                }
++            }
++          }
++      },
++    "uiSchema": {}
++  }
++
+ 
+ 
+ Read-only
+@@ -179,9 +404,9 @@ A simple search form without a submit button.
+ 
+ Using a schemaGetter
+ ^^^^^^^^^^^^^^^^^^^^
+-The simplest way to use a schemaGetter is the load-schema block.
+-:ref:`load_schema`
+-The load-schema block can turn an object generated by the schema builder into a JSON schema, and can combine multiple existing schemas. 
++The simplest way to use a schemaGetter is the :doc:`load_schema` block.
++
++The load-schema block can turn an object generated by the `schema builder <https://app.kendra.io/importer/start>`_ into a JSON schema, and can combine multiple existing schemas. 
+ 
+ .. code-block:: javascript
+ 
+@@ -221,7 +446,9 @@ Using data saved from context blocks
+ ------------------------------------
+ 
+ JSON Schema supports references to transclude content.
++
+ Context is injected into a definitions section, that references can use.
++
+ In the example below, a mapping has a default value, which is saved using the context block, and the default value is set to "injected". 
+ 
+ .. code-block:: javascript
+@@ -338,7 +565,7 @@ You can see this example working `here
+ Nested flows
+ ------------
+ 
+-If you want to update a field value according to a user action, you can achieve this with a nested flow.
++If you want fixedto update a field value according to a user action, you can achieve this with a nested flow.
+ 
+ Any flow can be nested in any other flow. The nested flow has access to the main flow's data object, 
+ context and state - it can use any data stored here. 
+diff --git a/docs/workflow/blocks/http.rst b/docs/workflow/blocks/http.rst
+index 38d454a2..e97794aa 100644
+--- a/docs/workflow/blocks/http.rst
++++ b/docs/workflow/blocks/http.rst
+@@ -52,7 +52,11 @@ Examples
+ 
+ 
+ **Dynamic data** If the endpoint needs to be constructed from data, the endpoint can be specified as an object with a "valueGetter" attribute.
+-"valueGetter" can only get data from the context.
++"valueGetter" can only get data from the context, it does not work with a static data. If values come from context, they must be specify inside the "valueGetter"
++property. If contect is used in other property of the "endpoint", it will not grab any context value.
++There are two ways of using "valueGetter".
++- **valueGetter** - Grab one value from the context that create the whole endpoint.
++- **valueGetters** - Grab different values from context that spcify property like "pathname" or "query" and all together will create the final endpoint.
+ 
+ .. code-block:: json
+ 
+@@ -160,12 +164,13 @@ Pagination
+ If a HTTP API returns paginated results with a standard link header, to fetch paginated API results, set the followPaginationLinksMerged option to true. This will fetch all pages of results and return the combined set of results from all the pages.
+ 
+ With a proxy:
+-```json
+-{
+-  "type": "http",
+-  "method": "GET",
+-  "endpoint": "https://example.com/paginated",
+-  "useProxy": true,
+-  "followPaginationLinksMerged": true
+-}
+-```
++
++.. code-block:: json
++
++  {
++    "type": "http",
++    "method": "GET",
++    "endpoint": "https://example.com/paginated",
++    "useProxy": true,
++    "followPaginationLinksMerged": true
++  }
+diff --git a/docs/workflow/blocks/launch_block.rst b/docs/workflow/blocks/launch_block.rst
+index dabc5036..8c6666e8 100644
+--- a/docs/workflow/blocks/launch_block.rst
++++ b/docs/workflow/blocks/launch_block.rst
+@@ -1,9 +1,7 @@
+ Launch
+ ======
+ 
+-Useful to jump to a different Flow. This block is not available to be added to a flow directly, but is instead for use from within other blocks.
+-
+-If you want to jump to a different Flow from a button the :doc:`Link Action Block <link_action_block>`, allows opening Flows in a new tab or window as an alternative to an :doc:`Actions block button <actions>` being used with a Launch block.
++Jump to a new workflow. This block is not available to be added to a flow directly, but is instead for use from within other blocks. 
+ 
+ Default config
+ --------------
+diff --git a/docs/workflow/blocks/link_action_block.rst b/docs/workflow/blocks/link_action_block.rst
+deleted file mode 100644
+index b5068981..00000000
+--- a/docs/workflow/blocks/link_action_block.rst
++++ /dev/null
+@@ -1,95 +0,0 @@
+-Link Action block
+-===========
+-The Link Action block provides a user-friendly button that links to other Flows.
+-
+-The block is implemented as a link and not a real button, and benefits from the usual behaviour of browser links, for example, the user can choose how Flows are opened, such as the same in the same tab, or a new tab, based on their browser configuration, and users may notice the destination Flow is shown when hovering over the link, this allows the user to directly see where the button would navigate to (which is an improvement over the Launch block, see below).
+-
+-
+-Default configuration
+---------------
+-
+-.. code-block:: json
+-
+-    {
+-      "type": "link-action",
+-      "label": "Open Flow",
+-      "adapterName": "adapterName",
+-      "workflowId": "workflowId"
+-    }
+-
+-Supported Properties
+---------------------
+-
+-- **label** (string): The text displayed on the button-like link. Defaults to "Open Flow".
+-- **adapterName** (string): The adapter name of the target workflow. This property is ignored if a value is specified by `adapterNameGetter` instead.
+-- **adapterNameGetter** (string): A JMESPath expression that resolves to the adapter name of the target workflow. This allows for dynamic resolution of the adapter name from the data and context. If not set, will use the `adapterName` property instead.
+-- **workflowId** (string): The workflow ID of the target workflow. This property is ignored if a value is specified by `workflowIdGetter` instead.
+-- **workflowIdGetter** (string): A JMESPath expression that resolves to the workflow ID of the target workflow. This allows for dynamic resolution of the workflow ID from the data and context. If not set, will use the `workflowId` property instead.
+-
+-Usage
+------
+-
+-The block can be configured for use in a *static* or *dynamic* way.
+-
+-**Static Flow links:**
+-
+-Uses hardcoded values for `adapterName` and `workflowId` to create a static link to a specific Flow. For example:
+-
+-.. code-block:: json
+-
+-    {
+-        "type": "link-action",
+-        "label": "View Details",
+-        "adapterName": "myAdapter",
+-        "workflowId": "myWorkflow"
+-    }
+-
+-In this example, it will create a link with the label "View Details" that points to the `/myAdapter/myWorkflow` route.
+-
+-**Dynamic Flow links within a grid:**
+-
+-This example demonstrates using the `LinkActionComponent` within a grid cell to link to individual Flows.
+-
+-- Use JMESPath expressions in `adapterNameGetter` and `workflowIdGetter` to dynamically generate the link URL based on the data provided to the block (in this case the data from the Grid).
+-- Embed the block within the `cellRendererParams` of a grid column definition to provide a clickable link for each row.
+-
+-.. code-block:: json
+-
+-    {
+-        "headerName": "Operations",
+-        "cellRenderer": "workflowRenderer",
+-        "cellRendererParams": {
+-            "blocks": [
+-                {
+-                    "type": "link-action",
+-                    "label": "Launch",
+-                    "adapterNameGetter": "data.adapterName",
+-                    "workflowIdGetter": "data.id"
+-                }
+-            ]
+-        }
+-    }
+-
+-In this configuration:
+-- `data.adapterName` and `data.id` are JMESPath expressions that retrieve the adapter name and workflow ID from the current row's data.
+-- The generated link for each row will point to the corresponding Flow.
+-
+-
+-**Dynamic Flow links using context:**
+-
+-.. code-block:: json
+-
+-    {
+-        "type": "link-action",
+-        "label": "Login",
+-        "adapterNameGetter": "context.app.adapterName",
+-        "workflowId": "login"
+-    }
+-
+-
+-In this example, `context.app.adapterName` is a JMESPath expression that retrieves the adapter name from the Flow context, allowing for dynamic resolution of the adapter name, so this common pattern could be used in multiple Flows.  The `workflowId` is statically set to "login".
+-
+-
+-Refactoring note
+-----------------
+-Existing Flows that use a combination of an :doc:`Actions block <actions>` and a :doc:`Launch Block <launch_block>` to open a Flow, can be replaced by the Link Action block to provide the user with more control, allowing the user to be aware of where the link will go to, and avoiding forcing navigation away from the current tab - the Link Action block allows users to open Flows in new tabs or windows, based on their browser configuration.
+\ No newline at end of file
+diff --git a/docs/workflow/blocks/reference.rst b/docs/workflow/blocks/reference.rst
+index fc12e6b9..d8bdbcdb 100644
+--- a/docs/workflow/blocks/reference.rst
++++ b/docs/workflow/blocks/reference.rst
+@@ -27,3 +27,6 @@ input data items have a field called ``label`` you can omit these options.
+ 
+ You can also set the ``required`` status of the input select list. This defaults
+ to ``false``.
++
++At the moment it does not seems possible to prefill the field with a selected value.
++There is a property called `defaultValue` which currently doesn't seems to work.
+diff --git a/docs/workflow/implementation.rst b/docs/workflow/implementation.rst
+index a6524f33..ea774b12 100644
+--- a/docs/workflow/implementation.rst
++++ b/docs/workflow/implementation.rst
+@@ -1,7 +1,7 @@
+ How flows get executed
+ ======================
+ 
+-Flows are implemented using Angular's built-in execution chaining. 
++Workflows are implemented using Angular's built-in execution chaining. 
+ While this simplifies the whole process of running workflows, it does 
+ introduce some challenges - many of which can be overcome by understanding
+ a little about how flows are run, and in particular, the way change detection
+diff --git a/docs/workflow/intro.rst b/docs/workflow/intro.rst
+index 3dd4979a..c901f81a 100644
+--- a/docs/workflow/intro.rst
++++ b/docs/workflow/intro.rst
+@@ -1,17 +1,17 @@
+-Flow Blocks
++Workflow Blocks
+ ===============
+ 
+ Overview
+ --------
+ 
+-Flows are created by plugging together various reusable blocks of functionality.
+-A Flow is made from multiple blocks that connect together. A task is a running instance of a Flow.
+-Flows can be nested inside other Flows.
++Workflows are created by plugging together various reusable blocks of functionality.
++A workflow is a list of workflow items (or blocks). A task is a running instance of a workflow.
++Workflow definitions can be nested, as some workflow item blocks contain embedded workflows.
+ Thus, tasks are nested too, and a running task may contain multiple tasks within it.
+ 
+ The available “blocks” of reusable functionality are documented below.
+-The Flow builder in the app lets you create and customise Flows,
+-load existing Flows from adapters, and generate links to share Flows you have created.
++The workflow builder within the app lets you create and customise workflows,
++load existing workflows from adapters, and generate links to share workflows you have created.
+ 
+ Block Metadata & Comments
+ +++++++++++++++++++++++++
+diff --git a/src/app/app.module.ts b/src/app/app.module.ts
+index 465ed444..8f745f76 100644
+--- a/src/app/app.module.ts
++++ b/src/app/app.module.ts
+@@ -186,7 +186,7 @@ import { BlockGosubBuilderBoxComponent } from './components/block-gosub-builder-
+ import { MermaidBlockComponent } from './blocks/mermaid-block/mermaid-block.component';
+ import { ComparisonComponent } from './blocks/comparison/comparison.component';
+ import { BlockComparisonBuilderBoxComponent } from './components/block-comparison-builder-box/block-comparison-builder-box.component';
+-import { LinkActionComponent } from './blocks/link-action-block/link-action.component';
++
+ // AoT requires an exported function for factories
+ export function HttpLoaderFactory(http: HttpClient) {
+   return new TranslateHttpLoader(http);
+@@ -347,8 +347,7 @@ export function HttpLoaderFactory(http: HttpClient) {
+         BlockGosubBuilderBoxComponent,
+         MermaidBlockComponent,
+         ComparisonComponent,
+-        BlockComparisonBuilderBoxComponent,
+-        LinkActionComponent
++        BlockComparisonBuilderBoxComponent
+     ],
+     imports: [
+         FormlyModule.forRoot({}),
+diff --git a/src/app/blocks/link-action-block/link-action.component.html b/src/app/blocks/link-action-block/link-action.component.html
+deleted file mode 100644
+index 8fdaa069..00000000
+--- a/src/app/blocks/link-action-block/link-action.component.html
++++ /dev/null
+@@ -1 +0,0 @@
+-<a [href]="linkUrl" mat-flat-button>{{ label }}</a>
+diff --git a/src/app/blocks/link-action-block/link-action.component.scss b/src/app/blocks/link-action-block/link-action.component.scss
+deleted file mode 100644
+index 07369eee..00000000
+--- a/src/app/blocks/link-action-block/link-action.component.scss
++++ /dev/null
+@@ -1,3 +0,0 @@
+-a:hover {
+-    color: inherit;
+-}
+diff --git a/src/app/blocks/link-action-block/link-action.component.ts b/src/app/blocks/link-action-block/link-action.component.ts
+deleted file mode 100644
+index 6eb719f6..00000000
+--- a/src/app/blocks/link-action-block/link-action.component.ts
++++ /dev/null
+@@ -1,50 +0,0 @@
+-import { Component } from '@angular/core';
+-import { BaseBlockComponent } from '../base-block/base-block.component';
+-import { get } from 'lodash-es';
+-import { mappingUtility } from '../mapping-block/mapping-util';
+-
+-@Component({
+-  selector: 'app-link-action',
+-  templateUrl: './link-action.component.html',
+-  styleUrls: ['./link-action.component.scss']
+-})
+-export class LinkActionComponent extends BaseBlockComponent {
+-
+-  linkUrl = '';
+-  label = '';
+-  adapterNameGetter = '';
+-  workflowIdGetter = '';
+-  config: any;
+-  
+-  constructor() {
+-    super();
+-  }
+-  
+-  private generateLinkUrl() {
+-    let resolvedAdapterName = get(this.config, 'adapterName', '');
+-    let resolvedWorkflowId = get(this.config, 'workflowId', '');
+-
+-    if (this.adapterNameGetter) {
+-      resolvedAdapterName = mappingUtility({ data: this.model, context: this.context }, this.adapterNameGetter);
+-    }
+-
+-    if (this.workflowIdGetter) {
+-      resolvedWorkflowId = mappingUtility({ data: this.model, context: this.context }, this.workflowIdGetter);
+-    }
+-
+-    this.linkUrl = `/${resolvedAdapterName}/${resolvedWorkflowId}`;
+-  }
+-  
+-  onConfigUpdate(config: any) {
+-    this.label = get(config, 'label', 'Open Flow');
+-    this.adapterNameGetter = get(config, 'adapterNameGetter', '');
+-    this.workflowIdGetter = get(config, 'workflowIdGetter', '');
+-    this.config = config;
+-    this.generateLinkUrl();
+-  }
+-
+-  async onData(data: any, _firstChange: boolean) {
+-    this.model = data;
+-    this.generateLinkUrl();
+-  }
+-}
+diff --git a/src/app/blocks/load-schema-block/load-schema-block.component.ts b/src/app/blocks/load-schema-block/load-schema-block.component.ts
+index 6da3642a..f4aedf03 100644
+--- a/src/app/blocks/load-schema-block/load-schema-block.component.ts
++++ b/src/app/blocks/load-schema-block/load-schema-block.component.ts
+@@ -55,7 +55,6 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+ 
+     if ((typeof baseSchema === 'string') && (baseSchema.length > 0)) {
+       let schemaDefinitions = {};
+-      // @ts-ignore: Relax checks due to dynamic schemas
+       schemaDefinitions[baseSchema] = await this.resolveSchema(schemaDefinitions, baseSchema, 0);
+       const jsonSchema = {
+         definitions: schemaDefinitions,
+@@ -79,7 +78,6 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+     if (!has(schemaDefinitions, schemaName)) {
+       try {
+         const result = await this.loadSchemaFromDatabase(schemaName);
+-        // @ts-ignore: Relax checks due to dynamic schemas
+         schemaDefinitions[schemaName] = await this.mapSchema(schemaDefinitions, get(result, '[0].data', {}), schemaName, depth);
+       } catch (e) {
+         // TODO: handle error
+@@ -88,7 +86,6 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+         this.isLoading = false;
+       }
+     }
+-    // @ts-ignore: Relax checks due to dynamic schemas
+     return schemaDefinitions[schemaName];
+   }
+ 
+@@ -229,7 +226,6 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+     const embedSchemaName = get(p, 'config', '');
+     // If the embedded schema has not been resolved, resolve it:
+     if (!has(schemaDefinitions, embedSchemaName) && embedSchemaName !== inputSchemaName) {
+-      // @ts-ignore: Relax checks due to dynamic schemas
+       schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName, depth + 1);
+     }
+     outputSchema.properties[get(p, 'key', '')] = {
+@@ -255,7 +251,6 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+     const embedSchemaName = get(p, 'config', '');
+     // If the embedded schema has not been resolved, resolve it:
+     if (!has(schemaDefinitions, embedSchemaName) && embedSchemaName !== inputSchemaName) {
+-      // @ts-ignore: Relax checks due to dynamic schemas
+       schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName, depth + 1);
+     }
+     outputSchema.properties[get(p, 'key', '')] = {
+@@ -278,7 +273,6 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+     const embedSchemaName = get(p, 'config', '');
+     // If the embedded schema has not been resolved, resolve it:
+     if (!has(schemaDefinitions, embedSchemaName) && embedSchemaName !== inputSchemaName) {
+-      // @ts-ignore: Relax checks due to dynamic schemas
+       schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName, depth + 1);
+     }
+     // Gets the records array for this schema:
+@@ -307,7 +301,6 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+         for (const property in record.data) {
+           if (record.data.hasOwnProperty(property)) {
+             const value = record.data[property];
+-            // @ts-ignore: Relax checks due to dynamic schemas
+             item.properties[property] = clone(get(schemaDefinitions[embedSchemaName], `properties.${property}`, {}));
+             item.properties[property].readOnly = true;
+             item.properties[property].default = clone(value);
+@@ -336,7 +329,6 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+ 
+     // If the embedded schema has not been resolved, resolve it:
+     if (!has(schemaDefinitions, embedSchemaName) && embedSchemaName !== inputSchemaName) {
+-      // @ts-ignore: Relax checks due to dynamic schemas
+       schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName, depth + 1);
+     }
+ 
+@@ -378,7 +370,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+           for (const property in record.data) {
+             if (record.data.hasOwnProperty(property)) {
+               const value = record.data[property];
+-              // @ts-ignore: Relax checks due to dynamic schemas
++
+               item.properties[property] = clone(get(schemaDefinitions[embedSchemaName], `properties.${property}`, {}));
+               item.properties[property].readOnly = true;
+               item.properties[property].default = clone(value);
+@@ -414,7 +406,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+       // if we have a nested record - a record that is referenced by another record,
+       // instead of injecting a selectable list of records, we inject a single record,
+       // with an array of one record object that conforms to the schema, with the uuid property added
+-      // @ts-ignore: Relax checks due to dynamic schemas
++
+       const plain_schema = get(schemaDefinitions[embedSchemaName], 'properties', {});
+       let schema_with_uuid = clone(plain_schema);
+ 
+diff --git a/src/app/components/blocks-workflow/blocks-workflow.component.html b/src/app/components/blocks-workflow/blocks-workflow.component.html
+index a80558dc..30292711 100644
+--- a/src/app/components/blocks-workflow/blocks-workflow.component.html
++++ b/src/app/components/blocks-workflow/blocks-workflow.component.html
+@@ -57,7 +57,6 @@
+     <app-rename-fields-block class="block-wrapper" *ngSwitchCase="'rename-fields'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-rename-fields-block>
+     <app-mermaid-block class="block-wrapper" *ngSwitchCase="'mermaid'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-mermaid-block>
+     <app-comparison class="block-wrapper" *ngSwitchCase="'comparison'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-comparison>
+-    <app-link-action class="block-wrapper" *ngSwitchCase="'link-action'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-link-action>
+   </ng-container>
+ </ng-container>
+ <!-- <pre>workblock: {{ context | json }}</pre> -->
+diff --git a/src/app/dialogs/add-block-dialog/block-types.ts b/src/app/dialogs/add-block-dialog/block-types.ts
+index 6044725e..e8a20afb 100644
+--- a/src/app/dialogs/add-block-dialog/block-types.ts
++++ b/src/app/dialogs/add-block-dialog/block-types.ts
+@@ -653,18 +653,5 @@ export const BLOCK_TYPES = [
+     defaultConfig: {
+       type: 'wallet'
+     }
+-  },
+-  {
+-    type: 'link-action',
+-    label: 'Link Action',
+-    description: 'Open a Flow as a link (works with new tab / window)',
+-    icon: 'link',
+-    hasEditor: true,
+-    defaultConfig: {
+-      type: 'link-action',
+-      label: 'Open Flow', 
+-      adapterName: 'adapterName', 
+-      workflowId: 'workflowId', 
+-    }
+   }
+ ];

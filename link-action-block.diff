@@ -1,0 +1,269 @@
+diff --git a/cypress/e2e/actions.ts b/cypress/e2e/actions.ts
+index 5f5cf9fa..75fe36e5 100644
+--- a/cypress/e2e/actions.ts
++++ b/cypress/e2e/actions.ts
+@@ -59,3 +59,48 @@ describe('Actions block type', () => {
+     });
+ });
+ 
++
++describe('LinkActionComponent', () => {
++  it('should generate the correct link URL from plain strings', () => {
++    // Tests with hardcoded values
++    loadFlowCode([
++      {
++        "type": "link-action",
++        "label": "Test Link",
++        "adapterName": "myAdapter",
++        "workflowId": "myWorkflow"
++      }
++    ]);
++    cy.get('app-link-action a').should('have.attr', 'href', '/myAdapter/myWorkflow');
++  });
++
++  it('should generate the correct link URL using object mappings', () => {
++    // Test with JMESPath expressions
++    loadFlowCode([
++      {
++        "type": "mapping",
++        "mapping": "{ adapter: `testAdapter`, workflow: `testWorkflow` }"
++      },
++      {
++        "type": "link-action",
++        "label": "Dynamic Link",
++        "adapterNameGetter": "data.adapter",
++        "workflowIdGetter": "data.workflow"
++      }
++    ]);
++    cy.get('app-link-action a').should('have.attr', 'href', '/testAdapter/testWorkflow');
++  });
++
++  it('should open the link with a blank target', () => {
++    loadFlowCode([
++      {
++        "type": "link-action",
++        "label": "Test Link",
++        "adapterName": "myAdapter",
++        "workflowId": "myWorkflow"
++      }
++    ]);
++    cy.get('app-link-action a').should('have.attr', 'target', '_blank');
++  });
++
++});
+diff --git a/src/app/app.module.ts b/src/app/app.module.ts
+index 8f745f76..465ed444 100644
+--- a/src/app/app.module.ts
++++ b/src/app/app.module.ts
+@@ -186,7 +186,7 @@ import { BlockGosubBuilderBoxComponent } from './components/block-gosub-builder-
+ import { MermaidBlockComponent } from './blocks/mermaid-block/mermaid-block.component';
+ import { ComparisonComponent } from './blocks/comparison/comparison.component';
+ import { BlockComparisonBuilderBoxComponent } from './components/block-comparison-builder-box/block-comparison-builder-box.component';
+-
++import { LinkActionComponent } from './blocks/link-action-block/link-action.component';
+ // AoT requires an exported function for factories
+ export function HttpLoaderFactory(http: HttpClient) {
+   return new TranslateHttpLoader(http);
+@@ -347,7 +347,8 @@ export function HttpLoaderFactory(http: HttpClient) {
+         BlockGosubBuilderBoxComponent,
+         MermaidBlockComponent,
+         ComparisonComponent,
+-        BlockComparisonBuilderBoxComponent
++        BlockComparisonBuilderBoxComponent,
++        LinkActionComponent
+     ],
+     imports: [
+         FormlyModule.forRoot({}),
+diff --git a/src/app/blocks/link-action-block/link-action.component.html b/src/app/blocks/link-action-block/link-action.component.html
+new file mode 100644
+index 00000000..453e5f4d
+--- /dev/null
++++ b/src/app/blocks/link-action-block/link-action.component.html
+@@ -0,0 +1 @@
++<a [href]="linkUrl" target="_blank" mat-flat-button>{{ label }}</a>
+diff --git a/src/app/blocks/link-action-block/link-action.component.scss b/src/app/blocks/link-action-block/link-action.component.scss
+new file mode 100644
+index 00000000..07369eee
+--- /dev/null
++++ b/src/app/blocks/link-action-block/link-action.component.scss
+@@ -0,0 +1,3 @@
++a:hover {
++    color: inherit;
++}
+diff --git a/src/app/blocks/link-action-block/link-action.component.ts b/src/app/blocks/link-action-block/link-action.component.ts
+new file mode 100644
+index 00000000..72debd73
+--- /dev/null
++++ b/src/app/blocks/link-action-block/link-action.component.ts
+@@ -0,0 +1,50 @@
++import { Component } from '@angular/core';
++import { BaseBlockComponent } from '../base-block/base-block.component';
++import { get } from 'lodash-es';
++import { mappingUtility } from '../mapping-block/mapping-util';
++
++@Component({
++  selector: 'app-link-action',
++  templateUrl: './link-action.component.html',
++  styleUrls: ['./link-action.component.scss']
++})
++export class LinkActionComponent extends BaseBlockComponent {
++
++  linkUrl = '';
++  label = '';
++  adapterNameGetter = '';
++  workflowIdGetter = '';
++  config: any;
++  
++  constructor() {
++    super();
++  }
++  
++  private generateLinkUrl() {
++    let resolvedAdapterName = get(this.config, 'adapterName', '');
++    let resolvedWorkflowId = get(this.config, 'workflowId', '');
++
++    if (this.adapterNameGetter) {
++      resolvedAdapterName = mappingUtility({ data: this.model, context: this.context }, this.adapterNameGetter);
++    }
++
++    if (this.workflowIdGetter) {
++      resolvedWorkflowId = mappingUtility({ data: this.model, context: this.context }, this.workflowIdGetter);
++    }
++
++    this.linkUrl = `/${resolvedAdapterName}/${resolvedWorkflowId}`;
++  }
++  
++  onConfigUpdate(config: any) {
++    this.label = get(config, 'label', 'Link');
++    this.adapterNameGetter = get(config, 'adapterNameGetter', '');
++    this.workflowIdGetter = get(config, 'workflowIdGetter', '');
++    this.config = config;
++    this.generateLinkUrl();
++  }
++
++  async onData(data: any, _firstChange: boolean) {
++    this.model = data;
++    this.generateLinkUrl();
++  }
++}
+diff --git a/src/app/blocks/load-schema-block/load-schema-block.component.ts b/src/app/blocks/load-schema-block/load-schema-block.component.ts
+index f4aedf03..6da3642a 100644
+--- a/src/app/blocks/load-schema-block/load-schema-block.component.ts
++++ b/src/app/blocks/load-schema-block/load-schema-block.component.ts
+@@ -55,6 +55,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+ 
+     if ((typeof baseSchema === 'string') && (baseSchema.length > 0)) {
+       let schemaDefinitions = {};
++      // @ts-ignore: Relax checks due to dynamic schemas
+       schemaDefinitions[baseSchema] = await this.resolveSchema(schemaDefinitions, baseSchema, 0);
+       const jsonSchema = {
+         definitions: schemaDefinitions,
+@@ -78,6 +79,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+     if (!has(schemaDefinitions, schemaName)) {
+       try {
+         const result = await this.loadSchemaFromDatabase(schemaName);
++        // @ts-ignore: Relax checks due to dynamic schemas
+         schemaDefinitions[schemaName] = await this.mapSchema(schemaDefinitions, get(result, '[0].data', {}), schemaName, depth);
+       } catch (e) {
+         // TODO: handle error
+@@ -86,6 +88,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+         this.isLoading = false;
+       }
+     }
++    // @ts-ignore: Relax checks due to dynamic schemas
+     return schemaDefinitions[schemaName];
+   }
+ 
+@@ -226,6 +229,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+     const embedSchemaName = get(p, 'config', '');
+     // If the embedded schema has not been resolved, resolve it:
+     if (!has(schemaDefinitions, embedSchemaName) && embedSchemaName !== inputSchemaName) {
++      // @ts-ignore: Relax checks due to dynamic schemas
+       schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName, depth + 1);
+     }
+     outputSchema.properties[get(p, 'key', '')] = {
+@@ -251,6 +255,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+     const embedSchemaName = get(p, 'config', '');
+     // If the embedded schema has not been resolved, resolve it:
+     if (!has(schemaDefinitions, embedSchemaName) && embedSchemaName !== inputSchemaName) {
++      // @ts-ignore: Relax checks due to dynamic schemas
+       schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName, depth + 1);
+     }
+     outputSchema.properties[get(p, 'key', '')] = {
+@@ -273,6 +278,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+     const embedSchemaName = get(p, 'config', '');
+     // If the embedded schema has not been resolved, resolve it:
+     if (!has(schemaDefinitions, embedSchemaName) && embedSchemaName !== inputSchemaName) {
++      // @ts-ignore: Relax checks due to dynamic schemas
+       schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName, depth + 1);
+     }
+     // Gets the records array for this schema:
+@@ -301,6 +307,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+         for (const property in record.data) {
+           if (record.data.hasOwnProperty(property)) {
+             const value = record.data[property];
++            // @ts-ignore: Relax checks due to dynamic schemas
+             item.properties[property] = clone(get(schemaDefinitions[embedSchemaName], `properties.${property}`, {}));
+             item.properties[property].readOnly = true;
+             item.properties[property].default = clone(value);
+@@ -329,6 +336,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+ 
+     // If the embedded schema has not been resolved, resolve it:
+     if (!has(schemaDefinitions, embedSchemaName) && embedSchemaName !== inputSchemaName) {
++      // @ts-ignore: Relax checks due to dynamic schemas
+       schemaDefinitions[embedSchemaName] = await this.resolveSchema(schemaDefinitions, embedSchemaName, depth + 1);
+     }
+ 
+@@ -370,7 +378,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+           for (const property in record.data) {
+             if (record.data.hasOwnProperty(property)) {
+               const value = record.data[property];
+-
++              // @ts-ignore: Relax checks due to dynamic schemas
+               item.properties[property] = clone(get(schemaDefinitions[embedSchemaName], `properties.${property}`, {}));
+               item.properties[property].readOnly = true;
+               item.properties[property].default = clone(value);
+@@ -406,7 +414,7 @@ export class LoadSchemaBlockComponent extends BaseBlockComponent {
+       // if we have a nested record - a record that is referenced by another record,
+       // instead of injecting a selectable list of records, we inject a single record,
+       // with an array of one record object that conforms to the schema, with the uuid property added
+-
++      // @ts-ignore: Relax checks due to dynamic schemas
+       const plain_schema = get(schemaDefinitions[embedSchemaName], 'properties', {});
+       let schema_with_uuid = clone(plain_schema);
+ 
+diff --git a/src/app/components/blocks-workflow/blocks-workflow.component.html b/src/app/components/blocks-workflow/blocks-workflow.component.html
+index 30292711..a80558dc 100644
+--- a/src/app/components/blocks-workflow/blocks-workflow.component.html
++++ b/src/app/components/blocks-workflow/blocks-workflow.component.html
+@@ -57,6 +57,7 @@
+     <app-rename-fields-block class="block-wrapper" *ngSwitchCase="'rename-fields'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-rename-fields-block>
+     <app-mermaid-block class="block-wrapper" *ngSwitchCase="'mermaid'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-mermaid-block>
+     <app-comparison class="block-wrapper" *ngSwitchCase="'comparison'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-comparison>
++    <app-link-action class="block-wrapper" *ngSwitchCase="'link-action'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-link-action>
+   </ng-container>
+ </ng-container>
+ <!-- <pre>workblock: {{ context | json }}</pre> -->
+diff --git a/src/app/dialogs/add-block-dialog/block-types.ts b/src/app/dialogs/add-block-dialog/block-types.ts
+index e8a20afb..ce306714 100644
+--- a/src/app/dialogs/add-block-dialog/block-types.ts
++++ b/src/app/dialogs/add-block-dialog/block-types.ts
+@@ -653,5 +653,18 @@ export const BLOCK_TYPES = [
+     defaultConfig: {
+       type: 'wallet'
+     }
++  },
++  {
++    type: 'link-action',
++    label: 'Link Action',
++    description: 'Open a Flow as a link (works with new tab / window)',
++    icon: 'link',
++    hasEditor: true,
++    defaultConfig: {
++      type: 'link-action',
++      label: 'Open Workflow', 
++      adapterName: 'adapterName', 
++      workflowId: 'workflowId', 
++    }
+   }
+ ];
