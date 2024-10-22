@@ -37,17 +37,17 @@
       </button>
     </div>
 
-    <mat-card class="adapter-metadata">
-      <div class="metadata-edit">
+    <mat-card appearance="outlined" class="adapter-metadata">
+      <div class="adapter-metadata-edit">
+        <p class="adapter-metadata-edit-text">
+    Title: {{ workflow.title }}<br />
+    Adapter: {{ workflow.getAdapterName() }}<br />
+    Flow ID: {{ workflow.id || 'Flow ID' }}<br />
+    Tags: {{ workflow.tags.join(', ') }}
+  </p>
         <button type="button" mat-icon-button (click)="workflow.editMetadata()" matTooltip="Edit metadata">
           <mat-icon>edit</mat-icon>
         </button>
-      </div>
-      <p>
-        Title: {{ workflow.title }}<br>
-        Adapter: {{ workflow.getAdapterName() }}<br>
-        Flow ID: {{ workflow.id || 'Flow ID' }}<br>
-        Tags: {{ workflow.tags.join(', ') }}
-      </p>
+    </div>
     </mat-card>
     <app-blocks-editor [blocks]="workflow.blocks" (blockUpdate)="workflow.onBlocksUpdate($event)"></app-blocks-editor>

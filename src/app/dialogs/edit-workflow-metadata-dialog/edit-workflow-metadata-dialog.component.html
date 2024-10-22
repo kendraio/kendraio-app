@@ -10,11 +10,11 @@
   </mat-form-field>
   <mat-form-field class="example-chip-list">
     <mat-chip-listbox #chipList aria-label="Fruit selection">
-      <mat-chip *ngFor="let tag of tags.getRawValue()" [selectable]="selectable"
+      <mat-chip-option *ngFor="let tag of tags.getRawValue()" [selectable]="selectable"
                 [removable]="removable" (removed)="removeTag(tag)">
         {{tag}}
         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-      </mat-chip>
+      </mat-chip-option>
       <input placeholder="Add tag..."
              [matChipInputFor]="chipList"
              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
@@ -24,7 +24,9 @@
   </mat-form-field>
 </form>
 
-<br>
+</mat-dialog-content>
+<mat-dialog-actions>
 <button mat-flat-button color="primary" (click)="onSave()" style="margin-right: 1em;">Save</button>
 <button mat-flat-button (click)="onCancel()">Cancel</button>
-<br>
+</mat-dialog-actions>
+

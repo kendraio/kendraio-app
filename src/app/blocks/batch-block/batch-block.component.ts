@@ -23,8 +23,7 @@ export class BatchBlockComponent implements OnInit, OnChanges {
   hasError = false;
   errorMessage = '';
 
-  @HostBinding('class.batch-block-flex')
-  flex: boolean = false;
+  @HostBinding('class.batch-block-flex') flex: false;
 
   constructor() { }
 

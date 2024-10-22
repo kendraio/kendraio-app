@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { RouteData } from 'src/app/_models/classes/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageTitleService } from 'src/app/services/page-title.service';
-import { MatDialog } from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 
 import { TestDataService } from 'src/app/services/test-data.service';
 import { GridOptions } from 'ag-grid-community';
@@ -25,14 +25,14 @@ export abstract class BaseComponent {
     protected help: HelpTextService,
     protected config: AppConfigService,
     protected translate: TranslateService
-  ) {
+  ) { 
     // this.router.events.pipe(
     //   filter(event => event instanceof NavigationEnd),
     //   distinctUntilChanged(),
     //   map(event => console.log(this.route))
     // );
     this.routeData = this.route.snapshot.data;
-    this.pageTitle.setTitle(this.routeData.pageTitle[this.config.locale]);
+    this.pageTitle.setTitle(this.routeData.pageTitle[this.config.locale]);   
   //  this.pageHelp = this.help.getHelpTextForSection('assets');
 
 

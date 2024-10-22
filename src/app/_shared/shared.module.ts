@@ -27,23 +27,26 @@ export function minlengthValidationMessage(err: any, field: { templateOptions: {
 }
 
 @NgModule({ declarations: [
-        matComponents.MatInputComponent,
-        matComponents.MatButtonComponent,
-        BreadcrumbComponent,
-        HelpTextBtnDirective,
-        PasswordInputComponent,
-    ],
-    exports: [
-        FormsModule,
-        ReactiveFormsModule,
-        FlexModule,
-        FlexLayoutModule,
-        BreadcrumbComponent,
-        MatTreeModule,
-        HelpTextBtnDirective,
-        UiFormModule,
-        NgSelectModule,
-        TranslateModule
+    matComponents.MatInputComponent,
+    matComponents.MatButtonComponent,
+    BreadcrumbComponent,
+    HelpTextBtnDirective,
+    PasswordInputComponent,
+  ],
+  exports: [
+  MatMenuModule,
+  FormsModule,
+  ReactiveFormsModule,
+  FlexModule,
+  FlexLayoutModule,
+  MatListModule,
+  BreadcrumbComponent,
+
+  MatTreeModule,
+  HelpTextBtnDirective,
+  UiFormModule,
+  NgSelectModule,
+TranslateModule
     ], imports: [CommonModule,
         ReactiveFormsModule,
         FormsModule,
@@ -57,11 +60,11 @@ export function minlengthValidationMessage(err: any, field: { templateOptions: {
         UiFormModule,
         NgSelectModule,
         FormlyModule.forChild(), MatCardModule, MatInputModule], providers: [
-        DatePipe,
-        LowerCasePipe,
-        HelpTextService,
-        { provide: NG_VALIDATORS, useValue: PasswordStrength2, multi: true },
-        { provide: NG_VALIDATORS, useValue: matchPasswords, multi: true },
+    DatePipe,
+    LowerCasePipe,
+    HelpTextService,
+    {provide: NG_VALIDATORS , useValue: PasswordStrength2, multi: true},
+    {provide: NG_VALIDATORS , useValue: matchPasswords, multi: true},
         provideHttpClient(withInterceptorsFromDi()),
     ] })
 export class SharedModule {}

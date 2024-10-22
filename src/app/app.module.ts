@@ -1,5 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {APP_INITIALIZER, ErrorHandler, NgModule} from '@angular/core';
+
 import { MonacoEditorModule, NgxMonacoEditorConfig } from 'ngx-monaco-editor-v2';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -48,12 +49,14 @@ import {MessagesModule} from './messages/messages.module';
 import {AppSettingsService} from './services/app-settings.service';
 import {DebugOnlyDirective} from './directives/debug-only.directive';
 
+
 import {YoutubePageComponent} from './pages/youtube-page/youtube-page.component';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {YoutubeUploadComponent} from './components/youtube-upload/youtube-upload.component';
 import {BloomenSearchPageComponent} from './pages/bloomen-search-page/bloomen-search-page.component';
 import {HttpErrorInterceptor} from './_shared/404.interceptor';
+import {FormlyModule} from '@ngx-formly/core';
 import {UserIpnFormComponent} from './forms/user-ipn-form/user-ipn-form.component';
 import {GenericFormComponent} from './forms/generic-form/generic-form.component';
 import {FormTestPageComponent} from './pages/form-test-page/form-test-page.component';
@@ -61,6 +64,7 @@ import {OrderKeysPipe} from './pipes/order-keys.pipe';
 import {ShowShareLinkDialogComponent} from './dialogs/show-share-link-dialog/show-share-link-dialog.component';
 import {FormlyImageInputComponent} from './form-controls/formly-image-input/formly-image-input.component';
 import {FormlyAudioInputComponent} from './form-controls/formly-audio-input/formly-audio-input.component';
+import {MonacoEditorModule} from 'ngx-monaco-editor';
 import {FormBuilderPageComponent} from './pages/form-builder-page/form-builder-page.component';
 import {FormSelectDialogComponent} from './dialogs/form-select-dialog/form-select-dialog.component';
 import {FormDataSelectDialogComponent} from './dialogs/form-data-select-dialog/form-data-select-dialog.component';
@@ -198,7 +202,7 @@ const monacoConfig: NgxMonacoEditorConfig = {
   monacoRequire: (window as any).monacoRequire
 };
 
-@NgModule({ 
+@NgModule({
     declarations: [
         AppComponent,
         LayoutComponent,
@@ -374,6 +378,10 @@ const monacoConfig: NgxMonacoEditorConfig = {
         FormsModule,
         NgxTaggerModule,
         MessagesModule,
+        AgGridModule.withComponents([
+            WorkflowCellRendererComponent,
+            ConnectionStatusRendererComponent
+        ]),
         DragDropModule,
         LeafletModule,
         LeafletMarkerClusterModule,
@@ -383,8 +391,17 @@ const monacoConfig: NgxMonacoEditorConfig = {
         MatAutocompleteModule,
         AgGridModule,
         MatChipsModule
-    ], 
+    ],
     providers: [
+        // This service is from old legacy code and no longer used,
+        // so I'm commenting out the init() function and the whole thing
+        // can be removed once confirmed nothing is still using it.
+        // {
+        //   provide: APP_INITIALIZER,
+        //   multi: true,
+        //   useFactory: (schemaRepo: SchemaRepositoryService) => () => schemaRepo.init(),
+        //   deps: [SchemaRepositoryService]
+        // },
         {
             provide: APP_INITIALIZER,
             multi: true,

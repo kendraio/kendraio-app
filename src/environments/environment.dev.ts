@@ -20,7 +20,7 @@ export const environment = {
     scope: 'openid profile'
   },
   workflowStoreUrl: 'https://app.kendra.io/api',
-  authProxyUrl: 'https://kendraio-auth0-proxy.vercel.app/',
+  authProxyUrl: 'https://kendraio-auth0-proxy.now.sh/',
   uphold: {
     proxy: 'https://uphold-proxy.kendra.io/',
     apiRoot: 'https://api-sandbox.uphold.com/',
