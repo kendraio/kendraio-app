@@ -19,7 +19,7 @@
 
 @include mat.all-component-typographies();
 @include mat.core();
-@import '@angular/material/theming';
+
 // @include mat-core();
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
@@ -38,7 +38,7 @@ $kendraio-app-theme: mat.m2-define-light-theme((
     accent: $kendraio-app-accent,
     warn: $kendraio-app-warn
   ),
-  typography: mat.define-typography-config(),
+  typography: mat.m2-define-typography-config(),
   density: 0,
 ));
 
@@ -47,7 +47,7 @@ $kendraio-app-theme: mat.m2-define-light-theme((
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include mat.all-component-themes($kendraio-app-theme);
-@include angular-material-theme($kendraio-app-theme);
+
 
 
 // Global style, not part of the custom theme.
