@@ -3,10 +3,12 @@
 <div mat-dialog-content>
 <form [formGroup]="form" autocomplete="off">
 <mat-form-field>
+  <mat-label>Name</mat-label>
   <input matInput placeholder="Name" formControlName="name">
 </mat-form-field>
 
   <mat-form-field>
+    <mat-label>Add rights group</mat-label>
     <mat-select placeholder="Add rights group" formControlName="right">
       <mat-option *ngFor="let group of rightsGroups" [value]="group">
         {{group}}
@@ -15,9 +17,11 @@
   </mat-form-field>
 
 <mat-form-field>
+  <mat-label>Role</mat-label>
   <input matInput placeholder="Role" formControlName="role">
 </mat-form-field>
 <mat-form-field>
+  <mat-label>Contributor</mat-label>
   <input matInput placeholder="Contributor" formControlName="contributor">
 </mat-form-field>
 
