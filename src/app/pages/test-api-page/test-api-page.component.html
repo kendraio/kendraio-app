@@ -16,7 +16,7 @@
 
 <mat-card appearance="outlined" *ngIf="entityList$ | async as entityList">
   <mat-form-field style="margin-right: 0.5em;">
-    <mat-label>Entity ID.</mat-label>
+    <mat-label>Entity ID</mat-label>
     <mat-select placeholder="Entity ID" (valueChange)="changeEntity($event)">
       <mat-option *ngFor="let entity of entityList" [value]="entity.id">
         {{ entity['id'] }}
