@@ -56,7 +56,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {YoutubeUploadComponent} from './components/youtube-upload/youtube-upload.component';
 import {BloomenSearchPageComponent} from './pages/bloomen-search-page/bloomen-search-page.component';
 import {HttpErrorInterceptor} from './_shared/404.interceptor';
-import {FormlyModule} from '@ngx-formly/core';
+
 import {UserIpnFormComponent} from './forms/user-ipn-form/user-ipn-form.component';
 import {GenericFormComponent} from './forms/generic-form/generic-form.component';
 import {FormTestPageComponent} from './pages/form-test-page/form-test-page.component';
@@ -64,7 +64,7 @@ import {OrderKeysPipe} from './pipes/order-keys.pipe';
 import {ShowShareLinkDialogComponent} from './dialogs/show-share-link-dialog/show-share-link-dialog.component';
 import {FormlyImageInputComponent} from './form-controls/formly-image-input/formly-image-input.component';
 import {FormlyAudioInputComponent} from './form-controls/formly-audio-input/formly-audio-input.component';
-import {MonacoEditorModule} from 'ngx-monaco-editor';
+
 import {FormBuilderPageComponent} from './pages/form-builder-page/form-builder-page.component';
 import {FormSelectDialogComponent} from './dialogs/form-select-dialog/form-select-dialog.component';
 import {FormDataSelectDialogComponent} from './dialogs/form-data-select-dialog/form-data-select-dialog.component';
@@ -378,10 +378,6 @@ const monacoConfig: NgxMonacoEditorConfig = {
         FormsModule,
         NgxTaggerModule,
         MessagesModule,
-        AgGridModule.withComponents([
-            WorkflowCellRendererComponent,
-            ConnectionStatusRendererComponent
-        ]),
         DragDropModule,
         LeafletModule,
         LeafletMarkerClusterModule,

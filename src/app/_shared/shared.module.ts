@@ -34,12 +34,10 @@ export function minlengthValidationMessage(err: any, field: { templateOptions: {
     PasswordInputComponent,
   ],
   exports: [
-  MatMenuModule,
   FormsModule,
   ReactiveFormsModule,
   FlexModule,
   FlexLayoutModule,
-  MatListModule,
   BreadcrumbComponent,
 
   MatTreeModule,
