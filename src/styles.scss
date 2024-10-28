@@ -39,7 +39,7 @@ $kendraio-app-theme: mat.m2-define-light-theme((
     warn: $kendraio-app-warn
   ),
   typography: mat.m2-define-typography-config(),
-  density: 0,
+  density: -1,
 ));
 
 
