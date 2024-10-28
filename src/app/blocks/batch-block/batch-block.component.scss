@@ -1,0 +1,17 @@
+:host(.batch-block-flex) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px 20px;
+}
+
+.multi-wrapper {
+  flex: 1;
+  min-width: 250px;
+  max-width: 50%;
+
+  &:last-child {
+    flex-shrink: 0;
+  }
+}
