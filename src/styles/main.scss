@@ -8,12 +8,14 @@ Global Style Guide:
 *********/
 
 
-@import "~@ng-select/ng-select/themes/material.theme.css";
+@import "@ng-select/ng-select/themes/material.theme.css";
+// @import '../../app/ng-select-theme';
 
-/*   TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
+
 .formFieldWidth380 .mat-form-field-infix {
   width: 380px;
 }
+
 .ken-tree-invisible {
   display: none;
   opacity: 0;
@@ -34,6 +36,12 @@ Global Style Guide:
 .ken-tree li>ul {
   background: rgba(0, 0, 0, 0.04);
   overflow: hidden;
+}
+
+.ken-tree li>ul>.mat-tree-node li,
+.mat-nested-tree-node li {
+  //   background: rgba(0, 0, 0, 0.04);
+  //  font-size: 12px
 }
 
 .mat-nested-tree-node ul li {
@@ -58,12 +66,15 @@ button:focus {
 .mat-tree-node {
   // padding-left: 16px;
 }
+
 button.active {
+  // background-color: silver!important;
   opacity: 0.4;
   cursor: default;
 }
 
 .menu-item--active {
+  // background: rgba(0, 0, 0, 0.2);
   background-color: whitesmoke;
 }
 
@@ -150,6 +161,13 @@ button.active {
   text-transform: capitalize;
 }
 
+
+//  .mat-drawer,  .mat-sidenav {
+//    min-width:200px;
+//    transition: all 3s ease-in-out;
+//    position: relative!important;
+//  }
+
 .form-container>* {
   width: 100%;
 }
@@ -163,12 +181,11 @@ dynamic-material-form-control:not(:last-child) {
   color: rgba(0, 0, 0, 1);
 }
 
-.mat-card {
-  img {
-    object-fit: cover;
-    width: 100%;
-    margin-top: 20px;
-  }
+.mat-mdc-card {
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  display: block;
+  position: relative;
+  padding: 1em;
 }
 
 // HELPER CLASS
@@ -220,11 +237,46 @@ formly-field {
   }
 }
 
+
+.mat-form-field-type-boolean .mat-form-field-wrapper {
+  padding-bottom: 0 !important;
+  height: 44px;
+}
+
+formly-object-type formly-object-type>formly-field {
+  //margin-left: 40px
+}
+
+formly-object-type legend {
+  //margin-left: 20px
+}
+
+formly-object-type {
+  // background-color: blue;
+}
+
 formly-array-type {
+  // >.mat-card {
+  //   display: flex;
+  //   flex-wrap: wrap;
+  //   align-content: space-around ;
+  //   align-items: flex-end;
     .mat-mdc-card {
       margin-right: 16px;
     }
+  // }
+  mat-card-header {
+    font-size: 1.5rem;
+  }
 
+  mat-card {
+    margin-bottom: 16px
+  }
+
+}
+
+.mat-form-field{
+  margin-bottom: 1rem;
 }
 
 // Fix for cut-off Formly Material label
@@ -237,6 +289,11 @@ formly-array-type {
   color: black !important;
 }
 
+.block-comment-container {
+  width: 95%;
+  margin-left: 2%;
+  position: relative;
+}
 .mdc-text-field--disabled .mdc-floating-label {
   color: rgba(0, 0, 0, 0.6)
 }
@@ -245,8 +302,4 @@ formly-array-type {
   content: "(read-only)";
 }
 
-.block-comment-container {
-  width: 95%;
-  margin-left: 2%;
-  position: relative;
-}
+// Kendraio3ca31f6bcb87c68721363847192dbd57

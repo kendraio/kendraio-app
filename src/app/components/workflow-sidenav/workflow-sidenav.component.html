@@ -7,7 +7,7 @@
       <button type="button" mat-icon-button (click)="workflow.clearBlocks()" matTooltip="Clear workflow">
         <mat-icon>delete_forever</mat-icon>
       </button>
-<!--     = <button type="button" mat-icon-button (click)="workflow.clearWorkflowData()" matTooltip="Clear workflow data">-->
+<!--      <button type="button" mat-icon-button (click)="workflow.clearWorkflowData()" matTooltip="Clear workflow data">-->
 <!--        <app-kendraio-icon icon="fa-eraser"></app-kendraio-icon>-->
 <!--      </button>-->
       <button type="button" mat-icon-button (click)="workflow.shareConfig()" matTooltip="Share" data-cy="sidenav-share-button">
@@ -40,11 +40,11 @@
     <mat-card appearance="outlined" class="adapter-metadata">
       <div class="adapter-metadata-edit">
         <p class="adapter-metadata-edit-text">
-          Title: {{ workflow.title }}<br>
-          Adapter: {{ workflow.getAdapterName() }}<br>
-          Workflow ID: {{ workflow.id }}<br>
-          Tags: {{ workflow.tags.join(', ') }}
-        </p>
+    Title: {{ workflow.title }}<br />
+    Adapter: {{ workflow.getAdapterName() }}<br />
+    Flow ID: {{ workflow.id || 'Flow ID' }}<br />
+    Tags: {{ workflow.tags.join(', ') }}
+  </p>
         <button type="button" mat-icon-button (click)="workflow.editMetadata()" matTooltip="Edit metadata">
           <mat-icon>edit</mat-icon>
         </button>
