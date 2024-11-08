@@ -16,12 +16,12 @@ Default config
     }
 
 Supported properties
---------------------reference
+--------------------
 
 - **fieldLabel**: The label displayed above the select widget.
 - **labelGetter**: A property used to specify the field in the data for display as labels in the select options.
-    **valueField**: Specifies the field in the data that holds the value for each option.
-    **outputGetter**: Defines how the selected option’s value is output.
+- **valueField**: Specifies the field in the data that holds the value for each option.
+- **outputGetter**: Defines how the selected option’s value is output.
 
 
 Examples
@@ -65,70 +65,73 @@ The list must follow a specific data structure, as shown below.
 
     // Output of the debug
 
-    data: {
-        "managerSelected": "John Smith"
-    }
-    context: {
-        "managers": {
-            "anyOf": [
-                {
-                    "title":"Will Teather"
-                    "const":1
-                },
-                {
-                    "title":"John Smith"
-                    "const":2
-                },
-                {
-                    "title":"Ross Sullivan"
-                    "const":3
-                }
-            ]
-        }
-    }
-    
-
     {
-    "type": "form",
-    "hasSubmit": false,
-    "jsonSchema": {
-        "type": "object",
-        "properties": {
-            "managerSelected": {
-                "title": "Select an asset manager",
-                "$ref": "#/definitions/context/managers"
+        "data": {
+            "managerSelected": "John Smith"
+        }
+
+        "context": {
+            "managers": {
+                "anyOf": [
+                    {
+                        "title":"Will Teather"
+                        "const":1
+                    },
+                    {
+                        "title":"John Smith"
+                        "const":2
+                    },
+                    {
+                        "title":"Ross Sullivan"
+                        "const":3
+                    }
+                ]
             }
         }
-    },
-    "uiSchema": {}
-}
+    }
+
+    {
+        "type": "form",
+        "hasSubmit": false,
+        "jsonSchema": {
+            "type": "object",
+            "properties": {
+                "managerSelected": {
+                    "title": "Select an Asset Manager",
+                    "$ref": "#/definitions/context/managers"
+                }
+            }
+        },
+        "uiSchema": {}
+    }
 
 TIP: Use this formula in a mapping block to transform an array into the "anyOf" data structure needed by the reference block: 
 
 
 
-```
-// Example of incoming data
-[
+.. code-block:: json
+
+    // Example of incoming data
+
+    [
+        {
+            "name":"Will Teather"
+            "asset_manager_id":1
+        },
+        {
+            "name":"John Smith"
+            "asset_manager_id":2
+        },
+        {
+            "name":"Ross Sullivan"
+            "asset_manager_id":3
+        }
+    ]
+
+
     {
-        "name":"Will Teather"
-        "asset_manager_id":1
-    },
-    {
-        "name":"John Smith"
-        "asset_manager_id":2
-    },
-    {
-        "name":"Ross Sullivan"
-        "asset_manager_id":3
+        "anyOf": data[*].{
+            "title": name,
+            "const": asset_manager_id
+        }
     }
-]
-
-
-{
-  "anyOf": data[*].{
-    "title": name,
-    "const": asset_manager_id
-  }
-}
-```

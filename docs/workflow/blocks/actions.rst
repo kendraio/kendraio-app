@@ -29,14 +29,9 @@ Supported properties
 
   - **label** (string) - the text for the button label
   - **id** (string) - the unique identifier for the button
-  - **color** (string) - passed as the “color” attribute to the material button. Use one of the supported
-    Material color values, such as “primary”, “warn”, “accent”. Leave as “default” to use the default button styling for a plain button.
-  - **enabledGetter** (string) - A value from the state or context. Based on this value, it generates an "enabled" property on the button.
-  The button will be shown as disabled (greyed out) or enabled accordingly. The default value of this property is `true`. After 
-  the block is loaded, it will automatically add a property to the block json: `"enabled": true`.
-  If `enabledGetter` is set to `false` the automatic property will be then shown as `"enabled": false`.
-  - **valueGetters** (string) - A value that will be pass as context to whichever action is being executed. 
-  This is a JMESPath mapping.
+  - **color** (string) - passed as the “color” attribute to the material button. Use one of the supported Material colour values, such as “primary”, “warn”, “accent”. Leave as “default” to use the default button styling for a plain button.
+  - **enabledGetter** (string) - A value from the state or context. Based on this value, it generates an "enabled" property on the button. The button will be shown as disabled (greyed out) or enabled accordingly. The default value of this property is `true`. After the block is loaded, it will automatically add a property to the block json: `"enabled": true`. If `enabledGetter` is set to `false` the automatic property will be then shown as `"enabled": false`.
+  - **valueGetters** (string) - A value that will be passed as context to whichever action is being executed. This is a JMESPath mapping.
   - **blocks** (array) - the list of workflow items to run when this button is pressed.
 
 Example
@@ -47,6 +42,7 @@ This example shows two buttons. The first one dispatches an asynchronous command
 block in order to start the inner workflow so that it runs and signals completion to the outer workflow.
 
 .. code-block:: json
+
   {
     "type": "actions",
     "buttons": [

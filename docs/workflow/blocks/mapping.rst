@@ -392,7 +392,7 @@ Examples:
    replace(data.email, '.', '')        // Output: "johndoe@example.com"
 
 8. replaceAll
------------
+-------------
 
 Returns a string replacing all instances of a substring with another substring.
 
@@ -415,7 +415,7 @@ Examples:
    trim('  John Doe  ')  // Output: "John Doe"
 
 10. now
-------
+--------
 
 Returns the current UTC timestamp in RFC 7231 format.
 
@@ -441,7 +441,7 @@ Examples:
 12. omit
 --------
 
-Creates an object composed of enumerable properties from the input objects omitting the properties named in the *names array.
+Creates an object composed of enumerable properties from the input objects omitting the properties named in the *names* array.
 
 Examples:
 
@@ -622,7 +622,7 @@ Examples:
    markdown('## Header')  // Output: "<h2 id=\"header\">Header</h2>"
 
 23. btoa
--------
+---------
 
 Encodes a string in base-64.
 

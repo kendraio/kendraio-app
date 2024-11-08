@@ -114,8 +114,8 @@ Security and access control
 There is currently no access control or protection in state. Any path in the global state is accessible (read and write) to any flow. 
 In the future some form of restriction may be implemented. 
 
-Subroutines (Gosub)
-+++++++++++++++++++
+Subroutines (also called Gosubs)
+++++++++++++++++++++++++++++++++
 
 Subroutines are Flows that are configured separately and used within a parent Flow.
 All data saved in a subroutine is stored in the context or state of the parent Flow.

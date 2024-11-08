@@ -20,8 +20,8 @@ Default config
 Supported properties
 --------------------
 
-- **adapterName**: the name of the Flow's adapter that will be embedded.
-- **workflowId**: the id of the Flow's adapter that will be embedded.
+- **adapterName**:The namespace the embedded Flow belongs to (a name to group multiple Flows)
+- **workflowId**: A text identifier of the Flow to be embedded.
 
 Typical use-cases for this are creating custom form widgets that can
 be referenced from a form's ``uiSchema``. 
@@ -42,42 +42,42 @@ In this way the data will be passed down to the embedded Flow.
     }
 
     {
-    "type": "form",
-    "jsonSchema": {
-        "type": "object",
-        "properties": {
-            "asset_title": {
-                "title": "Asset",
-                "type": "string"
-            },
+        "type": "form",
+        "jsonSchema": {
+            "type": "object",
+            "properties": {
+                "asset_title": {
+                    "title": "Asset",
+                    "type": "string"
+                },
+                "location": {
+                    "title": "Location",
+                    "type": "string"
+                },
+                "asset_manager_id": {
+                    "type": "string",
+                    "title": "Asset Manager"
+                }
+            }
+        },
+        "uiSchema": {
             "location": {
-                "title": "Location",
-                "type": "string"
+                "ui:widget": "remote-image"
             },
             "asset_manager_id": {
-                "type": "string",
-                "title": "Asset Manager"
-            }
-        }
-    },
-    "uiSchema": {
-        "location": {
-            "ui:widget": "remote-image"
-        },
-        "asset_manager_id": {
-            "ui:widget": "blocks",
-            "blocksConfig": {
-                "blocks": [
-                    {
-                        "type": "gosub",
-                        "adapterName": "culturebanked",
-                        "workflowId": "artist2-select-asset-manager"
-                    }
-                ]
+                "ui:widget": "blocks",
+                "blocksConfig": {
+                    "blocks": [
+                        {
+                            "type": "gosub",
+                            "adapterName": "culturebanked",
+                            "workflowId": "artist2-select-asset-manager"
+                        }
+                    ]
+                }
             }
         }
     }
-}
 
 In the example above, there are two Flows: the primary Flow, where the above configuration is written, and a secondary Flow with the Adapter "culturebanked" and Workflow ID "artist2-select-asset-manager".
 The "artist2-select-asset-manager" Flow is rendered as part of the parent Flow and is initiated with the data { "asset_manager_id": "1" }.
