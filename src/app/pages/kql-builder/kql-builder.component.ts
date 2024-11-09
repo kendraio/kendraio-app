@@ -1,14 +1,14 @@
 import {Component, NgZone, OnInit} from '@angular/core';
 import {JSON_EDITOR_OPTIONS} from './json-editor-options';
 import {KQL_EDITOR_OPTIONS} from './kql-editor-options';
-import {NgxEditorModel} from 'ngx-monaco-editor';
+import {MonacoEditorModule} from '@materia-ui/ngx-monaco-editor';
 import {mappingUtility} from '../../blocks/mapping-block/mapping-util';
 import {HttpClient} from '@angular/common/http';
 import {map, take} from 'rxjs/operators';
 import {camelCase, get, sortBy, set} from 'lodash-es';
 import {WorkflowService} from '../../services/workflow.service';
 import {SaveWorkflowDialogComponent} from '../../dialogs/save-workflow-dialog/save-workflow-dialog.component';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import {MatDialog} from '@angular/material/dialog';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
@@ -48,12 +48,12 @@ export class KqlBuilderComponent implements OnInit {
       }
     }
   }, null, 2);
-  dataInModel: NgxEditorModel;
+  dataInModel: MonacoEditorModule;
 
   dataOut = {};
 
   queryTxt = 'data';
-  queryModel: NgxEditorModel;
+  queryModel: MonacoEditorModule;
 
   errorMessage = '';
 

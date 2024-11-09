@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FieldType } from '@ngx-formly/core';
-import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 
 
 @Component({
@@ -26,8 +25,14 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browse
 })
 
 export class ImageViewerComponent extends FieldType implements OnInit {
-  @Input()
-  formControl;
+    @Input()
+    private _formControl: any;
+    public get formControl() {
+        return this._formControl;
+    }
+    public set formControl(value) {
+        this._formControl = value;
+    }
   imgId: any;
   imgUrl: any;
  imgProps: {};
