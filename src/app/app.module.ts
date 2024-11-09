@@ -13,7 +13,7 @@ import {AdaptersPageComponent} from './pages/adapters-page/adapters-page.compone
 import {SettingsPageComponent} from './pages/settings-page/settings-page.component';
 import {UserPageComponent} from './pages/user-page/user-page.component';
 import {ConfirmAppResetDialogComponent} from './dialogs/confirm-app-reset-dialog/confirm-app-reset-dialog.component';
-import {HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { HttpClient, HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {ObjectKeysPipe} from './pipes/object-keys.pipe';
 import {ImportProgressDialogComponent} from './dialogs/import-progress-dialog/import-progress-dialog.component';
 import {AddNewNodeDialogComponent} from './dialogs/add-new-node-dialog/add-new-node-dialog.component';
@@ -150,8 +150,8 @@ import {JsonViewPageComponent} from './pages/json-view-page/json-view-page.compo
 import {GosubBlockComponent} from './blocks/gosub-block/gosub-block.component';
 import {GsheetBlockComponent} from './blocks/gsheet-block/gsheet-block.component';
 import {MapBlockComponent} from './blocks/map-block/map-block.component';
-import {LeafletModule} from '@asymmetrik/ngx-leaflet';
-import {LeafletMarkerClusterModule} from '@asymmetrik/ngx-leaflet-markercluster';
+import { LeafletModule } from '@bluehalo/ngx-leaflet';
+import { LeafletMarkerClusterModule } from '@bluehalo/ngx-leaflet-markercluster';
 import {DashboardPageComponent} from './pages/dashboard-page/dashboard-page.component';
 import {config} from './_shared/ui-form/config';
 import {FormlyMaterialModule} from '@ngx-formly/material';
@@ -355,35 +355,35 @@ const monacoConfig: NgxMonacoEditorConfig = {
         BlockComparisonBuilderBoxComponent,
         LinkActionComponent,
     ],
-  imports: [
-    FormlyModule.forRoot({}),
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    AppMaterialModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-    HttpClientModule,
-    ReactiveFormsModule,
-    FormsModule,
-    NgxTaggerModule,
-    MessagesModule,
-    DragDropModule,
-    LeafletModule,
-    LeafletMarkerClusterModule,
-    FormlyModule.forRoot(config),
-    FormlyMaterialModule,
-    MonacoEditorModule.forRoot(monacoConfig),
-    MatAutocompleteModule,
-    AgGridModule,
-    MatChipsModule
-  ],
+    bootstrap: [AppComponent], 
+    imports: [
+        FormlyModule.forRoot({}),
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        AppMaterialModule,
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
+        ReactiveFormsModule,
+        FormsModule,
+        NgxTaggerModule,
+        MessagesModule,
+        DragDropModule,
+        LeafletModule,
+        LeafletMarkerClusterModule,
+        FormlyModule.forRoot(config),
+        FormlyMaterialModule,
+        MonacoEditorModule.forRoot(monacoConfig),
+        MatAutocompleteModule,
+        AgGridModule,
+        MatChipsModule
+    ], 
     providers: [
         // This service is from old legacy code and no longer used,
         // so I'm commenting out the init() function and the whole thing
@@ -414,9 +414,8 @@ const monacoConfig: NgxMonacoEditorConfig = {
         {
             provide: ErrorHandler,
             useClass: GlobalErrorHandlerService
-        }
-    ],
-    bootstrap: [AppComponent]
-})
+        },
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule {
 }

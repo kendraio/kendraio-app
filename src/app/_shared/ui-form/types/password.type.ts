@@ -7,6 +7,7 @@ import { FieldType } from '@ngx-formly/core';
   template: `
 
   <mat-form-field>
+    <mat-label>Enter your password</mat-label>
     <input matInput
     [maxlength]="to.maxLength"
     placeholder="Enter your password"

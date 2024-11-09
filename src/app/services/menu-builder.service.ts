@@ -55,13 +55,13 @@ export class MenuBuilderService {
         label: 'dashboard' ,
         icon: 'dashboard',
       },
-      ...(services.length === 0) ? [] : [{
+      ...((services.length === 0) ? [] : [{
         label: 'services',
         icon: 'live_tv',
         path: '/services',
         children: services
-      }],
-      ...this.settings.get('disablePreview', true) ? [] : PROTOTYPE_MENU,
+      }]),
+      ...(this.settings.get('disablePreview', true) ? [] : PROTOTYPE_MENU),
       {
         path: '/core/settings',
         label: 'settings',

@@ -51,12 +51,12 @@ describe('workspace-project App', () => {
     cy.get('app-root mat-toolbar').contains('menu').click();
     cy.contains('Flow Builder').click();
     cy.contains('settings');
-    cy.get('mat-toolbar > button mat-icon').contains('settings').click({force: true});
+    cy.get('[data-cy="toolbar-setting-button"]').click();
     cy.get('app-workflow-sidenav').contains('delete_forever').click().get('app-workflow-sidenav').contains('Mapping').should('not.exist');
-    cy.get('app-workflow-sidenav').contains('Add Task').click({force: true});
+    cy.get('[data-cy="blocks-editor-add-task"]').click();
     cy.contains('Select Task');
     cy.get('mat-dialog-container').contains('Mapping').click();
-    cy.get('button').contains('Add Task').click({force: true});
+    cy.get('[data-cy="dialog-addBlock-addTask-button"]').click();
     cy.get('button').contains('Mapping');
   });
 
@@ -69,9 +69,9 @@ describe('workspace-project App', () => {
         "blockComment": "testingComment",
       }
     ]);
-    cy.get('mat-toolbar > button > mat-icon').contains('settings').click({force: true});
+    cy.get('[data-cy="toolbar-setting-button"]').click();
     cy.get('app-workflow-sidenav').contains('testingComment').should('exist');
-    cy.get('app-workflow-sidenav').contains('testingComment').click();  
+    cy.get('app-workflow-sidenav').contains('testingComment').click();
     // cy.get('app-workflow-sidenav').contains('Block Comment'); // FIXME: regression - MatFormField placeholder text is not visible
   });
 
@@ -83,7 +83,7 @@ describe('workspace-project App', () => {
         "blockComment": "testingComment first line\nComment line2",
       }
     ]);
-    cy.get('mat-toolbar > button mat-icon').contains('settings').click({force: true});
+    cy.get('[data-cy="toolbar-setting-button"]').click();
     cy.get('app-workflow-sidenav').contains('testingComment').should('exist');
     cy.get('app-workflow-sidenav').contains('line2').should('not.exist');
     cy.get('app-workflow-sidenav').contains('testingComment').click();

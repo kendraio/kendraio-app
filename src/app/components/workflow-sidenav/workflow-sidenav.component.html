@@ -10,7 +10,7 @@
 <!--      <button type="button" mat-icon-button (click)="workflow.clearWorkflowData()" matTooltip="Clear workflow data">-->
 <!--        <app-kendraio-icon icon="fa-eraser"></app-kendraio-icon>-->
 <!--      </button>-->
-      <button type="button" mat-icon-button (click)="workflow.shareConfig()" matTooltip="Share">
+      <button type="button" mat-icon-button (click)="workflow.shareConfig()" matTooltip="Share" data-cy="sidenav-share-button">
         <mat-icon>share</mat-icon>
       </button>
       <button type="button" mat-icon-button (click)="workflow.loadFromAdapter()" matTooltip="Load from Adapter">
@@ -37,13 +37,13 @@
       </button>
     </div>
 
-    <mat-card class="adapter-metadata">
-      <div class="metadata-edit">
+    <mat-card appearance="outlined" class="adapter-metadata">
+      <div class="adapter-metadata-edit">
         <button type="button" mat-icon-button (click)="workflow.editMetadata()" matTooltip="Edit metadata">
           <mat-icon>edit</mat-icon>
         </button>
       </div>
-      <p>
+      <p class="adapter-metadata-edit-text">
         Title: {{ workflow.title }}<br>
         Adapter: {{ workflow.getAdapterName() }}<br>
         Flow ID: {{ workflow.id || 'Flow ID' }}<br>

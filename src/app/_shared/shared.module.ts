@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, LowerCasePipe, DatePipe } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule, NG_VALIDATORS } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -26,49 +26,42 @@ export function minlengthValidationMessage(err: any, field: { templateOptions: {
   return `what the.. ${field.templateOptions.minLength} characters`;
 }
 
-@NgModule({
-  imports: [
-    CommonModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    FormsModule,
-    RouterModule,
-    MatButtonToggleModule,
-    MatIconModule,
-    MatTreeModule,
-    FlexModule, FlexLayoutModule,
-    FormsModule,
-    ReactiveFormsModule,
-    UiFormModule,
-    NgSelectModule,
-    FormlyModule.forChild(), MatCardModule, MatInputModule
-  ],
-  declarations: [
-    matComponents.MatInputComponent,
-    matComponents.MatButtonComponent,
-    BreadcrumbComponent,
-    HelpTextBtnDirective,
-    PasswordInputComponent,
-  ],
-  exports: [
-  FormsModule,
-  ReactiveFormsModule,
-  FlexModule,
-  FlexLayoutModule,
-  BreadcrumbComponent,
-
-  MatTreeModule,
-  HelpTextBtnDirective,
-  UiFormModule,
-  NgSelectModule,
-TranslateModule
-  ],
-  providers: [
-    DatePipe,
-    LowerCasePipe,
-    HelpTextService,
-    {provide: NG_VALIDATORS , useValue: PasswordStrength2, multi: true},
-    {provide: NG_VALIDATORS , useValue: matchPasswords, multi: true},
-  ]
-})
+@NgModule({ declarations: [
+        matComponents.MatInputComponent,
+        matComponents.MatButtonComponent,
+        BreadcrumbComponent,
+        HelpTextBtnDirective,
+        PasswordInputComponent,
+    ],
+    exports: [
+        FormsModule,
+        ReactiveFormsModule,
+        FlexModule,
+        FlexLayoutModule,
+        BreadcrumbComponent,
+        MatTreeModule,
+        HelpTextBtnDirective,
+        UiFormModule,
+        NgSelectModule,
+        TranslateModule
+    ], imports: [CommonModule,
+        ReactiveFormsModule,
+        FormsModule,
+        RouterModule,
+        MatButtonToggleModule,
+        MatIconModule,
+        MatTreeModule,
+        FlexModule, FlexLayoutModule,
+        FormsModule,
+        ReactiveFormsModule,
+        UiFormModule,
+        NgSelectModule,
+        FormlyModule.forChild(), MatCardModule, MatInputModule], providers: [
+        DatePipe,
+        LowerCasePipe,
+        HelpTextService,
+        { provide: NG_VALIDATORS, useValue: PasswordStrength2, multi: true },
+        { provide: NG_VALIDATORS, useValue: matchPasswords, multi: true },
+        provideHttpClient(withInterceptorsFromDi()),
+    ] })
 export class SharedModule {}
