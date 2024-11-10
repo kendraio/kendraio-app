@@ -22,7 +22,6 @@ import {ConnectionManagerService} from './connection-manager.service';
 import {WorkflowRepoService} from './workflow-repo.service';
 
 const DEFAULT_ADAPTER_NAME = 'Adapter name';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -262,7 +261,7 @@ export class WorkflowService {
   }
 
   getAdapterName() {
-    return get(this.context, 'app.adapterName', 'Adapter name');
+    return get(this.context, 'app.adapterName', DEFAULT_ADAPTER_NAME);
   }
 
   getWorkflowId() {
