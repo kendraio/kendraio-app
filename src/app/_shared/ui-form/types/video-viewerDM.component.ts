@@ -32,7 +32,13 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browse
 
 export class FormlyFieldVideoViewerDM extends FieldType {
   @Input()
-  formControl;
+  private _formControl: any;
+  public get formControl() {
+        return this._formControl;
+    }
+    public set formControl(value) {
+        this._formControl = value;
+    }
   videoId: any;
   videoUrl: any;
 

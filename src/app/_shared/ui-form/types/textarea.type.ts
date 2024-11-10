@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { FieldType } from '@ngx-formly/material';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { MatLegacyInput as MatInput } from '@angular/material/legacy-input';
+import { MatInput } from '@angular/material/input';
 
 /** Error when invalid control is dirty, touched, or submitted.
  * this is an attempt to allow custom error msgs
@@ -49,7 +49,7 @@ import { MatLegacyInput as MatInput } from '@angular/material/legacy-input';
   `
 })
 
-export class TextareaComponent extends FieldType {
+export class TextareaComponent extends FieldType<any> {
 //   defaultOptions = {
 //     hideExpression: () => true,
 //     // defaultValue: {},

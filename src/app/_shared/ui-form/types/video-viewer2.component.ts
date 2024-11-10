@@ -33,7 +33,13 @@ allowfullscreen title="Bali Blue"></iframe>
 
 export class FormlyFieldVideoViewer2 extends FieldType {
   @Input()
-  formControl;
+  private _formControl: any;
+  public get formControl() {
+        return this._formControl;
+    }
+    public set formControl(value) {
+        this._formControl = value;
+    }
   videoId: any;
   videoUrl: any;
 

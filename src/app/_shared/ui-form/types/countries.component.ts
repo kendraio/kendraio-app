@@ -27,7 +27,7 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
     `,
     styleUrls: ['./typeahead.component.scss'],
   })
-  export class FieldCountriesComponent extends FieldType implements OnDestroy, OnInit {
+  export class FieldCountriesComponent extends FieldType<any> implements OnDestroy, OnInit {
 countries = [{'id': 4, 'name': 'Afghanistan', 'alpha2': 'af', 'alpha3': 'afg'},
 {'id': 8, 'name': 'Albania', 'alpha2': 'al', 'alpha3': 'alb'},
 {'id': 12, 'name': 'Algeria', 'alpha2': 'dz', 'alpha3': 'dza'},

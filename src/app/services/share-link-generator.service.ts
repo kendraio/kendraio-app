@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import * as LZS from 'lz-string';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ShowShareLinkDialogComponent } from '../dialogs/show-share-link-dialog/show-share-link-dialog.component';
 import { LocalDatabaseService } from '../services/local-database.service';
 

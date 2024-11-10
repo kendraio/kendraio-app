@@ -18,7 +18,13 @@ import { indexOf } from 'lodash-es';
 })
 export class NullTypeComponent extends FieldType implements OnInit {
     @Input()
-    formControl;
+    private _formControl: any;
+    public get formControl() {
+        return this._formControl;
+    }
+    public set formControl(value) {
+        this._formControl = value;
+    }
     imgId: any;
     text: any;
     imgProps: {};

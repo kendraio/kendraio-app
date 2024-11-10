@@ -1,9 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { clone, set, get } from 'lodash-es';
-import { comparisonOperators, comparisonTypes, comparisonDefinition } from 'src/app/blocks/comparison/comparison.component';
-import { FormControl, FormArray, FormGroup, UntypedFormControl } from '@angular/forms';
-import def from 'ajv/dist/vocabularies/discriminator';
-import {moveItemInArray} from '@angular/cdk/drag-drop';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {get} from 'lodash-es';
+import {comparisonDefinition, comparisonOperators, comparisonTypes} from 'src/app/blocks/comparison/comparison.component';
+import {FormArray, FormControl, FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -13,7 +11,7 @@ import {moveItemInArray} from '@angular/cdk/drag-drop';
 })
 
 /**
- * Defines an editor form for the comparison block type 
+ * Defines an editor form for the comparison block type
  */
 
 export class BlockComparisonBuilderBoxComponent implements OnInit {
@@ -38,10 +36,10 @@ export class BlockComparisonBuilderBoxComponent implements OnInit {
     this.form.controls['valueGetter'].setValue(get(this.block, 'valueGetter', this.valueGetter));
     this.form.controls['default'].setValue(get(this.block, 'default', this.default));
     this.form.controls['defaultType'].setValue(get(this.block, 'defaultType', this.defaultType));
-    this.operators = Object.keys(comparisonOperators);  
-    this.targetTypes = comparisonTypes;  
+    this.operators = Object.keys(comparisonOperators);
+    this.targetTypes = comparisonTypes;
     this.comparisons = get(this.block,'comparisons',[]);
-  
+
     this.comparisons.forEach((comparison) => {
       this.form.controls['comparisons'].push(new FormGroup({
         operator: new FormControl(comparison.operator),
@@ -54,7 +52,7 @@ export class BlockComparisonBuilderBoxComponent implements OnInit {
   }
 
   /**
-   * Converts the form into a block config object 
+   * Converts the form into a block config object
    * @returns the new data model
    */
   getUpdatedModel():any {
@@ -66,10 +64,10 @@ export class BlockComparisonBuilderBoxComponent implements OnInit {
           targetType: comparisonGroup.get('targetType').value,
           output: comparisonGroup.get('output').value,
           outputType: comparisonGroup.get('outputType').value
-       }  
+       }
        comparisons.push(comparison);
     }
-      
+
 
     return {
       ...this.block,
@@ -79,7 +77,7 @@ export class BlockComparisonBuilderBoxComponent implements OnInit {
       comparisons:comparisons
     };
   }
-   
+
   /**
    * Tests to see if multiple parameters are required
    * @param op The selected operation
@@ -92,7 +90,7 @@ export class BlockComparisonBuilderBoxComponent implements OnInit {
 
 
   /**
-   * Insert a new comparison object into the form 
+   * Insert a new comparison object into the form
    */
   insertComparison():void {
     this.form.controls['comparisons'].push(new FormGroup({
@@ -106,16 +104,16 @@ export class BlockComparisonBuilderBoxComponent implements OnInit {
 
   /**
    * Remove a comparison when a user clicks the button
-   * @param index 
-   */ 
+   * @param index
+   */
   removeComparison(index) {
     let formArray = this.form.get('comparisons') as FormArray;
     formArray.removeAt(index);
   }
-  
+
   /**
-   * Handle the drag drop 
-   * @param event 
+   * Handle the drag drop
+   * @param event
    */
   drop(event):void {
    this.moveComparison(event.previousIndex,event.currentIndex);
