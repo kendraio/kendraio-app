@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {APP_INITIALIZER, ErrorHandler, NgModule} from '@angular/core';
-import {MonacoEditorModule} from '@materia-ui/ngx-monaco-editor';
+import { MonacoEditorModule, NgxMonacoEditorConfig } from 'ngx-monaco-editor-v2';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -192,6 +192,11 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
+const monacoConfig: NgxMonacoEditorConfig = {
+  baseUrl: 'assets', 
+  requireConfig: { preferScriptTags: true },
+  monacoRequire: (window as any).monacoRequire
+};
 
 @NgModule({
     declarations: [
@@ -348,37 +353,37 @@ export function HttpLoaderFactory(http: HttpClient) {
         MermaidBlockComponent,
         ComparisonComponent,
         BlockComparisonBuilderBoxComponent,
-        LinkActionComponent
+        LinkActionComponent,
     ],
-    imports: [
-        FormlyModule.forRoot({}),
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        AppMaterialModule,
-        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpClient]
-            }
-        }),
-        HttpClientModule,
-        ReactiveFormsModule,
-        FormsModule,
-        NgxTaggerModule,
-        MessagesModule,
-        DragDropModule,
-        LeafletModule,
-        LeafletMarkerClusterModule,
-        FormlyModule.forRoot(config),
-        FormlyMaterialModule,
-	MonacoEditorModule,
-	MatAutocompleteModule,
-	AgGridModule,
-	MatChipsModule
-    ],
+  imports: [
+    FormlyModule.forRoot({}),
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    AppMaterialModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgxTaggerModule,
+    MessagesModule,
+    DragDropModule,
+    LeafletModule,
+    LeafletMarkerClusterModule,
+    FormlyModule.forRoot(config),
+    FormlyMaterialModule,
+    MonacoEditorModule.forRoot(monacoConfig),
+    MatAutocompleteModule,
+    AgGridModule,
+    MatChipsModule
+  ],
     providers: [
         // This service is from old legacy code and no longer used,
         // so I'm commenting out the init() function and the whole thing

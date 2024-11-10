@@ -1,7 +1,8 @@
 {
     "blocks": [
         {
-            "type": "init"
+            "type": "init",
+            "blockComment": "Mocked"
         },
         {
             "type": "variable-get",
