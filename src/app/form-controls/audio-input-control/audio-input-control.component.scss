@@ -5,7 +5,6 @@ input[type='file'] {
 ul {
    list-style: none;
    user-select: none;
-   margin: 0;
    padding: 0;
 }
 
@@ -19,31 +18,22 @@ li {
 }
 
 .clip-buttons {
-  background-color: #ccf;
-  position: absolute;
-  right: 0;
-  top: 0;
-  padding-right: 12px;
+  margin-right: 20px
+}
+
+.add-icon {
+  margin-right: 20px;
 }
 
 .dragging-container {
-  position: relative;
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;  
   background-color: #ccf;
-  padding-left: 12px;
-  overflow: hidden;
-  height: 2.5em;
-  line-height: 2.5em;
+  padding: 6px 0px 6px 18px;
 
-  -ms-touch-action: none;
+  // Suggested rules from interactjs documentation
+  // https://github.com/taye/interact.js/blob/824037570b88a2df84b5fcfc9600c19e332f89a9/docs/resizable.md?plain=1#L65
   touch-action: none;
-
-  button {
-    width: 20px;
-    height: 20px;
-
-    mat-icon {
-      font-size: 20px;
-    }
-  }
+  box-sizing: border-box;
 }

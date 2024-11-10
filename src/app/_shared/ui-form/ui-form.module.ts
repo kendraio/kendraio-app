@@ -19,7 +19,7 @@ import {FormlyFieldFileComponent} from './types/file-type.component';
 import {FormlyModule} from '@ngx-formly/core';
 import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
-import {MaskitoModule} from '@maskito/angular';
+import {MaskitoDirective} from '@maskito/angular';
 import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
@@ -40,7 +40,7 @@ import {MatRadioModule} from '@angular/material/radio';
     FormlyModule.forChild(),
     MatCardModule,
     MatInputModule,
-    MaskitoModule,
+    MaskitoDirective,
     MatRadioModule
   ],
   exports: [

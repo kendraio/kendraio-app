@@ -8,7 +8,7 @@ Global Style Guide:
 *********/
 
 
-@import "~@ng-select/ng-select/themes/material.theme.css";
+@import "@ng-select/ng-select/themes/material.theme.css";
 // @import '../../app/ng-select-theme';
 
 
@@ -244,6 +244,19 @@ formly-array-type {
 // Fix for cut-off Formly Material label
 .mdc-text-field--filled::before{
   content: "" !important;
+}
+
+.mdc-text-field--disabled, 
+.mdc-text-field--disabled .mat-mdc-input-element {
+  color: black !important;
+}
+
+.mdc-text-field--disabled .mdc-floating-label {
+  color: rgba(0, 0, 0, 0.6)
+}
+
+.mdc-text-field--disabled mat-label::after {
+  content: "(read-only)";
 }
 
 .block-comment-container {

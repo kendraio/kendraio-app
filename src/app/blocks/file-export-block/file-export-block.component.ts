@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
 import {get, has, isArray, isObject, isString} from 'lodash-es';
-import * as stringify from 'json-stringify-safe';
-import * as X2JS from 'x2js';
+import stringify from 'json-stringify-safe';
+import X2JS from 'x2js';
 
 @Component({
   selector: 'app-file-export-block',

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
 import {parse} from 'papaparse';
-import * as X2JS from 'x2js';
+import X2JS from 'x2js';
 import {fromPairs, get} from 'lodash-es';
 import * as XLSX from 'xlsx';
 
