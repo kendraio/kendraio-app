@@ -74,15 +74,15 @@ The list must follow a specific data structure, as shown below.
             "managers": {
                 "anyOf": [
                     {
-                        "title":"Will Teather"
+                        "title":"Will Teather",
                         "const":1
                     },
                     {
-                        "title":"John Smith"
+                        "title":"John Smith",
                         "const":2
                     },
                     {
-                        "title":"Ross Sullivan"
+                        "title":"Ross Sullivan",
                         "const":3
                     }
                 ]
@@ -115,15 +115,15 @@ TIP: Use this formula in a mapping block to transform an array into the "anyOf" 
 
     [
         {
-            "name":"Will Teather"
+            "name":"Will Teather",
             "asset_manager_id":1
         },
         {
-            "name":"John Smith"
+            "name":"John Smith",
             "asset_manager_id":2
         },
         {
-            "name":"Ross Sullivan"
+            "name":"Ross Sullivan",
             "asset_manager_id":3
         }
     ]
