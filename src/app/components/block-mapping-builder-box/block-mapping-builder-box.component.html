@@ -1,5 +1,6 @@
 <ngx-monaco-editor [options]="editorOptions" style="height: 240px;" [(ngModel)]="mappingModel"></ngx-monaco-editor>
 <mat-form-field class="block-comment-container">
-  <textarea type="textarea" rows="3" placeholder="Block Comment" aria-label="Block Comment" matInput
+  <mat-label>Block Comment</mat-label>
+  <textarea type="textarea" rows="3" aria-label="Block Comment" matInput
     [formControl]="blockCommentFormControl" ></textarea>
 </mat-form-field>

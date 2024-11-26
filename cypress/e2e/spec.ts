@@ -72,7 +72,7 @@ describe('workspace-project App', () => {
     cy.get('[data-cy="toolbar-setting-button"]').click();
     cy.get('app-workflow-sidenav').contains('testingComment').should('exist');
     cy.get('app-workflow-sidenav').contains('testingComment').click();  
-    // cy.get('app-workflow-sidenav').contains('Block Comment'); // FIXME: regression - MatFormField placeholder text is not visible
+    cy.get('app-workflow-sidenav').contains('Block Comment');
   });
 
 
