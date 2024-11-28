@@ -1,14 +1,18 @@
-import { AfterViewInit, Directive, ElementRef, EventEmitter, HostBinding, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { 
+  Directive, 
+  ElementRef, 
+  EventEmitter, 
+  HostBinding, 
+  Output 
+} from '@angular/core';
 import * as interact_ from 'interactjs';
+
 const interact = interact_ as any;
 
 @Directive({
   selector: '[appTrackClip]'
 })
-export class TrackClipDirective implements AfterViewInit, OnChanges {
-
-  @Input('appTrackClip') clip;
-
+export class TrackClipDirective {
   @HostBinding('style.margin-left.%')
   _start = 0;
 
@@ -18,23 +22,8 @@ export class TrackClipDirective implements AfterViewInit, OnChanges {
   @Output() clipUpdate = new EventEmitter<{ start: number, end: number }>();
 
   constructor(private el: ElementRef) { }
-
-  ngOnChanges(changes: SimpleChanges) {
-    // console.log({ changes });
-    const { clip: { currentValue: { start, end } }} = changes;
-    this.setStart(start);
-    this.setEnd(end);
-  }
-
-  setStart(startPercent) {
-    this._start = startPercent;
-  }
-
-  setEnd(endPercent) {
-    this._end = (100 - endPercent);
-  }
-
-  ngAfterViewInit() {
+  
+  ngOnInit() {
     interact(this.el.nativeElement)
       .draggable({
         axis: 'x',
@@ -42,43 +31,34 @@ export class TrackClipDirective implements AfterViewInit, OnChanges {
           restriction: 'parent',
           elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
         },
-        onmove: event => {
-          const { dx } = event;
-          const node = this.el.nativeElement as HTMLSpanElement;
-          const { clientWidth } = node.parentElement;
-          this._start += (dx / clientWidth) * 100;
-          this._end -= (dx / clientWidth) * 100;
-        },
-        onend: event => {
-          this.sendValue(event);
+        listeners: {
+          move: event => {
+            let { target, delta } = (event as any)
+            const x = (parseFloat(target.getAttribute('data-x')) || 0) + delta.x;
+            target.style.transform = `translate(${x}px)`;
+            
+            target.setAttribute('data-x', x.toString());
+          }
         }
       } as any)
       .resizable({
         edges: { top: false, bottom: false, left: true, right: true },
         restrictEdges: { outer: 'parent' },
         restrictSize: {
-          min: { width: 50, height: 19 },
+          min: { width: 200 },
         },
-        onmove: event => {
-          const w = (event as any).rect.width;
-          const dx = (event as any).deltaRect.left;
-
-          const node = this.el.nativeElement as HTMLLIElement;
-          const { clientWidth } = node.parentElement;
-
-          this._start += (dx / clientWidth) * 100;
-          this.setEnd(this._start + (w / clientWidth) * 100);
-        },
-        onend: event => {
-          this.sendValue(event);
+        listeners: {
+          move: event => {
+            let { x } = (event as any).target.dataset    
+            x = (parseFloat(x) || 0) + (event as any).deltaRect.left
+  
+            Object.assign((event as any).target.style, {
+              width: `${(event as any).rect.width}px`,
+              transform: `translate(${x}px, 0)`
+            })
+            Object.assign(event.target.dataset, { x })
+          }
         }
       } as any);
-  }
-
-  sendValue(event) {
-    this.clipUpdate.emit({
-      start: Math.max(this._start, 0),
-      end: 100 - this._end
-    });
   }
 }

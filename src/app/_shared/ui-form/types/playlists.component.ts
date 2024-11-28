@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FieldType } from '@ngx-formly/core';
-import { MatLegacyRadioChange as MatRadioChange } from '@angular/material/legacy-radio';
+import { MatRadioChange } from '@angular/material/radio';
 import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { Animations } from '../../animations';

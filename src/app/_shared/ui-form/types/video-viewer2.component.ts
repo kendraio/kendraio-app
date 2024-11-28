@@ -7,7 +7,7 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browse
   selector: 'formly-field-video-viewer2',
   template: `
 
-  <mat-card>
+  <mat-card appearance="outlined">
   <mat-card-header>
     <mat-label>{{to.label}}</mat-label>
   </mat-card-header>
@@ -33,7 +33,13 @@ allowfullscreen title="Bali Blue"></iframe>
 
 export class FormlyFieldVideoViewer2 extends FieldType {
   @Input()
-  formControl;
+  private _formControl: any;
+  public get formControl() {
+        return this._formControl;
+    }
+    public set formControl(value) {
+        this._formControl = value;
+    }
   videoId: any;
   videoUrl: any;
 

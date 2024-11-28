@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {APP_INITIALIZER, ErrorHandler, NgModule} from '@angular/core';
-
+import { MonacoEditorModule, NgxMonacoEditorConfig } from 'ngx-monaco-editor-v2';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -13,7 +13,7 @@ import {AdaptersPageComponent} from './pages/adapters-page/adapters-page.compone
 import {SettingsPageComponent} from './pages/settings-page/settings-page.component';
 import {UserPageComponent} from './pages/user-page/user-page.component';
 import {ConfirmAppResetDialogComponent} from './dialogs/confirm-app-reset-dialog/confirm-app-reset-dialog.component';
-import {HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { HttpClient, HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {ObjectKeysPipe} from './pipes/object-keys.pipe';
 import {ImportProgressDialogComponent} from './dialogs/import-progress-dialog/import-progress-dialog.component';
 import {AddNewNodeDialogComponent} from './dialogs/add-new-node-dialog/add-new-node-dialog.component';
@@ -47,8 +47,6 @@ import {Menu2ItemComponent} from './_shared/components/menu/menu-2-item.componen
 import {MessagesModule} from './messages/messages.module';
 import {AppSettingsService} from './services/app-settings.service';
 import {DebugOnlyDirective} from './directives/debug-only.directive';
-import {TextMaskModule} from 'angular2-text-mask';
-import {MatLegacyAutocompleteModule as MatAutocompleteModule} from '@angular/material/legacy-autocomplete';
 
 import {YoutubePageComponent} from './pages/youtube-page/youtube-page.component';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
@@ -56,7 +54,6 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {YoutubeUploadComponent} from './components/youtube-upload/youtube-upload.component';
 import {BloomenSearchPageComponent} from './pages/bloomen-search-page/bloomen-search-page.component';
 import {HttpErrorInterceptor} from './_shared/404.interceptor';
-import {FormlyModule} from '@ngx-formly/core';
 import {UserIpnFormComponent} from './forms/user-ipn-form/user-ipn-form.component';
 import {GenericFormComponent} from './forms/generic-form/generic-form.component';
 import {FormTestPageComponent} from './pages/form-test-page/form-test-page.component';
@@ -64,7 +61,6 @@ import {OrderKeysPipe} from './pipes/order-keys.pipe';
 import {ShowShareLinkDialogComponent} from './dialogs/show-share-link-dialog/show-share-link-dialog.component';
 import {FormlyImageInputComponent} from './form-controls/formly-image-input/formly-image-input.component';
 import {FormlyAudioInputComponent} from './form-controls/formly-audio-input/formly-audio-input.component';
-import {MonacoEditorModule} from 'ngx-monaco-editor';
 import {FormBuilderPageComponent} from './pages/form-builder-page/form-builder-page.component';
 import {FormSelectDialogComponent} from './dialogs/form-select-dialog/form-select-dialog.component';
 import {FormDataSelectDialogComponent} from './dialogs/form-data-select-dialog/form-data-select-dialog.component';
@@ -154,8 +150,8 @@ import {JsonViewPageComponent} from './pages/json-view-page/json-view-page.compo
 import {GosubBlockComponent} from './blocks/gosub-block/gosub-block.component';
 import {GsheetBlockComponent} from './blocks/gsheet-block/gsheet-block.component';
 import {MapBlockComponent} from './blocks/map-block/map-block.component';
-import {LeafletModule} from '@asymmetrik/ngx-leaflet';
-import {LeafletMarkerClusterModule} from '@asymmetrik/ngx-leaflet-markercluster';
+import { LeafletModule } from '@bluehalo/ngx-leaflet';
+import { LeafletMarkerClusterModule } from '@bluehalo/ngx-leaflet-markercluster';
 import {DashboardPageComponent} from './pages/dashboard-page/dashboard-page.component';
 import {config} from './_shared/ui-form/config';
 import {FormlyMaterialModule} from '@ngx-formly/material';
@@ -186,12 +182,21 @@ import { BlockGosubBuilderBoxComponent } from './components/block-gosub-builder-
 import { MermaidBlockComponent } from './blocks/mermaid-block/mermaid-block.component';
 import { ComparisonComponent } from './blocks/comparison/comparison.component';
 import { BlockComparisonBuilderBoxComponent } from './components/block-comparison-builder-box/block-comparison-builder-box.component';
+import {FormlyModule} from '@ngx-formly/core';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatChipsModule} from '@angular/material/chips';
 import { LinkActionComponent } from './blocks/link-action-block/link-action.component';
+
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
+const monacoConfig: NgxMonacoEditorConfig = {
+  baseUrl: 'assets', 
+  requireConfig: { preferScriptTags: true },
+  monacoRequire: (window as any).monacoRequire
+};
 
 @NgModule({
     declarations: [
@@ -348,8 +353,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         MermaidBlockComponent,
         ComparisonComponent,
         BlockComparisonBuilderBoxComponent,
-        LinkActionComponent
+        LinkActionComponent,
     ],
+    bootstrap: [AppComponent], 
     imports: [
         FormlyModule.forRoot({}),
         BrowserModule,
@@ -364,24 +370,20 @@ export function HttpLoaderFactory(http: HttpClient) {
                 deps: [HttpClient]
             }
         }),
-        HttpClientModule,
         ReactiveFormsModule,
         FormsModule,
         NgxTaggerModule,
         MessagesModule,
-        TextMaskModule,
-        MatAutocompleteModule,
-        MonacoEditorModule.forRoot(),
-        AgGridModule.withComponents([
-            WorkflowCellRendererComponent,
-            ConnectionStatusRendererComponent
-        ]),
         DragDropModule,
         LeafletModule,
         LeafletMarkerClusterModule,
         FormlyModule.forRoot(config),
-        FormlyMaterialModule
-    ],
+        FormlyMaterialModule,
+        MonacoEditorModule.forRoot(monacoConfig),
+        MatAutocompleteModule,
+        AgGridModule,
+        MatChipsModule
+    ], 
     providers: [
         // This service is from old legacy code and no longer used,
         // so I'm commenting out the init() function and the whole thing
@@ -412,9 +414,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         {
             provide: ErrorHandler,
             useClass: GlobalErrorHandlerService
-        }
-    ],
-    bootstrap: [AppComponent]
-})
+        },
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule {
 }

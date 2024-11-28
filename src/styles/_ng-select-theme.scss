@@ -10,16 +10,16 @@
     $background: map-get($theme, background);
 
 
-    $highlight-color: if($isdark, mat.get-color-from-palette($foreground, text)  ,mat.get-color-from-palette($primary));
+    $highlight-color: if($isdark, mat.m2-get-color-from-palette($foreground, text)  ,mat.m2-get-color-from-palette($primary));
 
     .ng-select, .ng-select-container, .ng-input>input {
-        color: mat.get-color-from-palette($foreground, text) !important;
+        color: mat.m2-get-color-from-palette($foreground, text) !important;
         font: inherit;
         font-family: inherit;
     }
     .ng-placeholder{
         display: none;
-        color: mat.get-color-from-palette($foreground, text,.54) !important;
+        color: mat.m2-get-color-from-palette($foreground, text,.54) !important;
     }
 
     .ng-select-focused {
@@ -35,10 +35,10 @@
 
     .ng-clear-wrapper, .ng-arrow-wrapper{
         height: 1em;
-        color: mat.get-color-from-palette($foreground, text, .4);
+        color: mat.m2-get-color-from-palette($foreground, text, .4);
     }
     .ng-clear-wrapper:hover, .ng-arrow-wrapper:hover{
-        color: mat.get-color-from-palette($foreground, text);
+        color: mat.m2-get-color-from-palette($foreground, text);
     }
     .ng-select .ng-arrow-wrapper .ng-arrow{
         border-left: 5px solid transparent;
@@ -55,8 +55,8 @@
       margin-bottom: -4px;
       .ng-value{
           // WIP
-          color: mat.get-color-from-palette($primary, default-contrast);
-          background: mat.get-color-from-palette($primary);
+          color: mat.m2-get-color-from-palette($primary, default-contrast);
+          background: mat.m2-get-color-from-palette($primary);
           padding: 4px 8px;
           border-radius: 12px;
           margin: 0 4px 2px 0;
@@ -71,15 +71,15 @@
 
     .ng-dropdown-panel{
         @include mat.elevation(4);
-        background: mat.get-color-from-palette($background, card);
-        color: mat.get-color-from-palette($foreground, text) !important;
+        background: mat.m2-get-color-from-palette($background, card);
+        color: mat.m2-get-color-from-palette($foreground, text) !important;
 
 
-        .mat-option.ng-option-selected:not(.ng-option-marked):not(:hover) {
-          background: mat.get-color-from-palette($background, card);
+        .mat-mdc-option.ng-option-selected:not(.ng-option-marked):not(:hover) {
+          background: mat.m2-get-color-from-palette($background, card);
 
           &:not(.ng-option-disabled) {
-            color: mat.get-color-from-palette($foreground, text);
+            color: mat.m2-get-color-from-palette($foreground, text);
           }
         }
 
@@ -93,23 +93,23 @@
         &.multiple {
             .ng-option {
                 &.selected {
-                    background: mat.get-color-from-palette($background,card);
+                    background: mat.m2-get-color-from-palette($background,card);
                 }
                 &.marked {
-                    background: mat.get-color-from-palette($foreground, text, .04);
+                    background: mat.m2-get-color-from-palette($foreground, text, .04);
                 }
             }
         }
 
         .ng-dropdown-header {
-            border-bottom: 1px solid mat.get-color-from-palette($foreground, text,.12);
+            border-bottom: 1px solid mat.m2-get-color-from-palette($foreground, text,.12);
             padding: 0 16px;
             line-height: 3em;
             min-height: 3em;
         }
 
         .ng-dropdown-footer {
-            border-top: 1px solid mat.get-color-from-palette($foreground, text,.12);
+            border-top: 1px solid mat.m2-get-color-from-palette($foreground, text,.12);
             padding: 0 16px;
             line-height: 3em;
             min-height: 3em;
@@ -122,16 +122,16 @@
                 line-height: 3em;
                 height: 3em;
                 padding: 0 16px;
-                color: mat.get-color-from-palette($foreground, text);
+                color: mat.m2-get-color-from-palette($foreground, text);
                 font-weight: 500;
                 &.ng-option-marked {
-                    background:mat.get-color-from-palette($foreground, text, .04);
+                    background:mat.m2-get-color-from-palette($foreground, text, .04);
                 }
                 &.ng-option-disabled {
                     cursor: default;
                 }
                 &.ng-option-selected {
-                    background: mat.get-color-from-palette($foreground, text, .12);
+                    background: mat.m2-get-color-from-palette($foreground, text, .12);
                     color: $highlight-color;
                 }
             }
@@ -144,19 +144,19 @@
                 padding: 0 16px;
                 text-decoration: none;
                 position: relative;
-                color: mat.get-color-from-palette($foreground, text,.87);
+                color: mat.m2-get-color-from-palette($foreground, text,.87);
                 text-align: left;
 
                 &.ng-option-marked {
-                    background: mat.get-color-from-palette($foreground, text, .04);
-                    color: mat.get-color-from-palette($foreground, text,.87);
+                    background: mat.m2-get-color-from-palette($foreground, text, .04);
+                    color: mat.m2-get-color-from-palette($foreground, text,.87);
                 }
                 &.ng-option-selected {
-                    background: mat.get-color-from-palette($foreground, text, .12);
+                    background: mat.m2-get-color-from-palette($foreground, text, .12);
                     color: $highlight-color;
                 }
                 &.ng-option-disabled {
-                    color: mat.get-color-from-palette($foreground, text, 0.38);
+                    color: mat.m2-get-color-from-palette($foreground, text, 0.38);
                 }
                 &.ng-option-child {
                     padding-left: 32px;
@@ -165,7 +165,7 @@
                     padding-right: 5px;
                     font-size: 80%;
                     font-weight: 400;
-                    color: mat.get-color-from-palette($foreground, text, 0.38);
+                    color: mat.m2-get-color-from-palette($foreground, text, 0.38);
                 }
             }
         }

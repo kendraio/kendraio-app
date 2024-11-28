@@ -5,7 +5,8 @@
                      [(ngModel)]="blockModel" (onInit)="initEditor()"></ngx-monaco-editor>
 </ng-container>
 
-<mat-form-field class="example-full-width">
-  <textarea type="textarea" rows="3" placeholder="Block Comment" aria-label="Block Comment" matInput
+<mat-form-field class="block-comment-container">
+  <mat-label>Block Comment</mat-label>
+  <textarea type="textarea" rows="2" aria-label="Block Comment" matInput
     [formControl]="blockCommentFormControl" ></textarea>
 </mat-form-field>

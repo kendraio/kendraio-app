@@ -14,8 +14,7 @@ import {IHeaderAngularComp, ICellRendererAngularComp} from 'ag-grid-angular';
             width: 100%;
         }
 
-        /deep/
-        .ag-header-cell {
+        ::ng-deep .ag-header-cell {
             text-align: left;
         }
     `]

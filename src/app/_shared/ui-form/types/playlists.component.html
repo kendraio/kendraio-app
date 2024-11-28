@@ -1,7 +1,7 @@
 <div class="popup-container mt-5">
 
 
-  <mat-card @enterAnimateUpDwn style="max-width: 50%" [formGroup]="myform">
+  <mat-card appearance="outlined" @enterAnimateUpDwn style="max-width: 50%" [formGroup]="myform">
     <mat-card-header>
       <label>{{to.label}}-{{formControl.value | json}}</label></mat-card-header>
 
@@ -26,6 +26,7 @@
         <div [formGroup]="newPlaylistForm">
 
           <mat-form-field>
+            <mat-label>Title</mat-label>
             <input matInput placeholder="Title" formControlName="playlistTitle" />
           </mat-form-field>
 

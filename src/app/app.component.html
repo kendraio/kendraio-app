@@ -40,13 +40,15 @@
   <ng-container *ngIf="pageTitle$ | async as pageTitleData">
       <button mat-icon-button
               (click)="blocksSidePane.close()"
-              *ngIf="blocksSidePane.opened">
+              *ngIf="blocksSidePane.opened"
+              data-cy="toolbar-setting-button">
         <mat-icon>settings</mat-icon>
       </button>
       <button mat-icon-button
               (click)="blocksSidePane.open()"
               [disabled]="!pageTitleData.isWorkflow"
-              *ngIf="!blocksSidePane.opened">
+              *ngIf="!blocksSidePane.opened"
+              data-cy="toolbar-setting-button">
         <mat-icon>settings</mat-icon>
       </button>
   </ng-container>

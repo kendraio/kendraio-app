@@ -1,30 +1,37 @@
+<mat-dialog-content>
 <form [formGroup]="form">
   <mat-form-field>
+    <mat-label>Title</mat-label>
     <input matInput placeholder="Title" formControlName="title" name="title">
   </mat-form-field>
   <mat-form-field>
+    <mat-label>Adapter name</mat-label>
     <input matInput placeholder="Adapter name" formControlName="adapterName" name="adapterName">
   </mat-form-field>
   <mat-form-field>
+    <mat-label>Workflow ID</mat-label>
     <input matInput placeholder="Workflow ID" formControlName="id" name="id">
   </mat-form-field>
-  <mat-form-field class="example-chip-list">
-    <mat-chip-list #chipList aria-label="Fruit selection">
-      <mat-chip *ngFor="let tag of tags.getRawValue()" [selectable]="selectable"
+    <mat-form-field class="chip-list">
+      <mat-label>Add tag...</mat-label>
+      <mat-chip-grid #chipList aria-label="tags">
+        <mat-chip-row *ngFor="let tag of tags.getRawValue()" [selectable]="selectable"
                 [removable]="removable" (removed)="removeTag(tag)">
         {{tag}}
         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-      </mat-chip>
+        </mat-chip-row>
       <input placeholder="Add tag..."
              [matChipInputFor]="chipList"
              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
              [matChipInputAddOnBlur]="addOnBlur"
              (matChipInputTokenEnd)="addTag($event)">
-    </mat-chip-list>
+      </mat-chip-grid>
   </mat-form-field>
 </form>
 
-<br>
+</mat-dialog-content>
+<mat-dialog-actions>
 <button mat-flat-button color="primary" (click)="onSave()" style="margin-right: 1em;">Save</button>
 <button mat-flat-button (click)="onCancel()">Cancel</button>
-<br>
+</mat-dialog-actions>
+

@@ -5,9 +5,10 @@ import { ICellEditorAngularComp } from 'ag-grid-angular';
 @Component({
     selector: "input-cell",
     template: `
-        <mat-card>
+        <mat-card appearance="outlined">
         <form class="container" tabindex="0" (keydown)="onKeyDown($event)">
-            <mat-form-field class="example-full-width">            
+            <mat-form-field class="block-comment-container">
+                <mat-label>Title</mat-label>            
                 <input #input matInput [(ngModel)]="Title" placeholder="Title"
                        [ngModelOptions]="{standalone: true}">
             </mat-form-field>
