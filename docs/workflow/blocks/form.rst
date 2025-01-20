@@ -336,6 +336,9 @@ An example of the array type in action is `here <https://app.kendra.io/bandsinto
                         },
                         "name": {
                             "type": "string"
+                        },
+                        "active": {
+                            "type": "boolean"
                         }
                     }
                 }
@@ -365,6 +368,32 @@ Display a field in read-only mode (not editable)
                 "readOnly": true
             }
         }
+    },
+    "uiSchema": {}
+  }
+
+Required fields
+^^^^^^^^^^^^^^^
+Make a field required
+
+.. code-block:: json
+
+  {
+    "type": "form",
+    "label": "Search",
+    "jsonSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "age": {
+            "type": "string",
+            "title": "Age"
+          }
+        },
+        "required": ["name"]  // 'name' is required, 'age' is optional
     },
     "uiSchema": {}
   }
