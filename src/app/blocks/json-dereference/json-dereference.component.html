@@ -1,0 +1,12 @@
+<input type="text" [(ngModel)]="inputUrl">
+<div class="button-row">
+    <button type="button" mat-flat-button color="primary" (click)="onButtonClick()">{{ label }}</button>  
+</div>
+
+<div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+</div>
+
+<div *ngIf="resolvedSchemaOutput">
+    <pre>{{ resolvedSchemaOutput | json }}</pre>
+</div>
