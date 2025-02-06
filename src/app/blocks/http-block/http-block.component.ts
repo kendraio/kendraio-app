@@ -6,6 +6,133 @@ import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack
 import { catchError, expand, reduce, takeWhile } from 'rxjs/operators';
 import { of, EMPTY } from 'rxjs';
 import { mappingUtility } from '../mapping-block/mapping-util';
+
+// Creates authentication headers for AWS S3 or Backblaze B2 API requests
+// Uses AWS Signature Version 4 specification
+// Example usage: Listing all available buckets and contents of a specific bucket
+// Add applicationKey and keyID to the config object to use with Backblaze B2
+
+async function makeSignedRequestHeaders(config) {
+  // Creates a AWS Signature Version 4 signed request
+  // Intended for AWS S3 API or Backblaze B2 API
+  const {
+    secretKey,
+    accessKeyId,
+    region,
+    bucket,
+    endpoint = "s3.amazonaws.com", // Sensible default
+    service = "s3",
+    method = "GET",
+  } = config;
+
+  // Calculates hash of a string for signing steps
+  async function sha256String(data) {
+    const digest = await crypto.subtle.digest(
+      "SHA-256",
+      new TextEncoder().encode(data)
+    );
+    return Array.from(new Uint8Array(digest))
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join("");
+  }
+
+  // Uses HMAC with SHA-256 to sign data with a given key during key derivation
+  async function hmac(key, data) {
+    const cryptoKey = await crypto.subtle.importKey(
+      "raw",
+      typeof key === "string" ? new TextEncoder().encode(key) : key,
+      { name: "HMAC", hash: "SHA-256" },
+      false,
+      ["sign"]
+    );
+    return crypto.subtle.sign(
+      "HMAC",
+      cryptoKey,
+      new TextEncoder().encode(data)
+    );
+  }
+
+  // Declare the AWS signature algorithm we're conforming to
+  const ALGO = "AWS4-HMAC-SHA256";
+
+  // Format dates for AWS requirements:
+  const dateDelimiterRemover = /[:-]|\..*$/g;
+  // The x-amz-date header needs uses this date format:
+  const date = new Date().toISOString().replace(dateDelimiterRemover, "") + "Z";
+  // The signed URL uses the shorter date format:
+  const shortDate = date.slice(0, 8); // Cut off time and timezone
+
+  // The first request in a session has an empty body
+  const emptyStringDigest = await sha256String("");
+
+  const host = bucket ? `${bucket}.${endpoint}` : endpoint;
+  // Build credential scope string used in both signature calculation and final header
+  const scope = `${shortDate}/${region}/${service}/aws4_request`;
+  // Build the "canonical request" that includes HTTP method, path, and headers
+  // This gets hashed and used in the final signature calculation
+  // Create canonical request string - this is what actually gets signed
+  const canonicalRequest = [
+    method,
+    "/",
+    "",
+    `host:${host}`,
+    `x-amz-date:${date}`,
+    "",
+    "host;x-amz-date",
+    emptyStringDigest,
+  ].join("\n");
+
+  const hashedCanonicalRequest = await sha256String(canonicalRequest);
+  // Create the string to sign according to AWS specifications
+  const stringToSign = [ALGO, date, scope, hashedCanonicalRequest].join("\n");
+
+  // Each part of the key derivation process is signed with the secret key and hash in a chain
+  // Each step adds another component to the key derivation making it stronger
+  const kDate = await hmac(`AWS4${secretKey}`, shortDate);
+  const kRegion = await hmac(kDate, region);
+  const kService = await hmac(kRegion, service);
+  const kSigning = await hmac(kService, "aws4_request");
+
+  // Calculate signature
+  const signature = Array.from(
+    new Uint8Array(await hmac(kSigning, stringToSign))
+  )
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+
+  // Put the final "Authorization" header together:
+  const credentials = `Credential=${accessKeyId}/${scope}`;
+  const signedHeaders = "SignedHeaders=host;x-amz-date";
+  const signatureValue = `Signature=${signature}`;
+  const authValue = `${ALGO} ${credentials}, ${signedHeaders}, ${signatureValue}`;
+  // Return the AWS Signature V4 request signed headers
+  return {
+    Host: host,
+    "X-Amz-Date": date,
+    Authorization: authValue,
+  };
+}
+
+async function constructSignedAWSSV4Request(config, path = "/") {
+  // Combines URL and signed headers into a ready-to-use request object
+  // Works with both AWS S3 and Backblaze B2 APIs
+  // Assemble URL and headers to make an signed request
+  const protocol = config.protocol || "https";
+  const host = config.bucket
+    ? `${config.bucket}.${config.endpoint}`
+    : config.endpoint;
+  const url = `${protocol}://${host}${path}`;
+  const headers = await makeSignedRequestHeaders(config);
+
+  return {
+    url,
+    headers,
+    toString() {
+      return url;
+    },
+  };
+}
+
 @Component({
   selector: 'app-http-block',
   templateUrl: './http-block.component.html',
@@ -66,68 +193,8 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     this.makeRequest();
   }
 
-  /**
-   * Makes an HTTP request based on the provided configuration and handles the response.
-   * It also supports pagination by calling the getAllPages method when followPaginationLinksMerged option is enabled.
-   */
-  makeRequest() {
-    this.hasError = false;
-    this.isLoading = true;
-    const method = get(this.config, 'method');
-    if (!method) {
-      this.errorMessage = 'No HTTP method provided';
-      this.errorData = {};
-      this.errorBlocks = [];
-      this.hasError = true;
-      this.isLoading = false;
-      return;
-    }
-    if (!includes(['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'BPUT'], toUpper(method))) {
-      this.errorMessage = 'HTTP method not supported';
-      this.errorData = {};
-      this.errorBlocks = [];
-      this.hasError = true;
-      this.isLoading = false;
-      return;
-    }
-    let url = this.constructEndpointUrl(this.config);
-    let headers = new HttpHeaders(this.getPayloadHeaders());
-
-    const useProxy = get(this.config, 'useProxy', false);
-    if (useProxy) {
-      headers = headers.append('Target-URL', url);
-      const appSettings = JSON.parse(localStorage.getItem('core.variables.settings') || '{}');
-      const defaultProxy = get(appSettings, 'defaultCorsProxy', 'https://proxy.kendra.io/');
-      url = get(this.config, 'proxyUrl', defaultProxy);
-      if (!url) {
-        this.hasError = true;
-        this.errorMessage = 'Invalid proxy URL';
-        return;
-      }
-    }
-
-    if (has(this.config, 'authentication.type')) {
-      const valueGetters = get(this.config, 'authentication.valueGetters', {});
-      const context = { ...this.config.authentication, ...this.contextData.getGlobalContext(valueGetters, this.context, this.model) };
-      switch (get(this.config, 'authentication.type')) {
-        case 'basic-auth':
-          if (has(context, 'username') && has(context, 'password')) {
-            const { username, password } = context;
-            headers = headers.append('Authorization', 'Basic ' + btoa(`${username}:${password}`));
-          }
-          break;
-        case 'bearer':
-          if (has(context, 'jwt')) {
-            const { jwt } = context;
-            headers = headers.append('Authorization', `Bearer ${jwt}`);
-          }
-          break;
-        default:
-          console.log('Unknown authentication type');
-      }
-    }
-
-    // TODO: decide what to do with response when error condition
+  private executeRequest(method: string, url: string, headers: HttpHeaders) {
+    console.log('executing request:', {method, url, headers: headers.keys()});
     switch (toUpper(method)) {
       case 'GET':
         // force the service worker bypass. 
@@ -263,6 +330,112 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           });
         break;
     }
+  }
+
+  /**
+   * Makes an HTTP request based on the provided configuration and handles the response.
+   * It also supports pagination by calling the getAllPages method when followPaginationLinksMerged option is enabled.
+   */
+  makeRequest() {
+    this.hasError = false;
+    this.isLoading = true;
+    const method = get(this.config, 'method');
+    if (!method) {
+      this.errorMessage = 'No HTTP method provided';
+      this.errorData = {};
+      this.errorBlocks = [];
+      this.hasError = true;
+      this.isLoading = false;
+      return;
+    }
+    if (!includes(['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'BPUT'], toUpper(method))) {
+      this.errorMessage = 'HTTP method not supported';
+      this.errorData = {};
+      this.errorBlocks = [];
+      this.hasError = true;
+      this.isLoading = false;
+      return;
+    }
+
+    const rawUrl = this.constructEndpointUrl(this.config);
+    let url = rawUrl;
+    let headers = new HttpHeaders(this.getPayloadHeaders());
+
+    if (has(this.config, 'authentication.type')) {
+      const valueGetters = get(this.config, 'authentication.valueGetters', {});
+      const context = { ...this.config.authentication, ...this.contextData.getGlobalContext(valueGetters, this.context, this.model) };
+      switch (get(this.config, 'authentication.type')) {
+        case 'basic-auth':
+          if (has(context, 'username') && has(context, 'password')) {
+            const { username, password } = context;
+            headers = headers.append('Authorization', 'Basic ' + btoa(`${username}:${password}`));
+          }
+          break;
+        case 'bearer':
+          if (has(context, 'jwt')) {
+            const { jwt } = context;
+            headers = headers.append('Authorization', `Bearer ${jwt}`);
+          }
+          break;
+        case 'aws-sigv4': {
+          console.log('aws-sigv4 config:', context);
+          const awsConfig = {
+            ...this.config.authentication,
+            service: get(this.config.authentication, 'service', 's3'),
+            ...context
+          };
+
+          constructSignedAWSSV4Request(awsConfig, rawUrl)
+            .then(signedReq => {
+              console.log('aws-sigv4 signedReq:', signedReq);
+              
+              const useProxy = get(this.config, 'useProxy', false);
+              if (useProxy) {
+                headers = headers.append('Target-URL', signedReq.url);
+                const appSettings = JSON.parse(localStorage.getItem('core.variables.settings') || '{}');
+                const defaultProxy = get(appSettings, 'defaultCorsProxy', 'https://proxy.kendra.io/');
+                url = get(this.config, 'proxyUrl', defaultProxy) || '';
+                if (!url) {
+                  this.hasError = true;
+                  this.errorMessage = 'Invalid proxy URL';
+                  return;
+                }
+              } else {
+                url = signedReq.url;
+              }
+
+              Object.keys(signedReq.headers).forEach(k => {
+                headers = headers.set(k, signedReq.headers[k]);
+              });
+              this.executeRequest(method, url, headers);
+            })
+            .catch(err => {
+              console.log('aws-sigv4 error:', err);
+              this.hasError = true;
+              this.errorMessage = err.message;
+              this.isLoading = false;
+            });
+          return;
+        }
+        default:
+          console.log('Unknown authentication type');
+      }
+    }
+
+    const useProxy = get(this.config, 'useProxy', false);
+    if (useProxy) {
+      headers = headers.append('Target-URL', rawUrl);
+      const appSettings = JSON.parse(localStorage.getItem('core.variables.settings') || '{}');
+      const defaultProxy = get(appSettings, 'defaultCorsProxy', 'https://proxy.kendra.io/');
+      url = get(this.config, 'proxyUrl', defaultProxy) || '';
+      if (!url) {
+        this.hasError = true;
+        this.errorMessage = 'Invalid proxy URL';
+        return;
+      }
+    }
+
+    this.executeRequest(method, url, headers);
   }
 
 
