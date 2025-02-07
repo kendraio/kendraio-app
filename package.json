@@ -76,7 +76,7 @@
     "jmespath": "^0.15.0",
     "js-yaml": "^3.14.1",
     "json-formatter-js": "^2.5.17",
-    "json-schema-faker": "^0.5.0-rcv.40",
+    "json-schema-faker": "^0.5.8",
     "json-stringify-safe": "^5.0.1",
     "json-to-graphql-query": "^2.2.5",
     "leaflet": "^1.9.4",
