@@ -1,23 +1,22 @@
-import { Component } from '@angular/core';
-import {BaseBlockComponent} from '../base-block/base-block.component';
-import {get} from 'lodash-es';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { BaseBlockComponent } from '../base-block/base-block.component';
+import { clone } from 'lodash-es';
 import $RefParser from "@apidevtools/json-schema-ref-parser";
-
 @Component({
     selector: 'app-json-dereference-block',
     templateUrl: './json-dereference.component.html'
 })
 export class JsonDereferenceBlockComponent extends BaseBlockComponent {
+    @Input() config;
+    @Input() model: any = {};
+    @Output() output = new EventEmitter();
 
-    label = 'Trasform';
-    inputUrl: string = '';
+    dataUrl: string | unknown = '';
     resolvedSchemaOutput: any = '';
     errorMessage: string = '';
 
     onConfigUpdate(config: any) {
-        console.log('onConfigUpdate')
         super.onConfigUpdate(config);
-        this.label = get(config, 'label', 'Trasform');
     }
 
     isValidUrl(url: string): boolean {
@@ -31,25 +30,55 @@ export class JsonDereferenceBlockComponent extends BaseBlockComponent {
         return urlPattern.test(url);
     }
 
-    async onButtonClick() {
-        console.log('onButtonClick')
-        this.errorMessage = '';
-        
-        if (!this.inputUrl.trim()) {
-            this.errorMessage = 'Input URl is empty';
-            return;
-        }
+  
+    ngOnChanges(changes): void {
+        this.dataUrl = Object.values(this.model)[0];
 
-        if (!this.isValidUrl(this.inputUrl)) {
+        if (typeof this.dataUrl !== 'string' || !this.dataUrl.trim()) {
+            this.errorMessage = 'URl is either not a string or is empty.';
+            return;
+        } else {
+            this.handleDereference(this.dataUrl)
+        }
+    }
+
+    async handleDereference(url) {
+        this.errorMessage = '';        
+
+        if (!this.isValidUrl(url)) {
             this.errorMessage = "Invalid URl format";
             return;
         }
 
         try {
-            const resolvedSchema = await new $RefParser().dereference(this.inputUrl);
-            console.log(JSON.stringify(resolvedSchema, null, 2));
+            const resolvedSchema = await new $RefParser().dereference(this.dataUrl);
+            this.resolvedSchemaOutput = resolvedSchema;
+            this.output.emit(clone(this.resolvedSchemaOutput));
           } catch (error) {
             console.error("An error occurred:", error);
+            this.errorMessage = 'Failed to dereference schema. Check console for details.';
+            this.resolvedSchemaOutput = null;
           }
     }
 }
+
+// {
+//     "type": "form",
+//     "hasSubmit": false,
+//     "jsonSchema": {
+//         "type": "object",
+//         "properties": {
+//             "mapping": {
+//                 "title": "Select a schema to import",
+//                 "type": "string",
+//                 "enum": [
+//                     "https://test-library.murmurations.network/v2/schemas/people_schema-v0.1.0",
+//                     "https://test-library.murmurations.network/v2/schemas/test_schema-v2.3.8",
+//                     "https://test-library.murmurations.network/v2/schemas/cta_opportunity-v0.1.0",
+//                     "https://test-library.murmurations.network/v2/schemas/permaculture_addon_schema-v1.0.0"
+//                 ]
+//             }
+//         }
+//     },
+//     "uiSchema": {}
+// }
