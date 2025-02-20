@@ -6,6 +6,166 @@ import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack
 import { catchError, expand, reduce, takeWhile } from 'rxjs/operators';
 import { of, EMPTY } from 'rxjs';
 import { mappingUtility } from '../mapping-block/mapping-util';
+
+export async function makeSignedRequestHeaders(config) {
+  const {
+    secretKey,
+    accessKeyId,
+    region,
+    endpoint,
+    service,
+    method,
+    path,
+    payload,
+    headers = {}
+  } = config;
+
+  // Calculates hash of a string for signing
+  async function sha256String(data) {
+    const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(data));
+    return Array.from(new Uint8Array(digest))
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join("");
+  }
+
+  // Uses HMAC with SHA-256 to sign data
+  async function hmac(key, data) {
+    const cryptoKey = await crypto.subtle.importKey(
+      "raw",
+      typeof key === "string" ? new TextEncoder().encode(key) : key,
+      { name: "HMAC", hash: "SHA-256" },
+      false,
+      ["sign"]
+    );
+    return crypto.subtle.sign("HMAC", cryptoKey, new TextEncoder().encode(data));
+  }
+
+  const ALGO = "AWS4-HMAC-SHA256";
+  const dateDelimiterRemover = /[:-]|\..*$/g;
+  const date = new Date().toISOString().replace(dateDelimiterRemover, "") + "Z";
+  const shortDate = date.slice(0, 8);
+  const emptyStringDigest = await sha256String("");
+
+  // Host is simply the endpoint domain
+  const host = endpoint;
+  const scope = `${shortDate}/${region}/${service}/aws4_request`;
+
+  // Calculate payload hash based on method and actual payload
+  const isNonEmptyPayload = payload !== undefined && (
+    (typeof payload === 'string' && payload.length > 0) ||
+    (payload instanceof ArrayBuffer && payload.byteLength > 0) ||
+    (typeof payload === 'object' && payload !== null)
+  );
+
+  // We hash the payload, even if it's empty
+  const payloadHash = isNonEmptyPayload
+    ? await sha256String(
+        typeof payload === 'string' 
+          ? payload 
+          : payload instanceof ArrayBuffer 
+            ? new TextDecoder().decode(payload)
+            : JSON.stringify(payload)
+      )
+    : emptyStringDigest;
+
+  // Lowercase canonical headers in alphabetical order:
+  const canonicalHeaders =
+    `host:${host.toLowerCase()}\n` +
+    `x-amz-content-sha256:${payloadHash}\n` +
+    `x-amz-date:${date}\n`;
+
+  const signedHeadersList = 'host;x-amz-content-sha256;x-amz-date';
+
+  // Ensure path starts with /
+  const canonicalPath = path.startsWith('/') ? path : '/' + path;
+
+  const canonicalRequest = [
+    method,
+    canonicalPath,
+    "", // Empty query string
+    canonicalHeaders,
+    signedHeadersList,
+    payloadHash,
+  ].join("\n");
+  console.log('canonicalRequest', canonicalRequest);
+  const hashedCanonicalRequest = await sha256String(canonicalRequest);
+  const stringToSign = [ALGO, date, scope, hashedCanonicalRequest].join("\n");
+
+  const kDate = await hmac(`AWS4${secretKey}`, shortDate);
+  const kRegion = await hmac(kDate, region);
+  const kService = await hmac(kRegion, service);
+  const kSigning = await hmac(kService, "aws4_request");
+
+  const signature = Array.from(new Uint8Array(await hmac(kSigning, stringToSign)))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+
+  const credentials = `Credential=${accessKeyId}/${scope}`;
+  const signedHeaders = `SignedHeaders=${signedHeadersList}`;
+  const signatureValue = `Signature=${signature}`;
+  const authValue = `${ALGO} ${credentials},${signedHeaders},${signatureValue}`;
+
+  return {
+    "x-amz-date": date,
+    "x-amz-content-sha256": payloadHash,
+    Authorization: authValue,
+    ...headers
+  };
+  
+}
+
+async function constructSignedAWSSV4Request(config, path) {
+  const protocol = config.protocol;
+  const host = config.endpoint;
+  const url = `${protocol}://${host}${path}`;
+  const finalConfig = { ...config, path, payload: config.payload || '' };
+  const headers = await makeSignedRequestHeaders(finalConfig);
+  return {
+    url,
+    headers,
+    toString() {
+      return url;
+    },
+  };
+}
+
+export function parseEndpoint(endpoint: string) {
+  let urlObj: URL;
+  urlObj = new URL(endpoint);
+  const hostname = urlObj.hostname;
+  
+  // Extract region and service from hostname
+  // For URLs like: freecords.s3.eu-central-003.backblazeb2.com
+  // or: s3.eu-central-003.backblazeb2.com
+  const s3Match = hostname.match(/^(?:[^.]+\.)?s3[.-]([^.]+)/);
+  
+  return {
+    protocol: urlObj.protocol.replace(':', ''),
+    host: hostname,
+    path: (urlObj.pathname + urlObj.search) || "/",
+    service: 's3', // Always s3 for S3-compatible services
+    region: s3Match ? s3Match[1] : undefined
+  };
+}
+
+interface AwsSigningConfig {
+  method: string;
+  service: string;
+  protocol: string;
+  endpoint: string;
+  region: string;
+  accessKeyId: string;
+  secretKey: string;
+  headers: Record<string, string>;
+  payload: string;
+  path: string;
+}
+
+interface SignedRequestResult {
+  url: string;
+  headers: HttpHeaders;
+}
+
 @Component({
   selector: 'app-http-block',
   templateUrl: './http-block.component.html',
@@ -70,7 +230,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
    * Makes an HTTP request based on the provided configuration and handles the response.
    * It also supports pagination by calling the getAllPages method when followPaginationLinksMerged option is enabled.
    */
-  makeRequest() {
+  async makeRequest() {
     this.hasError = false;
     this.isLoading = true;
     const method = get(this.config, 'method');
@@ -122,6 +282,38 @@ export class HttpBlockComponent implements OnInit, OnChanges {
             headers = headers.append('Authorization', `Bearer ${jwt}`);
           }
           break;
+          case 'aws-sigv4': {
+            const targetEndpoint = get(this.config, 'endpoint');
+            if (!targetEndpoint) {
+              this.hasError = true;
+              this.errorMessage = 'No endpoint for aws-sigv4 authentication';
+              this.isLoading = false;
+              return;
+            }
+
+            try {
+              const { url: signedUrl, headers: signedHeaders } = await this.handleAwsSignature(method, targetEndpoint, context);
+              
+              if (useProxy) {
+                headers = signedHeaders.set('Target-URL', signedUrl);
+                const appSettings = JSON.parse(localStorage.getItem('core.variables.settings') || '{}');
+                const defaultProxy = get(appSettings, 'defaultCorsProxy', 'https://proxy.kendra.io/');
+                url = get(this.config, 'proxyUrl', defaultProxy);
+                if (!url) {
+                  throw new Error('Invalid proxy URL');
+                }
+              } else {
+                url = signedUrl;
+                headers = signedHeaders;
+              }
+            } catch (error) {
+              this.hasError = true;
+              this.errorMessage = error.message;
+              this.isLoading = false;
+              return;
+            }
+            break;
+          }          
         default:
           console.log('Unknown authentication type');
       }
@@ -265,6 +457,39 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     }
   }
 
+  private async handleAwsSignature(method: string, endpoint: string, context: any): Promise<SignedRequestResult> {
+    const parsed = parseEndpoint(endpoint);
+    if (!parsed.region || !parsed.service) {
+      throw new Error('Could not determine service and region from endpoint URL');
+    }
+
+    const actualPayload = method.toUpperCase() === 'PUT' ? this.getPayload() : '';
+    
+    const reqConfig: AwsSigningConfig = {
+      method: method.toUpperCase(),
+      service: get(this.config, 'authentication.service', parsed.service),
+      protocol: parsed.protocol,
+      endpoint: parsed.host,
+      region: get(this.config, 'authentication.region', parsed.region),
+      accessKeyId: get(context, 'accessKeyId', ''),
+      secretKey: get(context, 'secretKey', ''),
+      headers: this.getPayloadHeaders(),
+      payload: actualPayload,
+      path: parsed.path
+    };
+
+    const signedReq = await constructSignedAWSSV4Request(reqConfig, parsed.path);
+    let headers = new HttpHeaders();
+    Object.entries(signedReq.headers).forEach(([k, v]) => {
+      if (k.toLowerCase() === 'host') return;
+      headers = headers.set(k, v as string);
+    });
+
+    return {
+      url: signedReq.url,
+      headers
+    };
+  }
 
   /**
    * Fetches paginated API results by recursively getting each page and merging the results.
