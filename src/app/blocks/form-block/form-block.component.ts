@@ -22,7 +22,7 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
   _changes = new Subject();
 
   form = new UntypedFormGroup({});
-  fields: FormlyFieldConfig[];
+  fields: FormlyFieldConfig[] = [];
   options: FormlyFormOptions = {};
 
   label = 'Submit';
@@ -108,10 +108,37 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
       this.fields = this.formService.schemasToFieldConfig(jsonSchema, uiSchema);
     } else if (has(this.config,  'schemaGetter')) {
       this.fields = [];
-      this.schemaBlocks = get(this.config, 'schemaGetter.blocks', []);
-      // onSchemaBlocksComplete is triggered later via the components view
-    } else {
-      this.fields = [];
+      // To make it easier for the user, we are flexible with the input of schemaGetter.
+      // If schemaGetter is a string, we assume it is a JMESPath mapping we need to resolve with context.
+      if (typeof this.config.schemaGetter === 'string') {
+        let result = mappingUtility({context: this.context}, this.config.schemaGetter);
+        if (result && typeof result === 'string') {
+          // If it is a string, we try to parse it as JSON
+          try {
+            result = JSON.parse(result);
+          } catch (e) {
+            console.error('Failed to parse schemaGetter result', e);
+            return;
+          }
+        }
+        // Otherwise we assume we have a JSON object: either a jsonSchema or a jsonSchema/uiSchema pair
+
+        // If there is no jsonSchema key, we assume the result is the jsonSchema directly
+        // with no uiSchema
+        if (!has(result, 'jsonSchema')) {
+          result = { jsonSchema: result, uiSchema: {} };
+        }
+
+        const plainJsonSchema = get(result, 'jsonSchema', {});
+        const contextInjectedJsonSchema = this.injectContextToJsonSchema(plainJsonSchema);
+        this.fields = this.formService.schemasToFieldConfig(contextInjectedJsonSchema, get(result, 'uiSchema', {}));
+      } else { 
+        // if a JMESPath string is not provided, we expect a sub-workflow to be defined
+        // we expect the sub-workflow to return an object with jsonSchema and uiSchema keys.
+        this.schemaBlocks = get(this.config, 'schemaGetter.blocks', []);
+        // Populates sub-workflow with schema blocks,
+        // onSchemaBlocksComplete is triggered later via the components view
+      }
     }
   }
 
