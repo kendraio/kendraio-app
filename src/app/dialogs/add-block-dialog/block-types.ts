@@ -192,6 +192,17 @@ export const BLOCK_TYPES = [
     }
   },
   {
+    type: 'json-dereference',
+    label: 'Json Dereference',
+    description: 'Resolving JSON schemas that have external references.',
+    icon: 'fa-table',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'json-dereference',
+      label: 'Trasform'
+    }
+  },
+  {
     type: 'http',
     label: 'HTTP Request',
     description: 'Get, put or post data to an external HTTP endpoint.',
@@ -467,7 +478,7 @@ export const BLOCK_TYPES = [
   },
   {
     type: 'gosub',
-    label: 'Subroutine',
+    label: 'Subroutine (Gosub)',
     description: 'Embed another workflow or partial workflow',
     icon: 'autorenew',
     hasEditor: true,
