@@ -27,7 +27,7 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
   _changes = new Subject();
 
   form = new UntypedFormGroup({});
-  fields: FormlyFieldConfig[];
+  fields: FormlyFieldConfig[] = [];
   options: FormlyFormOptions = {};
 
   label = 'Submit';
@@ -110,10 +110,42 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
       const { uiSchema } = this.config;
       let { jsonSchema } = this.config;
       jsonSchema = this.injectContextToJsonSchema(jsonSchema);
+      console.log({jsonSchema})
+
       this.fields = this.formService.schemasToFieldConfig(jsonSchema, uiSchema);
     } else if (has(this.config,  'schemaGetter')) {
       this.fields = [];
-      this.schemaBlocks = get(this.config, 'schemaGetter.blocks', []);
+      const schemaGetterConfig = get(this.config, 'schemaGetter');
+      console.log("schemaGetterConfig" )
+      console.dir(schemaGetterConfig )
+      // Check either for a JSON object in string or a blocks with jsonSchema key
+        if (typeof schemaGetterConfig === 'string') {
+          // If schemaGetter is a string, it can be a jsonSchema in a string, a JMESPath mapping we need to resolve with context or a jsonSchema passed as data
+          // All of them must have the {jsonSchema: [data]} structure
+          try {
+            const parsedConfig = JSON.parse(schemaGetterConfig);
+            console.log("parsedConfig", parsedConfig);
+
+            if (parsedConfig && typeof parsedConfig === 'object' && parsedConfig.hasOwnProperty('jsonSchema')) {
+              console.log("string with json schema")
+              this.onSchemaBlocksComplete(parsedConfig);
+             } else {
+              console.warn('schemaGetterConfig string is not a valid JSON object with a "jsonSchema" property.');
+             }
+          } catch (error) {
+            console.error('Error parsing schemaGetterConfig string as JSON:', error);
+            console.warn("The passed schema must include the jsonSchema property");
+          }
+          
+        } else {
+          this.schemaBlocks = get(this.config, 'schemaGetter.blocks', []);
+          // console.log("schemaBlocks", this.schemaBlocks)       
+          // console.log("schemaBlocks", get(this.schemaBlocks, 'jsonSchema', {})) 
+          if (get(this.schemaBlocks, 'jsonSchema', {})) {
+            console.warn("The passed schema must include the jsonSchema property");
+          }      
+        }
+
       // onSchemaBlocksComplete is triggered later via the components view
     } else {
       this.fields = [];
@@ -121,10 +153,17 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onSchemaBlocksComplete(result) {
+    // console.log("result", result)
     let jsonSchema = get(result, 'jsonSchema', {});
-    jsonSchema = this.injectContextToJsonSchema(jsonSchema);
-    const uiSchema = get(result, 'uiSchema', {});
-    this.fields = this.formService.schemasToFieldConfig(jsonSchema, uiSchema);
+    //let jsonSchema = result
+
+    if (jsonSchema) { 
+      jsonSchema = this.injectContextToJsonSchema(jsonSchema);
+      const uiSchema = get(result, 'uiSchema', {});
+      this.fields = this.formService.schemasToFieldConfig(jsonSchema, uiSchema);
+    } else {
+      console.warn("Schema is empty, skipping schemasToFieldConfig");
+    }
   }
 
   onModelChange(model) {

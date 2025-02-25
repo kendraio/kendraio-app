@@ -1,3 +1,102 @@
 <div *ngIf="errorMessage" class="error">
     {{ errorMessage }}
 </div>
+
+<!-- <pre>{{ resolvedSchemaOutput | json }}</pre> -->
+
+
+<!--
+
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "$id": "https://test-library.murmurations.network/v2/schemas/test_schema-v2.3.8",
+  "title": "Test Schema",
+  "description": "Just for testing.",
+  "type": "object",
+  "properties": {
+    "linked_schemas": {
+      "title": "Linked Schemas",
+      "description": "A list of schemas against which a profile must be validated (schema names must be alphanumeric with underscore(_) spacers and dash(-) semantic version separator, e.g., my_data_schema-v1.0.0)",
+      "type": "array",
+      "items": {    console.log({schema});
+
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_]{7,97}-v[0-9]+\\.[0-9]+\\.[0-9]+$"
+      },
+      "minItems": 1,
+      "uniqueItems": true,
+      "metadata": {
+        "creator": {
+          "name": "Murmurations Network",
+          "url": "https://murmurations.network"
+        },
+        "field": {
+          "name": "linked_schemas",
+          "version": "1.0.0"
+        },
+        "purpose": "This field is required in all Murmurations schemas to ensure that a profile is valid and can be posted to the Index. It is the only required field in the default-v2.0.0 schema, which is the first schema used by the Index to process incoming profiles."
+      }
+    },
+    "store": {
+      "title": "Store & Inventory",
+      "description": "A store with its inventory list.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "title": "Store Name",
+          "type": "string",
+          "description": "The name of the store."
+        },
+        "inventory": {
+          "title": "Inventory",
+          "description": "A list of the store's inventory.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "item": {
+                "title": "Item",
+                "description": "The item for sale.",
+                "type": "string"
+              },
+              "amount": {
+                "title": "Amount",
+                "description": "The amount of the item.",
+                "type": "number"
+              }
+            },
+            "required": [
+              "item",
+              "amount"
+            ]
+          }
+        },
+        "city": {
+          "title": "City",
+          "description": "The city where the store is located.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "city"
+      ]
+    }
+  },
+  "required": [
+    "linked_schemas",
+    "store"
+  ],
+  "metadata": {
+    "creator": {
+      "name": "Murmurations Network",
+      "url": "https://murmurations.network/"
+    },
+    "schema": {
+      "name": "test_schema-v2.3.8"
+    }
+  }
+}
+
+
+-->

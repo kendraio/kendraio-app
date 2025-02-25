@@ -32,7 +32,10 @@ export class JsonDereferenceBlockComponent extends BaseBlockComponent {
 
   
     ngOnChanges(changes): void {
-        this.dataUrl = Object.values(this.model)[0];
+        // console.log('model', this.model)
+        // this.dataUrl = Object.values(this.model)[0];
+        this.dataUrl = this.model;
+
 
         if (typeof this.dataUrl !== 'string' || !this.dataUrl.trim()) {
             this.errorMessage = 'URl is either not a string or is empty.';
@@ -54,6 +57,7 @@ export class JsonDereferenceBlockComponent extends BaseBlockComponent {
             const resolvedSchema = await new $RefParser().dereference(this.dataUrl);
             this.resolvedSchemaOutput = resolvedSchema;
             this.output.emit(clone(this.resolvedSchemaOutput));
+            console.log("resolvedSchema", this.resolvedSchemaOutput)
           } catch (error) {
             console.error("An error occurred:", error);
             this.errorMessage = 'Failed to dereference schema. Check console for details.';
@@ -61,6 +65,7 @@ export class JsonDereferenceBlockComponent extends BaseBlockComponent {
           }
     }
 }
+
 
 // {
 //     "type": "form",
