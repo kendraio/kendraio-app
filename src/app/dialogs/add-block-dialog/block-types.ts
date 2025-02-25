@@ -193,13 +193,12 @@ export const BLOCK_TYPES = [
   },
   {
     type: 'json-dereference',
-    label: 'Json Dereference',
+    label: 'JSON Dereference',
     description: 'Resolving JSON schemas that have external references.',
     icon: 'fa-table',
     hasEditor: true,
     defaultConfig: {
-      type: 'json-dereference',
-      label: 'Trasform'
+      type: 'json-dereference'
     }
   },
   {
