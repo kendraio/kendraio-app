@@ -32,8 +32,6 @@ export class JsonDereferenceBlockComponent extends BaseBlockComponent {
 
   
     ngOnChanges(changes): void {
-        // console.log('model', this.model)
-        // this.dataUrl = Object.values(this.model)[0];
         this.dataUrl = this.model;
 
 
@@ -65,25 +63,3 @@ export class JsonDereferenceBlockComponent extends BaseBlockComponent {
           }
     }
 }
-
-
-// {
-//     "type": "form",
-//     "hasSubmit": false,
-//     "jsonSchema": {
-//         "type": "object",
-//         "properties": {
-//             "mapping": {
-//                 "title": "Select a schema to import",
-//                 "type": "string",
-//                 "enum": [
-//                     "https://test-library.murmurations.network/v2/schemas/people_schema-v0.1.0",
-//                     "https://test-library.murmurations.network/v2/schemas/test_schema-v2.3.8",
-//                     "https://test-library.murmurations.network/v2/schemas/cta_opportunity-v0.1.0",
-//                     "https://test-library.murmurations.network/v2/schemas/permaculture_addon_schema-v1.0.0"
-//                 ]
-//             }
-//         }
-//     },
-//     "uiSchema": {}
-// }
