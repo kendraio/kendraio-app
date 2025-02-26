@@ -99,6 +99,14 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
     mutatedJsonSchema = set(mutatedJsonSchema, 'definitions.context', this.context);
     return mutatedJsonSchema as T;
   }
+
+  private processSchemaResult(result: any) {
+    if (result && typeof result === 'object' && result.hasOwnProperty('jsonSchema')) {
+      this.onSchemaBlocksComplete(result);
+    } else {
+      console.warn("Result does not contain 'jsonSchema' property.");
+    }
+  }
   
   updateForm() {
     if (has(this.config, 'adapter') && has(this.config, 'formId')) {
@@ -110,37 +118,35 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
       const { uiSchema } = this.config;
       let { jsonSchema } = this.config;
       jsonSchema = this.injectContextToJsonSchema(jsonSchema);
-      console.log({jsonSchema})
-
       this.fields = this.formService.schemasToFieldConfig(jsonSchema, uiSchema);
     } else if (has(this.config,  'schemaGetter')) {
       this.fields = [];
-      const schemaGetterConfig = get(this.config, 'schemaGetter');
-      console.log("schemaGetterConfig" )
-      console.dir(schemaGetterConfig )
-      // Check either for a JSON object in string or a blocks with jsonSchema key
-        if (typeof schemaGetterConfig === 'string') {
-          // If schemaGetter is a string, it can be a jsonSchema in a string, a JMESPath mapping we need to resolve with context or a jsonSchema passed as data
-          // All of them must have the {jsonSchema: [data]} structure
-          try {
-            const parsedConfig = JSON.parse(schemaGetterConfig);
-            console.log("parsedConfig", parsedConfig);
+      const schemaGetterConfig: any = get(this.config, 'schemaGetter');
 
-            if (parsedConfig && typeof parsedConfig === 'object' && parsedConfig.hasOwnProperty('jsonSchema')) {
-              console.log("string with json schema")
-              this.onSchemaBlocksComplete(parsedConfig);
-             } else {
-              console.warn('schemaGetterConfig string is not a valid JSON object with a "jsonSchema" property.');
-             }
-          } catch (error) {
-            console.error('Error parsing schemaGetterConfig string as JSON:', error);
-            console.warn("The passed schema must include the jsonSchema property");
+        if (typeof schemaGetterConfig === 'string') {
+
+          if (schemaGetterConfig.trim().startsWith('context.')) {
+            // It's likely a context variable
+            const result = mappingUtility({context: this.context}, schemaGetterConfig);
+            this.processSchemaResult(result);
+
+          } else if (schemaGetterConfig.trim().startsWith('data')) {
+            // It's a likely a data variable
+            const result = mappingUtility({data: this.model, context: this.context}, schemaGetterConfig);
+              this.processSchemaResult(result);
+          } else {
+              // It's a likely a JSON Object
+              try {
+                  const parsedConfig = JSON.parse(schemaGetterConfig);
+                  this.processSchemaResult(parsedConfig);
+              } catch (error) {
+                  console.error('Error parsing schemaGetterConfig as JSON:', error);
+                  console.warn("schemaGetterConfig is neither a valid JSON nor a context path.");
+              }
           }
-          
+
         } else {
           this.schemaBlocks = get(this.config, 'schemaGetter.blocks', []);
-          // console.log("schemaBlocks", this.schemaBlocks)       
-          // console.log("schemaBlocks", get(this.schemaBlocks, 'jsonSchema', {})) 
           if (get(this.schemaBlocks, 'jsonSchema', {})) {
             console.warn("The passed schema must include the jsonSchema property");
           }      
@@ -153,9 +159,7 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onSchemaBlocksComplete(result) {
-    // console.log("result", result)
     let jsonSchema = get(result, 'jsonSchema', {});
-    //let jsonSchema = result
 
     if (jsonSchema) { 
       jsonSchema = this.injectContextToJsonSchema(jsonSchema);
