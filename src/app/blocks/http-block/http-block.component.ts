@@ -111,17 +111,17 @@ export class HttpBlockComponent implements OnInit, OnChanges {
 
     if (has(this.config, 'authentication.type')) {
       const valueGetters = get(this.config, 'authentication.valueGetters', {});
-      const authContext = { ...this.config.authentication, ...this.contextData.getGlobalContext(valueGetters, this.context, this.model) };
+      const context = { ...this.config.authentication, ...this.contextData.getGlobalContext(valueGetters, this.context, this.model) };
       switch (get(this.config, 'authentication.type')) {
         case 'basic-auth':
-          if (has(authContext, 'username') && has(authContext, 'password')) {
-            const { username, password } = authContext;
+          if (has(context, 'username') && has(context, 'password')) {
+            const { username, password } = context;
             headers = headers.append('Authorization', 'Basic ' + btoa(`${username}:${password}`));
           }
           break;
         case 'bearer':
-          if (has(authContext, 'jwt')) {
-            const { jwt } = authContext;
+          if (has(context, 'jwt')) {
+            const { jwt } = context;
             headers = headers.append('Authorization', `Bearer ${jwt}`);
           }
           break;
