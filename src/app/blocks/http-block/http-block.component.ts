@@ -463,6 +463,19 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       throw new Error('Could not determine service and region from endpoint URL');
     }
 
+    // Allow either direct string or JMESPath getters
+    const rawAccessKeyId = get(this.config, 'authentication.accessKeyId', '');
+    const rawAccessKeyIdGetter = get(this.config, 'authentication.accessKeyIdGetter', null);
+    const mappedAccessKeyId = rawAccessKeyIdGetter
+      ? mappingUtility({ data: this.model, context: this.context }, rawAccessKeyIdGetter)
+      : rawAccessKeyId;
+
+    const rawSecretKey = get(this.config, 'authentication.secretKey', '');
+    const rawSecretKeyGetter = get(this.config, 'authentication.secretKeyGetter', null);
+    const mappedSecretKey = rawSecretKeyGetter
+      ? mappingUtility({ data: this.model, context: this.context }, rawSecretKeyGetter)
+      : rawSecretKey;
+
     const actualPayload = method.toUpperCase() === 'PUT' ? this.getPayload() : '';
     
     const reqConfig: AwsSigningConfig = {
@@ -471,8 +484,8 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       protocol: parsed.protocol,
       endpoint: parsed.host,
       region: get(this.config, 'authentication.region', parsed.region),
-      accessKeyId: get(context, 'accessKeyId', ''),
-      secretKey: get(context, 'secretKey', ''),
+      accessKeyId: mappedAccessKeyId,
+      secretKey: mappedSecretKey,
       headers: this.getPayloadHeaders(),
       payload: actualPayload,
       path: parsed.path
