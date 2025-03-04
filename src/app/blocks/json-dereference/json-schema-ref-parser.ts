@@ -32,7 +32,7 @@ export class JSONSchemaRefParser {
     return this.resolveRefs(schema, resolvedBaseUrl, new Set(), middleware);
   }
 
-  async fetchSchema(url, middleware) {
+  async fetchSchema(url: string, middleware: MiddlewareFunction): Promise<any>{
     if (this.cache.has(url)) {
       return this.cache.get(url);
     }
@@ -47,16 +47,27 @@ export class JSONSchemaRefParser {
     }
 
     const request = (middlewareResult && middlewareResult.request) || initialRequest;
-    const response = await fetch(request.url, request);
+    try {
+      const response = await fetch(request.url, request);
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch ${request.url}: ${response.status} ${response.statusText}`);
+      if (!response.ok) {
+        let errorBody = '';
+        try {
+            errorBody = await response.text(); // Try to get error details from the response
+        } catch (e) {
+            errorBody = `(Error reading response body: ${e.message})`;
+        }
+        throw new Error(`Failed to fetch ${request.url}: ${response.status} ${response.statusText}.  Response body: ${errorBody}`);
+      }
+
+      const text = await response.text();
+      const parsed = this.parseContent(text, request.url);
+      this.cache.set(url, parsed);
+      return parsed;
+    } catch (error) {
+      console.error("Error fetching schema:", error);
+      throw error;
     }
-
-    const text = await response.text();
-    const parsed = this.parseContent(text, request.url);
-    this.cache.set(url, parsed);
-    return parsed;
   }
 
   parseContent(text, url) {
@@ -126,7 +137,7 @@ export class JSONSchemaRefParser {
       if (current && typeof current === 'object' && Object.hasOwn(current, part)) {
         current = current[part];
       } else {
-        throw new Error(`Invalid JSON pointer "${pointer}" in schema ${JSON.stringify(schema)}`);
+        throw new Error(`Invalid JSON pointer "${pointer}" in schema: ${JSON.stringify(schema, null, 2)}.  Part: ${part}`);
       }
     }
     return current;
