@@ -32,7 +32,7 @@ export class JSONSchemaRefParser {
       await this.fetchSchema(schemaOrURL, middleware) :
       schemaOrURL;
 
-      const resolvedBaseUrl = baseUrl || (typeof schemaOrURL === 'string' ? schemaOrURL : window.location.href);
+    const resolvedBaseUrl = baseUrl || (typeof schemaOrURL === 'string' ? schemaOrURL : window.location.href);
 
     return this.resolveRefs(schema, resolvedBaseUrl, new Set(), middleware);
   }
@@ -54,6 +54,8 @@ export class JSONSchemaRefParser {
     const request = (middlewareResult && middlewareResult.request) || initialRequest;
     try {
       const response = await fetch(request.url, request);
+      // Check if the URL contains a valid JSON
+      const contentType = response.headers.get('content-type');
 
       if (!response.ok) {
         let errorBody = '';
@@ -62,7 +64,11 @@ export class JSONSchemaRefParser {
         } catch (e) {
             errorBody = `(Error reading response body: ${e.message})`;
         }
-        throw new Error(`Failed to fetch ${request.url}: ${response.status} ${response.statusText}.  Response body: ${errorBody}`);
+        
+
+        if (!contentType || !contentType.includes('application/json')) {
+         throw new Error(`Failed to fetch ${request.url}: ${response.status} ${response.statusText}.  Response body: ${errorBody}`);
+        }
       }
 
       const text = await response.text();

@@ -59,6 +59,7 @@ Kendraio App
    workflow/blocks/grid
    workflow/blocks/gsheet
    workflow/blocks/http
+   workflow/blocks/json_dereference
    workflow/blocks/init
    workflow/blocks/link_action_block
    workflow/blocks/launch_block

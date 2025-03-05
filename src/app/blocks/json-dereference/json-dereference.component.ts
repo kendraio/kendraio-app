@@ -35,6 +35,18 @@ export class JsonDereferenceBlockComponent extends BaseBlockComponent implements
         return;
       }
 
+      // **URL Sanitization:**
+      let safeURL: string | null = null;
+        safeURL = new URL(url).href;
+
+      if (!safeURL.startsWith('http://') && !safeURL.startsWith('https://')) {
+        safeURL = null;
+        this.dereferencedSchema = null;
+        this.errorMessage = 'Invalid URL: Only HTTP and HTTPS protocols are allowed.';
+        this.output.emit(null);
+        return;
+      }
+
       const parser = new JSONSchemaRefParser();
       const dereferenced = await parser.dereference(url, {validateSchema:true});
       this.dereferencedSchema = dereferenced;
@@ -49,5 +61,4 @@ export class JsonDereferenceBlockComponent extends BaseBlockComponent implements
 
 
 // next step:
-// URL Sanitization
-// Implement basic validation to check if data is JSON Schema
+// try if works on Angular 16
