@@ -58,6 +58,7 @@
     <app-mermaid-block class="block-wrapper" *ngSwitchCase="'mermaid'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-mermaid-block>
     <app-comparison class="block-wrapper" *ngSwitchCase="'comparison'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-comparison>
     <app-link-action class="block-wrapper" *ngSwitchCase="'link-action'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-link-action>
+    <app-json-dereference-block class="block-wrapper" *ngSwitchCase="'json-dereference'" [context]="context" [config]="block" [model]="models[i]" (output)="updateModel(i + 1, $event)"></app-json-dereference-block>
   </ng-container>
 </ng-container>
 <!-- <pre>workblock: {{ context | json }}</pre> -->

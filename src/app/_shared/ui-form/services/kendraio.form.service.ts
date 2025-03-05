@@ -153,7 +153,6 @@ export class KendraioFormService {
 
   toFieldConfig(schema) {
     const ob = this.formlyJsonschema.toFieldConfig(schema);
-   // console.log(ob);
     return ob;
   }
 

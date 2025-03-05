@@ -186,6 +186,7 @@ import {FormlyModule} from '@ngx-formly/core';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatChipsModule} from '@angular/material/chips';
 import { LinkActionComponent } from './blocks/link-action-block/link-action.component';
+import { JsonDereferenceBlockComponent } from './blocks/json-dereference/json-dereference.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -354,6 +355,7 @@ const monacoConfig: NgxMonacoEditorConfig = {
         ComparisonComponent,
         BlockComparisonBuilderBoxComponent,
         LinkActionComponent,
+        JsonDereferenceBlockComponent,
     ],
     bootstrap: [AppComponent], 
     imports: [
