@@ -18,7 +18,12 @@ interface DereferenceOptions {
 }
 
 export class JSONSchemaRefParser {
-    private cache: Map<string, any> = new Map();
+  private cache: Map<string, any> = new Map();
+
+  defaultMiddleware(request: FetchSchemaResult): Promise<MiddlewareResult> {
+    // Default middleware: Does nothing, just returns the original request.
+    return Promise.resolve({ request });
+  }
 
   async dereference(schemaOrURL: string | any, options: DereferenceOptions = {}) {
     const { middleware = this.defaultMiddleware, baseUrl = null } = options;
@@ -141,10 +146,5 @@ export class JSONSchemaRefParser {
       }
     }
     return current;
-  }
-
-  defaultMiddleware(request) {
-    // Default middleware: Does nothing, just returns the original request.
-    return { request };
   }
 }
