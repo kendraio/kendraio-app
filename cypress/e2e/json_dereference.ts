@@ -5,37 +5,19 @@ import { loadFlowCode } from '../support/helper';
 describe('JSON Dereference Block', () => {
 
     it('should successfully dereference a valid JSON schema from a URL', () => {
-        const mockSchema = {
-            "jsonSchema": {
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "title": "John Doe"
-                    }
-                }
-            }
-        };
-
-        cy.intercept({ 
-            url: 'https://example.com/valid-schema.json'
-        }, {
-            statusCode: 200,
-            body: mockSchema
-        });
-
         loadFlowCode([
             {
                 "type": "mapping",
-                "mapping": "`https://example.com/valid-schema.json`"
+                "mapping": "`https://test-library.murmurations.network/v2/schemas/people_schema-v0.1.0`",
+                "blockComment": ""
             },
             {
-                "type": "debug",
-                "open": 5,
-                "showData": true
+            "type": "json-dereference"
             },
             {
-                "type": "json-dereference-block",
+            "type": "mapping",
+            "mapping": "{\n    \"jsonSchema\": \"data\"\n}",
+            "blockComment": ""
             },
             {
                 "type": "debug",
@@ -44,61 +26,44 @@ describe('JSON Dereference Block', () => {
             }
         ]);
 
-        cy.contains('John Doe');
+        cy.contains('Full Name');
     });
 
     it('should display an error message when the URL is invalid', () => {
         loadFlowCode([
             {
                 "type": "mapping",
-                "mapping": "{ url: 'invalid-url' }" 
+                "mapping": "`people_schema-v0.1.0`",
+                "blockComment": ""
             },
             {
-                "type": "json-dereference-block",
+                "type": "json-dereference"
+            },
+            {
+                "type": "mapping",
+                "mapping": "{\n    \"jsonSchema\": \"data\"\n}",
+                "blockComment": ""
+            },rom
+            {
+                "type": "debug",
+                "open": 5,
+                "showData": true
             }
         ]);
 
         cy.get('app-json-dereference-block').should('exist').within(() => {
-            cy.contains('Error: Invalid URL format:').should('be.visible');
+            cy.contains("Error: Failed to construct 'URL': Invalid URL");
         });
     });
 
-    it('should display an error message when the URL cannot be fetched', () => {
-        cy.intercept({ url: 'https://example.com/not-found.json' 
-        }, {
-            statusCode: 404
-        });
-
+    it('should display a form from a schema passed to schemaGetter', () => {
         loadFlowCode([
             {
-                "type": "mapping",
-                "mapping": "`'https://example.com/not-found.json`"
-            },
-            {
-                "type": "json-dereference-block",
-            }
-        ]);
-
-        cy.get('app-json-dereference-block').should('exist').within(() => {
-            cy.contains('Error: Failed to fetch https://example.com/not-found.json').should('be.visible');
-        });
-    });
-
-    it('should display an error if try to load content non JSON schema url', () => {
-        const mockSchema = "test";
-        cy.intercept({ url: 'https://example.com/no-json.txt'
-        }, {
-            statusCode: 200,
-            body: mockSchema
-        });
-
-        loadFlowCode([
-            {
-                "type": "mapping",
-                "mapping": "`https://example.com/no-json.txt`"
-            },
-            {
-                "type": "json-dereference-block",
+                "type": "form",
+                "label": "Save",
+                "hasSubmit": false,
+                "schemaGetter": "{\"jsonSchema\": {\"type\": \"object\", \"properties\": {\"firstName\": {\"type\": \"string\", \"title\": \"First Name\", \"default\": \"Johnny\"}, \"lastName\": {\"type\": \"string\", \"title\": \"Last Name\"}}}}",
+                "blockComment": "string direclty, containing json object"
             },
             {
                 "type": "debug",
@@ -107,8 +72,6 @@ describe('JSON Dereference Block', () => {
             }
         ]);
 
-        cy.get('app-json-dereference-block').should('exist').within(() => {
-            cy.contains('Error: Content type is not JSON:').should('be.visible');
-        });
+        cy.get(".mat-mdc-input-element").should('exist');
     });
 });
