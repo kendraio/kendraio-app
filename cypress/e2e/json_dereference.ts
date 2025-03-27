@@ -28,6 +28,7 @@ describe('JSON Dereference Block', () => {
 
         cy.contains('Full Name');
     });
+    
 
     it('should display an error message when the URL is invalid', () => {
         loadFlowCode([
@@ -43,7 +44,7 @@ describe('JSON Dereference Block', () => {
                 "type": "mapping",
                 "mapping": "{\n    \"jsonSchema\": \"data\"\n}",
                 "blockComment": ""
-            },rom
+            },
             {
                 "type": "debug",
                 "open": 5,

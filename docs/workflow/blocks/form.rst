@@ -180,7 +180,7 @@ A simple search form without a submit button.
 Using a schemaGetter
 ^^^^^^^^^^^^^^^^^^^^
 The form accept a `schemaGetter` property, which can be used to fetch a schema and use it to generate the form.
-The schema passed to the `schemaGetter` property must include the `jsonSchema` property. Is not necessary that include the `uiSchema` property.
+The schema passed to the `schemaGetter` property must include the `jsonSchema` property. It is not necessary to include the `uiSchema` property.
 `schemaGetter` accepts:
 * blocks: an array of blocks
 * string: a string that will be evaluated as a JSON schema.
@@ -229,7 +229,7 @@ A mapping block can be used to grab from data.
   }
 
 
-Is also possible to take a schema saved in a local variable like in this `Flow <https://app.kendra.io/kendraio/schemaFormContextBlocks>`_ 
+It is also possible to take a schema saved in a local variable like in this `Flow <https://app.kendra.io/kendraio/schemaFormContextBlocks>`_ 
 
 .. code-block:: javascript
     
