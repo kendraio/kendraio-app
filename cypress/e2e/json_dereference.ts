@@ -4,7 +4,36 @@ import { loadFlowCode } from '../support/helper';
 
 describe('JSON Dereference Block', () => {
 
+    const mockSchema = {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "Person",
+        "description": "A person",
+        "type": "object",
+        "properties": {
+            "name": {
+                "$ref": "#/definitions/name"
+            },
+            "age": {
+                "type": "integer",
+                "description": "Age in years"
+            }
+        },
+        "definitions": {
+            "name": {
+                "type": "string",
+                "description": "Full name"
+            }
+        }
+    };
+
     it('should successfully dereference a valid JSON schema from a URL', () => {
+
+        cy.intercept('GET', 'https://test-library.murmurations.network/v2/schemas/people_schema-v0.1.0', {
+            statusCode: 200,
+            body: mockSchema,
+             headers: { 'Content-Type': 'application/json' }
+        })
+
         loadFlowCode([
             {
                 "type": "mapping",
@@ -26,7 +55,8 @@ describe('JSON Dereference Block', () => {
             }
         ]);
 
-        cy.contains('Full Name');
+        // cy.wait('@getSchema');
+        cy.contains('Full name');
     });
     
 
@@ -58,21 +88,39 @@ describe('JSON Dereference Block', () => {
     });
 
     it('should display a form from a schema passed to schemaGetter', () => {
+        cy.intercept('GET', 'https://test-library.murmurations.network/v2/schemas/people_schema-v0.1.0', {
+            statusCode: 200,
+            body: mockSchema,
+             headers: { 'Content-Type': 'application/json' }
+        })
+
         loadFlowCode([
+            {
+                "type": "mapping",
+                "mapping": "`https://test-library.murmurations.network/v2/schemas/people_schema-v0.1.0`",
+                "blockComment": ""
+            },
+            {
+                "type": "json-dereference"
+            },
+            {
+                "type": "mapping",
+                "mapping": "{\n    \"jsonSchema\": \"data\"\n}",
+                "blockComment": ""
+            },
             {
                 "type": "form",
                 "label": "Save",
                 "hasSubmit": false,
-                "schemaGetter": "{\"jsonSchema\": {\"type\": \"object\", \"properties\": {\"firstName\": {\"type\": \"string\", \"title\": \"First Name\", \"default\": \"Johnny\"}, \"lastName\": {\"type\": \"string\", \"title\": \"Last Name\"}}}}",
-                "blockComment": "string direclty, containing json object"
+                "schemaGetter": "data"
             },
             {
                 "type": "debug",
-                "open": 3,
+                "open": 5,
                 "showData": true
             }
         ]);
 
-        cy.get(".mat-mdc-input-element").should('exist');
+        cy.get(".mat-mdc-input-element").should('exist').should('have.length', 2);
     });
 });
