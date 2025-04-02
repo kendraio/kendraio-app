@@ -187,6 +187,7 @@ import { MermaidBlockComponent } from './blocks/mermaid-block/mermaid-block.comp
 import { ComparisonComponent } from './blocks/comparison/comparison.component';
 import { BlockComparisonBuilderBoxComponent } from './components/block-comparison-builder-box/block-comparison-builder-box.component';
 import { LinkActionComponent } from './blocks/link-action-block/link-action.component';
+import { JsonDereferenceBlockComponent } from './blocks/json-dereference/json-dereference.component';
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -348,7 +349,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         MermaidBlockComponent,
         ComparisonComponent,
         BlockComparisonBuilderBoxComponent,
-        LinkActionComponent
+        LinkActionComponent,
+        JsonDereferenceBlockComponent
     ],
     imports: [
         FormlyModule.forRoot({}),

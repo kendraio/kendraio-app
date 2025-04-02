@@ -19,7 +19,7 @@ code, and build the docs:
 
 .. prompt:: bash $
 
-    pip install sphinx sphinx-prompt sphinx_rtd_theme
+    pip install python3-sphinx sphinx-prompt sphinx_rtd_theme
     git clone https://github.com/kendraio/kendraio-app.git
     cd docs
     make html
