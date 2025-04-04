@@ -17,7 +17,7 @@ const makeHash = (secret,  salt) => {
   });
 };
 
-function appFactory({db, auth}: { db: any, auth: admin.auth.Auth }) {
+function appFactory({db, auth}: { db: unknown, auth: admin.auth.Auth }) {
   const app = require('express')();
   const cors = require('cors');
   const bodyParser = require('body-parser');
@@ -34,8 +34,9 @@ function appFactory({db, auth}: { db: any, auth: admin.auth.Auth }) {
       user = await auth.getUserByEmail(username);
       hashedPassword = await makeHash(password, 'TEMP123QQ1');
     }
-    catch (e) {
-      res.status(403).send(e.message);
+    catch (e: unknown) {
+      const errorMessage = e instanceof Error ? e.message : 'An unknown error occurred';
+      res.status(403).send(errorMessage);
       return;
     }
     if (hashedPassword === userHash && user && user.uid) {
