@@ -22,7 +22,7 @@ function appFactory({db, auth}: { db: admin.firestore.Firestore, auth: admin.aut
   const cors = require('cors');
   const bodyParser = require('body-parser');
 
-  const fakeId = () => db.collection().doc().id;
+  const fakeId = () => db.collection('temp').doc().id;
 
   app.use(cors());
   app.use(bodyParser.json());
@@ -52,7 +52,7 @@ function appFactory({db, auth}: { db: admin.firestore.Firestore, auth: admin.aut
 
   const updateWorkflow = async ({adapterName, workflowId, title, tags, created, updated, ...body}) => {
     const now = new Date().toISOString();
-    return await db
+    await db
       .collection('adapters')
       .doc(adapterName || DEFAULT_ADAPTER_NAME)
       .collection('workflows')
@@ -66,6 +66,7 @@ function appFactory({db, auth}: { db: admin.firestore.Firestore, auth: admin.aut
         updated: updated || now,
         _encoded: JSON.stringify(body)
       });
+    return { id: workflowId || fakeId() };
   };
 
   app.put('/api', validateToken, async (req, res) => {
@@ -120,17 +121,17 @@ function appFactory({db, auth}: { db: admin.firestore.Firestore, auth: admin.aut
       .get();
 
     if (docRef.exists) {
-      const data = docRef.data();
-      const unEncode = JSON.parse(data._encoded);
+      const data = docRef.data() || {};
+      const unEncode = JSON.parse(data._encoded || '{}');
       await res.send({
         ...unEncode,
         workflowId: docRef.id,
-        adapterName: data.adapterName,
-        created: data.created,
-        tags: data.tags,
-        updated: data.updated,
-        modified: data.updated,
-        title: data.title
+        adapterName: data.adapterName || DEFAULT_ADAPTER_NAME,
+        created: data.created || new Date().toISOString(),
+        tags: data.tags || [],
+        updated: data.updated || new Date().toISOString(),
+        modified: data.updated || new Date().toISOString(),
+        title: data.title || 'Untitled'
       });
       return;
     }
