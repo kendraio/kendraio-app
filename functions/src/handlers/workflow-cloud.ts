@@ -17,7 +17,7 @@ const makeHash = (secret,  salt) => {
   });
 };
 
-function appFactory({db, auth}: { db: unknown, auth: admin.auth.Auth }) {
+function appFactory({db, auth}: { db: admin.firestore.Firestore, auth: admin.auth.Auth }) {
   const app = require('express')();
   const cors = require('cors');
   const bodyParser = require('body-parser');
