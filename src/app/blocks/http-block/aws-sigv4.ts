@@ -22,6 +22,33 @@ function toHex(arrayBuf: Uint8Array): string {
   return Array.from(arrayBuf).map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
+/**
+ * URI encodes a string according to AWS SigV4 requirements
+ * Only alphanumeric characters, '-', '_', '.', and '~' are not encoded
+ */
+function uriEncodeString(str: string): string {
+  return encodeURIComponent(str).replace(/[!'()*]/g, c => 
+    '%' + c.charCodeAt(0).toString(16).toUpperCase()
+  );
+}
+
+function createCanonicalQueryString(searchParams: URLSearchParams): string {
+  const paramPairs: Array<[string, string]> = [];
+  
+  // Extract all parameter pairs
+  searchParams.forEach((value, key) => {
+    paramPairs.push([key, value]);
+  });
+  
+  // Sort by parameter name
+  paramPairs.sort((a, b) => a[0].localeCompare(b[0]));
+  
+  // Create encoded string
+  return paramPairs.map(pair => 
+    `${uriEncodeString(pair[0])}=${uriEncodeString(pair[1])}`
+  ).join('&');
+}
+
 export async function signAwsSigV4(method: string, requestUrl: string, payload: any, accessKeyId: string, secretKey: string) {
   const urlObj = new URL(requestUrl);
   const host = urlObj.host;
@@ -63,7 +90,10 @@ export async function signAwsSigV4(method: string, requestUrl: string, payload: 
   // For S3, the path is the entire urlObj.pathname, including initial '/'.
   // We also keep urlObj.search if needed (like ?acl).
   const canonicalUri = urlObj.pathname || '/';
-  const canonicalQuery = urlObj.search ? urlObj.search.substring(1) : '';
+  
+  // Create canonical query string by sorting and encoding parameters
+  const canonicalQuery = createCanonicalQueryString(urlObj.searchParams);
+  
   // Canonical headers (lowercase, sorted by key). We at least need host, x-amz-date, x-amz-content-sha256.
   const canonicalHeaders =
     `host:${host.toLowerCase()}\n` +

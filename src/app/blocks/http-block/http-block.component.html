@@ -10,6 +10,15 @@
                        [context]="context"></app-blocks-workflow>
 </div>
 
+<!-- Status code indicator -->
+<div *ngIf="statusCode && !isLoading" class="http-status-display">
+  <span [ngClass]="{
+    'status-success': statusCode >= 200 && statusCode < 300,
+    'status-redirect': statusCode >= 300 && statusCode < 400,
+    'status-error': statusCode >= 400
+  }">HTTP {{statusCode}}</span>
+</div>
+
 <mat-spinner *ngIf="isLoading" diameter="50"></mat-spinner>
 
 <!-- <pre>httpblock-contect:{{context | json}}</pre>

@@ -29,6 +29,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   errorBlocks = [];
 
   isLoading = false;
+  statusCode: number = null; // Add statusCode property to store the HTTP status
 
   contextErrorKey = null;
   contextErrors = '';
@@ -75,6 +76,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   async makeRequest() {
     this.hasError = false;
     this.isLoading = true;
+    this.statusCode = null; // Reset status code when starting a new request
     const method = get(this.config, 'method');
     if (!method) {
       this.errorMessage = 'No HTTP method provided';
@@ -156,13 +158,23 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           const isBinary = methodUpper === 'BPUT';
           
           // For GET, DELETE methods use empty string as payload
-          let actualPayload = '';
-          if (['PUT', 'POST', 'PATCH', 'BPUT'].includes(methodUpper)) {
-            actualPayload = isBinary ? get(this.model, 'content') : this.getPayload();
+          let actualPayload: string | ArrayBuffer = '';
+          if (['PUT', 'POST', 'PATCH'].includes(methodUpper)) {
+            actualPayload = this.getPayload();
+          } else if (methodUpper === 'BPUT') {
+            const bufferContent = get(this.model, 'content'); // Get potential buffer into temp variable
+            if (!(bufferContent instanceof ArrayBuffer)) { // Check the temp variable
+                this.hasError = true;
+                this.errorMessage = `Invalid or missing binary payload (ArrayBuffer) in model.content for BPUT signing.`;
+                this.isLoading = false;
+                console.error(this.errorMessage, 'Payload Type:', typeof bufferContent);
+                return;
+            }
+            actualPayload = bufferContent; // Assign to actualPayload only if valid
           }
           
           try {
-            const { headers: sigHeaders } = await signAwsSigV4(method, useProxy ? headers.get('Target-URL')! : url, actualPayload, actualAccessKeyId, actualSecretKey);
+            const { headers: sigHeaders } = await signAwsSigV4(method.toUpperCase() === 'BPUT' ? 'PUT' : method, useProxy ? headers.get('Target-URL')! : url, actualPayload, actualAccessKeyId, actualSecretKey);
             // Merge sigHeaders into our existing headers
             Object.keys(sigHeaders).forEach(k => {
               if (k.toLowerCase() === 'host') return;
@@ -191,42 +203,78 @@ export class HttpBlockComponent implements OnInit, OnChanges {
         if (get(this.config, 'followPaginationLinksMerged', false)) {
           this.getAllPages(url, headers, this.responseType);
         } else {
-          this.http.get(url, { headers, responseType: this.responseType })
+          this.http.get(url, { headers, responseType: this.responseType, observe: 'response' })
             .pipe(
               catchError(error => {
                 this.hasError = true;
                 this.errorMessage = error.message;
                 this.errorData = error;
-                // TODO: need to prevent errors for triggering subsequent blocks
-                return of({error, hasError: this.hasError, errorMessage: this.errorMessage});
+                // Return an object with hasError flag for our internal error handling
+                return of({
+                  body: { error, hasError: true, errorMessage: this.errorMessage },
+                  status: error.status || 500,
+                  statusText: error.statusText || 'Error',
+                  hasError: true // Flag to identify error responses in subscribe
+                });
               })
             )
-            .subscribe((response: Record<string, any>) => {
+            .subscribe((response: HttpResponse<any> | any) => {
               this.isLoading = false;
-              this.hasError = false;
-              if(!response.hasError) this.errorBlocks = [];
-
-              this.outputResult(response);
+              
+              // Check if this is an error response (from our catchError)
+              if (response.hasError) {
+                // Already handled in the catchError operator
+              } else {
+                // Normal successful response
+                this.hasError = false;
+                this.errorBlocks = [];
+                
+                // Include the status code in the output
+                const result = response.body;
+                // Add status code for direct use in templates
+                const resultWithStatus = typeof result === 'object' && result !== null 
+                  ? { ...result, __httpStatus: response.status } 
+                  : result;
+                  
+                this.outputResult({
+                  data: resultWithStatus,
+                  statusCode: response.status
+                });
+              }
             });
         }
         break;
       case 'DELETE':
-        this.http.delete(url, { headers, responseType: this.responseType })
+        this.http.delete(url, { headers, responseType: this.responseType, observe: 'response' })
           .pipe(
             catchError(error => {
               this.hasError = true;
               this.errorMessage = error.message;
               this.errorData = error;
-              // TODO: need to prevent errors for triggering subsequent blocks
-              return of({error, hasError: this.hasError, errorMessage: this.errorMessage});
+              return of({
+                body: { error, hasError: true, errorMessage: this.errorMessage },
+                status: error.status || 500,
+                statusText: error.statusText || 'Error',
+                hasError: true // Flag to identify error responses in subscribe
+              });
             })
           )
-          .subscribe((response: Record<string, any>) => {
+          .subscribe((response: HttpResponse<any> | any) => {
             this.isLoading = false;
-            this.hasError = false;
-            if(!response.hasError) this.errorBlocks = [];
             
-            this.outputResult(response);
+            if (response.hasError) {
+              // Already handled in the catchError operator
+            } else {
+              this.hasError = false;
+              this.errorBlocks = [];
+              
+              // Include the status code in the output
+              const result = response.body;
+              this.outputResult({
+                data: result,
+                statusCode: response.status
+              });
+            }
           });
         break;
       case 'BPUT': // binary PUT
@@ -241,29 +289,42 @@ export class HttpBlockComponent implements OnInit, OnChanges {
 
           return;
         }
-        this.http.put(url, payloadB, { headers, responseType: this.responseType })
+        this.http.put(url, payloadB, { headers, responseType: this.responseType, observe: 'response' })
           .pipe(
             catchError(error => {
               this.hasError = true;
               this.errorMessage = error.message;
               this.errorData = error;
-              // TODO: need to prevent errors for triggering subsequent blocks
-              return of({error, hasError: this.hasError, errorMessage: this.errorMessage});
+              return of({
+                body: { error, hasError: true, errorMessage: this.errorMessage },
+                status: error.status || 500,
+                statusText: error.statusText || 'Error',
+                hasError: true // Flag to identify error responses in subscribe
+              });
             })
           )
-          .subscribe((response: Record<string, any>) => {
+          .subscribe((response: HttpResponse<any> | any) => {
             this.isLoading = false;
-            this.hasError = false;
-            if(!response.hasError) this.errorBlocks = [];
+            
+            if (response.hasError) {
+              // Already handled in the catchError operator
+            } else {
+              this.hasError = false;
+              this.errorBlocks = [];
 
-            this.outputResult(response);
-            const notify = get(this.config, 'notify', true);
-            if (notify) {
-              const message = 'API update successful';
-              this.notify.open(message, 'OK', {
-                duration: 2000,
-                verticalPosition: 'top'
+              const result = response.body;
+              this.outputResult({
+                data: result,
+                statusCode: response.status
               });
+              const notify = get(this.config, 'notify', true);
+              if (notify) {
+                const message = 'API update successful';
+                this.notify.open(message, 'OK', {
+                  duration: 2000,
+                  verticalPosition: 'top'
+                });
+              }
             }
           });
         break;
@@ -286,39 +347,51 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           return;
         }
         const sub = (toUpper(method) === 'PUT')
-          ? this.http.put(url, payload, { headers, responseType: this.responseType })
+          ? this.http.put(url, payload, { headers, responseType: this.responseType, observe: 'response' })
           : (toUpper(method) === 'PATCH') ?
-            this.http.patch(url, payload, { headers, responseType: this.responseType })
-            : this.http.post(url, payload, { headers, responseType: this.responseType });
+            this.http.patch(url, payload, { headers, responseType: this.responseType, observe: 'response' })
+            : this.http.post(url, payload, { headers, responseType: this.responseType, observe: 'response' });
         sub
           .pipe(
             catchError(error => {
               this.hasError = true;
               this.errorMessage = error.message;
               this.errorData = error;
-              // TODO: need to prevent errors for triggering subsequent blocks
-              return of({error, hasError: this.hasError, errorMessage: this.errorMessage});
+              return of({
+                body: { error, hasError: true, errorMessage: this.errorMessage },
+                status: error.status || 500,
+                statusText: error.statusText || 'Error',
+                hasError: true // Flag to identify error responses in subscribe
+              });
             })
           )
-          .subscribe((response: Record<string, any>) => {
+          .subscribe((response: HttpResponse<any> | any) => {
             this.isLoading = false;
-            this.hasError = false;
-            if(!response.hasError) this.errorBlocks = [];
+            
+            if (response.hasError) {
+              // Already handled in the catchError operator
+            } else {
+              this.hasError = false;
+              this.errorBlocks = [];
 
-            this.outputResult(response);
-            const notify = get(this.config, 'notify', true);
-            if (notify) {
-              const message = 'API update successful';
-              this.notify.open(message, 'OK', {
-                duration: 2000,
-                verticalPosition: 'top'
+              const result = response.body;
+              this.outputResult({
+                data: result,
+                statusCode: response.status
               });
+              const notify = get(this.config, 'notify', true);
+              if (notify) {
+                const message = 'API update successful';
+                this.notify.open(message, 'OK', {
+                  duration: 2000,
+                  verticalPosition: 'top'
+                });
+              }
             }
           });
         break;
     }
   }
-
 
   /**
    * Fetches paginated API results by recursively getting each page and merging the results.
@@ -358,7 +431,10 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       .subscribe(results => {
         this.isLoading = false;
         this.hasError = false;
-        this.outputResult(results);
+        this.outputResult({
+          data: results,
+          statusCode: 200 // Aggregate result from multiple successful calls
+        });
       });
   }
 
@@ -412,6 +488,9 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   }
 
   outputResult(data) {
+    if (data && data.statusCode) {
+      this.statusCode = data.statusCode;
+    }
     this.output.emit(data);
   }
 
