@@ -1,6 +1,13 @@
 const fs = require('fs').promises;
 
 export const addMetatagsHandler = async (req, resp) => {
+
+    if (req.path.endsWith('.js') || req.path.endsWith('.css')) {
+        // Let Firebase hosting try to serve it
+        return resp.status(404).end();
+    }  
+    // Otherwise continue with meta tag processing
+
     const data = await fs.readFile(`${process.cwd()}/index.html`, 'utf8') as string;
     const metatags = `
 <!-- Search Engine -->
