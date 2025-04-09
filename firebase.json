@@ -20,6 +20,10 @@
         "function": "api"
       },
       {
+        "source": "**/*.js",
+        "destination": "/$1.js"
+      },
+      {
         "source": "**",
         "function": "dynamicIndex"
       }
