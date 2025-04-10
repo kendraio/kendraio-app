@@ -2,32 +2,6 @@ const fs = require('fs').promises;
 
 export const addMetatagsHandler = async (req, resp) => {
     console.log("Process working directory", process.cwd());
-    if (req.path.endsWith('.js') && req.path.includes('main.')) {    
-        // Firebase hosting should have already handled this but
-        // since it has not, we need to handle it here.
-        // This is a workaround for the Firebase hosting issue
-
-        // We get the exact filename of the file from the request,
-        // since it has a hash.
-        const filename = req.path.split('/').pop();
-        // we read the file from the public directory
-        const filePath = `${process.cwd()}/${filename}`;
-        // we read the file and send it as a response
-        try {
-            const file = await fs.readFile(filePath, 'utf8') as string;
-            // Set the content type to application/javascript
-            resp.setHeader('Content-Type', 'application/javascript');
-            resp.status(200).send(file);
-            return;
-          } catch (error) {
-            console.error(`Error serving ${filename}:`, error);
-            resp.status(404).send('File not found');
-            return;
-        }
-
-    }  
-    // Otherwise continue with meta tag processing
-
     const data = await fs.readFile(`${process.cwd()}/index.html`, 'utf8') as string;
     const metatags = `
 <!-- Search Engine -->
