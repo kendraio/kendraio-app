@@ -1,7 +1,7 @@
 const fs = require('fs').promises;
 
 export const addMetatagsHandler = async (req, resp) => {
-
+    console.log("Process working directory", process.cwd());
     if (req.path.endsWith('.js') && req.path.includes('main.')) {    
         // Firebase hosting should have already handled this but
         // since it has not, we need to handle it here.
