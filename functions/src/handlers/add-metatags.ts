@@ -1,7 +1,7 @@
 const fs = require('fs').promises;
 
 export const addMetatagsHandler = async (req, resp) => {
-    console.log("Process working directory:", process.cwd());
+    console.log("Process working directory: ", process.cwd());
     const data = await fs.readFile(`${process.cwd()}/index.html`, 'utf8') as string;
     const metatags = `
 <!-- Search Engine -->
