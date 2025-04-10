@@ -4,6 +4,7 @@ export const addMetatagsHandler = async (req, resp) => {
     console.log("Process working directory: ", process.cwd());
     const data = await fs.readFile(`${process.cwd()}/index.html`, 'utf8') as string;
     const metatags = `
+<!-- Modified date: Thursday 10th April 2025, 13:00 BST -->
 <!-- Search Engine -->
 <meta property="description" name="description" content="Kendraio App is an open source dashboard application for rights owners, music makers, managers and record labels, enabling users to manage and track their digital media assets, collaborations and associated rights.">
 <meta property="image" name="image" content="https://repository-images.githubusercontent.com/117979379/a32bde00-78bb-11ea-97a2-44df4832b60f">
