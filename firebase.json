@@ -22,10 +22,6 @@
       {
         "source": "**/*.js",
         "destination": "/$1.js"
-      },
-      {
-        "source": "**",
-        "function": "dynamicIndex"
       }
     ],
     "headers": [{
