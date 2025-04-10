@@ -26,6 +26,10 @@
       {
         "source": "**",
         "destination": "/index.html"
+      },
+      {
+        "source": "/not_used",
+        "function": "dynamicIndex"
       }
     ]
   },
