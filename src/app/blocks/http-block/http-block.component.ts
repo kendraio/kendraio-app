@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { get, has, includes, isString, toUpper } from 'lodash-es';
 import { ContextDataService } from '../../services/context-data.service';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
@@ -8,10 +8,33 @@ import { of, EMPTY } from 'rxjs';
 import { mappingUtility } from '../mapping-block/mapping-util';
 import { signAwsSigV4 } from './aws-sigv4';
 
+// helper to calculate human-readable size and SHA-1 hash
+async function computeMeta(data: any): Promise<{responseSize: string, responseHash: string}> {
+  let buffer: ArrayBuffer;
+  if (data instanceof ArrayBuffer) buffer = data;
+  else if (typeof data === 'string') buffer = new TextEncoder().encode(data).buffer;
+  else buffer = new TextEncoder().encode(JSON.stringify(data)).buffer;
+  const size = buffer.byteLength;
+  const responseSize = formatBytes(size);
+  const hashBuf = await crypto.subtle.digest('SHA-1', buffer);
+  const responseHash = Array.from(new Uint8Array(hashBuf)).map(b => b.toString(16).padStart(2,'0')).join('');
+  return { responseSize, responseHash };
+}
+
+function formatBytes(bytes: number, decimals = 2): string {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const dm = decimals < 0 ? 0 : decimals;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+
 @Component({
   selector: 'app-http-block',
   templateUrl: './http-block.component.html',
-  styleUrls: ['./http-block.component.scss']
+  styleUrls: ['./http-block.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HttpBlockComponent implements OnInit, OnChanges {
 
@@ -35,10 +58,14 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   contextErrors = '';
   prevContextKey = '';
 
+  responseSize?: string;
+  responseHash?: string;
+
   constructor(
     private readonly contextData: ContextDataService,
     private readonly notify: MatSnackBar,
-    private readonly http: HttpClient
+    private readonly http: HttpClient,
+    private readonly cdr: ChangeDetectorRef  // inject ChangeDetectorRef
   ) {
   }
 
@@ -46,6 +73,9 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes) {
+    console.log('Changes in HTTP block', changes);
+    console.log('Changes in HTTP block b');
+
     const keyChanges = Object.keys(changes);
     this.contextErrorKey = get(this.config, 'contextErrorKey', null);
     if (this.context.__key !== this.prevContextKey) {
@@ -63,9 +93,20 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     if (get(this.config, 'skipInit', true) && get(changes, 'model.firstChange', false)) {
       return;
     }
+
+
+    
     this.responseType = get(this.config, 'responseType', 'json');
     this.errorBlocks = get(this.config, 'onError.blocks', []);
 
+    if (this.statusCode) {
+      console.log('Status code is not null, skipping request');
+      if (this.isLoading) {
+        this.isLoading = false;
+      }
+      return;
+    } 
+    
     this.makeRequest();
   }
 
@@ -74,9 +115,15 @@ export class HttpBlockComponent implements OnInit, OnChanges {
    * It also supports pagination by calling the getAllPages method when followPaginationLinksMerged option is enabled.
    */
   async makeRequest() {
+    if (this.statusCode) {
+      console.log('Status code is not null, skipping request');
+      if (this.isLoading) {
+        this.isLoading = false;
+      }
+      return;
+    } 
     this.hasError = false;
     this.isLoading = true;
-    this.statusCode = null; // Reset status code when starting a new request
     const method = get(this.config, 'method');
     if (!method) {
       this.errorMessage = 'No HTTP method provided';
@@ -209,6 +256,8 @@ export class HttpBlockComponent implements OnInit, OnChanges {
                 this.hasError = true;
                 this.errorMessage = error.message;
                 this.errorData = error;
+                this.isLoading = false;
+
                 // Return an object with hasError flag for our internal error handling
                 return of({
                   body: { error, hasError: true, errorMessage: this.errorMessage },
@@ -219,28 +268,14 @@ export class HttpBlockComponent implements OnInit, OnChanges {
               })
             )
             .subscribe((response: HttpResponse<any> | any) => {
+              if (this.statusCode) {
+                console.log('Status code is not null, skipping request');
+                return;
+              } 
               this.isLoading = false;
-              
-              // Check if this is an error response (from our catchError)
-              if (response.hasError) {
-                // Already handled in the catchError operator
-              } else {
-                // Normal successful response
-                this.hasError = false;
-                this.errorBlocks = [];
-                
-                // Include the status code in the output
-                const result = response.body;
-                // Add status code for direct use in templates
-                const resultWithStatus = typeof result === 'object' && result !== null 
-                  ? { ...result, __httpStatus: response.status } 
-                  : result;
-                  
-                this.outputResult({
-                  data: resultWithStatus,
-                  statusCode: response.status
-                });
-              }
+              this.hasError = false;
+              this.errorBlocks = [];
+              this.outputResult(response.body, response.status);
             });
         }
         break;
@@ -251,6 +286,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
               this.hasError = true;
               this.errorMessage = error.message;
               this.errorData = error;
+              this.isLoading = false;
               return of({
                 body: { error, hasError: true, errorMessage: this.errorMessage },
                 status: error.status || 500,
@@ -261,20 +297,9 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           )
           .subscribe((response: HttpResponse<any> | any) => {
             this.isLoading = false;
-            
-            if (response.hasError) {
-              // Already handled in the catchError operator
-            } else {
-              this.hasError = false;
-              this.errorBlocks = [];
-              
-              // Include the status code in the output
-              const result = response.body;
-              this.outputResult({
-                data: result,
-                statusCode: response.status
-              });
-            }
+            this.hasError = false;
+            this.errorBlocks = [];
+            this.outputResult(response.body, response.status);
           });
         break;
       case 'BPUT': // binary PUT
@@ -295,6 +320,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
               this.hasError = true;
               this.errorMessage = error.message;
               this.errorData = error;
+              this.isLoading = false;
               return of({
                 body: { error, hasError: true, errorMessage: this.errorMessage },
                 status: error.status || 500,
@@ -305,26 +331,16 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           )
           .subscribe((response: HttpResponse<any> | any) => {
             this.isLoading = false;
-            
-            if (response.hasError) {
-              // Already handled in the catchError operator
-            } else {
-              this.hasError = false;
-              this.errorBlocks = [];
-
-              const result = response.body;
-              this.outputResult({
-                data: result,
-                statusCode: response.status
+            this.hasError = false;
+            this.errorBlocks = [];
+            this.outputResult(response.body, response.status);
+            const notify = get(this.config, 'notify', true);
+            if (notify) {
+              const message = 'API update successful';
+              this.notify.open(message, 'OK', {
+                duration: 2000,
+                verticalPosition: 'top'
               });
-              const notify = get(this.config, 'notify', true);
-              if (notify) {
-                const message = 'API update successful';
-                this.notify.open(message, 'OK', {
-                  duration: 2000,
-                  verticalPosition: 'top'
-                });
-              }
             }
           });
         break;
@@ -357,6 +373,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
               this.hasError = true;
               this.errorMessage = error.message;
               this.errorData = error;
+              this.isLoading = false;
               return of({
                 body: { error, hasError: true, errorMessage: this.errorMessage },
                 status: error.status || 500,
@@ -367,26 +384,18 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           )
           .subscribe((response: HttpResponse<any> | any) => {
             this.isLoading = false;
-            
-            if (response.hasError) {
-              // Already handled in the catchError operator
-            } else {
-              this.hasError = false;
-              this.errorBlocks = [];
+            this.hasError = false;
+            this.errorBlocks = [];
 
-              const result = response.body;
-              this.outputResult({
-                data: result,
-                statusCode: response.status
+            this.outputResult(response.body, response.status);
+
+            const notify = get(this.config, 'notify', true);
+            if (notify) {
+              const message = 'API update successful';
+              this.notify.open(message, 'OK', {
+                duration: 2000,
+                verticalPosition: 'top'
               });
-              const notify = get(this.config, 'notify', true);
-              if (notify) {
-                const message = 'API update successful';
-                this.notify.open(message, 'OK', {
-                  duration: 2000,
-                  verticalPosition: 'top'
-                });
-              }
             }
           });
         break;
@@ -424,6 +433,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           this.hasError = true;
           this.errorMessage = error.message;
           this.errorData = error;
+          this.isLoading = false;
           return of([]);
         }),
         reduce((accumlated_results: any[], response: HttpResponse<any>) => accumlated_results.concat(response.body || []), [])
@@ -431,10 +441,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       .subscribe(results => {
         this.isLoading = false;
         this.hasError = false;
-        this.outputResult({
-          data: results,
-          statusCode: 200 // Aggregate result from multiple successful calls
-        });
+        this.outputResult(results, 200);
       });
   }
 
@@ -487,11 +494,27 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     return nextPageLink?.url || null;
   }
 
-  outputResult(data) {
-    if (data && data.statusCode) {
-      this.statusCode = data.statusCode;
+  async outputResult(data: any, statusCode?: number) {
+    if (statusCode) {
+      //if (this.statusCode){
+      //  console.log("Already set status code, will not set again.");
+      //  console.log("But for reference the status code we just got is",statusCode);
+      //  return;
+      //}
+      this.statusCode = statusCode;
+      const { responseSize, responseHash } = await computeMeta(data);
+      this.responseSize = responseSize;
+      this.responseHash = responseHash;
+      this.output.emit({ data, statusCode, responseSize, responseHash });
+      console.log('Response size:', responseSize);
+      console.log('Response hash:', responseHash);
+      console.log('Status code:', statusCode);
+      console.log('in outputResult, marking for check');
+      console.log('in outputResult, directing change check');
+      this.cdr.markForCheck();  // minimal fix: re-check view after HTTP response
+      this.cdr.detectChanges();   // ← THIS is the line that makes it stick
     }
-    this.output.emit(data);
+
   }
 
   getPayloadHeaders() {
