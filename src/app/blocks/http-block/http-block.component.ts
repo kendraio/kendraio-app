@@ -6,6 +6,8 @@ import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack
 import { catchError, expand, reduce, takeWhile } from 'rxjs/operators';
 import { of, EMPTY } from 'rxjs';
 import { mappingUtility } from '../mapping-block/mapping-util';
+import { signAwsSigV4 } from './aws-sigv4';
+
 @Component({
   selector: 'app-http-block',
   templateUrl: './http-block.component.html',
@@ -70,7 +72,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
    * Makes an HTTP request based on the provided configuration and handles the response.
    * It also supports pagination by calling the getAllPages method when followPaginationLinksMerged option is enabled.
    */
-  makeRequest() {
+  async makeRequest() {
     this.hasError = false;
     this.isLoading = true;
     const method = get(this.config, 'method');
@@ -102,6 +104,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       if (!url) {
         this.hasError = true;
         this.errorMessage = 'Invalid proxy URL';
+        this.isLoading = false;
         return;
       }
     }
@@ -122,6 +125,57 @@ export class HttpBlockComponent implements OnInit, OnChanges {
             headers = headers.append('Authorization', `Bearer ${jwt}`);
           }
           break;
+        case 'aws-sigv4': {
+          const rawAccessKeyId = get(this.config, 'authentication.accessKeyId', '');
+          const rawAccessKeyIdGetter = get(this.config, 'authentication.accessKeyIdGetter', null);
+          const actualAccessKeyId = rawAccessKeyIdGetter
+            ? mappingUtility({ data: this.model, context: this.context }, rawAccessKeyIdGetter)
+            : rawAccessKeyId;
+
+          const rawSecretKey = get(this.config, 'authentication.secretKey', '');
+          const rawSecretKeyGetter = get(this.config, 'authentication.secretKeyGetter', null);
+          const actualSecretKey = rawSecretKeyGetter
+            ? mappingUtility({ data: this.model, context: this.context }, rawSecretKeyGetter)
+            : rawSecretKey;
+
+          if (!url) {
+            this.hasError = true;
+            this.errorMessage = 'No URL to sign for aws-sigv4 authentication';
+            this.isLoading = false;
+            return;
+          }
+          if (!actualAccessKeyId || !actualSecretKey) {
+            this.hasError = true;
+            this.errorMessage = 'Missing AWS credentials (accessKeyId or secretKey)';
+            this.isLoading = false;
+            return;
+          }
+          
+          // Handle payload based on HTTP method
+          const methodUpper = method.toUpperCase();
+          const isBinary = methodUpper === 'BPUT';
+          
+          // For GET, DELETE methods use empty string as payload
+          let actualPayload = '';
+          if (['PUT', 'POST', 'PATCH', 'BPUT'].includes(methodUpper)) {
+            actualPayload = isBinary ? get(this.model, 'content') : this.getPayload();
+          }
+          
+          try {
+            const { headers: sigHeaders } = await signAwsSigV4(method, useProxy ? headers.get('Target-URL')! : url, actualPayload, actualAccessKeyId, actualSecretKey);
+            // Merge sigHeaders into our existing headers
+            Object.keys(sigHeaders).forEach(k => {
+              if (k.toLowerCase() === 'host') return;
+              headers = headers.set(k, sigHeaders[k]);
+            });
+          } catch (err) {
+            this.hasError = true;
+            this.errorMessage = (err as Error).message;
+            this.isLoading = false;
+            return;
+          }
+          break;
+        }
         default:
           console.log('Unknown authentication type');
       }
