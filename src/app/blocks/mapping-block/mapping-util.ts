@@ -117,6 +117,10 @@ const search = decorate({
     _func: ([v]) => stringify(v),
     _signature: [{types: [TYPE_ANY]}]
   },
+  jsonParse: {
+    _func: ([v]) => JSON.parse(v),
+    _signature: [{types: [TYPE_STRING]}]
+  },
   markdown: {
     _func: ([s]) => {
       showdown.setFlavor('github');

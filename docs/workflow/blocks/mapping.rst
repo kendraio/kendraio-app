@@ -295,17 +295,18 @@ Available Extensions
 19. zip
 20. debug
 21. json
-22. markdown
-23. btoa
-24. base64encode
-25. pairwise
-26. numDiff
-27. percentChange
-28. groupByKeys
-29. all
-30. parseDate
-31. parseDuration
-32. parseUnixTimestamp
+22. jsonParse
+23. markdown
+24. btoa
+25. base64encode
+26. pairwise
+27. numDiff
+28. percentChange
+29. groupByKeys
+30. all
+31. parseDate
+32. parseDuration
+33. parseUnixTimestamp
 
 Each of these extensions is detailed below with example usages.
 
@@ -609,6 +610,25 @@ Examples:
    json(data)
 
    // Output: "{\"name\":\"John Doe\",\"age\":35,\"email\":\"john.doe@example.com\",\"tags\":[\"frontend\",\"ui\"],\"projects\":[{\"id\":1,\"title\":\"Project A\"},{\"id\":2,\"title\":\"Project B\"}]}"
+
+22. jsonParse
+--------
+
+Converts a JSON string to a JS Object.
+
+Examples:
+
+.. code-block:: javascript
+   
+   jsonParse(data)
+
+   { 
+      name: "John Doe", 
+      age: 35, 
+      email: "john.doe@example.com", 
+      tags: ["frontend","ui"], 
+      projects: [{ id: 1, title: "Project A" },{ id: 2, title: "Project B" }] 
+   }
 
 22. markdown
 ------------
