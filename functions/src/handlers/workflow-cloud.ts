@@ -22,7 +22,7 @@ function appFactory({db, auth}: { db: admin.firestore.Firestore, auth: admin.aut
   const cors = require('cors');
   const bodyParser = require('body-parser');
 
-  const fakeId = () => db.collection('temp').doc().id;
+  const fakeId = () => db.collection('workflows').doc().id;
 
   app.use(cors());
   app.use(bodyParser.json());
