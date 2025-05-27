@@ -7,7 +7,6 @@ import { environment } from './environments/environment';
 
 console.log('Environment:', environment);
 
-
 if (environment.production) {
   enableProdMode();
 }
