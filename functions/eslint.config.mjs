@@ -5,7 +5,7 @@ import importPlugin from 'eslint-plugin-import';
 export default [
   js.configs.recommended,
   {
-    ignores: ['/lib/**/*'],
+    ignores: ['lib/**/*'],
   },
   // Base configuration for all files
   {
