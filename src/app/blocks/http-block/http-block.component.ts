@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { get, has, includes, isString, toUpper } from 'lodash-es';
+import { get, has, includes, isString, toUpper, set } from 'lodash-es';
 import { ContextDataService } from '../../services/context-data.service';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
@@ -7,6 +7,7 @@ import { catchError, expand, reduce, takeWhile } from 'rxjs/operators';
 import { of, EMPTY } from 'rxjs';
 import { mappingUtility } from '../mapping-block/mapping-util';
 import { signAwsSigV4, sha1 } from './aws-sigv4';
+import { v4 as uuid } from 'uuid';
 
 // helper to calculate human-readable size and SHA-1 hash
 async function computeMeta(data: any): Promise<{responseSize: string, responseHash: string}> {
@@ -495,25 +496,67 @@ export class HttpBlockComponent implements OnInit, OnChanges {
 
   async outputResult(data: any, statusCode?: number) {
     if (statusCode) {
-      //if (this.statusCode){
-      //  console.log("Already set status code, will not set again.");
-      //  console.log("But for reference the status code we just got is",statusCode);
-      //  return;
-      //}
       this.statusCode = statusCode;
       const { responseSize, responseHash } = await computeMeta(data);
       this.responseSize = responseSize;
       this.responseHash = responseHash;
-      this.output.emit({ data, statusCode, responseSize, responseHash });
+
+      // Always save metadata to context (following context-save-block pattern)
+      const metadata = {
+        statusCode,
+        responseSize,
+        responseHash,
+        timestamp: new Date().toISOString(),
+        endpoint: this.constructEndpointUrl(this.config)
+      };
+      
+      set(this.context, 'httpMetadata', metadata);
+      this.context.__key = uuid();
+
+      
+      if (this.oldBucketUse()) {
+        this.output.emit({ data, statusCode, responseSize, responseHash });
+      } else {
+        this.output.emit(data);
+      }
+
       console.log('Response size:', responseSize);
       console.log('Response hash:', responseHash);
       console.log('Status code:', statusCode);
-      console.log('in outputResult, marking for check');
-      console.log('in outputResult, directing change check');
-      this.cdr.markForCheck();  // minimal fix: re-check view after HTTP response
-      this.cdr.detectChanges();   // ← THIS is the line that makes it stick
+      console.log('Metadata saved to context.httpMetadata');
+      this.cdr.markForCheck();
+      this.cdr.detectChanges();
+    }
+  }
+
+  private showDeprecationWarning(): void {
+    const warningMessage = '⚠️ Warning: AWS SigV4: Deprecated output format detected. Use context.httpMetadata for response metadata.';
+    console.warn(warningMessage);
+    
+    this.notify.open(
+       warningMessage,
+      'DISMISS',
+      {
+        duration: 8000,
+        verticalPosition: 'top',
+        panelClass: ['warning-snackbar']
+      }
+    );
+  }
+
+  private oldBucketUse(): boolean {
+    const forceOldBucketFormat = get(this.config, 'useOldBucketDataFormat', false);
+    const showWarning = get(this.config, 'oldBucketUseWarning', true);
+    const authType = get(this.config, 'authentication.type');
+    const bucketUse = authType === 'aws-sigv4';
+
+    const shouldUseLegacyFormat = forceOldBucketFormat || bucketUse;
+
+    if (shouldUseLegacyFormat && showWarning) {
+      this.showDeprecationWarning();
     }
 
+    return shouldUseLegacyFormat;
   }
 
   getPayloadHeaders() {
