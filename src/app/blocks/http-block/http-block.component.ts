@@ -6,7 +6,7 @@ import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack
 import { catchError, expand, reduce, takeWhile } from 'rxjs/operators';
 import { of, EMPTY } from 'rxjs';
 import { mappingUtility } from '../mapping-block/mapping-util';
-import { signAwsSigV4 } from './aws-sigv4';
+import { signAwsSigV4, sha1 } from './aws-sigv4';
 import { AppSettingsService } from '../../services/app-settings.service';
 import { v4 as uuid } from 'uuid';
 
@@ -18,8 +18,7 @@ async function computeMeta(data: any): Promise<{responseSize: string, responseHa
   else buffer = new TextEncoder().encode(JSON.stringify(data)).buffer;
   const size = buffer.byteLength;
   const responseSize = formatBytes(size);
-  const hashBuf = await crypto.subtle.digest('SHA-1', buffer);
-  const responseHash = Array.from(new Uint8Array(hashBuf)).map(b => b.toString(16).padStart(2,'0')).join('');
+  const responseHash = await sha1(buffer);
   return { responseSize, responseHash };
 }
 

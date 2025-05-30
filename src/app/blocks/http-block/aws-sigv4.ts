@@ -1,12 +1,15 @@
-async function sha256(data: string | ArrayBuffer): Promise<string> {
-  let buf: ArrayBuffer;
-  if (typeof data === 'string') {
-    buf = new TextEncoder().encode(data);
-  } else {
-    buf = data;
-  }
-  const digest = await crypto.subtle.digest('SHA-256', buf);
+async function computeHash(algorithm: string, data: string | ArrayBuffer): Promise<string> {
+  const buf = typeof data === 'string' ? new TextEncoder().encode(data) : data;
+  const digest = await crypto.subtle.digest(algorithm, buf);
   return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+export async function sha1(data: string | ArrayBuffer): Promise<string> {
+  return computeHash('SHA-1', data);
+}
+
+export async function sha256(data: string | ArrayBuffer): Promise<string> {
+  return computeHash('SHA-256', data);
 }
 
 async function hmacSha256(key: ArrayBuffer | string, data: string) {
@@ -135,12 +138,21 @@ export async function signAwsSigV4(method: string, requestUrl: string, payload: 
 
   // Build final Authorization header
   const authHeader = `AWS4-HMAC-SHA256 Credential=${accessKeyId}/${scope},SignedHeaders=${signedHeaders},Signature=${signature}`;
+  
+  // Auto-add hash metadata for PUT requests
+  const metaHeaders: Record<string, string> = {};
+  if (method.toUpperCase() === 'PUT' && payload) {
+    metaHeaders['x-amz-meta-sha1'] = await sha1(payloadForHash);
+    metaHeaders['x-amz-meta-sha256'] = await sha256(payloadForHash);
+  }
+  
   return {
     url: requestUrl,
     headers: {
       'x-amz-date': date,
       'x-amz-content-sha256': payloadHash,
-      'Authorization': authHeader
+      'Authorization': authHeader,
+      ...metaHeaders
     }
   };
 }
