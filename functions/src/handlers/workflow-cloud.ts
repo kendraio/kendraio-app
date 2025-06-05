@@ -52,21 +52,22 @@ function appFactory({db, auth}: { db: admin.firestore.Firestore, auth: admin.aut
 
   const updateWorkflow = async ({adapterName, workflowId, title, tags, created, updated, ...body}) => {
     const now = new Date().toISOString();
+    const id = workflowId || fakeId();
     await db
       .collection('adapters')
       .doc(adapterName || DEFAULT_ADAPTER_NAME)
       .collection('workflows')
-      .doc(workflowId || fakeId())
+      .doc(id)
       .set({
         adapterName,
-        workflowId,
+        workflowId: id,
         title,
         tags,
         created: created || now,
         updated: updated || now,
         _encoded: JSON.stringify(body)
       });
-    return { id: workflowId || fakeId() };
+    return { id };
   };
 
   app.put('/api', validateToken, async (req, res) => {
