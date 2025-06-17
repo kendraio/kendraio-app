@@ -25,23 +25,14 @@
   <span>SHA-1: {{ responseHash }}</span>
 </div>
 
-<div class="http-status-display">
-  <span [ngClass]="{
-    'status-success': statusCode >= 200 && statusCode < 300,
-    'status-redirect': statusCode >= 300 && statusCode < 400,
-    'status-error': statusCode >= 400
-  }">HTTP {{statusCode}}</span>
+<div class="spinner-wrapper">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
 </div>
 
-<div>
-  <span>HTTP status {{statusCode}}</span>
+<div *ngIf="isDebugEnabled">
+  <hr>
+  <pre>httpblock-context:{{context | json}}</pre>
+  <hr>
+  <pre>httpblock-config:{{config | json}}</pre>
 </div>
-
-<mat-spinner *ngIf="isLoading" diameter="50"></mat-spinner>
-
-<pre>httpblock-contect:{{context | json}}</pre>
-
-
-<hr>
-<pre>httpblock-config{{config | json}}</pre>
 
