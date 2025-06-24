@@ -7,7 +7,6 @@ import { catchError, expand, reduce, takeWhile } from 'rxjs/operators';
 import { of, EMPTY } from 'rxjs';
 import { mappingUtility } from '../mapping-block/mapping-util';
 import { signAwsSigV4 } from './aws-sigv4';
-import { AppSettingsService } from '../../services/app-settings.service';
 
 // helper to calculate human-readable size and SHA-1 hash
 async function computeMeta(data: any): Promise<{responseSize: string, responseHash: string}> {
@@ -66,18 +65,8 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     private readonly contextData: ContextDataService,
     private readonly notify: MatSnackBar,
     private readonly http: HttpClient,
-    private readonly cdr: ChangeDetectorRef,  // inject ChangeDetectorRef
-    private readonly settings: AppSettingsService  // inject AppSettingsService
+    private readonly cdr: ChangeDetectorRef  // inject ChangeDetectorRef
   ) {
-  }
-
-  get isDebugEnabled(): boolean {
-    // Check if debug is forced on in the block config
-    const forceDebug = get(this.config, 'debug', false);
-    // Check global debug mode setting
-    const globalDebugMode = this.settings.get('debugMode', false);
-    
-    return forceDebug || globalDebugMode;
   }
 
   ngOnInit() {
@@ -507,10 +496,16 @@ export class HttpBlockComponent implements OnInit, OnChanges {
 
   async outputResult(data: any, statusCode?: number) {
     if (statusCode) {
+      //if (this.statusCode){
+      //  console.log("Already set status code, will not set again.");
+      //  console.log("But for reference the status code we just got is",statusCode);
+      //  return;
+      //}
       this.statusCode = statusCode;
       const { responseSize, responseHash } = await computeMeta(data);
       this.responseSize = responseSize;
       this.responseHash = responseHash;
+      this.output.emit({ data, statusCode, responseSize, responseHash });
       console.log('Response size:', responseSize);
       console.log('Response hash:', responseHash);
       console.log('Status code:', statusCode);
@@ -519,9 +514,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       this.cdr.markForCheck();  // minimal fix: re-check view after HTTP response
       this.cdr.detectChanges();   // ← THIS is the line that makes it stick
     }
-    
-    // Always emit the data to the next block
-    this.output.emit(statusCode ? { data, statusCode, responseSize: this.responseSize, responseHash: this.responseHash } : data);
+
   }
 
   getPayloadHeaders() {
