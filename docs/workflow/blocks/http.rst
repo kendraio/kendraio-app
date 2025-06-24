@@ -28,15 +28,25 @@ Supported properties
 
 - **method** - REQUIRED - allowed values are get, put, post, delete, patch, and "bput" (for binary PUT requests like file uploads).
 - **useProxy** (boolean) (default = false) - Set to true to use a proxy. Useful for CORS. Proxy setting are set at https://app.kendra.io/core/settings
+- **proxyUrl** (string) - Custom proxy URL to use instead of the default proxy
 - **notify** (boolean) (default = true) -  Show a notification message if the request is successful. This message is not
   sent when the HTTP method is GET, but can be turned on and off for POST, PUT, and DELETE requests by using this
   property.
 - **headers** - A set of headers with header name as object key. Values are processed by JMESpath
 - **endpoint** - The request endpoint. Can take multiple forms. See below. 
+- **payload** - The request payload. Can be a JMESPath expression to transform data
+- **requestType** (string) (default = 'application/json') - Set to 'application/x-www-form-urlencoded' for form-encoded requests
+- **responseType** (string) (default = 'json') - The expected response type from the server
 - **authentication** - Optional authentication configuration. Currently supports AWS SigV4 for S3-compatible storage.
 - **onError** - Define an array of blocks to show when there is an error processing the HTTP request. 
 - **useOldBucketDataFormat** (boolean) (default = false) - Force the legacy wrapped output format for backwards compatibility
 - **oldBucketUseWarning** (boolean) (default = true) - Show deprecation warnings when using legacy output format 
+- **debug** (boolean) (default = false) - Force debug mode for this block, showing HTTP status, response size, and hash
+- **debugContext** (boolean) (default = false) - Show context data in debug output  
+- **debugConfig** (boolean) (default = false) - Show block configuration in debug output
+- **contextErrorKey** (string) - JMESPath expression to extract error messages from context
+- **skipInit** (boolean) (default = true) - Skip making HTTP request on initial load
+- **followPaginationLinksMerged** (boolean) (default = false) - Automatically follow pagination links and merge results 
 
 
 Examples
@@ -157,6 +167,60 @@ Caution: if the header value is a string, it must use two types of quotes: doubl
   }
 
 
+Additional Configuration
+------------------------
+
+**Custom Request Types**
+
+For form-encoded requests:
+
+.. code-block:: json
+
+    {
+      "type": "http",
+      "method": "POST",
+      "endpoint": "https://api.example.com/form",
+      "requestType": "application/x-www-form-urlencoded",
+      "payload": "{ username: data.user, password: data.pass }"
+    }
+
+**Response Type Configuration**
+
+.. code-block:: json
+
+    {
+      "type": "http",
+      "method": "GET",
+      "endpoint": "https://api.example.com/data.xml",
+      "responseType": "text"
+    }
+
+**Custom Proxy Configuration**
+
+.. code-block:: json
+
+    {
+      "type": "http",
+      "method": "GET",
+      "endpoint": "https://api.example.com/data",
+      "useProxy": true,
+      "proxyUrl": "https://my-custom-proxy.com/"
+    }
+
+**Skip Initial Request**
+
+.. code-block:: json
+
+    {
+      "type": "http",
+      "method": "POST",
+      "endpoint": "https://api.example.com/submit",
+      "skipInit": false
+    }
+
+By default, HTTP blocks skip making requests on initial load (``skipInit: true``). Set to ``false`` to make the request immediately when the block loads.
+
+
 Pagination
 ----------
 
@@ -172,6 +236,45 @@ With a proxy:
   "followPaginationLinksMerged": true
 }
 ```
+
+Debug Options
+-------------
+
+The HTTP block provides several debug options to help with troubleshooting and development:
+
+**Block-level Debug**
+
+.. code-block:: json
+
+    {
+      "type": "http",
+      "method": "GET",
+      "endpoint": "https://api.example.com/data",
+      "debug": true,
+      "debugContext": true,
+      "debugConfig": false
+    }
+
+- ``debug: true`` - Shows HTTP status code, response size, and SHA-1 hash for this block
+- ``debugContext: true`` - Additionally shows the current context data  
+- ``debugConfig: true`` - Additionally shows the block configuration
+
+**Global Debug Mode**
+
+When global debug mode is enabled in app settings, all HTTP blocks will show status information. Block-level debug flags work independently and can provide additional detail.
+
+**Error Context**
+
+.. code-block:: json
+
+    {
+      "type": "http",
+      "method": "POST",
+      "endpoint": "https://api.example.com/submit",
+      "contextErrorKey": "errors.apiError"
+    }
+
+The ``contextErrorKey`` allows you to extract and display error messages from the context using JMESPath expressions.
 
 Authentication
 --------------
@@ -190,7 +293,7 @@ The following authentication types are implemented:
 AWS SigV4 Authentication
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-AWS Signature Version 4 authentication is available for requests to S3-compatible storage providers such as AWS S3 and Backblaze B2. This is particularly useful for nonprofit data storage workflows.
+AWS Signature Version 4 authentication is available for requests to S3-compatible storage providers such as AWS S3 and Backblaze B2.
 
 **GET-to-PUT Flow Example**
 
@@ -254,7 +357,7 @@ The HTTP block will automatically save response metadata to context, accessible 
 
 - ``context.httpMetadata.statusCode`` - HTTP status code (200, 404, etc.)
 - ``context.httpMetadata.responseSize`` - Human readable size (e.g., "1.2 KB")
-- ``context.httpMetadata.responseHash`` - SHA-256 hash of response content
+- ``context.httpMetadata.responseHash`` - SHA-1 hash of response content
 - ``context.httpMetadata.timestamp`` - ISO timestamp when response was received
 - ``context.httpMetadata.endpoint`` - The actual endpoint URL that was called
 
@@ -300,7 +403,7 @@ For uploading different types of data, configure payloads appropriately:
 
 **Binary File Upload (BPUT)**
 
-For binary file uploads in nonprofit workflows, use the ``BPUT`` method:
+Binary file uploads use the ``BPUT`` method:
 
 .. code-block:: json
 
@@ -325,7 +428,7 @@ When using AWS SigV4 authentication with PUT or BPUT methods, the system automat
 - ``x-amz-meta-sha1``: SHA-1 hash of the uploaded content
 - ``x-amz-meta-sha256``: SHA-256 hash of the uploaded content
 
-These headers provide file verification and are particularly useful for ensuring data integrity in S3-compatible storage systems.
+These headers provide file verification and are particularly useful for ensuring data integrity and identification in S3-compatible storage systems.
 
 **Security Considerations**
 
