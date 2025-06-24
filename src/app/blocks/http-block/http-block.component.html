@@ -20,8 +20,8 @@
 </div>
 
 <!-- Extra meta info -->
-<div *ngIf="responseSize && !isLoading && showStatusInfo" class="http-meta">
-  <span>Size: {{ responseSize }}</span> |
+<div *ngIf="responseSizeFormatted && !isLoading && showStatusInfo" class="http-meta">
+  <span>Size: {{ responseSizeFormatted }}</span> |
   <span>SHA-1: {{ responseHash }}</span>
 </div>
 

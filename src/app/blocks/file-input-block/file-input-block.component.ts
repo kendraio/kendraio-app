@@ -3,6 +3,7 @@ import {BaseBlockComponent} from '../base-block/base-block.component';
 import {flatten, get} from 'lodash-es';
 import { SharedStateService } from 'src/app/services/shared-state.service';
 import { mappingUtility } from '../mapping-block/mapping-util';
+import { formatByteSizeForHumans } from '../http-block/http-utils';
 
 @Component({
   selector: 'app-file-input-block',
@@ -82,7 +83,7 @@ export class FileInputBlockComponent extends BaseBlockComponent {
           console.warn(this.warningMessage);
           this.selectedFile = {
             name: file.name,
-            size: this.formatFileSize(file.size)
+            size: formatByteSizeForHumans(file.size)
           };
           return;
         }
@@ -99,7 +100,7 @@ export class FileInputBlockComponent extends BaseBlockComponent {
     // Set the selected file info with formatted size
     this.selectedFile = {
       name: file.name,
-      size: this.formatFileSize(file.size)
+      size: formatByteSizeForHumans(file.size)
     };
     
     const fileReader = new FileReader();
@@ -145,17 +146,6 @@ export class FileInputBlockComponent extends BaseBlockComponent {
       fileReader.readAsText(file);
     }
     console.log('File read');
-  }
-  
-  // Format file size into human-readable format
-  formatFileSize(bytes: number): string {
-    if (bytes === 0) return '0 Bytes';
-    
-    const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   }
   
   // Set enabled state based on enabledGetter

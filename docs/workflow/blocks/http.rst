@@ -344,8 +344,9 @@ A common pattern involves retrieving data, modifying it, then uploading the upda
        { 
          "data": "<actual_response>",
          "statusCode": 200,
-         "responseSize": "1.2 KB", 
-         "responseHash": "abc123..."
+         "responseSizeFormatted": "1.2 KB", 
+         "responseHash": "abc123...",
+         "responseSizeBytes": 1234
        }
    
    This behavior is deprecated. Access metadata via ``context.httpMetadata`` instead.
@@ -356,7 +357,8 @@ A common pattern involves retrieving data, modifying it, then uploading the upda
 The HTTP block will automatically save response metadata to context, accessible via:
 
 - ``context.httpMetadata.statusCode`` - HTTP status code (200, 404, etc.)
-- ``context.httpMetadata.responseSize`` - Human readable size (e.g., "1.2 KB")
+- ``context.httpMetadata.responseSizeFormatted`` - Human readable size (e.g., "1.2 KB")
+- ``context.httpMetadata.responseSizeBytes`` - Raw byte count (e.g., 1234)
 - ``context.httpMetadata.responseHash`` - SHA-1 hash of response content
 - ``context.httpMetadata.timestamp`` - ISO timestamp when response was received
 - ``context.httpMetadata.endpoint`` - The actual endpoint URL that was called
@@ -375,7 +377,7 @@ For existing workflows that depend on the legacy wrapped output format, you can 
       "oldBucketUseWarning": false
     }
 
-- ``useOldBucketDataFormat: true`` - Forces the legacy wrapped output format ``{ data: <response>, statusCode, responseSize, responseHash }``
+- ``useOldBucketDataFormat: true`` - Forces the legacy wrapped output format ``{ data: <response>, statusCode, responseSizeFormatted, responseHash, responseSizeBytes }``
 - ``oldBucketUseWarning: false`` - Suppresses deprecation warnings (optional, defaults to true)
 
 **Payload Configuration Example**

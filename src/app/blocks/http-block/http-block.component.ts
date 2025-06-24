@@ -6,30 +6,10 @@ import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack
 import { catchError, expand, reduce, takeWhile } from 'rxjs/operators';
 import { of, EMPTY } from 'rxjs';
 import { mappingUtility } from '../mapping-block/mapping-util';
-import { signAwsSigV4, sha1 } from './aws-sigv4';
+import { signAwsSigV4 } from './aws-sigv4';
 import { AppSettingsService } from '../../services/app-settings.service';
 import { v4 as uuid } from 'uuid';
-
-// helper to calculate human-readable size and SHA-1 hash
-async function computeMeta(data: any): Promise<{responseSize: string, responseHash: string}> {
-  let buffer: ArrayBuffer;
-  if (data instanceof ArrayBuffer) buffer = data;
-  else if (typeof data === 'string') buffer = new TextEncoder().encode(data).buffer;
-  else buffer = new TextEncoder().encode(JSON.stringify(data)).buffer;
-  const size = buffer.byteLength;
-  const responseSize = formatBytes(size);
-  const responseHash = await sha1(buffer);
-  return { responseSize, responseHash };
-}
-
-function formatBytes(bytes: number, decimals = 2): string {
-  if (bytes === 0) return '0 Bytes';
-  const k = 1024;
-  const dm = decimals < 0 ? 0 : decimals;
-  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-}
+import { computeMetadata } from './http-utils';
 
 @Component({
   selector: 'app-http-block',
@@ -59,8 +39,9 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   contextErrors = '';
   prevContextKey = '';
 
-  responseSize?: string;
+  responseSizeFormatted?: string;
   responseHash?: string;
+  responseSizeBytes?: number;
 
   // Debug visibility properties
   showStatusInfo = false;
@@ -522,15 +503,17 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   async outputResult(data: any, statusCode?: number) {
     if (statusCode) {
       this.statusCode = statusCode;
-      const { responseSize, responseHash } = await computeMeta(data);
-      this.responseSize = responseSize;
+      const { responseSizeFormatted, responseHash, responseSizeBytes } = await computeMetadata(data);
+      this.responseSizeFormatted = responseSizeFormatted;
       this.responseHash = responseHash;
+      this.responseSizeBytes = responseSizeBytes;
 
       // Always save metadata to context (following context-save-block pattern)
       const metadata = {
         statusCode,
-        responseSize,
+        responseSizeFormatted,
         responseHash,
+        responseSizeBytes,
         timestamp: new Date().toISOString(),
         endpoint: this.constructEndpointUrl(this.config)
       };
@@ -538,14 +521,15 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       set(this.context, 'httpMetadata', metadata);
       this.context.__key = uuid();
 
-      
+
       if (this.oldBucketUse()) {
-        this.output.emit({ data, statusCode, responseSize, responseHash });
+        this.output.emit({ data, statusCode, responseSizeFormatted, responseHash, responseSizeBytes });
       } else {
         this.output.emit(data);
       }
 
-      console.log('Response size:', responseSize);
+      console.log('Response size:', responseSizeFormatted);
+      console.log('Response size (bytes):', responseSizeBytes);
       console.log('Response hash:', responseHash);
       console.log('Status code:', statusCode);
       console.log('Metadata saved to context.httpMetadata');
