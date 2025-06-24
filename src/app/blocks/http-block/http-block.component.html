@@ -11,7 +11,7 @@
 </div>
 
 <!-- Status code indicator -->
-<div *ngIf="statusCode && !isLoading && showDebugContext" class="http-status-display">
+<div *ngIf="statusCode && !isLoading && showStatusInfo" class="http-status-display">
   <span [ngClass]="{
     'status-success': statusCode >= 200 && statusCode < 300,
     'status-redirect': statusCode >= 300 && statusCode < 400,
@@ -20,7 +20,7 @@
 </div>
 
 <!-- Extra meta info -->
-<div *ngIf="responseSize && !isLoading && showDebugContext" class="http-meta">
+<div *ngIf="responseSize && !isLoading && showStatusInfo" class="http-meta">
   <span>Size: {{ responseSize }}</span> |
   <span>SHA-1: {{ responseHash }}</span>
 </div>

@@ -63,6 +63,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   responseHash?: string;
 
   // Debug visibility properties
+  showStatusInfo = false;
   showDebugContext = false;
   showDebugConfig = false;
 
@@ -84,13 +85,14 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     // Check global debug mode setting
     const globalDebugMode = this.settings.get('debugMode', false);
     
+    // Status info is shown for any general debug mode
+    this.showStatusInfo = forceDebug || globalDebugMode;
+    
     // For context display: only show if debugContext is explicitly set in config
-    const forceDebugContext = get(this.config, 'debugContext', false);
-    this.showDebugContext = forceDebugContext;
+    this.showDebugContext = get(this.config, 'debugContext', false);
     
     // For config display: only show if debugConfig is explicitly set in config
-    const forceDebugConfig = get(this.config, 'debugConfig', false);
-    this.showDebugConfig = forceDebugConfig;
+    this.showDebugConfig = get(this.config, 'debugConfig', false);
   }
 
   ngOnChanges(changes) {
