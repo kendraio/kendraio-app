@@ -382,7 +382,7 @@ For existing workflows that depend on the legacy wrapped output format, you can 
 
 **Payload Configuration Example**
 
-For uploading different types of data, configure payloads appropriately:
+For uploading different types of data, configure payloads and headers appropriately:
 
 .. code-block:: json
 
