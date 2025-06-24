@@ -7,6 +7,7 @@ import { catchError, expand, reduce, takeWhile } from 'rxjs/operators';
 import { of, EMPTY } from 'rxjs';
 import { mappingUtility } from '../mapping-block/mapping-util';
 import { signAwsSigV4 } from './aws-sigv4';
+import { AppSettingsService } from '../../services/app-settings.service';
 
 // helper to calculate human-readable size and SHA-1 hash
 async function computeMeta(data: any): Promise<{responseSize: string, responseHash: string}> {
@@ -61,20 +62,42 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   responseSize?: string;
   responseHash?: string;
 
+  // Debug visibility properties
+  showDebugContext = false;
+  showDebugConfig = false;
+
   constructor(
     private readonly contextData: ContextDataService,
     private readonly notify: MatSnackBar,
     private readonly http: HttpClient,
-    private readonly cdr: ChangeDetectorRef  // inject ChangeDetectorRef
+    private readonly cdr: ChangeDetectorRef,  // inject ChangeDetectorRef
+    private readonly settings: AppSettingsService  // inject AppSettingsService
   ) {
   }
 
   ngOnInit() {
   }
 
+  private updateDebugVisibility() {
+    // Check if debug is forced on in the block config
+    const forceDebug = get(this.config, 'debug', false);
+    // Check global debug mode setting
+    const globalDebugMode = this.settings.get('debugMode', false);
+    
+    // For context display: only show if debugContext is explicitly set in config
+    const forceDebugContext = get(this.config, 'debugContext', false);
+    this.showDebugContext = forceDebugContext;
+    
+    // For config display: only show if debugConfig is explicitly set in config
+    const forceDebugConfig = get(this.config, 'debugConfig', false);
+    this.showDebugConfig = forceDebugConfig;
+  }
+
   ngOnChanges(changes) {
     console.log('Changes in HTTP block', changes);
     console.log('Changes in HTTP block b');
+
+    this.updateDebugVisibility();
 
     const keyChanges = Object.keys(changes);
     this.contextErrorKey = get(this.config, 'contextErrorKey', null);

@@ -11,7 +11,7 @@
 </div>
 
 <!-- Status code indicator -->
-<div *ngIf="statusCode && !isLoading" class="http-status-display">
+<div *ngIf="statusCode && !isLoading && showDebugContext" class="http-status-display">
   <span [ngClass]="{
     'status-success': statusCode >= 200 && statusCode < 300,
     'status-redirect': statusCode >= 300 && statusCode < 400,
@@ -20,28 +20,16 @@
 </div>
 
 <!-- Extra meta info -->
-<div *ngIf="responseSize && !isLoading" class="http-meta">
+<div *ngIf="responseSize && !isLoading && showDebugContext" class="http-meta">
   <span>Size: {{ responseSize }}</span> |
   <span>SHA-1: {{ responseHash }}</span>
 </div>
 
-<div class="http-status-display">
-  <span [ngClass]="{
-    'status-success': statusCode >= 200 && statusCode < 300,
-    'status-redirect': statusCode >= 300 && statusCode < 400,
-    'status-error': statusCode >= 400
-  }">HTTP {{statusCode}}</span>
-</div>
-
-<div>
-  <span>HTTP status {{statusCode}}</span>
-</div>
-
 <mat-spinner *ngIf="isLoading" diameter="50"></mat-spinner>
 
-<pre>httpblock-contect:{{context | json}}</pre>
+<pre *ngIf="showDebugContext">HTTP Block Context:{{context | json}}</pre>
 
+<hr *ngIf="showDebugContext && showDebugConfig">
 
-<hr>
-<pre>httpblock-config{{config | json}}</pre>
+<pre *ngIf="showDebugConfig">HTTP Block Config:{{config | json}}</pre>
 
