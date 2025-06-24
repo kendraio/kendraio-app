@@ -280,7 +280,9 @@ export class HttpBlockComponent implements OnInit, OnChanges {
               } 
               this.isLoading = false;
               this.hasError = false;
-              this.errorBlocks = [];
+              if (!response.hasError) {
+                this.errorBlocks = [];
+              }
               this.outputResult(response.body, response.status);
             });
         }
@@ -304,7 +306,9 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           .subscribe((response: HttpResponse<any> | any) => {
             this.isLoading = false;
             this.hasError = false;
-            this.errorBlocks = [];
+            if (!response.hasError) {
+              this.errorBlocks = [];
+            }
             this.outputResult(response.body, response.status);
           });
         break;
@@ -338,7 +342,9 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           .subscribe((response: HttpResponse<any> | any) => {
             this.isLoading = false;
             this.hasError = false;
-            this.errorBlocks = [];
+            if (!response.hasError) {
+              this.errorBlocks = [];
+            }
             this.outputResult(response.body, response.status);
             const notify = get(this.config, 'notify', true);
             if (notify) {
@@ -391,7 +397,9 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           .subscribe((response: HttpResponse<any> | any) => {
             this.isLoading = false;
             this.hasError = false;
-            this.errorBlocks = [];
+            if (!response.hasError) {
+              this.errorBlocks = [];
+            }
 
             this.outputResult(response.body, response.status);
 
