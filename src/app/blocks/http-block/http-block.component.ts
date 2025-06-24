@@ -71,8 +71,8 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     private readonly contextData: ContextDataService,
     private readonly notify: MatSnackBar,
     private readonly http: HttpClient,
-    private readonly cdr: ChangeDetectorRef,  // inject ChangeDetectorRef
-    private readonly settings: AppSettingsService  // inject AppSettingsService
+    private readonly cdr: ChangeDetectorRef,
+    private readonly settings: AppSettingsService
   ) {
   }
 
@@ -538,6 +538,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       set(this.context, 'httpMetadata', metadata);
       this.context.__key = uuid();
 
+      
       if (this.oldBucketUse()) {
         this.output.emit({ data, statusCode, responseSize, responseHash });
       } else {
@@ -548,12 +549,27 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       console.log('Response hash:', responseHash);
       console.log('Status code:', statusCode);
       console.log('Metadata saved to context.httpMetadata');
-      this.cdr.markForCheck();  // minimal fix: re-check view after HTTP response
-      this.cdr.detectChanges();   // ← THIS is the line that makes it stick
+      this.cdr.markForCheck();
+      this.cdr.detectChanges();
     } else {
       // Always emit the data to the next block
       this.output.emit(data);
     }
+  }
+
+  private showDeprecationWarning(): void {
+    const warningMessage = '⚠️ Warning: AWS SigV4: Deprecated output format detected. Use context.httpMetadata for response metadata.';
+    console.warn(warningMessage);
+    
+    this.notify.open(
+       warningMessage,
+      'DISMISS',
+      {
+        duration: 8000,
+        verticalPosition: 'top',
+        panelClass: ['warning-snackbar']
+      }
+    );
   }
 
   private oldBucketUse(): boolean {
@@ -569,10 +585,6 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     }
 
     return shouldUseLegacyFormat;
-  }
-
-  private showDeprecationWarning() {
-    console.warn('HTTP Block: Using legacy bucket data format. Consider migrating to use context.httpMetadata instead.');
   }
 
   getPayloadHeaders() {
