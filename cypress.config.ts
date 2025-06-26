@@ -7,6 +7,12 @@ export default defineConfig({
   fixturesFolder: 'cypress/fixtures',
   reporter: 'mochawesome',
 
+  env: {
+    AWS_S3_ENDPOINT: 'http://localhost:4568',
+    AWS_ACCESS_KEY_ID: 'S3RVER',
+    AWS_SECRET_ACCESS_KEY: 'S3RVER',
+  },
+
   reporterOptions: {
     reportDir: 'cypress/results',
     overwrite: false,
@@ -27,10 +33,17 @@ export default defineConfig({
   experimentalStudio: true,
 
   e2e: {
-    setupNodeEvents(on, config) {},
-    supportFile: false,
+    setupNodeEvents(on, config) {
+      // Setup any needed tasks here
+    },
     baseUrl: 'http://localhost:4200',
-    specPattern: 'cypress/e2e/**/*.{js,jsx,ts,tsx}',
-    experimentalRunAllSpecs: true
+    specPattern: 'cypress/e2e/**/*.ts',
+    supportFile: 'cypress/support/e2e.ts',
+    env: {
+      AWS_ACCESS_KEY_ID: 'S3RVER',
+      AWS_SECRET_ACCESS_KEY: 'S3RVER',
+      AWS_S3_ENDPOINT: 'http://localhost:4568',
+      AWS_REGION: 'us-east-1',
+    }
   },
 })

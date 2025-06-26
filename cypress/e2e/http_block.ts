@@ -1,4 +1,5 @@
 import { loadFlowCode } from '../support/helper';
+import { v4 as uuid } from 'uuid';
 
 // tslint:disable: quotemark
 /// <reference types="Cypress" />
@@ -261,3 +262,90 @@ describe('HTTP Block Follow Pagination', () => {
         cy.get('body').should('not.contain', 'fish');
     });
 });
+
+describe('HTTP Block with AWS SigV4', () => {
+    const bucketName = 'test-bucket';
+    const testFileName = 's3_v4_test.txt';
+    const s3rverDirectory = '/tmp/s3rver';
+    const bucketPath = `${s3rverDirectory}/${bucketName}`;
+    const filePath = `${bucketPath}/${testFileName}`;
+  
+    before(() => {
+      // Create the S3 bucket by creating a directory
+      cy.exec(`mkdir -p ${bucketPath}`);
+    });
+  
+    after(() => {
+      // Clean up the bucket
+      cy.exec(`rm -rf ${bucketPath}`);
+    });
+  
+    beforeEach(() => {
+      cy.visit('/');
+      // Create a dummy file to upload
+      cy.writeFile(`cypress/fixtures/${testFileName}`, 'This is a test file for S3 upload with SigV4.');
+    });
+  
+    it('should upload a file to the local S3 server using SigV4', () => {
+      const uploadWorkflow = {
+        id: 's3-upload-workflow',
+        title: 'S3 Upload Workflow',
+        description: 'A workflow to test S3 upload with SigV4',
+        blocks: [
+          {
+            id: 's3-upload-block',
+            type: 'http',
+            method: 'BPUT',
+            endpoint: `http://localhost:4568/${bucketName}/${testFileName}`,
+            authentication: {
+              type: 'aws-sigv4',
+              accessKeyId: 'S3RVER',
+              secretKey: 'S3RVER'
+            },
+            model: {
+              content: 'context:fileContent'
+            },
+            skipInit: false
+          }
+        ]
+      };
+  
+      // Load the workflow into the app
+      cy.window().its('app.appStore').then(appStore => {
+        appStore.dispatch({
+          type: '[Flow] Import Flow',
+          payload: {
+            flow: uploadWorkflow
+          }
+        });
+      });
+  
+      // Read the file and set it in the context
+      cy.fixture(testFileName, 'binary').then(fileContent => {
+        return new Cypress.Promise(resolve => {
+          const blob = Cypress.Blob.binaryStringToBlob(fileContent, 'text/plain');
+          const reader = new FileReader();
+          reader.readAsArrayBuffer(blob);
+          reader.onloadend = () => {
+            resolve(reader.result as ArrayBuffer);
+          };
+        });
+      }).then(arrayBuffer => {
+        cy.window().its('app.appStore').then(appStore => {
+          appStore.dispatch({
+            type: '[Context] Set Data',
+            payload: {
+              key: 'fileContent',
+              data: arrayBuffer
+            }
+          });
+        });
+      });
+  
+      // Navigate to the workflow page to trigger it
+      cy.visit('/#/workflow/s3-upload-workflow');
+  
+      // Verify the file was uploaded
+      cy.exec(`cat ${filePath}`).its('stdout').should('equal', 'This is a test file for S3 upload with SigV4.');
+    });
+  });
