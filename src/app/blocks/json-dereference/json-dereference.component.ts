@@ -58,7 +58,3 @@ export class JsonDereferenceBlockComponent extends BaseBlockComponent implements
     }
   }
 }
-
-
-// next step:
-// try if works on Angular 16

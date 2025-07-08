@@ -131,11 +131,11 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
             this.processSchemaResult(result);
 
           } else if (schemaGetterConfig.trim().startsWith('data')) {
-            // It's a likely a data variable
+            // It's likely a data variable
             const result = mappingUtility({data: this.model, context: this.context}, schemaGetterConfig);
               this.processSchemaResult(result);
           } else {
-              // It's a likely a JSON Object
+              // It's likely a JSON Object
               try {
                   const parsedConfig = JSON.parse(schemaGetterConfig);
                   this.processSchemaResult(parsedConfig);
