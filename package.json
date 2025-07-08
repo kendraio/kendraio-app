@@ -165,7 +165,7 @@
     "tslib": "^2.6.3",
     "typescript": "^5.5.4",
     "webpack": "^5.94.0",
-    "webpack-dev-server": "^4.4.0",
+    "webpack-dev-server": "^5.2.1",
     "xvfb-maybe": "^0.2.1"
   },
   "browser": {
