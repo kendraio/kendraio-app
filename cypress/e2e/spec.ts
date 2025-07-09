@@ -180,3 +180,4 @@ describe('workspace-project App', () => {
     cy.location("pathname").should("eq", DASHBOARD_PATH);
   });
 });
+
