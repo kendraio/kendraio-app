@@ -86,6 +86,7 @@ describe('JSON Dereference Block', () => {
             cy.contains("Error: Failed to construct 'URL': Invalid URL");
         });
     });
+    
 
     it('should display a form from a schema passed to schemaGetter', () => {
         cy.intercept('GET', 'https://test-library.murmurations.network/v2/schemas/people_schema-v0.1.0', {
