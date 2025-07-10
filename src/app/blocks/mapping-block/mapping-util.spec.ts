@@ -86,4 +86,12 @@ describe('MappingUtil', () => {
 
     expect(mappingUtility(data, expr)).toBe(expected);
   });
+
+  it('should parse a valid JSON string into an object', () => {
+    const data = { jsonString: '{"name": "Alice", "age": 30}' };
+    const expr = "jsonParse(jsonString)";
+    const expected = { name: "Alice", age: 30 };
+
+    expect(mappingUtility(data, expr)).toEqual(expected);
+  });
 });

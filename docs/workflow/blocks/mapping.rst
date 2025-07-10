@@ -295,17 +295,18 @@ Available Extensions
 19. zip
 20. debug
 21. json
-22. markdown
-23. btoa
-24. base64encode
-25. pairwise
-26. numDiff
-27. percentChange
-28. groupByKeys
-29. all
-30. parseDate
-31. parseDuration
-32. parseUnixTimestamp
+22. jsonParse
+23. markdown
+24. btoa
+25. base64encode
+26. pairwise
+27. numDiff
+28. percentChange
+29. groupByKeys
+30. all
+31. parseDate
+32. parseDuration
+33. parseUnixTimestamp
 
 Each of these extensions is detailed below with example usages.
 
@@ -610,7 +611,26 @@ Examples:
 
    // Output: "{\"name\":\"John Doe\",\"age\":35,\"email\":\"john.doe@example.com\",\"tags\":[\"frontend\",\"ui\"],\"projects\":[{\"id\":1,\"title\":\"Project A\"},{\"id\":2,\"title\":\"Project B\"}]}"
 
-22. markdown
+22. jsonParse
+--------
+
+Converts a JSON string to a JS Object.
+
+Examples:
+
+.. code-block:: javascript
+   
+   jsonParse(data)
+
+   { 
+      name: "John Doe", 
+      age: 35, 
+      email: "john.doe@example.com", 
+      tags: ["frontend","ui"], 
+      projects: [{ id: 1, title: "Project A" },{ id: 2, title: "Project B" }] 
+   }
+
+23. markdown
 ------------
 
 Converts a markdown string to HTML.
@@ -621,7 +641,7 @@ Examples:
 
    markdown('## Header')  // Output: "<h2 id=\"header\">Header</h2>"
 
-23. btoa
+24. btoa
 ---------
 
 Encodes a string in base-64.
@@ -632,7 +652,7 @@ Examples:
 
    btoa(data.name)  // Output: "Sm9obiBEb2U="
 
-24. base64encode
+25. base64encode
 ----------------
 
 Safely encodes a string in base-64.
@@ -643,7 +663,7 @@ Examples:
 
    base64encode(data.name)  // Output: "Sm9obiBEb2U="
 
-25. pairwise
+26. pairwise
 ------------
 
 Groups the elements of an array into pairs. The function outputs an array containing objects, where each object consists of two properties: "current" and "next". The "current" property refers to the current element of the input array, while the "next" property refers to the next element in the input array. If there is no next element, the "next" property will be set to null.
@@ -679,7 +699,7 @@ Output:
         }
     ]
 
-26. numDiff
+27. numDiff
 -----------
 
 Subtracts two numbers.
@@ -690,7 +710,7 @@ Subtracts two numbers.
 
 Output: 1
 
-27. percentChange
+28. percentChange
 -----------------
 
 Calculates the percent change between two numbers.
@@ -701,7 +721,7 @@ Calculates the percent change between two numbers.
 
 Output: 100
 
-28. groupByKeys
+29. groupByKeys
 ----------------
 
 Groups the values of an array of objects by key.
@@ -725,7 +745,7 @@ Output:
         ]
     }
 
-29. all
+30. all
 -------
 
 Checks if all elements in an array pass a test (i.e., are truthy).
@@ -742,7 +762,7 @@ Output: true
 
 Output: false
 
-30. parseDate
+31. parseDate
 -------------
 
 Parses a date string in various formats and returns a date string.
@@ -753,7 +773,7 @@ Parses a date string in various formats and returns a date string.
 
 Output: "2020-01-01T00:00:00.000+00:00"
 
-31. parseDuration
+32. parseDuration
 -----------------
 
 Parses a duration string and returns the number of seconds.
@@ -764,7 +784,7 @@ Parses a duration string and returns the number of seconds.
 
 Output: "6030"
 
-32. parseUnixTimestamp
+33. parseUnixTimestamp
 ----------------------
 
 Parses a Unix timestamp and returns an ISO 8601 date string.
