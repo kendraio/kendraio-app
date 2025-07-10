@@ -216,12 +216,20 @@ export class HttpBlockComponent implements OnInit, OnChanges {
             actualPayload = this.getPayload();
           } else if (methodUpper === 'BPUT') {
             const bufferContent = get(this.model, 'content'); // Get potential buffer into temp variable
-            if (!(bufferContent instanceof ArrayBuffer)) { // Check the temp variable
-                this.hasError = true;
-                this.errorMessage = `Invalid or missing binary payload (ArrayBuffer) in model.content for BPUT signing.`;
-                this.isLoading = false;
-                console.error(this.errorMessage, 'Payload Type:', typeof bufferContent);
-                return;
+            const actualType = bufferContent?.constructor?.name || typeof bufferContent;
+            let snippet = '';
+
+            if (!(bufferContent instanceof ArrayBuffer)) {
+              try {
+              snippet = JSON.stringify(bufferContent).slice(0, 100);
+              } catch {
+              snippet = '[unserialisable object]';
+              }
+
+              this.hasError = true;
+              this.errorMessage = `Invalid binary payload with type: ${actualType}` + (snippet ? `\nSnippet: ${snippet}` : '');
+              this.isLoading = false;
+              return;
             }
             actualPayload = bufferContent; // Assign to actualPayload only if valid
           }
