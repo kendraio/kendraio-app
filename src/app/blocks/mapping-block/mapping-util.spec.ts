@@ -92,6 +92,6 @@ describe('MappingUtil', () => {
     const expr = "jsonParse(jsonString)";
     const expected = { name: "Alice", age: 30 };
 
-    expect(mappingUtility(data, expr)).toBe(expected);
+    expect(mappingUtility(data, expr)).toEqual(expected);
   });
 });
