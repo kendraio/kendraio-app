@@ -192,6 +192,16 @@ export const BLOCK_TYPES = [
     }
   },
   {
+    type: 'json-dereference',
+    label: 'JSON Dereference',
+    description: 'Resolving JSON schemas that have external references.',
+    icon: 'fa-table',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'json-dereference'
+    }
+  },
+  {
     type: 'http',
     label: 'HTTP Request',
     description: 'Get, put or post data to an external HTTP endpoint.',
