@@ -37,14 +37,6 @@ describe('GET and BPUT Flow Tests', () => {
         "type": "init"
       },
       {
-        "type": "mapping",
-        "mapping": "{ secretKey: 'S3RVER', accessKeyId: 'S3RVER' }"
-      },
-      {
-        "type": "context-save",
-        "key": "api"
-      },
-      {
         "type": "http",
         "method": "GET",
         "useProxy": false,
@@ -60,7 +52,7 @@ describe('GET and BPUT Flow Tests', () => {
       },
       {
         "type": "debug",
-        "open": 1,
+        "open": 3,
         "showData": true,
         "showContext": false,
         "label": "After GET"
@@ -71,7 +63,7 @@ describe('GET and BPUT Flow Tests', () => {
       },
       {
         "type": "debug",
-        "open": 1,
+        "open": 3,
         "showData": true,
         "showContext": false,
         "label": "After mapping"
@@ -83,14 +75,14 @@ describe('GET and BPUT Flow Tests', () => {
         "endpoint": `http://localhost:4568/${bucketName}/${targetFileName}`,
         "authentication": {
           "type": "aws-sigv4",
-          "secretKeyGetter": "context.api.secretKey",
-          "accessKeyIdGetter": "context.api.accessKeyId"
+          "accessKeyId": "S3RVER",
+          "secretKey": "S3RVER"
         },
         "skipInit": false
       },
       {
         "type": "debug",
-        "open": 1,
+        "open": 3,
         "showData": true,
         "showContext": true,
         "label": "Final result"
@@ -102,7 +94,7 @@ describe('GET and BPUT Flow Tests', () => {
     cy.contains('After GET').should('be.visible');
     
     // Wait for both requests to complete (more time for BPUT)
-    cy.wait(10000);
+    cy.wait(3000);
     
     // Verify the target file was created in s3rver
     cy.exec(`curl -f http://localhost:4568/${bucketName}/${targetFileName}`, { failOnNonZeroExit: false }).then((result) => {
@@ -120,14 +112,6 @@ describe('GET and BPUT Flow Tests', () => {
         "type": "init"
       },
       {
-        "type": "mapping",
-        "mapping": "{ secretKey: 'S3RVER', accessKeyId: 'S3RVER' }"
-      },
-      {
-        "type": "context-save",
-        "key": "api"
-      },
-      {
         "type": "http",
         "method": "GET",
         "useProxy": false,
@@ -152,14 +136,14 @@ describe('GET and BPUT Flow Tests', () => {
         "endpoint": `http://localhost:4568/${bucketName}/${targetFileName}`,
         "authentication": {
           "type": "aws-sigv4",
-          "secretKeyGetter": "context.api.secretKey",
-          "accessKeyIdGetter": "context.api.accessKeyId"
+          "accessKeyId": "S3RVER",
+          "secretKey": "S3RVER"
         },
         "skipInit": false
       },
       {
         "type": "debug",
-        "open": 1,
+        "open": 3,
         "showData": true,
         "showContext": true
       }
@@ -169,7 +153,7 @@ describe('GET and BPUT Flow Tests', () => {
     cy.get('app-debug-block').should('exist');
     
     // Wait for both requests to complete (more time for BPUT)
-    cy.wait(10000);
+    cy.wait(3000);
     
     // Verify the target file was created in s3rver
     cy.exec(`curl -f http://localhost:4568/${bucketName}/${targetFileName}`, { failOnNonZeroExit: false }).then((result) => {
@@ -185,14 +169,6 @@ describe('GET and BPUT Flow Tests', () => {
     loadFlowCode([
       {
         "type": "init"
-      },
-      {
-        "type": "mapping",
-        "mapping": "{ secretKey: 'S3RVER', accessKeyId: 'S3RVER' }"
-      },
-      {
-        "type": "context-save",
-        "key": "api"
       },
       {
         "type": "http",
@@ -218,15 +194,21 @@ describe('GET and BPUT Flow Tests', () => {
         "endpoint": `http://localhost:4568/${bucketName}/${targetFileName}`,
         "authentication": {
           "type": "aws-sigv4",
-          "secretKeyGetter": "context.api.secretKey",
-          "accessKeyIdGetter": "context.api.accessKeyId"
+          "accessKeyId": "S3RVER",
+          "secretKey": "S3RVER"
         },
         "skipInit": false
+      },
+      {
+        "type": "debug",
+        "open": 3,
+        "showData": true,
+        "showContext": true
       }
     ]);
 
     // Wait for workflow to complete
-    cy.wait(5000);
+    cy.wait(3000);
     
     // Verify both source and target files exist and have same content
     cy.exec(`curl -s http://localhost:4568/${bucketName}/${sourceFileName} | wc -c`).then((sourceResult) => {

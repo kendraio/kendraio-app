@@ -14,6 +14,8 @@ Restarting the server to reset state is best avoided by having a file reset part
 
 **Run Tests**: `npm run test:get-bput` (headless) or `npm run test:get-bput:open` (interactive debugging)
 
+**BUT ACTUALLy cypress/e2e/get_and_bput_binary_integrity.spec.ts is the more minimal new one**
+
 ```
 [
     {

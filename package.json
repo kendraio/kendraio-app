@@ -21,8 +21,8 @@
     "test:autorun": "xvfb-maybe ng test --watch=false; xvfb-maybe cypress run --headed",
     "test:serve_and_test": "npx cypress install; xvfb-maybe start-server-and-test serve:dev http://localhost:4200 'ng test --watch=false; cypress run'",
     "lint": "ng lint",
-    "start:s3rver": "s3rver -d /tmp/s3rver -a localhost -p 4568 -s",
-    "test:e2e:s3": "start-server-and-test start:s3rver http://localhost:4568 \"npm run test:serve_and_test\""
+    "test:get_and_bput_flow": "\"npx cypress run --spec cypress/e2e/get_and_bput_flow.spec.ts\"",
+    "test:binary-integrity": "(cypress verify > /dev/null 2>&1 || npx cypress install) && start-server-and-test serve:dev http://localhost:4200 \"npx cypress run --spec cypress/e2e/get_and_bput_binary_integrity.spec.ts\""
   },
   "private": true,
   "dependencies": {
@@ -142,6 +142,7 @@
     "@types/wavesurfer.js": "^2.0.2",
     "@typescript-eslint/eslint-plugin": "5.48.2",
     "@typescript-eslint/parser": "5.48.2",
+    "aws4": "^1.13.2",
     "cypress": "^13.3.3",
     "cypress-localstorage-commands": "^2.2.1",
     "electron": "^24.8.3",
