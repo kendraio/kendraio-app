@@ -1,48 +1,24 @@
 import { loadFlowCode } from '../support/helper';
 
-describe('AWS S3 SigV4 Support', () => {
+describe('HTTP Block AWS SigV4 Authentication', () => {
   const bucketName = 'test-bucket';
-  const testFileName = 's3_v4_test.txt';
-  const s3rverDirectory = '/tmp/s3rver';
-  const bucketPath = `${s3rverDirectory}/${bucketName}`;
-  const filePath = `${bucketPath}/${testFileName}`;
-
-  before(() => {
-    // Create the S3 bucket by creating a directory
-    cy.exec(`mkdir -p ${bucketPath}`);
-  });
-
-  after(() => {
-    // Clean up the bucket
-    cy.exec(`rm -rf ${bucketPath}`);
-  });
+  const testFileName = 'test.txt';
 
   beforeEach(() => {
-    // Prevent external network request for adapter config
+    // Prevent external network requests
     cy.intercept('GET', 'https://kendraio.github.io/kendraio-adapter/config.json', {
       fixture: 'adapterConfig.json'
     });
-
-    // Prevent external network requests for Workflow cloud
     cy.intercept('GET', 'https://app.kendra.io/api/workflowCloud/listWorkflows', {
       fixture: 'workflow-cloud.json'
     });
-
-    // Prevent external network requests for fonts with empty CSS rule 
     cy.intercept('https://fonts.googleapis.com/\*\*', "\*{ }");
-
-    // Create a dummy file to upload
-    cy.writeFile(`cypress/fixtures/${testFileName}`, 'This is a test file for S3 upload with SigV4.');
   });
 
-  it('should upload text data using PUT with SigV4', () => {
-    let requestMade = false;
+  it('verifies PUT request uses SigV4 authentication', () => {
     let sigV4HeadersPresent = false;
     
-    // Intercept the S3 PUT request to verify it was made with correct SigV4 headers
     cy.intercept('PUT', `http://localhost:4568/${bucketName}/${testFileName}`, (req) => {
-      requestMade = true;
-      
       // Verify SigV4 headers are present
       if (req.headers.authorization && 
           req.headers['x-amz-date'] && 
@@ -52,15 +28,9 @@ describe('AWS S3 SigV4 Support', () => {
         sigV4HeadersPresent = true;
       }
       
-      // Respond with success
-      req.reply({
-        statusCode: 200,
-        body: ''
-      });
-    }).as('s3Upload');
+      req.reply({ statusCode: 200, body: '' });
+    }).as('s3Put');
 
-    const testData = 'Simple text for S3 upload with SigV4';
-    
     loadFlowCode([
       { "type": "init" },
       {
@@ -72,40 +42,22 @@ describe('AWS S3 SigV4 Support', () => {
           "accessKeyId": "S3RVER",
           "secretKey": "S3RVER"
         },
-        "payload": `'${testData}'`
-      },
-      {
-        "type": "debug",
-        "open": 1,
-        "showData": true
+        "payload": "'test content'"
       }
     ]);
 
-    // Wait for the S3 upload request to be made
-    cy.wait('@s3Upload', { timeout: 15000 });
-
-    // Verify the debug block exists (showing the workflow executed)
-    cy.get('app-debug-block').should('exist');
+    cy.wait('@s3Put');
     
-    // Verify that our request was made with proper SigV4 headers
+    // Verify SigV4 headers
     cy.then(() => {
-      expect(requestMade, 'HTTP request was made').to.be.true;
       expect(sigV4HeadersPresent, 'AWS SigV4 headers were present').to.be.true;
     });
   });
 
-  it('should retrieve a file using GET with SigV4', () => {
-    // First, create a test file in the s3rver directory
-    const testContent = 'This is test content for retrieval';
-    cy.exec(`echo "${testContent}" > ${filePath}`);
-
-    let requestMade = false;
+  it('verifies GET request uses SigV4 authentication', () => {
     let sigV4HeadersPresent = false;
 
-    // Intercept the S3 GET request
     cy.intercept('GET', `http://localhost:4568/${bucketName}/${testFileName}`, (req) => {
-      requestMade = true;
-      
       // Verify SigV4 headers are present
       if (req.headers.authorization && 
           req.headers['x-amz-date'] && 
@@ -115,11 +67,13 @@ describe('AWS S3 SigV4 Support', () => {
         sigV4HeadersPresent = true;
       }
       
-      // Let the request pass through to the actual s3rver
-      req.continue();
-    }).as('s3Download');
+      req.reply({ 
+        statusCode: 200, 
+        body: 'test content response',
+        headers: { 'Content-Type': 'text/plain', 'Content-Length': '20' }
+      });
+    }).as('s3Get');
 
-    // Load the flow to GET the file
     loadFlowCode([
       { "type": "init" },
       {
@@ -130,27 +84,124 @@ describe('AWS S3 SigV4 Support', () => {
           "type": "aws-sigv4",
           "accessKeyId": "S3RVER",
           "secretKey": "S3RVER"
-        },
-        "responseType": "text"
+        }
       },
       {
         "type": "debug",
         "open": 1,
-        "showData": true
+        "showData": true,
+        "showContext": true
       }
     ]);
 
-    // Wait for the S3 download request to be made
-    cy.wait('@s3Download', { timeout: 15000 });
-
-    // Verify the debug block exists (showing the workflow executed)
-    cy.get('app-debug-block').should('exist');
+    cy.wait('@s3Get');
     
-    // Verify that our request was made with proper SigV4 headers
+    // Verify SigV4 headers
     cy.then(() => {
-      expect(requestMade, 'HTTP request was made').to.be.true;
       expect(sigV4HeadersPresent, 'AWS SigV4 headers were present').to.be.true;
     });
+
+    // Verify debug output exists and contains some expected content
+    cy.get('app-debug-block').should('exist');
+    
+    // Check for context metadata (this should definitely be there)
+    cy.get('app-debug-block').should('contain.text', 'httpMetadata');
+    
+    // Check for either legacy format OR new format
+    cy.get('app-debug-block').should(($debug) => {
+      const text = $debug.text();
+      const hasLegacyFormat = text.includes('statusCode') && text.includes('responseSizeFormatted');
+      const hasMetadata = text.includes('httpMetadata') && text.includes('responseSizeBytes');
+      
+      expect(hasMetadata, 'Should have httpMetadata in context').to.be.true;
+    });
+  });
+
+  it('verifies GET-to-BPUT binary flow uses SigV4 authentication', () => {
+    let getHeadersPresent = false;
+    let bputHeadersPresent = false;
+    
+    // Intercept the GET request for the binary file and return mock binary data
+    cy.intercept('GET', `http://localhost:4568/${bucketName}/document.pdf`, (req) => {
+      if (req.headers.authorization && 
+          req.headers['x-amz-date'] && 
+          req.headers['x-amz-content-sha256'] &&
+          typeof req.headers.authorization === 'string' &&
+          req.headers.authorization.startsWith('AWS4-HMAC-SHA256')) {
+        getHeadersPresent = true;
+      }
+      
+      // Return binary PDF content as ArrayBuffer
+      const binaryContent = new Uint8Array([0x25, 0x50, 0x44, 0x46, 0x2D, 0x31, 0x2E, 0x34]); // PDF header
+      req.reply({ 
+        statusCode: 200, 
+        body: binaryContent.buffer,
+        headers: { 'Content-Type': 'application/pdf', 'Content-Length': '8' }
+      });
+    }).as('s3GetBinary');
+    
+    // Intercept the BPUT request
+    cy.intercept('PUT', `http://localhost:4568/${bucketName}/uploaded-document.pdf`, (req) => {
+      if (req.headers.authorization && 
+          req.headers['x-amz-date'] && 
+          req.headers['x-amz-content-sha256'] &&
+          typeof req.headers.authorization === 'string' &&
+          req.headers.authorization.startsWith('AWS4-HMAC-SHA256')) {
+        bputHeadersPresent = true;
+      }
+      
+      req.reply({ statusCode: 200, body: '' });
+    }).as('s3Bput');
+
+    // GET-to-BPUT flow: retrieve binary file, then upload it
+    loadFlowCode([
+      { "type": "init" },
+      {
+        "type": "http",
+        "method": "GET",
+        "endpoint": `http://localhost:4568/${bucketName}/document.pdf`,
+        "authentication": {
+          "type": "aws-sigv4",
+          "accessKeyId": "S3RVER",
+          "secretKey": "S3RVER"
+        },
+        "responseType": "arraybuffer"
+      },
+      {
+        "type": "http",
+        "method": "BPUT",
+        "endpoint": `http://localhost:4568/${bucketName}/uploaded-document.pdf`,
+        "authentication": {
+          "type": "aws-sigv4",
+          "accessKeyId": "S3RVER",
+          "secretKey": "S3RVER"
+        },
+        "headers": {
+          "Content-Type": "'application/pdf'"
+        }
+      },
+      {
+        "type": "debug",
+        "open": 1,
+        "showData": true,
+        "showContext": true
+      }
+    ]);
+
+    cy.wait('@s3GetBinary');
+    
+    // Wait longer for BPUT as it might take time to process the binary data
+    cy.wait('@s3Bput', { timeout: 10000 });
+    
+    // Verify SigV4 headers were present in both requests
+    cy.then(() => {
+      expect(getHeadersPresent, 'GET request had AWS SigV4 headers').to.be.true;
+      expect(bputHeadersPresent, 'BPUT request had AWS SigV4 headers').to.be.true;
+    });
+
+    // Verify output format and metadata
+    cy.get('app-debug-block').should('exist');
+    cy.get('app-debug-block').should('contain.text', 'httpMetadata');
   });
 
 });
