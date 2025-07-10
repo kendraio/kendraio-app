@@ -1,5 +1,17 @@
 import { defineConfig } from 'cypress'
 
+function formatLogString(logString: string): string {
+  return (
+    logString
+      .replace(/(\r\n|\n|\r)/gm, '') // Remove line breaks
+      .replace(/\?data=[\w%+/=-]{50,}/g, '?data=...') // Shorten long ?data= params
+      .replace(/"([a-zA-Z_])/g, '"\n$1') // Newline after double quote before letter/underscore
+      .replace(/(\d)([a-zA-Z_][\w]*:)/g, '$1\n$2') // Newline before property after digit
+      .replace(/(Object|Array\[\d*\])([a-zA-Z_])/g, '$1\n$2') // Newline after 'Object'/'Array[n]' before letter/underscore
+      .replace(/(?<!https?):([^\s/])/g, ': $1') // Space after colon unless URL
+  );
+}
+
 export default defineConfig({
   videosFolder: 'cypress/videos',
   video: false,
@@ -26,17 +38,26 @@ export default defineConfig({
   defaultCommandTimeout: 30000,
 
   retries: {
-    runMode: 2,
-    openMode: 2,
+    runMode: 0,
+    openMode: 0,
   },
 
   experimentalStudio: true,
 
   e2e: {
     setupNodeEvents(on, config) {
-      // Setup any needed tasks here
+      on('task', {
+        logToStdout(msg) {
+          console.log(formatLogString(msg));
+          return null;
+        },
+        evalNode({ code }) {
+          // Give access to useful objects via closure
+          return eval(code)
+        }
+      });
     },
-    baseUrl: 'http://localhost:4200',
+    baseUrl: 'http://127.0.0.1:4200',
     specPattern: 'cypress/e2e/**/*.ts',
     supportFile: 'cypress/support/e2e.ts',
     env: {
