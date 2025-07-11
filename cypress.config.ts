@@ -26,11 +26,14 @@ export default defineConfig({
     json: true,
   },
 
+  watchForFileChanges: false,
+  projectId: 'ebzwp1',
+  pageLoadTimeout: 100000,
   defaultCommandTimeout: 30000,
 
   retries: {
-    runMode: 0,
-    openMode: 0,
+    runMode: 2,
+    openMode: 2,
   },
 
   experimentalStudio: true,
