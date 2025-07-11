@@ -7,6 +7,7 @@
   "scripts": {
     "start:dev": "npm-run-all serve:dev",
     "serve:dev": "ng serve",
+    "serve-mock-bucket": "npx s3rver -a 0.0.0.0 -d /tmp/s3rver -p 4568 -s --configure-bucket test-bucket ./cypress/e2e/s3rver_cors.xml",
     "build:local": "ng build",
     "build:dev": "ng build --configuration=dev",
     "build:prod": "ng build --configuration production",
@@ -19,7 +20,7 @@
     "test:serve_and_retest_on_change": "xvfb-maybe start-server-and-test serve:dev http://localhost:4200 'npm run test:retest_on_change'",
     "test:retest_on_change": "xvfb-maybe nodemon -e js,jsx,ts,tsx,css,scss --exec 'ng test --watch=false; cypress open --config watchForFileChanges=true'",
     "test:autorun": "xvfb-maybe ng test --watch=false; xvfb-maybe cypress run --headed",
-    "test:serve_and_test": "npx cypress install; xvfb-maybe start-server-and-test serve:dev http://localhost:4200 'ng test --watch=false; cypress run'",
+    "test:serve_and_test": "npx cypress install; xvfb-maybe start-server-and-test 'npm-run-all --parallel serve:dev serve-mock-bucket' http://localhost:4200 'ng test --watch=false; cypress run'",
     "lint": "ng lint"
   },
   "private": true,
@@ -156,6 +157,7 @@
     "ng-packagr": "^15.2.2",
     "nodemon": "^3.0.1",
     "npm-run-all": "^4.1.5",
+    "s3rver": "^3.7.1",
     "serve": "^14.2.0",
     "start-server-and-test": "^2.0.3",
     "ts-node": "^10.4.0",
