@@ -1,4 +1,5 @@
 name: "e2e"
+uses: ./.github/actions/tests
 description: "Run Cypress tests against a Vercel deployment"
 branding:
   icon: "alert-circle"
