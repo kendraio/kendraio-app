@@ -17,7 +17,7 @@ RUN apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev \
 RUN npm install -g @angular/cli
 
 # Install project dependencies
-COPY ../../package.json ../../package-lock.json ./
+COPY ../../../package.json ../../../package-lock.json ./
 RUN npm ci
 
 COPY entrypoint.sh /entrypoint.sh
