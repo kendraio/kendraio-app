@@ -16,8 +16,18 @@ RUN apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev \
 # Install Angular CLI globally if needed
 RUN npm install -g @angular/cli
 
+
+# Set workdir
+WORKDIR /app
+
+
 # Install project dependencies
 COPY . .
+
+# Print directory listing to check what's inside
+RUN echo "✅ Contents of /app before npm ci:" && ls -la /app
+
+
 RUN npm ci
 
 COPY entrypoint.sh /entrypoint.sh
