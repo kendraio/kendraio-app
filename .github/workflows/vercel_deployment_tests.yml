@@ -8,9 +8,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Prepare Docker build context
-        run: cp package.json package-lock.json .github/actions/tests/
-
       - uses: ./.github/actions/tests
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
