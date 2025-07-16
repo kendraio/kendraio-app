@@ -7,6 +7,8 @@ echo '::echo::off'
 
 npm install
 echo "Expected NPM install to have finished!"
+# Install s3rver mock globally for the CI environment
+npm install -g s3rver
 echo "::endgroup::"
 
 FAILURE_COUNT=0

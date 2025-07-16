@@ -10,10 +10,6 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
 
 # https://docs.cypress.io/guides/continuous-integration/introduction#Machine-requirements
 RUN apt-get update && apt-get install -y curl jq
-
-# Install s3rver globally for the CI environment
-RUN npm install -g s3rver
-
 # Copies your code file from your action repository to the filesystem path `/` of the container
 COPY entrypoint.sh /entrypoint.sh
 
