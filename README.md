@@ -67,7 +67,7 @@ You can start the development server using `npm run serve:dev` or use `npm run t
 
 `npm run test:serve_and_test` will start the dev server, and run unit and E2E headless tests once automatically and stop, producing a HTML report file and JSON file at `cypress/results/mochawesome.json` on first run.
 
-The existing `npx ng e2e` Angular command works too, but requires clicking on the set of tests that need running. It builds and runs the server then runs E2E tests once.
+The existing `npx ng e2e` Angular command works too, but requires clicking on the set of tests that need running. It builds and runs the server then runs E2E tests once. NOTE: Do not confuse `ng e2e` with the Cypress end-to-end tests.
 
 # Running tests in a container
 
