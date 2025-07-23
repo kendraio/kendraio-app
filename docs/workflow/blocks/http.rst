@@ -41,6 +41,7 @@ Supported properties
 - **onError** - Define an array of blocks to show when there is an error processing the HTTP request. 
 - **useOldBucketDataFormat** (boolean) (default = false) - Force the legacy wrapped output format for backwards compatibility
 - **oldBucketUseWarning** (boolean) (default = true) - Show deprecation warnings when using legacy output format 
+- **storeMetadataInContext** (boolean) (default = false) - Store response metadata (status, size, hash, timestamp) in context.httpMetadata
 - **debug** (boolean) (default = false) - Force debug mode for this block, showing HTTP status, response size, and hash
 - **debugContext** (boolean) (default = false) - Show context data in debug output  
 - **debugConfig** (boolean) (default = false) - Show block configuration in debug output
@@ -219,6 +220,19 @@ For form-encoded requests:
     }
 
 By default, HTTP blocks skip making requests on initial load (``skipInit: true``). Set to ``false`` to make the request immediately when the block loads.
+
+**Store Metadata in Context**
+
+.. code-block:: json
+
+    {
+      "type": "http",
+      "method": "GET",
+      "endpoint": "https://api.example.com/data",
+      "storeMetadataInContext": true
+    }
+
+When ``storeMetadataInContext`` is set to ``true``, response metadata (status code, size, hash, timestamp, endpoint) will be stored in ``context.httpMetadata`` for use by subsequent blocks.
 
 
 Pagination

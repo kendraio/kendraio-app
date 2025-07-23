@@ -526,8 +526,11 @@ export class HttpBlockComponent implements OnInit, OnChanges {
         endpoint: this.constructEndpointUrl(this.config)
       };
       
-      set(this.context, 'httpMetadata', metadata);
-      this.context.__key = uuid();
+      if (get(this.config, 'storeMetadataInContext', false)) {
+        set(this.context, 'httpMetadata', metadata);
+        this.context.__key = uuid();
+        console.log('Metadata saved to context.httpMetadata');
+      }
 
 
       if (this.oldBucketUse()) {
@@ -540,7 +543,6 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       console.log('Response size (bytes):', responseSizeBytes);
       console.log('Response hash:', responseHash);
       console.log('Status code:', statusCode);
-      console.log('Metadata saved to context.httpMetadata');
       this.cdr.markForCheck();
       this.cdr.detectChanges();
     } else {

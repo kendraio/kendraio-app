@@ -23,7 +23,8 @@ describe('S3 Bucket Binary Integrity Test', () => {
           accessKeyId: 'S3RVER',
           secretKey: 'S3RVER'
         },
-        "skipInit": false
+        "skipInit": false,
+        "storeMetadataInContext": true
       },
       { type: 'debug', open: 4, showData: true, showContext: true }
     ]);
@@ -42,7 +43,8 @@ describe('S3 Bucket Binary Integrity Test', () => {
         method: 'GET',
         endpoint: originalAssetUrl,
         responseType: 'arraybuffer',
-        skipInit: false
+        skipInit: false,
+        "storeMetadataInContext": true
       },
       { type: 'mapping', mapping: '{ content: data }' }, // upload to bucket
       {
@@ -57,7 +59,8 @@ describe('S3 Bucket Binary Integrity Test', () => {
         skipInit: false,
         "headers": {
           "Content-Type": "'image/png'"
-        }
+        },
+        "storeMetadataInContext": true
       },
       { type: 'debug', open: 4, showData: true, showContext: true },
       {
@@ -70,7 +73,8 @@ describe('S3 Bucket Binary Integrity Test', () => {
           accessKeyId: 'S3RVER',
           secretKey: 'S3RVER'
         },
-        skipInit: false
+        skipInit: false,
+        "storeMetadataInContext": true
       },
       { type: 'debug', open: 4, showData: true, showContext: true }
     ]);
@@ -100,7 +104,8 @@ describe('S3 Bucket Binary Integrity Test', () => {
           accessKeyId: 'S3RVER',
           secretKey: 'S3RVER'
         },
-        "skipInit": false
+        "skipInit": false,
+        "storeMetadataInContext": true
       },
       { type: 'debug', open: 4, showData: true, showContext: true }
     ]);
