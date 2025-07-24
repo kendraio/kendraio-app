@@ -532,12 +532,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
         console.log('Metadata saved to context.httpMetadata');
       }
 
-
-      if (this.oldBucketUse()) {
-        this.output.emit({ data, statusCode, responseSizeFormatted, responseHash, responseSizeBytes });
-      } else {
-        this.output.emit(data);
-      }
+      this.output.emit(data);
 
       console.log('Response size:', responseSizeFormatted);
       console.log('Response size (bytes):', responseSizeBytes);
@@ -549,36 +544,6 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       // Always emit the data to the next block
       this.output.emit(data);
     }
-  }
-
-  private showDeprecationWarning(): void {
-    const warningMessage = '⚠️ Warning: AWS SigV4: Deprecated output format detected. Use context.httpMetadata for response metadata.';
-    console.warn(warningMessage);
-    
-    this.notify.open(
-       warningMessage,
-      'DISMISS',
-      {
-        duration: 8000,
-        verticalPosition: 'top',
-        panelClass: ['warning-snackbar']
-      }
-    );
-  }
-
-  private oldBucketUse(): boolean {
-    const forceOldBucketFormat = get(this.config, 'useOldBucketDataFormat', false);
-    const showWarning = get(this.config, 'oldBucketUseWarning', true);
-    const authType = get(this.config, 'authentication.type');
-    const bucketUse = authType === 'aws-sigv4';
-
-    const shouldUseLegacyFormat = forceOldBucketFormat || bucketUse;
-
-    if (shouldUseLegacyFormat && showWarning) {
-      this.showDeprecationWarning();
-    }
-
-    return shouldUseLegacyFormat;
   }
 
   getPayloadHeaders() {

@@ -39,8 +39,6 @@ Supported properties
 - **responseType** (string) (default = 'json') - The expected response type from the server
 - **authentication** - Optional authentication configuration. Currently supports AWS SigV4 for S3-compatible storage.
 - **onError** - Define an array of blocks to show when there is an error processing the HTTP request. 
-- **useOldBucketDataFormat** (boolean) (default = false) - Force the legacy wrapped output format for backwards compatibility
-- **oldBucketUseWarning** (boolean) (default = true) - Show deprecation warnings when using legacy output format 
 - **storeMetadataInContext** (boolean) (default = false) - Store response metadata (status, size, hash, timestamp) in context.httpMetadata
 - **debug** (boolean) (default = false) - Force debug mode for this block, showing HTTP status, response size, and hash
 - **debugContext** (boolean) (default = false) - Show context data in debug output  
@@ -347,28 +345,9 @@ A common pattern involves retrieving data, modifying it, then uploading the upda
     ]
 
 
-**Legacy AWS SigV4 Output Format**
-
-.. note::
-   
-   **Deprecated:** HTTP blocks using AWS SigV4 authentication currently emit a wrapped response format for backwards compatibility:
-   
-   .. code-block:: json
-   
-       { 
-         "data": "<actual_response>",
-         "statusCode": 200,
-         "responseSizeFormatted": "1.2 KB", 
-         "responseHash": "abc123...",
-         "responseSizeBytes": 1234
-       }
-   
-   This behavior is deprecated. Access metadata via ``context.httpMetadata`` instead.
-   A deprecation warning will be shown when using AWS SigV4.
-
 **HTTP Response Metadata**
 
-The HTTP block will automatically save response metadata to context, accessible via:
+When ``storeMetadataInContext`` is enabled, the HTTP block will save response metadata to context, accessible via:
 
 - ``context.httpMetadata.statusCode`` - HTTP status code (200, 404, etc.)
 - ``context.httpMetadata.responseSizeFormatted`` - Human readable size (e.g., "1.2 KB")
@@ -383,16 +362,6 @@ For existing workflows that depend on the legacy wrapped output format, you can 
 
 .. code-block:: json
 
-    {
-      "type": "http",
-      "method": "GET", 
-      "endpoint": "https://api.example.com/data",
-      "useOldBucketDataFormat": true,
-      "oldBucketUseWarning": false
-    }
-
-- ``useOldBucketDataFormat: true`` - Forces the legacy wrapped output format ``{ data: <response>, statusCode, responseSizeFormatted, responseHash, responseSizeBytes }``
-- ``oldBucketUseWarning: false`` - Suppresses deprecation warnings (optional, defaults to true)
 
 **Payload Configuration Example**
 
