@@ -123,7 +123,7 @@ const search = decorate({
   },
   jsonStringify: {
     _func: ([v]) => JSON.stringify(v, null, 2),
-    _signature: [{types: [TYPE_STRING]}]
+    _signature: [{types: [TYPE_OBJECT, TYPE_ARRAY, TYPE_ANY]}]
   },
   markdown: {
     _func: ([s]) => {
