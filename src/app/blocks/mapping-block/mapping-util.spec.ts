@@ -97,7 +97,7 @@ describe('MappingUtil', () => {
 
   it('should stringify an object into a prettified JSON string', () => {
     const data = { obj: { name: "Alice", age: 30 } };
-    const expr = 'jsonStringify(obj, null, 2)';
+    const expr = 'jsonStringify(obj)';
     const expected = `{\n  "name": "Alice",\n  "age": 30\n}`;
 
     expect(mappingUtility(data, expr)).toEqual(expected);
