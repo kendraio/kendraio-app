@@ -296,17 +296,18 @@ Available Extensions
 20. debug
 21. json
 22. jsonParse
-23. markdown
-24. btoa
-25. base64encode
-26. pairwise
-27. numDiff
-28. percentChange
-29. groupByKeys
-30. all
-31. parseDate
-32. parseDuration
-33. parseUnixTimestamp
+23. jsonStringify
+24. markdown
+25. btoa
+26. base64encode
+27. pairwise
+28. numDiff
+29. percentChange
+20. groupByKeys
+31. all
+32. parseDate
+33. parseDuration
+34. parseUnixTimestamp
 
 Each of these extensions is detailed below with example usages.
 
@@ -620,7 +621,7 @@ Examples:
 
 .. code-block:: javascript
    
-   jsonParse(data)
+   jsonParse(data) // where data is a string of valid JSON
 
    { 
       name: "John Doe", 
@@ -630,7 +631,26 @@ Examples:
       projects: [{ id: 1, title: "Project A" },{ id: 2, title: "Project B" }] 
    }
 
-23. markdown
+23. jsonStringify
+--------
+
+Converts a JavaScript object into a JSON string.
+
+Examples:
+
+.. code-block:: javascript
+   
+   jsonParse(data) // where data is an object
+
+   { 
+      name: "John Doe", 
+      age: 35, 
+      email: "john.doe@example.com", 
+      tags: ["frontend","ui"], 
+      projects: [{ id: 1, title: "Project A" },{ id: 2, title: "Project B" }] 
+   }
+
+24. markdown
 ------------
 
 Converts a markdown string to HTML.
@@ -641,7 +661,7 @@ Examples:
 
    markdown('## Header')  // Output: "<h2 id=\"header\">Header</h2>"
 
-24. btoa
+25. btoa
 ---------
 
 Encodes a string in base-64.
@@ -652,7 +672,7 @@ Examples:
 
    btoa(data.name)  // Output: "Sm9obiBEb2U="
 
-25. base64encode
+26. base64encode
 ----------------
 
 Safely encodes a string in base-64.
@@ -663,7 +683,7 @@ Examples:
 
    base64encode(data.name)  // Output: "Sm9obiBEb2U="
 
-26. pairwise
+27. pairwise
 ------------
 
 Groups the elements of an array into pairs. The function outputs an array containing objects, where each object consists of two properties: "current" and "next". The "current" property refers to the current element of the input array, while the "next" property refers to the next element in the input array. If there is no next element, the "next" property will be set to null.
@@ -699,7 +719,7 @@ Output:
         }
     ]
 
-27. numDiff
+28. numDiff
 -----------
 
 Subtracts two numbers.
@@ -710,7 +730,7 @@ Subtracts two numbers.
 
 Output: 1
 
-28. percentChange
+29. percentChange
 -----------------
 
 Calculates the percent change between two numbers.
@@ -721,7 +741,7 @@ Calculates the percent change between two numbers.
 
 Output: 100
 
-29. groupByKeys
+30. groupByKeys
 ----------------
 
 Groups the values of an array of objects by key.
@@ -745,7 +765,7 @@ Output:
         ]
     }
 
-30. all
+31. all
 -------
 
 Checks if all elements in an array pass a test (i.e., are truthy).
@@ -762,7 +782,7 @@ Output: true
 
 Output: false
 
-31. parseDate
+32. parseDate
 -------------
 
 Parses a date string in various formats and returns a date string.
@@ -773,7 +793,7 @@ Parses a date string in various formats and returns a date string.
 
 Output: "2020-01-01T00:00:00.000+00:00"
 
-32. parseDuration
+33. parseDuration
 -----------------
 
 Parses a duration string and returns the number of seconds.
@@ -784,7 +804,7 @@ Parses a duration string and returns the number of seconds.
 
 Output: "6030"
 
-33. parseUnixTimestamp
+34. parseUnixTimestamp
 ----------------------
 
 Parses a Unix timestamp and returns an ISO 8601 date string.

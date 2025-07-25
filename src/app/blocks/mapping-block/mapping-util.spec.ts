@@ -94,4 +94,12 @@ describe('MappingUtil', () => {
 
     expect(mappingUtility(data, expr)).toEqual(expected);
   });
+
+  it('should stringify an object into a prettified JSON string', () => {
+    const data = { obj: { name: "Alice", age: 30 } };
+    const expr = 'jsonStringify(obj, null, 2)';
+    const expected = `{\n  "name": "Alice",\n  "age": 30\n}`;
+
+    expect(mappingUtility(data, expr)).toEqual(expected);
+  });
 });
