@@ -87,6 +87,18 @@ describe('MappingUtil', () => {
     expect(mappingUtility(data, expr)).toBe(expected);
   });
 
+  it('should stringify a JSON object with pretty formatting using space argument', () => {
+    const data = {
+      data: { name: "Alice", age: 30, job: "Engineer" }
+    };
+
+    // Use null as replacer and '2' as space (string)
+    const expr = "json(data, null, '2')";
+    const expected = JSON.stringify(data.data, null, 2);
+
+    expect(mappingUtility(data, expr)).toBe(expected);
+  });
+
   it('should parse a valid JSON string into an object', () => {
     const data = { jsonString: '{"name": "Alice", "age": 30}' };
     const expr = "jsonParse(jsonString)";
@@ -95,11 +107,4 @@ describe('MappingUtil', () => {
     expect(mappingUtility(data, expr)).toEqual(expected);
   });
 
-  it('should stringify an object into a prettified JSON string', () => {
-    const data = { obj: { name: "Alice", age: 30 } };
-    const expr = 'jsonStringify(obj)';
-    const expected = `{\n  "name": "Alice",\n  "age": 30\n}`;
-
-    expect(mappingUtility(data, expr)).toEqual(expected);
-  });
 });

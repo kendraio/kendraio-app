@@ -113,21 +113,21 @@ const search = decorate({
     },
     _signature: [{types: [TYPE_ANY]}]
   },
-  json: {
-    _func: ([v]) => stringify(v),
-    _signature: [{types: [TYPE_ANY]}]
+    json: {
+    _func: ([value, replacer = null, space = undefined]) => {
+      const safeSpace =
+        typeof space === 'string' ? parseInt(space, 10) || space : space;
+      return stringify(value, replacer, safeSpace);
+    },
+    _signature: [
+      { types: [TYPE_ANY] },
+      { optional: true, types: [TYPE_NULL, TYPE_ARRAY] },
+      { optional: true, types: [TYPE_NUMBER, TYPE_STRING] }
+    ]
   },
   jsonParse: {
     _func: ([v]) => JSON.parse(v),
     _signature: [{types: [TYPE_STRING]}]
-  },
-  jsonStringify: {
-    _func: ([value, replacer = null, space = 2]) => JSON.stringify(value, replacer, space),
-    _signature: [
-      { types: [TYPE_OBJECT, TYPE_ARRAY, TYPE_ANY] },  // value
-      { optional: true, types: [TYPE_NULL, TYPE_ARRAY] }, // replacer
-      { optional: true, types: [TYPE_NUMBER, TYPE_STRING] } // space
-    ]
   },
   markdown: {
     _func: ([s]) => {
