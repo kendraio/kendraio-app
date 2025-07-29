@@ -122,8 +122,12 @@ const search = decorate({
     _signature: [{types: [TYPE_STRING]}]
   },
   jsonStringify: {
-    _func: ([v]) => JSON.stringify(v, null, 2),
-    _signature: [{types: [TYPE_OBJECT, TYPE_ARRAY, TYPE_ANY]}]
+    _func: ([value, replacer = null, space = 2]) => JSON.stringify(value, replacer, space),
+    _signature: [
+      { types: [TYPE_OBJECT, TYPE_ARRAY, TYPE_ANY] },  // value
+      { optional: true, types: [TYPE_NULL, TYPE_ARRAY] }, // replacer
+      { optional: true, types: [TYPE_NUMBER, TYPE_STRING] } // space
+    ]
   },
   markdown: {
     _func: ([s]) => {
