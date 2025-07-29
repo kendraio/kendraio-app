@@ -609,6 +609,16 @@ Use json-stringify-safe to safely stringify and accept arguments for replacer an
 Examples:
 
 .. code-block:: javascript
+
+   json({
+      "name": "Alice",
+      "tags": [
+         "dev",
+         "ui"
+      ]
+   })
+
+   // Output on one line: "{{"name": "Alice","tags": ["dev","ui"]}"
    
    json({
       "name": "Alice",
@@ -618,7 +628,7 @@ Examples:
       ]
    }, null, '2')
 
-   // Output: "{
+   // Output prettified: "{
 .. {
 ..   "name": "Alice",
 ..   "tags": [
@@ -626,6 +636,12 @@ Examples:
 ..     "ui"
 ..   ]
 .. }"
+  
+   In order to render a prettified JSON, the data must be in a <pre> and <code> tags
+   i.e. 
+
+   <code><pre>{{data}}</code></pre>
+
 
 
 22. jsonParse
