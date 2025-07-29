@@ -296,18 +296,17 @@ Available Extensions
 20. debug
 21. json
 22. jsonParse
-23. jsonStringify
-24. markdown
-25. btoa
-26. base64encode
-27. pairwise
-28. numDiff
-29. percentChange
-20. groupByKeys
-31. all
-32. parseDate
-33. parseDuration
-34. parseUnixTimestamp
+23. markdown
+24. btoa
+25. base64encode
+26. pairwise
+27. numDiff
+28. percentChange
+29. groupByKeys
+30. all
+31. parseDate
+32. parseDuration
+33. parseUnixTimestamp
 
 Each of these extensions is detailed below with example usages.
 
