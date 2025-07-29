@@ -59,15 +59,13 @@ You can start the development server using `npm run serve:dev` or use `npm run t
 
 ## Running Unit and End-to-end tests with the development environment
 
+`npm run test:serve_and_test` will start the dev server, and run unit and E2E headless tests once automatically and stop, producing a HTML report file and JSON file at `cypress/results/mochawesome.json` on first run.
+
 `npm run test:serve_and_retest_on_change` will start the dev server, and run unit and E2E tests automatically upon file changes. It is useful for general local develoment.
 
 `npm run test:retest_on_change` will re-run unit and E2E tests automatically upon file changes, but it needs a running server.
 
 `npm run test:autorun` is good for automatically running unit and E2E tests ONCE, using an already running server.
-
-`npm run test:serve_and_test` will start the dev server, and run unit and E2E headless tests once automatically and stop, producing a HTML report file and JSON file at `cypress/results/mochawesome.json` on first run.
-
-The existing `npx ng e2e` Angular command works too, but requires clicking on the set of tests that need running. It builds and runs the server then runs E2E tests once.
 
 # Running tests in a container
 

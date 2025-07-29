@@ -233,6 +233,9 @@ describe('Kendraio context and state', () => {
   it('should allow the disabling of the datagrid', () => {
     loadFlowCode([
       {
+        "type": "init"
+      },
+      {
         "type": "context-save",
         "valueGetter": "`true`",
         "contextKey": "state.global.disabled",
