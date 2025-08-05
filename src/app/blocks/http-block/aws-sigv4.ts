@@ -52,7 +52,7 @@ function createCanonicalQueryString(searchParams: URLSearchParams): string {
   ).join('&');
 }
 
-export async function signAwsSigV4(method: string, requestUrl: string, payload: any, accessKeyId: string, secretKey: string) {
+export async function signAwsSigV4(method: string, requestUrl: string, payload: any, accessKeyId: string, secretKey: string, saveHashMetadata: boolean = false) {
   const urlObj = new URL(requestUrl);
   const host = urlObj.host;
   // We'll guess the region/service from host if it looks like S3 pattern, else fallback
@@ -98,11 +98,21 @@ export async function signAwsSigV4(method: string, requestUrl: string, payload: 
   const canonicalQuery = createCanonicalQueryString(urlObj.searchParams);
   
   // Canonical headers (lowercase, sorted by key). We at least need host, x-amz-date, x-amz-content-sha256.
-  const canonicalHeaders =
+  let canonicalHeaders =
     `host:${host.toLowerCase()}\n` +
     `x-amz-content-sha256:${payloadHash}\n` +
     `x-amz-date:${date}\n`;
-  const signedHeaders = 'host;x-amz-content-sha256;x-amz-date';
+  let signedHeaders = 'host;x-amz-content-sha256;x-amz-date';
+  
+  // For PUT requests, include meta headers in signature
+  let metaSha1: string | undefined;
+  let metaSha256: string | undefined;
+  if (method.toUpperCase() === 'PUT' && payload && saveHashMetadata) {
+    metaSha1 = await sha1(payloadForHash);
+    metaSha256 = await sha256(payloadForHash);
+    canonicalHeaders += `x-amz-meta-sha1:${metaSha1}\n` + `x-amz-meta-sha256:${metaSha256}\n`;
+    signedHeaders += ';x-amz-meta-sha1;x-amz-meta-sha256';
+  }
 
   const canonicalRequest = [
     method.toUpperCase(),
@@ -139,20 +149,12 @@ export async function signAwsSigV4(method: string, requestUrl: string, payload: 
   // Build final Authorization header
   const authHeader = `AWS4-HMAC-SHA256 Credential=${accessKeyId}/${scope},SignedHeaders=${signedHeaders},Signature=${signature}`;
   
-  // Auto-add hash metadata for PUT requests
-  const metaHeaders: Record<string, string> = {};
-  if (method.toUpperCase() === 'PUT' && payload) {
-    metaHeaders['x-amz-meta-sha1'] = await sha1(payloadForHash);
-    metaHeaders['x-amz-meta-sha256'] = await sha256(payloadForHash);
-  }
-  
   return {
     url: requestUrl,
     headers: {
       'x-amz-date': date,
       'x-amz-content-sha256': payloadHash,
-      'Authorization': authHeader,
-      ...metaHeaders
+      'Authorization': authHeader
     }
   };
 }

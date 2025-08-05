@@ -45,7 +45,8 @@ Supported properties
 - **debugConfig** (boolean) (default = false) - Show block configuration in debug output
 - **contextErrorKey** (string) - JMESPath expression to extract error messages from context
 - **skipInit** (boolean) (default = true) - Skip making HTTP request on initial load
-- **followPaginationLinksMerged** (boolean) (default = false) - Automatically follow pagination links and merge results 
+- **followPaginationLinksMerged** (boolean) (default = false) - Automatically follow pagination links and merge results
+- **saveHashMetadata** (boolean) (default = false) - When using AWS SigV4 authentication, save payload hash metadata to S3-compatible storage headers 
 
 
 Examples

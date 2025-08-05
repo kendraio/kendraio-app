@@ -226,8 +226,10 @@ export class HttpBlockComponent implements OnInit, OnChanges {
             actualPayload = bufferContent; // Assign to actualPayload only if valid
           }
           
+          const saveHashMetadata = get(this.config, 'saveHashMetadata', false);
+          
           try {
-            const { headers: sigHeaders } = await signAwsSigV4(method.toUpperCase() === 'BPUT' ? 'PUT' : method, useProxy ? headers.get('Target-URL')! : url, actualPayload, actualAccessKeyId, actualSecretKey);
+            const { headers: sigHeaders } = await signAwsSigV4(method.toUpperCase() === 'BPUT' ? 'PUT' : method, useProxy ? headers.get('Target-URL')! : url, actualPayload, actualAccessKeyId, actualSecretKey, saveHashMetadata);
             // Merge sigHeaders into our existing headers
             Object.keys(sigHeaders).forEach(k => {
               if (k.toLowerCase() === 'host') return;
