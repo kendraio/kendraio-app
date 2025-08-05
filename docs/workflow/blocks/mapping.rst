@@ -601,6 +601,7 @@ Examples:
 --------
 
 Converts a value to a JSON string.
+Use json-stringify-safe to safely stringify and accept arguments for replacer and space.
 
 Examples:
 
@@ -608,7 +609,25 @@ Examples:
    
    json(data)
 
-   // Output: "{\"name\":\"John Doe\",\"age\":35,\"email\":\"john.doe@example.com\",\"tags\":[\"frontend\",\"ui\"],\"projects\":[{\"id\":1,\"title\":\"Project A\"},{\"id\":2,\"title\":\"Project B\"}]}"
+   // Output on one line: "{\"name\":\"John Doe\",\"age\":35,\"email\":\"john.doe@example.com\",\"tags\":[\"frontend\",\"ui\"],\"projects\":[{\"id\":1,\"title\":\"Project A\"},{\"id\":2,\"title\":\"Project B\"}]}"
+
+   json(data, null, '2')
+   
+   // Output prettified:
+   // "{
+   //    name: "John Doe",
+   //    age: 35,
+   //    email: "john.doe@example.com",
+   //    tags: ["frontend", "ui"],
+   //    projects: [
+   //       { id: 1, title: "Project A" },
+   //       { id: 2, title: "Project B" }
+   //    ]
+   // }"
+  
+   In order to render a prettified JSON, the data must be in a <pre> and <code> tags
+   i.e. 
+   <code><pre>{{data}}</code></pre>
 
 22. markdown
 ------------
@@ -622,7 +641,7 @@ Examples:
    markdown('## Header')  // Output: "<h2 id=\"header\">Header</h2>"
 
 23. btoa
--------
+--------
 
 Encodes a string in base-64.
 
