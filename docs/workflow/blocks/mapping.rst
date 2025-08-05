@@ -536,9 +536,9 @@ Examples:
 
 .. code-block:: javascript
 
-   qs({ name: "Alice", tags: ["dev", "ui"] })
+   qs(data)
    
-   // Output: "name=Alice&tags[0]=dev&tags[1]=ui"
+   // Output: "name=John%20Doe&age=35&email=john.doe%40example.com&tags%5B0%5D=frontend&tags%5B1%5D=ui&projects%5B0%5D%5Bid%5D=1&projects%5B0%5D%5Btitle%5D=Project%20A&projects%5B1%5D%5Bid%5D=2&projects%5B1%5D%5Btitle%5D=Project%20B"
 
 18. parseQs
 -----------
@@ -609,32 +609,24 @@ Examples:
 
 .. code-block:: javascript
 
-   json({
-      "name": "Alice",
-      "tags": [
-         "dev",
-         "ui"
-      ]
-   })
+   json(data)
 
-   // Output on one line: "{{"name": "Alice","tags": ["dev","ui"]}"
+   // Output on one line: "{"name":"John Doe","age":35,"email":"john.doe@example.com","tags":["frontend","ui"],"projects":[{"id":1,"title":"Project A"},{"id":2,"title":"Project B"}]}"
+
    
-   json({
-      "name": "Alice",
-      "tags": [
-         "dev",
-         "ui"
-      ]
-   }, null, '2')
+   json(data, null, '2')
 
-   // Output prettified: "{
-.. {
-..   "name": "Alice",
-..   "tags": [
-..     "dev",
-..     "ui"
-..   ]
-.. }"
+   // Output prettified:
+   // "{
+   //    name: "John Doe",
+   //    age: 35,
+   //    email: "john.doe@example.com",
+   //    tags: ["frontend", "ui"],
+   //    projects: [
+   //       { id: 1, title: "Project A" },
+   //       { id: 2, title: "Project B" }
+   //    ]
+   // }"
   
    In order to render a prettified JSON, the data must be in a <pre> and <code> tags
    i.e. 

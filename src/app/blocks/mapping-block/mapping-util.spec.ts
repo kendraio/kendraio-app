@@ -87,6 +87,18 @@ describe('MappingUtil', () => {
     expect(mappingUtility(data, expr)).toBe(expected);
   });
 
+  it('should stringify correctly when replacer and space are undefined', () => {
+    const data = {
+      data: { name: "Alice", age: 30, job: "Engineer" }
+    };
+
+    const expr = "json(data)";
+    const expected = JSON.stringify(data.data);
+
+    expect(mappingUtility(data, expr)).toBe(expected);
+  });
+
+
   it('should stringify a JSON object with pretty formatting using space argument', () => {
     const data = {
       data: { name: "Alice", age: 30, job: "Engineer" }
