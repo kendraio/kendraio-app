@@ -601,7 +601,8 @@ Examples:
 --------
 
 Converts a value to a JSON string.
-Use json-stringify-safe to safely stringify and accept arguments for replacer and space.
+Accept also arguments for replacer and space: `json(data, replacer, space)`.
+Use json-stringify-safe to safely stringify behind the scenes.
 
 Examples:
 
@@ -627,7 +628,11 @@ Examples:
   
    In order to render a prettified JSON, the data must be in a <pre> and <code> tags
    i.e. 
-   <code><pre>{{data}}</code></pre>
+
+   {
+      "type": "template",
+      "template": "<code><pre>{{data}}</code></pre>"
+   }
 
 22. markdown
 ------------
