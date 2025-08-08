@@ -600,9 +600,14 @@ Examples:
 21. json
 --------
 
-Converts a value to a JSON string.
-Accept also arguments for replacer and space: `json(data, replacer, space)`.
-Use json-stringify-safe to safely stringify behind the scenes.
+Converts a value to a JSON string using [`json-stringify-safe`](https://www.npmjs.com/package/json-stringify-safe) behind the scenes for safe stringification.
+
+* `value`: The input data to convert.
+* `replacer`: Currently **non-functional**, but must be set to `null` to preserve the function signature for future compatibility.
+* `space`: Optional. Controls the indentation of the resulting JSON string for readability. Can be:
+
+  * A number (e.g. `2`) to specify the number of spaces per indentation level
+  * A string (e.g. `'  '` or `'--'`) used as the indentation pattern
 
 Examples:
 
@@ -613,6 +618,11 @@ Examples:
    // Output on one line: "{\"name\":\"John Doe\",\"age\":35,\"email\":\"john.doe@example.com\",\"tags\":[\"frontend\",\"ui\"],\"projects\":[{\"id\":1,\"title\":\"Project A\"},{\"id\":2,\"title\":\"Project B\"}]}"
 
    json(data, null, '2')
+
+   {
+      "type": "template",
+      "template": "<code><pre>{{data}}</pre></code>"
+   }
    
    // Output prettified:
    // "{
@@ -625,14 +635,6 @@ Examples:
    //       { id: 2, title: "Project B" }
    //    ]
    // }"
-  
-   In order to render a prettified JSON, the data must be in a <pre> and <code> tags
-   i.e. 
-
-   {
-      "type": "template",
-      "template": "<code><pre>{{data}}</code></pre>"
-   }
 
 22. markdown
 ------------
