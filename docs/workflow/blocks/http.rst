@@ -29,12 +29,11 @@ Supported properties
 - **method** - REQUIRED - allowed values are get, put, post, delete, patch, and "bput" (for binary PUT requests like file uploads).
 - **useProxy** (boolean) (default = false) - Set to true to use a proxy. Useful for CORS. Proxy setting are set at https://app.kendra.io/core/settings
 - **proxyUrl** (string) - Custom proxy URL to use instead of the default proxy
-- **notify** (boolean) (default = true) -  Show a notification message if the request is successful. This message is not
-  sent when the HTTP method is GET, but can be turned on and off for POST, PUT, and DELETE requests by using this
-  property.
+- **notify** (boolean) (default = true) -  Show a notification message if the request is successful (except for GET requests). This message is not
+  sent when the HTTP method is GET. The notifications are by default shown for PUT, BPUT, POST, PATCH, and DELETE methods and can be turned off by setting this property to false.
 - **headers** - A set of headers with header name as object key. Values are processed by JMESpath
 - **endpoint** - The request endpoint. Can take multiple forms. See below. 
-- **payload** - The request payload. Can be a JMESPath expression to transform data
+- **payload** - The request payload, used for plain PUT, POST, and PATCH requests but NOT binary ``BPUT`` method payloads (for compatibility with existing behaviour). For others, the payload can be a JMESPath expression to transform data, or a literal string using backticks to provide specified data directly. But for BPUT payloads, the payload must be provided by a previous block such as a mapping block, which is becomes a ``data`` object input passed to the HTTP block with, and it must have a ``content`` property with the payload instead, NOT via this key, and an example is given later below.
 - **requestType** (string) (default = 'application/json') - Set to 'application/x-www-form-urlencoded' for form-encoded requests
 - **responseType** (string) (default = 'json') - The expected response type from the server
 - **authentication** - Optional authentication configuration. Currently supports AWS SigV4 for S3-compatible storage.
@@ -52,7 +51,7 @@ Supported properties
 Examples
 --------
 
-**Default** For simple requests, the ``endpoint`` can just be a simple string:
+**Default** For simple requests, the ``endpoint`` URL can just be a simple string:
 
 .. code-block:: json
 
@@ -64,7 +63,7 @@ Examples
     }
 
 
-**Dynamic data** If the endpoint needs to be constructed from data, the endpoint can be specified as an object with a "valueGetter" attribute.
+**Dynamic data** If the endpoint URL needs to be constructed from data, the endpoint can be specified as an object with a JMESPath "valueGetter" attribute.
 "valueGetter" can only get data from the context.
 
 .. code-block:: json
@@ -94,7 +93,7 @@ Examples
 
 
 **Headers** 
-For advanced use cases, the payload can be constructed using a JMES Path expression.
+For advanced use cases, the payload can be constructed using a JMESPath expression.
 JMESPath expressions can be used to dynamically set header and payload values.
 Caution: if the header value is a string, it must use two types of quotes: double and single quotes, like "payload": "'grant_type=client_credentials'".
 
@@ -326,11 +325,6 @@ A common pattern involves retrieving data, modifying it, then uploading the upda
         }
       },
       {
-        "type": "mapping",
-        "mapping": "data.data"
-        "blockComment": "Warning: the data.data mapping is legacy"
-      },
-      {
         "type": "http",
         "method": "PUT",
         "endpoint": "https://s3.eu-central-003.backblazeb2.com/file.json",
@@ -356,12 +350,6 @@ When ``storeMetadataInContext`` is enabled, the HTTP block will save response me
 - ``context.httpMetadata.responseHash`` - SHA-1 hash of response content
 - ``context.httpMetadata.timestamp`` - ISO timestamp when response was received
 - ``context.httpMetadata.endpoint`` - The actual endpoint URL that was called
-
-**Backwards Compatibility Options**
-
-For existing workflows that depend on the legacy wrapped output format, you can use:
-
-.. code-block:: json
 
 
 **Payload Configuration Example**
@@ -407,9 +395,9 @@ Binary file uploads use the ``BPUT`` method:
       }
     }
 
-**Automatic Metadata Headers**
+**Optional Metadata Headers**
 
-When using AWS SigV4 authentication with PUT or BPUT methods, the system automatically adds file integrity metadata headers:
+When using AWS SigV4 authentication with PUT or BPUT methods to upload files to a bucket, if ``saveHashMetadata`` is set to true hashes of the uploaded content are made to allow content verification and identification:
 
 - ``x-amz-meta-sha1``: SHA-1 hash of the uploaded content
 - ``x-amz-meta-sha256``: SHA-256 hash of the uploaded content
