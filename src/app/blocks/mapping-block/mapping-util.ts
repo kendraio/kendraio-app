@@ -114,8 +114,16 @@ const search = decorate({
     _signature: [{types: [TYPE_ANY]}]
   },
   json: {
-    _func: ([v]) => stringify(v),
-    _signature: [{types: [TYPE_ANY]}]
+    _func: ([value, replacer = null, space = undefined]) => {
+      const safeSpace =
+        typeof space === 'string' ? parseInt(space, 10) || space : space;
+      return stringify(value, replacer, safeSpace);
+    },
+    _signature: [
+      { types: [TYPE_ANY] },
+      { optional: true, types: [TYPE_NULL, TYPE_ARRAY] },
+      { optional: true, types: [TYPE_NUMBER, TYPE_STRING] }
+    ]
   },
   markdown: {
     _func: ([s]) => {
