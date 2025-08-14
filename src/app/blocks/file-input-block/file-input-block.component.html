@@ -1,12 +1,2 @@
-<input #fileInput class="file-input" type="file" (change)="log('File input change event triggered'); onFileChange($event.target.files);" [attr.accept]="accept">
-<button *ngIf="enabled" mat-flat-button color="primary" (click)="log('File input button click about to be called');fileInput.click();log('File input button click was called.');">{{ label }}</button>
-
-<!-- Display selected file information -->
-<div *ngIf="selectedFile" class="file-info" style="margin-top: 10px;">
-  <p>Selected: <strong>{{ selectedFile.name }}</strong> ({{ selectedFile.size }})</p>
-</div>
-
-<!-- Display warning message -->
-<div *ngIf="warningMessage" class="warning-message" style="margin-top: 10px; color: #d32f2f;">
-  <p>{{ warningMessage }}</p>
-</div>
+<input #fileInput class="file-input" type="file" (change)="onFileChange($event.target.files)" [attr.accept]="accept">
+<button *ngIf="enabled" mat-flat-button color="primary" (click)="fileInput.click()">{{ label }}</button>

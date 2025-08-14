@@ -1,9 +1,12 @@
-import {Component, NgZone} from '@angular/core';
+import {Component} from '@angular/core';
 import {BaseBlockComponent} from '../base-block/base-block.component';
 import {flatten, get} from 'lodash-es';
 import { SharedStateService } from 'src/app/services/shared-state.service';
 import { mappingUtility } from '../mapping-block/mapping-util';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { formatByteSizeForHumans } from '../http-block/http-utils';
+import { AppSettingsService } from '../../services/app-settings.service';
+
 
 @Component({
   selector: 'app-file-input-block',
@@ -19,188 +22,97 @@ export class FileInputBlockComponent extends BaseBlockComponent {
 
   enabled:boolean = true;
   enabledGetter:string = null;
-  selectedFile: { name: string; size: string } | null = null;
-  warningMessage: string | null = null;
-  acceptedMimeTypes: string[] = [];
+
+  private snackBar: MatSnackBar;
 
   constructor(   
     private stateService:SharedStateService,
-    private ngZone: NgZone
+    snackBar: MatSnackBar,
+    private settings: AppSettingsService
   ) {
     super();
+    this.snackBar = snackBar;
     stateService.state$.subscribe(state => { setTimeout(() =>{this.setEnabled()}) });    
   }
 
-  // vimeo vids accept = application/vnd.vimeo.*+json;version=3.4
+  private warn(message: string) {
+    const globalDebugMode = this.settings.get('debugMode', false);
+    console.warn(message);
+    if (globalDebugMode && this.snackBar) {
+      this.snackBar.open(message, 'Close', { duration: 5000 });
+    }
+  }
 
-  // TODO: Add support for Excel files
+  private isBinaryMimeType(mime: string): boolean {
+    const BINARY_MIME_REGEX = /^(audio|video|image)\//i;
+    return BINARY_MIME_REGEX.test(mime);
+  }
+
   onConfigUpdate(config) {
     const mimeTypeMap = {
       'csv': ['text/csv'],
       'json': ['application/json'],
-      'xml': ['text/xml', 'application/json'],
+      'xml': ['text/xml', 'application/json', 'application/xml'],
       'xlsx': ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
       'xls': ['application/vnd.ms-excel'],
-      'mp3': ['audio/mpeg']
+      'mp3': ['audio/mpeg'],
+      'wav': ['audio/wav'],
     };
-    const acceptTypes = get(config, 'accept', ['csv']);
-    this.acceptedMimeTypes = flatten(acceptTypes.map(key => mimeTypeMap[key]));
-    this.accept = this.acceptedMimeTypes.join(', ');
+    this.accept = flatten(get(config, 'accept', ['csv']).map(key => mimeTypeMap[key])).join(', ');
     this.label = get(config, 'label', 'Import');
-    
-    // Store the binary and arrayBuffer preferences from config
-    this.binary = get(config, 'binary', null);
+    this.binary = get(config, 'binary', false);
     this.arrayBuffer = get(config, 'arrayBuffer', true);
-    
+    if (!this.binary && this.arrayBuffer) {
+      this.warn('arrayBuffer is set to true, but binary is false. This may cause issues with file reading.');
+    }
+    if (this.binary && !this.arrayBuffer) {
+      this.warn('arrayBuffer is set to false, but binary is true. This may cause issues with file reading.');
+    }
     this.enabledGetter = get(config, 'enabledGetter', null);
     this.setEnabled();
-    console.log('FileInputBlockComponent.onConfigUpdate completed with state of ', this.enabled);
-  }
-
-  log(event) {
-    console.log('FileInputBlockComponent.log',
-      'event', event
-    );
-  }
-
-  onFileChange(files: FileList) {
-    console.log('File change event triggered', files);
-    if (!files) {
-      console.error('No files received in onFileChange');
-      return;
-    }
-    
-    this.ngZone.run(() => {
-      console.log('Running file change handling in NgZone');
-      if (files.length > 0) {
-        // Reset warning message
-        this.warningMessage = null;
-        
-        // Check if file type is acceptable
-        const file = files[0];
-        if (!this.isAcceptableFileType(file.type)) {
-          this.warningMessage = `File type '${file.type || 'unknown'}' is not accepted. Please use one of: ${this.accept}`;
-          console.warn(this.warningMessage);
-          this.selectedFile = {
-            name: file.name,
-            size: formatByteSizeForHumans(file.size)
-          };
-          return;
-        }
-        
-        this.importFile(file);
-      } else {
-        console.warn('FileList is empty');
-      }
-    });
   }
   
-  importFile(file: File) {
-    console.log('Importing file', file.name);
-    // Set the selected file info with formatted size
-    this.selectedFile = {
-      name: file.name,
-      size: formatByteSizeForHumans(file.size)
-    };
-    
-    const fileReader = new FileReader();
-    
-    fileReader.onerror = (error) => {
-      console.error('Error reading file:', error);
-    };
-    
-    fileReader.onload = (_) => {
-      console.log('File loaded');
-      try {
-        this.ngZone.run(() => {
-          this.output.emit({
-            name: file.name,
-            size: file.size,
-            type: file.type,
-            lastModified: file.lastModified,
-            content: fileReader.result as string
-          });
-          console.log('File emitted through NgZone');
-        });
-      } catch (err) {
-        console.error('Error emitting file data:', err);
+
+  onFileChange(files: FileList) {
+    if (files.length > 0) {
+      const file = files[0];
+      const looksBinary = this.isBinaryMimeType(file.type);
+      console.log(`Selected file size: ${formatByteSizeForHumans(file.size)}`);
+      console.log(`Binary configuration: binary=${this.binary}, arrayBuffer=${this.arrayBuffer}`);
+      if (looksBinary && (!this.binary || !this.arrayBuffer)) {
+        this.warn(`Selected file appears binary (${file.type || 'unknown type'}) but 'binary' or 'arrayBuffer' are not enabled. This may cause issues with file reading.`);
       }
-    };
-    
-    // Determine if this file should be read as binary
-    // Use config binary setting if provided, otherwise auto-detect
-    let useBinary = this.binary;
-    if (useBinary === null) {
-      useBinary = this.isBinaryFileType(file.type);
+      this.importFile(file);
     }
-    
-    if (useBinary) {
-      console.log('Reading as binary');
+  }
+
+  importFile(file: File) {
+    const fileReader = new FileReader();
+    fileReader.onload = (_) => {
+      this.output.emit({
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        lastModified: file.lastModified,
+        content: fileReader.result as string
+      });
+    };
+    if (this.binary) {
       if (this.arrayBuffer) {
         fileReader.readAsArrayBuffer(file);
       } else {
         fileReader.readAsBinaryString(file);
       }
     } else {
-      console.log('Reading as text');
       fileReader.readAsText(file);
     }
-    console.log('File read');
   }
-  
-  // Set enabled state based on enabledGetter
+  /**
+   * Set enabled state based on enabledGetter
+   */
   setEnabled(){    
     if(this.enabledGetter!==null) {
-      this.enabled = mappingUtility({ data: this.model, context: this.context,state: this.stateService.state  }, this.enabledGetter);
-      console.log('FileInputBlockComponent.setEnabled',this.enabled);
+      this.enabled = mappingUtility({ data: this.model, context: this.context,state: this.stateService.state  }, this.enabledGetter);        
     }    
   } 
-
-  // Determine if a file type should be treated as binary
-  isBinaryFileType(mimeType: string): boolean {
-    // List of MIME type prefixes that should be treated as binary
-    const binaryTypes = [
-      'audio/',
-      'image/',
-      'video/',
-      'application/octet-stream',
-      'application/pdf',
-      'application/zip',
-      'application/vnd.ms-',
-      'application/vnd.openxmlformats-',
-      'application/x-binary'
-    ];
-    
-    return binaryTypes.some(prefix => mimeType.startsWith(prefix));
-  }
-
-  // Check if the file type is acceptable
-  isAcceptableFileType(mimeType: string): boolean {
-    // If no restrictions are set, accept all
-    if (!this.acceptedMimeTypes || this.acceptedMimeTypes.length === 0) {
-      return true;
-    }
-    
-    // If the mime type is empty, try to be permissive
-    if (!mimeType) {
-      return true;
-    }
-    
-    // Check for exact match
-    if (this.acceptedMimeTypes.includes(mimeType)) {
-      return true;
-    }
-    
-    // Check for wildcard matches (for example if we accept 'image/*')
-    for (const acceptedType of this.acceptedMimeTypes) {
-      if (acceptedType.endsWith('/*')) {
-        const prefix = acceptedType.slice(0, -1); // remove the '*'
-        if (mimeType.startsWith(prefix)) {
-          return true;
-        }
-      }
-    }
-    
-    return false;
-  }
 }
