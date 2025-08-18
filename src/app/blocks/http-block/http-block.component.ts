@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import { get, has, includes, isString, toUpper, set } from 'lodash-es';
 import { ContextDataService } from '../../services/context-data.service';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
@@ -14,8 +14,7 @@ import { computeMetadata } from './http-utils';
 @Component({
   selector: 'app-http-block',
   templateUrl: './http-block.component.html',
-  styleUrls: ['./http-block.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./http-block.component.scss']
 })
 export class HttpBlockComponent implements OnInit, OnChanges {
 
@@ -33,7 +32,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   errorBlocks = [];
 
   isLoading = false;
-  statusCode: number = null; // Add statusCode property to store the HTTP status
+  statusCode: number = null;
 
   contextErrorKey = null;
   contextErrors = '';
@@ -52,7 +51,6 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     private readonly contextData: ContextDataService,
     private readonly notify: MatSnackBar,
     private readonly http: HttpClient,
-    private readonly cdr: ChangeDetectorRef,
     private readonly settings: AppSettingsService
   ) {
   }
@@ -77,9 +75,6 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes) {
-    console.log('Changes in HTTP block', changes);
-    console.log('Changes in HTTP block b');
-
     this.updateDebugVisibility();
 
     const keyChanges = Object.keys(changes);
@@ -104,15 +99,6 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     
     this.responseType = get(this.config, 'responseType', 'json');
     this.errorBlocks = get(this.config, 'onError.blocks', []);
-
-    if (this.statusCode) {
-      console.log('Status code is not null, skipping request');
-      if (this.isLoading) {
-        this.isLoading = false;
-      }
-      return;
-    } 
-    
     this.makeRequest();
   }
 
@@ -121,13 +107,6 @@ export class HttpBlockComponent implements OnInit, OnChanges {
    * It also supports pagination by calling the getAllPages method when followPaginationLinksMerged option is enabled.
    */
   async makeRequest() {
-    if (this.statusCode) {
-      console.log('Status code is not null, skipping request');
-      if (this.isLoading) {
-        this.isLoading = false;
-      }
-      return;
-    } 
     this.hasError = false;
     this.isLoading = true;
     const method = get(this.config, 'method');
@@ -276,10 +255,6 @@ export class HttpBlockComponent implements OnInit, OnChanges {
               })
             )
             .subscribe((response: HttpResponse<any> | any) => {
-              if (this.statusCode) {
-                console.log('Status code is not null, skipping request');
-                return;
-              } 
               this.isLoading = false;
               this.hasError = false;
               if (!response.hasError) {
@@ -540,8 +515,6 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       console.log('Response size (bytes):', responseSizeBytes);
       console.log('Response hash:', responseHash);
       console.log('Status code:', statusCode);
-      this.cdr.markForCheck();
-      this.cdr.detectChanges();
     } else {
       // Always emit the data to the next block
       this.output.emit(data);

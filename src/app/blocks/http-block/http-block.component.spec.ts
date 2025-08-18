@@ -15,7 +15,7 @@ describe('extractNextPageUrl', () => {
         httpClientMock = jasmine.createSpyObj('HttpClient', ['get']);
         matSnackBarMock = jasmine.createSpyObj('MatLegacySnackBar', ['open']);
         cdrMock = { markForCheck: jasmine.createSpy('markForCheck') };
-        component = new HttpBlockComponent(contextDataServiceMock, matSnackBarMock, httpClientMock, cdrMock, undefined);
+        component = new HttpBlockComponent(contextDataServiceMock, matSnackBarMock, httpClientMock, cdrMock);
     });
 
     it('should extract the next page URL from a link header', () => {
