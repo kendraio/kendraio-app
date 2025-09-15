@@ -1,0 +1,13 @@
+<div class="json-dereference-block">
+    <ng-container *ngIf="errorMessage; else schemaDisplay">
+      <div class="error-message">
+        Error: {{ errorMessage }}
+      </div>
+    </ng-container>
+  
+    <ng-template #schemaDisplay>
+      <div *ngIf="!dereferencedSchema">
+        Loading schema...
+      </div>
+    </ng-template>
+  </div>

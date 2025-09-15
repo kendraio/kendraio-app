@@ -3,7 +3,7 @@ import {KendraioFormService} from '../../_shared/ui-form/services/kendraio.form.
 import {UntypedFormGroup} from '@angular/forms';
 import {FormlyFieldConfig, FormlyFormOptions} from '@ngx-formly/core';
 import {Subject} from 'rxjs';
-import {debounceTime, distinctUntilChanged, filter, tap} from 'rxjs/operators';
+import {debounceTime, filter} from 'rxjs/operators';
 import {clone, get, has, isUndefined, set} from 'lodash-es';
 import {mappingUtility} from '../mapping-block/mapping-util';
 
@@ -22,7 +22,7 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
   _changes = new Subject();
 
   form = new UntypedFormGroup({});
-  fields: FormlyFieldConfig[];
+  fields: FormlyFieldConfig[] = [];
   options: FormlyFormOptions = {};
 
   label = 'Submit';
@@ -94,6 +94,14 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
     mutatedJsonSchema = set(mutatedJsonSchema, 'definitions.context', this.context);
     return mutatedJsonSchema;
   }
+
+  private processSchemaResult(result: any) {
+    if (result && typeof result === 'object' && result.hasOwnProperty('jsonSchema')) {
+      this.onSchemaBlocksComplete(result);
+    } else {
+      console.warn("Result does not contain 'jsonSchema' property.");
+    }
+  }
   
   updateForm() {
     if (has(this.config, 'adapter') && has(this.config, 'formId')) {
@@ -108,18 +116,51 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
       this.fields = this.formService.schemasToFieldConfig(jsonSchema, uiSchema);
     } else if (has(this.config,  'schemaGetter')) {
       this.fields = [];
-      this.schemaBlocks = get(this.config, 'schemaGetter.blocks', []);
+      const schemaGetterConfig: any = get(this.config, 'schemaGetter');
+
+        if (typeof schemaGetterConfig === 'string') {
+
+          if (schemaGetterConfig.trim().startsWith('context.')) {
+            // It's likely a context variable
+            const result = mappingUtility({context: this.context}, schemaGetterConfig);
+            this.processSchemaResult(result);
+
+          } else if (schemaGetterConfig.trim().startsWith('data')) {
+            // It's a likely a data variable
+            const result = mappingUtility({data: this.model, context: this.context}, schemaGetterConfig);
+              this.processSchemaResult(result);
+          } else {
+              // It's a likely a JSON Object
+              try {
+                  const parsedConfig = JSON.parse(schemaGetterConfig);
+                  this.processSchemaResult(parsedConfig);
+              } catch (error) {
+                  console.error('Error parsing schemaGetterConfig as JSON:', error);
+                  console.warn("schemaGetterConfig is neither a valid JSON nor a context path.");
+              }
+          }
+
+        } else {
+          this.schemaBlocks = get(this.config, 'schemaGetter.blocks', []);
+          if (get(this.schemaBlocks, 'jsonSchema', {})) {
+            console.warn("The passed schema must include the jsonSchema property");
+          }      
+        }
       // onSchemaBlocksComplete is triggered later via the components view
     } else {
       this.fields = [];
     }
   }
 
-  onSchemaBlocksComplete(result) {
-    let jsonSchema = get(result, 'jsonSchema', {});
-    jsonSchema = this.injectContextToJsonSchema(jsonSchema);
-    const uiSchema = get(result, 'uiSchema', {});
-    this.fields = this.formService.schemasToFieldConfig(jsonSchema, uiSchema);
+  onSchemaBlocksComplete(result: any) {
+    let jsonSchema: any = get(result, 'jsonSchema', {});
+    if (jsonSchema) { 
+      jsonSchema = this.injectContextToJsonSchema(jsonSchema);
+      const uiSchema = get(result, 'uiSchema', {});
+      this.fields = this.formService.schemasToFieldConfig(jsonSchema, uiSchema);
+    } else {
+      console.warn("Schema is empty, skipping schemasToFieldConfig");
+    }
   }
 
   onModelChange(model) {
