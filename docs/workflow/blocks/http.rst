@@ -27,13 +27,13 @@ Supported properties
 --------------------
 
 - **method** - REQUIRED - allowed values are get, put, post, delete, patch, and "bput" (for binary PUT requests like file uploads).
-- **useProxy** (boolean) (default = false) - Set to true to use a proxy. Useful for CORS. Proxy setting are set at https://app.kendra.io/core/settings
+- **useProxy** (boolean) (default = false) - Set to true to use a proxy. Useful for CORS. Proxy settings are set at https://app.kendra.io/core/settings
 - **proxyUrl** (string) - Custom proxy URL to use instead of the default proxy
 - **notify** (boolean) (default = true) -  Show a notification message if the request is successful (except for GET requests). This message is not
   sent when the HTTP method is GET. The notifications are by default shown for PUT, BPUT, POST, PATCH, and DELETE methods and can be turned off by setting this property to false.
-- **headers** - A set of headers with header name as object key. Values are processed by JMESpath
+- **headers** - A set of headers with header names as object keys. Values are processed by JMESPath
 - **endpoint** - The request endpoint. Can take multiple forms. See below. 
-- **payload** - The request payload, used for plain PUT, POST, and PATCH requests but NOT binary ``BPUT`` method payloads (for compatibility with existing behaviour). For others, the payload can be a JMESPath expression to transform data, or a literal string using backticks to provide specified data directly. But for BPUT payloads, the payload must be provided by a previous block such as a mapping block, which is becomes a ``data`` object input passed to the HTTP block with, and it must have a ``content`` property with the payload instead, NOT via this key, and an example is given later below.
+- **payload** - The request payload, used for plain PUT, POST, and PATCH requests but NOT binary ``BPUT`` method payloads (for compatibility with existing behaviour). For others, the payload can be a JMESPath expression to transform data, or a literal string using backticks to provide specified data directly. But for BPUT payloads, the payload must be provided by a previous block such as a mapping block, which becomes a ``data`` object input passed to the HTTP block, and it must have a ``content`` property with the payload instead, NOT via this key, and an example is given later below.
 - **requestType** (string) (default = 'application/json') - Set to 'application/x-www-form-urlencoded' for form-encoded requests
 - **responseType** (string) (default = 'json') - The expected response type from the server
 - **authentication** - Optional authentication configuration. Currently supports AWS SigV4 for S3-compatible storage.
@@ -43,7 +43,7 @@ Supported properties
 - **debugContext** (boolean) (default = false) - Show context data in debug output  
 - **debugConfig** (boolean) (default = false) - Show block configuration in debug output
 - **contextErrorKey** (string) - JMESPath expression to extract error messages from context
-- **skipInit** (boolean) (default = true) - Skip making HTTP request on initial load
+- **skipInit** (boolean) (default = true) - Skip making a HTTP request on initial load
 - **followPaginationLinksMerged** (boolean) (default = false) - Automatically follow pagination links and merge results
 - **saveHashMetadata** (boolean) (default = false) - When using AWS SigV4 authentication, save payload hash metadata to S3-compatible storage headers 
 
@@ -345,7 +345,7 @@ A common pattern involves retrieving data, modifying it, then uploading the upda
 When ``storeMetadataInContext`` is enabled, the HTTP block will save response metadata to context, accessible via:
 
 - ``context.httpMetadata.statusCode`` - HTTP status code (200, 404, etc.)
-- ``context.httpMetadata.responseSizeFormatted`` - Human readable size (e.g., "1.2 KB")
+- ``context.httpMetadata.responseSizeFormatted`` - Human-readable size (e.g., "1.2 KB")
 - ``context.httpMetadata.responseSizeBytes`` - Raw byte count (e.g., 1234)
 - ``context.httpMetadata.responseHash`` - SHA-1 hash of response content
 - ``context.httpMetadata.timestamp`` - ISO timestamp when response was received
@@ -397,7 +397,7 @@ Binary file uploads use the ``BPUT`` method:
 
 **Optional Metadata Headers**
 
-When using AWS SigV4 authentication with PUT or BPUT methods to upload files to a bucket, if ``saveHashMetadata`` is set to true hashes of the uploaded content are made to allow content verification and identification:
+When using AWS SigV4 authentication with PUT or BPUT methods to upload files to a bucket, if ``saveHashMetadata`` is set to true, hashes of the uploaded content are made to allow content verification and identification:
 
 - ``x-amz-meta-sha1``: SHA-1 hash of the uploaded content
 - ``x-amz-meta-sha256``: SHA-256 hash of the uploaded content
@@ -406,6 +406,6 @@ These headers provide file verification and are particularly useful for ensuring
 
 **Security Considerations**
 
-- Load credentials securely from storage or Form input, and use ``accessKeyIdGetter`` with ``secretKeyGetter`` to access them.
+- Load credentials securely from storage or Form block input, and use ``accessKeyIdGetter`` with ``secretKeyGetter`` to access them.
 - Do not hardcode credentials in Flows you save or share!
 - The signature includes request method, headers, and payload to ensure request integrity
