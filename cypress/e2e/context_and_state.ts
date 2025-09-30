@@ -195,15 +195,9 @@ describe('Kendraio context and state', () => {
 
   it('should allow the enabling and disabling of action buttons', () => {
     loadFlowCode([{
-      "type": "context-save",
-      "valueGetter": "`true`",
-      "contextKey": "state.global.enabled",
-      "skipFirst": false
-    },
-    {
-      "type": "context-save",
-      "valueGetter": "`false`",
-      "contextKey": "state.global.disabled",
+        "type": "context-save",
+        "valueGetter": "`false`",
+        "contextKey": "state.global.enabled",
       "skipFirst": false
     },
     {
@@ -220,7 +214,7 @@ describe('Kendraio context and state', () => {
           "label": "Visible and disabled",
           "color": "default",
           "blocks": [],
-          "enabledGetter": "state.global.disabled",
+          "enabledGetter": "state.global.enabled",
           "id": "button-disabled"
         }
       ]
@@ -234,8 +228,8 @@ describe('Kendraio context and state', () => {
     loadFlowCode([
       {
         "type": "context-save",
-        "valueGetter": "`true`",
-        "contextKey": "state.global.disabled",
+        "valueGetter": "`false`",
+        "contextKey": "state.global.enabled",
       },
       {
         "type": "mapping",
@@ -246,7 +240,7 @@ describe('Kendraio context and state', () => {
         "gridOptions": {},
         "passThrough": false,
         "firstRowHeaders": true,
-        "enabledGetter": "state.global.disabled"
+        "enabledGetter": "state.global.enabled"
       },
       {
         "type": "debug"
@@ -261,11 +255,6 @@ describe('Kendraio context and state', () => {
       {
         "type": "context-save",
         "valueGetter": "`false`",
-        "contextKey": "state.global.disabled",
-      },
-      {
-        "type": "context-save",
-        "valueGetter": "`true`",
         "contextKey": "state.global.enabled",
       },
       {
@@ -274,7 +263,12 @@ describe('Kendraio context and state', () => {
       },
       {
         "type": "debug",
-        "enabledGetter": "state.global.disabled"
+        "enabledGetter": "state.global.enabled"
+      },
+      {
+        "type": "context-save",
+        "valueGetter": "`true`",
+        "contextKey": "state.global.enabled",
       },
       {
         "type": "mapping",

@@ -10,11 +10,31 @@
                        [context]="context"></app-blocks-workflow>
 </div>
 
+<!-- Status code indicator -->
+<div *ngIf="statusCode && !isLoading && showStatusInfo" class="http-status-display">
+  <span [ngClass]="{
+    'status-success': statusCode >= 200 && statusCode < 300,
+    'status-redirect': statusCode >= 300 && statusCode < 400,
+    'status-error': statusCode >= 400
+  }">HTTP {{statusCode}}</span>
+</div>
+
+<!-- Extra meta info -->
+<div *ngIf="responseSizeFormatted && !isLoading && showStatusInfo" class="http-meta">
+  <span>Size: {{ responseSizeFormatted }}</span> |
+  <span>SHA-1: {{ responseHash }}</span>
+</div>
+
 <mat-spinner *ngIf="isLoading" diameter="50"></mat-spinner>
+
+<pre *ngIf="showDebugContext">HTTP Block Context:{{context | json}}</pre>
+
+<hr *ngIf="showDebugContext && showDebugConfig">
+
+<pre *ngIf="showDebugConfig">HTTP Block Config:{{config | json}}</pre>
 
 <!-- <pre>httpblock-contect:{{context | json}}</pre>
 
 
 <hr>
 <pre>httpblock-config{{config | json}}</pre> -->
-

@@ -1,0 +1,24 @@
+.http-status-display {
+  display: inline-block;
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: monospace;
+  margin: 4px 0;
+  background-color: #f5f5f5;
+
+  .status-success {
+    color: #28a745;
+    font-weight: bold;
+  }
+
+  .status-redirect {
+    color: #ffc107;
+    font-weight: bold;
+  }
+
+  .status-error {
+    color: #dc3545;
+    font-weight: bold;
+  }
+}

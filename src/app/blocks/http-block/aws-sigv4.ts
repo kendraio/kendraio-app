@@ -1,12 +1,15 @@
-async function sha256(data: string | ArrayBuffer): Promise<string> {
-  let buf: ArrayBuffer;
-  if (typeof data === 'string') {
-    buf = new TextEncoder().encode(data);
-  } else {
-    buf = data;
-  }
-  const digest = await crypto.subtle.digest('SHA-256', buf);
+async function computeHash(algorithm: string, data: string | ArrayBuffer): Promise<string> {
+  const buf = typeof data === 'string' ? new TextEncoder().encode(data) : data;
+  const digest = await crypto.subtle.digest(algorithm, buf);
   return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+export async function sha1(data: string | ArrayBuffer): Promise<string> {
+  return computeHash('SHA-1', data);
+}
+
+export async function sha256(data: string | ArrayBuffer): Promise<string> {
+  return computeHash('SHA-256', data);
 }
 
 async function hmacSha256(key: ArrayBuffer | string, data: string) {
@@ -49,7 +52,7 @@ function createCanonicalQueryString(searchParams: URLSearchParams): string {
   ).join('&');
 }
 
-export async function signAwsSigV4(method: string, requestUrl: string, payload: any, accessKeyId: string, secretKey: string) {
+export async function signAwsSigV4(method: string, requestUrl: string, payload: any, accessKeyId: string, secretKey: string, saveHashMetadata: boolean = false) {
   const urlObj = new URL(requestUrl);
   const host = urlObj.host;
   // We'll guess the region/service from host if it looks like S3 pattern, else fallback
@@ -95,11 +98,21 @@ export async function signAwsSigV4(method: string, requestUrl: string, payload: 
   const canonicalQuery = createCanonicalQueryString(urlObj.searchParams);
   
   // Canonical headers (lowercase, sorted by key). We at least need host, x-amz-date, x-amz-content-sha256.
-  const canonicalHeaders =
+  let canonicalHeaders =
     `host:${host.toLowerCase()}\n` +
     `x-amz-content-sha256:${payloadHash}\n` +
     `x-amz-date:${date}\n`;
-  const signedHeaders = 'host;x-amz-content-sha256;x-amz-date';
+  let signedHeaders = 'host;x-amz-content-sha256;x-amz-date';
+  
+  // For PUT requests, include meta headers in signature
+  let metaSha1: string | undefined;
+  let metaSha256: string | undefined;
+  if (method.toUpperCase() === 'PUT' && payload && saveHashMetadata) {
+    metaSha1 = await sha1(payloadForHash);
+    metaSha256 = await sha256(payloadForHash);
+    canonicalHeaders += `x-amz-meta-sha1:${metaSha1}\n` + `x-amz-meta-sha256:${metaSha256}\n`;
+    signedHeaders += ';x-amz-meta-sha1;x-amz-meta-sha256';
+  }
 
   const canonicalRequest = [
     method.toUpperCase(),
@@ -135,6 +148,7 @@ export async function signAwsSigV4(method: string, requestUrl: string, payload: 
 
   // Build final Authorization header
   const authHeader = `AWS4-HMAC-SHA256 Credential=${accessKeyId}/${scope},SignedHeaders=${signedHeaders},Signature=${signature}`;
+  
   return {
     url: requestUrl,
     headers: {

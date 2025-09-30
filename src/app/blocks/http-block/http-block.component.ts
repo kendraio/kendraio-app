@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { get, has, includes, isString, toUpper } from 'lodash-es';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import { get, has, includes, isString, toUpper, set } from 'lodash-es';
 import { ContextDataService } from '../../services/context-data.service';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
@@ -7,6 +7,9 @@ import { catchError, expand, reduce, takeWhile } from 'rxjs/operators';
 import { of, EMPTY } from 'rxjs';
 import { mappingUtility } from '../mapping-block/mapping-util';
 import { signAwsSigV4 } from './aws-sigv4';
+import { AppSettingsService } from '../../services/app-settings.service';
+import { v4 as uuid } from 'uuid';
+import { computeMetadata } from './http-utils';
 
 @Component({
   selector: 'app-http-block',
@@ -29,22 +32,51 @@ export class HttpBlockComponent implements OnInit, OnChanges {
   errorBlocks = [];
 
   isLoading = false;
+  statusCode: number = null;
 
   contextErrorKey = null;
   contextErrors = '';
   prevContextKey = '';
 
+  responseSizeFormatted?: string;
+  responseHash?: string;
+  responseSizeBytes?: number;
+
+  // Debug visibility properties
+  showStatusInfo = false;
+  showDebugContext = false;
+  showDebugConfig = false;
+
   constructor(
     private readonly contextData: ContextDataService,
     private readonly notify: MatSnackBar,
-    private readonly http: HttpClient
+    private readonly http: HttpClient,
+    private readonly settings: AppSettingsService
   ) {
   }
 
   ngOnInit() {
   }
 
+  private updateDebugVisibility() {
+    // Check if debug is forced on in the block config
+    const forceDebug = get(this.config, 'debug', false);
+    // Check global debug mode setting
+    const globalDebugMode = this.settings.get('debugMode', false);
+    
+    // Status info is shown for any general debug mode
+    this.showStatusInfo = forceDebug || globalDebugMode;
+    
+    // For context display: only show if debugContext is explicitly set in config
+    this.showDebugContext = get(this.config, 'debugContext', false);
+    
+    // For config display: only show if debugConfig is explicitly set in config
+    this.showDebugConfig = get(this.config, 'debugConfig', false);
+  }
+
   ngOnChanges(changes) {
+    this.updateDebugVisibility();
+
     const keyChanges = Object.keys(changes);
     this.contextErrorKey = get(this.config, 'contextErrorKey', null);
     if (this.context.__key !== this.prevContextKey) {
@@ -62,9 +94,11 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     if (get(this.config, 'skipInit', true) && get(changes, 'model.firstChange', false)) {
       return;
     }
+
+
+    
     this.responseType = get(this.config, 'responseType', 'json');
     this.errorBlocks = get(this.config, 'onError.blocks', []);
-
     this.makeRequest();
   }
 
@@ -156,13 +190,25 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           const isBinary = methodUpper === 'BPUT';
           
           // For GET, DELETE methods use empty string as payload
-          let actualPayload = '';
-          if (['PUT', 'POST', 'PATCH', 'BPUT'].includes(methodUpper)) {
-            actualPayload = isBinary ? get(this.model, 'content') : this.getPayload();
+          let actualPayload: string | ArrayBuffer = '';
+          if (['PUT', 'POST', 'PATCH'].includes(methodUpper)) {
+            actualPayload = this.getPayload();
+          } else if (methodUpper === 'BPUT') {
+            const bufferContent = get(this.model, 'content'); // Get potential buffer into temp variable
+            if (!(bufferContent instanceof ArrayBuffer)) { // Check the temp variable
+                this.hasError = true;
+                this.errorMessage = `Invalid or missing binary payload (ArrayBuffer) in model.content for BPUT signing.`;
+                this.isLoading = false;
+                console.error(this.errorMessage, 'Payload Type:', typeof bufferContent);
+                return;
+            }
+            actualPayload = bufferContent; // Assign to actualPayload only if valid
           }
           
+          const saveHashMetadata = get(this.config, 'saveHashMetadata', false);
+          
           try {
-            const { headers: sigHeaders } = await signAwsSigV4(method, useProxy ? headers.get('Target-URL')! : url, actualPayload, actualAccessKeyId, actualSecretKey);
+            const { headers: sigHeaders } = await signAwsSigV4(method.toUpperCase() === 'BPUT' ? 'PUT' : method, useProxy ? headers.get('Target-URL')! : url, actualPayload, actualAccessKeyId, actualSecretKey, saveHashMetadata);
             // Merge sigHeaders into our existing headers
             Object.keys(sigHeaders).forEach(k => {
               if (k.toLowerCase() === 'host') return;
@@ -191,42 +237,56 @@ export class HttpBlockComponent implements OnInit, OnChanges {
         if (get(this.config, 'followPaginationLinksMerged', false)) {
           this.getAllPages(url, headers, this.responseType);
         } else {
-          this.http.get(url, { headers, responseType: this.responseType })
+          this.http.get(url, { headers, responseType: this.responseType, observe: 'response' })
             .pipe(
               catchError(error => {
                 this.hasError = true;
                 this.errorMessage = error.message;
                 this.errorData = error;
-                // TODO: need to prevent errors for triggering subsequent blocks
-                return of({error, hasError: this.hasError, errorMessage: this.errorMessage});
+                this.isLoading = false;
+
+                // Return an object with hasError flag for our internal error handling
+                return of({
+                  body: { error, hasError: true, errorMessage: this.errorMessage },
+                  status: error.status || 500,
+                  statusText: error.statusText || 'Error',
+                  hasError: true // Flag to identify error responses in subscribe
+                });
               })
             )
-            .subscribe((response: Record<string, any>) => {
+            .subscribe((response: HttpResponse<any> | any) => {
               this.isLoading = false;
               this.hasError = false;
-              if(!response.hasError) this.errorBlocks = [];
-
-              this.outputResult(response);
+              if (!response.hasError) {
+                this.errorBlocks = [];
+              }
+              this.outputResult(response.body, response.status);
             });
         }
         break;
       case 'DELETE':
-        this.http.delete(url, { headers, responseType: this.responseType })
+        this.http.delete(url, { headers, responseType: this.responseType, observe: 'response' })
           .pipe(
             catchError(error => {
               this.hasError = true;
               this.errorMessage = error.message;
               this.errorData = error;
-              // TODO: need to prevent errors for triggering subsequent blocks
-              return of({error, hasError: this.hasError, errorMessage: this.errorMessage});
+              this.isLoading = false;
+              return of({
+                body: { error, hasError: true, errorMessage: this.errorMessage },
+                status: error.status || 500,
+                statusText: error.statusText || 'Error',
+                hasError: true // Flag to identify error responses in subscribe
+              });
             })
           )
-          .subscribe((response: Record<string, any>) => {
+          .subscribe((response: HttpResponse<any> | any) => {
             this.isLoading = false;
             this.hasError = false;
-            if(!response.hasError) this.errorBlocks = [];
-            
-            this.outputResult(response);
+            if (!response.hasError) {
+              this.errorBlocks = [];
+            }
+            this.outputResult(response.body, response.status);
           });
         break;
       case 'BPUT': // binary PUT
@@ -241,22 +301,28 @@ export class HttpBlockComponent implements OnInit, OnChanges {
 
           return;
         }
-        this.http.put(url, payloadB, { headers, responseType: this.responseType })
+        this.http.put(url, payloadB, { headers, responseType: this.responseType, observe: 'response' })
           .pipe(
             catchError(error => {
               this.hasError = true;
               this.errorMessage = error.message;
               this.errorData = error;
-              // TODO: need to prevent errors for triggering subsequent blocks
-              return of({error, hasError: this.hasError, errorMessage: this.errorMessage});
+              this.isLoading = false;
+              return of({
+                body: { error, hasError: true, errorMessage: this.errorMessage },
+                status: error.status || 500,
+                statusText: error.statusText || 'Error',
+                hasError: true // Flag to identify error responses in subscribe
+              });
             })
           )
-          .subscribe((response: Record<string, any>) => {
+          .subscribe((response: HttpResponse<any> | any) => {
             this.isLoading = false;
             this.hasError = false;
-            if(!response.hasError) this.errorBlocks = [];
-
-            this.outputResult(response);
+            if (!response.hasError) {
+              this.errorBlocks = [];
+            }
+            this.outputResult(response.body, response.status);
             const notify = get(this.config, 'notify', true);
             if (notify) {
               const message = 'API update successful';
@@ -286,26 +352,34 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           return;
         }
         const sub = (toUpper(method) === 'PUT')
-          ? this.http.put(url, payload, { headers, responseType: this.responseType })
+          ? this.http.put(url, payload, { headers, responseType: this.responseType, observe: 'response' })
           : (toUpper(method) === 'PATCH') ?
-            this.http.patch(url, payload, { headers, responseType: this.responseType })
-            : this.http.post(url, payload, { headers, responseType: this.responseType });
+            this.http.patch(url, payload, { headers, responseType: this.responseType, observe: 'response' })
+            : this.http.post(url, payload, { headers, responseType: this.responseType, observe: 'response' });
         sub
           .pipe(
             catchError(error => {
               this.hasError = true;
               this.errorMessage = error.message;
               this.errorData = error;
-              // TODO: need to prevent errors for triggering subsequent blocks
-              return of({error, hasError: this.hasError, errorMessage: this.errorMessage});
+              this.isLoading = false;
+              return of({
+                body: { error, hasError: true, errorMessage: this.errorMessage },
+                status: error.status || 500,
+                statusText: error.statusText || 'Error',
+                hasError: true // Flag to identify error responses in subscribe
+              });
             })
           )
-          .subscribe((response: Record<string, any>) => {
+          .subscribe((response: HttpResponse<any> | any) => {
             this.isLoading = false;
             this.hasError = false;
-            if(!response.hasError) this.errorBlocks = [];
+            if (!response.hasError) {
+              this.errorBlocks = [];
+            }
 
-            this.outputResult(response);
+            this.outputResult(response.body, response.status);
+
             const notify = get(this.config, 'notify', true);
             if (notify) {
               const message = 'API update successful';
@@ -318,7 +392,6 @@ export class HttpBlockComponent implements OnInit, OnChanges {
         break;
     }
   }
-
 
   /**
    * Fetches paginated API results by recursively getting each page and merging the results.
@@ -351,6 +424,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           this.hasError = true;
           this.errorMessage = error.message;
           this.errorData = error;
+          this.isLoading = false;
           return of([]);
         }),
         reduce((accumlated_results: any[], response: HttpResponse<any>) => accumlated_results.concat(response.body || []), [])
@@ -358,7 +432,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       .subscribe(results => {
         this.isLoading = false;
         this.hasError = false;
-        this.outputResult(results);
+        this.outputResult(results, 200);
       });
   }
 
@@ -411,8 +485,40 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     return nextPageLink?.url || null;
   }
 
-  outputResult(data) {
-    this.output.emit(data);
+  async outputResult(data: any, statusCode?: number) {
+    if (statusCode) {
+      this.statusCode = statusCode;
+      const { responseSizeFormatted, responseHash, responseSizeBytes } = await computeMetadata(data);
+      this.responseSizeFormatted = responseSizeFormatted;
+      this.responseHash = responseHash;
+      this.responseSizeBytes = responseSizeBytes;
+
+      // Always save metadata to context (following context-save-block pattern)
+      const metadata = {
+        statusCode,
+        responseSizeFormatted,
+        responseHash,
+        responseSizeBytes,
+        timestamp: new Date().toISOString(),
+        endpoint: this.constructEndpointUrl(this.config)
+      };
+      
+      if (get(this.config, 'storeMetadataInContext', false)) {
+        set(this.context, 'httpMetadata', metadata);
+        this.context.__key = uuid();
+        console.log('Metadata saved to context.httpMetadata');
+      }
+
+      this.output.emit(data);
+
+      console.log('Response size:', responseSizeFormatted);
+      console.log('Response size (bytes):', responseSizeBytes);
+      console.log('Response hash:', responseHash);
+      console.log('Status code:', statusCode);
+    } else {
+      // Always emit the data to the next block
+      this.output.emit(data);
+    }
   }
 
   getPayloadHeaders() {
