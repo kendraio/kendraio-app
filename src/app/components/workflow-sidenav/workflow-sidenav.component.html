@@ -1,4 +1,8 @@
 
+    <div class="build-info" *ngIf="buildDate$ | async as buildDate">
+      Build: {{ buildDate | date:'medium' }}
+    </div>
+
     <div class="toolbar">
       <button type="button" mat-icon-button (click)="toggleExpand()" [matTooltip]="isExpanded ? 'Shrink' : 'Expand'">
         <mat-icon>{{ isExpanded ? 'arrow_right' : 'arrow_left' }}</mat-icon>
@@ -6,6 +10,9 @@
 
       <button type="button" mat-icon-button (click)="workflow.clearBlocks()" matTooltip="Clear workflow">
         <mat-icon>delete_forever</mat-icon>
+      </button>
+      <button type="button" mat-icon-button (click)="clearServiceWorkerCaches()" matTooltip="Clear cached data">
+        <mat-icon>delete_sweep</mat-icon>
       </button>
 <!--      <button type="button" mat-icon-button (click)="workflow.clearWorkflowData()" matTooltip="Clear workflow data">-->
 <!--        <app-kendraio-icon icon="fa-eraser"></app-kendraio-icon>-->
