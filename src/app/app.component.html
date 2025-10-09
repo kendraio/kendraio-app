@@ -62,8 +62,9 @@
 
       <div class="sidenav-footer" *ngIf="serviceWorkerStatus$ | async as swStatus">
         <mat-icon>schedule</mat-icon>
-        App modified on {{ swStatus.lastModified ? (swStatus.lastModified | date:'mediumDate') : 'Awaiting activation' }}
-        <span *ngIf="updateAvailable$ | async" class="update-text"> - A new version is available</span>
+        <span *ngIf="swStatus.lastModified">App modified on:<br>{{ swStatus.lastModified | date:'yyyy-MM-dd HH:mm:ss \'UTC\'':'UTC' }}</span>
+        <span *ngIf="!swStatus.lastModified">Checking app modified date...</span>
+        <span *ngIf="updateAvailable$ | async" class="update-text"> - A new version is available.</span>
       </div>
     </div>
 
