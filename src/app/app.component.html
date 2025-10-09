@@ -61,18 +61,9 @@
       <app-main-menu class="left-sidenav__menu"></app-main-menu>
 
       <div class="left-sidenav__footer" *ngIf="serviceWorkerStatus$ | async as swStatus">
-        <div class="sw-info">
-          <mat-icon>schedule</mat-icon>
-          <div class="sw-info__details">
-            <div class="sw-info__value">
-              App modified on {{ swStatus.lastModified ? (swStatus.lastModified | date:'mediumDate') : 'Awaiting activation' }}
-            </div>
-          </div>
-        </div>
-
-        <div class="update-info" *ngIf="updateAvailable$ | async">
-          A new version is available
-        </div>
+        <mat-icon>schedule</mat-icon>
+        App modified on {{ swStatus.lastModified ? (swStatus.lastModified | date:'mediumDate') : 'Awaiting activation' }}
+        <span *ngIf="updateAvailable$ | async" class="update-text"> - A new version is available</span>
       </div>
     </div>
 

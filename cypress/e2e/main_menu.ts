@@ -49,8 +49,8 @@ describe('Main Menu and Service Worker Info', () => {
     cy.get('.left-sidenav__footer').should('exist').should('be.visible');
 
     // Verify date information is visible (either updated date or status message)
-    cy.get('.left-sidenav__footer .sw-info__value').should('be.visible').then(($value) => {
-      const text = $value.text().trim();
+    cy.get('.left-sidenav__footer').should('be.visible').then(($footer) => {
+      const text = $footer.text().trim().replace('schedule ', '');
       // Should start with 'App modified on' followed by date or status
       expect(text).to.match(/^App modified on /);
       const rest = text.replace('App modified on ', '');
@@ -77,7 +77,7 @@ describe('Main Menu and Service Worker Info', () => {
       .should('contain', 'schedule');
 
     // Verify that no update message is shown when no newer version is available
-    cy.get('.update-info').should('not.exist');
+    cy.get('.left-sidenav__footer').should('not.contain', ' - A new version is available');
   });
 
   it('should show update available message when a newer version is detected', () => {
@@ -98,14 +98,14 @@ describe('Main Menu and Service Worker Info', () => {
     cy.get('.left-sidenav__footer').should('exist').should('be.visible');
 
     // Verify date information is visible
-    cy.get('.left-sidenav__footer .sw-info__value').should('be.visible').then(($value) => {
-      const text = $value.text().trim();
+    cy.get('.left-sidenav__footer').should('be.visible').then(($footer) => {
+      const text = $footer.text().trim().replace('schedule ', '');
       expect(text).to.match(/^App modified on /);
       const rest = text.replace('App modified on ', '');
-      expect(rest).to.match(/^[A-Z][a-z]{2} \d{1,2}, \d{4}$/); // should be the current date
+      expect(rest).to.match(/^[A-Z][a-z]{2} \d{1,2}, \d{4}  - A new version is available$/);
     });
 
     // Verify the update message is visible
-    cy.get('.update-info').should('be.visible').should('contain', 'A new version is available');
+    cy.get('.left-sidenav__footer').should('contain', ' - A new version is available');
   });
 });
