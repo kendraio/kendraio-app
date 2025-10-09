@@ -1,0 +1,42 @@
+.left-sidenav {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.left-sidenav__menu {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.sidenav-footer {
+  flex: 0 0 auto;
+  flex-shrink: 0;
+  padding: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  font-size: 0.75rem;
+  color: rgba(0, 0, 0, 0.7);
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sidenav-footer mat-icon {
+  font-size: 1rem;
+  width: 1rem;
+  height: 1rem;
+  color: rgba(0, 0, 0, 0.38);
+}
+
+.app-container {
+  height: calc(100vh - 64px);
+}
+
+@media (max-width: 599px) {
+  .app-container {
+    height: calc(100vh - 56px);
+  }
+}
