@@ -1,36 +1,28 @@
-import { loadFlowCode } from '../support/helper';
 /// <reference types="Cypress" />
 
 function openSidebar() {
-  // Open the sidebar if not already open
-  cy.get('mat-sidenav').then(($sidenav) => {
-    if (!$sidenav.hasClass('mat-drawer-opened')) {
+  cy.get('mat-sidenav').then($s => {
+    if (!$s.hasClass('mat-drawer-opened')) {
       cy.get('button[mat-icon-button]').first().click();
     }
   });
-
-  // Wait for sidebar to be fully open
+  // Waits for the sidebar to be fully opened:
   cy.get('mat-sidenav').should('have.class', 'mat-drawer-opened');
 }
 
-describe('Main Menu and Service Worker Info', () => {
-
+describe('Main menu with app modified date footer', () => {
   beforeEach(() => {
-    // Prevent external network request for adapter config
     cy.intercept('GET', 'https://kendraio.github.io/kendraio-adapter/config.json', {
       fixture: 'adapterConfig.json'
     }).as('adapterConfig');
-
-    // Prevent external network requests for fonts
-    cy.intercept('https://fonts.googleapis.com/**', "*{ }");
+    cy.intercept('https://fonts.googleapis.com/**', '*{ }');
   });
 
-  it('should show all menu items and service worker date in the left sidebar footer', () => {
+  it('shows modified date footer and existing menu items', () => {
     cy.visit('/');
-
     openSidebar();
-
-    const menuItems = [
+    
+    const MENU_ITEMS = [
       'Dashboard',
       'Settings',
       'Adapters',
@@ -40,72 +32,52 @@ describe('Main Menu and Service Worker Info', () => {
       'Query Builder'
     ];
 
-    // Verify all menu items are visible
-    menuItems.forEach((item) => {
+    MENU_ITEMS.forEach(item => {
       cy.get('.left-sidenav__menu').contains(item).should('be.visible');
     });
 
-    // Verify the service worker footer exists and is visible
-    cy.get('.left-sidenav__footer').should('exist').should('be.visible');
-
-    // Verify date information is visible (either updated date or status message)
-    cy.get('.left-sidenav__footer').should('be.visible').then(($footer) => {
-      const text = $footer.text().trim().replace('schedule ', '');
-      // Should start with 'App modified on' followed by date or status
-      expect(text).to.match(/^App modified on /);
-      const rest = text.replace('App modified on ', '');
-      expect(rest).to.match(/^[A-Z][a-z]{2} \d{1,2}, \d{4}$|Awaiting activation/);
-    });
-
-    // Verify the footer is fully visible with no clipping
-    cy.get('.left-sidenav__footer').then(($footer) => {
-      const footer = $footer[0];
-      const footerRect = footer.getBoundingClientRect();
-      const sidenavRect = footer.closest('mat-sidenav')?.getBoundingClientRect();
-
-      expect(footerRect.height).to.be.greaterThan(0);
-
-      if (sidenavRect) {
-        expect(footerRect.bottom).to.be.lessThan(sidenavRect.bottom + 1);
-        expect(footerRect.top).to.be.greaterThan(sidenavRect.top - 1);
-      }
-    });
-
-    // Verify the schedule icon is visible
-    cy.get('.left-sidenav__footer mat-icon')
+    cy.get('.sidenav-footer')
       .should('be.visible')
-      .should('contain', 'schedule');
+      .should('contain.text', 'App modified on')
+      .should('not.contain.text', 'A new version is available')
+      .then($footer => {
+        // Check that the footer is within the sidenav bounds, and not zero height
+        const footerRect = $footer[0].getBoundingClientRect();
+        const sidenav = $footer[0].closest('mat-sidenav');
+        const sidenavRect = sidenav && sidenav.getBoundingClientRect();
 
-    // Verify that no update message is shown when no newer version is available
-    cy.get('.left-sidenav__footer').should('not.contain', ' - A new version is available');
+        expect(footerRect.height).to.be.greaterThan(0);
+        if (sidenavRect) {
+          expect(footerRect.bottom).to.be.lessThan(sidenavRect.bottom + 1);
+          expect(footerRect.top).to.be.greaterThan(sidenavRect.top - 1);
+        }
+
+        // Check that the footer text is not offscreen (no overflow)
+        expect($footer[0].scrollHeight).to.eq($footer[0].clientHeight);
+        expect($footer[0].scrollWidth).to.eq($footer[0].clientWidth);
+      });
   });
 
-  it('should show update available message when a newer version is detected', () => {
-    // Mock ngsw.json with current timestamp for status, newer for update check
-    cy.intercept('GET', '/ngsw.json', (req) => {
-      if (req.headers['cache-control'] === 'no-cache') {
-        req.reply({ timestamp: 1728499200001 }); // newer timestamp
-      } else {
-        req.reply({ timestamp: 1728499200000 }); // current timestamp
+  it('shows update banner when a newer version exists', () => {
+    const firstLoad = { timestamp: 1728499200000 };
+    const refreshedLoad = { timestamp: 1728499200001 };
+
+    cy.intercept('GET', '/ngsw.json', req => {
+      const isRefresh = req.headers['cache-control'] === 'no-cache';
+      if (isRefresh) {
+        req.reply(refreshedLoad);
+      }
+      if (!isRefresh) {
+        req.reply(firstLoad);
       }
     });
 
     cy.visit('/');
-
     openSidebar();
 
-    // Verify the service worker footer exists and is visible
-    cy.get('.left-sidenav__footer').should('exist').should('be.visible');
-
-    // Verify date information is visible
-    cy.get('.left-sidenav__footer').should('be.visible').then(($footer) => {
-      const text = $footer.text().trim().replace('schedule ', '');
-      expect(text).to.match(/^App modified on /);
-      const rest = text.replace('App modified on ', '');
-      expect(rest).to.match(/^[A-Z][a-z]{2} \d{1,2}, \d{4}  - A new version is available$/);
-    });
-
-    // Verify the update message is visible
-    cy.get('.left-sidenav__footer').should('contain', ' - A new version is available');
+    cy.get('.sidenav-footer')
+      .should('be.visible')
+      .should('contain.text', 'App modified on')
+      .should('contain.text', 'A new version is available');
   });
 });

@@ -60,7 +60,7 @@
     <div class="left-sidenav">
       <app-main-menu class="left-sidenav__menu"></app-main-menu>
 
-      <div class="left-sidenav__footer" *ngIf="serviceWorkerStatus$ | async as swStatus">
+      <div class="sidenav-footer" *ngIf="serviceWorkerStatus$ | async as swStatus">
         <mat-icon>schedule</mat-icon>
         App modified on {{ swStatus.lastModified ? (swStatus.lastModified | date:'mediumDate') : 'Awaiting activation' }}
         <span *ngIf="updateAvailable$ | async" class="update-text"> - A new version is available</span>
