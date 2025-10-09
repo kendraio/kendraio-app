@@ -64,24 +64,11 @@
         <div class="sw-info">
           <mat-icon>schedule</mat-icon>
           <div class="sw-info__details">
-            <span class="sw-info__label">Service worker</span>
             <div class="sw-info__value">
-              <ng-container *ngIf="swStatus.supported; else swNotSupported">
-                <ng-container *ngIf="swStatus.lastModified; else swNotActive">
-                  Updated {{ swStatus.lastModified | date:'medium' }}
-                </ng-container>
-              </ng-container>
+              App modified on {{ swStatus.lastModified ? (swStatus.lastModified | date:'mediumDate') : 'Awaiting activation' }}
             </div>
           </div>
         </div>
-
-        <ng-template #swNotActive>
-          Awaiting activation
-        </ng-template>
-
-        <ng-template #swNotSupported>
-          Not supported on this device
-        </ng-template>
       </div>
     </div>
 

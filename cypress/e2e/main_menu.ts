@@ -49,16 +49,13 @@ describe('Main Menu and Service Worker Info', () => {
     // Verify the service worker footer exists and is visible
     cy.get('.left-sidenav__footer').should('exist').should('be.visible');
 
-    // Verify the service worker label is present
-    cy.get('.left-sidenav__footer .sw-info__label')
-      .should('be.visible')
-      .should('contain', 'Service worker');
-
     // Verify date information is visible (either updated date or status message)
     cy.get('.left-sidenav__footer .sw-info__value').should('be.visible').then(($value) => {
       const text = $value.text().trim();
-      // Should contain either a date or status message
-      expect(text).to.match(/Updated|Awaiting activation|Not supported/);
+      // Should start with 'App modified on' followed by date or status
+      expect(text).to.match(/^App modified on /);
+      const rest = text.replace('App modified on ', '');
+      expect(rest).to.match(/^[A-Z][a-z]{2} \d{1,2}, \d{4}$|Awaiting activation/);
     });
 
     // Verify the footer is fully visible within the sidenav (no clipping)

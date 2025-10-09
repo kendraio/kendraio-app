@@ -46,13 +46,8 @@
 
 .left-sidenav__footer .sw-info__details {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 0.25rem;
-}
-
-.left-sidenav__footer .sw-info__label {
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
 }
 
 .left-sidenav__footer button {

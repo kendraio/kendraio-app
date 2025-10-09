@@ -22,7 +22,7 @@ export class AppComponent {
   transViaService = '';
 
   notificationCount = '';
-  readonly serviceWorkerStatus$: Observable<ServiceWorkerStatus>;
+  serviceWorkerStatus$: Observable<ServiceWorkerStatus>;
 
   constructor(
     private readonly coreEventHandlers: CoreEventHandlersService,
