@@ -38,11 +38,17 @@ export class ServiceWorkerInfoService {
   }
 
   private fetchManifestTimestamp(bypassCache: boolean): Observable<ServiceWorkerStatus> {
-    const headers = bypassCache 
-      ? new HttpHeaders({ 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' })
+    const headers = bypassCache
+      ? new HttpHeaders({
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache',
+          'ngsw-bypass': 'true'
+        })
       : undefined;
-      
-    return this.http.get<{ timestamp?: number }>('/ngsw.json', { headers }).pipe(
+
+    const url = bypassCache ? '/ngsw.json?ngsw-bypass=true' : '/ngsw.json';
+
+    return this.http.get<{ timestamp?: number }>(url, { headers }).pipe(
       map(manifest => {
         const timestamp = manifest?.timestamp;
         if (typeof timestamp !== 'number' || !Number.isFinite(timestamp)) {
