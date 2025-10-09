@@ -69,6 +69,10 @@
             </div>
           </div>
         </div>
+
+        <div class="update-info" *ngIf="updateAvailable$ | async">
+          A new version is available
+        </div>
       </div>
     </div>
 

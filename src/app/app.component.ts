@@ -23,6 +23,7 @@ export class AppComponent {
 
   notificationCount = '';
   serviceWorkerStatus$: Observable<ServiceWorkerStatus>;
+  updateAvailable$: Observable<boolean>;
 
   constructor(
     private readonly coreEventHandlers: CoreEventHandlersService,
@@ -38,6 +39,7 @@ export class AppComponent {
     this.pageTitle$ = this.title.pageTitle$;
     this.isAppLayout$ = this.title.isApp$;
     this.serviceWorkerStatus$ = this.serviceWorkerInfo.status$;
+    this.updateAvailable$ = this.serviceWorkerInfo.updateAvailable$;
     const browserLang = translate.getBrowserLang();
     translate.addLangs(['en', 'fr', 'de', 'pt', 'it', 'ru', 'ja', 'es', 'el']);
     translate.setDefaultLang('fr');

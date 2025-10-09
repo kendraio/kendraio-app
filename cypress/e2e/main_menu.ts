@@ -1,6 +1,18 @@
 import { loadFlowCode } from '../support/helper';
 /// <reference types="Cypress" />
 
+function openSidebar() {
+  // Open the sidebar if not already open
+  cy.get('mat-sidenav').then(($sidenav) => {
+    if (!$sidenav.hasClass('mat-drawer-opened')) {
+      cy.get('button[mat-icon-button]').first().click();
+    }
+  });
+
+  // Wait for sidebar to be fully open
+  cy.get('mat-sidenav').should('have.class', 'mat-drawer-opened');
+}
+
 describe('Main Menu and Service Worker Info', () => {
 
   beforeEach(() => {
@@ -9,29 +21,15 @@ describe('Main Menu and Service Worker Info', () => {
       fixture: 'adapterConfig.json'
     }).as('adapterConfig');
 
-    // Prevent external network requests for Workflow cloud
-    cy.intercept('GET', 'https://app.kendra.io/api/workflowCloud/listWorkflows', {
-      fixture: 'workflow-cloud.json'
-    }).as('workflowCloud');
-
     // Prevent external network requests for fonts
     cy.intercept('https://fonts.googleapis.com/**', "*{ }");
-
-    cy.visit('/');
   });
 
   it('should show all menu items and service worker date in the left sidebar footer', () => {
-    // Open the sidebar if not already open
-    cy.get('mat-sidenav').then(($sidenav) => {
-      if (!$sidenav.hasClass('mat-drawer-opened')) {
-        cy.get('button[mat-icon-button]').first().click();
-      }
-    });
+    cy.visit('/');
 
-    // Wait for sidebar to be fully open
-    cy.get('mat-sidenav').should('have.class', 'mat-drawer-opened');
+    openSidebar();
 
-    // Verify all menu items are visible
     const menuItems = [
       'Dashboard',
       'Settings',
@@ -42,6 +40,7 @@ describe('Main Menu and Service Worker Info', () => {
       'Query Builder'
     ];
 
+    // Verify all menu items are visible
     menuItems.forEach((item) => {
       cy.get('.left-sidenav__menu').contains(item).should('be.visible');
     });
@@ -58,7 +57,7 @@ describe('Main Menu and Service Worker Info', () => {
       expect(rest).to.match(/^[A-Z][a-z]{2} \d{1,2}, \d{4}$|Awaiting activation/);
     });
 
-    // Verify the footer is fully visible within the sidenav (no clipping)
+    // Verify the footer is fully visible with no clipping
     cy.get('.left-sidenav__footer').then(($footer) => {
       const footer = $footer[0];
       const footerRect = footer.getBoundingClientRect();
@@ -67,7 +66,7 @@ describe('Main Menu and Service Worker Info', () => {
       expect(footerRect.height).to.be.greaterThan(0);
 
       if (sidenavRect) {
-        expect(footerRect.bottom).to.be.lessThan(sidenavRect.bottom + 1); // allow rounding
+        expect(footerRect.bottom).to.be.lessThan(sidenavRect.bottom + 1);
         expect(footerRect.top).to.be.greaterThan(sidenavRect.top - 1);
       }
     });
@@ -76,5 +75,37 @@ describe('Main Menu and Service Worker Info', () => {
     cy.get('.left-sidenav__footer mat-icon')
       .should('be.visible')
       .should('contain', 'schedule');
+
+    // Verify that no update message is shown when no newer version is available
+    cy.get('.update-info').should('not.exist');
+  });
+
+  it('should show update available message when a newer version is detected', () => {
+    // Mock ngsw.json with current timestamp for status, newer for update check
+    cy.intercept('GET', '/ngsw.json', (req) => {
+      if (req.headers['cache-control'] === 'no-cache') {
+        req.reply({ timestamp: 1728499200001 }); // newer timestamp
+      } else {
+        req.reply({ timestamp: 1728499200000 }); // current timestamp
+      }
+    });
+
+    cy.visit('/');
+
+    openSidebar();
+
+    // Verify the service worker footer exists and is visible
+    cy.get('.left-sidenav__footer').should('exist').should('be.visible');
+
+    // Verify date information is visible
+    cy.get('.left-sidenav__footer .sw-info__value').should('be.visible').then(($value) => {
+      const text = $value.text().trim();
+      expect(text).to.match(/^App modified on /);
+      const rest = text.replace('App modified on ', '');
+      expect(rest).to.match(/^[A-Z][a-z]{2} \d{1,2}, \d{4}$/); // should be the current date
+    });
+
+    // Verify the update message is visible
+    cy.get('.update-info').should('be.visible').should('contain', 'A new version is available');
   });
 });
