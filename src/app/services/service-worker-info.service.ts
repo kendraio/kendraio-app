@@ -12,23 +12,24 @@ export interface ServiceWorkerStatus {
   providedIn: 'root'
 })
 export class ServiceWorkerInfoService {
-  private readonly isBrowser: boolean;
-  private readonly statusInternal$: Observable<ServiceWorkerStatus>;
-  private readonly updateAvailableInternal$: Observable<boolean>;
+  readonly status$: Observable<ServiceWorkerStatus>;
+  readonly updateAvailable$: Observable<boolean>;
 
   constructor(
     private readonly http: HttpClient,
     @Inject(PLATFORM_ID) platformId: object
   ) {
-    this.isBrowser = isPlatformBrowser(platformId);
-    this.statusInternal$ = defer(() => this.isBrowser ? this.requestStatus() : of({ lastModified: null })).pipe(
-      shareReplay(1)
-    );
-    this.updateAvailableInternal$ = this.statusInternal$.pipe(
+    const isBrowser = isPlatformBrowser(platformId);
+    
+    this.status$ = defer(() => 
+      isBrowser ? this.fetchManifestTimestamp(false) : of({ lastModified: null })
+    ).pipe(shareReplay(1));
+    
+    this.updateAvailable$ = this.status$.pipe(
       switchMap(status => {
         if (!status.lastModified) return of(false);
-        return this.requestLatestManifestTimestamp().pipe(
-          map(latest => latest ? latest > status.lastModified : false),
+        return this.fetchManifestTimestamp(true).pipe(
+          map(latest => latest.lastModified ? latest.lastModified > status.lastModified : false),
           catchError(() => of(false))
         );
       }),
@@ -36,54 +37,22 @@ export class ServiceWorkerInfoService {
     );
   }
 
-  get status$(): Observable<ServiceWorkerStatus> {
-    return this.statusInternal$;
-  }
-
-  get updateAvailable$(): Observable<boolean> {
-    return this.updateAvailableInternal$;
-  }
-
-  private requestStatus(): Observable<ServiceWorkerStatus> {
-    return this.requestManifestTimestamp().pipe(
-      map(timestamp => ({ lastModified: timestamp })),
+  private fetchManifestTimestamp(bypassCache: boolean): Observable<ServiceWorkerStatus> {
+    const headers = bypassCache 
+      ? new HttpHeaders({ 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' })
+      : undefined;
+      
+    return this.http.get<{ timestamp?: number }>('/ngsw.json', { headers }).pipe(
+      map(manifest => {
+        const timestamp = manifest?.timestamp;
+        if (typeof timestamp !== 'number' || !Number.isFinite(timestamp)) {
+          return { lastModified: null };
+        }
+        const date = new Date(timestamp);
+        return { lastModified: Number.isNaN(date.getTime()) ? null : date };
+      }),
       catchError(() => of({ lastModified: null }))
     );
   }
-
-  private requestManifestTimestamp(): Observable<Date | null> {
-    return this.http.get<{ timestamp?: number }>('/ngsw.json').pipe(
-      map((manifest) => {
-        const { timestamp } = manifest ?? {};
-
-        if (typeof timestamp !== 'number' || !Number.isFinite(timestamp)) {
-          return null;
-        }
-
-        const manifestDate = new Date(timestamp);
-        return Number.isNaN(manifestDate.getTime()) ? null : manifestDate;
-      }),
-      catchError(() => of(null))
-    );
-  }
-
-  private requestLatestManifestTimestamp(): Observable<Date | null> {
-    const headers = new HttpHeaders({
-      'Cache-Control': 'no-cache',
-      'Pragma': 'no-cache'
-    });
-    return this.http.get<{ timestamp?: number }>('/ngsw.json', { headers }).pipe(
-      map((manifest) => {
-        const { timestamp } = manifest ?? {};
-
-        if (typeof timestamp !== 'number' || !Number.isFinite(timestamp)) {
-          return null;
-        }
-
-        const manifestDate = new Date(timestamp);
-        return Number.isNaN(manifestDate.getTime()) ? null : manifestDate;
-      }),
-      catchError(() => of(null))
-    );
-  }
 }
+
