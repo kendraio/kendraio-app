@@ -1,3 +1,14 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-container {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
 ::ng-deep mat-sidenav .mat-drawer-inner-container {
   display: flex;
   flex-direction: column;
@@ -14,13 +25,13 @@
   flex: 0 0 auto;
   flex-shrink: 0;
   padding: 1rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.12);
   font-size: 0.75rem;
-  color: rgba(0, 0, 0, 0.7);
-  background-color: #fff;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
   gap: 0.5rem;
+  margin-top: auto;
+  border-top: none;
 }
 
 .sidenav-footer mat-icon {
