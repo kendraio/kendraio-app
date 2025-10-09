@@ -1,11 +1,10 @@
-.left-sidenav {
+::ng-deep mat-sidenav .mat-drawer-inner-container {
   display: flex;
   flex-direction: column;
-  height: 100%;
   overflow: hidden;
 }
 
-.left-sidenav__menu {
+::ng-deep mat-sidenav app-main-menu {
   flex: 1 1 auto;
   overflow-y: auto;
   min-height: 0;
@@ -29,14 +28,4 @@
   width: 1rem;
   height: 1rem;
   color: rgba(0, 0, 0, 0.38);
-}
-
-.app-container {
-  height: calc(100vh - 64px);
-}
-
-@media (max-width: 599px) {
-  .app-container {
-    height: calc(100vh - 56px);
-  }
 }

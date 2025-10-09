@@ -33,7 +33,7 @@ describe('Main menu with app modified date footer', () => {
     ];
 
     MENU_ITEMS.forEach(item => {
-      cy.get('.left-sidenav__menu').contains(item).should('be.visible');
+      cy.get('app-main-menu').contains(item).should('be.visible');
     });
 
     cy.get('.sidenav-footer')

@@ -53,19 +53,17 @@
 
 </mat-toolbar>
 
-<mat-sidenav-container class="app-container">
+<mat-sidenav-container class="app-container" style="height:100vh">
 
   <mat-sidenav #sidenav mode="side" (keydown.escape)="sidenav.close()" style="width: 260px;">
 
-    <div class="left-sidenav">
-      <app-main-menu class="left-sidenav__menu"></app-main-menu>
+    <app-main-menu></app-main-menu>
 
-      <div class="sidenav-footer" *ngIf="serviceWorkerStatus$ | async as swStatus">
-        <mat-icon>schedule</mat-icon>
-        <span *ngIf="swStatus.lastModified">App modified on:<br>{{ swStatus.lastModified | date:'yyyy-MM-dd HH:mm:ss \'UTC\'':'UTC' }}</span>
-        <span *ngIf="!swStatus.lastModified">Checking app modified date...</span>
-        <span *ngIf="updateAvailable$ | async" class="update-text"> - A new version is available.</span>
-      </div>
+    <div class="sidenav-footer" *ngIf="serviceWorkerStatus$ | async as swStatus">
+      <mat-icon>schedule</mat-icon>
+      <span *ngIf="swStatus.lastModified">App modified on:<br>{{ swStatus.lastModified | date:'yyyy-MM-dd HH:mm:ss \'UTC\'':'UTC' }}</span>
+      <span *ngIf="!swStatus.lastModified">Checking app modified date...</span>
+      <span *ngIf="updateAvailable$ | async" class="update-text"> - A new version is available.</span>
     </div>
 
   </mat-sidenav>
