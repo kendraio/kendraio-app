@@ -53,11 +53,37 @@
 
 </mat-toolbar>
 
-<mat-sidenav-container class="app-container" style="height:100vh">
+<mat-sidenav-container class="app-container">
 
   <mat-sidenav #sidenav mode="side" (keydown.escape)="sidenav.close()" style="width: 260px;">
 
-    <app-main-menu></app-main-menu>
+    <div class="left-sidenav">
+      <app-main-menu class="left-sidenav__menu"></app-main-menu>
+
+      <div class="left-sidenav__footer" *ngIf="serviceWorkerStatus$ | async as swStatus">
+        <div class="sw-info">
+          <mat-icon>schedule</mat-icon>
+          <div class="sw-info__details">
+            <span class="sw-info__label">Service worker</span>
+            <div class="sw-info__value">
+              <ng-container *ngIf="swStatus.supported; else swNotSupported">
+                <ng-container *ngIf="swStatus.lastModified; else swNotActive">
+                  Updated {{ swStatus.lastModified | date:'medium' }}
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+        <ng-template #swNotActive>
+          Awaiting activation
+        </ng-template>
+
+        <ng-template #swNotSupported>
+          Not supported on this device
+        </ng-template>
+      </div>
+    </div>
 
   </mat-sidenav>
 

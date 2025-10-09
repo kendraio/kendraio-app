@@ -8,11 +8,13 @@ import { LOCALE_ID } from '@angular/core';
 import { TranslateService, TranslationChangeEvent } from '@ngx-translate/core';
 import { Animations } from './_shared/animations';
 import { CoreEventHandlersService } from './services/core-event-handlers.service';
+import { ServiceWorkerInfoService, ServiceWorkerStatus } from './services/service-worker-info.service';
 
 @Component({
   animations: [Animations.kendraAnimations],
   selector: 'app-root',
-  templateUrl: 'app.component.html'
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.scss']
 })
 export class AppComponent {
   pageTitle$: Observable<{ title: string, isWorkflow: boolean }>;
@@ -20,6 +22,7 @@ export class AppComponent {
   transViaService = '';
 
   notificationCount = '';
+  readonly serviceWorkerStatus$: Observable<ServiceWorkerStatus>;
 
   constructor(
     private readonly coreEventHandlers: CoreEventHandlersService,
@@ -29,10 +32,12 @@ export class AppComponent {
     private readonly help: HelpTextService,
     private titleService: Title,
     @Inject(LOCALE_ID) public locale: string,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private readonly serviceWorkerInfo: ServiceWorkerInfoService
   ) {
     this.pageTitle$ = this.title.pageTitle$;
     this.isAppLayout$ = this.title.isApp$;
+    this.serviceWorkerStatus$ = this.serviceWorkerInfo.status$;
     const browserLang = translate.getBrowserLang();
     translate.addLangs(['en', 'fr', 'de', 'pt', 'it', 'ru', 'ja', 'es', 'el']);
     translate.setDefaultLang('fr');
