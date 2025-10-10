@@ -1,42 +1,16 @@
-:host {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
 
-.app-container {
-  flex: 1 1 auto;
-  min-height: 0;
-}
 
-::ng-deep mat-sidenav .mat-drawer-inner-container {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-::ng-deep mat-sidenav app-main-menu {
-  flex: 1 1 auto;
-  overflow-y: auto;
-  min-height: 0;
-}
-
-.sidenav-footer {
-  flex: 0 0 auto;
-  flex-shrink: 0;
+.sidenav-footer { 
   padding: 1rem;
-  font-size: 0.75rem;
-  display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: auto;
-  border-top: none;
+  flex: 0 0 auto;
+  position: fixed;
+  bottom: 0;
 }
-
 .sidenav-footer mat-icon {
   font-size: 1rem;
   width: 1rem;
   height: 1rem;
   color: rgba(0, 0, 0, 0.38);
 }
+
+

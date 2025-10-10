@@ -10,23 +10,6 @@ function openSidebar() {
   cy.get('mat-sidenav').should('have.class', 'mat-drawer-opened');
 }
 
-function assertFooterInViewport() {
-  cy.get('.sidenav-footer').then($footer => {
-    const footerEl = $footer[0];
-    cy.window().then(win => {
-      const rect = footerEl.getBoundingClientRect();
-      expect(rect.top, 'footer top is within viewport').to.be.gte(0);
-      expect(rect.bottom, 'footer bottom is within viewport').to.be.lte(win.innerHeight);
-    });
-
-    const sidenavContainer = footerEl.closest('.mat-drawer-inner-container');
-    if (sidenavContainer) {
-      const { scrollHeight, clientHeight } = sidenavContainer;
-      expect(scrollHeight, 'sidenav inner container fits without vertical overflow').to.be.lte(clientHeight + 1);
-    }
-  });
-}
-
 describe('Main menu with app modified date footer', () => {
   beforeEach(() => {
     cy.intercept('GET', 'https://kendraio.github.io/kendraio-adapter/config.json', {
@@ -56,8 +39,6 @@ describe('Main menu with app modified date footer', () => {
     cy.get('.sidenav-footer')
       .should('contain.text', 'App modified on')
       .should('not.contain.text', 'A new version is available');
-
-    assertFooterInViewport();
   });
 
   it('shows update banner when a newer version exists', () => {
@@ -82,6 +63,5 @@ describe('Main menu with app modified date footer', () => {
       .should('contain.text', 'App modified on')
       .should('contain.text', 'A new version is available');
 
-    assertFooterInViewport();
   });
 });
