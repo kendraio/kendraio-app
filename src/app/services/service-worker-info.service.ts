@@ -1,8 +1,8 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { isPlatformBrowser } from '@angular/common';
-import { Observable, defer, of } from 'rxjs';
-import { catchError, map, shareReplay, switchMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 export interface ServiceWorkerStatus {
   readonly lastModified: Date | null;
@@ -12,29 +12,29 @@ export interface ServiceWorkerStatus {
   providedIn: 'root'
 })
 export class ServiceWorkerInfoService {
-  readonly status$: Observable<ServiceWorkerStatus>;
-  readonly updateAvailable$: Observable<boolean>;
+  status: ServiceWorkerStatus = { lastModified: null };
+  updateAvailable = false;
 
   constructor(
     private readonly http: HttpClient,
     @Inject(PLATFORM_ID) platformId: object
   ) {
-    const isBrowser = isPlatformBrowser(platformId);
-    
-    this.status$ = defer(() => 
-      isBrowser ? this.fetchManifestTimestamp(false) : of({ lastModified: null })
-    ).pipe(shareReplay(1));
-    
-    this.updateAvailable$ = this.status$.pipe(
-      switchMap(status => {
-        if (!status.lastModified) return of(false);
-        return this.fetchManifestTimestamp(true).pipe(
-          map(latest => latest.lastModified ? latest.lastModified > status.lastModified : false),
-          catchError(() => of(false))
-        );
-      }),
-      shareReplay(1)
-    );
+    if (isPlatformBrowser(platformId)) {
+      (async () => {
+        try {
+          this.status = await this.fetchManifestTimestamp(false).toPromise();
+          
+          if (this.status.lastModified) {
+            const latest = await this.fetchManifestTimestamp(true).toPromise();
+            this.updateAvailable = latest.lastModified > this.status.lastModified;
+          }
+        } catch (error) {
+          console.error('Failed to fetch or parse service worker manifest timestamp from /ngsw.json:', error);
+          this.status = { lastModified: null };
+          this.updateAvailable = false;
+        }
+      })();
+    }
   }
 
   private fetchManifestTimestamp(bypassCache: boolean): Observable<ServiceWorkerStatus> {
@@ -52,12 +52,18 @@ export class ServiceWorkerInfoService {
       map(manifest => {
         const timestamp = manifest?.timestamp;
         if (typeof timestamp !== 'number' || !Number.isFinite(timestamp)) {
-          return { lastModified: null };
+          throw new Error(`Invalid or missing timestamp in service worker manifest (${url}). Expected a number, got: ${typeof timestamp}`);
         }
         const date = new Date(timestamp);
-        return { lastModified: Number.isNaN(date.getTime()) ? null : date };
+        if (Number.isNaN(date.getTime())) {
+          throw new Error(`Invalid timestamp value in service worker manifest (${url}). Timestamp ${timestamp} cannot be converted to a valid date.`);
+        }
+        return { lastModified: date };
       }),
-      catchError(() => of({ lastModified: null }))
+      catchError(error => {
+        console.error('Error fetching service worker manifest timestamp:', error);
+        return of({ lastModified: null });
+      })
     );
   }
 }

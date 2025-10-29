@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PageTitleService } from './services/page-title.service';
 import { Title } from '@angular/platform-browser';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { HelpTextService } from './_shared/services/help-text.service';
 import { LOCALE_ID } from '@angular/core';
 import { TranslateService, TranslationChangeEvent } from '@ngx-translate/core';
@@ -22,8 +22,6 @@ export class AppComponent {
   transViaService = '';
 
   notificationCount = '';
-  serviceWorkerStatus$: Observable<ServiceWorkerStatus>;
-  updateAvailable$: Observable<boolean>;
 
   constructor(
     private readonly coreEventHandlers: CoreEventHandlersService,
@@ -38,8 +36,6 @@ export class AppComponent {
   ) {
     this.pageTitle$ = this.title.pageTitle$;
     this.isAppLayout$ = this.title.isApp$;
-    this.serviceWorkerStatus$ = this.serviceWorkerInfo.status$;
-    this.updateAvailable$ = this.serviceWorkerInfo.updateAvailable$;
     const browserLang = translate.getBrowserLang();
     translate.addLangs(['en', 'fr', 'de', 'pt', 'it', 'ru', 'ja', 'es', 'el']);
     translate.setDefaultLang('fr');
@@ -54,6 +50,14 @@ export class AppComponent {
         this.transViaService = value;
       });
     });
+  }
+
+  get serviceWorkerStatus$(): Observable<ServiceWorkerStatus> {
+    return of(this.serviceWorkerInfo.status);
+  }
+
+  get updateAvailable$(): Observable<boolean> {
+    return of(this.serviceWorkerInfo.updateAvailable);
   }
 
   onRefresh() {
