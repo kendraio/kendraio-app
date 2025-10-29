@@ -1,6 +1,3 @@
-
-
-
 :host {
   display: flex;
   flex-direction: column;
@@ -16,17 +13,12 @@
   position: relative;
 }
 
-/* Ensure the sidenav itself stretches full height and behaves as a column */
 :host ::ng-deep mat-sidenav {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-/*
-  The .mat-drawer-inner-container is the direct parent of the sidenav content.
-  Applying the flexbox layout here ensures the footer is pushed to the bottom.
-*/
 :host ::ng-deep .mat-drawer-inner-container {
   display: flex;
   flex: 1 1 auto;
@@ -34,7 +26,6 @@
   min-height: 0;
 }
 
-/* Main menu: grows to fill space and scrolls if needed */
 app-main-menu {
   flex: 1 1 auto;
   display: block;
@@ -42,7 +33,6 @@ app-main-menu {
   overflow-y: auto;
 }
 
-/* Footer: stays at bottom, never shrinks, not scrollable */
 .sidenav-footer { 
   padding: 1rem;
   flex: 0 0 auto;
@@ -54,5 +44,3 @@ app-main-menu {
   height: 1rem;
   color: rgba(0, 0, 0, 0.38);
 }
-
-
