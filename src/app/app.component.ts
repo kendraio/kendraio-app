@@ -2,17 +2,19 @@ import { Component, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PageTitleService } from './services/page-title.service';
 import { Title } from '@angular/platform-browser';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { HelpTextService } from './_shared/services/help-text.service';
 import { LOCALE_ID } from '@angular/core';
 import { TranslateService, TranslationChangeEvent } from '@ngx-translate/core';
 import { Animations } from './_shared/animations';
 import { CoreEventHandlersService } from './services/core-event-handlers.service';
+import { ServiceWorkerInfoService, ServiceWorkerStatus } from './services/service-worker-info.service';
 
 @Component({
   animations: [Animations.kendraAnimations],
   selector: 'app-root',
-  templateUrl: 'app.component.html'
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.scss']
 })
 export class AppComponent {
   pageTitle$: Observable<{ title: string, isWorkflow: boolean }>;
@@ -29,7 +31,8 @@ export class AppComponent {
     private readonly help: HelpTextService,
     private titleService: Title,
     @Inject(LOCALE_ID) public locale: string,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private readonly serviceWorkerInfo: ServiceWorkerInfoService
   ) {
     this.pageTitle$ = this.title.pageTitle$;
     this.isAppLayout$ = this.title.isApp$;
@@ -47,6 +50,14 @@ export class AppComponent {
         this.transViaService = value;
       });
     });
+  }
+
+  get serviceWorkerStatus$(): Observable<ServiceWorkerStatus> {
+    return of(this.serviceWorkerInfo.status);
+  }
+
+  get updateAvailable$(): Observable<boolean> {
+    return of(this.serviceWorkerInfo.updateAvailable);
   }
 
   onRefresh() {
