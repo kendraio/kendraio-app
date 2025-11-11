@@ -14,8 +14,9 @@ Default config
       "open": 1,
       "showData": true,
       "showContext": false,
-      "showStat": false
-      
+      "showState": false,
+      "consoleLog": false,
+      "consoleLabel": "debug block"
     }
 
 Supported properties
@@ -26,6 +27,8 @@ Supported properties
 - showContext (default = false): This defaults to false, in which case only output the input data into the debug
   block is shown. Set this to true to enable debugging of context values too.
 - showState (default = false): Set this to true to enable to display of state.
+- consoleLog (default = false): Set this to true to display the debug data in the console.
+- consoleLabel (default = "debug block"): Set this to any literal value to identify the debug data in the console.
 - enabledGetter : When set the enabledGetter should contain a JMESPath expression that returns true/false to enable or disable the debug block. 
 
 
