@@ -13,10 +13,10 @@
  */
 
 
-let inputFilePath = 'flows.json';
-let outputFilePath = 'flow-block-config-analysis.json';
+let inputFilePath = 'flow-analysis/flows.json';
+let outputFilePath = 'flow-analysis/flow-block-config-analysis.json';
 
-let blockType = 'http';  // Replace with the block type you're interested in
+let blockType = 'form';  // Replace with the block type you're interested in
 let propertyOfInterest = null;  // E.g: 'uiSchema' - replace with the property you're interested in or leave as null
 let KENDRAIO_APP_URL = 'https://app.kendra.io/';
 
