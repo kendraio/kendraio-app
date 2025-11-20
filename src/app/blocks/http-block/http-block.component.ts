@@ -63,13 +63,13 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     const forceDebug = get(this.config, 'debug', false);
     // Check global debug mode setting
     const globalDebugMode = this.settings.get('debugMode', false);
-    
+
     // Status info is shown for any general debug mode
     this.showStatusInfo = forceDebug || globalDebugMode;
-    
+
     // For context display: only show if debugContext is explicitly set in config
     this.showDebugContext = get(this.config, 'debugContext', false);
-    
+
     // For config display: only show if debugConfig is explicitly set in config
     this.showDebugConfig = get(this.config, 'debugConfig', false);
   }
@@ -96,7 +96,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     }
 
 
-    
+
     this.responseType = get(this.config, 'responseType', 'json');
     this.errorBlocks = get(this.config, 'onError.blocks', []);
     this.makeRequest();
@@ -141,6 +141,10 @@ export class HttpBlockComponent implements OnInit, OnChanges {
         this.isLoading = false;
         return;
       }
+
+      if (toUpper(method) === 'GET') {
+        url = this.addCacheBuster(url);
+      }
     }
 
     if (has(this.config, 'authentication.type')) {
@@ -184,11 +188,11 @@ export class HttpBlockComponent implements OnInit, OnChanges {
             this.isLoading = false;
             return;
           }
-          
+
           // Handle payload based on HTTP method
           const methodUpper = method.toUpperCase();
           const isBinary = methodUpper === 'BPUT';
-          
+
           // For GET, DELETE methods use empty string as payload
           let actualPayload: string | ArrayBuffer = '';
           if (['PUT', 'POST', 'PATCH'].includes(methodUpper)) {
@@ -196,17 +200,17 @@ export class HttpBlockComponent implements OnInit, OnChanges {
           } else if (methodUpper === 'BPUT') {
             const bufferContent = get(this.model, 'content'); // Get potential buffer into temp variable
             if (!(bufferContent instanceof ArrayBuffer)) { // Check the temp variable
-                this.hasError = true;
-                this.errorMessage = `Invalid or missing binary payload (ArrayBuffer) in model.content for BPUT signing.`;
-                this.isLoading = false;
-                console.error(this.errorMessage, 'Payload Type:', typeof bufferContent);
-                return;
+              this.hasError = true;
+              this.errorMessage = `Invalid or missing binary payload (ArrayBuffer) in model.content for BPUT signing.`;
+              this.isLoading = false;
+              console.error(this.errorMessage, 'Payload Type:', typeof bufferContent);
+              return;
             }
             actualPayload = bufferContent; // Assign to actualPayload only if valid
           }
-          
+
           const saveHashMetadata = get(this.config, 'saveHashMetadata', false);
-          
+
           try {
             const { headers: sigHeaders } = await signAwsSigV4(method.toUpperCase() === 'BPUT' ? 'PUT' : method, useProxy ? headers.get('Target-URL')! : url, actualPayload, actualAccessKeyId, actualSecretKey, saveHashMetadata);
             // Merge sigHeaders into our existing headers
@@ -411,6 +415,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
             if (get(this.config, 'useProxy', false)) {
               headers = headers.delete('Target-URL');
               headers = headers.append('Target-URL', nextPageUrl);
+              url = this.addCacheBuster(url);
             } else {
               url = nextPageUrl;
             }
@@ -502,7 +507,7 @@ export class HttpBlockComponent implements OnInit, OnChanges {
         timestamp: new Date().toISOString(),
         endpoint: this.constructEndpointUrl(this.config)
       };
-      
+
       if (get(this.config, 'storeMetadataInContext', false)) {
         set(this.context, 'httpMetadata', metadata);
         this.context.__key = uuid();
@@ -552,5 +557,14 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     const reduceQuery = _q => Object.keys(_q).map(key => `${key}=${_q[key]}`, []).join('&');
 
     return `${protocol}//${host}${pathname}?${reduceQuery(query)}`;
+  }
+
+  private addCacheBuster(url: string): string {
+    const param = `_cachebust=${uuid()}`;
+    if (url.match(/[?&]_cachebust=/)) {
+      return url.replace(/([?&])_cachebust=[^&]*/, `$1${param}`);
+    }
+    const separator = url.includes('?') ? '&' : '?';
+    return `${url}${separator}${param}`;
   }
 }
