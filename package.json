@@ -81,7 +81,7 @@
     "json-to-graphql-query": "^2.2.6",
     "leaflet": "^1.9.4",
     "leaflet.markercluster": "^1.5.3",
-    "lodash-es": "^4.17.21",
+    "lodash-es": "^4.17.23",
     "luxon": "^1.28.1",
     "lz-string": "^1.5.0",
     "mermaid": "^9.1.7",
