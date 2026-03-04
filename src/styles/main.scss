@@ -182,6 +182,18 @@ dynamic-material-form-control:not(:last-child) {
   display: block;
   position: relative;
   padding: 1em;
+
+  img {
+    object-fit: cover;
+    margin-top: 20px;
+  }
+}
+
+.mat-card {
+  img {
+    object-fit: cover;
+    margin-top: 20px;
+  }
 }
 
 // HELPER CLASS

@@ -51,11 +51,12 @@ describe('HTTP Block Request', () => {
             url: 'https://example.com/data'
         }, {
             statusCode: 400,
-            body: { error: {
-                        error: "Http failure 400 Bad request",
-                        error_description: "There was a problem with your request" 
-                    }   
+            body: {
+                error: {
+                    error: "Http failure 400 Bad request",
+                    error_description: "There was a problem with your request"
                 }
+            }
         });
 
         loadFlowCode([
@@ -165,7 +166,7 @@ describe('HTTP Block Follow Pagination', () => {
         // We emulate the CORS proxy presenting the first set of results,
         // with a link header pointing to the next page.
         cy.intercept({
-            url: 'https://proxy.kendra.io/',
+            url: 'https://proxy.kendra.io/*',
             headers: {
                 'Target-URL': 'https://example.com/paginated',
             }
@@ -179,7 +180,7 @@ describe('HTTP Block Follow Pagination', () => {
 
         // If the target URL is for the second page, we return the second set of results:
         cy.intercept({
-            url: 'https://proxy.kendra.io/',
+            url: 'https://proxy.kendra.io/*',
             headers: {
                 'Target-URL': 'https://example.com/paginated&page=2',
             },
@@ -215,7 +216,7 @@ describe('HTTP Block Follow Pagination', () => {
 
     it('should return first results only if not paginated, with proxy', () => {
         cy.intercept({
-            url: 'https://proxy.kendra.io/',
+            url: 'https://proxy.kendra.io/*',
             headers: {
                 'Target-URL': 'https://example.com/paginated',
             }
@@ -229,7 +230,7 @@ describe('HTTP Block Follow Pagination', () => {
 
         // We do not expect this to be called:
         cy.intercept({
-            url: 'https://proxy.kendra.io/',
+            url: 'https://proxy.kendra.io/*',
             headers: {
                 'Target-URL': 'https://example.com/paginated&page=2',
             },

@@ -601,7 +601,16 @@ Examples:
 21. json
 --------
 
-Converts a value to a JSON string.
+Converts a value to a JSON string. Optional arguments can be provided to prettify the output.
+
+* `value`: The input data to convert.
+* `replacer`: Optional. Pass null (recommended). This argument is included for consistency with JSON.stringify. Function or array replacers are not supported in mapping expressions; Other values may cause errors.
+* `space`: Optional. Controls the indentation of the resulting JSON string for readability. Can be:
+
+  * A number (e.g. `2`) to specify the number of spaces per indentation level
+  * A string (e.g. `'  '` or `'--'`) used as the indentation pattern
+
+It is using [`json-stringify-safe`](https://www.npmjs.com/package/json-stringify-safe) behind the scenes.
 
 Examples:
 
@@ -609,7 +618,26 @@ Examples:
    
    json(data)
 
-   // Output: "{\"name\":\"John Doe\",\"age\":35,\"email\":\"john.doe@example.com\",\"tags\":[\"frontend\",\"ui\"],\"projects\":[{\"id\":1,\"title\":\"Project A\"},{\"id\":2,\"title\":\"Project B\"}]}"
+   // Output on one line: "{\"name\":\"John Doe\",\"age\":35,\"email\":\"john.doe@example.com\",\"tags\":[\"frontend\",\"ui\"],\"projects\":[{\"id\":1,\"title\":\"Project A\"},{\"id\":2,\"title\":\"Project B\"}]}"
+
+   json(data, null, '2')
+
+   {
+      "type": "template",
+      "template": "<code><pre>{{data}}</pre></code>"
+   }
+   
+   // Output prettified:
+   // "{
+   //    name: "John Doe",
+   //    age: 35,
+   //    email: "john.doe@example.com",
+   //    tags: ["frontend", "ui"],
+   //    projects: [
+   //       { id: 1, title: "Project A" },
+   //       { id: 2, title: "Project B" }
+   //    ]
+   // }"
 
 22. jsonParse
 --------
@@ -800,4 +828,3 @@ Output: "1970-01-01T01:00:00.000+01:00"
     parseUnixTimestamp(`1589756000000`, `ms`) // Milliseconds 
 
 Output: "2020-05-19T03:00:00.000+01:00"
-

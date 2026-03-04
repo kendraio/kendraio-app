@@ -17,12 +17,12 @@ const makeHash = (secret,  salt) => {
   });
 };
 
-function appFactory({db, auth}: { db: any, auth: admin.auth.Auth }) {
+function appFactory({db, auth}: { db: admin.firestore.Firestore, auth: admin.auth.Auth }) {
   const app = require('express')();
   const cors = require('cors');
   const bodyParser = require('body-parser');
 
-  const fakeId = () => db.collection().doc().id;
+  const fakeId = () => db.collection('workflows').doc().id;
 
   app.use(cors());
   app.use(bodyParser.json());
@@ -34,8 +34,9 @@ function appFactory({db, auth}: { db: any, auth: admin.auth.Auth }) {
       user = await auth.getUserByEmail(username);
       hashedPassword = await makeHash(password, 'TEMP123QQ1');
     }
-    catch (e) {
-      res.status(403).send(e.message);
+    catch (e: unknown) {
+      const errorMessage = e instanceof Error ? e.message : 'An unknown error occurred';
+      res.status(403).send(errorMessage);
       return;
     }
     if (hashedPassword === userHash && user && user.uid) {
@@ -51,20 +52,22 @@ function appFactory({db, auth}: { db: any, auth: admin.auth.Auth }) {
 
   const updateWorkflow = async ({adapterName, workflowId, title, tags, created, updated, ...body}) => {
     const now = new Date().toISOString();
-    return await db
+    const id = workflowId || fakeId();
+    await db
       .collection('adapters')
       .doc(adapterName || DEFAULT_ADAPTER_NAME)
       .collection('workflows')
-      .doc(workflowId || fakeId())
+      .doc(id)
       .set({
         adapterName,
-        workflowId,
+        workflowId: id,
         title,
         tags,
         created: created || now,
         updated: updated || now,
         _encoded: JSON.stringify(body)
       });
+    return { id };
   };
 
   app.put('/api', validateToken, async (req, res) => {
@@ -119,17 +122,17 @@ function appFactory({db, auth}: { db: any, auth: admin.auth.Auth }) {
       .get();
 
     if (docRef.exists) {
-      const data = docRef.data();
-      const unEncode = JSON.parse(data._encoded);
+      const data = docRef.data() || {};
+      const unEncode = JSON.parse(data._encoded || '{}');
       await res.send({
         ...unEncode,
         workflowId: docRef.id,
-        adapterName: data.adapterName,
-        created: data.created,
-        tags: data.tags,
-        updated: data.updated,
-        modified: data.updated,
-        title: data.title
+        adapterName: data.adapterName || DEFAULT_ADAPTER_NAME,
+        created: data.created || new Date().toISOString(),
+        tags: data.tags || [],
+        updated: data.updated || new Date().toISOString(),
+        modified: data.updated || new Date().toISOString(),
+        title: data.title || 'Untitled'
       });
       return;
     }

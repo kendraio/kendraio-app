@@ -2,18 +2,21 @@ import { HttpBlockComponent } from './http-block.component';
 import { ContextDataService } from '../../services/context-data.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient } from '@angular/common/http';
+import { AppSettingsService } from '../../services/app-settings.service';
 
 describe('extractNextPageUrl', () => {
     let component: HttpBlockComponent;
     let contextDataServiceMock: ContextDataService;
     let httpClientMock: HttpClient;
     let matSnackBarMock: MatSnackBar;
+    let appSettingsServiceMock: AppSettingsService;
 
     beforeEach(() => {
         contextDataServiceMock = jasmine.createSpyObj('ContextDataService', ['getGlobalContext']);
         httpClientMock = jasmine.createSpyObj('HttpClient', ['get']);
         matSnackBarMock = jasmine.createSpyObj('MatSnackBar', ['open']);
-        component = new HttpBlockComponent(contextDataServiceMock, matSnackBarMock, httpClientMock);
+        appSettingsServiceMock = jasmine.createSpyObj('AppSettingsService', ['get']);
+        component = new HttpBlockComponent(contextDataServiceMock, matSnackBarMock, httpClientMock, appSettingsServiceMock);
     });
 
     it('should extract the next page URL from a link header', () => {

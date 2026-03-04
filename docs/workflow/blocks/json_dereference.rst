@@ -58,5 +58,5 @@ The JSON Dereference block includes built-in error handling:
 
 *   **Invalid URL:** If the provided URL is invalid or malformed, the block will emit an error message.
 *   **Network Errors:** If there are network issues preventing the schema from being fetched (e.g., the server is down, the URL is incorrect), the block will emit an error message.
-*   **Invalid JSON:** If the content at the URL is not valid JSON, the block will emit an error message.
 *   **CORS Issues:** In some cases, web security policies in browsers will prevent schemas from being loaded across domains.
+*   **Invalid JSON:** If the content at the URL is not valid JSON, the block will emit an error message.

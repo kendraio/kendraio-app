@@ -33,8 +33,9 @@ export const validateToken = async (req, res, next) => {
     } else {
       res.status(403).send('Unauthorized');
     }
-  } catch (e) {
-    await res.status(400).send(e.message);
+  } catch (e: unknown) {
+    const errorMessage = e instanceof Error ? e.message : 'An unknown error occurred';
+    await res.status(400).send(errorMessage);
     return;
   }
 };

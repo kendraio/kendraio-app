@@ -7,6 +7,8 @@ echo '::echo::off'
 
 npm install
 echo "Expected NPM install to have finished!"
+# Install s3rver mock globally for the CI environment
+npm install -g s3rver
 echo "::endgroup::"
 
 FAILURE_COUNT=0
@@ -40,13 +42,41 @@ done
 echo '::echo::on'
 echo "The deployment at:$DEPLOYMENT_URL should be complete"
 echo "::endgroup::"
-echo "URL loaded, running cypress"
+echo "URL loaded, starting S3 mock server and running cypress"
+echo "::group::Start S3 mock server"
+echo "Starting S3 mock server for binary integrity tests"
+echo "Current directory: $(pwd)"
+echo "Checking if s3rver_cors.xml exists: $(ls -la cypress/e2e/s3rver_cors.xml 2>/dev/null || echo 'not found')"
+echo "S3rver version: $(s3rver --version || echo 'not found')"
+s3rver -a 0.0.0.0 -d /tmp/s3rver -p 4568 -s --configure-bucket test-bucket ./cypress/e2e/s3rver_cors.xml &
+S3_PID=$!
+echo "S3 mock server started with PID: $S3_PID"
+echo "Waiting for S3 server to be ready..."
+sleep 5
+echo "Checking if S3 server is responsive..."
+for i in {1..10}; do
+  if curl -f http://127.0.0.1:4568 >/dev/null 2>&1; then
+    echo "S3 server is ready!"
+    break
+  fi
+  echo "Attempt $i: S3 server not ready yet, waiting..."
+  sleep 2
+done
+echo "::endgroup::"
+
 echo "::group::Cypress E2E tests"
 
 npx cypress run --record --key $3 --config baseUrl="https://$DEPLOYMENT_URL"
 if [ $? -ne 0 ]; then
   echo "::error::Cypress E2E tests failed"
   FAILURE_COUNT=$((FAILURE_COUNT+1))
+fi
+echo "::endgroup::"
+
+echo "::group::Cleanup S3 mock server"
+if [ ! -z "$S3_PID" ]; then
+  echo "Stopping S3 mock server with PID: $S3_PID"
+  kill $S3_PID || true
 fi
 echo "::endgroup::"
 
