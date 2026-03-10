@@ -64,7 +64,6 @@ export class JSONSchemaRefParser {
         } catch (e) {
             errorBody = `(Error reading response body: ${e.message})`;
         }
-        
 
         if (!contentType || !contentType.includes('application/json')) {
          throw new Error(`Failed to fetch ${request.url}: ${response.status} ${response.statusText}.  Response body: ${errorBody}`);

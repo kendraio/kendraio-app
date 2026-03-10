@@ -133,34 +133,32 @@ export class FormBlockComponent implements OnInit, OnChanges, OnDestroy {
           } else if (schemaGetterConfig.trim().startsWith('data')) {
             // It's likely a data variable
             const result = mappingUtility({data: this.model, context: this.context}, schemaGetterConfig);
-              this.processSchemaResult(result);
+            this.processSchemaResult(result);
           } else {
-              // It's likely a JSON Object
-              try {
-                  const parsedConfig = JSON.parse(schemaGetterConfig);
-                  this.processSchemaResult(parsedConfig);
-              } catch (error) {
-                  console.error('Error parsing schemaGetterConfig as JSON:', error);
-                  console.warn("schemaGetterConfig is neither a valid JSON nor a context path.");
-              }
+            // It's likely a JSON object
+            try {
+              const parsedConfig = JSON.parse(schemaGetterConfig);
+              this.processSchemaResult(parsedConfig);
+            } catch (error) {
+              console.error('Error parsing schemaGetterConfig as JSON:', error);
+              console.warn("schemaGetterConfig is neither a valid JSON nor a context path.");
+            }
           }
 
         } else {
           this.schemaBlocks = get(this.config, 'schemaGetter.blocks', []);
           if (get(this.schemaBlocks, 'jsonSchema', {})) {
             console.warn("The passed schema must include the jsonSchema property");
-          }      
+          }
         }
-
       // onSchemaBlocksComplete is triggered later via the components view
     } else {
       this.fields = [];
     }
   }
 
-  onSchemaBlocksComplete(result) {
-    let jsonSchema = get(result, 'jsonSchema', {});
-
+  onSchemaBlocksComplete(result: any) {
+    let jsonSchema: any = get(result, 'jsonSchema', {});
     if (jsonSchema) { 
       jsonSchema = this.injectContextToJsonSchema(jsonSchema);
       const uiSchema = get(result, 'uiSchema', {});
