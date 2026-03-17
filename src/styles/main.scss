@@ -256,6 +256,10 @@ formly-array-type {
   align-self: flex-start;
 }
 
+.mat-mdc-button-base {
+  padding: 0.25rem 0.5rem;
+}
+
 // Fix for cut-off Formly Material label
 .mdc-text-field--filled::before{
   content: "" !important;
