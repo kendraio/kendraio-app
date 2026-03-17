@@ -11,6 +11,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {FormlyMatDatepickerModule} from '@ngx-formly/material/datepicker';
 
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {FormlyMaterialModule} from '@ngx-formly/material';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
@@ -33,6 +34,7 @@ import {MatRadioModule} from '@angular/material/radio';
     FlexLayoutModule,
     NgSelectModule,
     FormlyMaterialModule,
+    MatButtonModule,
     MatButtonToggleModule,
     MatIconModule,
     FormlyMatDatepickerModule,
@@ -46,6 +48,7 @@ import {MatRadioModule} from '@angular/material/radio';
   exports: [
     FormsModule,
     ReactiveFormsModule,
+    MatButtonModule,
     MatButtonToggleModule,
     MatIconModule,
     NgSelectModule,
