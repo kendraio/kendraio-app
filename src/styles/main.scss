@@ -250,7 +250,10 @@ formly-array-type {
     .mat-mdc-card {
       margin-right: 16px;
     }
+}
 
+.mat-mdc-card > .mat-mdc-button-base {
+  align-self: flex-start;
 }
 
 // Fix for cut-off Formly Material label
