@@ -1,6 +1,6 @@
 
 
-<mat-card appearance="outlined" *ngIf="isAuthenticated; else notLoggedIn">
+<mat-card *ngIf="isAuthenticated; else notLoggedIn">
   <h3>Identities</h3>
 
   <p>You are logged in as <em>{{ profile?.nickname }}</em></p>
@@ -33,7 +33,7 @@
 </mat-card>
 
 <ng-template #notLoggedIn>
-  <mat-card appearance="outlined">
+  <mat-card>
     <h3>Connected Profiles</h3>
 
     <p>No profiles are saved on this device. You can connect multiple profiles by

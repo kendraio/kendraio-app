@@ -1,4 +1,4 @@
-<mat-card appearance="outlined">
+<mat-card>
   <p>
     Delete all data...
   </p>
@@ -7,7 +7,7 @@
   <button (click)="resetApp()" mat-raised-button color="warn">Reset App</button>
 </mat-card>
 
-<mat-card appearance="outlined">
+<mat-card>
   <p>Debug mode <b>{{ isDebug ? 'enabled' : 'disabled' }}</b></p>
 
   <button mat-raised-button color="primary" (click)="toggleDebugMode()">Toggle debug mode</button>
@@ -16,7 +16,7 @@
 
 
 
-<mat-card appearance="outlined">
+<mat-card>
   <p>Show Help<b> {{ showHelp ? 'on' : 'off' }}</b></p>
 
   <button mat-raised-button color="primary" (click)="toggleShowHelp()">Toggle Show Help</button>
