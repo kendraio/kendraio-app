@@ -250,6 +250,9 @@ formly-array-type {
     .mat-mdc-card {
       margin-right: 16px;
     }
+    .mat-mdc-card > .mat-mdc-card {
+      margin-bottom: 1em;
+    }
 }
 
 .mat-mdc-card > .mat-mdc-button-base {
