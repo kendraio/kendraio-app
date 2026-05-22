@@ -7,7 +7,7 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browse
   selector: 'formly-field-video-viewer2',
   template: `
 
-  <mat-card appearance="outlined">
+  <mat-card>
   <mat-card-header>
     <mat-label>{{to.label}}</mat-label>
   </mat-card-header>
