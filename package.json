@@ -121,6 +121,7 @@
     "@angular/language-service": "^18.1.5",
     "@cypress/schematic": "^1.6.0",
     "@ngrx/schematics": "^18.0.2",
+    "@playwright/test": "^1.60.0",
     "@types/blob-util": "^2.0.4",
     "@types/chart.js": "^2.9.41",
     "@types/faker": "^6.6.11",

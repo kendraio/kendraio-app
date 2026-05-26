@@ -101,6 +101,22 @@ export class KendraioFormService {
 
     const fieldIndexExists = fieldIndex => fieldIndex !== -1;
 
+    const mapFieldArray = (fieldArray, subSchema) => {
+      const mapArrayConfig = (arrayConfig) => {
+        const newArray = this.uiWidgetTypeMapper({ fields: arrayConfig, uiSchema: subSchema });
+        if (has(subSchema, 'ui:widget')) {
+          set(newArray, 'type', get(subSchema, 'ui:widget'));
+          // TODO: Don't do this here!!!!!!
+          const { items, ...newSubSchema } = subSchema;
+          set(newArray, 'templateOptions.uiSchema', newSubSchema);
+        }
+        return newArray;
+      };
+      return typeof fieldArray === 'function'
+        ? root => mapArrayConfig(fieldArray(root))
+        : mapArrayConfig(fieldArray);
+    };
+
     return Object.keys(uiSchema).reduce((_fields, uiKey) => {
       const fieldIndex = getFieldIndexFromGroup(_fields, uiKey);
       if (fieldIndexExists(fieldIndex)) {
@@ -116,13 +132,7 @@ export class KendraioFormService {
         if (has(uiSchema, `${uiKey}.items`)) {
           const oldArray = get(_fields, `fieldGroup[${fieldIndex}].fieldArray`, {});
           const subSchema = get(uiSchema, `${uiKey}.items`);
-          const newArray = this.uiWidgetTypeMapper({ fields: oldArray, uiSchema: subSchema });
-          if (has(subSchema, 'ui:widget')) {
-            set(newArray, 'type', get(subSchema, 'ui:widget'));
-            // TODO: Don't do this here!!!!!!
-            const { items, ...newSubSchema } = subSchema;
-            set(newArray, 'templateOptions.uiSchema', newSubSchema);
-          }
+          const newArray = mapFieldArray(oldArray, subSchema);
           set(_fields, `fieldGroup[${fieldIndex}]`,
             { ...get(_fields, `fieldGroup[${fieldIndex}]`), fieldArray: newArray });
         }
@@ -368,4 +378,3 @@ function mapKSelect(TO: any, uiSchema: any, key: string) {
  set(TO, 'isMultiSelect',  get(uiSchema, `${key}.ui:isMultiSelect`, false));
  set(TO, 'addTag',  get(uiSchema, `${key}.ui:addTag`, false));
 }
-

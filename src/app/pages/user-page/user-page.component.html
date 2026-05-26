@@ -6,7 +6,7 @@
   <p>You are logged in as <em>{{ profile?.nickname }}</em></p>
 
   <br>
-  <img *ngIf="profile?.picture" alt="User profile pic" [src]="profile.picture">
+  <img *ngIf="profile?.picture" class="profile-picture" alt="User profile pic" [src]="profile.picture">
 
   <br><br>
   <p>Last updated: <em>{{ profile?.updated_at }}</em></p>
