@@ -69,6 +69,7 @@ import {SwaggerFormSelectDialogComponent} from './dialogs/swagger-form-select-di
 import {ApiDataSelectDialogComponent} from './dialogs/api-data-select-dialog/api-data-select-dialog.component';
 import {QueryBuilderPageComponent} from './pages/query-builder-page/query-builder-page.component';
 import {AgGridModule} from 'ag-grid-angular';
+import {NgSelectModule} from '@ng-select/ng-select';
 import {AdapterQuerySelectDialogComponent} from './dialogs/adapter-query-select-dialog/adapter-query-select-dialog.component';
 import {DataChartOutputComponent} from './components/data-chart-output/data-chart-output.component';
 import {TeostoUserFormComponent} from './forms/teosto-user-form/teosto-user-form.component';
@@ -383,6 +384,7 @@ const monacoConfig: NgxMonacoEditorConfig = {
         MonacoEditorModule.forRoot(monacoConfig),
         MatAutocompleteModule,
         AgGridModule,
+        NgSelectModule,
         MatChipsModule
     ], 
     providers: [
