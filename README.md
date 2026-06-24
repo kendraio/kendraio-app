@@ -67,13 +67,17 @@ You can start the development server using `npm run serve:dev` or use `npm run t
 
 ## Running Playwright browser tests
 
-New, Playwright tests live in `playwright/`. Run them with the directory path so Playwright does not also discover Angular/Jasmine specs under `src/app`:
+New Playwright tests live in `playwright/`. Run them with the directory path so Playwright does not also discover Angular/Jasmine specs under `src/app`:
 
 `npx playwright test playwright --browser=chromium --reporter=list`
 
 For targeted debugging, run a single spec:
 
 `npx playwright test playwright/spec-name.spec.ts --browser=chromium --reporter=list`
+
+# Playwright visual version comparison report pattern
+
+A specific Playwright spec (at `playwright/issue-605-607-visual-comparison.spec.ts`) was made for visually comparing Kendraio app versions by capturing before-and-after screenshots of different deployed app versions (hosted at different URLs). This is a useful pattern that aids identification and documention of user interface regressions and reviewing Angular upgrade differences, it is preserved as-is for future adaptation, it is not intended to be used as a standard regression test, and it is not intended for direct use.
 
 # Running tests in a container
 
