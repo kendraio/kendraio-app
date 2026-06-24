@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FieldType } from '@ngx-formly/core';
 import { indexOf } from 'lodash-es';
 
@@ -17,14 +17,6 @@ import { indexOf } from 'lodash-es';
   `,
 })
 export class NullTypeComponent extends FieldType implements OnInit {
-    @Input()
-    private _formControl: any;
-    public get formControl() {
-        return this._formControl;
-    }
-    public set formControl(value) {
-        this._formControl = value;
-    }
     imgId: any;
     text: any;
     imgProps: {};
@@ -32,9 +24,9 @@ export class NullTypeComponent extends FieldType implements OnInit {
     isUrl: boolean;
 
     ngOnInit() {
-        this.text = this.formControl.value;
-        if (this.formControl.value) {
-            this.isUrl = this.formControl.value.toString().indexOf('http') > -1;
+        this.text = this.formControl?.value;
+        if (this.text) {
+            this.isUrl = this.text.toString().indexOf('http') > -1;
         }
 
         this.text2 = this.to.description;
@@ -45,4 +37,3 @@ export class NullTypeComponent extends FieldType implements OnInit {
         return urlStr.split('/')[2];
         }
 }
-
