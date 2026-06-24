@@ -63,7 +63,17 @@ You can start the development server using `npm run serve:dev` or use `npm run t
 
 `npm run test:retest_on_change` will re-run unit and E2E tests automatically upon file changes, but it needs a running server.
 
-`npm run test:autorun` is good for automatically running unit and E2E tests ONCE, using an already running server.
+`npm run test:autorun` is good for automatically running unit and existing E2E tests ONCE, using an already running server.
+
+## Running Playwright browser tests
+
+New, Playwright tests live in `playwright/`. Run them with the directory path so Playwright does not also discover Angular/Jasmine specs under `src/app`:
+
+`npx playwright test playwright --browser=chromium --reporter=list`
+
+For targeted debugging, run a single spec:
+
+`npx playwright test playwright/spec-name.spec.ts --browser=chromium --reporter=list`
 
 # Running tests in a container
 
