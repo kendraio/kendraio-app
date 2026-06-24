@@ -37,6 +37,57 @@ async function mockCommonRequests(page: Page) {
   );
 }
 
+function collectAppErrors(page: Page) {
+  const errors: string[] = [];
+
+  page.on('console', message => {
+    if (message.type() === 'error') {
+      errors.push(message.text());
+    }
+  });
+  page.on('pageerror', error => errors.push(error.message));
+
+  return errors;
+}
+
+async function showFirstMatchingError(page: Page, errors: string[], fragments: string[], label?: string) {
+  const error = errors.find(message => fragments.some(fragment => message.includes(fragment)));
+
+  if (!error) {
+    return;
+  }
+
+  await page.locator('app-form-block').first().evaluate((element, message) => {
+    const existing = element.querySelector('[data-issue-605-error]');
+    existing?.remove();
+
+    const banner = document.createElement('div');
+    banner.setAttribute('data-issue-605-error', 'true');
+    banner.textContent = message;
+    banner.style.background = '#fff1f2';
+    banner.style.border = '1px solid #f43f5e';
+    banner.style.borderRadius = '4px';
+    banner.style.color = '#9f1239';
+    banner.style.font = '700 16px/1.35 Arial, Helvetica, sans-serif';
+    banner.style.margin = '8px 0';
+    banner.style.padding = '10px';
+    banner.style.whiteSpace = 'normal';
+    element.prepend(banner);
+  }, label || error);
+}
+
+async function constrainFormEvidenceWidth(page: Page) {
+  await page.addStyleTag({
+    content: `
+      app-form-block {
+        display: block !important;
+        width: 560px !important;
+        max-width: 560px !important;
+      }
+    `,
+  });
+}
+
 async function loadFlowCode(page: Page, baseUrl: string, blocks: Array<Record<string, any>>) {
   const compressed = LZS.compressToEncodedURIComponent(JSON.stringify(blocks));
   await page.goto(`${baseUrl}/workflow-builder?data=${compressed}`, { waitUntil: 'domcontentloaded' });
@@ -269,8 +320,10 @@ async function writeComparison(browser: Browser, testInfo: TestInfo, scenario: S
     </html>
   `);
 
+  const comparisonImage = await reportPage.screenshot({ fullPage: true });
   const outputPath = testInfo.outputPath(`${scenario.id}.png`);
-  await reportPage.screenshot({ path: outputPath, fullPage: true });
+  fs.writeFileSync(outputPath, comparisonImage);
+  fs.writeFileSync(path.join(docsImageDir, `${scenario.id}.png`), comparisonImage);
   await testInfo.attach(scenario.id, { path: outputPath, contentType: 'image/png' });
   await context.close();
 }
@@ -485,6 +538,95 @@ const scenarios: Scenario[] = [
       ]);
     },
     capture: page => page.locator('form').first(),
+  },
+  {
+    id: '07-issue-605-youtube-null-field',
+    title: '#605 YouTube Video Details: null field crash',
+    note: 'The buggy build stops rendering Video Details after a JSON schema null field; the fixed build shows the read-only channel and later fields.',
+    prepare: async (page, baseUrl) => {
+      const appErrors = collectAppErrors(page);
+      await loadFlowCode(page, baseUrl, [
+        {
+          "type": "mapping",
+          "mapping": "{ channelTitle: `Mock channel`, title: `Mock video title` }"
+        },
+        {
+          "type": "form",
+          "label": "Submit",
+          "jsonSchema": {
+            "title": "Video Details",
+            "type": "object",
+            "properties": {
+              "channelTitle": {
+                "title": "Channel",
+                "type": "null"
+              },
+              "title": {
+                "title": "Title",
+                "type": "string"
+              }
+            }
+          },
+          "uiSchema": {}
+        }
+      ]);
+      await page.getByText('Video Details', { exact: true }).waitFor();
+      await page.waitForTimeout(500);
+      await constrainFormEvidenceWidth(page);
+      await showFirstMatchingError(
+        page,
+        appErrors,
+        ["Cannot read properties of undefined (reading 'value')"],
+        "TypeError: Cannot read properties of undefined (reading 'value')"
+      );
+      await stabilizeForScreenshot(page);
+    },
+    capture: page => page.locator('app-form-block').first(),
+  },
+  {
+    id: '08-issue-605-youtube-tags-widget',
+    title: '#605 YouTube Video Details: tags widget provider',
+    note: 'The buggy build raises the ng-select selection-model provider error; the fixed build renders the tags widget in Video Details.',
+    prepare: async (page, baseUrl) => {
+      const appErrors = collectAppErrors(page);
+      await loadFlowCode(page, baseUrl, [
+        {
+          "type": "mapping",
+          "mapping": "{ tags: `alpha` }"
+        },
+        {
+          "type": "form",
+          "label": "Submit",
+          "jsonSchema": {
+            "title": "Video Details",
+            "type": "object",
+            "properties": {
+              "tags": {
+                "title": "Tags",
+                "description": "Press enter to add a tag",
+                "type": "string"
+              }
+            }
+          },
+          "uiSchema": {
+            "tags": {
+              "ui:widget": "tags"
+            }
+          }
+        }
+      ]);
+      await page.getByText('Video Details', { exact: true }).waitFor();
+      await page.waitForTimeout(500);
+      await constrainFormEvidenceWidth(page);
+      await showFirstMatchingError(
+        page,
+        appErrors,
+        ['No provider for InjectionToken ng-select-selection-model'],
+        'NullInjectorError: No provider for InjectionToken ng-select-selection-model'
+      );
+      await stabilizeForScreenshot(page);
+    },
+    capture: page => page.locator('app-form-block').first(),
   },
 ];
 
