@@ -21,6 +21,40 @@ export class ConnectComponent implements OnInit {
         cellRenderer: 'connectionStatusRenderer'
       },
       {
+        headerName: 'Launch',
+        cellRenderer: 'workflowRenderer',
+        width: 120,
+        cellRendererParams: {
+          blocks: [
+            {
+              type: 'switch',
+              valueGetter:
+                'length(split(replace(replace(not_null(data.tags[?starts_with(@, `start:`)] | [0], ``), `start:/`, ``), `start:`, ``), `/`)) == `2` && ' +
+                'split(replace(replace(not_null(data.tags[?starts_with(@, `start:`)] | [0], ``), `start:/`, ``), `start:`, ``), `/`)[0] != `` && ' +
+                'split(replace(replace(not_null(data.tags[?starts_with(@, `start:`)] | [0], ``), `start:/`, ``), `start:`, ``), `/`)[1] != ``',
+              cases: [
+                {
+                  value: true,
+                  blocks: [
+                    {
+                      type: 'link-action',
+                      label: 'Launch',
+                      adapterNameGetter:
+                        'split(replace(replace(not_null(data.tags[?starts_with(@, `start:`)] | [0], ``), `start:/`, ``), `start:`, ``), `/`)[0]',
+                      workflowIdGetter:
+                        'split(replace(replace(not_null(data.tags[?starts_with(@, `start:`)] | [0], ``), `start:/`, ``), `start:`, ``), `/`)[1]'
+                    }
+                  ]
+                }
+              ],
+              default: {
+                blocks: []
+              }
+            }
+          ]
+        }
+      },
+      {
         'cellRenderer': 'workflowRenderer',
         'cellRendererParams': {
           'blocks': [
