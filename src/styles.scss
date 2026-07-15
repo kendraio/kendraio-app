@@ -36,6 +36,23 @@ $kendraio-app-theme: mat.m2-define-light-theme((
 
 
 // Global style, not part of the custom theme.
+$kendraio-app-default-button-background: mat.m2-get-color-from-palette($kendraio-app-primary);
+$kendraio-app-default-button-foreground: mat.m2-get-color-from-palette($kendraio-app-primary, default-contrast);
+
+.mat-mdc-unelevated-button:not(.mat-primary):not(.mat-accent):not(.mat-warn):not(:disabled):not(.mat-mdc-button-disabled):not(.mdc-button--disabled) {
+  --mdc-filled-button-container-color: #{$kendraio-app-default-button-background};
+  --mdc-filled-button-label-text-color: #{$kendraio-app-default-button-foreground};
+  --mat-filled-button-state-layer-color: #{$kendraio-app-default-button-foreground};
+  --mat-filled-button-ripple-color: #{rgba($kendraio-app-default-button-foreground, 0.1)};
+}
+
+.mat-mdc-raised-button:not(.mat-primary):not(.mat-accent):not(.mat-warn):not(:disabled):not(.mat-mdc-button-disabled):not(.mdc-button--disabled) {
+  --mdc-protected-button-container-color: #{$kendraio-app-default-button-background};
+  --mdc-protected-button-label-text-color: #{$kendraio-app-default-button-foreground};
+  --mat-protected-button-state-layer-color: #{$kendraio-app-default-button-foreground};
+  --mat-protected-button-ripple-color: #{rgba($kendraio-app-default-button-foreground, 0.1)};
+}
+
 html, body { height: 100%; overflow: hidden; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
