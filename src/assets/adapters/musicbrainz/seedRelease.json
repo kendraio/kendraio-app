@@ -1,0 +1,129 @@
+{
+  "title": "Prepare MusicBrainz release submission",
+  "id": "seedRelease",
+  "adapterName": "musicbrainz",
+  "tags": [
+    "music",
+    "metadata",
+    "musicbrainz",
+    "release",
+    "submit"
+  ],
+  "blocks": [
+    {
+      "type": "form",
+      "label": "Prepare MusicBrainz seed",
+      "defaultValue": {
+        "releaseTitle": "",
+        "artistName": "",
+        "artistMbid": "",
+        "releaseDate": "",
+        "country": "",
+        "status": "official",
+        "releaseType": "album",
+        "labelName": "",
+        "catalogNumber": "",
+        "barcode": "",
+        "mediumFormat": "Digital Media",
+        "comment": "",
+        "editNote": "Seeded from Kendraio App MusicBrainz adapter."
+      },
+      "jsonSchema": {
+        "type": "object",
+        "required": [
+          "releaseTitle",
+          "artistName"
+        ],
+        "properties": {
+          "releaseTitle": {
+            "type": "string",
+            "title": "Release title",
+            "minLength": 1
+          },
+          "artistName": {
+            "type": "string",
+            "title": "Artist credit",
+            "minLength": 1
+          },
+          "artistMbid": {
+            "type": "string",
+            "title": "Artist MBID"
+          },
+          "releaseDate": {
+            "type": "string",
+            "title": "Release date (YYYY-MM-DD)"
+          },
+          "country": {
+            "type": "string",
+            "title": "Country code"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "enum": [
+              "official",
+              "promotion",
+              "bootleg",
+              "pseudo-release"
+            ]
+          },
+          "releaseType": {
+            "type": "string",
+            "title": "Release type",
+            "enum": [
+              "album",
+              "single",
+              "ep",
+              "broadcast",
+              "other"
+            ]
+          },
+          "labelName": {
+            "type": "string",
+            "title": "Label"
+          },
+          "catalogNumber": {
+            "type": "string",
+            "title": "Catalog number"
+          },
+          "barcode": {
+            "type": "string",
+            "title": "Barcode"
+          },
+          "mediumFormat": {
+            "type": "string",
+            "title": "Medium format"
+          },
+          "comment": {
+            "type": "string",
+            "title": "Disambiguation"
+          },
+          "editNote": {
+            "type": "string",
+            "title": "Edit note"
+          }
+        }
+      },
+      "uiSchema": {
+        "editNote": {
+          "ui:widget": "textarea"
+        }
+      }
+    },
+    {
+      "type": "mapping",
+      "skipFirst": true,
+      "mapping": "merge(data, { releaseDateYear: split(data.releaseDate || '', '-')[0] || '', releaseDateMonth: split(data.releaseDate || '', '-')[1] || '', releaseDateDay: split(data.releaseDate || '', '-')[2] || '', seedUrl: join('', ['https://musicbrainz.org/release/add?name=', urlEncode(data.releaseTitle || ''), '&artist_credit.names.0.name=', urlEncode(data.artistName || ''), '&artist_credit.names.0.artist.name=', urlEncode(data.artistName || ''), '&artist_credit.names.0.mbid=', urlEncode(data.artistMbid || ''), '&status=', urlEncode(data.status || ''), '&type=', urlEncode(data.releaseType || ''), '&barcode=', urlEncode(data.barcode || ''), '&comment=', urlEncode(data.comment || ''), '&events.0.country=', urlEncode(data.country || ''), '&events.0.date.year=', urlEncode(split(data.releaseDate || '', '-')[0] || ''), '&events.0.date.month=', urlEncode(split(data.releaseDate || '', '-')[1] || ''), '&events.0.date.day=', urlEncode(split(data.releaseDate || '', '-')[2] || ''), '&labels.0.name=', urlEncode(data.labelName || ''), '&labels.0.catalog_number=', urlEncode(data.catalogNumber || ''), '&mediums.0.format=', urlEncode(data.mediumFormat || ''), '&edit_note=', urlEncode(data.editNote || '')]) })"
+    },
+    {
+      "type": "template",
+      "template": "<h3>MusicBrainz release seed ready</h3><p><a href='{{data.seedUrl}}' target='_blank'>Open pre-filled MusicBrainz release editor</a></p><p>MusicBrainz may require sign-in before accepting the seeded values.</p><h4>Seeded release data</h4><dl><dt>Title</dt><dd>{{data.releaseTitle}}</dd><dt>Artist</dt><dd>{{data.artistName}}</dd><dt>Date</dt><dd>{{data.releaseDate}}</dd><dt>Country</dt><dd>{{data.country}}</dd><dt>Status</dt><dd>{{data.status}}</dd><dt>Type</dt><dd>{{data.releaseType}}</dd><dt>Label</dt><dd>{{data.labelName}}</dd><dt>Catalog number</dt><dd>{{data.catalogNumber}}</dd><dt>Barcode</dt><dd>{{data.barcode}}</dd></dl>"
+    },
+    {
+      "type": "debug",
+      "open": 0,
+      "showData": true,
+      "showContext": false
+    }
+  ]
+}

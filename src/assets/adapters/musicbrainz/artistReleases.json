@@ -1,0 +1,136 @@
+{
+  "title": "MusicBrainz artist releases",
+  "id": "artistReleases",
+  "adapterName": "musicbrainz",
+  "tags": [
+    "music",
+    "metadata",
+    "musicbrainz",
+    "browse"
+  ],
+  "blocks": [
+    {
+      "type": "mapping",
+      "mapping": "{ mbid: context.queryParams.mbid, name: context.queryParams.name }"
+    },
+    {
+      "type": "message",
+      "title": "Artist releases",
+      "message": "{{#if name}}{{name}}{{else}}{{mbid}}{{/if}}"
+    },
+    {
+      "type": "http",
+      "method": "get",
+      "endpoint": {
+        "valueGetter": "join('', ['https://musicbrainz.org/ws/2/release?artist=', urlEncode(data.mbid), '&fmt=json&limit=100&inc=artist-credits%2Blabels%2Bmedia'])"
+      },
+      "headers": {
+        "Accept": "'application/json'"
+      },
+      "storeMetadataInContext": true,
+      "onError": {
+        "blocks": [
+          {
+            "type": "message",
+            "title": "MusicBrainz browse failed",
+            "message": "{{errorMessage}}"
+          },
+          {
+            "type": "debug",
+            "open": 1,
+            "showData": true,
+            "showContext": false
+          }
+        ]
+      }
+    },
+    {
+      "type": "mapping",
+      "skipFirst": true,
+      "mapping": "data.releases[].{ title: title, mbid: id, date: date, country: country, status: status, barcode: barcode, packaging: packaging, disambiguation: disambiguation, musicBrainzUrl: join('', ['https://musicbrainz.org/release/', id]) }"
+    },
+    {
+      "type": "message",
+      "message": "{{#unless data.length}}No releases found for this artist.{{/unless}}"
+    },
+    {
+      "type": "grid",
+      "sizeColumnsToFit": false,
+      "gridOptions": {
+        "pagination": true,
+        "paginationPageSize": 25,
+        "defaultColDef": {
+          "sortable": true,
+          "filter": true,
+          "resizable": true
+        }
+      },
+      "columnDefs": [
+        {
+          "headerName": "Title",
+          "field": "title",
+          "width": 300
+        },
+        {
+          "headerName": "Date",
+          "field": "date",
+          "width": 130
+        },
+        {
+          "headerName": "Country",
+          "field": "country",
+          "width": 110
+        },
+        {
+          "headerName": "Status",
+          "field": "status",
+          "width": 130
+        },
+        {
+          "headerName": "Barcode",
+          "field": "barcode",
+          "width": 170
+        },
+        {
+          "headerName": "Disambiguation",
+          "field": "disambiguation",
+          "width": 260
+        },
+        {
+          "headerName": "MBID",
+          "field": "mbid",
+          "width": 330
+        },
+        {
+          "headerName": "Operations",
+          "cellRenderer": "workflowRenderer",
+          "width": 180,
+          "cellRendererParams": {
+            "blocks": [
+              {
+                "type": "actions",
+                "buttons": [
+                  {
+                    "label": "Details",
+                    "color": "primary",
+                    "blocks": [
+                      {
+                        "type": "launch",
+                        "adapter": "musicbrainz",
+                        "workflowId": "releaseDetails",
+                        "context": {
+                          "mbid": "data.mbid",
+                          "title": "data.title"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

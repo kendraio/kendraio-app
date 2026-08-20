@@ -1,0 +1,78 @@
+{
+  "title": "MusicBrainz release details",
+  "id": "releaseDetails",
+  "adapterName": "musicbrainz",
+  "tags": [
+    "music",
+    "metadata",
+    "musicbrainz",
+    "lookup"
+  ],
+  "blocks": [
+    {
+      "type": "mapping",
+      "mapping": "{ mbid: context.queryParams.mbid, title: context.queryParams.title }"
+    },
+    {
+      "type": "http",
+      "method": "get",
+      "endpoint": {
+        "valueGetter": "join('', ['https://musicbrainz.org/ws/2/release/', urlEncode(data.mbid), '?fmt=json&inc=artist-credits%2Blabels%2Brecordings%2Brelease-groups%2Bmedia%2Burl-rels'])"
+      },
+      "headers": {
+        "Accept": "'application/json'"
+      },
+      "storeMetadataInContext": true,
+      "onError": {
+        "blocks": [
+          {
+            "type": "message",
+            "title": "MusicBrainz release lookup failed",
+            "message": "{{errorMessage}}"
+          },
+          {
+            "type": "debug",
+            "open": 1,
+            "showData": true,
+            "showContext": false
+          }
+        ]
+      }
+    },
+    {
+      "type": "mapping",
+      "skipFirst": true,
+      "mapping": "{ title: data.title, mbid: data.id, date: data.date, country: data.country, status: data.status, barcode: data.barcode, disambiguation: data.disambiguation, artistCredit: data.\"artist-credit\"[].name, releaseGroup: data.\"release-group\".title, labels: data.\"label-info\"[].{ name: label.name, catalogNumber: \"catalog-number\" }, media: data.media[].{ title: title, format: format, trackCount: \"track-count\", tracks: tracks[].{ number: number, title: title, length: length, artist: \"artist-credit\"[0].name } }, urls: data.relations[?url.resource != null].{ type: type, url: url.resource }, musicBrainzUrl: join('', ['https://musicbrainz.org/release/', data.id]) }"
+    },
+    {
+      "type": "template",
+      "template": "<h2>{{data.title}}</h2><p><strong>MBID:</strong> {{data.mbid}}</p><p><strong>Artist credit:</strong> {{#each data.artistCredit}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}</p>{{#if data.releaseGroup}}<p><strong>Release group:</strong> {{data.releaseGroup}}</p>{{/if}}<p><strong>Date:</strong> {{data.date}} {{#if data.country}}({{data.country}}){{/if}}</p><p><strong>Status:</strong> {{data.status}}</p>{{#if data.barcode}}<p><strong>Barcode:</strong> {{data.barcode}}</p>{{/if}}{{#if data.disambiguation}}<p>{{data.disambiguation}}</p>{{/if}}<p><a href='{{data.musicBrainzUrl}}' target='_blank'>Open on MusicBrainz</a></p>{{#if data.labels}}<h3>Labels</h3><ul>{{#each data.labels}}<li>{{name}}{{#if catalogNumber}} - {{catalogNumber}}{{/if}}</li>{{/each}}</ul>{{/if}}{{#if data.media}}<h3>Media and tracks</h3>{{#each data.media}}<h4>{{#if title}}{{title}}{{else}}Medium {{@index}}{{/if}} {{#if format}}({{format}}){{/if}}</h4><ol>{{#each tracks}}<li>{{number}}. {{title}}{{#if artist}} - {{artist}}{{/if}}</li>{{/each}}</ol>{{/each}}{{/if}}{{#if data.urls}}<h3>URLs</h3><ul>{{#each data.urls}}<li>{{type}}: <a href='{{url}}' target='_blank'>{{url}}</a></li>{{/each}}</ul>{{/if}}"
+    },
+    {
+      "type": "actions",
+      "buttons": [
+        {
+          "label": "Back to artist search",
+          "blocks": [
+            {
+              "type": "launch",
+              "adapter": "musicbrainz",
+              "workflowId": "searchArtists"
+            }
+          ]
+        },
+        {
+          "label": "Prepare new release submission",
+          "color": "primary",
+          "blocks": [
+            {
+              "type": "launch",
+              "adapter": "musicbrainz",
+              "workflowId": "seedRelease"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
