@@ -62,6 +62,10 @@ const search = decorate({
     _func: ([s, a, b]) => s.replaceAll(a, b),
     _signature: [{types: [TYPE_STRING]}, {types: [TYPE_STRING]}, {types: [TYPE_STRING]}]
   },
+  urlEncode: {
+    _func: ([v]) => encodeURIComponent(v === null || v === undefined ? '' : String(v)),
+    _signature: [{types: [TYPE_ANY]}]
+  },
   trim: {
     _func: ([s]) => s.trim(),
     _signature: [{types: [TYPE_STRING]}]

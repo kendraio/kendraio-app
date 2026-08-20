@@ -37,4 +37,16 @@ describe('extractNextPageUrl', () => {
     it('should return null for an empty string', () => {
         expect(component.extractNextPageUrl('')).toBeNull();
     });
+
+    it('should bypass the service worker for relative URLs', () => {
+        expect((component as any).shouldBypassServiceWorker('/assets/example.json')).toBeTrue();
+    });
+
+    it('should bypass the service worker for same-origin absolute URLs', () => {
+        expect((component as any).shouldBypassServiceWorker(`${location.origin}/assets/example.json`)).toBeTrue();
+    });
+
+    it('should not bypass the service worker for external URLs', () => {
+        expect((component as any).shouldBypassServiceWorker('https://musicbrainz.org/ws/2/artist?query=Beatles&fmt=json')).toBeFalse();
+    });
 });

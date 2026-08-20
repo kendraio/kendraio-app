@@ -539,7 +539,20 @@ Examples:
 
    // Output: "name=John%20Doe&age=35&email=john.doe%40example.com&tags%5B0%5D=frontend&tags%5B1%5D=ui&projects%5B0%5D%5Bid%5D=1&projects%5B0%5D%5Btitle%5D=Project%20A&projects%5B1%5D%5Bid%5D=2&projects%5B1%5D%5Btitle%5D=Project%20B"
 
-18. parseQs
+18. urlEncode
+-------------
+
+Encodes a value so it can be safely used as a URL query string value.
+
+Examples:
+
+.. code-block:: javascript
+
+   urlEncode(`The Beatles & friends`)
+
+   // Output: "The%20Beatles%20%26%20friends"
+
+19. parseQs
 -----------
 
 Parses a query string into an object.
@@ -555,7 +568,7 @@ Examples:
    //     "name": "John Doe"
    // }
 
-19. zip
+20. zip
 -------
 
 Creates an array of elements from two arrays.
@@ -566,7 +579,7 @@ Examples:
 
    zip(`["a", "b", "c"]`, `[1, 2, 3]`)  // Output: [["a", 1], ["b", 2], ["c", 3]]
 
-20. debug
+21. debug
 ---------
 
 Logs a value to the JavaScript console for debugging and also returns the answer. Check the browser console for the logged value.

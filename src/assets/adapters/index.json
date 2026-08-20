@@ -10,6 +10,19 @@
       "tags": [
         "core"
       ]
+    },
+    {
+      "name": "musicbrainz",
+      "version": "0.1.0",
+      "label": "MusicBrainz",
+      "description": "Search, look up and browse MusicBrainz metadata, and prepare release submissions from Kendraio App.",
+      "location": "musicbrainz",
+      "repoUrl": "/assets/adapters/",
+      "tags": [
+        "music",
+        "metadata",
+        "musicbrainz"
+      ]
     }
   ]
 }

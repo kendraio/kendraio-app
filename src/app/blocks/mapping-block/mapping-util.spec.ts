@@ -87,6 +87,14 @@ describe('MappingUtil', () => {
     expect(mappingUtility(data, expr)).toBe(expected);
   });
 
+  it('should URL encode strings for query string values', () => {
+    const data = { string: "The Beatles & friends" };
+    const expr = "urlEncode(string)";
+    const expected = "The%20Beatles%20%26%20friends";
+
+    expect(mappingUtility(data, expr)).toBe(expected);
+  });
+
   it('should parse a valid JSON string into an object', () => {
     const data = { jsonString: '{"name": "Alice", "age": 30}' };
     const expr = "jsonParse(jsonString)";

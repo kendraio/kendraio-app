@@ -1,6 +1,7 @@
 {
   "name": "Main Kendraio Adapter Repository",
   "adapters": [
-    "core"
+    "core",
+    "musicbrainz"
   ]
 }

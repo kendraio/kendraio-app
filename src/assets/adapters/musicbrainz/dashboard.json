@@ -1,0 +1,43 @@
+{
+  "title": "MusicBrainz dashboard",
+  "id": "dashboard",
+  "adapterName": "musicbrainz",
+  "tags": [
+    "music",
+    "metadata",
+    "musicbrainz"
+  ],
+  "blocks": [
+    {
+      "type": "message",
+      "title": "MusicBrainz",
+      "message": "Search artists, inspect MusicBrainz entities, browse releases for an artist, and prepare release submissions."
+    },
+    {
+      "type": "actions",
+      "buttons": [
+        {
+          "label": "Search artists",
+          "color": "primary",
+          "blocks": [
+            {
+              "type": "launch",
+              "adapter": "musicbrainz",
+              "workflowId": "searchArtists"
+            }
+          ]
+        },
+        {
+          "label": "Prepare release submission",
+          "blocks": [
+            {
+              "type": "launch",
+              "adapter": "musicbrainz",
+              "workflowId": "seedRelease"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

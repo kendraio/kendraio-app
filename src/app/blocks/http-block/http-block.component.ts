@@ -237,7 +237,9 @@ export class HttpBlockComponent implements OnInit, OnChanges {
         // force the service worker bypass. 
         // When calls are passed to the service worker, they can be invisibly cached
         // by forcing a bypass, we have more control to force a call to take place
-        headers = headers.append('ngsw-bypass', 'true');
+        if (this.shouldBypassServiceWorker(url)) {
+          headers = headers.append('ngsw-bypass', 'true');
+        }
         if (get(this.config, 'followPaginationLinksMerged', false)) {
           this.getAllPages(url, headers, this.responseType);
         } else {
@@ -566,5 +568,13 @@ export class HttpBlockComponent implements OnInit, OnChanges {
     }
     const separator = url.includes('?') ? '&' : '?';
     return `${url}${separator}${param}`;
+  }
+
+  private shouldBypassServiceWorker(url: string): boolean {
+    try {
+      return new URL(url, location.href).origin === location.origin;
+    } catch {
+      return false;
+    }
   }
 }

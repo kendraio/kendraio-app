@@ -1,0 +1,175 @@
+{
+  "title": "MusicBrainz artist search",
+  "id": "searchArtists",
+  "adapterName": "musicbrainz",
+  "tags": [
+    "music",
+    "metadata",
+    "musicbrainz",
+    "search"
+  ],
+  "blocks": [
+    {
+      "type": "form",
+      "label": "Search MusicBrainz",
+      "defaultValue": {
+        "query": "Beatles",
+        "limit": 25
+      },
+      "jsonSchema": {
+        "type": "object",
+        "required": [
+          "query"
+        ],
+        "properties": {
+          "query": {
+            "type": "string",
+            "title": "Artist query",
+            "minLength": 1
+          },
+          "limit": {
+            "type": "number",
+            "title": "Limit",
+            "default": 25,
+            "minimum": 1,
+            "maximum": 100
+          }
+        }
+      },
+      "uiSchema": {}
+    },
+    {
+      "type": "http",
+      "method": "get",
+      "endpoint": {
+        "valueGetter": "join('', ['https://musicbrainz.org/ws/2/artist?query=', urlEncode(data.query), '&fmt=json&limit=', urlEncode(data.limit || `25`)])"
+      },
+      "headers": {
+        "Accept": "'application/json'"
+      },
+      "storeMetadataInContext": true,
+      "onError": {
+        "blocks": [
+          {
+            "type": "message",
+            "title": "MusicBrainz search failed",
+            "message": "{{errorMessage}}"
+          },
+          {
+            "type": "debug",
+            "open": 1,
+            "showData": true,
+            "showContext": false
+          }
+        ]
+      }
+    },
+    {
+      "type": "mapping",
+      "skipFirst": true,
+      "mapping": "data.artists[].{ name: name, mbid: id, sortName: \"sort-name\", type: type, country: country, disambiguation: disambiguation, begin: \"life-span\".begin, end: \"life-span\".end, score: score }"
+    },
+    {
+      "type": "message",
+      "message": "{{#unless data.length}}No matching artists found.{{/unless}}"
+    },
+    {
+      "type": "grid",
+      "sizeColumnsToFit": false,
+      "gridOptions": {
+        "pagination": true,
+        "paginationPageSize": 25,
+        "defaultColDef": {
+          "sortable": true,
+          "filter": true,
+          "resizable": true
+        }
+      },
+      "columnDefs": [
+        {
+          "headerName": "Name",
+          "field": "name",
+          "width": 220
+        },
+        {
+          "headerName": "Disambiguation",
+          "field": "disambiguation",
+          "width": 260
+        },
+        {
+          "headerName": "Type",
+          "field": "type",
+          "width": 130
+        },
+        {
+          "headerName": "Country",
+          "field": "country",
+          "width": 110
+        },
+        {
+          "headerName": "Begin",
+          "field": "begin",
+          "width": 120
+        },
+        {
+          "headerName": "End",
+          "field": "end",
+          "width": 120
+        },
+        {
+          "headerName": "Score",
+          "field": "score",
+          "width": 100
+        },
+        {
+          "headerName": "MBID",
+          "field": "mbid",
+          "width": 330
+        },
+        {
+          "headerName": "Operations",
+          "cellRenderer": "workflowRenderer",
+          "width": 250,
+          "cellRendererParams": {
+            "blocks": [
+              {
+                "type": "actions",
+                "buttons": [
+                  {
+                    "label": "Details",
+                    "color": "primary",
+                    "blocks": [
+                      {
+                        "type": "launch",
+                        "adapter": "musicbrainz",
+                        "workflowId": "artistDetails",
+                        "context": {
+                          "mbid": "data.mbid",
+                          "name": "data.name"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Releases",
+                    "blocks": [
+                      {
+                        "type": "launch",
+                        "adapter": "musicbrainz",
+                        "workflowId": "artistReleases",
+                        "context": {
+                          "mbid": "data.mbid",
+                          "name": "data.name"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

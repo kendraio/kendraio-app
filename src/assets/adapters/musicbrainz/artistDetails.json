@@ -1,0 +1,82 @@
+{
+  "title": "MusicBrainz artist details",
+  "id": "artistDetails",
+  "adapterName": "musicbrainz",
+  "tags": [
+    "music",
+    "metadata",
+    "musicbrainz",
+    "lookup"
+  ],
+  "blocks": [
+    {
+      "type": "mapping",
+      "mapping": "{ mbid: context.queryParams.mbid, name: context.queryParams.name }"
+    },
+    {
+      "type": "http",
+      "method": "get",
+      "endpoint": {
+        "valueGetter": "join('', ['https://musicbrainz.org/ws/2/artist/', urlEncode(data.mbid), '?fmt=json&inc=url-rels%2Baliases%2Btags%2Bratings'])"
+      },
+      "headers": {
+        "Accept": "'application/json'"
+      },
+      "storeMetadataInContext": true,
+      "onError": {
+        "blocks": [
+          {
+            "type": "message",
+            "title": "MusicBrainz lookup failed",
+            "message": "{{errorMessage}}"
+          },
+          {
+            "type": "debug",
+            "open": 1,
+            "showData": true,
+            "showContext": false
+          }
+        ]
+      }
+    },
+    {
+      "type": "mapping",
+      "skipFirst": true,
+      "mapping": "{ name: data.name, mbid: data.id, type: data.type, country: data.country, disambiguation: data.disambiguation, begin: data.\"life-span\".begin, end: data.\"life-span\".end, aliases: data.aliases[].name, tags: data.tags[].name, urls: data.relations[?url.resource != null].{ type: type, url: url.resource }, musicBrainzUrl: join('', ['https://musicbrainz.org/artist/', data.id]) }"
+    },
+    {
+      "type": "template",
+      "template": "<h2>{{data.name}}</h2><p><strong>MBID:</strong> {{data.mbid}}</p><p><strong>Type:</strong> {{data.type}} {{#if data.country}}({{data.country}}){{/if}}</p>{{#if data.disambiguation}}<p>{{data.disambiguation}}</p>{{/if}}<p><strong>Active:</strong> {{data.begin}}{{#if data.end}} - {{data.end}}{{/if}}</p><p><a href='{{data.musicBrainzUrl}}' target='_blank'>Open on MusicBrainz</a></p>{{#if data.aliases}}<h3>Aliases</h3><ul>{{#each data.aliases}}<li>{{this}}</li>{{/each}}</ul>{{/if}}{{#if data.tags}}<h3>Tags</h3><p>{{#each data.tags}}<span>{{this}}</span> {{/each}}</p>{{/if}}{{#if data.urls}}<h3>URLs</h3><ul>{{#each data.urls}}<li>{{type}}: <a href='{{url}}' target='_blank'>{{url}}</a></li>{{/each}}</ul>{{/if}}"
+    },
+    {
+      "type": "actions",
+      "buttons": [
+        {
+          "label": "Browse releases",
+          "color": "primary",
+          "blocks": [
+            {
+              "type": "launch",
+              "adapter": "musicbrainz",
+              "workflowId": "artistReleases",
+              "context": {
+                "mbid": "data.mbid",
+                "name": "data.name"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Search artists",
+          "blocks": [
+            {
+              "type": "launch",
+              "adapter": "musicbrainz",
+              "workflowId": "searchArtists"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
