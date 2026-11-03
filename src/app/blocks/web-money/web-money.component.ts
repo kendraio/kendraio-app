@@ -291,10 +291,13 @@ export class WebMoneyComponent extends BaseBlockComponent {
   onData(data: any, _firstChange: boolean) {
     this.analyticsRecipientID = mappingUtility({ data: this.model, context: this.context }, "data.analyticsRecipientID");
     this.analyticsItemUUID = mappingUtility({ data: this.model, context: this.context }, "data.analyticsItemUUID");
-    this.paymentPointer = mappingUtility({ data: this.model, context: this.context }, this.paymentPointerSourceMapping);
+    this.paymentPointer =
+      mappingUtility({ data: this.model, context: this.context }, this.paymentPointerSourceMapping) ||
+      get(this.model, 'paymentPointer', '') ||
+      get(this.model, 'payment_pointer', '');
     lastStreamTotalAmount = 0; //reset on event change
-    if (!!this.model.paymentPointer && this.model.paymentPointer.length > 0 && this.enabled) {
-      setPaymentPointer(this.model.paymentPointer);
+    if (!!this.paymentPointer && this.paymentPointer.length > 0 && this.enabled) {
+      setPaymentPointer(this.paymentPointer);
       this.setupPaymentWatcher();
     } else {
       removePaymentPointer();
