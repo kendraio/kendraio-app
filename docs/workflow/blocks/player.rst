@@ -24,6 +24,33 @@ Web Monetization example config:
         ]
     }
 
+Audiotarky example config:
+--------------------------
+
+The :doc:`Audiotarky <audiotarky>` block emits tracks with ``display_artist``,
+``display_title``, ``url``, ``api`` and a ``payment_pointer`` /
+``paymentPointer`` pair.  Map the stream URL into the player and the payment
+pointer is available to the Web Money block:
+
+.. code-block:: json
+
+    {
+        "type": "player",
+        "mapping": "data.url",
+        "titleMapping": "data.display_title",
+        "onPlay": [
+            {
+                "type": "web-money"
+            }
+        ],
+        "onPause": [
+            {
+                "type": "web-money",
+                "enabled": false
+            }
+        ]
+    }
+
 Required property
 --------------------
 

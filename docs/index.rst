@@ -70,6 +70,7 @@ Kendraio App
    workflow/blocks/message
    workflow/blocks/multi
    workflow/blocks/parse_data
+   workflow/blocks/audiotarky
    workflow/blocks/player
    workflow/blocks/query
    workflow/blocks/reference

@@ -409,7 +409,10 @@ export class HttpBlockComponent implements OnInit, OnChanges {
       .pipe(
         expand((response: HttpResponse<any>) => {
           const linkHeader = response.headers.get('link');
-          const nextPageUrl = this.extractNextPageUrl(linkHeader);
+          // Audiotarky (issue #169) has no RFC 5988 link header; its JSON index
+          // responses carry the next page under `pagination.next_page`, so fall
+          // back to the response body when the link header has no `next` relation.
+          const nextPageUrl = this.extractNextPageUrl(linkHeader) || this.extractNextPageUrl(response.body);
 
           if (nextPageUrl) {
             if (get(this.config, 'useProxy', false)) {
@@ -465,6 +468,32 @@ export class HttpBlockComponent implements OnInit, OnChanges {
      * return null, which is considered the stop condition for pagination. 
      */
     if (!linkHeader) {
+      return null;
+    }
+
+    // Issue #169: Audiotarky's public API returns JSON indexes that paginate with
+    // `pagination.next_page` instead of an RFC 5988 `link` header. Accept either a
+    // parsed response body or its JSON text so a Kendraio Flow can page the
+    // Audiotarky catalogue through the existing http-block.
+    let paginatedBody = null;
+    if (typeof linkHeader === 'string') {
+      const trimmed = linkHeader.trim();
+      if (trimmed.startsWith('{')) {
+        try {
+          paginatedBody = JSON.parse(trimmed);
+        } catch (e) {
+          paginatedBody = null;
+        }
+      }
+    } else if (typeof linkHeader === 'object') {
+      paginatedBody = linkHeader;
+    }
+    const audiotarkyNextPage = get(paginatedBody, 'pagination.next_page', null);
+    if (typeof audiotarkyNextPage === 'string' && audiotarkyNextPage.trim().length > 0) {
+      return audiotarkyNextPage.trim();
+    }
+    // Only the RFC 5988 `link` header is parsed below, and it must be a string.
+    if (typeof linkHeader !== 'string') {
       return null;
     }
 

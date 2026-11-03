@@ -569,6 +569,20 @@ export const BLOCK_TYPES = [
     }
   },
   {
+    type: 'audiotarky',
+    label: 'Audiotarky',
+    description: 'Retrieve Audiotarky artist, album and track metadata for Kendraio Player',
+    icon: 'library_music',
+    hasEditor: true,
+    defaultConfig: {
+      type: 'audiotarky',
+      resource: {
+        kind: 'tracks'
+      },
+      useProxy: true
+    }
+  },
+  {
     type: 'player',
     label: 'Kendraio Player',
     description: 'Audio player with Web Monetization support',

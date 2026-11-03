@@ -1,0 +1,18 @@
+<div class="audiotarky-block">
+  <p *ngIf="isLoading">Loading Audiotarky tracks...</p>
+
+  <div *ngIf="hasError" class="audiotarky-error">
+    <strong>Audiotarky error ({{ errorCode }}):</strong> {{ errorMessage }}
+  </div>
+
+  <ul *ngIf="!isLoading && !hasError && tracks.length > 0" class="audiotarky-tracks">
+    <li *ngFor="let track of tracks">
+      <span class="audiotarky-artist">{{ track.display_artist }}</span>
+      &ndash;
+      <span class="audiotarky-title">{{ track.display_title }}</span>
+    </li>
+  </ul>
+
+  <p *ngIf="!isLoading && !hasError && tracks.length === 0">No Audiotarky tracks found.</p>
+  <p *ngIf="nextPage"><a [href]="nextPage" target="_blank" rel="noopener">Next Audiotarky page</a></p>
+</div>
